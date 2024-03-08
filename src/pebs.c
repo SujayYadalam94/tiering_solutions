@@ -269,6 +269,10 @@ static void pebs_migrate_up(struct hemem_page *page, uint64_t offset)
 // moves page to hot list -- called by migrate thread
 void make_hot(struct hemem_page* page)
 {
+  if (!page->present) {
+    return;
+  }
+
   assert(page != NULL);
   assert(page->va != 0);
 
@@ -300,6 +304,10 @@ void make_hot(struct hemem_page* page)
 // moves page to cold list -- called by migrate thread
 void make_cold(struct hemem_page* page)
 {
+  if (!page->present) {
+    return;
+  }
+
   assert(page != NULL);
   assert(page->va != 0);
 
@@ -520,6 +528,12 @@ void *pebs_policy_thread()
         else {
             enqueue_fifo(&nvm_free_list, page);
         }
+        page->present = false;
+        page->hot = false;
+        for (int i = 0; i < NPBUFTYPES; i++) {
+          page->accesses[i] = 0;
+          page->tot_accesses[i] = 0;
+        }
     }
 
     num_ring_reqs = 0;
@@ -715,13 +729,6 @@ void pebs_remove_page(struct hemem_page *page)
   while (ring_buf_full(free_page_ring));
   ring_buf_put(free_page_ring, (uint64_t*)page); 
   pthread_mutex_unlock(&free_page_ring_lock);
-
-  page->present = false;
-  page->hot = false;
-  for (int i = 0; i < NPBUFTYPES; i++) {
-    page->accesses[i] = 0;
-    page->tot_accesses[i] = 0;
-  }
 }
 
 void pebs_init(void)
