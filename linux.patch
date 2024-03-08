@@ -1,0 +1,394 @@
+diff --git a/arch/x86/Makefile b/arch/x86/Makefile
+index a587805c6687..48a2e93c876a 100644
+--- a/arch/x86/Makefile
++++ b/arch/x86/Makefile
+@@ -60,6 +60,8 @@ endif
+ KBUILD_CFLAGS += -mno-sse -mno-mmx -mno-sse2 -mno-3dnow
+ KBUILD_CFLAGS += $(call cc-option,-mno-avx,)
+ 
++KBUILD_CFLAGS += $(call cc-option,-fcf-protection=none)
++
+ ifeq ($(CONFIG_X86_32),y)
+         BITS := 32
+         UTS_MACHINE := i386
+diff --git a/scripts/selinux/genheaders/genheaders.c b/scripts/selinux/genheaders/genheaders.c
+index 1ceedea847dd..544ca126a8a8 100644
+--- a/scripts/selinux/genheaders/genheaders.c
++++ b/scripts/selinux/genheaders/genheaders.c
+@@ -9,7 +9,6 @@
+ #include <string.h>
+ #include <errno.h>
+ #include <ctype.h>
+-#include <sys/socket.h>
+ 
+ struct security_class_mapping {
+ 	const char *name;
+diff --git a/scripts/selinux/mdp/mdp.c b/scripts/selinux/mdp/mdp.c
+index 073fe7537f6c..6d51b74bc679 100644
+--- a/scripts/selinux/mdp/mdp.c
++++ b/scripts/selinux/mdp/mdp.c
+@@ -32,7 +32,6 @@
+ #include <stdlib.h>
+ #include <unistd.h>
+ #include <string.h>
+-#include <sys/socket.h>
+ 
+ static void usage(char *name)
+ {
+diff --git a/security/selinux/include/classmap.h b/security/selinux/include/classmap.h
+index bd5fe0d3204a..201f7e588a29 100644
+--- a/security/selinux/include/classmap.h
++++ b/security/selinux/include/classmap.h
+@@ -1,5 +1,6 @@
+ /* SPDX-License-Identifier: GPL-2.0 */
+ #include <linux/capability.h>
++#include <linux/socket.h>
+ 
+ #define COMMON_FILE_SOCK_PERMS "ioctl", "read", "write", "create", \
+     "getattr", "setattr", "lock", "relabelfrom", "relabelto", "append", "map"
+diff --git a/tools/lib/traceevent/Makefile b/tools/lib/traceevent/Makefile
+index 941761d9923d..744660315a7f 100644
+--- a/tools/lib/traceevent/Makefile
++++ b/tools/lib/traceevent/Makefile
+@@ -265,7 +265,7 @@ define do_generate_dynamic_list_file
+ 	xargs echo "U W w" | tr ' ' '\n' | sort -u | xargs echo`;\
+ 	if [ "$$symbol_type" = "U W w" ];then				\
+ 		(echo '{';						\
+-		$(NM) -u -D $1 | awk 'NF>1 {print "\t"$$2";"}' | sort -u;\
++		$(NM) -u -D $1 | awk 'NF>1 {sub("@.*", "", $$2); print "\t"$$2";"}' | sort -u;\
+ 		echo '};';						\
+ 		) > $2;							\
+ 	else								\
+diff --git a/tools/objtool/elf.c b/tools/objtool/elf.c
+index b8f3cca8e58b..264d49fea814 100644
+--- a/tools/objtool/elf.c
++++ b/tools/objtool/elf.c
+@@ -226,8 +226,11 @@ static int read_symbols(struct elf *elf)
+ 
+    symtab = find_section_by_name(elf, ".symtab");
+    if (!symtab) {
+-       WARN("missing symbol table");
+-       return -1;
++       /*
++        * A missing symbol table is actually possible if it's an empty
++        * .o file.  This can happen for thunk_64.o.
++        */
++       return 0;
+    }
+ 
+    symbols_nr = symtab->sh.sh_size / symtab->sh.sh_entsize;
+diff --git a/tools/perf/Makefile.config b/tools/perf/Makefile.config
+index beb8b48b44e6..496a3af99fab 100644
+--- a/tools/perf/Makefile.config
++++ b/tools/perf/Makefile.config
+@@ -179,8 +179,8 @@ endif
+ 
+ # Treat warnings as errors unless directed not to
+ ifneq ($(WERROR),0)
+-  CFLAGS += -Werror
+-  CXXFLAGS += -Werror
++  CFLAGS +=
++  CXXFLAGS +=
+ endif
+ 
+ ifndef DEBUG
+diff --git a/tools/perf/bench/bench.h b/tools/perf/bench/bench.h
+index fddb3ced9db6..4aa6de1aa67d 100644
+--- a/tools/perf/bench/bench.h
++++ b/tools/perf/bench/bench.h
+@@ -2,6 +2,10 @@
+ #ifndef BENCH_H
+ #define BENCH_H
+ 
++#include <sys/time.h>
++
++extern struct timeval bench__start, bench__end, bench__runtime;
++
+ /*
+  * The madvise transparent hugepage constants were added in glibc
+  * 2.13. For compatibility with older versions of glibc, define these
+diff --git a/tools/perf/bench/epoll-ctl.c b/tools/perf/bench/epoll-ctl.c
+index 2af067859966..8a383c3e0967 100644
+--- a/tools/perf/bench/epoll-ctl.c
++++ b/tools/perf/bench/epoll-ctl.c
+@@ -33,7 +33,6 @@
+ 
+ static unsigned int nthreads = 0;
+ static unsigned int nsecs    = 8;
+-struct timeval start, end, runtime;
+ static bool done, __verbose, randomize;
+ 
+ /*
+@@ -92,8 +91,8 @@ static void toggle_done(int sig __maybe_unused,
+ {
+ 	/* inform all threads that we're done for the day */
+ 	done = true;
+-	gettimeofday(&end, NULL);
+-	timersub(&end, &start, &runtime);
++	gettimeofday(&bench__end, NULL);
++	timersub(&bench__end, &bench__start, &bench__runtime);
+ }
+ 
+ static void nest_epollfd(void)
+@@ -359,7 +358,7 @@ int bench_epoll_ctl(int argc, const char **argv)
+ 
+ 	threads_starting = nthreads;
+ 
+-	gettimeofday(&start, NULL);
++	gettimeofday(&bench__start, NULL);
+ 
+ 	do_threads(worker, cpu);
+ 
+diff --git a/tools/perf/bench/epoll-wait.c b/tools/perf/bench/epoll-wait.c
+index fe85448abd45..fe028d06821b 100644
+--- a/tools/perf/bench/epoll-wait.c
++++ b/tools/perf/bench/epoll-wait.c
+@@ -88,7 +88,6 @@
+ 
+ static unsigned int nthreads = 0;
+ static unsigned int nsecs    = 8;
+-struct timeval start, end, runtime;
+ static bool wdone, done, __verbose, randomize, nonblocking;
+ 
+ /*
+@@ -274,8 +273,8 @@ static void toggle_done(int sig __maybe_unused,
+ {
+ 	/* inform all threads that we're done for the day */
+ 	done = true;
+-	gettimeofday(&end, NULL);
+-	timersub(&end, &start, &runtime);
++	gettimeofday(&bench__end, NULL);
++	timersub(&bench__end, &bench__start, &bench__runtime);
+ }
+ 
+ static void print_summary(void)
+@@ -285,7 +284,7 @@ static void print_summary(void)
+ 
+ 	printf("\nAveraged %ld operations/sec (+- %.2f%%), total secs = %d\n",
+ 	       avg, rel_stddev_stats(stddev, avg),
+-	       (int) runtime.tv_sec);
++	       (int) bench__runtime.tv_sec);
+ }
+ 
+ static int do_threads(struct worker *worker, struct cpu_map *cpu)
+@@ -477,7 +476,7 @@ int bench_epoll_wait(int argc, const char **argv)
+ 
+ 	threads_starting = nthreads;
+ 
+-	gettimeofday(&start, NULL);
++	gettimeofday(&bench__start, NULL);
+ 
+ 	do_threads(worker, cpu);
+ 
+@@ -517,7 +516,7 @@ int bench_epoll_wait(int argc, const char **argv)
+ 		qsort(worker, nthreads, sizeof(struct worker), cmpworker);
+ 
+ 	for (i = 0; i < nthreads; i++) {
+-		unsigned long t = worker[i].ops/runtime.tv_sec;
++		unsigned long t = worker[i].ops/bench__runtime.tv_sec;
+ 
+ 		update_stats(&throughput_stats, t);
+ 
+diff --git a/tools/perf/bench/futex-hash.c b/tools/perf/bench/futex-hash.c
+index 9aa3a674829b..2151d6e5e240 100644
+--- a/tools/perf/bench/futex-hash.c
++++ b/tools/perf/bench/futex-hash.c
+@@ -35,7 +35,7 @@ static unsigned int nfutexes = 1024;
+ static bool fshared = false, done = false, silent = false;
+ static int futex_flag = 0;
+ 
+-struct timeval start, end, runtime;
++struct timeval bench__start, bench__end, bench__runtime;
+ static pthread_mutex_t thread_lock;
+ static unsigned int threads_starting;
+ static struct stats throughput_stats;
+@@ -101,8 +101,8 @@ static void toggle_done(int sig __maybe_unused,
+ {
+ 	/* inform all threads that we're done for the day */
+ 	done = true;
+-	gettimeofday(&end, NULL);
+-	timersub(&end, &start, &runtime);
++	gettimeofday(&bench__end, NULL);
++	timersub(&bench__end, &bench__start, &bench__runtime);
+ }
+ 
+ static void print_summary(void)
+@@ -112,7 +112,7 @@ static void print_summary(void)
+ 
+ 	printf("%sAveraged %ld operations/sec (+- %.2f%%), total secs = %d\n",
+ 	       !silent ? "\n" : "", avg, rel_stddev_stats(stddev, avg),
+-	       (int) runtime.tv_sec);
++	       (int) bench__runtime.tv_sec);
+ }
+ 
+ int bench_futex_hash(int argc, const char **argv)
+@@ -159,7 +159,7 @@ int bench_futex_hash(int argc, const char **argv)
+ 
+ 	threads_starting = nthreads;
+ 	pthread_attr_init(&thread_attr);
+-	gettimeofday(&start, NULL);
++	gettimeofday(&bench__start, NULL);
+ 	for (i = 0; i < nthreads; i++) {
+ 		worker[i].tid = i;
+ 		worker[i].futex = calloc(nfutexes, sizeof(*worker[i].futex));
+@@ -202,7 +202,7 @@ int bench_futex_hash(int argc, const char **argv)
+ 	pthread_mutex_destroy(&thread_lock);
+ 
+ 	for (i = 0; i < nthreads; i++) {
+-		unsigned long t = worker[i].ops/runtime.tv_sec;
++		unsigned long t = worker[i].ops/bench__runtime.tv_sec;
+ 		update_stats(&throughput_stats, t);
+ 		if (!silent) {
+ 			if (nfutexes == 1)
+diff --git a/tools/perf/bench/futex-lock-pi.c b/tools/perf/bench/futex-lock-pi.c
+index 8e9c4753e304..0f49011ba208 100644
+--- a/tools/perf/bench/futex-lock-pi.c
++++ b/tools/perf/bench/futex-lock-pi.c
+@@ -35,7 +35,6 @@ static bool silent = false, multi = false;
+ static bool done = false, fshared = false;
+ static unsigned int nthreads = 0;
+ static int futex_flag = 0;
+-struct timeval start, end, runtime;
+ static pthread_mutex_t thread_lock;
+ static unsigned int threads_starting;
+ static struct stats throughput_stats;
+@@ -62,7 +61,8 @@ static void print_summary(void)
+ 
+ 	printf("%sAveraged %ld operations/sec (+- %.2f%%), total secs = %d\n",
+ 	       !silent ? "\n" : "", avg, rel_stddev_stats(stddev, avg),
+-	       (int) runtime.tv_sec);
++	       (int) bench__runtime.tv_sec);
++struct timeval start, end, runtime;
+ }
+ 
+ static void toggle_done(int sig __maybe_unused,
+@@ -71,8 +71,8 @@ static void toggle_done(int sig __maybe_unused,
+ {
+ 	/* inform all threads that we're done for the day */
+ 	done = true;
+-	gettimeofday(&end, NULL);
+-	timersub(&end, &start, &runtime);
++	gettimeofday(&bench__end, NULL);
++	timersub(&bench__end, &bench__start, &bench__runtime);
+ }
+ 
+ static void *workerfn(void *arg)
+@@ -183,7 +183,7 @@ int bench_futex_lock_pi(int argc, const char **argv)
+ 
+ 	threads_starting = nthreads;
+ 	pthread_attr_init(&thread_attr);
+-	gettimeofday(&start, NULL);
++	gettimeofday(&bench__start, NULL);
+ 
+ 	create_threads(worker, thread_attr, cpu);
+ 	pthread_attr_destroy(&thread_attr);
+@@ -209,7 +209,7 @@ int bench_futex_lock_pi(int argc, const char **argv)
+ 	pthread_mutex_destroy(&thread_lock);
+ 
+ 	for (i = 0; i < nthreads; i++) {
+-		unsigned long t = worker[i].ops/runtime.tv_sec;
++		unsigned long t = worker[i].ops/bench__runtime.tv_sec;
+ 
+ 		update_stats(&throughput_stats, t);
+ 		if (!silent)
+diff --git a/tools/perf/bench/sched-messaging.c b/tools/perf/bench/sched-messaging.c
+index f9d7641ae833..3bdaed32912e 100644
+--- a/tools/perf/bench/sched-messaging.c
++++ b/tools/perf/bench/sched-messaging.c
+@@ -69,7 +69,7 @@ static void fdpair(int fds[2])
+ /* Block until we're ready to go */
+ static void ready(int ready_out, int wakefd)
+ {
+-	char dummy;
++	char dummy = '\0';
+ 	struct pollfd pollfd = { .fd = wakefd, .events = POLLIN };
+ 
+ 	/* Tell them we're ready. */
+diff --git a/tools/perf/tests/bp_account.c b/tools/perf/tests/bp_account.c
+index 57fc544aedb0..92226772d3c4 100644
+--- a/tools/perf/tests/bp_account.c
++++ b/tools/perf/tests/bp_account.c
+@@ -21,7 +21,7 @@
+ #include "perf.h"
+ #include "cloexec.h"
+ 
+-volatile long the_var;
++static volatile long the_var;
+ 
+ static noinline int test_function(void)
+ {
+diff --git a/tools/perf/util/srcline.c b/tools/perf/util/srcline.c
+index 10ca1533937e..e0615e321f15 100644
+--- a/tools/perf/util/srcline.c
++++ b/tools/perf/util/srcline.c
+@@ -191,16 +191,30 @@ static void find_address_in_section(bfd *abfd, asection *section, void *data)
+ 	bfd_vma pc, vma;
+ 	bfd_size_type size;
+ 	struct a2l_data *a2l = data;
++	flagword flags;
+ 
+ 	if (a2l->found)
+ 		return;
+ 
+-	if ((bfd_get_section_flags(abfd, section) & SEC_ALLOC) == 0)
++#ifdef bfd_get_section_flags
++	flags = bfd_get_section_flags(abfd, section);
++#else
++	flags = bfd_section_flags(section);
++#endif
++	if ((flags & SEC_ALLOC) == 0)
+ 		return;
+ 
+ 	pc = a2l->addr;
++#ifdef bfd_get_section_vma
+ 	vma = bfd_get_section_vma(abfd, section);
++#else
++	vma = bfd_section_vma(section);
++#endif
++#ifdef bfd_get_section_size
+ 	size = bfd_get_section_size(section);
++#else
++	size = bfd_section_size(section);
++#endif
+ 
+ 	if (pc < vma || pc >= vma + size)
+ 		return;
+diff --git a/tools/power/cpupower/utils/idle_monitor/amd_fam14h_idle.c b/tools/power/cpupower/utils/idle_monitor/amd_fam14h_idle.c
+index 2116df9ad832..b29d8cf440a1 100644
+--- a/tools/power/cpupower/utils/idle_monitor/amd_fam14h_idle.c
++++ b/tools/power/cpupower/utils/idle_monitor/amd_fam14h_idle.c
+@@ -83,7 +83,7 @@ static struct pci_access *pci_acc;
+ static struct pci_dev *amd_fam14h_pci_dev;
+ static int nbp1_entered;
+ 
+-struct timespec start_time;
++extern struct timespec start_time;
+ static unsigned long long timediff;
+ 
+ #ifdef DEBUG
+diff --git a/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.c b/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.c
+index 051da0a7c454..4a27c55d50d8 100644
+--- a/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.c
++++ b/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.c
+@@ -29,6 +29,8 @@ struct cpuidle_monitor *all_monitors[] = {
+ 0
+ };
+ 
++int cpu_count;
++
+ static struct cpuidle_monitor *monitors[MONITORS_MAX];
+ static unsigned int avail_monitors;
+ 
+diff --git a/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.h b/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.h
+index 2ae50b499e0a..06b3cd6de018 100644
+--- a/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.h
++++ b/tools/power/cpupower/utils/idle_monitor/cpupower-monitor.h
+@@ -27,7 +27,7 @@
+ #endif
+ #define CSTATE_DESC_LEN 60
+ 
+-int cpu_count;
++extern int cpu_count;
+ 
+ /* Hard to define the right names ...: */
+ enum power_range_e {
