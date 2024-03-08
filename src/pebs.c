@@ -594,7 +594,7 @@ void *pebs_policy_thread()
         continue;
       }
 
-      for (tries = 0; tries < 2; tries++) {
+      for (tries = 0; ; tries++) {
         // find a free DRAM page
         np = dequeue_fifo(&dram_free_list);
 
@@ -628,6 +628,13 @@ void *pebs_policy_thread()
           // all dram pages are hot, so put it back in list we got it from
           enqueue_fifo(&nvm_hot_list, p);
           goto out;
+        } else if (cp->va == 0) {
+          // This page is being allocated by the page fault handler.
+          // It was moved from dram_free_list to dram_cold_list by pebs_allocate_page
+          // Put it back on dram_cold_list and try again
+          LOG("Retrying to find a dram cold page cause cur page is being allocated\n");
+          enqueue_fifo(&dram_cold_list, cp);
+          continue;
         }
         assert(cp != NULL);
 
@@ -654,6 +661,9 @@ void *pebs_policy_thread()
           enqueue_fifo(&dram_free_list, np);
         }
         assert(np != NULL);
+
+        if (tries > 5)
+          LOG("Tried %d times to find a free dram page\n", tries);
       }
     }
 
