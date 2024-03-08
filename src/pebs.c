@@ -67,9 +67,15 @@ static struct perf_event_mmap_page* perf_setup(__u64 config, __u64 config1, __u6
 
   attr.config = config;
   attr.config1 = config1;
-  attr.sample_period = SAMPLE_PERIOD;
+  if (type == WRITE) {
+    attr.sample_period = WRITE_SAMPLE_PERIOD;
+  }
+  else {
+    attr.sample_period = SAMPLE_PERIOD;
+  }
 
-  attr.sample_type = PERF_SAMPLE_IP | PERF_SAMPLE_TID | PERF_SAMPLE_WEIGHT | PERF_SAMPLE_ADDR;
+  attr.sample_type = PERF_SAMPLE_IP | PERF_SAMPLE_TID | PERF_SAMPLE_ADDR;
+  attr.pinned = 1;
   attr.disabled = 0;
   //attr.inherit = 1;
   attr.exclude_kernel = 1;
