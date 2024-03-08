@@ -485,6 +485,7 @@ void *pebs_policy_thread()
 {
   cpu_set_t cpuset;
   pthread_t thread;
+  struct timeval start, end;
   int tries;
   struct hemem_page *p;
   struct hemem_page *cp;
@@ -492,6 +493,7 @@ void *pebs_policy_thread()
   uint64_t migrated_bytes;
   uint64_t old_offset;
   int num_ring_reqs;
+  double migrate_time;
   struct hemem_page* page = NULL;
   #ifdef COOL_IN_PLACE
   struct hemem_page* cur_cool_in_dram  = NULL;
@@ -508,6 +510,7 @@ void *pebs_policy_thread()
   }
 
   for (;;) {
+    gettimeofday(&start, NULL);
     // free pages using free page ring buffer
     while(!ring_buf_empty(free_page_ring)) {
         struct fifo_list *list;
@@ -663,7 +666,12 @@ void *pebs_policy_thread()
     #endif
  
 out:
-    LOG_TIME("migrate: %f s\n", elapsed(&start, &end));
+gettimeofday(&end, NULL);
+    migrate_time = elapsed(&start, &end) * 1000000.0;
+    LOG("migrate: %.2f us\n", migrate_time);
+    if (migrate_time < (1.0 * PEBS_KSWAPD_INTERVAL)) {
+      usleep((uint64_t)((1.0 * PEBS_KSWAPD_INTERVAL) - migrate_time));
+    }
   }
 
   return NULL;
