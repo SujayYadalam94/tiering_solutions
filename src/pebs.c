@@ -839,16 +839,15 @@ void pebs_shutdown()
 
 void pebs_stats()
 {
-  LOG_STATS("\tdram_hot_list.numentries: [%ld]\tdram_cold_list.numentries: [%ld]\tnvm_hot_list.numentries: [%ld]\tnvm_cold_list.numentries: [%ld]\themem_pages: [%lu]\ttotal_pages: [%lu]\tzero_pages: [%ld]\tthrottle/unthrottle_cnt: [%ld/%ld]\tcools: [%ld]\n",
+  LOG_STATS("dram_hot_list:[%ld] dram_cold_list:[%ld] nvm_hot_list:[%ld] nvm_cold_list:[%ld] samples:[%ld/%ld] throttle/unthrottle_cnt:[%ld/%ld] cools:[%ld]\n",
           dram_hot_list.numentries,
           dram_cold_list.numentries,
           nvm_hot_list.numentries,
           nvm_cold_list.numentries,
           hemem_pages_cnt,
           total_pages_cnt,
-          zero_pages_cnt,
           throttle_cnt,
           unthrottle_cnt,
           cools);
-  hemem_pages_cnt = total_pages_cnt =  throttle_cnt = unthrottle_cnt = 0;
+  // hemem_pages_cnt = total_pages_cnt =  throttle_cnt = unthrottle_cnt = 0;
 }

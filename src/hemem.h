@@ -36,6 +36,8 @@ extern "C" {
 #include "uthash.h"
 #include "fifo.h"
 
+#define SCAILP
+
 //#define HEMEM_DEBUG
 #define STATS_THREAD
 
@@ -50,8 +52,8 @@ extern uint64_t dramsize;
 extern char* drampath;
 extern char* nvmpath;
 
-#define NVMSIZE_DEFAULT   (480L * (1024L * 1024L * 1024L))
-#define DRAMSIZE_DEFAULT  (128L * (1024L * 1024L * 1024L))
+#define NVMSIZE_DEFAULT   (64L * (1024L * 1024L * 1024L))
+#define DRAMSIZE_DEFAULT  (32L * (1024L * 1024L * 1024L))
 
 #define DRAMPATH_DEFAULT  "/dev/dax0.0"
 #define NVMPATH_DEFAULT   "/dev/dax1.0"
@@ -76,8 +78,8 @@ extern char* nvmpath;
 
 extern FILE *hememlogf;
 //#define LOG(...) fprintf(stderr, __VA_ARGS__)
-#define LOG(...)	fprintf(hememlogf, __VA_ARGS__)
-//#define LOG(str, ...) while(0) {}
+//#define LOG(...)	fprintf(hememlogf, __VA_ARGS__)
+#define LOG(str, ...) while(0) {}
 
 extern FILE *timef;
 extern bool timing;

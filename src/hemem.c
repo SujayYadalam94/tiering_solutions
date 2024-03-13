@@ -163,7 +163,7 @@ static void *hemem_stats_thread()
     sleep(1);
     
     hemem_print_stats();
-    hemem_clear_stats();
+    // hemem_clear_stats();
   }
   return NULL;
 }
@@ -358,6 +358,7 @@ void hemem_stop()
 
   policy_shutdown();
 
+  hemem_print_stats();
 }
 
 #ifndef USE_DMA
