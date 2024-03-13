@@ -53,10 +53,11 @@ extern double hotset_fraction;
 
 int threads;
 
-bool move_hotset1 = false;
+bool moved_hotset = false;
 
 uint64_t hot_start = 0;
 uint64_t hotsize = 0;
+uint64_t hotset_move_period = 0;
 
 struct gups_args {
   int tid;                      // thread id
@@ -84,30 +85,10 @@ static unsigned long updates, nelems;
 
 bool stop = false;
 
-static void *timing_thread()
-{
-  uint64_t tic = -1;
-  bool printed1 = false;
-  for (;;) {
-    tic++;
-    if (tic >= 150 && tic < 300) {
-      if (!printed1) {
-        move_hotset1 = true;
-        fprintf(stderr, "moved hotset1\n");
-        printed1 = true;
-      }
-    }
-    if (tic >= 250) {
-      stop = true;
-    }
-    sleep(1);
-  }
-  return 0;
-}
 
 uint64_t tot_updates = 0;
 
-static void *print_instantaneous_gups()
+static void *print_instantaneous_gups(void *hotset_size)
 {
   FILE *tot;
   uint64_t tot_gups, tot_last_second_gups = 0;
@@ -126,6 +107,18 @@ static void *print_instantaneous_gups()
     fprintf(tot, "%.10f\n", (1.0 * (abs(tot_gups - tot_last_second_gups))) / (1.0e9));
     tot_updates += abs(tot_gups - tot_last_second_gups);
     tot_last_second_gups = tot_gups;
+
+    // Move hotset when half of the updates have been performed
+    if (moved_hotset == false && tot_gups >= (updates * threads / 2)) {
+      hot_start += *(uint64_t *)hotset_size;
+	    if (hot_start >= nelems) {
+		    hot_start = 0;
+	    }
+      fprintf(stderr, "Moved hotset to %lu\n", hot_start);
+      fprintf(tot, "Hotset moved\n");
+      moved_hotset = true;
+    }
+
     sleep(1);
   }
 
@@ -156,7 +149,6 @@ static void *do_gups(void *arguments)
   char data[elt_size];
   uint64_t lfsr;
   uint64_t hot_num;
-  uint64_t before_accesses = 0;
 
   srand(args->tid);
   lfsr = rand();
@@ -164,32 +156,22 @@ static void *do_gups(void *arguments)
   index1 = 0;
   index2 = 0;
 
-  fprintf(hotsetfile, "Thread %d region: %p - %p\thot set: %p - %p\n", args->tid, field, field + (args->size * elt_size), field + args->hot_start, field + args->hot_start + (args->hotsize * elt_size));   
+  fprintf(hotsetfile, "Thread %d region: %p - %p\thot set: %p - %p\n", args->tid, field, field + (args->size), field + args->hot_start, field + args->hot_start + (args->hotsize));
 
   for (i = 0; i < args->iters; i++) {
     hot_num = lfsr_fast(lfsr) % 100;
     if (hot_num < 90) {
       lfsr = lfsr_fast(lfsr);
-      index1 = args->hot_start + (lfsr % args->hotsize);
-      if (move_hotset1) {
-        if ((index1 < (args->hotsize / 4))) {
-          index1 += args->hotsize;
-        }
-      }
-      else {
-        if ((index1 < (args->hotsize / 4))) {
-          before_accesses++;
-        }
-      }
+      index1 = hot_start + (lfsr % args->hotsize);
       if (elt_size == 8) {
         uint64_t  tmp = field[index1];
         tmp = tmp + i;
         field[index1] = tmp;
       }
       else {
-        memcpy(data, &field[index1 * elt_size], elt_size);
+        memcpy(data, &field[index1], elt_size);
         memset(data, data[0] + i, elt_size);
-        memcpy(&field[index1 * elt_size], data, elt_size);
+        memcpy(&field[index1], data, elt_size);
       }
     }
     else {
@@ -201,9 +183,9 @@ static void *do_gups(void *arguments)
         field[index2] = tmp;
       }
       else {
-        memcpy(data, &field[index2 * elt_size], elt_size);
+        memcpy(data, &field[index2], elt_size);
         memset(data, data[0] + i, elt_size);
-        memcpy(&field[index2 * elt_size], data, elt_size);
+        memcpy(&field[index2], data, elt_size);
       }
     }
 
@@ -216,7 +198,7 @@ static void *do_gups(void *arguments)
     }
   }
 
-  fprintf(stderr, "before_accesses: %lu\n", before_accesses);
+  fprintf(stderr, "Thread %d finished\n", args->tid);
 
   //fclose(timefile);
   return 0;
@@ -267,7 +249,7 @@ int main(int argc, char **argv)
   fprintf(stderr, "field of 2^%lu (%lu) bytes\n", expt, size);
   fprintf(stderr, "%ld byte element size (%ld elements total)\n", elt_size, size / elt_size);
 
-  p = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS | MAP_HUGETLB | MAP_POPULATE, -1, 0);
+  p = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS | MAP_HUGETLB, -1, 0);
   if (p == MAP_FAILED) {
     perror("mmap");
     assert(0);
@@ -313,36 +295,31 @@ int main(int argc, char **argv)
 
   // run through gups once to touch all memory
   // spawn gups worker threads
-  for (i = 0; i < threads; i++) {
-    int r = pthread_create(&t[i], NULL, do_gups, (void*)ga[i]);
-    assert(r == 0);
-  }
+  // for (i = 0; i < threads; i++) {
+  //   int r = pthread_create(&t[i], NULL, do_gups, (void*)ga[i]);
+  //   assert(r == 0);
+  // }
 
-  // wait for worker threads
-  for (i = 0; i < threads; i++) {
-    int r = pthread_join(t[i], NULL);
-    assert(r == 0);
-  }
+  // // wait for worker threads
+  // for (i = 0; i < threads; i++) {
+  //   int r = pthread_join(t[i], NULL);
+  //   assert(r == 0);
+  // }
   //hemem_print_stats();
 
-  gettimeofday(&stoptime, NULL);
+  // gettimeofday(&stoptime, NULL);
 
-  secs = elapsed(&starttime, &stoptime);
-  //printf("Elapsed time: %.4f seconds.\n", secs);
-  gups = threads * ((double)updates) / (secs * 1.0e9);
-  //printf("GUPS = %.10f\n", gups);
+  // secs = elapsed(&starttime, &stoptime);
+  // printf("Elapsed time: %.4f seconds.\n", secs);
+  // gups = threads * ((double)updates) / (secs * 1.0e9);
+  // printf("GUPS = %.10f\n", gups);
   memset(thread_gups, 0, sizeof(thread_gups));
 
   filename = "indices2.txt";
 
   pthread_t print_thread;
-  int pt = pthread_create(&print_thread, NULL, print_instantaneous_gups, NULL);
+  int pt = pthread_create(&print_thread, NULL, print_instantaneous_gups, &hotsize);
   assert(pt == 0);
-
-
-  pthread_t timer_thread;
-  int tt = pthread_create(&timer_thread, NULL, timing_thread, NULL);
-  assert (tt == 0);
 
   fprintf(stderr, "Timing.\n");
   gettimeofday(&starttime, NULL);
@@ -350,7 +327,7 @@ int main(int argc, char **argv)
   //hemem_clear_stats();
   // spawn gups worker threads
   for (i = 0; i < threads; i++) {
-    ga[i]->iters = updates * 2;
+    ga[i]->iters = updates;
     int r = pthread_create(&t[i], NULL, do_gups, (void*)ga[i]);
     assert(r == 0);
   }
@@ -365,9 +342,9 @@ int main(int argc, char **argv)
   //hemem_clear_stats();
 
   secs = elapsed(&starttime, &stoptime);
-  printf("Elapsed time: %.4f seconds.\n", secs);
+  fprintf(stderr, "Elapsed time: %.4f seconds.\n", secs);
   gups = ((double)tot_updates) / (secs * 1.0e9);
-  printf("GUPS = %.10f\n", gups);
+  fprintf(stderr, "GUPS = %.10f\n", gups);
 
   memset(thread_gups, 0, sizeof(thread_gups));
 
@@ -412,6 +389,7 @@ int main(int argc, char **argv)
 
   //getchar();
 
+  sleep(2); // To avoid the race in Hemem
   munmap(p, size);
 
   return 0;
