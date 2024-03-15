@@ -520,18 +520,21 @@ void *pebs_policy_thread()
         }
         
         list = page->list;
-        assert(list != NULL);
-        #ifdef COOL_IN_PLACE
-        update_current_cool_page(&cur_cool_in_dram, &cur_cool_in_nvm, page);
-        #endif
-        page_list_remove_page(list, page);
+        // If a page is removed from list during migration
+        // because of race with pebs_remove_page(), then its list is NULL
+        if (list != NULL) {
+          #ifdef COOL_IN_PLACE
+          update_current_cool_page(&cur_cool_in_dram, &cur_cool_in_nvm, page);
+          #endif
+          page_list_remove_page(list, page);
+        }
         if (page->in_dram) {
             enqueue_fifo(&dram_free_list, page);
         }
         else {
             enqueue_fifo(&nvm_free_list, page);
         }
-        page->present = false;
+
         page->hot = false;
         for (int i = 0; i < NPBUFTYPES; i++) {
           page->accesses[i] = 0;
@@ -604,22 +607,36 @@ void *pebs_policy_thread()
           LOG("%lx: cold %lu -> hot %lu\t slowmem.hot: %lu, slowmem.cold: %lu\t fastmem.hot: %lu, fastmem.cold: %lu\n",
                 p->va, p->devdax_offset, np->devdax_offset, nvm_hot_list.numentries, nvm_cold_list.numentries, dram_hot_list.numentries, dram_cold_list.numentries);
 
-          old_offset = p->devdax_offset;
-          pebs_migrate_up(p, np->devdax_offset);
-          np->devdax_offset = old_offset;
-          np->in_dram = false;
-          np->present = false;
-          np->hot = false;
-          for (int i = 0; i < NPBUFTYPES; i++) {
-            np->accesses[i] = 0;
-            np->tot_accesses[i] = 0;
+          // There could be a possible race with pebs_remove_page()
+          // So acquire lock to ensure page is not removed while being migrated
+          pthread_mutex_lock(&(p->page_lock));
+          if (!p->present) {
+            // Don't migrate as this page is being removed
+            // Put np back on the dram_free_list because we are not going to migrate
+            enqueue_fifo(&dram_free_list, np);
+            pthread_mutex_unlock(&(p->page_lock));
+            break;
+          } else {
+            old_offset = p->devdax_offset;
+            pebs_migrate_up(p, np->devdax_offset);
+            // We can release the lock now that migration is complete
+            pthread_mutex_unlock(&(p->page_lock));
+
+            np->devdax_offset = old_offset;
+            np->in_dram = false;
+            np->present = false;
+            np->hot = false;
+            for (int i = 0; i < NPBUFTYPES; i++) {
+              np->accesses[i] = 0;
+              np->tot_accesses[i] = 0;
+            }
+
+            enqueue_fifo(&dram_hot_list, p);
+            enqueue_fifo(&nvm_free_list, np);
+
+            migrated_bytes += pt_to_pagesize(p->pt);
+            break;
           }
-
-          enqueue_fifo(&dram_hot_list, p);
-          enqueue_fifo(&nvm_free_list, np);
-
-          migrated_bytes += pt_to_pagesize(p->pt);
-          break;
         }
 
         // no free dram page, try to find a cold dram page to move down
@@ -646,19 +663,32 @@ void *pebs_policy_thread()
           LOG("%lx: hot %lu -> cold %lu\t slowmem.hot: %lu, slowmem.cold: %lu\t fastmem.hot: %lu, fastmem.cold: %lu\n",
                 cp->va, cp->devdax_offset, np->devdax_offset, nvm_hot_list.numentries, nvm_cold_list.numentries, dram_hot_list.numentries, dram_cold_list.numentries);
 
-          old_offset = cp->devdax_offset;
-          pebs_migrate_down(cp, np->devdax_offset);
-          np->devdax_offset = old_offset;
-          np->in_dram = true;
-          np->present = false;
-          np->hot = false;
-          for (int i = 0; i < NPBUFTYPES; i++) {
-            np->accesses[i] = 0;
-            np->tot_accesses[i] = 0;
-          }
+          // There could be a possible race with pebs_remove_page()
+          // So acquire lock to ensure page is not removed while being migrated
+          pthread_mutex_lock(&(cp->page_lock));
+          if (!cp->present) {
+            // Don't migrate as this page is being removed
+            pthread_mutex_unlock(&(cp->page_lock));
+            // Put np back on nvm_free_list
+            enqueue_fifo(&nvm_free_list, np);
+            continue;
+          } else {
+            old_offset = cp->devdax_offset;
+            pebs_migrate_down(cp, np->devdax_offset);
+            pthread_mutex_unlock(&(cp->page_lock));
 
-          enqueue_fifo(&nvm_cold_list, cp);
-          enqueue_fifo(&dram_free_list, np);
+            np->devdax_offset = old_offset;
+            np->in_dram = true;
+            np->present = false;
+            np->hot = false;
+            for (int i = 0; i < NPBUFTYPES; i++) {
+              np->accesses[i] = 0;
+              np->tot_accesses[i] = 0;
+            }
+
+            enqueue_fifo(&nvm_cold_list, cp);
+            enqueue_fifo(&dram_free_list, np);
+          }
         }
         assert(np != NULL);
 
@@ -747,6 +777,12 @@ void pebs_remove_page(struct hemem_page *page)
   while (ring_buf_full(free_page_ring));
   ring_buf_put(free_page_ring, (uint64_t*)page); 
   pthread_mutex_unlock(&free_page_ring_lock);
+
+  // We set page->present to false so that
+  // the migration thread does not migrate this page
+  pthread_mutex_lock(&(page->page_lock));
+  page->present = false;
+  pthread_mutex_unlock(&(page->page_lock));
 }
 
 #ifdef SCAILP
