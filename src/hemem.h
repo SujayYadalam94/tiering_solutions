@@ -132,6 +132,7 @@ extern uint64_t cr3;
 extern int dramfd;
 extern int nvmfd;
 extern bool is_init;
+extern uint64_t dram_small_allocation_bytes;
 extern uint64_t missing_faults_handled;
 extern uint64_t migrations_up;
 extern uint64_t migrations_down;

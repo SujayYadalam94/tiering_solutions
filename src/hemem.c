@@ -47,6 +47,7 @@ bool timing = false;
 uint64_t mem_mmaped = 0;
 uint64_t mem_allocated = 0;
 uint64_t pages_allocated = 0;
+uint64_t dram_small_allocation_bytes = 0;
 uint64_t pages_freed = 0;
 uint64_t fastmem_allocated = 0;
 uint64_t slowmem_allocated = 0;
@@ -1187,8 +1188,9 @@ uint64_t hemem_get_bits(struct hemem_page *page)
 void hemem_print_stats()
 {
 
-  LOG_STATS("mem_allocated: [%lu]\tpages_allocated: [%lu]\tmissing_faults_handled: [%lu]\tbytes_migrated: [%lu]\tmigrations_up: [%lu]\tmigrations_down: [%lu]\tmigration_waits: [%lu]\n", 
+  LOG_STATS("mem_allocated: [%lu]\tdram_small_allocation_bytes: [%lu]\tpages_allocated: [%lu]\tmissing_faults_handled: [%lu]\tbytes_migrated: [%lu]\tmigrations_up: [%lu]\tmigrations_down: [%lu]\tmigration_waits: [%lu]\n",
                mem_allocated, 
+               dram_small_allocation_bytes,
                pages_allocated, 
                missing_faults_handled, 
                bytes_migrated,
