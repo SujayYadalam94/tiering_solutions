@@ -669,6 +669,8 @@ void *pebs_policy_thread()
           if (!cp->present) {
             // Don't migrate as this page is being removed
             pthread_mutex_unlock(&(cp->page_lock));
+            // Put np back on nvm_free_list
+            enqueue_fifo(&nvm_free_list, np);
             continue;
           } else {
             old_offset = cp->devdax_offset;
