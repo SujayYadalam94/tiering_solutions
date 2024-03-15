@@ -1,0 +1,97 @@
+From 2189ff7e98663a2eaa129b4e947ee36c184a52f7 Mon Sep 17 00:00:00 2001
+From: bijan <bijan@node0.bijan-189744.superpages-pg0.wisc.cloudlab.us>
+Date: Thu, 8 Feb 2024 20:35:09 +0000
+Subject: [PATCH] Cheat and have only node 0 be toptier
+
+---
+ mm/memory-tiers.c | 53 +++++++++++++++++++++++++++--------------------
+ 1 file changed, 31 insertions(+), 22 deletions(-)
+
+diff --git a/mm/memory-tiers.c b/mm/memory-tiers.c
+index 0065058132c5..6ac7a5e30c79 100644
+--- a/mm/memory-tiers.c
++++ b/mm/memory-tiers.c
+@@ -37,6 +37,7 @@ static DEFINE_MUTEX(memory_tier_lock);
+ static LIST_HEAD(memory_tiers);
+ static struct node_memory_type_map node_memory_types[MAX_NUMNODES];
+ static struct memory_dev_type *default_dram_type;
++static struct memory_dev_type *default_slow_tier_type;
+ 
+ static struct bus_type memory_tier_subsys = {
+ 	.name = "memory_tiering",
+@@ -241,27 +242,29 @@ static struct memory_tier *__node_get_memory_tier(int node)
+ #ifdef CONFIG_MIGRATION
+ bool node_is_toptier(int node)
+ {
+-	bool toptier;
+-	pg_data_t *pgdat;
+-	struct memory_tier *memtier;
+-
+-	pgdat = NODE_DATA(node);
+-	if (!pgdat)
+-		return false;
+-
+-	rcu_read_lock();
+-	memtier = rcu_dereference(pgdat->memtier);
+-	if (!memtier) {
+-		toptier = true;
+-		goto out;
+-	}
+-	if (memtier->adistance_start <= top_tier_adistance)
+-		toptier = true;
+-	else
+-		toptier = false;
+-out:
+-	rcu_read_unlock();
+-	return toptier;
++	// Cheat and simply have only node 0 be toptier
++	return node == 0;
++//	bool toptier;
++//	pg_data_t *pgdat;
++//	struct memory_tier *memtier;
++//
++//	pgdat = NODE_DATA(node);
++//	if (!pgdat)
++//		return false;
++//
++//	rcu_read_lock();
++//	memtier = rcu_dereference(pgdat->memtier);
++//	if (!memtier) {
++//		toptier = true;
++//		goto out;
++//	}
++//	if (memtier->adistance_start <= top_tier_adistance)
++//		toptier = true;
++//	else
++//		toptier = false;
++//out:
++//	rcu_read_unlock();
++//	return toptier;
+ }
+ 
+ void node_get_allowed_targets(pg_data_t *pgdat, nodemask_t *targets)
+@@ -525,7 +528,10 @@ static struct memory_tier *set_node_memory_tier(int node)
+ 	if (!node_state(node, N_MEMORY))
+ 		return ERR_PTR(-EINVAL);
+ 
+-	__init_node_memory_type(node, default_dram_type);
++	if (node == 0)
++		__init_node_memory_type(node, default_dram_type);
++	else
++		__init_node_memory_type(node, default_slow_tier_type);
+ 
+ 	memtype = node_memory_types[node].memtype;
+ 	node_set(node, memtype->nodes);
+@@ -687,6 +693,9 @@ static int __init memory_tier_init(void)
+ 	default_dram_type = alloc_memory_type(MEMTIER_ADISTANCE_DRAM);
+ 	if (IS_ERR(default_dram_type))
+ 		panic("%s() failed to allocate default DRAM tier\n", __func__);
++	default_slow_tier_type = alloc_memory_type(MEMTIER_ADISTANCE_DRAM * 5);
++	if (IS_ERR(default_slow_tier_type))
++		panic("%s() failed to allocate default slow tier\n", __func__);
+ 
+ 	/*
+ 	 * Look at all the existing N_MEMORY nodes and add them to
+-- 
+2.34.1
+
