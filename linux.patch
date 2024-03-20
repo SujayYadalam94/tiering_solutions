@@ -11,6 +11,21 @@ index a587805c6687..48a2e93c876a 100644
  ifeq ($(CONFIG_X86_32),y)
          BITS := 32
          UTS_MACHINE := i386
+diff --git a/mm/compaction.c b/mm/compaction.c
+index 3319e0872d01..e6c2e65351b9 100644
+--- a/mm/compaction.c
++++ b/mm/compaction.c
+@@ -1164,7 +1164,9 @@ static bool suitable_migration_target(struct compact_control *cc,
+ static inline unsigned int
+ freelist_scan_limit(struct compact_control *cc)
+ {
+-	return (COMPACT_CLUSTER_MAX >> cc->fast_search_fail) + 1;
++	unsigned short shift = BITS_PER_LONG - 1;
++
++	return (COMPACT_CLUSTER_MAX >> min(shift, cc->fast_search_fail)) + 1
+ }
+
+ /*
 diff --git a/scripts/selinux/genheaders/genheaders.c b/scripts/selinux/genheaders/genheaders.c
 index 1ceedea847dd..544ca126a8a8 100644
 --- a/scripts/selinux/genheaders/genheaders.c
