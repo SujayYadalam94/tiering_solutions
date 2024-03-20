@@ -17,11 +17,11 @@
 
 #define HOT_RING_REQS_THRESHOLD   (1024*1024)
 #define COLD_RING_REQS_THRESHOLD  (128)
-#define CAPACITY                  (128*1024*1024)
+#define CAPACITY                  (128*1024)
 #define COOLING_PAGES             (8192)
 
 #define PEBS_NPROCS 24
-#define PERF_PAGES	(1 + (1 << 16))	// Has to be == 1+2^n, here 1MB
+#define PERF_PAGES	(1 + (1 << 8))	// Has to be == 1+2^n, here 1MB
 #define SAMPLE_PERIOD	10007
 #define WRITE_SAMPLE_PERIOD	10007
 //#define SAMPLE_PERIOD 5003

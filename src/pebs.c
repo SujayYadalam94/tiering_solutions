@@ -133,6 +133,11 @@ void *pebs_scan_thread()
 
   for(;;) {
     for (int i = 0; i < PEBS_NPROCS; i++) {
+#ifdef JOSEPM
+      if (i >= 8 && i < 16) {
+        continue;
+      }
+#endif
       for(int j = 0; j < NPBUFTYPES; j++) {
         struct perf_event_mmap_page *p = perf_page[i][j];
         char *pbuf = (char *)p + p->data_offset;
@@ -788,7 +793,7 @@ void pebs_remove_page(struct hemem_page *page)
 #ifdef SCAILP
 #define L3_LOAD_MISS_LOCAL 0x2d3
 #define L3_LOAD_MISS_REMOTE 0x10d3
-#else
+#elif defined JOSEPM
 #define L3_LOAD_MISS_LOCAL 0x1d3
 #define L3_LOAD_MISS_REMOTE 0x80d1
 #endif
@@ -802,6 +807,11 @@ void pebs_init(void)
   LOG("pebs_init: started\n");
 
   for (int i = 0; i < PEBS_NPROCS; i++) {
+#ifdef JOSEPM
+    if (i >= 8 && i < 16) {
+      continue;
+    }
+#endif
     //perf_page[i][READ] = perf_setup(0x1cd, 0x4, i);  // MEM_TRANS_RETIRED.LOAD_LATENCY_GT_4
     //perf_page[i][READ] = perf_setup(0x81d0, 0, i);   // MEM_INST_RETIRED.ALL_LOADS
     perf_page[i][DRAMREAD] = perf_setup(L3_LOAD_MISS_LOCAL, 0, i, DRAMREAD);      // MEM_LOAD_L3_MISS_RETIRED.LOCAL_DRAM
