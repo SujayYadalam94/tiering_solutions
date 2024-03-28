@@ -20,7 +20,11 @@
 #define CAPACITY                  (128*1024)
 #define COOLING_PAGES             (8192)
 
+#ifndef C220G5
 #define PEBS_NPROCS 24
+#else
+#define PEBS_NPROCS 30 // C220g5 has 20 cores on NUMA node 0 (0-9,20-29)
+#endif
 #define PERF_PAGES	(1 + (1 << 8))	// Has to be == 1+2^n, here 1MB
 #define SAMPLE_PERIOD	10007
 #define WRITE_SAMPLE_PERIOD	10007
