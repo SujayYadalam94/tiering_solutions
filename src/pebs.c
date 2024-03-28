@@ -137,6 +137,10 @@ void *pebs_scan_thread()
       if (i >= 8 && i < 16) {
         continue;
       }
+#elif defined C220G5
+	  if (i >= 10 && i < 20) {
+		continue;
+	  }
 #endif
       for(int j = 0; j < NPBUFTYPES; j++) {
         struct perf_event_mmap_page *p = perf_page[i][j];
@@ -796,6 +800,9 @@ void pebs_remove_page(struct hemem_page *page)
 #elif defined JOSEPM
 #define L3_LOAD_MISS_LOCAL 0x1d3
 #define L3_LOAD_MISS_REMOTE 0x80d1
+#elif defined C220G5
+#define L3_LOAD_MISS_LOCAL 0x1d3
+#define L3_LOAD_MISS_REMOTE 0x2d3
 #endif
 
 void pebs_init(void)
@@ -809,6 +816,10 @@ void pebs_init(void)
   for (int i = 0; i < PEBS_NPROCS; i++) {
 #ifdef JOSEPM
     if (i >= 8 && i < 16) {
+      continue;
+    }
+#elif defined C220G5
+    if (i >= 10 && i < 20) {
       continue;
     }
 #endif
