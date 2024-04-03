@@ -47,6 +47,8 @@ extern "C" {
 
 #define MEM_BARRIER() __sync_synchronize()
 
+extern uint64_t min_interpose_mem_size;
+
 extern uint64_t nvmsize;
 extern uint64_t dramsize;
 extern char* drampath;
