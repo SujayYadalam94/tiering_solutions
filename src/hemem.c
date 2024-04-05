@@ -32,6 +32,8 @@
 
 pthread_t fault_thread;
 
+uint64_t min_interpose_mem_size = 0;
+
 uint64_t nvmsize = 0;
 uint64_t dramsize = 0;
 char* drampath = NULL;
@@ -278,11 +280,19 @@ void hemem_init()
     assert(0);
   }
 
+  char* min_interpose_mem_size_string = getenv("MIN_INTERPOSE_MEM_SIZE");
+  if (min_interpose_mem_size_string != NULL)
+    min_interpose_mem_size = strtoull(min_interpose_mem_size_string, NULL, 10);
+  else
+    min_interpose_mem_size = MIN_INTERPOSE_MEM_SIZE_DEFAULT;
+  LOG_STATS("MIN_INTERPOSE_MEM_SIZE: %lu\n", min_interpose_mem_size);
+
   char* dramsize_string = getenv("DRAMSIZE");
   if(dramsize_string != NULL)
     dramsize = strtoull(dramsize_string, NULL, 10);
   else
     dramsize = DRAMSIZE_DEFAULT;
+  LOG_STATS("DRAMSIZE: %lu\n", dramsize);
 
   if(dramsize != 0) {
     dram_devdax_mmap =libc_mmap(NULL, dramsize, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, dramfd, 0);
@@ -297,6 +307,7 @@ void hemem_init()
     nvmsize = strtoull(nvmsize_string, NULL, 10);
   else
     nvmsize = NVMSIZE_DEFAULT;
+  LOG_STATS("NVMSIZE: %lu\n", nvmsize);
 
   nvm_devdax_mmap =libc_mmap(NULL, nvmsize, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, nvmfd, 0);
   if (nvm_devdax_mmap == MAP_FAILED) {
