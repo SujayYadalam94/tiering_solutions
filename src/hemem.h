@@ -170,6 +170,7 @@ struct hemem_page {
   bool ring_present;
   uint64_t accesses[NPBUFTYPES];
   uint64_t tot_accesses[NPBUFTYPES];
+  uint64_t smooth_accesses[NPBUFTYPES];
   pthread_mutex_t page_lock;
 
   UT_hash_handle hh;

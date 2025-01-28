@@ -20,6 +20,8 @@
 #include "timer.h"
 #include "spsc-ring.h"
 
+#define SMOOTH_NEIGHBORS (5)
+
 static struct fifo_list dram_hot_list;
 static struct fifo_list dram_cold_list;
 static struct fifo_list nvm_hot_list;
@@ -45,6 +47,40 @@ int pfd[PEBS_NPROCS][NPBUFTYPES];
 
 volatile bool need_cool_dram = false;
 volatile bool need_cool_nvm = false;
+
+extern struct hemem_page *pages;
+
+static void calc_smooth_accesses(struct hemem_page *page)
+{
+  // Get pointers to neighboring pages (2 before and 2 after)
+  struct hemem_page *prev_pages[SMOOTH_NEIGHBORS], *next_pages[SMOOTH_NEIGHBORS];
+
+  for (int i = 0; i < SMOOTH_NEIGHBORS; i++) {
+    prev_pages[i] = get_hemem_page(page->va - (i + 1) * HUGEPAGE_SIZE);
+  }
+  for (int i = 0; i < SMOOTH_NEIGHBORS; i++) {
+    next_pages[i] = get_hemem_page(page->va + (i + 1) * HUGEPAGE_SIZE);
+  }
+
+  // Calculate the average of the accesses of the 5 pages
+  // Assign the average to the smooth_accesses field of the page
+  for (int i = 0; i < NPBUFTYPES; i++) {
+    uint32_t sum = 0, count = 0;
+    for (int j = 0; j < SMOOTH_NEIGHBORS; j++) {
+      if (prev_pages[j] != NULL) {
+        sum += prev_pages[j]->accesses[i];
+        count++;
+      }
+      if (next_pages[j] != NULL) {
+        sum += next_pages[j]->accesses[i];
+        count++;
+      }
+    }
+    sum += page->accesses[i];
+    count++;
+    page->smooth_accesses[i] = sum / count;
+  }
+}
 
 static long perf_event_open(struct perf_event_attr *hw_event, pid_t pid, 
     int cpu, int group_fd, unsigned long flags)
@@ -142,6 +178,9 @@ void *pebs_scan_thread()
 		continue;
 	  }
 #endif
+    if (i == FAULT_THREAD_CPU || i == SCANNING_THREAD_CPU || i == MIGRATION_THREAD_CPU) {
+      continue;
+    }
       for(int j = 0; j < NPBUFTYPES; j++) {
         struct perf_event_mmap_page *p = perf_page[i][j];
         char *pbuf = (char *)p + p->data_offset;
@@ -168,32 +207,19 @@ void *pebs_scan_thread()
                 if (page->va != 0) {
                   page->accesses[j]++;
                   page->tot_accesses[j]++;
-                  if (page->accesses[WRITE] >= HOT_WRITE_THRESHOLD) {
-                   if (!page->hot && !page->ring_present) {
-                       make_hot_request(page);
-                   }
-                  }
-                  else if (page->accesses[DRAMREAD] + page->accesses[NVMREAD] >= HOT_READ_THRESHOLD) {
-                    if (!page->hot && !page->ring_present) {
-                        make_hot_request(page);
-                    }
-                  }
-                  else if ((page->accesses[WRITE] < HOT_WRITE_THRESHOLD) && (page->accesses[DRAMREAD] + page->accesses[NVMREAD] < HOT_READ_THRESHOLD)) {
-                    if (page->hot && !page->ring_present) {
-                        make_cold_request(page);
-                    }
-                 }
 
                   page->accesses[DRAMREAD] >>= (global_clock - page->local_clock);
                   page->accesses[NVMREAD] >>= (global_clock - page->local_clock);
                   page->accesses[WRITE] >>= (global_clock - page->local_clock);
                   page->local_clock = global_clock;
                   #ifndef SAMPLE_BASED_COOLING
-                  if (page->accesses[j] > PEBS_COOLING_THRESHOLD) {
-                    global_clock++;
-                    cools++;
-                    need_cool_dram = true;
-                    need_cool_nvm = true;
+                  if (!need_cool_dram || !need_cool_nvm) {
+                    if (page->accesses[j] > PEBS_COOLING_THRESHOLD) {
+                      global_clock++;
+                      cools++;
+                      need_cool_dram = true;
+                      need_cool_nvm = true;
+                    }
                   }
                   #else
                   if (samples_since_cool > SAMPLE_COOLING_THRESHOLD) {
@@ -257,7 +283,6 @@ static void pebs_migrate_down(struct hemem_page *page, uint64_t offset)
   page->migrating = false; 
 
   gettimeofday(&end, NULL);
-  LOG_TIME("migrate_down: %f s\n", elapsed(&start, &end));
 }
 
 static void pebs_migrate_up(struct hemem_page *page, uint64_t offset)
@@ -272,7 +297,6 @@ static void pebs_migrate_up(struct hemem_page *page, uint64_t offset)
   page->migrating = false;
 
   gettimeofday(&end, NULL);
-  LOG_TIME("migrate_up: %f s\n", elapsed(&start, &end));
 }
 
 // moves page to hot list -- called by migrate thread
@@ -382,7 +406,8 @@ struct hemem_page* partial_cool(struct fifo_list *hot, struct fifo_list *cold, b
     }
 
     for (int j = 0; j < NPBUFTYPES; j++) {
-        tmp_accesses[j] = p->accesses[j] >> (global_clock - p->local_clock);
+        // tmp_accesses[j] = p->accesses[j] >> (global_clock - p->local_clock);
+        tmp_accesses[j] = p->smooth_accesses[j] >> (global_clock - p->local_clock);
     }
 
     if ((tmp_accesses[WRITE] < HOT_WRITE_THRESHOLD) && (tmp_accesses[DRAMREAD] + tmp_accesses[NVMREAD] < HOT_READ_THRESHOLD)) {
@@ -445,7 +470,8 @@ static void partial_cool(struct fifo_list *hot, struct fifo_list *cold, bool dra
     }
 
     for (int j = 0; j < NPBUFTYPES; j++) {
-        tmp_accesses[j] = p->accesses[j] >> (global_clock - p->local_clock);
+        // tmp_accesses[j] = p->accesses[j] >> (global_clock - p->local_clock);
+        tmp_accesses[j] = p->smooth_accesses[j] >> (global_clock - p->local_clock);
     }
 
     if ((tmp_accesses[WRITE] < HOT_WRITE_THRESHOLD) && (tmp_accesses[DRAMREAD] + tmp_accesses[NVMREAD] < HOT_READ_THRESHOLD)) {
@@ -495,6 +521,7 @@ void *pebs_policy_thread()
   cpu_set_t cpuset;
   pthread_t thread;
   struct timeval start, end;
+  struct timeval last_cool;
   int tries;
   struct hemem_page *p;
   struct hemem_page *cp;
@@ -548,42 +575,86 @@ void *pebs_policy_thread()
         for (int i = 0; i < NPBUFTYPES; i++) {
           page->accesses[i] = 0;
           page->tot_accesses[i] = 0;
+          page->smooth_accesses[i] = 0;
         }
     }
 
-    num_ring_reqs = 0;
-    // handle hot requests from hot buffer by moving pages to hot list
-    while(!ring_buf_empty(hot_ring) && num_ring_reqs < HOT_RING_REQS_THRESHOLD) {
-		    page = (struct hemem_page*)ring_buf_get(hot_ring);
-        if (page == NULL) {
-            continue;
+    if (need_cool_dram || need_cool_nvm) {
+
+      struct timeval now;
+      gettimeofday(&now, NULL);
+
+      // If it has not been 500ms since last cool, skip this cool
+      if (elapsed(&last_cool, &now) * 1000.0 > 500) {
+        HASH_ITER(hh, pages, p, np) {
+          p->accesses[DRAMREAD] >>= (global_clock - p->local_clock);
+          p->accesses[NVMREAD] >>= (global_clock - p->local_clock);
+          p->accesses[WRITE] >>= (global_clock - p->local_clock);
+          p->local_clock = global_clock;
         }
+
+        need_cool_dram = false;
+        need_cool_nvm = false;
+
+        gettimeofday(&last_cool, NULL);
+      }
+    }
+
+    // Calculate smooth accesses for each page
+    HASH_ITER(hh, pages, p, np) {
+      calc_smooth_accesses(p);
+    }
+
+    // Populate hot and cold lists
+    HASH_ITER(hh, pages, p, np) {
+      if (p->smooth_accesses[WRITE] >= HOT_WRITE_THRESHOLD || p->smooth_accesses[DRAMREAD] + p->smooth_accesses[NVMREAD] >= HOT_READ_THRESHOLD) {
+        if (!p->hot) {
+          make_hot(p);
+        }
+      } else {
+        if (p->hot) {
+          make_cold(p);
+        }
+      }
+    }
+
+    // num_ring_reqs = 0;
+    // // handle hot requests from hot buffer by moving pages to hot list
+    // while(!ring_buf_empty(hot_ring) && num_ring_reqs < HOT_RING_REQS_THRESHOLD) {
+		//     page = (struct hemem_page*)ring_buf_get(hot_ring);
+    //     if (page == NULL) {
+    //         continue;
+    //     }
         
-        #ifdef COOL_IN_PLACE
-        update_current_cool_page(&cur_cool_in_dram, &cur_cool_in_nvm, page);
-        #endif
-        page->ring_present = false;
-        num_ring_reqs++;
-        make_hot(page);
-        //printf("hot ring, hot pages:%llu\n", num_ring_reqs);
-	  }
+    //     #ifdef COOL_IN_PLACE
+    //     update_current_cool_page(&cur_cool_in_dram, &cur_cool_in_nvm, page);
+    //     #endif
+    //     page->ring_present = false;
+    //     num_ring_reqs++;
+    //     if ((page->smooth_accesses[WRITE] >= HOT_WRITE_THRESHOLD) || (page->smooth_accesses[DRAMREAD] + page->smooth_accesses[NVMREAD] >= HOT_READ_THRESHOLD)) {
+    //         make_hot(page);
+    //     }
+    //     //printf("hot ring, hot pages:%llu\n", num_ring_reqs);
+	  // }
 
-    num_ring_reqs = 0;
-    // handle cold requests from cold buffer by moving pages to cold list
-    while(!ring_buf_empty(cold_ring) && num_ring_reqs < COLD_RING_REQS_THRESHOLD) {
-        page = (struct hemem_page*)ring_buf_get(cold_ring);
-        if (page == NULL) {
-            continue;
-        }
+    // num_ring_reqs = 0;
+    // // handle cold requests from cold buffer by moving pages to cold list
+    // while(!ring_buf_empty(cold_ring) && num_ring_reqs < COLD_RING_REQS_THRESHOLD) {
+    //     page = (struct hemem_page*)ring_buf_get(cold_ring);
+    //     if (page == NULL) {
+    //         continue;
+    //     }
 
-        #ifdef COOL_IN_PLACE
-        update_current_cool_page(&cur_cool_in_dram, &cur_cool_in_nvm, page);
-        #endif
-        page->ring_present = false;
-        num_ring_reqs++;
-        make_cold(page);
-        //printf("cold ring, cold pages:%llu\n", num_ring_reqs);
-    }
+    //     #ifdef COOL_IN_PLACE
+    //     update_current_cool_page(&cur_cool_in_dram, &cur_cool_in_nvm, page);
+    //     #endif
+    //     page->ring_present = false;
+    //     num_ring_reqs++;
+    //     if ((page->smooth_accesses[WRITE] < HOT_WRITE_THRESHOLD) && (page->smooth_accesses[DRAMREAD] + page->smooth_accesses[NVMREAD] < HOT_READ_THRESHOLD)) {
+    //         make_cold(page);
+    //     }
+    //     //printf("cold ring, cold pages:%llu\n", num_ring_reqs);
+    // }
     
     // move each hot NVM page to DRAM
     for (migrated_bytes = 0; migrated_bytes < PEBS_KSWAPD_MIGRATE_RATE;) {
@@ -599,7 +670,9 @@ void *pebs_policy_thread()
       }
 #endif
 
-      if ((p->accesses[WRITE] < HOT_WRITE_THRESHOLD) && (p->accesses[DRAMREAD] + p->accesses[NVMREAD] < HOT_READ_THRESHOLD)) {
+      if ((p->smooth_accesses[WRITE] < HOT_WRITE_THRESHOLD) && (p->smooth_accesses[DRAMREAD] + p->smooth_accesses[NVMREAD] < HOT_READ_THRESHOLD)) {
+      
+      // if ((p->accesses[WRITE] < HOT_WRITE_THRESHOLD) && (p->accesses[DRAMREAD] + p->accesses[NVMREAD] < HOT_READ_THRESHOLD)) {
         // it has been cooled, need to move it into the cold list
         p->hot = false;
         enqueue_fifo(&nvm_cold_list, p); 
@@ -638,6 +711,7 @@ void *pebs_policy_thread()
             for (int i = 0; i < NPBUFTYPES; i++) {
               np->accesses[i] = 0;
               np->tot_accesses[i] = 0;
+              np->smooth_accesses[i] = 0;
             }
 
             enqueue_fifo(&dram_hot_list, p);
@@ -693,6 +767,7 @@ void *pebs_policy_thread()
             for (int i = 0; i < NPBUFTYPES; i++) {
               np->accesses[i] = 0;
               np->tot_accesses[i] = 0;
+              np->smooth_accesses[i] = 0;
             }
 
             enqueue_fifo(&nvm_cold_list, cp);
@@ -706,13 +781,13 @@ void *pebs_policy_thread()
       }
     }
 
-    #ifdef COOL_IN_PLACE
-    cur_cool_in_dram = partial_cool(&dram_hot_list, &dram_cold_list, true, cur_cool_in_dram);
-    cur_cool_in_nvm = partial_cool(&nvm_hot_list, &nvm_cold_list, false, cur_cool_in_nvm);
-    #else
-    partial_cool(&dram_hot_list, &dram_cold_list, true);
-    partial_cool(&nvm_hot_list, &nvm_cold_list, false);
-    #endif
+    // #ifdef COOL_IN_PLACE
+    // cur_cool_in_dram = partial_cool(&dram_hot_list, &dram_cold_list, true, cur_cool_in_dram);
+    // cur_cool_in_nvm = partial_cool(&nvm_hot_list, &nvm_cold_list, false, cur_cool_in_nvm);
+    // #else
+    // partial_cool(&dram_hot_list, &dram_cold_list, true);
+    // partial_cool(&nvm_hot_list, &nvm_cold_list, false);
+    // #endif
  
 out:
 gettimeofday(&end, NULL);
@@ -823,6 +898,9 @@ void pebs_init(void)
       continue;
     }
 #endif
+    if (i == FAULT_THREAD_CPU || i == MIGRATION_THREAD_CPU || i == SCANNING_THREAD_CPU) {
+      continue;
+    }
     //perf_page[i][READ] = perf_setup(0x1cd, 0x4, i);  // MEM_TRANS_RETIRED.LOAD_LATENCY_GT_4
     //perf_page[i][READ] = perf_setup(0x81d0, 0, i);   // MEM_INST_RETIRED.ALL_LOADS
     perf_page[i][DRAMREAD] = perf_setup(L3_LOAD_MISS_LOCAL, 0, i, DRAMREAD);      // MEM_LOAD_L3_MISS_RETIRED.LOCAL_DRAM
@@ -887,6 +965,9 @@ void pebs_init(void)
 void pebs_shutdown()
 {
   for (int i = 0; i < PEBS_NPROCS; i++) {
+    if (i == FAULT_THREAD_CPU || i == MIGRATION_THREAD_CPU || i == SCANNING_THREAD_CPU) {
+      continue;
+    }
     for (int j = 0; j < NPBUFTYPES; j++) {
       ioctl(pfd[i][j], PERF_EVENT_IOC_DISABLE, 0);
       //munmap(perf_page[i][j], sysconf(_SC_PAGESIZE) * PERF_PAGES);

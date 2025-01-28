@@ -9,7 +9,7 @@
 
 #include "hemem.h"
 
-#define PEBS_KSWAPD_INTERVAL      (10000) // in us (10ms)
+#define PEBS_KSWAPD_INTERVAL      (100000) // in us (100ms)
 #define PEBS_KSWAPD_MIGRATE_RATE  (10UL * 1024UL * 1024UL * 1024UL) // 10GB
 #define HOT_READ_THRESHOLD        (8)
 #define HOT_WRITE_THRESHOLD       (4)
