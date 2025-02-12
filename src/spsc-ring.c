@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stddef.h>
+#include <string.h>
 #include <assert.h>
 
 #include "spsc-ring.h"
@@ -16,7 +17,7 @@ static void inc_head_pointer(ring_handle_t rbuf)
 {
 	assert(rbuf);
 
-	if(ring_buf_full(rbuf))
+  if(ring_buf_full(rbuf))
   {
     // Overwrite the oldest element
     if(++(rbuf->tail) == rbuf->capacity)
@@ -69,6 +70,7 @@ void ring_buf_reset(ring_handle_t rbuf)
 
     rbuf->head = 0;
     rbuf->tail = 0;
+	memset(rbuf->buffer, 0, rbuf->capacity * sizeof(uint64_t*));
 }
 
 size_t ring_buf_size(ring_handle_t rbuf)
@@ -149,7 +151,7 @@ uint64_t* ring_buf_get(ring_handle_t rbuf)
   return NULL;
 }
 
-uint64_t* ring_buf_peek(ring_handle_t rbuf, size_t index)
+uint64_t* ring_buf_peek_tail(ring_handle_t rbuf, size_t index)
 {
 	assert(rbuf && rbuf->buffer);
 
