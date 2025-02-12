@@ -177,7 +177,7 @@ struct hemem_page {
   pthread_mutex_t page_lock;
 
   // Our system
-  uint64_t s_accesses[NPBUFTYPES];
+  uint32_t s_accesses[NPBUFTYPES];
   uint32_t w[WINDOW_SIZE];
   uint8_t w_size;
   float score;
