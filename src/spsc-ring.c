@@ -12,25 +12,26 @@ struct ring_buf_t {
 	size_t capacity;
 };
 
-static void advance_pointer(ring_handle_t rbuf)
+static void inc_head_pointer(ring_handle_t rbuf)
 {
 	assert(rbuf);
 
 	if(ring_buf_full(rbuf))
+  {
+    // Overwrite the oldest element
+    if(++(rbuf->tail) == rbuf->capacity)
     {
-    	if(++(rbuf->tail) == rbuf->capacity)
-    	{
-    		rbuf->tail = 0;
-    	}
+      rbuf->tail = 0;
     }
+  }
 
-    if(++(rbuf->head) == rbuf->capacity)
+  if(++(rbuf->head) == rbuf->capacity)
 	{
 		rbuf->head = 0;
 	}
 }
 
-static void retreat_pointer(ring_handle_t rbuf)
+static void inc_tail_pointer(ring_handle_t rbuf)
 {
 	assert(rbuf);
 
@@ -103,48 +104,74 @@ void ring_buf_put(ring_handle_t rbuf, uint64_t* data)
 {
 	assert(rbuf && rbuf->buffer);
 
-    rbuf->buffer[rbuf->head] = data;
+  rbuf->buffer[rbuf->head] = data;
 
-    advance_pointer(rbuf);
+  inc_head_pointer(rbuf);
+}
+
+void ring_buf_put_r(ring_handle_t rbuf, uint64_t* data) {
+	assert(rbuf && rbuf->buffer);
+
+	rbuf->buffer[rbuf->tail] = data;
+
+  inc_tail_pointer(rbuf);
 }
 
 int ring_buf_put2(ring_handle_t rbuf, uint64_t* data)
 {
-    int r = -1;
+  int r = -1;
 
-    assert(rbuf && rbuf->buffer);
+  assert(rbuf && rbuf->buffer);
 
-    if(!ring_buf_full(rbuf))
-    {
-        rbuf->buffer[rbuf->head] = data;
-        advance_pointer(rbuf);
-        r = 0;
-    }
+  if(!ring_buf_full(rbuf))
+  {
+      rbuf->buffer[rbuf->head] = data;
+      inc_head_pointer(rbuf);
+      r = 0;
+  }
 
-    return r;
+  return r;
 }
 
 uint64_t* ring_buf_get(ring_handle_t rbuf)
 {
-    assert(rbuf && rbuf->buffer);
-    uint64_t* cur_read;
+  assert(rbuf && rbuf->buffer);
+  uint64_t* cur_read;
 
-    if(!ring_buf_empty(rbuf))
-    {
-        cur_read = rbuf->buffer[rbuf->tail];
-        retreat_pointer(rbuf);
+  if(!ring_buf_empty(rbuf))
+  {
+      cur_read = rbuf->buffer[rbuf->tail];
+      inc_tail_pointer(rbuf);
 
-        return cur_read;
-    }
+      return cur_read;
+  }
 
-    return NULL;
+  return NULL;
+}
+
+uint64_t* ring_buf_peek(ring_handle_t rbuf, size_t index)
+{
+	assert(rbuf && rbuf->buffer);
+
+	if(index < ring_buf_size(rbuf))
+	{
+		size_t i = rbuf->tail + index;
+		if(i >= rbuf->capacity)
+		{
+			i -= rbuf->capacity;
+		}
+
+		return rbuf->buffer[i];
+	}
+
+	return NULL;
 }
 
 bool ring_buf_empty(ring_handle_t rbuf)
 {
 	assert(rbuf);
 
-    return (!ring_buf_full(rbuf) && (rbuf->head == rbuf->tail));
+  return (!ring_buf_full(rbuf) && (rbuf->head == rbuf->tail));
 }
 
 bool ring_buf_full(ring_buf_t* rbuf)

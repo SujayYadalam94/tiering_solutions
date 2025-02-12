@@ -13,6 +13,7 @@ void ring_buf_reset(ring_handle_t rbuf);
 void ring_buf_put(ring_handle_t rbuf, uint64_t* data);
 int ring_buf_put2(ring_handle_t rbuf, uint64_t* data);
 uint64_t* ring_buf_get(ring_handle_t rbuf);
+uint64_t* ring_buf_peek(ring_handle_t rbuf, size_t index);
 bool ring_buf_empty(ring_handle_t rbuf);
 bool ring_buf_full(ring_handle_t rbuf);
 size_t ring_buf_capacity(ring_handle_t rbuf);

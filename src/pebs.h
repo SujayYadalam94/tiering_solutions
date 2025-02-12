@@ -51,16 +51,25 @@ struct perf_sample {
 
 enum pbuftype {
   DRAMREAD = 0,
-  NVMREAD = 1,  
+  NVMREAD = 1,
   WRITE = 2,
   NPBUFTYPES
+};
+
+struct score_entry {
+  struct hemem_page* page;
+  float score;
 };
 
 void *pebs_kswapd();
 struct hemem_page* pebs_pagefault(void);
 struct hemem_page* pebs_pagefault_unlocked(void);
 void pebs_init(void);
+
+void pebs_add_page(struct hemem_page *page);
+struct hemem_page* pebs_find_page(uint64_t va);
 void pebs_remove_page(struct hemem_page *page);
+
 void pebs_stats();
 void pebs_shutdown();
 

@@ -28,7 +28,7 @@ extern "C" {
 
 #ifdef ALLOC_SIMPLE
 #include "policies/simple.h"
-#endif 
+#endif
 
 #include "pebs.h"
 #include "timer.h"
@@ -66,6 +66,9 @@ extern char* nvmpath;
 #define HUGEPAGE_SIZE 	(2UL * 1024UL * 1024UL)
 #define GIGAPAGE_SIZE   (1024UL * 1024UL * 1024UL)
 #define PAGE_SIZE 	    HUGEPAGE_SIZE
+
+#define MAX_NVME_PAGES  (NVMSIZE_DEFAULT / PAGE_SIZE)
+#define MAX_DRAM_PAGES  (DRAMSIZE_DEFAULT / PAGE_SIZE)
 
 #define BASEPAGE_MASK	(BASEPAGE_SIZE - 1)
 #define HUGEPAGE_MASK	(HUGEPAGE_SIZE - 1)
@@ -109,6 +112,8 @@ extern FILE *statsf;
 #if defined (ALLOC_HEMEM)
   #define pagefault(...) pebs_pagefault(__VA_ARGS__)
   #define paging_init(...) pebs_init(__VA_ARGS__)
+  #define mmgr_add(...) pebs_add_page(__VA_ARGS__)
+  #define mmgr_find(...) pebs_find_page(__VA_ARGS__)
   #define mmgr_remove(...) pebs_remove_page(__VA_ARGS__)
   #define mmgr_stats(...) pebs_stats(__VA_ARGS__)
   #define policy_shutdown(...) pebs_shutdown(__VA_ARGS__)
@@ -155,6 +160,9 @@ enum pagetypes {
   NPAGETYPES
 };
 
+#define WINDOW_SIZE (10)
+#define NUM_NEIGHBOURS (5)
+
 struct hemem_page {
   uint64_t va;
   uint64_t devdax_offset;
@@ -162,15 +170,16 @@ struct hemem_page {
   enum pagetypes pt;
   volatile bool migrating;
   bool present;
-  bool written;
-  bool hot;
   uint64_t naccesses;
   uint64_t migrations_up, migrations_down;
   uint64_t local_clock;
-  bool ring_present;
-  uint64_t accesses[NPBUFTYPES];
-  uint64_t tot_accesses[NPBUFTYPES];
+  uint64_t accesses[NPBUFTYPES][2];
+  uint64_t s_accesses[NPBUFTYPES];
   pthread_mutex_t page_lock;
+
+  // Our system
+  float score;
+  uint64_t w[WINDOW_SIZE];
 
   UT_hash_handle hh;
   struct hemem_page *next, *prev;
@@ -212,7 +221,8 @@ uint64_t hemem_get_bits(struct hemem_page *page);
 void hemem_tlb_shootdown(uint64_t va);
 #endif
 
-struct hemem_page* get_hemem_page(uint64_t va);
+// Commented out because -- identical to find_page(uint64_t va)
+//struct hemem_page* get_hemem_page(uint64_t va);
 
 void hemem_print_stats();
 void hemem_clear_stats();
