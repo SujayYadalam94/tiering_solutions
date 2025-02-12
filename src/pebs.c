@@ -398,7 +398,9 @@ void calculate_scores(struct score_entry *scores)
 
 int continue_migration(struct hemem_page *hp, struct hemem_page *cp, uint32_t migrated_pages)
 {
-  // TODO: Implement a more sophisticated policy
+  if (migrated_pages >= 10) {
+    return 0;
+  }
   return 1;
 }
 
