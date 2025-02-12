@@ -160,7 +160,7 @@ enum pagetypes {
   NPAGETYPES
 };
 
-#define WINDOW_SIZE (10)
+#define WINDOW_SIZE (8)
 #define NUM_NEIGHBOURS (5)
 
 struct hemem_page {
@@ -172,14 +172,15 @@ struct hemem_page {
   bool present;
   uint64_t naccesses;
   uint64_t migrations_up, migrations_down;
-  uint64_t local_clock;
+  //uint64_t local_clock;
   uint64_t accesses[NPBUFTYPES][2];
-  uint64_t s_accesses[NPBUFTYPES];
   pthread_mutex_t page_lock;
 
   // Our system
+  uint64_t s_accesses[NPBUFTYPES];
+  uint32_t w[WINDOW_SIZE];
+  uint8_t w_size;
   float score;
-  uint64_t w[WINDOW_SIZE];
 
   UT_hash_handle hh;
   struct hemem_page *next, *prev;

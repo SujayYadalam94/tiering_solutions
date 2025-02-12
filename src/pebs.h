@@ -10,15 +10,16 @@
 #include "hemem.h"
 
 #define PEBS_KSWAPD_INTERVAL      (10000) // in us (10ms)
-#define PEBS_KSWAPD_MIGRATE_RATE  (10UL * 1024UL * 1024UL * 1024UL) // 10GB
-#define HOT_READ_THRESHOLD        (8)
-#define HOT_WRITE_THRESHOLD       (4)
-#define PEBS_COOLING_THRESHOLD    (10)
 
-#define HOT_RING_REQS_THRESHOLD   (1024*1024)
-#define COLD_RING_REQS_THRESHOLD  (128)
+//#define PEBS_KSWAPD_MIGRATE_RATE  (10UL * 1024UL * 1024UL * 1024UL) // 10GB
+//#define HOT_READ_THRESHOLD        (8)
+//#define HOT_WRITE_THRESHOLD       (4)
+//#define PEBS_COOLING_THRESHOLD    (10)
+
+//#define HOT_RING_REQS_THRESHOLD   (1024*1024)
+//#define COLD_RING_REQS_THRESHOLD  (128)
 #define CAPACITY                  (128*1024)
-#define COOLING_PAGES             (8192)
+//#define COOLING_PAGES             (8192)
 
 #ifndef C220G5
 #define PEBS_NPROCS 24

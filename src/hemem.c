@@ -24,7 +24,6 @@
 #include "hemem.h"
 #include "timer.h"
 #include "uthash.h"
-#include "utarray.h"
 #include "pebs.h"
 #include "spsc-ring.h"
 

@@ -31,11 +31,10 @@ pthread_mutex_t pages_lock = PTHREAD_MUTEX_INITIALIZER;
 KBTREE_INIT(kPagesTree, uint64_t, ktree_cmp)
 kbtree_t(kPagesTree) *pages_tree;
 
-
-static struct fifo_list dram_hot_list;
-static struct fifo_list dram_cold_list;
-static struct fifo_list nvm_hot_list;
-static struct fifo_list nvm_cold_list;
+//static struct fifo_list dram_hot_list;
+//static struct fifo_list dram_cold_list;
+//static struct fifo_list nvm_hot_list;
+//static struct fifo_list nvm_cold_list;
 
 static struct fifo_list dram_free_list;
 static struct fifo_list nvm_free_list;
@@ -53,11 +52,17 @@ static pthread_mutex_t add_pages_ring_lock = PTHREAD_MUTEX_INITIALIZER;
 static ring_handle_t l_neighbours;
 static ring_handle_t r_neighbours;
 
-volatile uint64_t g_version = 0;  // global version
-volatile uint8_t g_w_version = 0; // window version (either 0 or 1)
+volatile uint64_t global_version = 0;
+
+volatile uint8_t curr_access_version = 0;
+volatile uint8_t prev_access_version; // = 1 - curr_access_version
+
+volatile uint8_t curr_window_index = 0;
+volatile uint8_t prev_window_version;
 
 
-uint64_t global_clock = 0;
+
+//uint64_t global_clock = 0;
 
 uint64_t hemem_pages_cnt = 0;
 uint64_t other_pages_cnt = 0;
@@ -181,7 +186,7 @@ void *pebs_scan_thread()
               page = pebs_find_page(pfn);
               if (page != NULL) {
                 if (page->va != 0) {
-                  page->accesses[j][g_w_version]++;
+                  page->accesses[j][curr_access_version]++;
                 }
                 hemem_pages_cnt++;
               } else {
@@ -264,7 +269,6 @@ int sort_entry_cmp(const void *a, const void *b) {
   return (_a.score > _b.score) ? -1 : (_a.score < _b.score);
 }
 
-
 void reset_page_access_fields(struct hemem_page *page)
 {
   for (int i = 0; i < NPBUFTYPES; i++) {
@@ -274,11 +278,34 @@ void reset_page_access_fields(struct hemem_page *page)
   }
   for (int i = 0; i < WINDOW_SIZE; i++) {
     page->w[i] = 0;
+    page->w_size = 0;
   }
 }
 
+inline uint32_t compute_window_value(struct hemem_page* page) {
+  // TODO: Weight the read/write accesses differently
+  return page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD] + page->s_accesses[WRITE];
+}
 
-void calculate_scores(struct score_entry *scores, uint64_t w_idx, uint8_t old_w_version)
+inline float compute_score(struct hemem_page *page) {
+  // Update the score (average of the window)
+  // TODO: Use a weighted average instead of a simple average
+  int index = curr_window_index;
+  int w_size = page->w_size;
+
+  float score = 0;
+  while (w_size > 0) {
+    score += page->w[index];
+    index = (index - 1) % WINDOW_SIZE;
+    w_size--;
+  }
+  score /= page->w_size;
+
+  return score;
+}
+
+
+void calculate_scores(struct score_entry *scores)
 {
   struct hemem_page *page, *p;
   size_t idx, n_idx, pages_cnt;
@@ -297,6 +324,7 @@ void calculate_scores(struct score_entry *scores, uint64_t w_idx, uint8_t old_w_
       kb_itr_valid(&itr);
       kb_itr_next(kPagesTree, pages_tree, &itr), idx++
   ) {
+    assert(idx < pages_cnt);
     page = (struct hemem_page*)pebs_find_page(kb_itr_key(uint64_t, &itr));
 
     // Pop left neighbour(s)
@@ -333,31 +361,26 @@ void calculate_scores(struct score_entry *scores, uint64_t w_idx, uint8_t old_w_
     for (size_t nj = 0; nj < ring_buf_size(l_neighbours); nj++) {
       for (int i = 0; i < NPBUFTYPES; i++) {
         p = (struct hemem_page*)ring_buf_peek(l_neighbours, nj);
-        page->s_accesses[i] += p->accesses[i][old_w_version];
+        page->s_accesses[i] += p->accesses[i][prev_access_version];
       }
     }
     for (size_t nj = 0; nj < ring_buf_size(r_neighbours); nj++) {
       for (int i = 0; i < NPBUFTYPES; i++) {
         p = (struct hemem_page*)ring_buf_peek(r_neighbours, nj);
-        page->s_accesses[i] += p->accesses[i][old_w_version];
+        page->s_accesses[i] += p->accesses[i][prev_access_version];
       }
     }
     for (int i = 0; i < NPBUFTYPES; i++) {
-      page->s_accesses[i] += page->accesses[i][old_w_version];
+      page->s_accesses[i] += page->accesses[i][prev_access_version];
       page->s_accesses[i] /= (ring_buf_size(l_neighbours) + ring_buf_size(r_neighbours) + 1);
     }
+    // Update the window with the smoothed access count
+    page->w[curr_window_index] = compute_window_value(page);
+    page->w_size = (page->w_size < WINDOW_SIZE) ? page->w_size + 1 : WINDOW_SIZE;
 
-    // Update the window
-    page->w[w_idx] = page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD] + page->s_accesses[WRITE];
-
-    // Update the score (average of the window)
-    // TODO: Use a weighted average instead of a simple average
-    page->score = 0;
-    for (int i = 0; i < WINDOW_SIZE; i++) {
-      page->score += page->w[i];
-    }
-    page->score /= WINDOW_SIZE;
-    scores[idx] = (struct score_entry){page, page->score};
+    // Calculate the hotness score
+    page->score = compute_score(page);
+    scores[idx] = (struct score_entry){ page, page->score };
 
     // Append this page to the left neighbours
     ring_buf_put(l_neighbours, (uint64_t*)page);
@@ -373,7 +396,13 @@ void calculate_scores(struct score_entry *scores, uint64_t w_idx, uint8_t old_w_
   }
 }
 
-void promote_to_free_dram_page (struct hemem_page *p, struct hemem_page *np)
+int continue_migration(struct hemem_page *hp, struct hemem_page *cp, uint32_t migrated_pages)
+{
+  // TODO: Implement a more sophisticated policy
+  return 1;
+}
+
+void promote_to_free_dram_page(struct hemem_page *p, struct hemem_page *np)
 {
   uint64_t old_offset;
 
@@ -402,7 +431,7 @@ void promote_to_free_dram_page (struct hemem_page *p, struct hemem_page *np)
   enqueue_fifo(&nvm_free_list, np);
 }
 
-void demote_to_free_nvm_page (struct hemem_page *cp, struct hemem_page *np)
+void demote_to_free_nvm_page(struct hemem_page *cp, struct hemem_page *np)
 {
   uint64_t old_offset;
 
@@ -427,10 +456,10 @@ void demote_to_free_nvm_page (struct hemem_page *cp, struct hemem_page *np)
   np->present = false;
   reset_page_access_fields(np);
 
+  // Don't add the page to the free list because
+  // it will be used immediately after
   //enqueue_fifo(&dram_free_list, np);
 }
-
-
 
 void *pebs_policy_thread()
 {
@@ -446,8 +475,7 @@ void *pebs_policy_thread()
   double migrate_time;
   struct hemem_page* page = NULL;
 
-  uint64_t w_idx, pages_cnt;
-  uint8_t old_w_version;
+  uint64_t pages_cnt;
   struct score_entry *scores;
 
   // Use a dedicated CPU core for the policy thread
@@ -463,11 +491,12 @@ void *pebs_policy_thread()
   for (;;) {
     gettimeofday(&start, NULL);
 
+    // Update the window index (circular buffer)
+    curr_window_index = global_version % WINDOW_SIZE;
     // "Bump" the global version to indicate that we are starting a new interval
-    w_idx = g_version % WINDOW_SIZE;
-    old_w_version = g_w_version;
-    g_version++;
-    g_w_version = !g_w_version;
+    global_version++;
+    prev_access_version = curr_access_version;
+    curr_access_version = 1 - curr_access_version;
     __sync_synchronize();
 
     // free pages using free page ring buffer
@@ -505,8 +534,9 @@ void *pebs_policy_thread()
     }
     pages_cnt = kb_size(pages_tree);
 
+    // TODO: Allocate mem for scores only once
     scores = (struct score_entry*)malloc(pages_cnt * sizeof(struct score_entry));
-    calculate_scores(scores, w_idx, old_w_version);
+    calculate_scores(scores);
 
     // Sort the scores (in descending order)
     qsort(scores, pages_cnt, sizeof(float), sort_entry_cmp);
@@ -527,10 +557,10 @@ void *pebs_policy_thread()
       }
     }*/
 
-   // Perform migration
+    // Perform migration
     size_t promote_idx = 0;
     size_t demote_idx = pages_cnt - 1;
-
+    size_t migrated_pages = 0;
 
     while (promote_idx < demote_idx) {
       // find the hotest NVM page that needs to be promoted
@@ -548,6 +578,7 @@ void *pebs_policy_thread()
         assert(!(np->present));
         promote_to_free_dram_page(p, np);
         migrated_bytes += pt_to_pagesize(p->pt);
+        migrated_pages++;
         continue;
       }
 
@@ -559,7 +590,9 @@ void *pebs_policy_thread()
         break;
       }
 
-      // Check scores against the threshold
+      if (!continue_migration(scores[promote_idx].page, scores[demote_idx].page, migrated_pages)) {
+        break;
+      }
 
       cp = scores[demote_idx].page;
       assert(cp->va > 0);
@@ -571,9 +604,12 @@ void *pebs_policy_thread()
       // move the cold DRAM page to NVM
       demote_to_free_nvm_page(cp, np);
       migrated_bytes += pt_to_pagesize(cp->pt);
-      // move the hot NVM page to DRAM
+
+      // move the hot NVM page to the (now-free) DRAM page
       promote_to_free_dram_page(p, cp);
       migrated_bytes += pt_to_pagesize(p->pt);
+
+      migrated_pages += 2;
 
       promote_idx++;
       demote_idx--;
@@ -714,7 +750,7 @@ static struct hemem_page* pebs_allocate_page()
     assert(!page->present);
 
     page->present = true;
-    enqueue_fifo(&dram_cold_list, page);
+    //enqueue_fifo(&dram_cold_list, page);
 
     gettimeofday(&end, NULL);
     LOG_TIME("mem_policy_allocate_page: %f s\n", elapsed(&start, &end));
@@ -729,8 +765,7 @@ static struct hemem_page* pebs_allocate_page()
     assert(!page->present);
 
     page->present = true;
-    enqueue_fifo(&nvm_cold_list, page);
-
+    //enqueue_fifo(&nvm_cold_list, page);
 
     gettimeofday(&end, NULL);
     LOG_TIME("mem_policy_allocate_page: %f s\n", elapsed(&start, &end));
@@ -862,10 +897,10 @@ void pebs_init(void)
     enqueue_fifo(&nvm_free_list, p);
   }
 
-  pthread_mutex_init(&(dram_hot_list.list_lock), NULL);
-  pthread_mutex_init(&(dram_cold_list.list_lock), NULL);
-  pthread_mutex_init(&(nvm_hot_list.list_lock), NULL);
-  pthread_mutex_init(&(nvm_cold_list.list_lock), NULL);
+  //pthread_mutex_init(&(dram_hot_list.list_lock), NULL);
+  //pthread_mutex_init(&(dram_cold_list.list_lock), NULL);
+  //pthread_mutex_init(&(nvm_hot_list.list_lock), NULL);
+  //pthread_mutex_init(&(nvm_cold_list.list_lock), NULL);
 
   // Initialize the UT_array for tracking active pages
   pages_tree = kb_init(kPagesTree, KB_DEFAULT_SIZE);
@@ -918,11 +953,12 @@ void pebs_shutdown()
 
 void pebs_stats()
 {
-  LOG_STATS("dram_hot_list:[%ld] dram_cold_list:[%ld] nvm_hot_list:[%ld] nvm_cold_list:[%ld] samples:[%ld/%ld] throttle/unthrottle_cnt:[%ld/%ld] cools:[%ld]\n",
-          dram_hot_list.numentries,
-          dram_cold_list.numentries,
-          nvm_hot_list.numentries,
-          nvm_cold_list.numentries,
+  //LOG_STATS("dram_hot_list:[%ld] dram_cold_list:[%ld] nvm_hot_list:[%ld] nvm_cold_list:[%ld] samples:[%ld/%ld] throttle/unthrottle_cnt:[%ld/%ld] cools:[%ld]\n",
+  LOG_STATS("samples:[%ld/%ld] throttle/unthrottle_cnt:[%ld/%ld] cools:[%ld]\n",
+          //dram_hot_list.numentries,
+          //dram_cold_list.numentries,
+          //nvm_hot_list.numentries,
+          //nvm_cold_list.numentries,
           hemem_pages_cnt,
           total_pages_cnt,
           throttle_cnt,
