@@ -20,6 +20,7 @@
 #include "timer.h"
 #include "spsc-ring.h"
 
+#include "kdq.h"
 #include "kbtree.h"
 #include "uthash.h"
 
@@ -27,8 +28,20 @@
 struct hemem_page *pages = NULL;
 pthread_mutex_t pages_lock = PTHREAD_MUTEX_INITIALIZER;
 
-#define ktree_cmp(a,b) ( (a) < (b) ? -1 : (a) > (b) )
-KBTREE_INIT(kPagesTree, uint64_t, ktree_cmp)
+//#define ktree_cmp(a,b) ((a) < (b.va) ? -1 : (a.va) > (b.va))
+//#define ktree_cmp(a,b) (                                                      \
+  ((((struct hemem_page*)a)->va) < (((struct hemem_page*)b)->va))             \
+    ? -1 : ((((struct hemem_page*)a)->va) > (((struct hemem_page*)b)->va)) )
+//KBTREE_INIT(kPagesTree, struct hemem_page*, ktree_cmp)
+
+typedef struct {
+  struct hemem_page* page;
+  uint64_t va;
+} page_tree_entry_t;
+
+#define ktree_cmp(a,b) (((a).va) < ((b).va) ? -1 : ((a).va) > ((b).va))
+KBTREE_INIT(kPagesTree, page_tree_entry_t, ktree_cmp);
+
 kbtree_t(kPagesTree) *pages_tree;
 
 struct score_entry *scores;
@@ -45,10 +58,23 @@ static struct fifo_list nvm_free_list;
 //static ring_handle_t demote_page_ring;
 
 // Pages to be freed/added in the next interval
+typedef struct mod_page {
+  struct hemem_page* page;
+  bool free;
+} mod_page_t;
+static_assert(sizeof(mod_page_t) == 16);
+
+KDQ_INIT(mod_page_t);
+
+static kdq_t(mod_page_t) *mod_page_dq;
+static pthread_mutex_t mod_page_dq_lock = PTHREAD_MUTEX_INITIALIZER;
+
+/*
 static ring_handle_t free_page_ring;
 static pthread_mutex_t free_page_ring_lock = PTHREAD_MUTEX_INITIALIZER;
 static ring_handle_t add_pages_ring;
 static pthread_mutex_t add_pages_ring_lock = PTHREAD_MUTEX_INITIALIZER;
+*/
 
 // Neighbour buffers
 static ring_handle_t l_neighbours;
@@ -202,8 +228,7 @@ void *pebs_scan_thread()
   	      break;
         case PERF_RECORD_THROTTLE:
         case PERF_RECORD_UNTHROTTLE:
-          //fprintf(stderr, "%s event!\n",
-          //   ph->type == PERF_RECORD_THROTTLE ? "THROTTLE" : "UNTHROTTLE");
+          //fprintf(stderr, "%s event!\n", ph->type == PERF_RECORD_THROTTLE ? "THROTTLE" : "UNTHROTTLE");
           if (ph->type == PERF_RECORD_THROTTLE) {
               throttle_cnt++;
           }
@@ -308,36 +333,49 @@ static inline float compute_score(struct hemem_page *page) {
 
 static size_t calculate_scores(struct score_entry *scores)
 {
-  struct hemem_page *page, *p;
-  size_t idx, n_idx, s_idx, pages_cnt;
-  uint64_t n_va;
-  kbitr_t itr;
+  struct ptimer window_timer, smooth_timer;
+  ptimer_init(&window_timer, "Scores (window)");
+  ptimer_init(&smooth_timer, "Scores (smooth)");
 
-  // Smoothing phase
+  struct hemem_page *page, *p;
+  size_t n_idx;
+  uint64_t n_va, va;
+  kbitr_t itr, n_itr;
+  page_tree_entry_t entry, *entry_ptr, *n_entry_ptr;
+
+  size_t idx = 0;
+  size_t s_idx = 0;
+  size_t pages_cnt = kb_size(pages_tree);
+
+  // Clear ring buffers
   ring_buf_reset(l_neighbours);
   ring_buf_reset(r_neighbours);
 
-  idx = 0;
-  s_idx = 0;
-  pages_cnt = kb_size(pages_tree);
+  // Init the (right) neightbour iterator
+  kb_itr_first(kPagesTree, pages_tree, &n_itr);
+  assert(kb_itr_valid(&n_itr));
+  kb_itr_next(kPagesTree, pages_tree, &n_itr);
 
+  // Iterate over the pages, in ascending order of VA
   kb_itr_first(kPagesTree, pages_tree, &itr);
   for (;
       kb_itr_valid(&itr);
       kb_itr_next(kPagesTree, pages_tree, &itr), idx++
   ) {
     assert(idx < pages_cnt);
-    page = (struct hemem_page*)pebs_find_page(kb_itr_key(uint64_t, &itr));
+
+    entry_ptr = &kb_itr_key(page_tree_entry_t, &itr);
+    page = entry_ptr->page;
     if (page == NULL || !page->present) {
       continue;
     }
-    //printf("idx: %lu, page->va: %lu\n", idx, page->va);
 
+    ptimer_continue(&smooth_timer);
     // Pop left neighbour(s)
     //printf("-> LEFT NEIGHBOURS\n");
     while(ring_buf_size(l_neighbours) > 0) {
       n_idx = idx - ring_buf_size(l_neighbours);
-      p = (struct hemem_page*)ring_buf_peek_tail(l_neighbours, 0); // Peek leftmost neighbour
+      p = (struct hemem_page*)ring_buf_peek_tail(l_neighbours, 0);
       if (p->va != page->va - ((idx - n_idx) * HUGEPAGE_SIZE)) {
         ring_buf_get(l_neighbours);
       } else {
@@ -353,29 +391,38 @@ static size_t calculate_scores(struct score_entry *scores)
     //printf("->sz: %lu, n_idx: %lu, pages_cnt: %lu\n", ring_buf_size(r_neighbours), n_idx, pages_cnt);
     while(ring_buf_size(r_neighbours) < NUM_NEIGHBOURS) {
       //printf("sz: %lu, n_idx: %lu, pages_cnt: %lu\n", ring_buf_size(r_neighbours), n_idx, pages_cnt);
-      if (n_idx >= pages_cnt) {
+
+      if (!kb_itr_valid(&n_itr)) {
         break;
       }
+
       // Check if the next neighbour exists
       n_va = page->va + ((n_idx - idx) * HUGEPAGE_SIZE);
-      p = (struct hemem_page*)pebs_find_page(n_va);
-      if (p == NULL) {
+      n_entry_ptr = &kb_itr_key(page_tree_entry_t, &n_itr);
+      p = n_entry_ptr->page;
+      assert(p != NULL);
+      assert(p->va = n_entry_ptr->va);
+      if (p->va != n_va) {
         break;
       }
+
+      //printf("p: %p [%lu], va: %lu\n", p, p, p->va);
       // Add neighbour to right neighbours
       ring_buf_put(r_neighbours, (uint64_t*)p);
+
       //printf("A sz: %lu, n_idx: %lu, pages_cnt: %lu\n", ring_buf_size(r_neighbours), n_idx, pages_cnt);
+      kb_itr_next(kPagesTree, pages_tree, &n_itr);
       n_idx++;
     }
     //printf("r_neighbours size: %lu\n", ring_buf_size(r_neighbours));
     assert(ring_buf_size(r_neighbours) >= 0 && ring_buf_size(r_neighbours) <= NUM_NEIGHBOURS);
 
-    // printf("Before smoothing\n");
+    //printf("Before smoothing\n");
 
     // Calculate smoothed access count
-    for (int i = 0; i < NPBUFTYPES; i++) {
-      page->s_accesses[i] = 0;
-    }
+    page->s_accesses[DRAMREAD] = 0;
+    page->s_accesses[NVMREAD] = 0;
+    page->s_accesses[WRITE] = 0;
 
     //printf("Left neighbours\n");
     for (size_t nj = 0; nj < ring_buf_size(l_neighbours); nj++) {
@@ -387,7 +434,6 @@ static size_t calculate_scores(struct score_entry *scores)
         page->s_accesses[i] += p->accesses[i][prev_access_version];
       }
     }
-
     //printf("Right neighbours\n");
     for (size_t nj = 0; nj < ring_buf_size(r_neighbours); nj++) {
       //printf("nj: %lu, size: %lu\n", nj, ring_buf_size(r_neighbours));
@@ -398,13 +444,13 @@ static size_t calculate_scores(struct score_entry *scores)
         page->s_accesses[i] += p->accesses[i][prev_access_version];
       }
     }
-
-    //printf("After smoothing\n");
-
     for (int i = 0; i < NPBUFTYPES; i++) {
       page->s_accesses[i] += page->accesses[i][prev_access_version];
       page->s_accesses[i] /= (ring_buf_size(l_neighbours) + ring_buf_size(r_neighbours) + 1);
     }
+    //printf("After smoothing\n");
+    ptimer_stop(&smooth_timer);
+
     // Update the window with the smoothed access count
     page->w[curr_window_index] = compute_window_value(page);
     page->w_size = (page->w_size < WINDOW_SIZE) ? page->w_size + 1 : WINDOW_SIZE;
@@ -426,12 +472,14 @@ static size_t calculate_scores(struct score_entry *scores)
       ring_buf_get(r_neighbours);
     }
   }
+  ptimer_print(&smooth_timer);
 
   return s_idx;
 }
 
 int continue_migration(struct hemem_page *hp, struct hemem_page *cp, uint32_t migrated_pages)
 {
+  //if (hp->score < 1.20 * cp->score) {
   if (migrated_pages >= 10) {
     return 0;
   }
@@ -518,6 +566,8 @@ void *pebs_policy_thread()
   double migrate_time_us;
   struct hemem_page* page = NULL;
 
+  page_tree_entry_t entry;
+
   size_t pages_cnt, s_pages_cnt;
 
   // Use a dedicated CPU core for the policy thread
@@ -547,35 +597,35 @@ void *pebs_policy_thread()
 
     // free pages using free page ring buffer
     ptimer_start(&tree_timer);
-    while(!ring_buf_empty(free_page_ring)) {
-      page = (struct hemem_page*)ring_buf_get(free_page_ring);
-      if (page == NULL) {
-        continue;
+    while (true) {
+      mod_page_t* mp;
+      pthread_mutex_lock(&mod_page_dq_lock);
+      if (kdq_size(mod_page_dq) == 0) {
+        pthread_mutex_unlock(&mod_page_dq_lock);
+        break;
       }
+      mp = kdq_shift(mod_page_t, mod_page_dq);
+      pthread_mutex_unlock(&mod_page_dq_lock);
 
-      // Remove page from pages tree (if removed)
-      if (pebs_find_page(page->va) == NULL) {
-        kb_del(kPagesTree, pages_tree, page->va);
-      }
+      page = mp->page;
 
-      // Add page to correct free list
-      if (page->in_dram) {
-        enqueue_fifo(&dram_free_list, page);
-      }
-      else {
-        enqueue_fifo(&nvm_free_list, page);
-      }
+      //fprintf(stderr, "Processing page %lu [va: %lu]\n", page, page->va);
+      entry.page = page;
+      entry.va = page->va;
 
-      reset_page_access_fields(page);
-    }
-    // add pages to pages tree
-    while(!ring_buf_empty(add_pages_ring)) {
-      page = (struct hemem_page*)ring_buf_get(add_pages_ring);
-      if (page == NULL) {
-          continue;
-      }
-      if (pebs_find_page(page->va) != NULL) {
-        kb_put(kPagesTree, pages_tree, page->va);
+      if (mp->free) {
+        kb_del(kPagesTree, pages_tree, entry);
+
+        // Add page to correct free list
+        if (page->in_dram) {
+          enqueue_fifo(&dram_free_list, page);
+        } else {
+          enqueue_fifo(&nvm_free_list, page);
+        }
+        reset_page_access_fields(page);
+
+      } else {
+        kb_put(kPagesTree, pages_tree, entry);
       }
     }
     ptimer_stop_and_print(&tree_timer);
@@ -596,10 +646,13 @@ void *pebs_policy_thread()
     ptimer_reset(&id_timer);
     ptimer_reset(&migrate_timer);
 
-    size_t promote_idx = 0;
-    size_t demote_idx = s_pages_cnt - 1;
+    int64_t promote_idx = 0;
+    int64_t demote_idx = s_pages_cnt - 1;
     size_t migrated_pages = 0;
 
+    //printf("Promote idx: %lu, Demote idx: %lu\n", promote_idx, demote_idx);
+
+    migrated_bytes = 0;
     while (promote_idx < demote_idx) {
       // find the hotest NVM page that needs to be promoted
       ptimer_continue(&id_timer);
@@ -610,7 +663,7 @@ void *pebs_policy_thread()
         break;
       }
       p = scores[promote_idx].page;
-      //printf("Promoting page %p [idx %lu] with score %f\n", p, promote_idx, scores[promote_idx].score);
+      //printf("Promoting page %lu [idx %lu] with score %f\n", p, promote_idx, scores[promote_idx].score);
       assert(!p->in_dram);
 
       // try to find a free DRAM page
@@ -643,7 +696,7 @@ void *pebs_policy_thread()
       if (!continue_migration(p, cp, migrated_pages)) {
         break;
       }
-      //printf("Migrating page %p to %p\n", cp, p);
+      //printf("Promote score %f, demote score %f\n", scores[promote_idx].score, scores[demote_idx].score);
 
       // try to find a free NVM page
       np = dequeue_fifo(&nvm_free_list);
@@ -672,10 +725,12 @@ void *pebs_policy_thread()
 
     ptimer_print(&id_timer);
     ptimer_print(&migrate_timer);
-
     ptimer_stop_and_print(&loop_timer);
+
+    printf("Migrated %lu pages (%lu bytes) in this interval\n", migrated_pages, migrated_bytes);
     migrate_time_us = loop_timer.elapsed_us;
     if (migrate_time_us < (1.0 * PEBS_KSWAPD_INTERVAL)) {
+      //printf("%lu", ((uint64_t)((1.0 * PEBS_KSWAPD_INTERVAL) - migrate_time_us)));
       usleep((uint64_t)((1.0 * PEBS_KSWAPD_INTERVAL) - migrate_time_us));
     }
   }
@@ -738,6 +793,8 @@ void pebs_add_page(struct hemem_page *page)
   assert(page != NULL);
   LOG("pebs: add page, put this page into add_pages_ring: va: 0x%lx\n", page->va);
 
+  //printf("Adding page %lu to the add_pages_ring [va: %lu]\n", (uint64_t)page, page->va);
+
   // Add to the hash table
   pthread_mutex_lock(&pages_lock);
   HASH_FIND(hh, pages, &(page->va), sizeof(uint64_t), p);
@@ -746,10 +803,10 @@ void pebs_add_page(struct hemem_page *page)
   pthread_mutex_unlock(&pages_lock);
 
   // Add to the new pages ring
-  pthread_mutex_lock(&add_pages_ring_lock);
-  while (ring_buf_full(add_pages_ring));
-  ring_buf_put(add_pages_ring, (uint64_t*)page);
-  pthread_mutex_unlock(&add_pages_ring_lock);
+  pthread_mutex_lock(&mod_page_dq_lock);
+  mod_page_t mp = (mod_page_t){ .page = page, .free = false };
+  kdq_push(mod_page_t, mod_page_dq, mp);
+  pthread_mutex_unlock(&mod_page_dq_lock);
 }
 
 struct hemem_page* pebs_find_page(uint64_t va)
@@ -766,16 +823,17 @@ void pebs_remove_page(struct hemem_page *page)
   assert(page != NULL);
   LOG("pebs: remove page, put this page into free_page_ring: va: 0x%lx\n", page->va);
 
+  //printf("Removing page %lu from the add_pages_ring [va: %lu]\n", (uint64_t)page, page->va);
+
   // Remove page from hash table
   pthread_mutex_lock(&pages_lock);
   HASH_DEL(pages, page);
   pthread_mutex_unlock(&pages_lock);
 
-  // Add to the free page ring buffer
-  pthread_mutex_lock(&free_page_ring_lock);
-  while (ring_buf_full(free_page_ring));
-  ring_buf_put(free_page_ring, (uint64_t*)page);
-  pthread_mutex_unlock(&free_page_ring_lock);
+  pthread_mutex_lock(&mod_page_dq_lock);
+  mod_page_t mp = (mod_page_t){ .page = page, .free = true};
+  kdq_push(mod_page_t, mod_page_dq, mp);
+  pthread_mutex_unlock(&mod_page_dq_lock);
 
   // We set page->present to false so that
   // the migration thread does not migrate this page
@@ -863,12 +921,7 @@ void pebs_init(void)
   scores = (struct score_entry*)malloc((MAX_NVME_PAGES + MAX_DRAM_PAGES) * sizeof(struct score_entry));
 
   // Initialize the free/add ring buffers
-  buffer = (uint64_t**)malloc(sizeof(uint64_t*) * CAPACITY);
-  assert(buffer);
-  add_pages_ring = ring_buf_init(buffer, CAPACITY);
-  buffer = (uint64_t**)malloc(sizeof(uint64_t*) * CAPACITY);
-  assert(buffer);
-  free_page_ring = ring_buf_init(buffer, CAPACITY);
+  mod_page_dq = kdq_init(mod_page_t);
 
   // Initialize the neighbour ring buffers
   buffer = (uint64_t**)malloc(sizeof(uint64_t*) * (NUM_NEIGHBOURS + 2));
