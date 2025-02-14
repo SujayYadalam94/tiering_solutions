@@ -9,6 +9,9 @@
 
 #include "hemem.h"
 
+#define WINDOW_SIZE (8)
+#define NUM_NEIGHBOURS (4)
+
 #define PEBS_KSWAPD_INTERVAL      (100000) // in us (10ms)
 
 //#define PEBS_KSWAPD_MIGRATE_RATE  (10UL * 1024UL * 1024UL * 1024UL) // 10GB
@@ -20,6 +23,8 @@
 //#define COLD_RING_REQS_THRESHOLD  (128)
 #define CAPACITY                  (128*1024)
 //#define COOLING_PAGES             (8192)
+
+//#define PAGE_ACCESS_SMOOTHING
 
 #ifndef C220G5
 #define PEBS_NPROCS 24
@@ -36,8 +41,7 @@
 #define SCANNING_THREAD_CPU (FAULT_THREAD_CPU + 1)
 #define MIGRATION_THREAD_CPU (SCANNING_THREAD_CPU + 1)
 
-
-#define COOL_IN_PLACE
+//#define COOL_IN_PLACE
 //#define SAMPLE_BASED_COOLING
 //#define SAMPLE_COOLING_THRESHOLD 10000
 

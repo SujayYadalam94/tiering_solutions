@@ -160,9 +160,6 @@ enum pagetypes {
   NPAGETYPES
 };
 
-#define WINDOW_SIZE (8)
-#define NUM_NEIGHBOURS (5)
-
 struct hemem_page {
   uint64_t va;
   uint64_t devdax_offset;
@@ -172,14 +169,12 @@ struct hemem_page {
   bool present;
   uint64_t naccesses;
   uint64_t migrations_up, migrations_down;
-  //uint64_t local_clock;
   uint64_t accesses[NPBUFTYPES][2];
   pthread_mutex_t page_lock;
 
   // Our system
   uint32_t s_accesses[NPBUFTYPES];
   uint32_t w[WINDOW_SIZE];
-  uint8_t w_size;
   float score;
 
   UT_hash_handle hh;
