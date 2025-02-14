@@ -9,8 +9,16 @@
 
 #include "hemem.h"
 
+#define LOG_STREAM (stdout)
+
 #define WINDOW_SIZE (8)
 #define NUM_NEIGHBOURS (4)
+
+#define HIST_BIAS {.125 , .125 , .125 , .125 , .125 , .125 , .125 , .125 }
+#define RECN_BIAS {.3675, .1837, .1225, .0919, .0735, .0612, .0525, .0459}
+
+// 2/(2^i + 1)
+#define W_EWMA_ALPHA {.6667, .4, .2222, .1176, 0.0606, 0.0308, 0.0155, 0.0078}
 
 #define PEBS_KSWAPD_INTERVAL      (100000) // in us (10ms)
 

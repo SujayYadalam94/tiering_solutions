@@ -174,7 +174,7 @@ struct hemem_page {
 
   // Our system
   uint32_t s_accesses[NPBUFTYPES];
-  uint32_t w[WINDOW_SIZE];
+  float w[WINDOW_SIZE];
   float score;
 
   UT_hash_handle hh;

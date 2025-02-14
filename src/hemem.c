@@ -1169,7 +1169,6 @@ uint64_t hemem_get_bits(struct hemem_page *page)
 
 void hemem_print_stats()
 {
-  /*
   LOG_STATS("mem_allocated: [%lu]\tdram_small_allocation_bytes: [%lu]\tpages_allocated: [%lu]\tmissing_faults_handled: [%lu]\tbytes_migrated: [%lu]\tmigrations_up: [%lu]\tmigrations_down: [%lu]\tmigration_waits: [%lu]\n",
                mem_allocated,
                dram_small_allocation_bytes,
@@ -1180,7 +1179,6 @@ void hemem_print_stats()
                migrations_down,
                migration_waits);
    mmgr_stats();
-   */
 }
 
 

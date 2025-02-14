@@ -14,6 +14,7 @@
 #include <sys/mman.h>
 #include <sched.h>
 #include <sys/ioctl.h>
+#include <float.h>
 
 #include "hemem.h"
 #include "pebs.h"
@@ -76,9 +77,9 @@ static ring_handle_t add_pages_ring;
 static pthread_mutex_t add_pages_ring_lock = PTHREAD_MUTEX_INITIALIZER;
 */
 
-static float w_ewma_alpha[WINDOW_SIZE];
-static uint8_t hist_bias[WINDOW_SIZE];
-static uint8_t recn_bias[WINDOW_SIZE];
+static const float w_ewma_alpha[WINDOW_SIZE]= W_EWMA_ALPHA;
+static const float hist_bias[WINDOW_SIZE] = HIST_BIAS;
+static const float recn_bias[WINDOW_SIZE] = RECN_BIAS;
 
 // Neighbour buffers
 static ring_handle_t l_neighbours;
@@ -94,6 +95,8 @@ volatile uint8_t prev_window_version;
 volatile uint32_t nvm_page_accesses_curr = 0;
 uint32_t nvm_page_accesses_prev;
 double nvm_page_ewma = 0.0;
+
+float min_score, max_score;
 
 //uint64_t global_clock = 0;
 
@@ -233,7 +236,7 @@ void *pebs_scan_thread()
   	      break;
         case PERF_RECORD_THROTTLE:
         case PERF_RECORD_UNTHROTTLE:
-          //fprintf(stderr, "%s event!\n", ph->type == PERF_RECORD_THROTTLE ? "THROTTLE" : "UNTHROTTLE");
+          fprintf(stderr, "%s event!\n", ph->type == PERF_RECORD_THROTTLE ? "THROTTLE" : "UNTHROTTLE");
           if (ph->type == PERF_RECORD_THROTTLE) {
               throttle_cnt++;
           }
@@ -322,7 +325,7 @@ static inline void update_window(struct hemem_page* page) {
 static inline float compute_score(const struct hemem_page *page, const uint8_t *bias) {
   // Update the score (average of the window)
   // TODO: Use a weighted average instead of a simple average
-  uint32_t score = 0;
+  float score = 0;
   for (int i = 0; i < WINDOW_SIZE; i++) {
     score += page->w[i] * bias[i];
   }
@@ -482,6 +485,9 @@ static size_t calculate_scores(struct score_entry *scores_out, const uint8_t *bi
     page->score = compute_score(page, bias);
     scores_out[s_idx++] = (struct score_entry){ page, page->score };
 
+    min_score = (page->score < min_score) ? page->score : min_score;
+    max_score = (page->score > max_score) ? page->score : max_score;
+
     fprintf(fs, "%lu,%f|", page->va, page->score);
 #endif
 
@@ -493,7 +499,14 @@ static size_t calculate_scores(struct score_entry *scores_out, const uint8_t *bi
 
 int continue_migration(struct hemem_page *hp, struct hemem_page *cp, uint32_t migrated_pages)
 {
-  //if (hp->score < 1.20 * cp->score) {
+  float hot_score = (hp->score - min_score) / (max_score - min_score);
+  float cold_score = (cp->score - min_score) / (max_score - min_score);
+  //if (hp->score < 2 * cp->score) {
+  //if ((hot_score < 2 * cold_score)) {
+  if ((hot_score - cold_score) < 0.1) {
+    return 0;
+  }
+
   if (migrated_pages >= 10) {
     return 0;
   }
@@ -600,9 +613,9 @@ void *pebs_policy_thread()
   for (;;) {
     ptimer_start(&loop_timer);
 
-    fprintf(stderr, "\n========================================\n");
-    fprintf(stderr, "Starting new interval\n");
-    fprintf(stderr, "========================================\n");
+    fprintf(LOG_STREAM, "\n========================================\n");
+    fprintf(LOG_STREAM, "Starting new interval\n");
+    fprintf(LOG_STREAM, "========================================\n");
 
     // Update the window index (circular buffer)
     curr_window_index = global_version % WINDOW_SIZE;
@@ -621,7 +634,8 @@ void *pebs_policy_thread()
     nvm_page_ewma = 0.9 * nvm_page_ewma + 0.1 * nvm_page_accesses_prev;
     // Update the bias
     uint8_t* bias = (ratio > 1.0) ? recn_bias : hist_bias;
-    printf("NVM page accesses: %u, NVM page accesses EWMA: %f, Ratio: %f\n", nvm_page_accesses_prev, nvm_page_ewma, ratio);
+    fprintf(LOG_STREAM, "NVM page accesses: %u, NVM page accesses EWMA: %f, Ratio: %f\n",
+            nvm_page_accesses_prev, nvm_page_ewma, ratio);
 
     // free pages using free page ring buffer
     ptimer_start(&tree_timer);
@@ -661,8 +675,12 @@ void *pebs_policy_thread()
     // Calculate the scores
     ptimer_start(&score_timer);
     pages_cnt = kb_size(pages_tree);
+    min_score = FLT_MAX;
+    max_score = 0;
     s_pages_cnt = calculate_scores(scores, bias);
-    fprintf(stderr, "pages_cnt: %lu, s_pages_cnt: %lu\n", pages_cnt, s_pages_cnt);
+
+    fprintf(LOG_STREAM, "min_score: %.3f, max_score: %.3f\n", min_score, max_score);
+    fprintf(LOG_STREAM, "pages_cnt: %lu, s_pages_cnt: %lu\n", pages_cnt, s_pages_cnt);
     ptimer_stop_and_print(&score_timer);
 
     // Sort the scores (in descending order)
@@ -751,11 +769,14 @@ void *pebs_policy_thread()
       ptimer_stop(&migrate_timer);
     }
 
+    fprintf(f, "\n");
+    fclose(f);
+
     ptimer_print(&id_timer);
     ptimer_print(&migrate_timer);
     ptimer_stop_and_print(&loop_timer);
 
-    fprintf(stderr, "Migrated %lu pages (%lu bytes) in this interval\n", migrated_pages, migrated_bytes);
+    fprintf(LOG_STREAM, "Migrated %lu pages (%lu bytes) in this interval\n", migrated_pages, migrated_bytes);
     migrate_time_us = loop_timer.elapsed_us;
     if (migrate_time_us < (1.0 * PEBS_KSWAPD_INTERVAL)) {
       //printf("%lu", ((uint64_t)((1.0 * PEBS_KSWAPD_INTERVAL) - migrate_time_us)));
@@ -931,20 +952,8 @@ void pebs_init(void)
     enqueue_fifo(&nvm_free_list, p);
   }
 
-  //pthread_mutex_init(&(dram_hot_list.list_lock), NULL);
-  //pthread_mutex_init(&(dram_cold_list.list_lock), NULL);
-  //pthread_mutex_init(&(nvm_hot_list.list_lock), NULL);
-  //pthread_mutex_init(&(nvm_cold_list.list_lock), NULL);
-
   // Initialize the UT_array for tracking active pages
   pages_tree = kb_init(kPagesTree, KB_DEFAULT_SIZE);
-
-  //buffer = (uint64_t**)malloc(sizeof(uint64_t*) * MAX_NVME_PAGES);
-  //assert(buffer);
-  //promote_page_ring = ring_buf_init(buffer, MAX_NVME_PAGES);
-  //buffer = (uint64_t**)malloc(sizeof(uint64_t*) * MAX_DRAM_PAGES);
-  //assert(buffer);
-  //demote_page_ring = ring_buf_init(buffer, MAX_DRAM_PAGES);
 
   scores = (struct score_entry*)malloc((MAX_NVME_PAGES + MAX_DRAM_PAGES) * sizeof(struct score_entry));
 
@@ -960,12 +969,6 @@ void pebs_init(void)
   r_neighbours = ring_buf_init(buffer, NUM_NEIGHBOURS + 2);
 
   // Initialize bias values
-  for (int i = 0; i < WINDOW_SIZE; i++) {
-    w_ewma_alpha[i] = 2.0/((1 << (i + 1)) + 1);
-    hist_bias[i] = 1;
-    recn_bias[i] = 32 / (i + 1);
-    assert(recn_bias[i] > 0);
-  }
   for (int i = 0; i < WINDOW_SIZE; i++) {
     printf("w_ewma_alpha[%d] = %f\n", i, w_ewma_alpha[i]);
   }
