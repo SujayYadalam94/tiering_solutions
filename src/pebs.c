@@ -495,8 +495,6 @@ static size_t calculate_scores(struct score_entry *scores_out, const uint8_t *bi
 
     min_score = (page->score < min_score) ? page->score : min_score;
     max_score = (page->score > max_score) ? page->score : max_score;
-
-    fprintf(fs, "%lu,%f|", page->va, page->score);
 #endif
 
   }
@@ -782,9 +780,6 @@ void *pebs_policy_thread()
       ptimer_stop(&migrate_timer);
     }
 
-    fprintf(f, "\n");
-    fclose(f);
-
     ptimer_print(&id_timer);
     ptimer_print(&migrate_timer);
     ptimer_stop_and_print(&loop_timer);
@@ -986,10 +981,10 @@ void pebs_init(void)
     printf("w_ewma_alpha[%d] = %f\n", i, w_ewma_alpha[i]);
   }
   for (int i = 0; i < WINDOW_SIZE; i++) {
-    printf("hist_bias[%d] = %d\n", i, hist_bias[i]);
+    printf("hist_bias[%d] = %f\n", i, hist_bias[i]);
   }
   for (int i = 0; i < WINDOW_SIZE; i++) {
-    printf("recn_bias[%d] = %d\n", i, recn_bias[i]);
+    printf("recn_bias[%d] = %f\n", i, recn_bias[i]);
   }
 
   // Start the policy and scan threads
