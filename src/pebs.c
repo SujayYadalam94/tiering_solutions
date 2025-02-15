@@ -315,10 +315,14 @@ static void reset_page_access_fields(struct hemem_page *page)
   }
 }
 
-static inline void update_window(struct hemem_page* page) {
+static inline void update_window(struct hemem_page* page, uint8_t iteration) {
   uint32_t accesses = page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD] + page->s_accesses[WRITE];
-  for (int i = 0; i < WINDOW_SIZE; i++) {
-    page->w[i] = (1. - w_ewma_alpha[i]) * page->w[i] + (w_ewma_alpha[i] * accesses);
+  for (uint8_t i = 0; i < WINDOW_SIZE; i++) {
+    if ((iteration+1) % (1 << i) == 0) {
+       page->w[i] = page->w[i] / 2;
+    }
+    // page->w[i] = (1. - w_ewma_alpha[i]) * page->w[i] + (w_ewma_alpha[i] * accesses);
+    page->w[i] += accesses;
   }
 }
 
@@ -352,7 +356,7 @@ static inline void moving_avg_sub(uint64_t* avg, struct hemem_page* page, size_t
   (*count)--;
 }
 
-static size_t calculate_scores(struct score_entry *scores_out, const uint8_t *bias)
+static size_t calculate_scores(struct score_entry *scores_out, const uint8_t *bias, uint8_t iteration)
 {
   struct ptimer window_timer, smooth_timer;
   ptimer_init(&window_timer, "Scores (window)");
@@ -476,10 +480,14 @@ static size_t calculate_scores(struct score_entry *scores_out, const uint8_t *bi
     page->s_accesses[DRAMREAD] = page->accesses[DRAMREAD][prev_access_version];
     page->s_accesses[NVMREAD] = page->accesses[NVMREAD][prev_access_version];
     page->s_accesses[WRITE] = page->accesses[WRITE][prev_access_version];
-    fprintf(fa, "%lu,%f|", page->va, page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD]); //+ page->s_accesses[WRITE]);
+    page->accesses[DRAMREAD][prev_access_version] = 0;
+    page->accesses[NVMREAD][prev_access_version] = 0;
+    page->accesses[WRITE][prev_access_version] = 0;
+
+    // fprintf(fa, "%lu,%f|", page->va, page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD]); //+ page->s_accesses[WRITE]);
 
     // Update the window with the smoothed access count
-    update_window(page);
+    update_window(page, iteration);
 
     // Calculate the hotness score
     page->score = compute_score(page, bias);
@@ -597,6 +605,8 @@ void *pebs_policy_thread()
 
   size_t pages_cnt, s_pages_cnt;
 
+  uint8_t iteration = 0;
+
   // Use a dedicated CPU core for the policy thread
   thread = pthread_self();
   CPU_ZERO(&cpuset);
@@ -677,7 +687,10 @@ void *pebs_policy_thread()
     pages_cnt = kb_size(pages_tree);
     min_score = FLT_MAX;
     max_score = 0;
-    s_pages_cnt = calculate_scores(scores, bias);
+    s_pages_cnt = calculate_scores(scores, bias, iteration);
+    if (++iteration == (1 << WINDOW_SIZE)) {
+      iteration = 0;
+    }
 
     fprintf(LOG_STREAM, "min_score: %.3f, max_score: %.3f\n", min_score, max_score);
     fprintf(LOG_STREAM, "pages_cnt: %lu, s_pages_cnt: %lu\n", pages_cnt, s_pages_cnt);
