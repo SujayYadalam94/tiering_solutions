@@ -15,6 +15,7 @@
 #include <sched.h>
 #include <sys/ioctl.h>
 #include <float.h>
+#include <fcntl.h>
 
 #include "hemem.h"
 #include "pebs.h"
@@ -92,9 +93,7 @@ volatile uint8_t prev_access_version; // = 1 - curr_access_version
 volatile uint8_t curr_window_index = 0;
 volatile uint8_t prev_window_version;
 
-volatile uint32_t nvm_page_accesses_curr = 0;
-uint32_t nvm_page_accesses_prev;
-double nvm_page_ewma = 0.0;
+double nvm_bw_ewma = 0.0;
 
 float min_score, max_score;
 
@@ -113,6 +112,57 @@ int pfd[PEBS_NPROCS][NPBUFTYPES];
 
 volatile bool need_cool_dram = false;
 volatile bool need_cool_nvm = false;
+
+int mem_fd = -1;
+void *imc_mmio_addr[NUM_IMC];
+uint64_t prev_ctr_val[NUM_IMC][NUM_BW_COUNTERS] = {0};
+
+static uint32_t get_imc_bw_counter_offset(enum imc_bw_counters e) {
+  switch(e) {
+    case PMM_READS: return PCM_SERVER_IMC_PMM_READS;
+    case PMM_WRITES: return PCM_SERVER_IMC_PMM_WRITES;
+    default: assert(!"Unknown IMC counter");
+  }
+}
+
+uint64_t measure_nvm_bw()
+{
+  int i, j;
+  uint64_t cur_ctr_val = 0;
+  uint64_t cur_nvm_bw = 0;
+
+  for (i=0; i<NUM_IMC; i++) {
+    for (j=0; j<1; j++) {
+      cur_ctr_val        = *((uint64_t *)(imc_mmio_addr[i] + get_imc_bw_counter_offset(j)));
+      cur_nvm_bw        += cur_ctr_val - prev_ctr_val[i][j];
+      prev_ctr_val[i][j] = cur_ctr_val;
+    }
+  }
+
+  return cur_nvm_bw;
+}
+
+static int setup_imc_bw_counters() {
+  mem_fd = open("/dev/mem", O_RDONLY);
+  if (mem_fd == -1) {
+    perror("open");
+    return -1;
+  }
+
+  for (int i = 0; i < NUM_IMC; i++) {
+    // Base address of each iMC increases by 0x80000
+    imc_mmio_addr[i] = (char *)libc_mmap(NULL, PCM_SERVER_IMC_MMAP_SIZE, PROT_READ, MAP_SHARED, mem_fd, IMC_BASE_ADDR + (0x80000 * i));
+    if (imc_mmio_addr[i] == MAP_FAILED) {
+      perror("mmap");
+      return -1;
+    }
+  }
+
+  // Measure the bandwidth once to get the initial values
+  measure_nvm_bw();
+
+  return 0;
+}
 
 static long perf_event_open(struct perf_event_attr *hw_event, pid_t pid,
     int cpu, int group_fd, unsigned long flags)
@@ -224,7 +274,6 @@ void *pebs_scan_thread()
                   page->accesses[j][curr_access_version]++;
                 }
                 hemem_pages_cnt++;
-                nvm_page_accesses_curr += (j == NVMREAD) ? 1 : 0;
               } else {
                 other_pages_cnt++;
               }
@@ -236,7 +285,7 @@ void *pebs_scan_thread()
   	      break;
         case PERF_RECORD_THROTTLE:
         case PERF_RECORD_UNTHROTTLE:
-          fprintf(stderr, "%s event!\n", ph->type == PERF_RECORD_THROTTLE ? "THROTTLE" : "UNTHROTTLE");
+          // fprintf(stderr, "%s event!\n", ph->type == PERF_RECORD_THROTTLE ? "THROTTLE" : "UNTHROTTLE");
           if (ph->type == PERF_RECORD_THROTTLE) {
               throttle_cnt++;
           }
@@ -605,6 +654,9 @@ void *pebs_policy_thread()
 
   uint8_t iteration = 0;
 
+  uint64_t cur_nvm_bw = 0;
+  float* bias = hist_bias; // History bias by default until triggered by PAR
+
   // Use a dedicated CPU core for the policy thread
   thread = pthread_self();
   CPU_ZERO(&cpuset);
@@ -614,6 +666,9 @@ void *pebs_policy_thread()
     perror("pthread_setaffinity_np");
     assert(0);
   }
+
+  // Initialize memory controller BW counters
+  setup_imc_bw_counters();
 
   // Sleep first to allow the scanning thread to start
   usleep((uint64_t)((1.0 * PEBS_KSWAPD_INTERVAL)));
@@ -633,17 +688,21 @@ void *pebs_policy_thread()
     curr_access_version = 1 - curr_access_version;
     __sync_synchronize();
 
-    // Update the NVM page access smoothing
-    nvm_page_accesses_prev = nvm_page_accesses_curr;
-    nvm_page_accesses_curr = 0;
-    __sync_synchronize();
     // Compute peak-to-average ratio
-    float ratio = (float)(nvm_page_accesses_prev) / nvm_page_ewma;
-    nvm_page_ewma = 0.9 * nvm_page_ewma + 0.1 * nvm_page_accesses_prev;
+    cur_nvm_bw = measure_nvm_bw();
+    float ratio = (float)(cur_nvm_bw) / nvm_bw_ewma;
+    nvm_bw_ewma = 0.9 * nvm_bw_ewma + 0.1 * cur_nvm_bw;
     // Update the bias
-    uint8_t* bias = (ratio > 1.0) ? recn_bias : hist_bias;
-    fprintf(LOG_STREAM, "NVM page accesses: %u, NVM page accesses EWMA: %f, Ratio: %f\n",
-            nvm_page_accesses_prev, nvm_page_ewma, ratio);
+    // TODO: Need to find a better way to trigger the bias change instead of constants
+    if (ratio > 3.0 && cur_nvm_bw > 200000) {
+        bias = recn_bias;
+    }
+    if (bias == recn_bias && ratio < 1.2) {
+        bias = hist_bias;
+    }
+    fprintf(LOG_STREAM, "NVM bw: %f, NVM bw EWMA: %f, PAR: %f\n",
+            (cur_nvm_bw*64.0*10)/(1024*1024*1024),
+            (nvm_bw_ewma*64.*10)/(1024*1024*1024), ratio);
 
     // free pages using free page ring buffer
     ptimer_start(&tree_timer);

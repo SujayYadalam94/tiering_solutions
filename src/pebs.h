@@ -53,6 +53,22 @@
 //#define SAMPLE_BASED_COOLING
 //#define SAMPLE_COOLING_THRESHOLD 10000
 
+#define NUM_IMC 4                 // IceLake has 4 iMCs
+#define IMC_BASE_ADDR 0xFB900000  // TODO: Need to find this dynamically, currently obtained from PCM
+
+// There are 4 counters: DRAM Reads, DRAM Writes, PMM Reads, PMM Writes
+// We are only interested in PMem bandwidth counters
+#define PCM_SERVER_IMC_PMM_READS   (0x22a0)
+#define PCM_SERVER_IMC_PMM_WRITES  (0x22a8)
+
+#define PCM_SERVER_IMC_MMAP_SIZE   (0x4000)
+
+enum imc_bw_counters {
+  PMM_READS = 0,
+  PMM_WRITES = 1,
+  NUM_BW_COUNTERS
+};
+
 struct perf_sample {
   struct perf_event_header header;
   __u64	ip;
