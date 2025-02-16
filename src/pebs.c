@@ -542,8 +542,6 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
     page->score = compute_score(page, bias);
     scores_out[s_idx++] = (struct score_entry){ page, page->score };
 
-    min_score = (page->score < min_score) ? page->score : min_score;
-    max_score = (page->score > max_score) ? page->score : max_score;
 #endif
 
   }
@@ -757,6 +755,9 @@ void *pebs_policy_thread()
     ptimer_start(&sort_timer);
     qsort(scores, s_pages_cnt, sizeof(struct score_entry), sort_entry_cmp);
     ptimer_stop_and_print(&sort_timer);
+
+    min_score = scores[s_pages_cnt - 1].score;
+    max_score = scores[0].score;
 
     // Perform migrations
     ptimer_reset(&id_timer);
