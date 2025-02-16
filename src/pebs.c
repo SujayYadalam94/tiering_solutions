@@ -739,8 +739,6 @@ void *pebs_policy_thread()
     // Calculate the scores
     ptimer_start(&score_timer);
     pages_cnt = kb_size(pages_tree);
-    min_score = FLT_MAX;
-    max_score = 0;
     s_pages_cnt = calculate_scores(scores, bias, iteration);
     if (++iteration == (1 << WINDOW_SIZE)) {
       iteration = 0;
