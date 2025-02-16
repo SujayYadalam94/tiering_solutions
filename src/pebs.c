@@ -375,7 +375,7 @@ static inline void update_window(struct hemem_page* page, uint8_t iteration) {
   }
 }
 
-static inline float compute_score(const struct hemem_page *page, const uint8_t *bias) {
+static inline float compute_score(const struct hemem_page *page, const float *bias) {
   // Update the score (average of the window)
   // TODO: Use a weighted average instead of a simple average
   float score = 0;
@@ -405,7 +405,7 @@ static inline void moving_avg_sub(uint64_t* avg, struct hemem_page* page, size_t
   (*count)--;
 }
 
-static size_t calculate_scores(struct score_entry *scores_out, const uint8_t *bias, uint8_t iteration)
+static size_t calculate_scores(struct score_entry *scores_out, const float *bias, uint8_t iteration)
 {
   struct ptimer window_timer, smooth_timer;
   ptimer_init(&window_timer, "Scores (window)");
