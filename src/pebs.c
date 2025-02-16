@@ -595,7 +595,7 @@ void promote_to_free_dram_page(struct hemem_page *p, struct hemem_page *np)
   enqueue_fifo(&nvm_free_list, np);
 }
 
-void demote_to_free_nvm_page(struct hemem_page *cp, struct hemem_page *np)
+bool demote_to_free_nvm_page(struct hemem_page *cp, struct hemem_page *np)
 {
   uint64_t old_offset;
 
@@ -604,10 +604,8 @@ void demote_to_free_nvm_page(struct hemem_page *cp, struct hemem_page *np)
   pthread_mutex_lock(&(cp->page_lock));
   if (!cp->present) {
     // Don't migrate as this page is being removed
-    // Put np back on nvm_free_list
-    enqueue_fifo(&nvm_free_list, np);
     pthread_mutex_unlock(&(cp->page_lock));
-    return;
+    return false;
   }
 
   old_offset = cp->devdax_offset;
@@ -623,6 +621,7 @@ void demote_to_free_nvm_page(struct hemem_page *cp, struct hemem_page *np)
   // Don't add the page to the free list because
   // it will be used immediately after
   //enqueue_fifo(&dram_free_list, np);
+  return true;
 }
 
 void *pebs_policy_thread()
@@ -824,19 +823,24 @@ void *pebs_policy_thread()
       // move the cold DRAM page to NVM
       ptimer_continue(&migrate_timer);
       //printf("Demote page %p to free NVM page %p\n", cp, np);
-      demote_to_free_nvm_page(cp, np);
-      migrated_bytes += pt_to_pagesize(cp->pt);
+      if (demote_to_free_nvm_page(cp, np)) {
+        migrated_bytes += pt_to_pagesize(cp->pt);
 
-      // move the hot NVM page to the (now-free) DRAM page
-      //printf("Promote page %p to free DRAM page %p\n", p, cp);
-      promote_to_free_dram_page(p, np);
-      migrated_bytes += pt_to_pagesize(p->pt);
+        // move the hot NVM page to the (now-free) DRAM page
+        //printf("Promote page %p to free DRAM page %p\n", p, np);
+        promote_to_free_dram_page(p, np);
+        migrated_bytes += pt_to_pagesize(p->pt);
 
-      migrated_pages += 2;
+        migrated_pages += 2;
 
-      promote_idx++;
-      demote_idx--;
-
+        promote_idx++;
+        demote_idx--;
+      } else {
+        // Demotion failed because the cold DRAM page was removed
+        // Put np back on nvm_free_list and move on to the next cold DRAM page
+        enqueue_fifo(&nvm_free_list, np);
+        demote_idx--;
+      }
       ptimer_stop(&migrate_timer);
     }
 
