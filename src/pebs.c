@@ -78,7 +78,7 @@ static ring_handle_t add_pages_ring;
 static pthread_mutex_t add_pages_ring_lock = PTHREAD_MUTEX_INITIALIZER;
 */
 
-static const float w_ewma_alpha[WINDOW_SIZE]= W_EWMA_ALPHA;
+static const uint8_t w_ewma_alpha[WINDOW_SIZE]= W_EWMA_ALPHA;
 static const float hist_bias[WINDOW_SIZE] = HIST_BIAS;
 static const float recn_bias[WINDOW_SIZE] = RECN_BIAS;
 
@@ -367,7 +367,7 @@ static void reset_page_access_fields(struct hemem_page *page)
 static inline void update_window(struct hemem_page* page, uint8_t iteration) {
   uint32_t accesses = page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD] + page->s_accesses[WRITE];
   for (uint8_t i = 0; i < WINDOW_SIZE; i++) {
-    if ((iteration+1) % (1 << i) == 0) {
+    if ((iteration+1) % w_ewma_alpha[i] == 0) {
        page->w[i] = page->w[i] / 2;
     }
     // page->w[i] = (1. - w_ewma_alpha[i]) * page->w[i] + (w_ewma_alpha[i] * accesses);
@@ -740,7 +740,7 @@ void *pebs_policy_thread()
     ptimer_start(&score_timer);
     pages_cnt = kb_size(pages_tree);
     s_pages_cnt = calculate_scores(scores, bias, iteration);
-    if (++iteration == (1 << WINDOW_SIZE)) {
+    if (++iteration == w_ewma_alpha[WINDOW_SIZE-1]) {
       iteration = 0;
     }
 
@@ -1040,7 +1040,7 @@ void pebs_init(void)
 
   // Initialize bias values
   for (int i = 0; i < WINDOW_SIZE; i++) {
-    printf("w_ewma_alpha[%d] = %f\n", i, w_ewma_alpha[i]);
+    printf("w_ewma_alpha[%d] = %d\n", i, w_ewma_alpha[i]);
   }
   for (int i = 0; i < WINDOW_SIZE; i++) {
     printf("hist_bias[%d] = %f\n", i, hist_bias[i]);

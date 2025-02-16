@@ -11,14 +11,15 @@
 
 #define LOG_STREAM (stdout)
 
-#define WINDOW_SIZE (8)
+#define WINDOW_SIZE (4)
 #define NUM_NEIGHBOURS (4)
 
-#define HIST_BIAS {.125 , .125 , .125 , .125 , .125 , .125 , .125 , .125 }
-#define RECN_BIAS {.3675, .1837, .1225, .0919, .0735, .0612, .0525, .0459}
+#define HIST_BIAS {.25, .25, .25, .25}
+#define RECN_BIAS {.5, .25, .15, .1}
 
 // 2/(2^i + 1)
-#define W_EWMA_ALPHA {.6667, .4, .2222, .1176, 0.0606, 0.0308, 0.0155, 0.0078}
+// #define W_EWMA_ALPHA {.6667, .4, .2222, .1176, 0.0606, 0.0308, 0.0155, 0.0078}
+#define W_EWMA_ALPHA {2, 5, 20, 100}
 
 #define PEBS_KSWAPD_INTERVAL      (100000) // in us (10ms)
 
