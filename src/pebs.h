@@ -14,12 +14,15 @@
 #define WINDOW_SIZE (4)
 #define NUM_NEIGHBOURS (4)
 
-#define HIST_BIAS {.25, .25, .25, .25}
-#define RECN_BIAS {.5, .25, .15, .1}
+// #define HIST_BIAS {.25, .25, .25, .25}
+// With HIST_BIAS, we will prioritize longer histories
+#define HIST_BIAS {.155, .194, .259, .390}
+#define RECN_BIAS {.643, .236, .086, .032}
 
 // 2/(2^i + 1)
-// #define W_EWMA_ALPHA {.6667, .4, .2222, .1176, 0.0606, 0.0308, 0.0155, 0.0078}
-#define W_EWMA_ALPHA {2, 5, 20, 100}
+// #define W_EWMA_ALPHA {.6667, .3333, .0952, 0.0199} // 200ms, 500ms, 2s, 10s
+#define W_EWMA_ALPHA {0.1818, .0952, 0.0392, 0.0199} // 1s, 2s, 5s, 10s
+// #define W_EWMA_ALPHA {2, 5, 20, 100}
 
 #define PEBS_KSWAPD_INTERVAL      (100000) // in us (10ms)
 

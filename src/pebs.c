@@ -78,7 +78,7 @@ static ring_handle_t add_pages_ring;
 static pthread_mutex_t add_pages_ring_lock = PTHREAD_MUTEX_INITIALIZER;
 */
 
-static const uint8_t w_ewma_alpha[WINDOW_SIZE]= W_EWMA_ALPHA;
+static const float w_ewma_alpha[WINDOW_SIZE]= W_EWMA_ALPHA;
 static const float hist_bias[WINDOW_SIZE] = HIST_BIAS;
 static const float recn_bias[WINDOW_SIZE] = RECN_BIAS;
 
@@ -364,14 +364,10 @@ static void reset_page_access_fields(struct hemem_page *page)
   }
 }
 
-static inline void update_window(struct hemem_page* page, uint8_t iteration) {
+static inline void update_window(struct hemem_page* page) {
   uint32_t accesses = page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD] + page->s_accesses[WRITE];
   for (uint8_t i = 0; i < WINDOW_SIZE; i++) {
-    if ((iteration+1) % w_ewma_alpha[i] == 0) {
-       page->w[i] = page->w[i] / 2;
-    }
-    // page->w[i] = (1. - w_ewma_alpha[i]) * page->w[i] + (w_ewma_alpha[i] * accesses);
-    page->w[i] += accesses;
+    page->w[i] = (1. - w_ewma_alpha[i]) * page->w[i] + (w_ewma_alpha[i] * accesses);
   }
 }
 
@@ -405,7 +401,7 @@ static inline void moving_avg_sub(uint64_t* avg, struct hemem_page* page, size_t
   (*count)--;
 }
 
-static size_t calculate_scores(struct score_entry *scores_out, const float *bias, uint8_t iteration)
+static size_t calculate_scores(struct score_entry *scores_out, const float *bias)
 {
   struct ptimer window_timer, smooth_timer;
   ptimer_init(&window_timer, "Scores (window)");
@@ -536,7 +532,7 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
     // fprintf(fa, "%lu,%f|", page->va, page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD]); //+ page->s_accesses[WRITE]);
 
     // Update the window with the smoothed access count
-    update_window(page, iteration);
+    update_window(page);
 
     // Calculate the hotness score
     page->score = compute_score(page, bias);
@@ -739,10 +735,7 @@ void *pebs_policy_thread()
     // Calculate the scores
     ptimer_start(&score_timer);
     pages_cnt = kb_size(pages_tree);
-    s_pages_cnt = calculate_scores(scores, bias, iteration);
-    if (++iteration == w_ewma_alpha[WINDOW_SIZE-1]) {
-      iteration = 0;
-    }
+    s_pages_cnt = calculate_scores(scores, bias);
 
     fprintf(LOG_STREAM, "min_score: %.3f, max_score: %.3f\n", min_score, max_score);
     fprintf(LOG_STREAM, "pages_cnt: %lu, s_pages_cnt: %lu\n", pages_cnt, s_pages_cnt);
