@@ -394,6 +394,9 @@ static inline void moving_avg_add(uint64_t* avg, struct hemem_page* page, size_t
 }
 
 static inline uint64_t _moving_avg_sub(uint64_t avg, uint32_t old_val, uint32_t count) {
+  if (count == 1) {
+    return 0;
+  }
   return ((count * avg) - old_val) / (count - 1);
 }
 static inline void moving_avg_sub(uint64_t* avg, struct hemem_page* page, size_t* count) {
@@ -423,7 +426,7 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
   size_t smooth_avg_cnt = 0;
   memset(smooth_avg_v, 0, sizeof(smooth_avg_v));
 
-#ifdef PAGE_ACCESS_SMOOTHING
+#ifdef SPATIAL_SMOOTHING
   // Clear ring buffers
   ring_buf_reset(l_neighbours);
   ring_buf_reset(r_neighbours);
@@ -452,7 +455,7 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
       continue;
     }
 
-#ifdef PAGE_ACCESS_SMOOTHING
+#ifdef SPATIAL_SMOOTHING
     ptimer_continue(&smooth_timer);
     //printf("Before smoothing\n");
 
