@@ -94,6 +94,8 @@ volatile uint8_t curr_window_index = 0;
 volatile uint8_t prev_window_version;
 
 double nvm_bw_ewma = 0.0;
+float promotion_cost_avg = 1000; // 1000us
+float demotion_cost_avg = 1000; // 1000us
 
 float min_score, max_score;
 
@@ -553,19 +555,26 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
   return s_idx;
 }
 
-int continue_migration(struct hemem_page *hp, struct hemem_page *cp, uint32_t migrated_pages)
+static inline int continue_migration(struct hemem_page *hp, struct hemem_page *cp, float remaining_time, float prom_cost, float dem_cost)
 {
-  float hot_score = (hp->score - min_score) / (max_score - min_score);
-  float cold_score = (cp->score - min_score) / (max_score - min_score);
-  //if (hp->score < 2 * cp->score) {
-  //if ((hot_score < 2 * cold_score)) {
-  if ((hot_score - cold_score) < 0.1) {
+  float migration_benefit = hp->score * SAMPLE_PERIOD * LATENCY_DIFF;
+
+  if (prom_cost+dem_cost > remaining_time) {
+    fprintf(LOG_STREAM, "Stopping migration of 0x%lx and 0x%lx cause not enough time remaining: %f but estimated: %f\n", hp->va, cp->va, remaining_time, prom_cost+dem_cost);
     return 0;
   }
 
-  if (migrated_pages >= 10) {
-    return 0;
+  if (cp->score == 0 && migration_benefit > prom_cost/2) {
+    return 1;
   }
+
+  if ((hp->score - cp->score) < 0.5 || (hp->score < (2 * cp->score))) {
+      fprintf(LOG_STREAM, "Stopping migration of 0x%lx and 0x%lx at hot_score %f (%f %f %f %f), cold_score %f (%f %f %f %f)\n",
+      hp->va, cp->va, hp->score, hp->w[0], hp->w[1], hp->w[2], hp->w[3],
+      cp->score, cp->w[0], cp->w[1], cp->w[2], cp->w[3]);
+      return 0;
+  } 
+
   return 1;
 }
 
@@ -630,12 +639,14 @@ bool demote_to_free_nvm_page(struct hemem_page *cp, struct hemem_page *np)
 void *pebs_policy_thread()
 {
   struct ptimer loop_timer, tree_timer, score_timer, sort_timer, id_timer, migrate_timer;
+  struct ptimer remaining_timer;
   ptimer_init(&loop_timer, "Loop");
   ptimer_init(&tree_timer, "Tree");
   ptimer_init(&score_timer, "Score");
   ptimer_init(&sort_timer, "Sort");
   ptimer_init(&id_timer, "Identify");
   ptimer_init(&migrate_timer, "Migrate");
+  ptimer_init(&remaining_timer, "Remaining");
 
   cpu_set_t cpuset;
   pthread_t thread;
@@ -675,6 +686,7 @@ void *pebs_policy_thread()
 
   for (;;) {
     ptimer_start(&loop_timer);
+    ptimer_start(&remaining_timer);
 
     fprintf(LOG_STREAM, "\n========================================\n");
     fprintf(LOG_STREAM, "Starting new interval\n");
@@ -760,6 +772,10 @@ void *pebs_policy_thread()
     min_score = scores[s_pages_cnt - 1].score;
     max_score = scores[0].score;
 
+    fprintf(LOG_STREAM, "min_score: %.3f (%.3f %.3f %.3f %.3f), max_score: %.3f (%.3f %.3f %.3f %.3f)\n", 
+      min_score, scores[s_pages_cnt - 1].page->w[0], scores[s_pages_cnt - 1].page->w[1], scores[s_pages_cnt - 1].page->w[2], scores[s_pages_cnt - 1].page->w[3],
+      max_score, scores[0].page->w[0], scores[0].page->w[1], scores[0].page->w[2], scores[0].page->w[3]);
+
     // Perform migrations
     ptimer_reset(&id_timer);
     ptimer_reset(&migrate_timer);
@@ -796,6 +812,7 @@ void *pebs_policy_thread()
         migrated_bytes += pt_to_pagesize(p->pt);
         migrated_pages++;
         ptimer_stop(&migrate_timer);
+        promotion_cost_avg = MIGRATION_COST_ALPHA * migrate_timer.elapsed_us + (1 - MIGRATION_COST_ALPHA) * promotion_cost_avg;
         promote_idx++;
         continue;
       }
@@ -812,9 +829,13 @@ void *pebs_policy_thread()
       //printf("Demoting page %p [idx %lu] with score %f\n", cp, demote_idx, scores[demote_idx].score);
       assert(cp->in_dram && cp->va > 0);
 
-      if (!continue_migration(p, cp, migrated_pages)) {
+      ptimer_stop(&remaining_timer);
+      if (!continue_migration(p, cp, PEBS_KSWAPD_INTERVAL - remaining_timer.elapsed_us, promotion_cost_avg, demotion_cost_avg)) {
+        fprintf(LOG_STREAM, "2. Stopping migration at promote_idx %lu\n", promote_idx);
         break;
       }
+      ptimer_continue(&remaining_timer);
+      fprintf(LOG_STREAM, "Remaining time: %f, Prom cost: %f, Dem cost: %f\n", PEBS_KSWAPD_INTERVAL - remaining_timer.elapsed_us, promotion_cost_avg, demotion_cost_avg);
       //printf("Promote score %f, demote score %f\n", scores[promote_idx].score, scores[demote_idx].score);
 
       // try to find a free NVM page
@@ -824,14 +845,20 @@ void *pebs_policy_thread()
       ptimer_stop(&id_timer);
 
       // move the cold DRAM page to NVM
-      ptimer_continue(&migrate_timer);
-      //printf("Demote page %p to free NVM page %p\n", cp, np);
+      ptimer_start(&migrate_timer);
+      fprintf(LOG_STREAM, "Demoting page 0x%lx score: %f (%f %f %f %f)\n", cp->va, cp->score, cp->w[0], cp->w[1], cp->w[2], cp->w[3]);
       if (demote_to_free_nvm_page(cp, np)) {
+        ptimer_stop(&migrate_timer);
+        demotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * demotion_cost_avg);
         migrated_bytes += pt_to_pagesize(cp->pt);
 
         // move the hot NVM page to the (now-free) DRAM page
         //printf("Promote page %p to free DRAM page %p\n", p, np);
+        fprintf(LOG_STREAM, "Promoting page 0x%lx score: %f (%f %f %f %f)\n", p->va, p->score, p->w[0], p->w[1], p->w[2], p->w[3]);
+        ptimer_start(&migrate_timer);
         promote_to_free_dram_page(p, np);
+        ptimer_stop(&migrate_timer);
+        promotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * promotion_cost_avg);
         migrated_bytes += pt_to_pagesize(p->pt);
 
         migrated_pages += 2;
@@ -843,15 +870,22 @@ void *pebs_policy_thread()
         // Put np back on nvm_free_list and move on to the next cold DRAM page
         enqueue_fifo(&nvm_free_list, np);
         demote_idx--;
+        ptimer_stop(&migrate_timer);
       }
-      ptimer_stop(&migrate_timer);
     }
 
+loop_end:
     ptimer_print(&id_timer);
     ptimer_print(&migrate_timer);
     ptimer_stop_and_print(&loop_timer);
+    ptimer_stop(&remaining_timer);
 
     fprintf(LOG_STREAM, "Migrated %lu pages (%lu bytes) in this interval\n", migrated_pages, migrated_bytes);
+    if (migrated_pages == 0) {
+      // Reset the migration cost averages
+      promotion_cost_avg = 1000;
+      demotion_cost_avg = 1000;
+    }
     migrate_time_us = loop_timer.elapsed_us;
     if (migrate_time_us < (1.0 * PEBS_KSWAPD_INTERVAL)) {
       //printf("%lu", ((uint64_t)((1.0 * PEBS_KSWAPD_INTERVAL) - migrate_time_us)));
@@ -1045,7 +1079,7 @@ void pebs_init(void)
 
   // Initialize bias values
   for (int i = 0; i < WINDOW_SIZE; i++) {
-    printf("w_ewma_alpha[%d] = %d\n", i, w_ewma_alpha[i]);
+    printf("w_ewma_alpha[%d] = %f\n", i, w_ewma_alpha[i]);
   }
   for (int i = 0; i < WINDOW_SIZE; i++) {
     printf("hist_bias[%d] = %f\n", i, hist_bias[i]);
