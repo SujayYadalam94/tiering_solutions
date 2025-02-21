@@ -688,21 +688,25 @@ void *pebs_policy_thread()
     curr_access_version = 1 - curr_access_version;
     __sync_synchronize();
 
-    // Compute peak-to-average ratio
-    cur_nvm_bw = measure_nvm_bw();
-    float ratio = (float)(cur_nvm_bw) / nvm_bw_ewma;
-    nvm_bw_ewma = 0.9 * nvm_bw_ewma + 0.1 * cur_nvm_bw;
-    // Update the bias
-    // TODO: Need to find a better way to trigger the bias change instead of constants
-    if (ratio > 3.0 && cur_nvm_bw > 200000) {
-        bias = recn_bias;
+    // Compute peak-to-average ratio every 10 intervals
+    if (global_version % 10 == 0) {
+      cur_nvm_bw = measure_nvm_bw();
+      float ratio = (float)(cur_nvm_bw) / nvm_bw_ewma;
+      nvm_bw_ewma = 0.9 * nvm_bw_ewma + 0.1 * cur_nvm_bw;
+      // Update the bias
+      // TODO: Need to find a better way to trigger the bias change instead of constants
+      if (ratio > 2.0 && cur_nvm_bw > 200000) {
+          bias = recn_bias;
+          fprintf(LOG_STREAM, "Switching to RECN bias\n");
+      }
+      if (bias == recn_bias && ratio < 1.05) {
+          bias = hist_bias;
+          fprintf(LOG_STREAM, "Switchin back to HIST bias\n");
+      }
+      fprintf(LOG_STREAM, "NVM bw: %f, NVM bw EWMA: %f, PAR: %f\n",
+              (cur_nvm_bw*64.0)/(1024*1024*1024),
+              (nvm_bw_ewma*64.0)/(1024*1024*1024), ratio);
     }
-    if (bias == recn_bias && ratio < 1.2) {
-        bias = hist_bias;
-    }
-    fprintf(LOG_STREAM, "NVM bw: %f, NVM bw EWMA: %f, PAR: %f\n",
-            (cur_nvm_bw*64.0*10)/(1024*1024*1024),
-            (nvm_bw_ewma*64.*10)/(1024*1024*1024), ratio);
 
     // free pages using free page ring buffer
     ptimer_start(&tree_timer);
