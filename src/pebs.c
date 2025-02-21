@@ -427,6 +427,10 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
   ring_buf_reset(r_neighbours);
 #endif
 
+  if (pages_cnt == 0) {
+    return 0;
+  }
+
   // Init the (right) neightbour iterator
   kb_itr_first(kPagesTree, pages_tree, &n_itr);
   assert(kb_itr_valid(&n_itr));
@@ -496,6 +500,9 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
     page->s_accesses[DRAMREAD] = smooth_avg_v[DRAMREAD];
     page->s_accesses[NVMREAD] = smooth_avg_v[NVMREAD];
     page->s_accesses[WRITE] = smooth_avg_v[WRITE];
+    page->accesses[DRAMREAD][prev_access_version] = 0;
+    page->accesses[NVMREAD][prev_access_version] = 0;
+    page->accesses[WRITE][prev_access_version] = 0;
 
     ptimer_stop(&smooth_timer);
     //printf("After smoothing\n");
@@ -785,6 +792,7 @@ void *pebs_policy_thread()
         migrated_bytes += pt_to_pagesize(p->pt);
         migrated_pages++;
         ptimer_stop(&migrate_timer);
+        promote_idx++;
         continue;
       }
 
