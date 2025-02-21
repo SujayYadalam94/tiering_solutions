@@ -576,7 +576,7 @@ static inline int continue_migration(struct hemem_page *hp, struct hemem_page *c
       hp->va, cp->va, hp->score, hp->w[0], hp->w[1], hp->w[2], hp->w[3],
       cp->score, cp->w[0], cp->w[1], cp->w[2], cp->w[3]);
       return 0;
-  } 
+  }
 
   return 1;
 }
@@ -775,7 +775,7 @@ void *pebs_policy_thread()
     min_score = scores[s_pages_cnt - 1].score;
     max_score = scores[0].score;
 
-    fprintf(LOG_STREAM, "min_score: %.3f (%.3f %.3f %.3f %.3f), max_score: %.3f (%.3f %.3f %.3f %.3f)\n", 
+    fprintf(LOG_STREAM, "min_score: %.3f (%.3f %.3f %.3f %.3f), max_score: %.3f (%.3f %.3f %.3f %.3f)\n",
       min_score, scores[s_pages_cnt - 1].page->w[0], scores[s_pages_cnt - 1].page->w[1], scores[s_pages_cnt - 1].page->w[2], scores[s_pages_cnt - 1].page->w[3],
       max_score, scores[0].page->w[0], scores[0].page->w[1], scores[0].page->w[2], scores[0].page->w[3]);
 
