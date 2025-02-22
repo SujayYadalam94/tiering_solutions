@@ -11,8 +11,10 @@
 
 #define LOG_STREAM (stdout)
 
+#define SPATIAL_SMOOTHING
+#define NUM_NEIGHBOURS (2)
+
 #define WINDOW_SIZE (4)
-#define NUM_NEIGHBOURS (4)
 
 // #define HIST_BIAS {.25, .25, .25, .25}
 // With HIST_BIAS, we will prioritize longer histories
@@ -38,8 +40,6 @@
 //#define COLD_RING_REQS_THRESHOLD  (128)
 #define CAPACITY                  (128*1024)
 //#define COOLING_PAGES             (8192)
-
-// #define SPATIAL_SMOOTHING
 
 #ifndef C220G5
 #define PEBS_NPROCS 24

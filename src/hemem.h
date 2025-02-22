@@ -173,7 +173,12 @@ struct hemem_page {
   pthread_mutex_t page_lock;
 
   // Our system
+#ifdef SPATIAL_SMOOTHING
+  float s_accesses[NPBUFTYPES];
+#else
   uint32_t s_accesses[NPBUFTYPES];
+#endif
+
   float w[WINDOW_SIZE];
   float score;
   float prev_score;

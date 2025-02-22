@@ -373,7 +373,12 @@ static void reset_page_access_fields(struct hemem_page *page)
 }
 
 static inline void update_window(struct hemem_page* page) {
+#ifdef SPATIAL_SMOOTHING
+  float accesses = page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD] + page->s_accesses[WRITE];
+#else
   uint32_t accesses = page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD] + page->s_accesses[WRITE];
+#endif
+
   for (uint8_t i = 0; i < WINDOW_SIZE; i++) {
     page->w[i] = (1. - w_ewma_alpha[i]) * page->w[i] + (w_ewma_alpha[i] * accesses);
   }
@@ -389,23 +394,24 @@ static inline float compute_score(const struct hemem_page *page, const float *bi
   return score;
 }
 
-static inline uint64_t _moving_avg_add(uint64_t avg, uint32_t new_val, uint32_t count) {
+static inline float _moving_avg_add(float avg, float new_val, uint32_t count) {
   return ((count * avg) + new_val) / (count + 1);
 }
-static inline void moving_avg_add(uint64_t* avg, struct hemem_page* page, size_t* count) {
+static inline void moving_avg_add(float* avg, struct hemem_page* page, uint32_t* count) {
   avg[DRAMREAD] = _moving_avg_add(avg[DRAMREAD], page->accesses[DRAMREAD][prev_access_version], *count);
   avg[NVMREAD] = _moving_avg_add(avg[NVMREAD], page->accesses[NVMREAD][prev_access_version], *count);
   avg[WRITE] = _moving_avg_add(avg[WRITE], page->accesses[WRITE][prev_access_version], *count);
   (*count)++;
 }
 
-static inline uint64_t _moving_avg_sub(uint64_t avg, uint32_t old_val, uint32_t count) {
-  if (count == 1) {
+static inline float _moving_avg_sub(float avg, float old_val, uint32_t count) {
+  if ((count - 1) == 0) {
+    // no more elements in the moving average -- set the average to 0
     return 0;
   }
   return ((count * avg) - old_val) / (count - 1);
 }
-static inline void moving_avg_sub(uint64_t* avg, struct hemem_page* page, size_t* count) {
+static inline void moving_avg_sub(float* avg, struct hemem_page* page, uint32_t* count) {
   avg[DRAMREAD] = _moving_avg_sub(avg[DRAMREAD], page->accesses[DRAMREAD][prev_access_version], *count);
   avg[NVMREAD] = _moving_avg_sub(avg[NVMREAD], page->accesses[NVMREAD][prev_access_version], *count);
   avg[WRITE] = _moving_avg_sub(avg[WRITE], page->accesses[WRITE][prev_access_version], *count);
@@ -414,9 +420,9 @@ static inline void moving_avg_sub(uint64_t* avg, struct hemem_page* page, size_t
 
 static size_t calculate_scores(struct score_entry *scores_out, const float *bias)
 {
-  struct ptimer window_timer, smooth_timer;
+  struct ptimer window_timer, spatial_smooth_timer;
   ptimer_init(&window_timer, "Scores (window)");
-  ptimer_init(&smooth_timer, "Scores (smooth)");
+  ptimer_init(&spatial_smooth_timer, "Scores (spatial smooth)");
 
   struct hemem_page *page;
   kbitr_t itr, n_itr;
@@ -424,7 +430,6 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
 
   size_t idx = 0;
   size_t s_idx = 0;
-  size_t pages_cnt = kb_size(pages_tree);
 
 #ifdef SPATIAL_SMOOTHING
   struct hemem_page *p;
@@ -432,17 +437,18 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
   size_t n_idx;
   uint64_t n_va;
 
-  uint64_t smooth_avg_v[NPBUFTYPES];
-  size_t smooth_avg_cnt = 0;
-  memset(smooth_avg_v, 0, sizeof(smooth_avg_v));
+  float smooth_avg_v[NPBUFTYPES];
+  uint32_t smooth_avg_cnt = 0;
+  memset(smooth_avg_v, 0.0, sizeof(smooth_avg_v));
 
   // Clear ring buffers
   ring_buf_reset(l_neighbours);
   ring_buf_reset(r_neighbours);
 #endif
 
+  size_t pages_cnt = kb_size(pages_tree);
   if (pages_cnt == 0) {
-    return 0;
+    return 0; // no pages to process
   }
 
   // Init the (right) neightbour iterator
@@ -465,7 +471,7 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
     }
 
 #ifdef SPATIAL_SMOOTHING
-    ptimer_continue(&smooth_timer);
+    ptimer_continue(&spatial_smooth_timer);
     //printf("Before smoothing\n");
 
     // Pop left neighbour(s)
@@ -518,7 +524,7 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
     page->accesses[NVMREAD][prev_access_version] = 0;
     page->accesses[WRITE][prev_access_version] = 0;
 
-    ptimer_stop(&smooth_timer);
+    ptimer_stop(&spatial_smooth_timer);
     //printf("After smoothing\n");
 
     // Update the window with the smoothed access count
@@ -539,7 +545,8 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
     // Pop the leftmost neighbour in right neighbours buffer
     // This is soon-to-be the next page (i.e., the right neighbour)
     if (ring_buf_size(r_neighbours) > 0) {
-      ring_buf_get(r_neighbours);
+      p = (struct hemem_page*)ring_buf_get(r_neighbours);
+      moving_avg_sub(smooth_avg_v, p, &smooth_avg_cnt);
     }
 #else
     // Calculate smoothed access count
@@ -563,7 +570,7 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
 #endif
 
   }
-  ptimer_print(&smooth_timer);
+  ptimer_print(&spatial_smooth_timer);
 
   return s_idx;
 }
@@ -1179,12 +1186,14 @@ void pebs_init(void)
   mod_page_dq = kdq_init(mod_page_t);
 
   // Initialize the neighbour ring buffers
+#ifdef SPATIAL_SMOOTHING
   buffer = (uint64_t**)malloc(sizeof(uint64_t*) * (NUM_NEIGHBOURS + 2));
   assert(buffer);
   l_neighbours = ring_buf_init(buffer, NUM_NEIGHBOURS + 2);
   buffer = (uint64_t**)malloc(sizeof(uint64_t*) * (NUM_NEIGHBOURS + 2));
   assert(buffer);
   r_neighbours = ring_buf_init(buffer, NUM_NEIGHBOURS + 2);
+#endif
 
   // Initialize bias values
   for (int i = 0; i < WINDOW_SIZE; i++) {
