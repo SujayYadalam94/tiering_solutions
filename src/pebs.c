@@ -30,11 +30,13 @@
 struct hemem_page *pages = NULL;
 pthread_mutex_t pages_lock = PTHREAD_MUTEX_INITIALIZER;
 
-//#define ktree_cmp(a,b) ((a) < (b.va) ? -1 : (a.va) > (b.va))
-//#define ktree_cmp(a,b) (                                                      \
+/*
+#define ktree_cmp(a,b) ((a) < (b.va) ? -1 : (a.va) > (b.va))
+#define ktree_cmp(a,b) (                                                      \
   ((((struct hemem_page*)a)->va) < (((struct hemem_page*)b)->va))             \
     ? -1 : ((((struct hemem_page*)a)->va) > (((struct hemem_page*)b)->va)) )
-//KBTREE_INIT(kPagesTree, struct hemem_page*, ktree_cmp)
+KBTREE_INIT(kPagesTree, struct hemem_page*, ktree_cmp)
+*/
 
 typedef struct {
   struct hemem_page* page;
@@ -416,21 +418,24 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
   ptimer_init(&window_timer, "Scores (window)");
   ptimer_init(&smooth_timer, "Scores (smooth)");
 
-  struct hemem_page *page, *p;
-  size_t n_idx;
-  uint64_t n_va, va;
+  struct hemem_page *page;
   kbitr_t itr, n_itr;
-  page_tree_entry_t entry, *entry_ptr, *n_entry_ptr;
+  page_tree_entry_t *entry_ptr;
 
   size_t idx = 0;
   size_t s_idx = 0;
   size_t pages_cnt = kb_size(pages_tree);
 
+#ifdef SPATIAL_SMOOTHING
+  struct hemem_page *p;
+  page_tree_entry_t *n_entry_ptr;
+  size_t n_idx;
+  uint64_t n_va;
+
   uint64_t smooth_avg_v[NPBUFTYPES];
   size_t smooth_avg_cnt = 0;
   memset(smooth_avg_v, 0, sizeof(smooth_avg_v));
 
-#ifdef SPATIAL_SMOOTHING
   // Clear ring buffers
   ring_buf_reset(l_neighbours);
   ring_buf_reset(r_neighbours);
@@ -698,13 +703,11 @@ void *pebs_policy_thread()
 
   size_t pages_cnt, s_pages_cnt;
 
-  uint8_t iteration = 0;
-
   int32_t cur_prom_start_idx = -1, prev_prom_end_idx = -1;
   uint32_t prom_restart_ctr = 0;
 
   uint64_t cur_nvm_bw = 0;
-  float* bias = hist_bias; // History bias by default until triggered by PAR
+  const float * bias = hist_bias; // History bias by default until triggered by PAR
 
   // Use a dedicated CPU core for the policy thread
   thread = pthread_self();
@@ -874,7 +877,7 @@ void *pebs_policy_thread()
           goto loop_end;
         }
         ptimer_continue(&remaining_timer);
-        fprintf(LOG_STREAM, "Promoting freely at %d: 0x%lx score: %f (%f %f %f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1], p->w[2], p->w[3]);
+        fprintf(LOG_STREAM, "Promoting freely at %lu: 0x%lx score: %f (%f %f %f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1], p->w[2], p->w[3]);
         ptimer_continue(&migrate_timer);
         promote_to_free_dram_page(p, np);
         migrated_bytes += pt_to_pagesize(p->pt);
@@ -921,7 +924,7 @@ void *pebs_policy_thread()
 
       // move the cold DRAM page to NVM
       ptimer_start(&migrate_timer);
-      fprintf(LOG_STREAM, "Demoting at %d: 0x%lx score: %f (%f %f %f %f)\n", demote_idx, cp->va, cp->score, cp->w[0], cp->w[1], cp->w[2], cp->w[3]);
+      fprintf(LOG_STREAM, "Demoting at %ld: 0x%lx score: %f (%f %f %f %f)\n", demote_idx, cp->va, cp->score, cp->w[0], cp->w[1], cp->w[2], cp->w[3]);
       if (demote_to_free_nvm_page(cp, np)) {
         ptimer_stop(&migrate_timer);
         demotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * demotion_cost_avg);
@@ -929,7 +932,7 @@ void *pebs_policy_thread()
 
         // move the hot NVM page to the (now-free) DRAM page
         //printf("Promote page %p to free DRAM page %p\n", p, np);
-        fprintf(LOG_STREAM, "Promoting at %d: 0x%lx score: %f (%f %f %f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1], p->w[2], p->w[3]);
+        fprintf(LOG_STREAM, "Promoting at %ld: 0x%lx score: %f (%f %f %f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1], p->w[2], p->w[3]);
         ptimer_start(&migrate_timer);
         promote_to_free_dram_page(p, np);
         ptimer_stop(&migrate_timer);
