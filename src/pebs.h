@@ -39,7 +39,7 @@
 #define CAPACITY                  (128*1024)
 //#define COOLING_PAGES             (8192)
 
-#define SPATIAL_SMOOTHING
+// #define SPATIAL_SMOOTHING
 
 #ifndef C220G5
 #define PEBS_NPROCS 24

@@ -109,6 +109,8 @@ uint64_t throttle_cnt = 0;
 uint64_t unthrottle_cnt = 0;
 uint64_t cools = 0;
 
+uint32_t promotion_age = 5; // TODO: Need to understand what a good starting value is
+
 static struct perf_event_mmap_page *perf_page[PEBS_NPROCS][NPBUFTYPES];
 int pfd[PEBS_NPROCS][NPBUFTYPES];
 
@@ -364,6 +366,8 @@ static void reset_page_access_fields(struct hemem_page *page)
   for (int i = 0; i < WINDOW_SIZE; i++) {
     page->w[i] = 0;
   }
+  page->hot_age = 0;
+  page->prev_score = 0;
 }
 
 static inline void update_window(struct hemem_page* page) {
@@ -547,6 +551,7 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
     update_window(page);
 
     // Calculate the hotness score
+    page->prev_score = page->score;
     page->score = compute_score(page, bias);
     scores_out[s_idx++] = (struct score_entry){ page, page->score };
 
@@ -558,24 +563,51 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
   return s_idx;
 }
 
-static inline int continue_migration(struct hemem_page *hp, struct hemem_page *cp, float remaining_time, float prom_cost, float dem_cost)
+static inline int should_promote(struct hemem_page *p)
 {
-  float migration_benefit = hp->score * SAMPLE_PERIOD * LATENCY_DIFF;
-
-  if (prom_cost+dem_cost > remaining_time) {
-    fprintf(LOG_STREAM, "Stopping migration of 0x%lx and 0x%lx cause not enough time remaining: %f but estimated: %f\n", hp->va, cp->va, remaining_time, prom_cost+dem_cost);
+  // A page has to stay hot for a few intervals before it can be promoted
+  if (p->hot_age < promotion_age) {
     return 0;
   }
 
-  if (cp->score == 0 && migration_benefit > prom_cost/2) {
-    return 1;
+  if (!(p->can_promote)) {
+    // fprintf(LOG_STREAM, "Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f %.3f %.3f))\n",
+    //       p->va, p->score, p->w[0], p->w[1], p->w[2], p->w[3]);
+    return 0;
   }
 
-  if ((hp->score - cp->score) < 0.5 || (hp->score < (2 * cp->score))) {
-      fprintf(LOG_STREAM, "Stopping migration of 0x%lx and 0x%lx at hot_score %f (%f %f %f %f), cold_score %f (%f %f %f %f)\n",
-      hp->va, cp->va, hp->score, hp->w[0], hp->w[1], hp->w[2], hp->w[3],
-      cp->score, cp->w[0], cp->w[1], cp->w[2], cp->w[3]);
-      return 0;
+  // TODO: Need to get rid of this
+  // If any of the windows are less than 0.1, don't promote
+  if (p->w[0] < 0.1 || p->w[1] < 0.1 || p->w[2] < 0.1 || p->w[3] < 0.1) {
+    // fprintf(LOG_STREAM, "Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f %.3f %.3f)) cause of window\n",
+    //       p->va, p->score, p->w[0], p->w[1], p->w[2], p->w[3]);
+    return 0;
+  }
+
+  return 1;
+}
+
+static inline int continue_migration(struct hemem_page *hp, struct hemem_page *cp)
+{
+ // Compare the min of hot page and max of cold page
+ // A hot page should hav all EWMAs greater than the max EWMA of a cold page
+ float hot_page_min_avg = hp->w[0];
+ float cold_page_max_avg = cp->w[WINDOW_SIZE-1];
+
+ for (int i = 1; i < WINDOW_SIZE; i++) {
+   if (hp->w[i] < hot_page_min_avg) {
+     hot_page_min_avg = hp->w[i];
+   }
+   if (cp->w[i] > cold_page_max_avg) {
+     cold_page_max_avg = cp->w[i];
+   }
+  }
+
+  if (hot_page_min_avg < cold_page_max_avg) {
+    // fprintf(LOG_STREAM, "Stopping migration of 0x%lx (score: %.3f (%.3f %.3f %.3f %.3f)) and 0x%lx (score: %.3f (%.3f %.3f %.3f %.3f)) cause of min/max\n",
+    //       hp->va, hp->score, hp->w[0], hp->w[1], hp->w[2], hp->w[3],
+    //       cp->va, cp->score, cp->w[0], cp->w[1], cp->w[2], cp->w[3]);
+    return 0;
   }
 
   return 1;
@@ -668,6 +700,9 @@ void *pebs_policy_thread()
 
   uint8_t iteration = 0;
 
+  int32_t cur_prom_start_idx = -1, prev_prom_end_idx = -1;
+  uint32_t prom_restart_ctr = 0;
+
   uint64_t cur_nvm_bw = 0;
   float* bias = hist_bias; // History bias by default until triggered by PAR
 
@@ -714,7 +749,7 @@ void *pebs_policy_thread()
           bias = recn_bias;
           fprintf(LOG_STREAM, "Switching to RECN bias\n");
       }
-      if (bias == recn_bias && ratio < 1.05) {
+      if (bias == recn_bias && ratio < 1.2) { // TODO: Should change this to 2*stddev
           bias = hist_bias;
           fprintf(LOG_STREAM, "Switchin back to HIST bias\n");
       }
@@ -772,6 +807,22 @@ void *pebs_policy_thread()
     qsort(scores, s_pages_cnt, sizeof(struct score_entry), sort_entry_cmp);
     ptimer_stop_and_print(&sort_timer);
 
+    // Set the top_since_iter for the top pages
+    for (int k = 0; k < dramsize/PAGE_SIZE && k < s_pages_cnt; k++) {
+      struct hemem_page* top_page = scores[k].page;
+      if (scores[k].score != 0) {
+        top_page->hot_age++;
+        if (top_page->hot_age > 1 && (top_page->score >= top_page->prev_score)) {
+          // Page has continued to stay hot, so can be promoted
+          top_page->can_promote = true;
+        }
+      }
+    }
+    for (int k = dramsize/PAGE_SIZE; k < s_pages_cnt; k++) {
+      scores[k].page->hot_age = 0;
+      scores[k].page->can_promote = false;
+    }
+
     min_score = scores[s_pages_cnt - 1].score;
     max_score = scores[0].score;
 
@@ -790,7 +841,10 @@ void *pebs_policy_thread()
     //printf("Promote idx: %lu, Demote idx: %lu\n", promote_idx, demote_idx);
 
     migrated_bytes = 0;
-    while (promote_idx < demote_idx) {
+    cur_prom_start_idx = -1;
+    while (promote_idx < dramsize/PAGE_SIZE && promote_idx < demote_idx) {
+      if (scores[promote_idx].score == 0)
+        break;
       // find the hotest NVM page that needs to be promoted
       ptimer_continue(&id_timer);
       while (promote_idx < demote_idx && scores[promote_idx].page->in_dram) {
@@ -803,13 +857,24 @@ void *pebs_policy_thread()
       //printf("Promoting page %lu [idx %lu] with score %f\n", p, promote_idx, scores[promote_idx].score);
       assert(!p->in_dram);
 
+      if (!should_promote(p)) {
+        promote_idx++;
+        continue;
+      }
+
       // try to find a free DRAM page
       np = dequeue_fifo(&dram_free_list);
       if (np != NULL) {
         assert(!(np->present));
         ptimer_stop(&id_timer);
 
-        //printf("Free DRAM page found: %p\n", np);
+        ptimer_stop(&remaining_timer);
+        if (PEBS_KSWAPD_INTERVAL - remaining_timer.elapsed_us < promotion_cost_avg) {
+          // fprintf(LOG_STREAM, "Stopping migration at promote_idx %u because no time\n", promote_idx);
+          goto loop_end;
+        }
+        ptimer_continue(&remaining_timer);
+        fprintf(LOG_STREAM, "Promoting freely at %d: 0x%lx score: %f (%f %f %f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1], p->w[2], p->w[3]);
         ptimer_continue(&migrate_timer);
         promote_to_free_dram_page(p, np);
         migrated_bytes += pt_to_pagesize(p->pt);
@@ -817,6 +882,9 @@ void *pebs_policy_thread()
         ptimer_stop(&migrate_timer);
         promotion_cost_avg = MIGRATION_COST_ALPHA * migrate_timer.elapsed_us + (1 - MIGRATION_COST_ALPHA) * promotion_cost_avg;
         promote_idx++;
+        if (cur_prom_start_idx == -1) {
+          cur_prom_start_idx = promote_idx;
+        }
         continue;
       }
 
@@ -824,7 +892,7 @@ void *pebs_policy_thread()
       while (demote_idx > promote_idx && !scores[demote_idx].page->in_dram) {
         demote_idx--;
       }
-      if (demote_idx <= promote_idx) {
+      if (demote_idx <= promote_idx || demote_idx <= (dramsize/PAGE_SIZE)) {
         break;
       }
 
@@ -833,8 +901,12 @@ void *pebs_policy_thread()
       assert(cp->in_dram && cp->va > 0);
 
       ptimer_stop(&remaining_timer);
-      if (!continue_migration(p, cp, PEBS_KSWAPD_INTERVAL - remaining_timer.elapsed_us, promotion_cost_avg, demotion_cost_avg)) {
-        fprintf(LOG_STREAM, "2. Stopping migration at promote_idx %lu\n", promote_idx);
+      if (PEBS_KSWAPD_INTERVAL - remaining_timer.elapsed_us < (promotion_cost_avg+demotion_cost_avg)) {
+        // fprintf(LOG_STREAM, "Stopping migration at promote_idx %u because no time\n", promote_idx);
+        break;
+      }
+      if (!continue_migration(p, cp)) {
+        // fprintf(LOG_STREAM, "2. Stopping migration at promote_idx %u\n", promote_idx);
         break;
       }
       ptimer_continue(&remaining_timer);
@@ -849,7 +921,7 @@ void *pebs_policy_thread()
 
       // move the cold DRAM page to NVM
       ptimer_start(&migrate_timer);
-      fprintf(LOG_STREAM, "Demoting page 0x%lx score: %f (%f %f %f %f)\n", cp->va, cp->score, cp->w[0], cp->w[1], cp->w[2], cp->w[3]);
+      fprintf(LOG_STREAM, "Demoting at %d: 0x%lx score: %f (%f %f %f %f)\n", demote_idx, cp->va, cp->score, cp->w[0], cp->w[1], cp->w[2], cp->w[3]);
       if (demote_to_free_nvm_page(cp, np)) {
         ptimer_stop(&migrate_timer);
         demotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * demotion_cost_avg);
@@ -857,7 +929,7 @@ void *pebs_policy_thread()
 
         // move the hot NVM page to the (now-free) DRAM page
         //printf("Promote page %p to free DRAM page %p\n", p, np);
-        fprintf(LOG_STREAM, "Promoting page 0x%lx score: %f (%f %f %f %f)\n", p->va, p->score, p->w[0], p->w[1], p->w[2], p->w[3]);
+        fprintf(LOG_STREAM, "Promoting at %d: 0x%lx score: %f (%f %f %f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1], p->w[2], p->w[3]);
         ptimer_start(&migrate_timer);
         promote_to_free_dram_page(p, np);
         ptimer_stop(&migrate_timer);
@@ -868,6 +940,10 @@ void *pebs_policy_thread()
 
         promote_idx++;
         demote_idx--;
+
+        if (cur_prom_start_idx == -1) {
+          cur_prom_start_idx = promote_idx;
+        }
       } else {
         // Demotion failed because the cold DRAM page was removed
         // Put np back on nvm_free_list and move on to the next cold DRAM page
@@ -889,6 +965,33 @@ loop_end:
       promotion_cost_avg = 1000;
       demotion_cost_avg = 1000;
     }
+
+    // TODO: We are currently checking for unnecessary migrations by monitoring the promotion index
+    //       This might not be the best way to do it
+    if (cur_prom_start_idx < prev_prom_end_idx) {
+      // We are starting to promote from idx we already promoted in last iteration
+      // This means there were new hot pages this interval
+      prom_restart_ctr++;
+      if (prom_restart_ctr > 5) {
+        // We have been restarting promotion for 5 intervals
+        // This means we are not making progress
+        // So we should start promoting from the beginning
+        promotion_age++;
+        fprintf(LOG_STREAM, "Possible sequential accesses detected, promotion_age=%d\n", promotion_age);
+      }
+    } else {
+      if (prom_restart_ctr > 0) {
+        prom_restart_ctr--;
+        promotion_age = 5;
+      }
+    }
+
+    if (migrated_pages > 0) {
+      prev_prom_end_idx = promote_idx;
+    } else {
+      prev_prom_end_idx = -1;
+    }
+
     migrate_time_us = loop_timer.elapsed_us;
     if (migrate_time_us < (1.0 * PEBS_KSWAPD_INTERVAL)) {
       //printf("%lu", ((uint64_t)((1.0 * PEBS_KSWAPD_INTERVAL) - migrate_time_us)));

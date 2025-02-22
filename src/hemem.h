@@ -176,6 +176,9 @@ struct hemem_page {
   uint32_t s_accesses[NPBUFTYPES];
   float w[WINDOW_SIZE];
   float score;
+  float prev_score;
+  uint32_t hot_age;
+  bool can_promote;
 
   UT_hash_handle hh;
   struct hemem_page *next, *prev;
