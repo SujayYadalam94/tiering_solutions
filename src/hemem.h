@@ -79,7 +79,7 @@ extern char* nvmpath;
 #define GIGA_PFN_MASK   (GIGAPAGE_MASK ^ UINT64_MAX)
 
 #define FAULT_THREAD_CPU  (0)
-#define STATS_THREAD_CPU  (23)
+#define STATS_THREAD_CPU  (3)
 
 extern FILE *hememlogf;
 //#define LOG(...) fprintf(stderr, __VA_ARGS__)
@@ -184,6 +184,8 @@ struct hemem_page {
   float prev_score;
   uint32_t hot_age;
   bool can_promote;
+  uint64_t last_promote_time;
+  float last_promote_score;
 
   UT_hash_handle hh;
   struct hemem_page *next, *prev;

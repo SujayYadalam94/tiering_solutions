@@ -112,6 +112,10 @@ uint64_t unthrottle_cnt = 0;
 uint64_t cools = 0;
 
 uint32_t promotion_age = 2; // TODO: Need to understand what a good starting value is
+float min_promotion_score = 100.0;
+float promotion_threshold = 0.2;
+float wasteful_promotions = 0;
+uint64_t num_promotions = 0;
 
 static struct perf_event_mmap_page *perf_page[PEBS_NPROCS][NPBUFTYPES];
 int pfd[PEBS_NPROCS][NPBUFTYPES];
@@ -597,16 +601,16 @@ static inline int should_promote(struct hemem_page *p)
     return 0;
   }
 
-  if (!(p->can_promote)) {
-    // fprintf(LOG_STREAM, "Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f %.3f %.3f))\n",
-    //       p->va, p->score, p->w[0], p->w[1], p->w[2], p->w[3]);
+  // A page has to have a score greater than the promotion threshold
+  // This is to avoid migrations of not so hot pages
+  if (p->score < promotion_threshold) {
+    // fprintf(LOG_STREAM, "Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f %.3f %.3f)) cause of min score\n",
+          // p->va, p->score, p->w[0], p->w[1], p->w[2], p->w[3]);
     return 0;
   }
 
-  // TODO: Need to get rid of this
-  // If any of the windows are less than 0.1, don't promote
-  if (p->w[0] < 0.1 || p->w[1] < 0.1 || p->w[2] < 0.1 || p->w[3] < 0.1) {
-    // fprintf(LOG_STREAM, "Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f %.3f %.3f)) cause of window\n",
+  if (!(p->can_promote)) {
+    // fprintf(LOG_STREAM, "Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f %.3f %.3f))\n",
     //       p->va, p->score, p->w[0], p->w[1], p->w[2], p->w[3]);
     return 0;
   }
@@ -655,6 +659,10 @@ void promote_to_free_dram_page(struct hemem_page *p, struct hemem_page *np)
     return;
   }
 
+  p->last_promote_time = global_version;
+  p->last_promote_score = p->score;
+  assert (p->score != 0);
+
   old_offset = p->devdax_offset;
   pebs_migrate_up(p, np->devdax_offset);
   // We can release the lock now that migration is complete
@@ -667,6 +675,8 @@ void promote_to_free_dram_page(struct hemem_page *p, struct hemem_page *np)
   reset_page_access_fields(np);
 
   enqueue_fifo(&nvm_free_list, np);
+
+  num_promotions++;
 }
 
 bool demote_to_free_nvm_page(struct hemem_page *cp, struct hemem_page *np)
@@ -684,6 +694,12 @@ bool demote_to_free_nvm_page(struct hemem_page *cp, struct hemem_page *np)
 
   old_offset = cp->devdax_offset;
   pebs_migrate_down(cp, np->devdax_offset);
+
+  if ((global_version - cp->last_promote_time) < 10) {
+    wasteful_promotions++;
+    min_promotion_score = (cp->last_promote_score < min_promotion_score) ? cp->last_promote_score : min_promotion_score;
+  }
+
   pthread_mutex_unlock(&(cp->page_lock));
 
   // Reset the page fields
@@ -781,6 +797,28 @@ void *pebs_policy_thread()
       fprintf(LOG_STREAM, "NVM bw: %f, NVM bw EWMA: %f, PAR: %f\n",
               (cur_nvm_bw*64.0)/(1024*1024*1024),
               (nvm_bw_ewma*64.0)/(1024*1024*1024), ratio);
+    }
+
+    // Monitor wasteful promotion rate and adjust promotion threshold
+    if (global_version % (1000000 / PEBS_KSWAPD_INTERVAL) == 0) {
+      float wasteful_promotions_ratio = wasteful_promotions / num_promotions;
+      if (wasteful_promotions_ratio > 0.2) {
+        float new_threshold = (min_promotion_score * (wasteful_promotions_ratio + 1.0));
+        promotion_threshold = (promotion_threshold < new_threshold) ? new_threshold : promotion_threshold;
+        fprintf(LOG_STREAM, "Wasteful promotions: %f, Num promotions: %lu, Min promotion score: %f, New promotion threshold: %f\n",
+                wasteful_promotions, num_promotions, min_promotion_score, promotion_threshold);
+      } else {
+        promotion_threshold /= 1.1;
+        if (promotion_threshold < 0.2) {
+          promotion_threshold = 0.2;
+        }
+        fprintf(LOG_STREAM, "Wasteful promotions: %f, Num promotions: %lu, Min promotion score: %f, Same promotion threshold: %f\n",
+                wasteful_promotions, num_promotions, min_promotion_score, promotion_threshold);
+      }
+
+      num_promotions = 0;
+      wasteful_promotions = 0;
+      min_promotion_score = 100.0;
     }
 
     // free pages using free page ring buffer
