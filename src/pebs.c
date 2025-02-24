@@ -520,9 +520,6 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
     page->s_accesses[DRAMREAD] = smooth_avg_v[DRAMREAD];
     page->s_accesses[NVMREAD] = smooth_avg_v[NVMREAD];
     page->s_accesses[WRITE] = smooth_avg_v[WRITE];
-    page->accesses[DRAMREAD][prev_access_version] = 0;
-    page->accesses[NVMREAD][prev_access_version] = 0;
-    page->accesses[WRITE][prev_access_version] = 0;
 
     ptimer_stop(&spatial_smooth_timer);
     //printf("After smoothing\n");
@@ -570,6 +567,24 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
 #endif
 
   }
+
+  // TODO: Faster way to zero the access counts?
+#ifdef SPATIAL_SMOOTHING
+  // Zero the access counts of all the pages
+  for (kb_itr_first(kPagesTree, pages_tree, &itr);
+      kb_itr_valid(&itr);
+      kb_itr_next(kPagesTree, pages_tree, &itr)
+  ) {
+    entry_ptr = &kb_itr_key(page_tree_entry_t, &itr);
+    page = entry_ptr->page;
+    if (page == NULL || !page->present) {
+      continue;
+    }
+    for (int i = 0; i < NPBUFTYPES; i++) {
+      page->accesses[i][prev_access_version] = 0;
+    }
+  }
+#endif
   ptimer_print(&spatial_smooth_timer);
 
   return s_idx;
@@ -833,6 +848,9 @@ void *pebs_policy_thread()
       scores[k].page->can_promote = false;
     }
 
+    if (s_pages_cnt == 0) {
+      goto loop_end;
+    }
     min_score = scores[s_pages_cnt - 1].score;
     max_score = scores[0].score;
 
