@@ -111,7 +111,7 @@ uint64_t throttle_cnt = 0;
 uint64_t unthrottle_cnt = 0;
 uint64_t cools = 0;
 
-uint32_t promotion_age = 5; // TODO: Need to understand what a good starting value is
+uint32_t promotion_age = 2; // TODO: Need to understand what a good starting value is
 
 static struct perf_event_mmap_page *perf_page[PEBS_NPROCS][NPBUFTYPES];
 int pfd[PEBS_NPROCS][NPBUFTYPES];
@@ -748,8 +748,8 @@ void *pebs_policy_thread()
     curr_access_version = 1 - curr_access_version;
     __sync_synchronize();
 
-    // Compute peak-to-average ratio every 10 intervals
-    if (global_version % 10 == 0) {
+    // Compute peak-to-average ratio every 1 second
+    if (global_version % (1000000 / PEBS_KSWAPD_INTERVAL) == 0) {
       cur_nvm_bw = measure_nvm_bw();
       float ratio = (float)(cur_nvm_bw) / nvm_bw_ewma;
       nvm_bw_ewma = 0.9 * nvm_bw_ewma + 0.1 * cur_nvm_bw;
@@ -992,7 +992,7 @@ loop_end:
     } else {
       if (prom_restart_ctr > 0) {
         prom_restart_ctr--;
-        promotion_age = 5;
+        promotion_age = 2;
       }
     }
 
