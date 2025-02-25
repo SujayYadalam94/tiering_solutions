@@ -23,10 +23,10 @@
 
 // 2/(2^i + 1)
 // #define W_EWMA_ALPHA {.6667, .3333, .0952, 0.0199} // 200ms, 500ms, 2s, 10s
-#define W_EWMA_ALPHA {0.667, .1818, 0.0952, 0.0488} // 1s, 5s, 10s, 20s
+#define W_EWMA_ALPHA {0.1818, .0952, 0.0392, 0.0199} // 1s, 2s, 5s, 10s
 // #define W_EWMA_ALPHA {2, 5, 20, 100}
 
-#define PEBS_KSWAPD_INTERVAL      (500000) // in us (10ms)
+#define PEBS_KSWAPD_INTERVAL      (100000) // in us (10ms)
 
 #define MIGRATION_COST_ALPHA      (0.1818) // Last 10 migrations
 #define LATENCY_DIFF              (0.1)    // latency diff bw DRAM and NVM = 0.1us or 100ms

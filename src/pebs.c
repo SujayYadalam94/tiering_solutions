@@ -620,26 +620,15 @@ static inline int should_promote(struct hemem_page *p)
 
 static inline int continue_migration(struct hemem_page *hp, struct hemem_page *cp)
 {
- // Compare the min of hot page and max of cold page
- // A hot page should hav all EWMAs greater than the max EWMA of a cold page
- float hot_page_min_avg = hp->w[0];
- float cold_page_max_avg = cp->w[WINDOW_SIZE-1];
+  float migration_benefit = hp->score * SAMPLE_PERIOD * LATENCY_DIFF;
 
- for (int i = 1; i < WINDOW_SIZE; i++) {
-   if (hp->w[i] < hot_page_min_avg) {
-     hot_page_min_avg = hp->w[i];
-   }
-   if (cp->w[i] > cold_page_max_avg) {
-     cold_page_max_avg = cp->w[i];
-   }
+  if (cp->score == 0 && migration_benefit > promotion_cost_avg/2) {
+    return 1;
   }
 
-  if (hot_page_min_avg < cold_page_max_avg) {
-    // fprintf(LOG_STREAM, "Stopping migration of 0x%lx (score: %.3f (%.3f %.3f %.3f %.3f)) and 0x%lx (score: %.3f (%.3f %.3f %.3f %.3f)) cause of min/max\n",
-    //       hp->va, hp->score, hp->w[0], hp->w[1], hp->w[2], hp->w[3],
-    //       cp->va, cp->score, cp->w[0], cp->w[1], cp->w[2], cp->w[3]);
-    return 0;
-  }
+  if ((hp->score - cp->score) < 0.5 || (hp->score < (2 * cp->score))) {
+      return 0;
+  } 
 
   return 1;
 }
@@ -800,26 +789,26 @@ void *pebs_policy_thread()
     }
 
     // Monitor wasteful promotion rate and adjust promotion threshold
-    if (global_version % (1000000 / PEBS_KSWAPD_INTERVAL) == 0) {
-      float wasteful_promotions_ratio = wasteful_promotions / num_promotions;
-      if (wasteful_promotions_ratio > 0.2) {
-        float new_threshold = (min_promotion_score * (wasteful_promotions_ratio + 1.0));
-        promotion_threshold = (promotion_threshold < new_threshold) ? new_threshold : promotion_threshold;
-        fprintf(LOG_STREAM, "Wasteful promotions: %f, Num promotions: %lu, Min promotion score: %f, New promotion threshold: %f\n",
-                wasteful_promotions, num_promotions, min_promotion_score, promotion_threshold);
-      } else {
-        promotion_threshold /= 1.1;
-        if (promotion_threshold < 0.2) {
-          promotion_threshold = 0.2;
-        }
-        fprintf(LOG_STREAM, "Wasteful promotions: %f, Num promotions: %lu, Min promotion score: %f, Same promotion threshold: %f\n",
-                wasteful_promotions, num_promotions, min_promotion_score, promotion_threshold);
-      }
+    // if (global_version % (1000000 / PEBS_KSWAPD_INTERVAL) == 0) {
+    //   float wasteful_promotions_ratio = wasteful_promotions / num_promotions;
+    //   if (wasteful_promotions_ratio > 0.2) {
+    //     float new_threshold = (min_promotion_score * (wasteful_promotions_ratio + 1.0));
+    //     promotion_threshold = (promotion_threshold < new_threshold) ? new_threshold : promotion_threshold;
+    //     fprintf(LOG_STREAM, "Wasteful promotions: %f, Num promotions: %lu, Min promotion score: %f, New promotion threshold: %f\n",
+    //             wasteful_promotions, num_promotions, min_promotion_score, promotion_threshold);
+    //   } else {
+    //     promotion_threshold /= 1.1;
+    //     if (promotion_threshold < 0.2) {
+    //       promotion_threshold = 0.2;
+    //     }
+    //     fprintf(LOG_STREAM, "Wasteful promotions: %f, Num promotions: %lu, Min promotion score: %f, Same promotion threshold: %f\n",
+    //             wasteful_promotions, num_promotions, min_promotion_score, promotion_threshold);
+    //   }
 
-      num_promotions = 0;
-      wasteful_promotions = 0;
-      min_promotion_score = 100.0;
-    }
+    //   num_promotions = 0;
+    //   wasteful_promotions = 0;
+    //   min_promotion_score = 100.0;
+    // }
 
     // free pages using free page ring buffer
     ptimer_start(&tree_timer);
@@ -871,20 +860,20 @@ void *pebs_policy_thread()
     ptimer_stop_and_print(&sort_timer);
 
     // Set the top_since_iter for the top pages
-    for (int k = 0; k < dramsize/PAGE_SIZE && k < s_pages_cnt; k++) {
-      struct hemem_page* top_page = scores[k].page;
-      if (scores[k].score != 0) {
-        top_page->hot_age++;
-        if (top_page->hot_age > 1 && (top_page->score >= top_page->prev_score)) {
-          // Page has continued to stay hot, so can be promoted
-          top_page->can_promote = true;
-        }
-      }
-    }
-    for (int k = dramsize/PAGE_SIZE; k < s_pages_cnt; k++) {
-      scores[k].page->hot_age = 0;
-      scores[k].page->can_promote = false;
-    }
+    // for (int k = 0; k < dramsize/PAGE_SIZE && k < s_pages_cnt; k++) {
+    //   struct hemem_page* top_page = scores[k].page;
+    //   if (scores[k].score != 0) {
+    //     top_page->hot_age++;
+    //     if (top_page->hot_age > 1 && (top_page->score >= top_page->prev_score)) {
+    //       // Page has continued to stay hot, so can be promoted
+    //       top_page->can_promote = true;
+    //     }
+    //   }
+    // }
+    // for (int k = dramsize/PAGE_SIZE; k < s_pages_cnt; k++) {
+    //   scores[k].page->hot_age = 0;
+    //   scores[k].page->can_promote = false;
+    // }
 
     if (s_pages_cnt == 0) {
       goto loop_end;
@@ -923,10 +912,13 @@ void *pebs_policy_thread()
       //printf("Promoting page %lu [idx %lu] with score %f\n", p, promote_idx, scores[promote_idx].score);
       assert(!p->in_dram);
 
-      if (!should_promote(p)) {
-        promote_idx++;
-        continue;
-      }
+      // if (!should_promote(p)) {
+      //   promote_idx++;
+      //   continue;
+      // }
+
+      if (p->score == 0)
+        break;
 
       // try to find a free DRAM page
       np = dequeue_fifo(&dram_free_list);
@@ -1034,29 +1026,29 @@ loop_end:
 
     // TODO: We are currently checking for unnecessary migrations by monitoring the promotion index
     //       This might not be the best way to do it
-    if (cur_prom_start_idx < prev_prom_end_idx) {
-      // We are starting to promote from idx we already promoted in last iteration
-      // This means there were new hot pages this interval
-      prom_restart_ctr++;
-      if (prom_restart_ctr > 5) {
-        // We have been restarting promotion for 5 intervals
-        // This means we are not making progress
-        // So we should start promoting from the beginning
-        promotion_age++;
-        fprintf(LOG_STREAM, "Possible sequential accesses detected, promotion_age=%d\n", promotion_age);
-      }
-    } else {
-      if (prom_restart_ctr > 0) {
-        prom_restart_ctr--;
-        promotion_age = 2;
-      }
-    }
+    // if (cur_prom_start_idx < prev_prom_end_idx) {
+    //   // We are starting to promote from idx we already promoted in last iteration
+    //   // This means there were new hot pages this interval
+    //   prom_restart_ctr++;
+    //   if (prom_restart_ctr > 5) {
+    //     // We have been restarting promotion for 5 intervals
+    //     // This means we are not making progress
+    //     // So we should start promoting from the beginning
+    //     promotion_age++;
+    //     fprintf(LOG_STREAM, "Possible sequential accesses detected, promotion_age=%d\n", promotion_age);
+    //   }
+    // } else {
+    //   if (prom_restart_ctr > 0) {
+    //     prom_restart_ctr--;
+    //     promotion_age = 2;
+    //   }
+    // }
 
-    if (migrated_pages > 0) {
-      prev_prom_end_idx = promote_idx;
-    } else {
-      prev_prom_end_idx = -1;
-    }
+    // if (migrated_pages > 0) {
+    //   prev_prom_end_idx = promote_idx;
+    // } else {
+    //   prev_prom_end_idx = -1;
+    // }
 
     migrate_time_us = loop_timer.elapsed_us;
     if (migrate_time_us < (1.0 * PEBS_KSWAPD_INTERVAL)) {
