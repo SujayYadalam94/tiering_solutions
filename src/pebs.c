@@ -113,10 +113,7 @@ uint64_t throttle_cnt = 0;
 uint64_t unthrottle_cnt = 0;
 uint64_t cools = 0;
 
-uint32_t promotion_age = 2; // TODO: Need to understand what a good starting value is
-float min_promotion_score = 100.0;
-float promotion_threshold = 0.2;
-float wasteful_promotions = 0;
+uint32_t promotion_age = PROMOTION_AGE_THRESHOLD; // TODO: Need to understand what a good starting value is
 uint64_t num_promotions = 0;
 
 static struct perf_event_mmap_page *perf_page[PEBS_NPROCS][NPBUFTYPES];
@@ -743,6 +740,10 @@ void *pebs_policy_thread()
   page_tree_entry_t entry;
 
   size_t pages_cnt, s_pages_cnt;
+  
+  int64_t promote_idx = 0;
+  int64_t demote_idx = 0;
+  size_t migrated_pages = 0;
 
   int32_t cur_prom_start_idx = -1, prev_prom_end_idx = -1;
   uint32_t prom_restart_ctr = 0;
@@ -881,9 +882,9 @@ void *pebs_policy_thread()
     ptimer_reset(&id_timer);
     ptimer_reset(&migrate_timer);
 
-    int64_t promote_idx = 0;
-    int64_t demote_idx = s_pages_cnt - 1;
-    size_t migrated_pages = 0;
+    promote_idx = 0;
+    demote_idx = s_pages_cnt - 1;
+    migrated_pages = 0;
 
     //printf("Promote idx: %lu, Demote idx: %lu\n", promote_idx, demote_idx);
 
@@ -1032,7 +1033,12 @@ loop_end:
     } else {
       if (prom_restart_ctr > 0) {
         prom_restart_ctr--;
-        promotion_age = 2;
+      } 
+      if (prom_restart_ctr == 0) {
+        promotion_age--;
+        if (promotion_age < PROMOTION_AGE_THRESHOLD) {
+          promotion_age = PROMOTION_AGE_THRESHOLD;
+        }
       }
     }
 
