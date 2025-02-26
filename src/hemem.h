@@ -184,7 +184,6 @@ struct hemem_page {
   float prev_score;
   uint32_t hot_age;
   bool can_promote;
-  uint64_t last_promote_time;
   float last_promote_score;
 
   UT_hash_handle hh;

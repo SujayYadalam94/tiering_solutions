@@ -603,21 +603,23 @@ static inline int should_promote(struct hemem_page *p)
     return 0;
   }
 
-  // A page has to have a score greater than the promotion threshold
-  // This is to avoid migrations of not so hot pages
-  if (p->score < promotion_threshold) {
-    // fprintf(LOG_STREAM, "Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f %.3f %.3f)) cause of min score\n",
-          // p->va, p->score, p->w[0], p->w[1], p->w[2], p->w[3]);
-    return 0;
-  }
-
   if (!(p->can_promote)) {
     // fprintf(LOG_STREAM, "Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f %.3f %.3f))\n",
     //       p->va, p->score, p->w[0], p->w[1], p->w[2], p->w[3]);
     return 0;
   }
 
-  return 1;
+  // Cost-benefit analysis
+  float cost = 1.5 * (promotion_cost_avg + demotion_cost_avg);
+  float benefit = p->score * p->hot_age * SAMPLE_PERIOD * LATENCY_DIFF;
+
+  if (benefit < cost) {
+    fprintf(LOG_STREAM, "Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f %.3f %.3f)) cause of cost-benefit analysis\n",
+          p->va, p->score, p->w[0], p->w[1], p->w[2], p->w[3]);
+    return 1;
+  }
+
+  return 2;
 }
 
 static inline int continue_migration(struct hemem_page *hp, struct hemem_page *cp)
@@ -643,6 +645,14 @@ static inline int continue_migration(struct hemem_page *hp, struct hemem_page *c
     return 0;
   }
 
+  // Cost-benefit analysis
+  float cost = 1.5 * (promotion_cost_avg + demotion_cost_avg);
+  float benefit =(hp->score - cp->score) * hp->hot_age * SAMPLE_PERIOD * LATENCY_DIFF;
+
+  if (benefit < cost) {
+    return 0;
+  }
+
   return 1;
 }
 
@@ -660,10 +670,6 @@ void promote_to_free_dram_page(struct hemem_page *p, struct hemem_page *np)
     pthread_mutex_unlock(&(p->page_lock));
     return;
   }
-
-  p->last_promote_time = global_version;
-  p->last_promote_score = p->score;
-  assert (p->score != 0);
 
   old_offset = p->devdax_offset;
   pebs_migrate_up(p, np->devdax_offset);
@@ -696,11 +702,6 @@ bool demote_to_free_nvm_page(struct hemem_page *cp, struct hemem_page *np)
 
   old_offset = cp->devdax_offset;
   pebs_migrate_down(cp, np->devdax_offset);
-
-  if ((global_version - cp->last_promote_time) < 10) {
-    wasteful_promotions++;
-    min_promotion_score = (cp->last_promote_score < min_promotion_score) ? cp->last_promote_score : min_promotion_score;
-  }
 
   pthread_mutex_unlock(&(cp->page_lock));
 
@@ -903,9 +904,12 @@ void *pebs_policy_thread()
       //printf("Promoting page %lu [idx %lu] with score %f\n", p, promote_idx, scores[promote_idx].score);
       assert(!p->in_dram);
 
-      if (!should_promote(p)) {
+      int ret = should_promote(p);
+      if (ret == 0) {
         promote_idx++;
         continue;
+      } else if (ret == 1) {
+        break;
       }
 
       // try to find a free DRAM page
