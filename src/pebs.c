@@ -16,6 +16,7 @@
 #include <sys/ioctl.h>
 #include <float.h>
 #include <fcntl.h>
+#include <math.h>
 
 #include "hemem.h"
 #include "pebs.h"
@@ -96,6 +97,7 @@ volatile uint8_t curr_window_index = 0;
 volatile uint8_t prev_window_version;
 
 double nvm_bw_ewma = 0.0;
+double nvm_bw_std = 0.0;
 float promotion_cost_avg = 1000; // 1000us
 float demotion_cost_avg = 1000; // 1000us
 
@@ -782,43 +784,23 @@ void *pebs_policy_thread()
     // Compute peak-to-average ratio every 1 second
     if (global_version % (1000000 / PEBS_KSWAPD_INTERVAL) == 0) {
       cur_nvm_bw = measure_nvm_bw();
-      float ratio = (float)(cur_nvm_bw) / nvm_bw_ewma;
       nvm_bw_ewma = 0.9 * nvm_bw_ewma + 0.1 * cur_nvm_bw;
+      nvm_bw_std  = 0.9 * nvm_bw_std + 0.1 * (cur_nvm_bw - nvm_bw_ewma) * (cur_nvm_bw - nvm_bw_ewma);
+      nvm_bw_std = sqrt(nvm_bw_std);
+
+      float z_score = (cur_nvm_bw - nvm_bw_ewma) / nvm_bw_std;
       // Update the bias
-      // TODO: Need to find a better way to trigger the bias change instead of constants
-      if (ratio > 2.0 && cur_nvm_bw > 200000) {
+      if (z_score > 1.5 && cur_nvm_bw > 200000) {
           bias = recn_bias;
           fprintf(LOG_STREAM, "Switching to RECN bias\n");
       }
-      if (bias == recn_bias && ratio < 1.2) { // TODO: Should change this to 2*stddev
+      if (bias == recn_bias && (z_score < 0.5)) {
           bias = hist_bias;
           fprintf(LOG_STREAM, "Switchin back to HIST bias\n");
       }
-      fprintf(LOG_STREAM, "NVM bw: %f, NVM bw EWMA: %f, PAR: %f\n",
+      fprintf(LOG_STREAM, "NVM bw: %f, NVM bw EWMA: %f\n",
               (cur_nvm_bw*64.0)/(1024*1024*1024),
-              (nvm_bw_ewma*64.0)/(1024*1024*1024), ratio);
-    }
-
-    // Monitor wasteful promotion rate and adjust promotion threshold
-    if (global_version % (1000000 / PEBS_KSWAPD_INTERVAL) == 0) {
-      float wasteful_promotions_ratio = wasteful_promotions / num_promotions;
-      if (wasteful_promotions_ratio > 0.2) {
-        float new_threshold = (min_promotion_score * (wasteful_promotions_ratio + 1.0));
-        promotion_threshold = (promotion_threshold < new_threshold) ? new_threshold : promotion_threshold;
-        fprintf(LOG_STREAM, "Wasteful promotions: %f, Num promotions: %lu, Min promotion score: %f, New promotion threshold: %f\n",
-                wasteful_promotions, num_promotions, min_promotion_score, promotion_threshold);
-      } else {
-        promotion_threshold /= 1.1;
-        if (promotion_threshold < 0.2) {
-          promotion_threshold = 0.2;
-        }
-        fprintf(LOG_STREAM, "Wasteful promotions: %f, Num promotions: %lu, Min promotion score: %f, Same promotion threshold: %f\n",
-                wasteful_promotions, num_promotions, min_promotion_score, promotion_threshold);
-      }
-
-      num_promotions = 0;
-      wasteful_promotions = 0;
-      min_promotion_score = 100.0;
+              (nvm_bw_ewma*64.0)/(1024*1024*1024));
     }
 
     // free pages using free page ring buffer
@@ -861,8 +843,6 @@ void *pebs_policy_thread()
     pages_cnt = kb_size(pages_tree);
     s_pages_cnt = calculate_scores(scores, bias);
 
-    fprintf(LOG_STREAM, "min_score: %.3f, max_score: %.3f\n", min_score, max_score);
-    fprintf(LOG_STREAM, "pages_cnt: %lu, s_pages_cnt: %lu\n", pages_cnt, s_pages_cnt);
     ptimer_stop_and_print(&score_timer);
 
     // Sort the scores (in descending order)
