@@ -18,8 +18,7 @@
 
 // #define HIST_BIAS {.25, .25, .25, .25}
 // With HIST_BIAS, we will prioritize longer histories
-// #define HIST_BIAS {.155, .194, .259, .390}
-#define HIST_BIAS {.643, .236, .086, .032}
+#define HIST_BIAS {.155, .194, .259, .390}
 #define RECN_BIAS {.643, .236, .086, .032}
 
 // 2/(2^i + 1)
