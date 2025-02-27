@@ -98,3 +98,50 @@ void next_page(struct fifo_list *list, struct hemem_page *page, struct hemem_pag
     }
     pthread_mutex_unlock(&(list->list_lock));
 }
+
+void enqueue_fifo_m(struct migration_req_list *queue, struct migration_req *entry)
+{
+  pthread_mutex_lock(&(queue->list_lock));
+  assert(entry->prev == NULL);
+  entry->next = queue->first;
+  if(queue->first != NULL) {
+    assert(queue->first->prev == NULL);
+    queue->first->prev = entry;
+  } else {
+    assert(queue->last == NULL);
+    assert(queue->numentries == 0);
+    queue->last = entry;
+  }
+
+  queue->first = entry;
+  entry->list = queue;
+  queue->numentries++;
+  pthread_mutex_unlock(&(queue->list_lock));
+}
+
+struct migration_req *dequeue_fifo_m(struct migration_req_list *queue)
+{
+  pthread_mutex_lock(&(queue->list_lock));
+  struct migration_req *ret = queue->last;
+
+  if(ret == NULL) {
+    //assert(queue->numentries == 0);
+    pthread_mutex_unlock(&(queue->list_lock));
+    return ret;
+  }
+
+  queue->last = ret->prev;
+  if(queue->last != NULL) {
+    queue->last->next = NULL;
+  } else {
+    queue->first = NULL;
+  }
+
+  ret->prev = ret->next = NULL;
+  ret->list = NULL;
+  assert(queue->numentries > 0);
+  queue->numentries--;
+  pthread_mutex_unlock(&(queue->list_lock));
+
+  return ret;
+}

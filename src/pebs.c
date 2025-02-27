@@ -1,6 +1,7 @@
 #define _GNU_SOURCE
 #include <stdlib.h>
 #include <pthread.h>
+#include <semaphore.h>
 #include <stdint.h>
 #include <inttypes.h>
 #include <stdbool.h>
@@ -58,6 +59,10 @@ struct score_entry *scores;
 
 static struct fifo_list dram_free_list;
 static struct fifo_list nvm_free_list;
+
+static struct migration_req_list migration_queue;
+sem_t submission_sem;
+sem_t completion_sem;
 
 //static ring_handle_t promote_page_ring;
 //static ring_handle_t demote_page_ring;
@@ -714,16 +719,54 @@ bool demote_to_free_nvm_page(struct hemem_page *cp, struct hemem_page *np)
   return true;
 }
 
+void *pebs_migration_thread()
+{
+  struct migration_req *req;
+  struct ptimer migrate_timer;
+
+  ptimer_init(&migrate_timer, "Migrate");
+  
+  while(true) {
+    sem_wait(&submission_sem);
+    req = dequeue_fifo_m(&migration_queue);
+    assert(req != NULL);
+
+    // Demote a page if necessary
+    if (req->need_demotion) {
+      ptimer_start(&migrate_timer);
+      if (!demote_to_free_nvm_page(req->dram_page, req->free_page)) {
+        enqueue_fifo(&nvm_free_list, req->free_page);
+        sem_post(&completion_sem);
+        free(req);
+        continue;
+      }
+      ptimer_stop(&migrate_timer);
+      demotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * demotion_cost_avg);
+    }
+
+    // Promote the hot NVM page
+    ptimer_start(&migrate_timer);
+    promote_to_free_dram_page(req->nvm_page, req->free_page);
+    ptimer_stop(&migrate_timer);
+    promotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * promotion_cost_avg);
+
+    sem_post(&completion_sem);
+    free(req);
+  }
+}
+
+
+
+
 void *pebs_policy_thread()
 {
-  struct ptimer loop_timer, tree_timer, score_timer, sort_timer, id_timer, migrate_timer;
+  struct ptimer loop_timer, tree_timer, score_timer, sort_timer, id_timer;
   struct ptimer remaining_timer;
   ptimer_init(&loop_timer, "Loop");
   ptimer_init(&tree_timer, "Tree");
   ptimer_init(&score_timer, "Score");
   ptimer_init(&sort_timer, "Sort");
   ptimer_init(&id_timer, "Identify");
-  ptimer_init(&migrate_timer, "Migrate");
   ptimer_init(&remaining_timer, "Remaining");
 
   cpu_set_t cpuset;
@@ -739,11 +782,14 @@ void *pebs_policy_thread()
 
   page_tree_entry_t entry;
 
-  size_t pages_cnt, s_pages_cnt;
+  size_t s_pages_cnt;
+
+  struct migration_req *m_req;
   
   int64_t promote_idx = 0;
   int64_t demote_idx = 0;
   size_t migrated_pages = 0;
+  size_t num_migration_jobs = 0;
 
   int32_t cur_prom_start_idx = -1, prev_prom_end_idx = -1;
   uint32_t prom_restart_ctr = 0;
@@ -842,7 +888,6 @@ void *pebs_policy_thread()
 
     // Calculate the scores
     ptimer_start(&score_timer);
-    pages_cnt = kb_size(pages_tree);
     s_pages_cnt = calculate_scores(scores, bias);
 
     ptimer_stop_and_print(&score_timer);
@@ -880,7 +925,6 @@ void *pebs_policy_thread()
 
     // Perform migrations
     ptimer_reset(&id_timer);
-    ptimer_reset(&migrate_timer);
 
     promote_idx = 0;
     demote_idx = s_pages_cnt - 1;
@@ -888,8 +932,11 @@ void *pebs_policy_thread()
 
     //printf("Promote idx: %lu, Demote idx: %lu\n", promote_idx, demote_idx);
 
-    migrated_bytes = 0;
+    /*******************/
+    /* MIGRATIONs LOOP*/
+    migrated_bytes     = 0;
     cur_prom_start_idx = -1;
+    num_migration_jobs = 0;
     while (promote_idx < dramsize/PAGE_SIZE && promote_idx < demote_idx) {
       if (scores[promote_idx].score == 0)
         break;
@@ -922,16 +969,24 @@ void *pebs_policy_thread()
         ptimer_stop(&remaining_timer);
         if (PEBS_KSWAPD_INTERVAL - remaining_timer.elapsed_us < promotion_cost_avg) {
           // fprintf(LOG_STREAM, "Stopping migration at promote_idx %u because no time\n", promote_idx);
-          goto loop_end;
+          break;
         }
         ptimer_continue(&remaining_timer);
         fprintf(LOG_STREAM, "Promoting freely at %lu: 0x%lx score: %f (%f %f %f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1], p->w[2], p->w[3]);
-        ptimer_continue(&migrate_timer);
-        promote_to_free_dram_page(p, np);
+
+        m_req = malloc(sizeof(struct migration_req));
+        memset(m_req, 0, sizeof(struct migration_req));
+        m_req->nvm_page      = p;
+        m_req->free_page     = np;
+        m_req->need_demotion = false;
+
+        enqueue_fifo_m(&migration_queue, m_req);
+        sem_post(&submission_sem);
+
+        num_migration_jobs++;
         migrated_bytes += pt_to_pagesize(p->pt);
         migrated_pages++;
-        ptimer_stop(&migrate_timer);
-        promotion_cost_avg = MIGRATION_COST_ALPHA * migrate_timer.elapsed_us + (1 - MIGRATION_COST_ALPHA) * promotion_cost_avg;
+
         promote_idx++;
         if (cur_prom_start_idx == -1) {
           cur_prom_start_idx = promote_idx;
@@ -970,43 +1025,48 @@ void *pebs_policy_thread()
       //printf("Free NVM page found: %p\n", np);
       ptimer_stop(&id_timer);
 
-      // move the cold DRAM page to NVM
-      ptimer_start(&migrate_timer);
       fprintf(LOG_STREAM, "Demoting at %ld: 0x%lx score: %f (%f %f %f %f)\n", demote_idx, cp->va, cp->score, cp->w[0], cp->w[1], cp->w[2], cp->w[3]);
-      if (demote_to_free_nvm_page(cp, np)) {
-        ptimer_stop(&migrate_timer);
-        demotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * demotion_cost_avg);
-        migrated_bytes += pt_to_pagesize(cp->pt);
+      fprintf(LOG_STREAM, "Promoting at %ld: 0x%lx score: %f (%f %f %f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1], p->w[2], p->w[3]);
 
-        // move the hot NVM page to the (now-free) DRAM page
-        //printf("Promote page %p to free DRAM page %p\n", p, np);
-        fprintf(LOG_STREAM, "Promoting at %ld: 0x%lx score: %f (%f %f %f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1], p->w[2], p->w[3]);
-        ptimer_start(&migrate_timer);
-        promote_to_free_dram_page(p, np);
-        ptimer_stop(&migrate_timer);
-        promotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * promotion_cost_avg);
-        migrated_bytes += pt_to_pagesize(p->pt);
+      // move the cold DRAM page to NVM
+      m_req = malloc(sizeof(struct migration_req));
+      memset(m_req, 0, sizeof(struct migration_req));
+      m_req->dram_page     = cp;
+      m_req->nvm_page      = p;
+      m_req->free_page = np;
+      m_req->need_demotion = true;
 
-        migrated_pages += 2;
+      enqueue_fifo_m(&migration_queue, m_req);
+      sem_post(&submission_sem);
 
-        promote_idx++;
-        demote_idx--;
+      num_migration_jobs++;
+      migrated_bytes += (2 * pt_to_pagesize(cp->pt));
+      migrated_pages += 2;
+      promote_idx++;
+      demote_idx--;
+    
+      if (cur_prom_start_idx == -1) {
+        cur_prom_start_idx = promote_idx;
+      }
 
-        if (cur_prom_start_idx == -1) {
-          cur_prom_start_idx = promote_idx;
+      // TODO: batch size? adaptive migrate rate limit?
+      if (num_migration_jobs >= NUM_MIGRATION_THREADS) {
+        // Wait for the migration to finish
+        while(num_migration_jobs > 0) {
+          sem_wait(&completion_sem);
+          num_migration_jobs--;
         }
-      } else {
-        // Demotion failed because the cold DRAM page was removed
-        // Put np back on nvm_free_list and move on to the next cold DRAM page
-        enqueue_fifo(&nvm_free_list, np);
-        demote_idx--;
-        ptimer_stop(&migrate_timer);
       }
     }
 
 loop_end:
+    // Wait for the previous migrations to finish
+    while (num_migration_jobs > 0) {
+      sem_wait(&completion_sem);
+      num_migration_jobs--;
+    }
+
     ptimer_print(&id_timer);
-    ptimer_print(&migrate_timer);
     ptimer_stop_and_print(&loop_timer);
     ptimer_stop(&remaining_timer);
 
@@ -1177,7 +1237,7 @@ void pebs_init(void)
 {
   pthread_t kswapd_thread;
   pthread_t scan_thread;
-  uint64_t** buffer;
+  pthread_t migration_threads[NUM_MIGRATION_THREADS];
 
   LOG("pebs_init: started\n");
 
@@ -1258,6 +1318,14 @@ void pebs_init(void)
 
   r = pthread_create(&kswapd_thread, NULL, pebs_policy_thread, NULL);
   assert(r == 0);
+
+  for (int i = 0; i < NUM_MIGRATION_THREADS; i++) {
+    r = pthread_create(&migration_threads[i], NULL, pebs_migration_thread, NULL);
+    assert(r == 0);
+  }
+  sem_init(&submission_sem, 0, 0);
+  sem_init(&completion_sem, 0, 0);
+  pthread_mutex_init(&migration_queue.list_lock, NULL);
 
   LOG("Memory management policy is PEBS\n");
 

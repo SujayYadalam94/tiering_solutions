@@ -18,7 +18,8 @@
 
 // #define HIST_BIAS {.25, .25, .25, .25}
 // With HIST_BIAS, we will prioritize longer histories
-#define HIST_BIAS {.155, .194, .259, .390}
+// #define HIST_BIAS {.155, .194, .259, .390}
+#define HIST_BIAS {.643, .236, .086, .032}
 #define RECN_BIAS {.643, .236, .086, .032}
 
 // 2/(2^i + 1)
@@ -31,7 +32,7 @@
 #define MIGRATION_COST_ALPHA      (0.1818) // Last 10 migrations
 #define LATENCY_DIFF              (0.1)    // latency diff bw DRAM and NVM = 0.1us or 100ms
 
-#define PROMOTION_AGE_THRESHOLD   (5)
+#define PROMOTION_AGE_THRESHOLD   (1)
 //#define PEBS_KSWAPD_MIGRATE_RATE  (10UL * 1024UL * 1024UL * 1024UL) // 10GB
 //#define HOT_READ_THRESHOLD        (8)
 //#define HOT_WRITE_THRESHOLD       (4)
@@ -41,6 +42,8 @@
 //#define COLD_RING_REQS_THRESHOLD  (128)
 #define CAPACITY                  (128*1024)
 //#define COOLING_PAGES             (8192)
+
+#define NUM_MIGRATION_THREADS    (1)
 
 #ifndef C220G5
 #define PEBS_NPROCS 24

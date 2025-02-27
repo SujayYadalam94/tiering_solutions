@@ -191,6 +191,16 @@ struct hemem_page {
   struct fifo_list *list;
 };
 
+struct migration_req {
+  struct hemem_page *dram_page;
+  struct hemem_page *nvm_page;
+  struct hemem_page *free_page;
+  bool need_demotion;
+
+  struct migration_req *next, *prev;
+  struct migration_req_list *list;
+};
+
 static inline uint64_t pt_to_pagesize(enum pagetypes pt)
 {
   switch(pt) {
