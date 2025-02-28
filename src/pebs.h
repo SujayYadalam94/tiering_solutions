@@ -14,16 +14,19 @@
 // #define SPATIAL_SMOOTHING
 #define NUM_NEIGHBOURS (2)
 
-#define WINDOW_SIZE (4)
+#define WINDOW_SIZE (2)
 
 // #define HIST_BIAS {.25, .25, .25, .25}
 // With HIST_BIAS, we will prioritize longer histories
-#define HIST_BIAS {.155, .194, .259, .390}
-#define RECN_BIAS {.643, .236, .086, .032}
+// #define HIST_BIAS {.155, .194, .259, .390}
+// #define RECN_BIAS {.643, .236, .086, .032}
+#define HIST_BIAS {0.4, 0.6} // Harmonic progression (1/3, 1/2)
+#define RECN_BIAS {0.731, 0.269} // Exponential (e-1, e-2)
 
 // 2/(2^i + 1)
 // #define W_EWMA_ALPHA {.6667, .3333, .0952, 0.0199} // 200ms, 500ms, 2s, 10s
-#define W_EWMA_ALPHA {0.1818, .0952, 0.0392, 0.0199} // 1s, 2s, 5s, 10s
+// #define W_EWMA_ALPHA {0.1818, .0952, 0.0392, 0.0199} // 1s, 2s, 5s, 10s
+#define W_EWMA_ALPHA {0.1818, 0.0199} // 1s, 10s
 // #define W_EWMA_ALPHA {2, 5, 20, 100}
 
 #define PEBS_KSWAPD_INTERVAL      (100000) // in us (10ms)
