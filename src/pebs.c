@@ -118,7 +118,6 @@ uint64_t throttle_cnt = 0;
 uint64_t unthrottle_cnt = 0;
 uint64_t cools = 0;
 
-uint32_t promotion_age = PROMOTION_AGE_THRESHOLD; // TODO: Need to understand what a good starting value is
 uint64_t num_promotions = 0;
 
 static struct perf_event_mmap_page *perf_page[PEBS_NPROCS][NPBUFTYPES];
@@ -600,11 +599,6 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
 
 static inline int should_promote(struct hemem_page *p)
 {
-  // A page has to stay hot for a few intervals before it can be promoted
-  if (p->hot_age < promotion_age) {
-    return 0;
-  }
-
   if (!(p->can_promote)) {
     // fprintf(LOG_STREAM, "Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f %.3f %.3f))\n",
     //       p->va, p->score, p->w[0], p->w[1], p->w[2], p->w[3]);
@@ -685,8 +679,6 @@ void promote_to_free_dram_page(struct hemem_page *p, struct hemem_page *np)
   reset_page_access_fields(np);
 
   enqueue_fifo(&nvm_free_list, np);
-
-  num_promotions++;
 }
 
 bool demote_to_free_nvm_page(struct hemem_page *cp, struct hemem_page *np)
@@ -1077,37 +1069,6 @@ loop_end:
       // Reset the migration cost averages
       promotion_cost_avg = 1000;
       demotion_cost_avg = 1000;
-    }
-
-    // TODO: We are currently checking for unnecessary migrations by monitoring the promotion index
-    //       This might not be the best way to do it
-    if (cur_prom_start_idx < prev_prom_end_idx) {
-      // We are starting to promote from idx we already promoted in last iteration
-      // This means there were new hot pages this interval
-      prom_restart_ctr++;
-      if (prom_restart_ctr > 5) {
-        // We have been restarting promotion for 5 intervals
-        // This means we are not making progress
-        // So we should start promoting from the beginning
-        promotion_age++;
-        fprintf(LOG_STREAM, "Possible sequential accesses detected, promotion_age=%d\n", promotion_age);
-      }
-    } else {
-      if (prom_restart_ctr > 0) {
-        prom_restart_ctr--;
-      } 
-      if (prom_restart_ctr == 0) {
-        promotion_age--;
-        if (promotion_age < PROMOTION_AGE_THRESHOLD) {
-          promotion_age = PROMOTION_AGE_THRESHOLD;
-        }
-      }
-    }
-
-    if (migrated_pages > 0) {
-      prev_prom_end_idx = promote_idx;
-    } else {
-      prev_prom_end_idx = -1;
     }
 
     migrate_time_us = loop_timer.elapsed_us;
