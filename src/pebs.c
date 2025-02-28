@@ -118,7 +118,8 @@ uint64_t throttle_cnt = 0;
 uint64_t unthrottle_cnt = 0;
 uint64_t cools = 0;
 
-uint64_t num_promotions = 0;
+const float * bias     = hist_bias; // History bias by default until triggered by PAR
+uint32_t sampling_mode = DEFAULT_SAMPLING
 
 static struct perf_event_mmap_page *perf_page[PEBS_NPROCS][NPBUFTYPES];
 int pfd[PEBS_NPROCS][NPBUFTYPES];
@@ -198,12 +199,7 @@ static struct perf_event_mmap_page* perf_setup(__u64 config, __u64 config1, __u6
 
   attr.config = config;
   attr.config1 = config1;
-  if (type == WRITE) {
-    attr.sample_period = WRITE_SAMPLE_PERIOD;
-  }
-  else {
-    attr.sample_period = SAMPLE_PERIOD;
-  }
+  attr.sample_period = DEFAULT_SAMPLE_PERIOD;
 
   attr.sample_type = PERF_SAMPLE_IP | PERF_SAMPLE_TID | PERF_SAMPLE_ADDR;
   attr.pinned = 1;
@@ -230,6 +226,25 @@ static struct perf_event_mmap_page* perf_setup(__u64 config, __u64 config1, __u6
   assert(p != MAP_FAILED);
 
   return p;
+}
+
+static void update_sampling_frequency()
+{
+  int ret = 0;
+  uint64_t sample_period = DEFAULT_SAMPLE_PERIOD;
+
+  if (sampling_mode == HIGH_FIDELITY) {
+    sample_period = HF_SAMPLE_PERIOD;
+  }
+
+  for (int i = 0; i < PEBS_NPROCS; i++) {
+    for (int j = 0; j < NPBUFTYPES; j++) {
+      ret = ioctl(pfd[i][j], PERF_EVENT_IOC_PERIOD, &sample_period);
+      if (ret != 0) {
+        perror("PERF_EVENT_IOC_PERIOD");
+      }
+    }
+  }
 }
 
 void *pebs_scan_thread()
@@ -386,8 +401,15 @@ static inline void update_window(struct hemem_page* page) {
   uint32_t accesses = page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD] + (WRITES_WEIGHT * page->s_accesses[WRITE]);
 #endif
 
-  for (uint8_t i = 0; i < WINDOW_SIZE; i++) {
-    page->w[i] = (1. - w_ewma_alpha[i]) * page->w[i] + (w_ewma_alpha[i] * accesses);
+  if (sampling_mode == DEFAULT_SAMPLING) {
+    for (uint8_t i = 0; i < WINDOW_SIZE; i++) {
+      page->w[i] = (1. - w_ewma_alpha[i]) * page->w[i] +
+          (w_ewma_alpha[i] * ((DEFAULT_SAMPLE_PERIOD/HF_SAMPLE_PERIOD) * accesses)); // We maintain counters in high-fidelity, so scale
+    }
+  } else if (sampling_mode == HIGH_FIDELITY) {
+    for (uint8_t i = 0; i < WINDOW_SIZE; i++) {
+      page->w[i] = (1. - w_ewma_alpha[i]) * page->w[i] + (w_ewma_alpha[i] * accesses);
+    }
   }
 }
 
@@ -607,7 +629,7 @@ static inline int should_promote(struct hemem_page *p)
 
   // Cost-benefit analysis
   float cost = 1.5 * (promotion_cost_avg + demotion_cost_avg);
-  float benefit = p->score * p->hot_age * SAMPLE_PERIOD * LATENCY_DIFF;
+  float benefit = p->score * p->hot_age * HF_SAMPLE_PERIOD * LATENCY_DIFF;
 
   if (benefit < cost) {
     fprintf(LOG_STREAM, "Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f)) cause of cost-benefit analysis\n",
@@ -643,7 +665,7 @@ static inline int continue_migration(struct hemem_page *hp, struct hemem_page *c
 
   // Cost-benefit analysis
   float cost = 1.5 * (promotion_cost_avg + demotion_cost_avg);
-  float benefit =(hp->score - cp->score) * hp->hot_age * SAMPLE_PERIOD * LATENCY_DIFF;
+  float benefit =(hp->score - cp->score) * hp->hot_age * HF_SAMPLE_PERIOD * LATENCY_DIFF;
 
   if (benefit < cost) {
     return 0;
@@ -787,7 +809,6 @@ void *pebs_policy_thread()
   uint32_t prom_restart_ctr = 0;
 
   uint64_t cur_nvm_bw = 0;
-  const float * bias = hist_bias; // History bias by default until triggered by PAR
 
   // Use a dedicated CPU core for the policy thread
   thread = pthread_self();
@@ -1069,6 +1090,17 @@ loop_end:
       // Reset the migration cost averages
       promotion_cost_avg = 1000;
       demotion_cost_avg = 1000;
+    }
+
+    // Update sampling frequency if there a hot-set change detected
+    if (bias == recn_bias && sampling_mode != HIGH_FIDELITY) {
+      update_sampling_frequency();
+      sampling_mode = HIGH_FIDELITY;
+      fprintf(LOG_STREAM, "Switching to HIGH_FIDELITY sampling mode\n");
+    } else if (bias == hist_bias && sampling_mode != DEFAULT_SAMPLING) {
+      update_sampling_frequency();
+      sampling_mode = DEFAULT_SAMPLING;
+      fprintf(LOG_STREAM, "Switching to DEFAULT sampling mode\n");
     }
 
     migrate_time_us = loop_timer.elapsed_us;
