@@ -381,9 +381,9 @@ static void reset_page_access_fields(struct hemem_page *page)
 
 static inline void update_window(struct hemem_page* page) {
 #ifdef SPATIAL_SMOOTHING
-  float accesses = page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD] + (2 * page->s_accesses[WRITE]);
+  float accesses = page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD] + (WRITES_WEIGHT * page->s_accesses[WRITE]);
 #else
-  uint32_t accesses = page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD] + (2 * page->s_accesses[WRITE]);
+  uint32_t accesses = page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD] + (WRITES_WEIGHT * page->s_accesses[WRITE]);
 #endif
 
   for (uint8_t i = 0; i < WINDOW_SIZE; i++) {

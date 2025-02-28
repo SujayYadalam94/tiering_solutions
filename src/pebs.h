@@ -31,6 +31,8 @@
 #define MIGRATION_COST_ALPHA      (0.1818) // Last 10 migrations
 #define LATENCY_DIFF              (0.1)    // latency diff bw DRAM and NVM = 0.1us or 100ms
 
+#define WRITES_WEIGHT             (3)      // Peak NVM read bw ~ 40GB/s and peak NVM write bw ~ 13GB/s
+
 //#define PEBS_KSWAPD_MIGRATE_RATE  (10UL * 1024UL * 1024UL * 1024UL) // 10GB
 //#define HOT_READ_THRESHOLD        (8)
 //#define HOT_WRITE_THRESHOLD       (4)
