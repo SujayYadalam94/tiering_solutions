@@ -175,8 +175,6 @@ struct hemem_page {
   // Our system
 #ifdef SPATIAL_SMOOTHING
   float s_accesses[NPBUFTYPES];
-#else
-  uint32_t s_accesses[NPBUFTYPES];
 #endif
 
   float w[WINDOW_SIZE];

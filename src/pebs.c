@@ -24,6 +24,7 @@
 #include "timer.h"
 #include "spsc-ring.h"
 
+#include "khash.h"
 #include "kdq.h"
 #include "kbtree.h"
 #include "uthash.h"
@@ -32,6 +33,7 @@
 struct hemem_page *pages = NULL;
 pthread_mutex_t pages_lock = PTHREAD_MUTEX_INITIALIZER;
 
+#ifdef SPATIAL_SMOOTHING
 /*
 #define ktree_cmp(a,b) ((a) < (b.va) ? -1 : (a.va) > (b.va))
 #define ktree_cmp(a,b) (                                                      \
@@ -39,7 +41,6 @@ pthread_mutex_t pages_lock = PTHREAD_MUTEX_INITIALIZER;
     ? -1 : ((((struct hemem_page*)a)->va) > (((struct hemem_page*)b)->va)) )
 KBTREE_INIT(kPagesTree, struct hemem_page*, ktree_cmp)
 */
-
 typedef struct {
   struct hemem_page* page;
   uint64_t va;
@@ -49,6 +50,10 @@ typedef struct {
 KBTREE_INIT(kPagesTree, page_tree_entry_t, ktree_cmp);
 
 kbtree_t(kPagesTree) *pages_tree;
+#else
+KHASH_MAP_INIT_INT64(kPagesMap, struct hemem_page*)
+khash_t(kPagesMap) *pages_map;
+#endif
 
 struct score_entry *scores;
 
@@ -91,8 +96,10 @@ static const float hist_bias[WINDOW_SIZE] = HIST_BIAS;
 static const float recn_bias[WINDOW_SIZE] = RECN_BIAS;
 
 // Neighbour buffers
+#ifdef SPATIAL_SMOOTHING
 static ring_handle_t l_neighbours;
 static ring_handle_t r_neighbours;
+#endif
 
 volatile uint64_t global_version = 0;
 volatile uint8_t curr_access_version = 0;
@@ -119,7 +126,7 @@ uint64_t unthrottle_cnt = 0;
 uint64_t cools = 0;
 
 const float * bias     = hist_bias; // History bias by default until triggered by PAR
-uint32_t sampling_mode = DEFAULT_SAMPLING
+uint32_t sampling_mode = DEFAULT_SAMPLING;
 
 static struct perf_event_mmap_page *perf_page[PEBS_NPROCS][NPBUFTYPES];
 int pfd[PEBS_NPROCS][NPBUFTYPES];
@@ -385,7 +392,9 @@ static void reset_page_access_fields(struct hemem_page *page)
   for (int i = 0; i < NPBUFTYPES; i++) {
     page->accesses[i][0] = 0;
     page->accesses[i][1] = 0;
+    #ifdef SPATIAL_SMOOTHING
     page->s_accesses[i] = 0;
+    #endif
   }
   for (int i = 0; i < WINDOW_SIZE; i++) {
     page->w[i] = 0;
@@ -398,7 +407,7 @@ static inline void update_window(struct hemem_page* page) {
 #ifdef SPATIAL_SMOOTHING
   float accesses = page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD] + (WRITES_WEIGHT * page->s_accesses[WRITE]);
 #else
-  uint32_t accesses = page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD] + (WRITES_WEIGHT * page->s_accesses[WRITE]);
+  uint32_t accesses = page->accesses[DRAMREAD][prev_access_version] + page->accesses[NVMREAD][prev_access_version] + (WRITES_WEIGHT * page->accesses[WRITE][prev_access_version]);
 #endif
 
   if (sampling_mode == DEFAULT_SAMPLING) {
@@ -447,7 +456,8 @@ static inline void moving_avg_sub(float* avg, struct hemem_page* page, uint32_t*
   (*count)--;
 }
 
-static size_t calculate_scores(struct score_entry *scores_out, const float *bias)
+#ifdef SPATIAL_SMOOTHING
+static size_t calculate_scores_tree(struct score_entry *scores_out, const float *bias)
 {
   struct ptimer window_timer, spatial_smooth_timer;
   ptimer_init(&window_timer, "Scores (window)");
@@ -455,12 +465,11 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
 
   struct hemem_page *page;
   kbitr_t itr, n_itr;
-  page_tree_entry_t *entry_ptr;
 
   size_t idx = 0;
   size_t s_idx = 0;
 
-#ifdef SPATIAL_SMOOTHING
+  page_tree_entry_t *entry_ptr;
   struct hemem_page *p;
   page_tree_entry_t *n_entry_ptr;
   size_t n_idx;
@@ -473,7 +482,6 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
   // Clear ring buffers
   ring_buf_reset(l_neighbours);
   ring_buf_reset(r_neighbours);
-#endif
 
   size_t pages_cnt = kb_size(pages_tree);
   if (pages_cnt == 0) {
@@ -499,7 +507,6 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
       continue;
     }
 
-#ifdef SPATIAL_SMOOTHING
     ptimer_continue(&spatial_smooth_timer);
     //printf("Before smoothing\n");
 
@@ -574,31 +581,8 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
       p = (struct hemem_page*)ring_buf_get(r_neighbours);
       moving_avg_sub(smooth_avg_v, p, &smooth_avg_cnt);
     }
-#else
-    // Calculate smoothed access count
-    page->s_accesses[DRAMREAD] = page->accesses[DRAMREAD][prev_access_version];
-    page->s_accesses[NVMREAD] = page->accesses[NVMREAD][prev_access_version];
-    page->s_accesses[WRITE] = page->accesses[WRITE][prev_access_version];
-    page->accesses[DRAMREAD][prev_access_version] = 0;
-    page->accesses[NVMREAD][prev_access_version] = 0;
-    page->accesses[WRITE][prev_access_version] = 0;
-
-    // fprintf(fa, "%lu,%f|", page->va, page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD]); //+ page->s_accesses[WRITE]);
-
-    // Update the window with the smoothed access count
-    update_window(page);
-
-    // Calculate the hotness score
-    page->prev_score = page->score;
-    page->score = compute_score(page, bias);
-    scores_out[s_idx++] = (struct score_entry){ page, page->score };
-
-#endif
-
   }
 
-  // TODO: Faster way to zero the access counts?
-#ifdef SPATIAL_SMOOTHING
   // Zero the access counts of all the pages
   for (kb_itr_first(kPagesTree, pages_tree, &itr);
       kb_itr_valid(&itr);
@@ -613,8 +597,52 @@ static size_t calculate_scores(struct score_entry *scores_out, const float *bias
       page->accesses[i][prev_access_version] = 0;
     }
   }
-#endif
   ptimer_print(&spatial_smooth_timer);
+
+  return s_idx;
+}
+#endif
+
+static size_t calculate_scores_map(struct score_entry *scores_out, const float *bias)
+{
+  struct ptimer window_timer;
+  ptimer_init(&window_timer, "Scores (window)");
+
+  struct hemem_page *page;
+  khiter_t key;
+  size_t s_idx = 0;
+
+  size_t pages_cnt = kh_size(pages_map);
+  if (pages_cnt == 0) {
+    return 0; // no pages to process
+  }
+
+  // Iterate over the pages
+  for (key = kh_begin(pages_map); key != kh_end(pages_map); ++key) {
+    if (!kh_exist(pages_map, key)) {
+      continue;
+    }
+    page = kh_val(pages_map, key);
+    if (page == NULL || !page->present) {
+      continue;
+    }
+
+    // fprintf(fa, "%lu,%f|", page->va, page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD]); //+ page->s_accesses[WRITE]);
+    // Update the window values
+    update_window(page);
+
+    // Reset the access counts
+    page->accesses[DRAMREAD][prev_access_version] = 0;
+    page->accesses[NVMREAD][prev_access_version] = 0;
+    page->accesses[WRITE][prev_access_version] = 0;
+
+    // Calculate the hotness score
+    page->prev_score = page->score;
+    page->score = compute_score(page, bias);
+    scores_out[s_idx++] = (struct score_entry){ page, page->score };
+
+  }
+  ptimer_print(&window_timer);
 
   return s_idx;
 }
@@ -739,7 +767,7 @@ void *pebs_migration_thread()
   struct ptimer migrate_timer;
 
   ptimer_init(&migrate_timer, "Migrate");
-  
+
   while(true) {
     sem_wait(&submission_sem);
     req = dequeue_fifo_m(&migration_queue);
@@ -794,12 +822,14 @@ void *pebs_policy_thread()
   double migrate_time_us;
   struct hemem_page* page = NULL;
 
+  #ifdef SPATIAL_SMOOTHING
   page_tree_entry_t entry;
+  #endif
 
   size_t s_pages_cnt;
 
   struct migration_req *m_req;
-  
+
   int64_t promote_idx = 0;
   int64_t demote_idx = 0;
   size_t migrated_pages = 0;
@@ -879,8 +909,9 @@ void *pebs_policy_thread()
       pthread_mutex_unlock(&mod_page_dq_lock);
 
       page = mp->page;
-
       //fprintf(stderr, "Processing page %lu [va: %lu]\n", page, page->va);
+
+      #ifdef SPATIAL_SMOOTHING
       entry.page = page;
       entry.va = page->va;
 
@@ -894,16 +925,44 @@ void *pebs_policy_thread()
           enqueue_fifo(&nvm_free_list, page);
         }
         reset_page_access_fields(page);
-
       } else {
         kb_put(kPagesTree, pages_tree, entry);
       }
+      #else
+      khiter_t k = kh_get(kPagesMap, pages_map, page->va);
+      if (mp->free) {
+        if (k != kh_end(pages_map)) {
+          kh_del(kPagesMap, pages_map, k);
+
+          // Add page to correct free list
+          if (page->in_dram) {
+            enqueue_fifo(&dram_free_list, page);
+          } else {
+            enqueue_fifo(&nvm_free_list, page);
+          }
+          reset_page_access_fields(page);
+        } else {
+          fprintf(LOG_STREAM, "WARNING: Page not found in map\n");
+        }
+      }
+      else {
+        int ret;
+        k = kh_put(kPagesMap, pages_map, page->va, &ret);
+        kh_value(pages_map, k) = page;
+      }
+
+      #endif
     }
     ptimer_stop_and_print(&tree_timer);
 
     // Calculate the scores
     ptimer_start(&score_timer);
-    s_pages_cnt = calculate_scores(scores, bias);
+
+    #ifdef SPATIAL_SMOOTHING
+    s_pages_cnt = calculate_scores_tree(scores, bias);
+    #else
+    s_pages_cnt = calculate_scores_map(scores, bias);
+    #endif
 
     ptimer_stop_and_print(&score_timer);
 
@@ -1059,7 +1118,7 @@ void *pebs_policy_thread()
       migrated_pages += 2;
       promote_idx++;
       demote_idx--;
-    
+
       if (cur_prom_start_idx == -1) {
         cur_prom_start_idx = promote_idx;
       }
@@ -1278,8 +1337,11 @@ void pebs_init(void)
     enqueue_fifo(&nvm_free_list, p);
   }
 
-  // Initialize the UT_array for tracking active pages
+  #ifdef SPATIAL_SMOOTHING
   pages_tree = kb_init(kPagesTree, KB_DEFAULT_SIZE);
+  #else
+  pages_map = kh_init(kPagesMap);
+  #endif
 
   scores = (struct score_entry*)malloc((MAX_NVME_PAGES + MAX_DRAM_PAGES) * sizeof(struct score_entry));
 
