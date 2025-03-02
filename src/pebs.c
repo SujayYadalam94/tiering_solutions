@@ -27,10 +27,10 @@
 #include "khash.h"
 #include "kdq.h"
 #include "kbtree.h"
-#include "uthash.h"
 
 // Hash table for Hemem-handled pages
-struct hemem_page *pages = NULL;
+KHASH_MAP_INIT_INT64(kPagesMap, struct hemem_page*)
+khash_t(kPagesMap) *pages;
 pthread_mutex_t pages_lock = PTHREAD_MUTEX_INITIALIZER;
 
 #ifdef SPATIAL_SMOOTHING
@@ -51,7 +51,6 @@ KBTREE_INIT(kPagesTree, page_tree_entry_t, ktree_cmp);
 
 kbtree_t(kPagesTree) *pages_tree;
 #else
-KHASH_MAP_INIT_INT64(kPagesMap, struct hemem_page*)
 khash_t(kPagesMap) *pages_map;
 #endif
 
@@ -946,8 +945,9 @@ void *pebs_policy_thread()
         }
       }
       else {
-        int ret;
-        k = kh_put(kPagesMap, pages_map, page->va, &ret);
+        int absent;
+        k = kh_put(kPagesMap, pages_map, page->va, &absent);
+        assert(absent);
         kh_value(pages_map, k) = page;
       }
 
@@ -1223,7 +1223,8 @@ struct hemem_page* pebs_pagefault(void)
 
 void pebs_add_page(struct hemem_page *page)
 {
-  struct hemem_page *p;
+  int absent;
+  khiter_t key;
   assert(page != NULL);
   LOG("pebs: add page, put this page into add_pages_ring: va: 0x%lx\n", page->va);
 
@@ -1231,9 +1232,9 @@ void pebs_add_page(struct hemem_page *page)
 
   // Add to the hash table
   pthread_mutex_lock(&pages_lock);
-  HASH_FIND(hh, pages, &(page->va), sizeof(uint64_t), p);
-  assert(p == NULL);
-  HASH_ADD(hh, pages, va, sizeof(uint64_t), page);
+  key = kh_put(kPagesMap, pages, page->va, &absent);
+  assert(absent);
+  kh_value(pages, key) = page;
   pthread_mutex_unlock(&pages_lock);
 
   // Add to the new pages ring
@@ -1245,15 +1246,18 @@ void pebs_add_page(struct hemem_page *page)
 
 struct hemem_page* pebs_find_page(uint64_t va)
 {
+  khiter_t key;
   struct hemem_page *page;
   pthread_mutex_lock(&pages_lock);
-  HASH_FIND(hh, pages, &va, sizeof(uint64_t), page);
+  key = kh_get(kPagesMap, pages, va);
+  page = key == kh_end(pages) ? NULL : kh_value(pages, key);
   pthread_mutex_unlock(&pages_lock);
   return page;
 }
 
 void pebs_remove_page(struct hemem_page *page)
 {
+  khiter_t key;
   assert(page != NULL);
   LOG("pebs: remove page, put this page into free_page_ring: va: 0x%lx\n", page->va);
 
@@ -1261,7 +1265,9 @@ void pebs_remove_page(struct hemem_page *page)
 
   // Remove page from hash table
   pthread_mutex_lock(&pages_lock);
-  HASH_DEL(pages, page);
+  key = kh_get(kPagesMap, pages, page->va);
+  assert(key != kh_end(pages));
+  kh_del(kPagesMap, pages, key);
   pthread_mutex_unlock(&pages_lock);
 
   pthread_mutex_lock(&mod_page_dq_lock);
@@ -1336,6 +1342,8 @@ void pebs_init(void)
 
     enqueue_fifo(&nvm_free_list, p);
   }
+
+  pages = kh_init(kPagesMap);
 
   #ifdef SPATIAL_SMOOTHING
   pages_tree = kb_init(kPagesTree, KB_DEFAULT_SIZE);

@@ -33,7 +33,6 @@ extern "C" {
 #include "pebs.h"
 #include "timer.h"
 #include "interpose.h"
-#include "uthash.h"
 #include "fifo.h"
 
 #define SCAILP
@@ -167,7 +166,7 @@ struct hemem_page {
   enum pagetypes pt;
   volatile bool migrating;
   bool present;
-  uint32_t accesses[NPBUFTYPES][2];
+  uint16_t accesses[NPBUFTYPES][2];
   pthread_mutex_t page_lock;
 
   // Our system
@@ -178,14 +177,13 @@ struct hemem_page {
   float w[WINDOW_SIZE];
   float score;
   float prev_score;
-  uint32_t hot_age;
+  uint16_t hot_age;
   bool can_promote;
 
-  UT_hash_handle hh;
   struct hemem_page *next, *prev;
   struct fifo_list *list;
 };
-static_assert(sizeof(struct hemem_page) == 200);
+static_assert(sizeof(struct hemem_page) == 128);
 
 struct migration_req {
   struct hemem_page *dram_page;
