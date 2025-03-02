@@ -109,8 +109,8 @@ volatile uint8_t prev_window_version;
 
 double nvm_bw_ewma = 0.0;
 double nvm_bw_std = 0.0;
-float promotion_cost_avg = 1000; // 1000us
-float demotion_cost_avg = 1000; // 1000us
+float promotion_cost_avg = MIN_PROMOTION_COST;
+float demotion_cost_avg = MIN_DEMOTION_COST;
 
 float min_score, max_score;
 
@@ -1147,8 +1147,15 @@ loop_end:
     fprintf(LOG_STREAM, "Migrated %lu pages (%lu bytes) in this interval\n", migrated_pages, migrated_bytes);
     if (migrated_pages == 0) {
       // Reset the migration cost averages
-      promotion_cost_avg = 1000;
-      demotion_cost_avg = 1000;
+      // TOOD: Think about the best way to reset migration costs
+      promotion_cost_avg /= 1.5;
+      demotion_cost_avg  /= 1.5;
+      if (promotion_cost_avg < MIN_PROMOTION_COST) {
+        promotion_cost_avg = MIN_PROMOTION_COST;
+      }
+      if (demotion_cost_avg < MIN_DEMOTION_COST) {
+        demotion_cost_avg = MIN_DEMOTION_COST;
+      }
     }
 
     // Update sampling frequency if there a hot-set change detected

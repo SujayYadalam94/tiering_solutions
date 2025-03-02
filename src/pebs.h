@@ -31,9 +31,6 @@
 
 #define PEBS_KSWAPD_INTERVAL      (100000) // in us (10ms)
 
-#define MIGRATION_COST_ALPHA      (0.1818) // Last 10 migrations
-#define LATENCY_DIFF              (0.1)    // latency diff bw DRAM and NVM = 0.1us or 100ms
-
 #define WRITES_WEIGHT             (3)      // Peak NVM read bw ~ 40GB/s and peak NVM write bw ~ 13GB/s
 
 //#define PEBS_KSWAPD_MIGRATE_RATE  (10UL * 1024UL * 1024UL * 1024UL) // 10GB
@@ -58,6 +55,19 @@
 #define HF_SAMPLE_PERIOD	5003
 //#define SAMPLE_PERIOD 5003
 //#define SAMPLE_FREQ	100
+
+#define MAX_NVM_RD_BW  (6.6) // GB/s
+#define MAX_NVM_WR_BW  (2.3) // GB/s
+
+#define MIN_PROMOTION_DATACOPY_TIME  (PAGE_SIZE / (MAX_NVM_RD_BW * 1024)) // ~ 700us
+#define MIN_DEMOTION_DATACOPY_TIME   (PAGE_SIZE / (MAX_NVM_WR_BW * 1024)) // ~ 1200us
+#define MIGRATION_METADATA_COST      (500) // us
+
+#define MIN_PROMOTION_COST           (MIN_PROMOTION_DATACOPY_TIME + MIGRATION_METADATA_COST)
+#define MIN_DEMOTION_COST            (MIN_DEMOTION_DATACOPY_TIME + MIGRATION_METADATA_COST)
+
+#define MIGRATION_COST_ALPHA      (0.0952) // Last 20 migrations
+#define LATENCY_DIFF              (0.1)    // latency diff bw DRAM and NVM = 0.1us or 100ms
 
 enum sampling_modes {
   DEFAULT_SAMPLING = 0,
