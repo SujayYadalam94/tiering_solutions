@@ -167,9 +167,7 @@ struct hemem_page {
   enum pagetypes pt;
   volatile bool migrating;
   bool present;
-  uint64_t naccesses;
-  uint64_t migrations_up, migrations_down;
-  uint64_t accesses[NPBUFTYPES][2];
+  uint32_t accesses[NPBUFTYPES][2];
   pthread_mutex_t page_lock;
 
   // Our system
@@ -182,12 +180,12 @@ struct hemem_page {
   float prev_score;
   uint32_t hot_age;
   bool can_promote;
-  float last_promote_score;
 
   UT_hash_handle hh;
   struct hemem_page *next, *prev;
   struct fifo_list *list;
 };
+static_assert(sizeof(struct hemem_page) == 200);
 
 struct migration_req {
   struct hemem_page *dram_page;

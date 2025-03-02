@@ -423,7 +423,7 @@ static void hemem_mmap_populate(void* addr, size_t length)
     assert(page->va != 0);
     assert(page->va % HUGEPAGE_SIZE == 0);
     page->migrating = false;
-    page->migrations_up = page->migrations_down = 0;
+    //page->migrations_up = page->migrations_down = 0;
     //page->pa = hemem_va_to_pa(page);
 
     pthread_mutex_init(&(page->page_lock), NULL);
@@ -684,7 +684,7 @@ void hemem_migrate_up(struct hemem_page *page, uint64_t dram_offset)
   gettimeofday(&end, NULL);
   LOG_TIME("uffdio_register: %f s\n", elapsed(&start, &end));
 
-  page->migrations_up++;
+  //page->migrations_up++;
   migrations_up++;
 
   page->devdax_offset = dram_offset;
@@ -798,7 +798,7 @@ void hemem_migrate_down(struct hemem_page *page, uint64_t nvm_offset)
   gettimeofday(&end, NULL);
   LOG_TIME("uffdio_register: %f s\n", elapsed(&start, &end));
 
-  page->migrations_down++;
+  //page->migrations_down++;
   migrations_down++;
 
   page->devdax_offset = nvm_offset;
@@ -964,7 +964,7 @@ void handle_missing_fault(uint64_t page_boundry)
   assert(page->va != 0);
   assert(page->va % HUGEPAGE_SIZE == 0);
   page->migrating = false;
-  page->migrations_up = page->migrations_down = 0;
+  //page->migrations_up = page->migrations_down = 0;
   //page->pa = hemem_va_to_pa(page);
 
   mem_allocated += pagesize;
