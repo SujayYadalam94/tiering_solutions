@@ -43,7 +43,7 @@
 #define CAPACITY                  (128*1024)
 //#define COOLING_PAGES             (8192)
 
-#define NUM_MIGRATION_THREADS    (1)
+#define NUM_MIGRATION_THREADS     (4)
 
 #ifndef C220G5
 #define PEBS_NPROCS 24

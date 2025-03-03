@@ -819,6 +819,8 @@ void *pebs_policy_thread()
 
   uint64_t cur_nvm_bw = 0;
 
+  uint32_t max_migrations_cur_interval = (PEBS_KSWAPD_INTERVAL / (promotion_cost_avg+demotion_cost_avg));
+
   // Use a dedicated CPU core for the policy thread
   thread = pthread_self();
   CPU_ZERO(&cpuset);
@@ -976,6 +978,7 @@ void *pebs_policy_thread()
     fprintf(LOG_STREAM, "min_score: %.3f (%.3f %.3f), max_score: %.3f (%.3f %.3f)\n",
       min_score, scores[s_pages_cnt - 1].page->w[0], scores[s_pages_cnt - 1].page->w[1],
       max_score, scores[0].page->w[0], scores[0].page->w[1]);
+    fprintf(LOG_STREAM, "Prom cost: %f, Dem cost: %f\n", promotion_cost_avg, demotion_cost_avg);
 
     // Perform migrations
     ptimer_reset(&id_timer);
@@ -984,13 +987,26 @@ void *pebs_policy_thread()
     demote_idx = s_pages_cnt - 1;
     migrated_pages = 0;
 
-    //printf("Promote idx: %lu, Demote idx: %lu\n", promote_idx, demote_idx);
+    // Before starting migrations of this interval, check for completion of previous migrations
+    while (num_migration_jobs > 0) {
+      sem_wait(&completion_sem);
+      num_migration_jobs--;
+    }
+
+    ptimer_stop(&remaining_timer);
 
     /*******************/
     /* MIGRATIONs LOOP*/
     migrated_bytes     = 0;
     num_migration_jobs = 0;
+    max_migrations_cur_interval = ((PEBS_KSWAPD_INTERVAL - remaining_timer.elapsed_us) / (promotion_cost_avg+demotion_cost_avg));
     while (promote_idx < dramsize/PAGE_SIZE && promote_idx < demote_idx) {
+      // If we have scheduled the maximum number of migrations for this interval, stop
+      if (num_migration_jobs >= max_migrations_cur_interval) {
+        fprintf(LOG_STREAM, "Scheduled %d migrations, stopping\n", num_migration_jobs);
+        break;
+      }
+
       if (scores[promote_idx].score == 0)
         break;
       // find the hotest NVM page that needs to be promoted
@@ -1032,7 +1048,6 @@ void *pebs_policy_thread()
           break;
         }
 
-        ptimer_continue(&remaining_timer);
         fprintf(LOG_STREAM, "Promoting freely at %lu: 0x%lx score: %f (%f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1]);
 
         m_req = malloc(sizeof(struct migration_req));
@@ -1063,18 +1078,10 @@ void *pebs_policy_thread()
       cp = scores[demote_idx].page;
       assert(cp->in_dram && cp->va > 0);
 
-      ptimer_stop(&remaining_timer);
-      if (PEBS_KSWAPD_INTERVAL - remaining_timer.elapsed_us < (promotion_cost_avg+demotion_cost_avg)) {
-        // fprintf(LOG_STREAM, "Stopping migration at promote_idx %u because no time\n", promote_idx);
-        break;
-      }
       if (!continue_migration(p, cp)) {
         // fprintf(LOG_STREAM, "2. Stopping migration at promote_idx %u\n", promote_idx);
         break;
       }
-      ptimer_continue(&remaining_timer);
-      fprintf(LOG_STREAM, "Remaining time: %f, Prom cost: %f, Dem cost: %f\n", PEBS_KSWAPD_INTERVAL - remaining_timer.elapsed_us, promotion_cost_avg, demotion_cost_avg);
-      //printf("Promote score %f, demote score %f\n", scores[promote_idx].score, scores[demote_idx].score);
 
       // try to find a free NVM page
       np = dequeue_fifo(&nvm_free_list);
@@ -1100,28 +1107,9 @@ void *pebs_policy_thread()
       migrated_pages += 2;
       promote_idx++;
       demote_idx--;
-
-      if (cur_prom_start_idx == -1) {
-        cur_prom_start_idx = promote_idx;
-      }
-
-      // TODO: batch size? adaptive migrate rate limit?
-      if (num_migration_jobs >= NUM_MIGRATION_THREADS) {
-        // Wait for the migration to finish
-        while(num_migration_jobs > 0) {
-          sem_wait(&completion_sem);
-          num_migration_jobs--;
-        }
-      }
     }
 
 loop_end:
-    // Wait for the previous migrations to finish
-    while (num_migration_jobs > 0) {
-      sem_wait(&completion_sem);
-      num_migration_jobs--;
-    }
-
     ptimer_print(&id_timer);
     ptimer_stop_and_print(&loop_timer);
     ptimer_stop(&remaining_timer);
