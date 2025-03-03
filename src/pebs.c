@@ -646,27 +646,6 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
   return s_idx;
 }
 
-static inline int should_promote(struct hemem_page *p)
-{
-  if (!(p->can_promote)) {
-    // fprintf(LOG_STREAM, "Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f))\n",
-    //       p->va, p->score, p->w[0], p->w[1]);
-    return 0;
-  }
-
-  // Cost-benefit analysis
-  float cost = 1.5 * (promotion_cost_avg + demotion_cost_avg);
-  float benefit = p->score * p->hot_age * HF_SAMPLE_PERIOD * LATENCY_DIFF;
-
-  if (benefit < cost) {
-    fprintf(LOG_STREAM, "Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f)) cause of cost-benefit analysis\n",
-          p->va, p->score, p->w[0], p->w[1]);
-    return 1;
-  }
-
-  return 2;
-}
-
 static inline int continue_migration(struct hemem_page *hp, struct hemem_page *cp)
 {
  // Compare the min of hot page and max of cold page
@@ -684,17 +663,24 @@ static inline int continue_migration(struct hemem_page *hp, struct hemem_page *c
   }
 
   if (hot_page_min_avg < cold_page_max_avg) {
-    // fprintf(LOG_STREAM, "Stopping migration of 0x%lx (score: %.3f (%.3f %.3f %.3f %.3f)) and 0x%lx (score: %.3f (%.3f %.3f %.3f %.3f)) cause of min/max\n",
-    //       hp->va, hp->score, hp->w[0], hp->w[1], hp->w[2], hp->w[3],
-    //       cp->va, cp->score, cp->w[0], cp->w[1], cp->w[2], cp->w[3]);
+    // fprintf(LOG_STREAM, "Stopping migration of 0x%lx (score: %.3f (%.3f %.3f)) and 0x%lx (score: %.3f (%.3f %.3f)) cause of min/max\n",
+    //       hp->va, hp->score, hp->w[0], hp->w[1],
+    //       cp->va, cp->score, cp->w[0], cp->w[1]);
     return 0;
   }
 
   // Cost-benefit analysis
   float cost = 1.5 * (promotion_cost_avg + demotion_cost_avg);
-  float benefit =(hp->score - cp->score) * hp->hot_age * HF_SAMPLE_PERIOD * LATENCY_DIFF;
+  float latency_diff = demotion_cost_avg / (PAGE_SIZE/64); // Number of cachelines in a page
+  if (latency_diff < 0.1) {
+    latency_diff = 0.1;
+  }
+  float benefit =(hp->score - cp->score) * hp->hot_age * HF_SAMPLE_PERIOD * latency_diff;
 
   if (benefit < cost) {
+    // fprintf(LOG_STREAM, "Stopping migration of 0x%lx (score: %.3f (%.3f %.3f)) and 0x%lx (score: %.3f (%.3f %.3f)) cause of cost-benefit\n",
+    //       hp->va, hp->score, hp->w[0], hp->w[1],
+    //       cp->va, cp->score, cp->w[0], cp->w[1]);
     return 0;
   }
 
@@ -796,9 +782,6 @@ void *pebs_migration_thread()
   }
 }
 
-
-
-
 void *pebs_policy_thread()
 {
   struct ptimer loop_timer, tree_timer, score_timer, sort_timer, id_timer;
@@ -833,9 +816,6 @@ void *pebs_policy_thread()
   int64_t demote_idx = 0;
   size_t migrated_pages = 0;
   size_t num_migration_jobs = 0;
-
-  int32_t cur_prom_start_idx = -1, prev_prom_end_idx = -1;
-  uint32_t prom_restart_ctr = 0;
 
   uint64_t cur_nvm_bw = 0;
 
@@ -1009,7 +989,6 @@ void *pebs_policy_thread()
     /*******************/
     /* MIGRATIONs LOOP*/
     migrated_bytes     = 0;
-    cur_prom_start_idx = -1;
     num_migration_jobs = 0;
     while (promote_idx < dramsize/PAGE_SIZE && promote_idx < demote_idx) {
       if (scores[promote_idx].score == 0)
@@ -1026,12 +1005,11 @@ void *pebs_policy_thread()
       //printf("Promoting page %lu [idx %lu] with score %f\n", p, promote_idx, scores[promote_idx].score);
       assert(!p->in_dram);
 
-      int ret = should_promote(p);
-      if (ret == 0) {
+      if (!(p->can_promote)) {
+        // fprintf(LOG_STREAM, "Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f))\n",
+        //       p->va, p->score, p->w[0], p->w[1]);
         promote_idx++;
         continue;
-      } else if (ret == 1) {
-        break;
       }
 
       // try to find a free DRAM page
@@ -1040,11 +1018,20 @@ void *pebs_policy_thread()
         assert(!(np->present));
         ptimer_stop(&id_timer);
 
-        ptimer_stop(&remaining_timer);
-        if (PEBS_KSWAPD_INTERVAL - remaining_timer.elapsed_us < promotion_cost_avg) {
-          // fprintf(LOG_STREAM, "Stopping migration at promote_idx %u because no time\n", promote_idx);
+        // Cost-benefit analysis
+        float cost = 1.5 * (promotion_cost_avg + demotion_cost_avg);
+        float latency_diff = demotion_cost_avg / (PAGE_SIZE/64); // Number of cachelines in a page
+        if (latency_diff < 0.1) {
+          latency_diff = 0.1;
+        }
+        float benefit = p->score * p->hot_age * HF_SAMPLE_PERIOD * LATENCY_DIFF;
+        if (benefit < cost) {
+          // fprintf(LOG_STREAM, "Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f)) cause of cost-benefit analysis\n",
+          //       p->va, p->score, p->w[0], p->w[1]);
+          enqueue_fifo(&dram_free_list, np);
           break;
         }
+
         ptimer_continue(&remaining_timer);
         fprintf(LOG_STREAM, "Promoting freely at %lu: 0x%lx score: %f (%f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1]);
 
