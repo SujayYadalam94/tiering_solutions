@@ -649,8 +649,8 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
 static inline int should_promote(struct hemem_page *p)
 {
   if (!(p->can_promote)) {
-    // fprintf(LOG_STREAM, "Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f %.3f %.3f))\n",
-    //       p->va, p->score, p->w[0], p->w[1], p->w[2], p->w[3]);
+    // fprintf(LOG_STREAM, "Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f))\n",
+    //       p->va, p->score, p->w[0], p->w[1]);
     return 0;
   }
 
@@ -1062,9 +1062,6 @@ void *pebs_policy_thread()
         migrated_pages++;
 
         promote_idx++;
-        if (cur_prom_start_idx == -1) {
-          cur_prom_start_idx = promote_idx;
-        }
         continue;
       }
 
@@ -1077,7 +1074,6 @@ void *pebs_policy_thread()
       }
 
       cp = scores[demote_idx].page;
-      //printf("Demoting page %p [idx %lu] with score %f\n", cp, demote_idx, scores[demote_idx].score);
       assert(cp->in_dram && cp->va > 0);
 
       ptimer_stop(&remaining_timer);
@@ -1096,7 +1092,6 @@ void *pebs_policy_thread()
       // try to find a free NVM page
       np = dequeue_fifo(&nvm_free_list);
       assert(np != NULL);
-      //printf("Free NVM page found: %p\n", np);
       ptimer_stop(&id_timer);
 
       fprintf(LOG_STREAM, "Demoting at %ld: 0x%lx score: %f (%f %f)\n", demote_idx, cp->va, cp->score, cp->w[0], cp->w[1]);
