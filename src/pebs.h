@@ -29,7 +29,8 @@
 #define W_EWMA_ALPHA {0.6667, 0.0952} // 1s, 10s
 // #define W_EWMA_ALPHA {2, 5, 20, 100}
 
-#define PEBS_KSWAPD_INTERVAL      (500000) // in us (10ms)
+#define PEBS_KSWAPD_INTERVAL_BIG      (500000) // in us (10ms)
+#define PEBS_KSWAPD_INTERVAL_SMALL    (100000) // in us (10ms)
 
 #define WRITES_WEIGHT             (3)      // Peak NVM read bw ~ 40GB/s and peak NVM write bw ~ 13GB/s
 

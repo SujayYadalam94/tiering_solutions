@@ -100,6 +100,8 @@ static ring_handle_t l_neighbours;
 static ring_handle_t r_neighbours;
 #endif
 
+uint32_t policy_thread_period = PEBS_KSWAPD_INTERVAL;
+
 volatile uint64_t global_version = 0;
 volatile uint8_t curr_access_version = 0;
 volatile uint8_t prev_access_version; // = 1 - curr_access_version
@@ -671,9 +673,11 @@ static inline int continue_migration(struct hemem_page *hp, struct hemem_page *c
 
   // Cost-benefit analysis
   float cost = 1.5 * (promotion_cost_avg + demotion_cost_avg);
-  float latency_diff = demotion_cost_avg / (PAGE_SIZE/64); // Number of cachelines in a page
-  if (latency_diff < 0.1) {
-    latency_diff = 0.1;
+  float latency_diff = 0.1;
+  
+  if (demotion_cost_avg > 20000) {
+    latency_diff = demotion_cost_avg / (PAGE_SIZE/64); // Number of cachelines in a page
+    latency_diff -= 0.1;
   }
   float benefit =(hp->score - cp->score) * hp->hot_age * HF_SAMPLE_PERIOD * latency_diff;
 
@@ -819,7 +823,7 @@ void *pebs_policy_thread()
 
   uint64_t cur_nvm_bw = 0;
 
-  uint32_t max_migrations_cur_interval = (PEBS_KSWAPD_INTERVAL / (promotion_cost_avg+demotion_cost_avg));
+  uint32_t max_migrations_cur_interval = (policy_thread_period) / (promotion_cost_avg+demotion_cost_avg);
 
   // Use a dedicated CPU core for the policy thread
   thread = pthread_self();
@@ -835,7 +839,7 @@ void *pebs_policy_thread()
   setup_imc_bw_counters();
 
   // Sleep first to allow the scanning thread to start
-  usleep((uint64_t)((1.0 * PEBS_KSWAPD_INTERVAL)));
+  usleep((uint64_t)((1.0 * policy_thread_period)));
 
   for (;;) {
     ptimer_start(&loop_timer);
@@ -854,7 +858,7 @@ void *pebs_policy_thread()
     __sync_synchronize();
 
     // Compute peak-to-average ratio every 1 second
-    if (global_version % (1000000 / PEBS_KSWAPD_INTERVAL) == 0) {
+    if (global_version % (1000000 / policy_thread_period) == 0) {
       cur_nvm_bw = measure_nvm_bw();
       nvm_bw_ewma = 0.9 * nvm_bw_ewma + 0.1 * cur_nvm_bw;
       nvm_bw_std  = (0.9 * nvm_bw_std * nvm_bw_std) + 0.1 * (cur_nvm_bw - nvm_bw_ewma) * (cur_nvm_bw - nvm_bw_ewma);
@@ -999,11 +1003,11 @@ void *pebs_policy_thread()
     /* MIGRATIONs LOOP*/
     migrated_bytes     = 0;
     num_migration_jobs = 0;
-    max_migrations_cur_interval = ((PEBS_KSWAPD_INTERVAL - remaining_timer.elapsed_us) / (promotion_cost_avg+demotion_cost_avg));
+    max_migrations_cur_interval = ((policy_thread_period) / (promotion_cost_avg+demotion_cost_avg)) * NUM_MIGRATION_THREADS;
     while (promote_idx < dramsize/PAGE_SIZE && promote_idx < demote_idx) {
       // If we have scheduled the maximum number of migrations for this interval, stop
       if (num_migration_jobs >= max_migrations_cur_interval) {
-        fprintf(LOG_STREAM, "Scheduled %d migrations, stopping\n", num_migration_jobs);
+        fprintf(LOG_STREAM, "Scheduled %lu migrations\n", num_migration_jobs);
         break;
       }
 
@@ -1036,11 +1040,12 @@ void *pebs_policy_thread()
 
         // Cost-benefit analysis
         float cost = 1.5 * (promotion_cost_avg + demotion_cost_avg);
-        float latency_diff = demotion_cost_avg / (PAGE_SIZE/64); // Number of cachelines in a page
-        if (latency_diff < 0.1) {
-          latency_diff = 0.1;
+        float latency_diff = 0.1;
+        if (demotion_cost_avg > 20000) {
+          latency_diff = demotion_cost_avg / (PAGE_SIZE/64); // Number of cachelines in a page
+          latency_diff -= 0.1;
         }
-        float benefit = p->score * p->hot_age * HF_SAMPLE_PERIOD * LATENCY_DIFF;
+        float benefit = p->score * p->hot_age * HF_SAMPLE_PERIOD * latency_diff;
         if (benefit < cost) {
           // fprintf(LOG_STREAM, "Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f)) cause of cost-benefit analysis\n",
           //       p->va, p->score, p->w[0], p->w[1]);
@@ -1140,9 +1145,9 @@ loop_end:
     }
 
     migrate_time_us = loop_timer.elapsed_us;
-    if (migrate_time_us < (1.0 * PEBS_KSWAPD_INTERVAL)) {
-      //printf("%lu", ((uint64_t)((1.0 * PEBS_KSWAPD_INTERVAL) - migrate_time_us)));
-      usleep((uint64_t)((1.0 * PEBS_KSWAPD_INTERVAL) - migrate_time_us));
+    if (migrate_time_us < (1.0 * policy_thread_period)) {
+      //printf("%lu", ((uint64_t)((1.0 * policy_thread_period) - migrate_time_us)));
+      usleep((uint64_t)((1.0 * policy_thread_period) - migrate_time_us));
     }
   }
 
@@ -1368,6 +1373,12 @@ void pebs_init(void)
   sem_init(&submission_sem, 0, 0);
   sem_init(&completion_sem, 0, 0);
   pthread_mutex_init(&migration_queue.list_lock, NULL);
+
+  if ((dramsize+nvmsize) < (32*1024*1024*1024UL)) {
+    policy_thread_period = PEBS_KSWAPD_INTERVAL_SMALL;
+  } else {
+    policy_thread_period = PEBS_KSWAPD_INTERVAL_BIG;
+  }
 
   LOG("Memory management policy is PEBS\n");
 
