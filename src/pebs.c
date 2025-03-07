@@ -100,7 +100,7 @@ static ring_handle_t l_neighbours;
 static ring_handle_t r_neighbours;
 #endif
 
-uint32_t policy_thread_period = PEBS_KSWAPD_INTERVAL;
+uint32_t policy_thread_period = PEBS_KSWAPD_INTERVAL_BIG;
 
 volatile uint64_t global_version = 0;
 volatile uint8_t curr_access_version = 0;
@@ -141,8 +141,8 @@ uint64_t prev_ctr_val[NUM_IMC][NUM_BW_COUNTERS] = {0};
 
 static uint32_t get_imc_bw_counter_offset(enum imc_bw_counters e) {
   switch(e) {
-    case PMM_READS: return PCM_SERVER_IMC_PMM_READS;
-    case PMM_WRITES: return PCM_SERVER_IMC_PMM_WRITES;
+    case NVM_READS: return PCM_SERVER_IMC_PMM_READS;
+    case NVM_WRITES: return PCM_SERVER_IMC_PMM_WRITES;
     default: assert(!"Unknown IMC counter");
   }
 }
@@ -822,6 +822,8 @@ void *pebs_policy_thread()
   size_t num_migration_jobs = 0;
 
   uint64_t cur_nvm_bw = 0;
+  float    cusum      = 0;
+  uint32_t time_since_recn = 0;
 
   uint32_t max_migrations_cur_interval = (policy_thread_period) / (promotion_cost_avg+demotion_cost_avg);
 
@@ -864,21 +866,30 @@ void *pebs_policy_thread()
       nvm_bw_std  = (0.9 * nvm_bw_std * nvm_bw_std) + 0.1 * (cur_nvm_bw - nvm_bw_ewma) * (cur_nvm_bw - nvm_bw_ewma);
       nvm_bw_std = sqrt(nvm_bw_std);
 
-      float z_score = (cur_nvm_bw - nvm_bw_ewma) / nvm_bw_std;
-      // Update the bias
-      if (bias == hist_bias && z_score > 1.5 && cur_nvm_bw > 200000) {
+      // Page-Hinkley test
+      cusum += (cur_nvm_bw - nvm_bw_ewma);
+      if (cusum > (2 * nvm_bw_std)) {
+        if (bias == hist_bias && cur_nvm_bw > 5000000) {
           bias = recn_bias;
           fprintf(LOG_STREAM, "Switching to RECN bias\n");
-      }
-      if (bias == recn_bias && (z_score < 0.5)) {
+          time_since_recn = 0;
+        }
+        cusum = 0;
+      } else if (time_since_recn >= 20 && cusum < 0) {
+        if (bias == recn_bias) {
           bias = hist_bias;
-          fprintf(LOG_STREAM, "Switchin back to HIST bias\n");
+          fprintf(LOG_STREAM, "Switching back to HIST bias\n");
+        }
       }
+
+      if (bias == recn_bias) {
+        time_since_recn++;
+      }
+
       fprintf(LOG_STREAM, "NVM bw: %f, NVM bw EWMA: %f, NVM bw stddev: %f\n",
               (cur_nvm_bw*64.0)/(1024*1024*1024),
               (nvm_bw_ewma*64.0)/(1024*1024*1024),
               (nvm_bw_std*64.0)/(1024*1024*1024));
-      fprintf(LOG_STREAM, "Z-score: %f\n", z_score);
     }
 
     // free pages using free page ring buffer

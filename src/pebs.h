@@ -94,8 +94,8 @@ enum sampling_modes {
 #define PCM_SERVER_IMC_MMAP_SIZE   (0x4000)
 
 enum imc_bw_counters {
-  PMM_READS = 0,
-  PMM_WRITES = 1,
+  NVM_READS = 0,
+  NVM_WRITES = 1,
   NUM_BW_COUNTERS
 };
 
