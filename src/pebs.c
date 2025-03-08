@@ -759,30 +759,35 @@ void *pebs_migration_thread()
 
   while(true) {
     sem_wait(&submission_sem);
-    req = dequeue_fifo_m(&migration_queue);
-    assert(req != NULL);
 
-    // Demote a page if necessary
-    if (req->need_demotion) {
-      ptimer_start(&migrate_timer);
-      if (!demote_to_free_nvm_page(req->dram_page, req->free_page)) {
-        enqueue_fifo(&nvm_free_list, req->free_page);
-        sem_post(&completion_sem);
-        free(req);
-        continue;
+    while(true) {
+      req = dequeue_fifo_m(&migration_queue);
+      if (req == NULL) {
+        break;
       }
+
+      // Demote a page if necessary
+      if (req->need_demotion) {
+        ptimer_start(&migrate_timer);
+        if (!demote_to_free_nvm_page(req->dram_page, req->free_page)) {
+          enqueue_fifo(&nvm_free_list, req->free_page);
+          sem_post(&completion_sem);
+          free(req);
+          continue;
+        }
+        ptimer_stop(&migrate_timer);
+        demotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * demotion_cost_avg);
+      }
+
+      // Promote the hot NVM page
+      ptimer_start(&migrate_timer);
+      promote_to_free_dram_page(req->nvm_page, req->free_page);
       ptimer_stop(&migrate_timer);
-      demotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * demotion_cost_avg);
+      promotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * promotion_cost_avg);
+
+      sem_post(&completion_sem);
+      free(req);
     }
-
-    // Promote the hot NVM page
-    ptimer_start(&migrate_timer);
-    promote_to_free_dram_page(req->nvm_page, req->free_page);
-    ptimer_stop(&migrate_timer);
-    promotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * promotion_cost_avg);
-
-    sem_post(&completion_sem);
-    free(req);
   }
 }
 
@@ -820,6 +825,7 @@ void *pebs_policy_thread()
   int64_t demote_idx = 0;
   size_t migrated_pages = 0;
   size_t num_migration_jobs = 0;
+  float batch_size = NUM_MIGRATION_THREADS;
 
   float    cur_nvm_bw = 0;
   float    cusum      = 0;
@@ -1024,7 +1030,7 @@ void *pebs_policy_thread()
     /* MIGRATIONs LOOP*/
     migrated_bytes     = 0;
     num_migration_jobs = 0;
-    max_migrations_cur_interval = ((policy_thread_period) / (promotion_cost_avg+demotion_cost_avg)) * NUM_MIGRATION_THREADS;
+    max_migrations_cur_interval = ((policy_thread_period) / (promotion_cost_avg+demotion_cost_avg)) * batch_size;
     while (promote_idx < dramsize/PAGE_SIZE && promote_idx < demote_idx) {
       // If we have scheduled the maximum number of migrations for this interval, stop
       if (num_migration_jobs >= max_migrations_cur_interval) {
@@ -1083,11 +1089,16 @@ void *pebs_policy_thread()
         m_req->need_demotion = false;
 
         enqueue_fifo_m(&migration_queue, m_req);
-        sem_post(&submission_sem);
 
         num_migration_jobs++;
         migrated_bytes += pt_to_pagesize(p->pt);
         migrated_pages++;
+
+        if (num_migration_jobs <= batch_size) {
+          // Wake up only as many threads as the batch size
+          // This is to avoid waking up all threads and then blocking them
+          sem_post(&submission_sem);
+        }
 
         promote_idx++;
         continue;
@@ -1126,13 +1137,18 @@ void *pebs_policy_thread()
       m_req->need_demotion = true;
 
       enqueue_fifo_m(&migration_queue, m_req);
-      sem_post(&submission_sem);
 
       num_migration_jobs++;
       migrated_bytes += (2 * pt_to_pagesize(cp->pt));
       migrated_pages += 2;
       promote_idx++;
       demote_idx--;
+
+      if (num_migration_jobs <= batch_size) {
+        // Wake up only as many threads as the batch size
+        // This is to avoid waking up all threads and then blocking them
+        sem_post(&submission_sem);
+      }
     }
 
 loop_end:
