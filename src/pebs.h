@@ -57,8 +57,8 @@
 //#define SAMPLE_PERIOD 5003
 //#define SAMPLE_FREQ	100
 
-#define MAX_NVM_RD_BW  (6.6) // GB/s
-#define MAX_NVM_WR_BW  (2.3) // GB/s
+#define MAX_NVM_RD_BW  (20) // GB/s
+#define MAX_NVM_WR_BW  (20) // GB/s
 
 #define MIN_PROMOTION_DATACOPY_TIME  (PAGE_SIZE / (MAX_NVM_RD_BW * 1024)) // ~ 700us
 #define MIN_DEMOTION_DATACOPY_TIME   (PAGE_SIZE / (MAX_NVM_WR_BW * 1024)) // ~ 1200us

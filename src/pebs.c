@@ -135,6 +135,17 @@ int pfd[PEBS_NPROCS][NPBUFTYPES];
 volatile bool need_cool_dram = false;
 volatile bool need_cool_nvm = false;
 
+static long perf_event_open(struct perf_event_attr *hw_event, pid_t pid,
+  int cpu, int group_fd, unsigned long flags)
+{
+int ret;
+
+ret = syscall(__NR_perf_event_open, hw_event, pid, cpu,
+  group_fd, flags);
+return ret;
+}
+
+#ifdef SCAILP
 int mem_fd = -1;
 void *imc_mmio_addr[NUM_IMC];
 uint64_t prev_ctr_val[NUM_IMC][NUM_BW_COUNTERS] = {0};
@@ -186,15 +197,66 @@ static int setup_imc_bw_counters() {
   return 0;
 }
 
-static long perf_event_open(struct perf_event_attr *hw_event, pid_t pid,
-    int cpu, int group_fd, unsigned long flags)
-{
-  int ret;
+#elif defined C220G5
 
-  ret = syscall(__NR_perf_event_open, hw_event, pid, cpu,
-		group_fd, flags);
-  return ret;
+int bw_fds[2][6];
+uint64_t prev_bw_val[2][6] = {0};
+
+uint64_t measure_nvm_bw()
+{
+  uint64_t cur_nvm_bw = 0;
+  uint64_t cur_val = 0;
+
+  for (int j = 0; j < 2; j++) {
+    for (int k = 0; k < 6; k++) {
+      read(bw_fds[j][k], &cur_val, sizeof(cur_val));
+      cur_nvm_bw       += cur_val - prev_bw_val[j][k];
+      prev_bw_val[j][k] = cur_val;
+    }
+  }
+
+  return cur_nvm_bw;
 }
+void open_perf_events(int rdwr)
+{
+  int fd;
+  struct perf_event_attr pe;
+
+  for (unsigned long i = 0; i < 6; i++) {
+    memset(&pe, 0, sizeof(pe));
+    pe.type = i + 12; // TODO: read type from /sys/devices/uncore_imc_x/type
+    pe.size = sizeof(pe);
+    pe.disabled = 1;
+    pe.inherit = 1;
+    pe.config = (rdwr == 0) ? 0x304:0xC04;
+
+    fd = perf_event_open(&pe, -1, 10, -1, 0);	
+    if (fd == -1) {
+      fprintf(stderr, "Failed to open perf event for BW monitoring\n");
+      exit(1);
+    }
+    bw_fds[rdwr][i] = fd;
+  }
+}
+
+static int setup_imc_bw_counters()
+{
+  open_perf_events(0);
+  open_perf_events(1);
+
+  // Reset the counters
+  for (int j = 0; j < 2; j++) {
+    for (int k = 0; k < 6; k++) {
+      ioctl(bw_fds[j][k], PERF_EVENT_IOC_RESET, 0);
+      ioctl(bw_fds[j][k], PERF_EVENT_IOC_ENABLE, 0);
+    }
+  }
+
+  measure_nvm_bw();
+
+  return 0;
+}
+#endif
 
 static struct perf_event_mmap_page* perf_setup(__u64 config, __u64 config1, __u64 cpu, __u64 type)
 {
@@ -246,6 +308,15 @@ static void update_sampling_frequency()
   }
 
   for (int i = 0; i < PEBS_NPROCS; i++) {
+#ifdef JOSEPM
+      if (i >= 8 && i < 16) {
+        continue;
+      }
+#elif defined C220G5
+      if (i >= 10 && i < 20) {
+      continue;
+      }
+#endif
     for (int j = 0; j < NPBUFTYPES; j++) {
       ret = ioctl(pfd[i][j], PERF_EVENT_IOC_PERIOD, &sample_period);
       if (ret != 0) {
@@ -330,7 +401,7 @@ void *pebs_scan_thread()
           }
           break;
         default:
-          fprintf(stderr, "Unknown type %u\n", ph->type);
+          //fprintf(stderr, "Unknown type %u\n", ph->type);
           //assert(!"NYI");
           break;
         }

@@ -35,7 +35,7 @@ extern "C" {
 #include "interpose.h"
 #include "fifo.h"
 
-#define SCAILP
+#define C220G5
 
 //#define HEMEM_DEBUG
 #define STATS_THREAD
@@ -77,8 +77,8 @@ extern char* nvmpath;
 #define HUGE_PFN_MASK	(HUGEPAGE_MASK ^ UINT64_MAX)
 #define GIGA_PFN_MASK   (GIGAPAGE_MASK ^ UINT64_MAX)
 
-#define FAULT_THREAD_CPU  (0)
-#define STATS_THREAD_CPU  (3)
+#define FAULT_THREAD_CPU  (10)
+#define STATS_THREAD_CPU  (13)
 
 extern FILE *hememlogf;
 //#define LOG(...) fprintf(stderr, __VA_ARGS__)
