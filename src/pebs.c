@@ -821,7 +821,7 @@ void *pebs_policy_thread()
   size_t migrated_pages = 0;
   size_t num_migration_jobs = 0;
 
-  uint64_t cur_nvm_bw = 0;
+  float    cur_nvm_bw = 0;
   float    cusum      = 0;
   uint32_t time_since_recn = 0;
 
@@ -861,15 +861,17 @@ void *pebs_policy_thread()
 
     // Compute peak-to-average ratio every 1 second
     if (global_version % (1000000 / policy_thread_period) == 0) {
-      cur_nvm_bw = measure_nvm_bw();
-      nvm_bw_ewma = 0.9 * nvm_bw_ewma + 0.1 * cur_nvm_bw;
+      cur_nvm_bw = (measure_nvm_bw() * 64.0) / (1024 * 1024 * 1024);
+
+      // update the BW
+      nvm_bw_ewma = 0.7 * nvm_bw_ewma + 0.3 * cur_nvm_bw;
       nvm_bw_std  = (0.9 * nvm_bw_std * nvm_bw_std) + 0.1 * (cur_nvm_bw - nvm_bw_ewma) * (cur_nvm_bw - nvm_bw_ewma);
       nvm_bw_std = sqrt(nvm_bw_std);
 
       // Page-Hinkley test
-      cusum += (cur_nvm_bw - nvm_bw_ewma);
-      if (cusum > (2 * nvm_bw_std)) {
-        if (bias == hist_bias && cur_nvm_bw > 5000000) {
+      cusum += ((cur_nvm_bw - nvm_bw_ewma) - 0.1);
+      if (cusum > 3 * nvm_bw_std) {
+        if (bias == hist_bias && cur_nvm_bw > 0.3) {
           bias = recn_bias;
           fprintf(LOG_STREAM, "Switching to RECN bias\n");
           time_since_recn = 0;
@@ -882,14 +884,22 @@ void *pebs_policy_thread()
         }
       }
 
+      if (cusum < -2) {
+        cusum = 0;
+      }
+
       if (bias == recn_bias) {
         time_since_recn++;
       }
 
-      fprintf(LOG_STREAM, "NVM bw: %f, NVM bw EWMA: %f, NVM bw stddev: %f\n",
-              (cur_nvm_bw*64.0)/(1024*1024*1024),
-              (nvm_bw_ewma*64.0)/(1024*1024*1024),
-              (nvm_bw_std*64.0)/(1024*1024*1024));
+      batch_size = ((MAX_NVM_WR_BW - cur_nvm_bw) / MAX_NVM_WR_BW) * NUM_MIGRATION_THREADS;
+      batch_size = floor(batch_size);
+      if (batch_size < 1) {
+        batch_size = 1;
+      }
+
+      fprintf(LOG_STREAM, "NVM bw: %f, NVM bw EWMA: %f, NVM bw stddev: %f, cusum: %f\n",
+              cur_nvm_bw, nvm_bw_ewma, nvm_bw_std, cusum);
     }
 
     // free pages using free page ring buffer
