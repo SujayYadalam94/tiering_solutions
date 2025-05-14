@@ -1,10 +1,10 @@
-CC = gcc
+CC = g++
 CFLAGS = -g -Wall -O3 -fPIC
 #CFLAGS = -g3 -Wall -O0 -fPIC
 LDFLAGS = -shared
-INCLUDES = -I../linux/usr/include/
+INCLUDES = -I../linux/usr/include/ -I./external/ydf -I./external/com_google_absl
 LIBS = -lm -lpthread
-HEMEM_LIBS = $(LIBS) -ldl -lsyscall_intercept -L../Hoard/src -lhoard
+HEMEM_LIBS = $(LIBS) -ldl -lsyscall_intercept -L../Hoard/src -lhoard 
 
 default: libhemem.so
 
@@ -12,8 +12,8 @@ all: hemem-libs
 
 hemem-libs: libhemem-lru.so libhemem-simple.so libhemem-lru-swap.so libhemem.so
 
-libhemem.so: hemem.o pebs.o timer.o interpose.o fifo.o spsc-ring.o
-	$(CC) $(LDFLAGS) -o libhemem.so hemem.o timer.o interpose.o pebs.o fifo.o spsc-ring.o $(HEMEM_LIBS)
+libhemem.so: hemem.o pebs.o timer.o interpose.o fifo.o spsc-ring.o bazel-bin/libsqlite_4GB_ycsba.so
+	$(CC) $(LDFLAGS) -o libhemem.so bazel-bin/libsqlite_4GB_ycsba.so hemem.o timer.o interpose.o pebs.o fifo.o spsc-ring.o  $(HEMEM_LIBS)
 
 libhemem-lru.so: policies/hemem-lru.o policies/lru.o timer.o interpose.o policies/paging.o fifo.o spsc-ring.o
 	$(CC) $(LDFLAGS) -o libhemem-lru.so policies/hemem-lru.o timer.o policies/lru.o interpose.o policies/paging.o fifo.o spsc-ring.o $(HEMEM_LIBS)
@@ -24,17 +24,17 @@ libhemem-simple.so: policies/hemem-simple.o policies/simple.o timer.o interpose.
 libhemem-lru-swap.so: policies/hemem-lru-swap.o policies/lru_swap.o timer.o interpose.o policies/paging.o fifo.o spsc-ring.o
 	$(CC) $(LDFLAGS) -o libhemem-lru-swap.so policies/hemem-lru-swap.o timer.o policies/lru_swap.o interpose.o policies/paging.o fifo.o spsc-ring.o $(HEMEM_LIBS)
 
-hemem.o: hemem.c hemem.h pebs.h interpose.h fifo.h spsc-ring.h
-	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_HEMEM -c hemem.c -o hemem.o
+hemem.o: hemem.cc hemem.h pebs.h interpose.h fifo.h spsc-ring.h
+	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_HEMEM -c hemem.cc -o hemem.o
 	
-policies/hemem-lru.o: hemem.c hemem.h policies/lru.h interpose.h policies/paging.h fifo.h spsc-ring.h
-	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_LRU -c hemem.c -o policies/hemem-lru.o
+policies/hemem-lru.o: hemem.cc hemem.h policies/lru.h interpose.h policies/paging.h fifo.h spsc-ring.h
+	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_LRU -c hemem.cc -o policies/hemem-lru.o
 
-policies/hemem-simple.o: hemem.c hemem.h policies/simple.h interpose.h policies/paging.h fifo.h spsc-ring.h
-	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_SIMPLE -c hemem.c -o policies/hemem-simple.o
+policies/hemem-simple.o: hemem.cc hemem.h policies/simple.h interpose.h policies/paging.h fifo.h spsc-ring.h
+	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_SIMPLE -c hemem.cc -o policies/hemem-simple.o
 
-policies/hemem-lru-swap.o: hemem.c hemem.h policies/lru.h interpose.h policies/paging.h fifo.h spsc-ring.h
-	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_LRU -D LRU_SWAP -c hemem.c -o policies/hemem-lru-swap.o
+policies/hemem-lru-swap.o: hemem.cc hemem.h policies/lru.h interpose.h policies/paging.h fifo.h spsc-ring.h
+	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_LRU -D LRU_SWAP -c hemem.cc -o policies/hemem-lru-swap.o
 
 interpose.o: interpose.c interpose.h hemem.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c interpose.c

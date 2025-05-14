@@ -1,4 +1,6 @@
+#ifndef _GNU_SOURCE
 #define _GNU_SOURCE
+#endif
 #include <stdlib.h>
 #include <pthread.h>
 #include <semaphore.h>
@@ -209,7 +211,10 @@ uint64_t measure_nvm_bw()
 
   for (int j = 0; j < 2; j++) {
     for (int k = 0; k < 6; k++) {
-      read(bw_fds[j][k], &cur_val, sizeof(cur_val));
+      if (read(bw_fds[j][k], &cur_val, sizeof(cur_val)) == -1) {
+        perror("Error reading bandwidth counter");
+        exit(1);
+      }
       cur_nvm_bw       += cur_val - prev_bw_val[j][k];
       prev_bw_val[j][k] = cur_val;
     }
@@ -289,7 +294,7 @@ static struct perf_event_mmap_page* perf_setup(__u64 config, __u64 config1, __u6
 
   size_t mmap_size = sysconf(_SC_PAGESIZE) * PERF_PAGES;
   /* printf("mmap_size = %zu\n", mmap_size); */
-  struct perf_event_mmap_page *p = mmap(NULL, mmap_size, PROT_READ | PROT_WRITE, MAP_SHARED, pfd[cpu][type], 0);
+  struct perf_event_mmap_page *p = (struct perf_event_mmap_page*) mmap(NULL, mmap_size, PROT_READ | PROT_WRITE, MAP_SHARED, pfd[cpu][type], 0);
   if(p == MAP_FAILED) {
     perror("mmap");
   }
@@ -326,7 +331,7 @@ static void update_sampling_frequency()
   }
 }
 
-void *pebs_scan_thread()
+void *pebs_scan_thread(void *_)
 {
 #ifdef SAMPLE_BASED_COOLING
   uint64_t samples_since_cool = 0;
@@ -365,7 +370,7 @@ void *pebs_scan_thread()
           continue;
         }
 
-        struct perf_event_header *ph = (void *)(pbuf + (p->data_tail % p->data_size));
+        struct perf_event_header *ph = (struct perf_event_header *)(pbuf + (p->data_tail % p->data_size));
         struct perf_sample* ps;
         struct hemem_page* page;
 
@@ -821,7 +826,7 @@ bool demote_to_free_nvm_page(struct hemem_page *cp, struct hemem_page *np)
   return true;
 }
 
-void *pebs_migration_thread()
+void *pebs_migration_thread(void *_)
 {
   struct migration_req *req;
   struct ptimer migrate_timer;
@@ -862,7 +867,7 @@ void *pebs_migration_thread()
   }
 }
 
-void *pebs_policy_thread()
+void *pebs_policy_thread(void *_)
 {
   struct ptimer loop_timer, tree_timer, score_timer, sort_timer, id_timer;
   struct ptimer remaining_timer;
@@ -892,8 +897,8 @@ void *pebs_policy_thread()
 
   struct migration_req *m_req;
 
-  int64_t promote_idx = 0;
-  int64_t demote_idx = 0;
+  uint64_t promote_idx = 0;
+  uint64_t demote_idx = 0;
   size_t migrated_pages = 0;
   size_t num_migration_jobs = 0;
   float batch_size = NUM_MIGRATION_THREADS;
@@ -1056,7 +1061,7 @@ void *pebs_policy_thread()
     ptimer_stop_and_print(&sort_timer);
 
     // Set the top_since_iter for the top pages
-    for (int k = 0; k < dramsize/PAGE_SIZE && k < s_pages_cnt; k++) {
+    for (uint_fast64_t k = 0; k < dramsize/PAGE_SIZE && k < s_pages_cnt; k++) {
       struct hemem_page* top_page = scores[k].page;
       if (scores[k].score != 0) {
         top_page->hot_age++;
@@ -1066,7 +1071,7 @@ void *pebs_policy_thread()
         }
       }
     }
-    for (int k = dramsize/PAGE_SIZE; k < s_pages_cnt; k++) {
+    for (uint_fast64_t k = dramsize/PAGE_SIZE; k < s_pages_cnt; k++) {
       scores[k].page->hot_age = 0;
       scores[k].page->can_promote = false;
     }
@@ -1153,7 +1158,7 @@ void *pebs_policy_thread()
 
         fprintf(LOG_STREAM, "Promoting freely at %lu: 0x%lx score: %f (%f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1]);
 
-        m_req = malloc(sizeof(struct migration_req));
+        m_req = (struct migration_req*)malloc(sizeof(struct migration_req));
         memset(m_req, 0, sizeof(struct migration_req));
         m_req->nvm_page      = p;
         m_req->free_page     = np;
@@ -1200,7 +1205,7 @@ void *pebs_policy_thread()
       fprintf(LOG_STREAM, "Promoting at %ld: 0x%lx score: %f (%f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1]);
 
       // move the cold DRAM page to NVM
-      m_req = malloc(sizeof(struct migration_req));
+      m_req = (struct migration_req *)malloc(sizeof(struct migration_req));
       memset(m_req, 0, sizeof(struct migration_req));
       m_req->dram_page     = cp;
       m_req->nvm_page      = p;
@@ -1410,8 +1415,8 @@ void pebs_init(void)
   }
 
   pthread_mutex_init(&(dram_free_list.list_lock), NULL);
-  for (int i = 0; i < dramsize / PAGE_SIZE; i++) {
-    struct hemem_page *p = calloc(1, sizeof(struct hemem_page));
+  for (uint_fast64_t i = 0; i < dramsize / PAGE_SIZE; i++) {
+    struct hemem_page *p = (struct hemem_page *)calloc(1, sizeof(struct hemem_page));
     p->devdax_offset = i * PAGE_SIZE;
     p->present = false;
     p->in_dram = true;
@@ -1422,8 +1427,8 @@ void pebs_init(void)
   }
 
   pthread_mutex_init(&(nvm_free_list.list_lock), NULL);
-  for (int i = 0; i < nvmsize / PAGE_SIZE; i++) {
-    struct hemem_page *p = calloc(1, sizeof(struct hemem_page));
+  for (uint_fast64_t i = 0; i < nvmsize / PAGE_SIZE; i++) {
+    struct hemem_page *p = (struct hemem_page *)calloc(1, sizeof(struct hemem_page));
     p->devdax_offset = i * PAGE_SIZE;
     p->present = false;
     p->in_dram = false;

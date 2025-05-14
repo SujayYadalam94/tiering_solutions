@@ -217,7 +217,7 @@ void hemem_init();
 void hemem_stop();
 void* hemem_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset);
 int hemem_munmap(void* addr, size_t length);
-void *handle_fault();
+void *handle_fault(void* _);
 void hemem_migrate_up(struct hemem_page *page, uint64_t dram_offset);
 void hemem_migrate_down(struct hemem_page *page, uint64_t nvm_offset);
 void hemem_wp_page(struct hemem_page *page, bool protect);

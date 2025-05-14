@@ -4,7 +4,9 @@
 #include <libsyscall_intercept_hook_point.h>
 #include <syscall.h>
 #include <errno.h>
+#ifndef __USE_GNU
 #define __USE_GNU
+#endif
 #include <dlfcn.h>
 #include <pthread.h>
 #include <sys/mman.h>
@@ -81,7 +83,7 @@ static int munmap_filter(void *addr, size_t length, uint64_t* result)
     return 1;
   }
 
-  if ((*result = hemem_munmap(addr, length)) == -1) {
+  if ((*result = hemem_munmap(addr, length)) == -1ul) {
     LOG("hemem munmap failed\n\tmunmap(0x%lx, %ld)\n", (uint64_t)addr, length);
   }
   return 0;
@@ -112,10 +114,10 @@ static int hook(long syscall_number, long arg0, long arg1, long arg2, long arg3,
 
 static __attribute__((constructor)) void init(void)
 {
-  libc_mmap = bind_symbol("mmap");
-  libc_munmap = bind_symbol("munmap");
-  libc_malloc = bind_symbol("malloc");
-  libc_free = bind_symbol("free");
+  libc_mmap = (void* (*)(void*, size_t, int, int, int, off_t))bind_symbol("mmap");
+  libc_munmap = (int (*)(void*, size_t))bind_symbol("munmap");
+  libc_malloc = (void* (*)(size_t))bind_symbol("malloc");
+  libc_free = (void (*)(void*))bind_symbol("free");
   intercept_hook_point = hook;
 
   hemem_init();

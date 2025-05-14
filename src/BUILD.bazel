@@ -1,0 +1,89 @@
+package(
+    default_visibility = ["//visibility:public"],
+    licenses = ["notice"],
+)
+
+cc_binary(
+    name = "hemem_lib",
+    #linkstatic = 1,
+    linkshared = 1,
+    srcs = ["fifo.c", "hemem.cc", "interpose.c", "pebs.c", "spsc-ring.c", "timer.c", "fifo.h", "hemem.h", "interpose.h", "kbtree.h", "kdq.h", "khash.h", "pebs.h", "spsc-ring.h", "timer.h"],
+    deps = [
+        ":third_party",
+        ":linux_headers"
+    ],
+    defines = [
+      "ALLOC_HEMEM"
+    ],
+    tags = ["manual"],
+    copts = ["-g -Wall -O3 -fPIC", "-Ilinux/usr/include/"],
+    #https://stackoverflow.com/questions/65675412/bazel-build-cannot-find-shared-library
+    linkopts = ["-L/usr/local/lib", "-L/lib", "-L./Hoard/src", "-L/usr/lib", "-lm -lpthread -ldl -lsyscall_intercept -L../Hoard/src -lhoard"]
+)
+
+cc_library(
+  name = "third_party",
+  linkstatic = 1,
+  alwayslink = 1, 
+  features = ["fully_static_link"],
+  hdrs = ["sqlite_4GB_ycsba.h"],
+  deps = [
+        "@com_google_absl//absl/status:statusor",
+        "@com_google_absl//absl/strings",
+        "@ydf//yggdrasil_decision_forests/api:serving",
+        "@ydf//yggdrasil_decision_forests/serving/decision_forest:register_engines",
+        "@ydf//yggdrasil_decision_forests/learner:all_learners",
+        "@ydf//yggdrasil_decision_forests/learner:learner_library",
+        "@ydf//yggdrasil_decision_forests/dataset:all_dataset_formats",
+        "@ydf//yggdrasil_decision_forests/dataset:data_spec",
+        "@ydf//yggdrasil_decision_forests/dataset:data_spec_cc_proto",
+        "@ydf//yggdrasil_decision_forests/dataset:data_spec_inference",
+        "@ydf//yggdrasil_decision_forests/dataset:vertical_dataset_io",
+        "@ydf//yggdrasil_decision_forests/metric",
+        "@ydf//yggdrasil_decision_forests/metric:report",
+        "@ydf//yggdrasil_decision_forests/model:model_library",
+        "@ydf//yggdrasil_decision_forests/model/gradient_boosted_trees:gradient_boosted_trees",
+        "@ydf//yggdrasil_decision_forests/utils:filesystem",
+        "@ydf//yggdrasil_decision_forests/utils:logging",
+    ]
+)
+
+cc_library(
+    name = "linux_headers",
+    srcs = [],
+    hdrs = [
+      'linux/usr/include/linux/perf_event.h',
+      'linux/usr/include/linux/types.h',
+      'linux/usr/include/asm/types.h',
+      'linux/usr/include/asm-generic/types.h',
+      'linux/usr/include/asm-generic/int-ll64.h',
+      'linux/usr/include/asm/bitsperlong.h',
+      'linux/usr/include/asm-generic/bitsperlong.h',
+      'linux/usr/include/linux/posix_types.h',
+      'linux/usr/include/linux/stddef.h',
+      'linux/usr/include/asm/posix_types.h',
+      'linux/usr/include/asm/posix_types_64.h',
+      'linux/usr/include/asm-generic/posix_types.h',
+      'linux/usr/include/linux/ioctl.h',
+      'linux/usr/include/asm/ioctl.h',
+      'linux/usr/include/asm-generic/ioctl.h',
+      'linux/usr/include/asm/byteorder.h',
+      'linux/usr/include/linux/byteorder/little_endian.h',
+      'linux/usr/include/linux/swab.h',
+      'linux/usr/include/asm/swab.h',
+      'linux/usr/include/linux/hw_breakpoint.h',
+      'linux/usr/include/asm/unistd.h',
+      'linux/usr/include/asm/unistd_64.h',
+      'linux/usr/include/linux/errno.h',
+      'linux/usr/include/asm/errno.h',
+      'linux/usr/include/asm-generic/errno.h',
+      'linux/usr/include/asm-generic/errno-base.h',
+      'linux/usr/include/linux/falloc.h',
+      'linux/usr/include/linux/stat.h',
+      'linux/usr/include/linux/userfaultfd.h',
+      'linux/usr/include/asm/ioctls.h',
+      'linux/usr/include/asm-generic/ioctls.h',
+      'linux/usr/include/linux/limits.h'
+  ],
+  copts = ["-g -Wall -O3 -fPIC"],
+)

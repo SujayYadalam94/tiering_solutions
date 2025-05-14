@@ -3,6 +3,10 @@
 
 #include <stdbool.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct ring_buf_t ring_buf_t;
 
 typedef ring_buf_t* ring_handle_t;
@@ -18,5 +22,9 @@ bool ring_buf_empty(ring_handle_t rbuf);
 bool ring_buf_full(ring_handle_t rbuf);
 size_t ring_buf_capacity(ring_handle_t rbuf);
 size_t ring_buf_size(ring_handle_t rbuf);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif //SPSC_RING_H

@@ -97,6 +97,9 @@ enum sampling_modes {
 
 #define PCM_SERVER_IMC_MMAP_SIZE   (0x4000)
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 enum imc_bw_counters {
   NVM_READS = 0,
   NVM_WRITES = 1,
@@ -135,5 +138,9 @@ void pebs_remove_page(struct hemem_page *page);
 
 void pebs_stats();
 void pebs_shutdown();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /*  HEMEM_LRU_MODIFIED_H  */

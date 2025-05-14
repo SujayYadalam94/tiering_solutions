@@ -1,0 +1,23 @@
+package(
+    default_visibility = ["//visibility:public"],
+    licenses = ["notice"],
+)
+
+cc_shared_library(
+    name="sqlite_4GB_ycsba_shared",
+    shared_lib_name = "sqlite_4GB_ycsba_shared.so",
+    deps = [":sqlite_4GB_ycsba"],
+)
+
+cc_library(
+    name = "sqlite_4GB_ycsba",
+    srcs = [],
+    hdrs = ["sqlite_4GB_ycsba.h"],
+    linkstatic = 1,
+    deps = [
+        "@com_google_absl//absl/status:statusor",
+        "@com_google_absl//absl/strings",
+        "@ydf//yggdrasil_decision_forests/api:serving"
+    ],
+    tags = ["manual"],
+)

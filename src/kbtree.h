@@ -34,6 +34,10 @@
 
 #define KB_MAX_DEPTH 64
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct {
 	int32_t is_internal:1, n:31;
 } kbnode_t;
@@ -46,6 +50,10 @@ typedef struct {
 typedef struct {
 	kbpos_t stack[KB_MAX_DEPTH], *p;
 } kbitr_t;
+
+#ifdef __cplusplus
+}
+#endif
 
 #define	__KB_KEY(type, x)	((type*)((char*)x + 4))
 #define __KB_PTR(btr, x)	((kbnode_t**)((char*)x + btr->off_ptr))
