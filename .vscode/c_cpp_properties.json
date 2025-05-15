@@ -3,14 +3,17 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/src/bazel-src/external/*",
+                "${workspaceFolder}/src/bazel-src/external/**/*",
+                "${workspaceFolder}/src/bazel-bin/external/*",
+                "${workspaceFolder}/src/bazel-bin/external/**/*",
+                "${workspaceFolder}/src/linux/**/*",
+                "${workspaceFolder}/src/Hoard/src/include/**/*"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/g++",
-            "intelliSenseMode": "linux-clang-x64",
-            "compilerArgs": [
-                "external/**"
-            ]
+            "intelliSenseMode": "linux-clang-x64"
         }
     ],
     "version": 4

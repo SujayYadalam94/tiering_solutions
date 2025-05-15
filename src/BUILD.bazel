@@ -7,13 +7,14 @@ cc_binary(
     name = "hemem_lib",
     #linkstatic = 1,
     linkshared = 1,
-    srcs = ["fifo.c", "hemem.cc", "interpose.c", "pebs.c", "spsc-ring.c", "timer.c", "fifo.h", "hemem.h", "interpose.h", "kbtree.h", "kdq.h", "khash.h", "pebs.h", "spsc-ring.h", "timer.h"],
+    srcs = ["fifo.c", "hemem.cpp", "interpose.c", "pebs.cpp", "spsc-ring.c", "timer.c", "fifo.h", "hemem.h", "interpose.h", "kbtree.h", "kdq.h", "khash.h", "pebs.h", "spsc-ring.h", "timer.h"],
     deps = [
         ":third_party",
         ":linux_headers"
     ],
     defines = [
-      "ALLOC_HEMEM"
+      "ALLOC_HEMEM",
+      #"SPATIAL_SMOOTHING"
     ],
     tags = ["manual"],
     copts = ["-g -Wall -O3 -fPIC", "-Ilinux/usr/include/"],
