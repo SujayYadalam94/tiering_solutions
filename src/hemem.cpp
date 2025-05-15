@@ -442,7 +442,11 @@ static void hemem_mmap_populate(void *addr, size_t length) {
         pages_allocated++;
 
         // place in hemem's page tracking list
+        std::cout << "m" << std::endl;
+        fflush(stdout);
         mmgr_add(page);
+        std::cout << "n" << std::endl;
+        fflush(stdout);
         page_boundry += pagesize;
     }
 }
@@ -991,7 +995,11 @@ void handle_missing_fault(uint64_t page_boundry) {
     // hemem_va_to_pa(page->va));
 
     // place in hemem's page tracking list
+    std::cout << "o" << std::endl;
+    fflush(stdout);
     mmgr_add(page);
+    std::cout << "p" << std::endl;
+    fflush(stdout);
 
     missing_faults_handled++;
     pages_allocated++;
@@ -1000,6 +1008,8 @@ void handle_missing_fault(uint64_t page_boundry) {
              elapsed(&missing_start, &missing_end));
 
     internal_call = false;
+    std::cout << "q" << std::endl;
+    fflush(stdout);
 }
 
 void *handle_fault(void *_arg) {
@@ -1032,6 +1042,9 @@ void *handle_fault(void *_arg) {
         pollfd.events = POLLIN;
 
         pollres = poll(&pollfd, 1, -1);
+
+        printf("t\n");
+        fflush(stdout);
 
         switch (pollres) {
         case -1:
@@ -1097,7 +1110,13 @@ void *handle_fault(void *_arg) {
                 range.start = (uint64_t)page_boundry;
                 range.len = PAGE_SIZE;
 
+                std::cout << "q" << std::endl;
+                fflush(stdout);
+
                 ret = ioctl(uffd, UFFDIO_WAKE, &range);
+
+                std::cout << "r" << std::endl;
+                fflush(stdout);
 
                 if (ret < 0) {
                     perror("uffdio wake");

@@ -79,7 +79,6 @@ struct ServingModel {
     // Array of all feature IDs for convenience.
     std::array<serving_api::NumericalFeatureId, 13> all_features;
 
-    std::vector<float> predictions;
     int64_t examples_allocated = -1;
     std::unique_ptr<yggdrasil_decision_forests::serving::AbstractExampleSet>
         examples;
@@ -88,7 +87,9 @@ struct ServingModel {
 inline std::vector<float>
 ServingModel::Predict(const std::vector<std::array<float, 13>> &Xs) {
     const int num_examples = Xs.size();
-    if (!examples_allocated != num_examples) {
+    if (examples_allocated != num_examples) {
+        std::cout << "Allocating examples: " << num_examples << std::endl;
+        fflush(stdout);
         examples = engine->AllocateExamples(num_examples);
         examples->FillMissing(*features);
         examples_allocated = num_examples;
@@ -100,13 +101,13 @@ ServingModel::Predict(const std::vector<std::array<float, 13>> &Xs) {
         }
     }
 
-    std::cout << "make a prediction" << std::endl;
-
+    std::cout << "Doing prediction" << num_examples << std::endl;
+    std::vector<float> predictions;
     engine->Predict(*examples, num_examples, &predictions);
     return predictions;
 }
 
-inline absl::StatusOr<ServingModel *> Load(absl::string_view path) {
+inline absl::StatusOr<ServingModel *> Load(const absl::string_view &path) {
     static ServingModel *m = NULL;
 
     if (m == NULL) {
