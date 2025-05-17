@@ -808,8 +808,8 @@ static size_t calculate_scores_tree(struct score_entry *scores_out,
 
 static size_t calculate_scores_map(struct score_entry *scores_out,
                                    const float *bias) {
-    std::cout << "0" << std::endl;
-    fflush(stdout);
+    //    std::cout << "0" << std::endl;
+    // fflush(stdout)
     struct ptimer window_timer;
     ptimer_init(&window_timer, "Scores (window)");
 
@@ -824,14 +824,14 @@ static size_t calculate_scores_map(struct score_entry *scores_out,
         return 0; // no pages to process
     }
 
-    std::cout << "a" << std::endl;
-    fflush(stdout);
+    //    std::cout << "a" << std::endl;
+    // fflush(stdout)
 
     // Iterate over the pages
     reset_group_hash();
 
-    std::cout << "b" << std::endl;
-    fflush(stdout);
+    //    std::cout << "b" << std::endl;
+    // fflush(stdout)
     for (key = kh_begin(pages_map); key != kh_end(pages_map); ++key) {
         if (!kh_exist(pages_map, key)) {
             continue;
@@ -860,10 +860,9 @@ static size_t calculate_scores_map(struct score_entry *scores_out,
         max_ewma2 = 1;
     }
 
-    std::cout << "c" << std::endl;
-    fflush(stdout);
+    //    std::cout << "c" << std::endl;
+    // fflush(stdout)
 
-    /*
     // build the features
     std::vector<std::array<float, 13>> features;
     for (key = kh_begin(pages_map); key != kh_end(pages_map); ++key) {
@@ -884,22 +883,22 @@ static size_t calculate_scores_map(struct score_entry *scores_out,
             (struct score_entry){page, page->score * max_ewma2};
     }
 
-    std::cout << "d" << std::endl;
-    fflush(stdout);
+    //    std::cout << "d" << std::endl;
+    // fflush(stdout)
 
     // Load the model (to do only once).
     namespace ydf = yggdrasil_decision_forests;
     auto model = ydf::exported_model_sqlite_4GB_ycsba::Load("sqlite_4GB_ycsba");
 
-    std::cout << "e" << std::endl;
-    fflush(stdout);
+    //    std::cout << "e" << std::endl;
+    // fflush(stdout)
 
     // Run the model
     size_t prediction_index = 0;
     auto predictions = (*model)->Predict(features);
-*/
-    std::cout << "f" << std::endl;
-    fflush(stdout);
+
+    //    std::cout << "f" << std::endl;
+    // fflush(stdout)
 
     for (key = kh_begin(pages_map); key != kh_end(pages_map); ++key) {
         if (!kh_exist(pages_map, key)) {
@@ -912,14 +911,14 @@ static size_t calculate_scores_map(struct score_entry *scores_out,
 
         // Calculate the hotness score
         page->prev_score = page->score;
-        page->score = rand(); // predictions[prediction_index++];
+        page->score = predictions[prediction_index++];
         // this is the ARMS score
         // page->score = compute_score(page, bias);
         scores_out[s_idx++] = (struct score_entry){page, page->score};
     }
 
-    std::cout << "g" << std::endl;
-    fflush(stdout);
+    //    std::cout << "g" << std::endl;
+    // fflush(stdout)
 
     ptimer_print(&window_timer);
 
@@ -1560,8 +1559,8 @@ struct hemem_page *pebs_pagefault(void) {
 }
 
 void pebs_add_page(struct hemem_page *page) {
-    std::cout << "i" << std::endl;
-    fflush(stdout);
+    //    std::cout << "i" << std::endl;
+    // fflush(stdout)
 
     int absent;
     khiter_t key;
@@ -1569,8 +1568,8 @@ void pebs_add_page(struct hemem_page *page) {
     LOG("pebs: add page, put this page into add_pages_ring: va: 0x%lx\n",
         page->va);
 
-    std::cout << "j" << std::endl;
-    fflush(stdout);
+    //    std::cout << "j" << std::endl;
+    // fflush(stdout)
 
     // printf("Adding page %lu to the add_pages_ring [va: %lu]\n",
     // (uint64_t)page, page->va);
@@ -1583,8 +1582,8 @@ void pebs_add_page(struct hemem_page *page) {
     add_group_if_missing(page->va);
     pthread_mutex_unlock(&pages_lock);
 
-    std::cout << "k" << std::endl;
-    fflush(stdout);
+    //    std::cout << "k" << std::endl;
+    // fflush(stdout)
 
     // Add to the new pages ring
     pthread_mutex_lock(&mod_page_dq_lock);
@@ -1592,8 +1591,8 @@ void pebs_add_page(struct hemem_page *page) {
     kdq_push(mod_page_t, mod_page_dq, mp);
     pthread_mutex_unlock(&mod_page_dq_lock);
 
-    std::cout << "l" << std::endl;
-    fflush(stdout);
+    //    std::cout << "l" << std::endl;
+    // fflush(stdout)
 }
 
 struct hemem_page *pebs_find_page(uint64_t va) {
@@ -1603,14 +1602,14 @@ struct hemem_page *pebs_find_page(uint64_t va) {
     key = kh_get(kPagesMap, pages, va);
     page = key == kh_end(pages) ? NULL : kh_value(pages, key);
     pthread_mutex_unlock(&pages_lock);
-    std::cout << "1 " << page << std::endl;
-    fflush(stdout);
+    //    std::cout << "1 " << page << std::endl;
+    // fflush(stdout)
     return page;
 }
 
 void pebs_remove_page(struct hemem_page *page) {
-    std::cout << "2" << std::endl;
-    fflush(stdout);
+    //    std::cout << "2" << std::endl;
+    // fflush(stdout)
     khiter_t key;
     assert(page != NULL);
     LOG("pebs: remove page, put this page into free_page_ring: va: 0x%lx\n",
@@ -1650,8 +1649,8 @@ void pebs_remove_page(struct hemem_page *page) {
 #endif
 
 void pebs_init(void) {
-    std::cout << "3" << std::endl;
-    fflush(stdout);
+    //    std::cout << "3" << std::endl;
+    // fflush(stdout)
     pthread_t kswapd_thread;
     pthread_t scan_thread;
     pthread_t migration_threads[NUM_MIGRATION_THREADS];
@@ -1773,8 +1772,8 @@ void pebs_init(void) {
 }
 
 void pebs_shutdown() {
-    std::cout << "4" << std::endl;
-    fflush(stdout);
+    //    std::cout << "4" << std::endl;
+    // fflush(stdout)
     for (int i = 0; i < PEBS_NPROCS; i++) {
         for (int j = 0; j < NPBUFTYPES; j++) {
             ioctl(pfd[i][j], PERF_EVENT_IOC_DISABLE, 0);
@@ -1784,8 +1783,8 @@ void pebs_shutdown() {
 }
 
 void pebs_stats() {
-    std::cout << "5" << std::endl;
-    fflush(stdout);
+    //    std::cout << "5" << std::endl;
+    // fflush(stdout)
     // LOG_STATS("dram_hot_list:[%ld] dram_cold_list:[%ld] nvm_hot_list:[%ld]
     // nvm_cold_list:[%ld] samples:[%ld/%ld] throttle/unthrottle_cnt:[%ld/%ld]
     // cools:[%ld]\n",

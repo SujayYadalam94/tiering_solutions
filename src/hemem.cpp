@@ -2,8 +2,6 @@
 #define _GNU_SOURCE
 #endif
 
-#include "sqlite_4GB_ycsba.h"
-
 #include <assert.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -25,6 +23,8 @@
 #include <sys/time.h>
 #include <sys/types.h>
 #include <unistd.h>
+
+#include <iostream>
 
 #include "hemem.h"
 #include "pebs.h"
@@ -442,11 +442,11 @@ static void hemem_mmap_populate(void *addr, size_t length) {
         pages_allocated++;
 
         // place in hemem's page tracking list
-        std::cout << "m" << std::endl;
-        fflush(stdout);
+        //        std::cout << "m" << std::endl;
+        // fflush(stdout)
         mmgr_add(page);
-        std::cout << "n" << std::endl;
-        fflush(stdout);
+        //        std::cout << "n" << std::endl;
+        // fflush(stdout)
         page_boundry += pagesize;
     }
 }
@@ -902,15 +902,15 @@ void handle_missing_fault(uint64_t page_boundry) {
 
     assert(page_boundry != 0);
 
-    /*
     // have we seen this page before?
-    page = find_page(page_boundry);
+    page = mmgr_find(page_boundry);
     if (page != NULL) {
-      // if yes, must have unmapped it for migration, wait for migration to
-    finish LOG("hemem: encountered a page in the middle of migration,
-    waiting\n"); handle_wp_fault(page_boundry); return;
+        // if yes, must have unmapped it for migration, wait for migration to
+        // finish
+        LOG("hemem: encountered a page in the middle of migration, waiting\n");
+        handle_wp_fault(page_boundry);
+        return;
     }
-  */
 
     gettimeofday(&missing_start, NULL);
 
@@ -995,11 +995,11 @@ void handle_missing_fault(uint64_t page_boundry) {
     // hemem_va_to_pa(page->va));
 
     // place in hemem's page tracking list
-    std::cout << "o" << std::endl;
-    fflush(stdout);
+    //    std::cout << "o" << std::endl;
+    // fflush(stdout)
     mmgr_add(page);
-    std::cout << "p" << std::endl;
-    fflush(stdout);
+    //    std::cout << "p" << std::endl;
+    // fflush(stdout)
 
     missing_faults_handled++;
     pages_allocated++;
@@ -1008,8 +1008,8 @@ void handle_missing_fault(uint64_t page_boundry) {
              elapsed(&missing_start, &missing_end));
 
     internal_call = false;
-    std::cout << "q" << std::endl;
-    fflush(stdout);
+    //    std::cout << "q" << std::endl;
+    // fflush(stdout)
 }
 
 void *handle_fault(void *_arg) {
@@ -1043,8 +1043,8 @@ void *handle_fault(void *_arg) {
 
         pollres = poll(&pollfd, 1, -1);
 
-        printf("t\n");
-        fflush(stdout);
+        //        printf("t\n");
+        // fflush(stdout)
 
         switch (pollres) {
         case -1:
@@ -1110,13 +1110,13 @@ void *handle_fault(void *_arg) {
                 range.start = (uint64_t)page_boundry;
                 range.len = PAGE_SIZE;
 
-                std::cout << "q" << std::endl;
-                fflush(stdout);
+                //                std::cout << "q" << std::endl;
+                // fflush(stdout)
 
                 ret = ioctl(uffd, UFFDIO_WAKE, &range);
 
-                std::cout << "r" << std::endl;
-                fflush(stdout);
+                //                std::cout << "r" << std::endl;
+                // fflush(stdout)
 
                 if (ret < 0) {
                     perror("uffdio wake");
