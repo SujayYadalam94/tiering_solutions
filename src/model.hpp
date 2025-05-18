@@ -19,10 +19,11 @@
 #include "yggdrasil_decision_forests/utils/logging.h"
 
 namespace yggdrasil_decision_forests {
-namespace exported_model_sqlite_4GB_ycsba {
+namespace exported_model {
 
 struct ServingModel {
-    std::vector<float> Predict(const std::vector<std::array<float, 13>> &Xs);
+    inline const std::vector<float> &
+    Predict(const std::vector<std::array<float, 13>> &Xs);
 
     static inline std::array<float, 13> fill_features(
         const float &ewma_2, const float ewma_20, const float &ewma_100,
@@ -55,6 +56,7 @@ struct ServingModel {
     // Index of the input features of the model
     // Non-owning pointer. The data is owned by the engine.
     const serving_api::FeaturesDefinition *features;
+    std::vector<float> predictions;
 
     // Number of output predictions for each example.
     inline int NumPredictionDimension() const {
@@ -84,11 +86,10 @@ struct ServingModel {
         examples;
 };
 
-inline std::vector<float>
+inline const std::vector<float> &
 ServingModel::Predict(const std::vector<std::array<float, 13>> &Xs) {
     const int num_examples = Xs.size();
     if (examples_allocated != num_examples) {
-        std::cout << "Allocating examples: " << num_examples << std::endl;
         fflush(stdout);
         examples = engine->AllocateExamples(num_examples);
         examples->FillMissing(*features);
@@ -100,9 +101,6 @@ ServingModel::Predict(const std::vector<std::array<float, 13>> &Xs) {
             examples->SetNumerical(i, all_features[j], Xs[i][j], *features);
         }
     }
-
-    std::cout << "Doing prediction" << num_examples << std::endl;
-    std::vector<float> predictions;
     engine->Predict(*examples, num_examples, &predictions);
     return predictions;
 }
@@ -177,7 +175,7 @@ inline absl::StatusOr<ServingModel *> Load(const absl::string_view &path) {
     return m;
 }
 
-} // namespace exported_model_sqlite_4GB_ycsba
+} // namespace exported_model
 } // namespace yggdrasil_decision_forests
 
 #endif // YGGDRASIL_DECISION_FORESTS_GENERATED_MODEL_sqlite_4GB_ycsba

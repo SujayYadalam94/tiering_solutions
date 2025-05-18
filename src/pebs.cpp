@@ -6,7 +6,9 @@
 #include <cmath>
 #include <fcntl.h>
 #include <float.h>
+#include <fstream>
 #include <inttypes.h>
+#include <iostream>
 #include <linux/hw_breakpoint.h>
 #include <linux/perf_event.h>
 #include <math.h>
@@ -21,10 +23,9 @@
 #include <sys/time.h>
 #include <unistd.h>
 
-// needs to come before hemem.h to make sure that our LOG macro overrides the
-// one from absl
-#include "sqlite_4GB_ycsba.h"
+#include "model.hpp"
 
+#include "groups.h"
 #include "hemem.h"
 #include "pebs.h"
 #include "spsc-ring.h"
@@ -39,138 +40,36 @@ KHASH_MAP_INIT_INT64(kPagesMap, struct hemem_page *)
 khash_t(kPagesMap) * pages;
 pthread_mutex_t pages_lock = PTHREAD_MUTEX_INITIALIZER;
 
-struct page_group {
-    uint64_t id;
-    float sum;
-    float avg;
-    float max;
-    uint32_t count;
-
-    page_group(const uint64_t &id) : id(id), sum(0), avg(0), max(0), count(0) {}
-
-    inline void reset() {
-        sum = 0;
-        avg = 0;
-        max = 0;
-        count = 0;
-    }
-
-    inline void update(const float &ewma2) {
-        sum += ewma2;
-        count++;
-        avg = sum / count;
-        if (ewma2 > max) {
-            max = ewma2;
-        }
-    }
-};
-static_assert(sizeof(struct page_group) == 24);
-
-KHASH_MAP_INIT_INT64(kGroupMap, struct page_group *);
-khash_t(kGroupMap) * page_groups;
-
-inline uint64_t page_to_group_id(const uint64_t &va) {
-    return (va / HUGEPAGE_SIZE) >> 7;
-}
-
-inline void add_group_if_missing(const uint64_t &va) {
-    thread_local static int ret;
-    thread_local static int key;
-    const uint64_t group_id = page_to_group_id(va);
-    key = kh_put(kGroupMap, page_groups, group_id, &ret);
-    if (ret == 1) { // bucket was empty
-        kh_val(page_groups, key) = new struct page_group(group_id);
-    }
-}
-
-inline void reset_group_hash() {
-    khiter_t key;
-    struct page_group *group;
-    for (key = kh_begin(page_groups); key != kh_end(page_groups); ++key) {
-        if (!kh_exist(page_groups, key)) {
-            continue;
-        }
-        group = kh_val(page_groups, key);
-        if (group == NULL) {
-            continue;
-        }
-        group->reset();
-    }
-}
-
-inline void update_group_entry(const uint64_t &va, const float &ewma2) {
-    const khiter_t group_key =
-        kh_get(kGroupMap, page_groups, page_to_group_id(va));
-    if (group_key == kh_end(page_groups)) {
-        printf("Something very bad happened\n");
-        fflush(stdout);
-    } else {
-        // update the group with the page info
-        kh_val(page_groups, group_key)->update(ewma2);
-    }
-}
-
-inline struct page_group *try_get_group(const uint64_t &va,
-                                        const int8_t &offset = 0) {
-    struct page_group *group_entry = NULL;
-    const khiter_t key =
-        kh_get(kGroupMap, page_groups, page_to_group_id(va) + offset);
-    if (key != kh_end(page_groups)) {
-        group_entry = kh_val(page_groups, key);
-    }
-    return group_entry;
-}
-
+group_tracker *grp_tracker = NULL;
 inline std::array<float, 13> page_to_features(const hemem_page *page,
-                                              const float &max_ewma2) {
-    struct page_group *page_group_min2 = try_get_group(page->va, -2);
-    struct page_group *page_group_min1 = try_get_group(page->va, -1);
-    struct page_group *page_group = try_get_group(page->va);
-    struct page_group *page_group_plus1 = try_get_group(page->va, 1);
-    struct page_group *page_group_plus2 = try_get_group(page->va, 2);
+                                              const float &scaler) {
+    struct page_group *page_group_min2 =
+        grp_tracker->try_get_group(page->va, -2);
+    struct page_group *page_group_min1 =
+        grp_tracker->try_get_group(page->va, -1);
+    struct page_group *page_group = grp_tracker->try_get_group(page->va);
+    struct page_group *page_group_plus1 =
+        grp_tracker->try_get_group(page->va, 1);
+    struct page_group *page_group_plus2 =
+        grp_tracker->try_get_group(page->va, 2);
 
-    return yggdrasil_decision_forests::exported_model_sqlite_4GB_ycsba::
-        ServingModel::fill_features(
-            page->w[0], page->w[1], page->w[2],
-            page_group ? page_group->max / max_ewma2 : NAN,
-            page_group_min2 ? page_group_min2->max / max_ewma2 : NAN,
-            page_group_min1 ? page_group_min1->max / max_ewma2 : NAN,
-            page_group_plus1 ? page_group_plus1->max / max_ewma2 : NAN,
-            page_group_plus2 ? page_group_plus2->max / max_ewma2 : NAN,
-            page_group ? page_group->avg / max_ewma2 : NAN,
-            page_group_min2 ? page_group_min2->avg / max_ewma2 : NAN,
-            page_group_min2 ? page_group_min2->avg / max_ewma2 : NAN,
-            page_group_plus1 ? page_group_plus1->avg / max_ewma2 : NAN,
-            page_group_plus2 ? page_group_plus2->avg / max_ewma2 : NAN);
+    return yggdrasil_decision_forests::exported_model::ServingModel::
+        fill_features(page->w[0], page->w[1], page->w[2],
+                      page_group ? page_group->max * scaler : NAN,
+                      page_group_min2 ? page_group_min2->max * scaler : NAN,
+                      page_group_min1 ? page_group_min1->max * scaler : NAN,
+                      page_group_plus1 ? page_group_plus1->max * scaler : NAN,
+                      page_group_plus2 ? page_group_plus2->max * scaler : NAN,
+                      page_group ? page_group->avg * scaler : NAN,
+                      page_group_min2 ? page_group_min2->avg * scaler : NAN,
+                      page_group_min2 ? page_group_min2->avg * scaler : NAN,
+                      page_group_plus1 ? page_group_plus1->avg * scaler : NAN,
+                      page_group_plus2 ? page_group_plus2->avg * scaler : NAN);
 }
 
-#ifdef SPATIAL_SMOOTHING
-/*
-#define ktree_cmp(a,b) ((a) < (b.va) ? -1 : (a.va) > (b.va))
-#define ktree_cmp(a,b) ( \
-  ((((struct hemem_page*)a)->va) < (((struct hemem_page*)b)->va)) \ ? -1 :
-((((struct hemem_page*)a)->va) > (((struct hemem_page*)b)->va)) )
-KBTREE_INIT(kPagesTree, struct hemem_page*, ktree_cmp)
-*/
-typedef struct {
-    struct hemem_page *page;
-    uint64_t va;
-} page_tree_entry_t;
-
-#define ktree_cmp(a, b) (((a).va) < ((b).va) ? -1 : ((a).va) > ((b).va))
-KBTREE_INIT(kPagesTree, page_tree_entry_t, ktree_cmp);
-
-kbtree_t(kPagesTree) * pages_tree;
-#else
 khash_t(kPagesMap) * pages_map;
-#endif
 
 struct score_entry *scores;
-
-// static struct fifo_list dram_hot_list;
-// static struct fifo_list dram_cold_list;
-// static struct fifo_list nvm_hot_list;
-// static struct fifo_list nvm_cold_list;
 
 static struct fifo_list dram_free_list;
 static struct fifo_list nvm_free_list;
@@ -178,9 +77,6 @@ static struct fifo_list nvm_free_list;
 static struct migration_req_list migration_queue;
 sem_t submission_sem;
 sem_t completion_sem;
-
-// static ring_handle_t promote_page_ring;
-// static ring_handle_t demote_page_ring;
 
 // Pages to be freed/added in the next interval
 typedef struct mod_page {
@@ -194,25 +90,12 @@ KDQ_INIT(mod_page_t);
 static kdq_t(mod_page_t) * mod_page_dq;
 static pthread_mutex_t mod_page_dq_lock = PTHREAD_MUTEX_INITIALIZER;
 
-/*
-static ring_handle_t free_page_ring;
-static pthread_mutex_t free_page_ring_lock = PTHREAD_MUTEX_INITIALIZER;
-static ring_handle_t add_pages_ring;
-static pthread_mutex_t add_pages_ring_lock = PTHREAD_MUTEX_INITIALIZER;
-*/
-
 static const float w_ewma_alpha[WINDOW_SIZE] = W_EWMA_ALPHA;
 
 // TODO: remove thsee as well. We shouldn't need these actually leave it; we
 // need it for guardrails
 static const float hist_bias[WINDOW_SIZE] = HIST_BIAS;
 static const float recn_bias[WINDOW_SIZE] = RECN_BIAS;
-
-// Neighbour buffers
-#ifdef SPATIAL_SMOOTHING
-static ring_handle_t l_neighbours;
-static ring_handle_t r_neighbours;
-#endif
 
 uint32_t policy_thread_period = PEBS_KSWAPD_INTERVAL_BIG;
 
@@ -241,7 +124,7 @@ uint64_t unthrottle_cnt = 0;
 uint64_t cools = 0;
 
 const float *bias = hist_bias; // History bias by default until triggered by PAR
-uint32_t sampling_mode = DEFAULT_SAMPLING;
+uint32_t sampling_mode = HIGH_FIDELITY;
 
 static struct perf_event_mmap_page *perf_page[PEBS_NPROCS][NPBUFTYPES];
 int pfd[PEBS_NPROCS][NPBUFTYPES];
@@ -256,65 +139,7 @@ static long perf_event_open(struct perf_event_attr *hw_event, pid_t pid,
     ret = syscall(__NR_perf_event_open, hw_event, pid, cpu, group_fd, flags);
     return ret;
 }
-
-#ifdef SCAILP
-int mem_fd = -1;
-void *imc_mmio_addr[NUM_IMC];
-uint64_t prev_ctr_val[NUM_IMC][NUM_BW_COUNTERS] = {0};
-
-static uint32_t get_imc_bw_counter_offset(enum imc_bw_counters e) {
-    switch (e) {
-    case NVM_READS:
-        return PCM_SERVER_IMC_PMM_READS;
-    case NVM_WRITES:
-        return PCM_SERVER_IMC_PMM_WRITES;
-    default:
-        assert(!"Unknown IMC counter");
-    }
-}
-
-uint64_t measure_nvm_bw() {
-    int i, j;
-    uint64_t cur_ctr_val = 0;
-    uint64_t cur_nvm_bw = 0;
-
-    for (i = 0; i < NUM_IMC; i++) {
-        for (j = 0; j < 1; j++) {
-            cur_ctr_val = *(
-                (uint64_t *)(imc_mmio_addr[i] + get_imc_bw_counter_offset(j)));
-            cur_nvm_bw += cur_ctr_val - prev_ctr_val[i][j];
-            prev_ctr_val[i][j] = cur_ctr_val;
-        }
-    }
-
-    return cur_nvm_bw;
-}
-
-static int setup_imc_bw_counters() {
-    mem_fd = open("/dev/mem", O_RDONLY);
-    if (mem_fd == -1) {
-        perror("open");
-        return -1;
-    }
-
-    for (int i = 0; i < NUM_IMC; i++) {
-        // Base address of each iMC increases by 0x80000
-        imc_mmio_addr[i] = (char *)libc_mmap(NULL, PCM_SERVER_IMC_MMAP_SIZE,
-                                             PROT_READ, MAP_SHARED, mem_fd,
-                                             IMC_BASE_ADDR + (0x80000 * i));
-        if (imc_mmio_addr[i] == MAP_FAILED) {
-            perror("mmap");
-            return -1;
-        }
-    }
-
-    // Measure the bandwidth once to get the initial values
-    measure_nvm_bw();
-
-    return 0;
-}
-
-#elif defined C220G5
+#if defined C220G5
 
 int bw_fds[2][6];
 uint64_t prev_bw_val[2][6] = {0};
@@ -391,7 +216,6 @@ static struct perf_event_mmap_page *perf_setup(__u64 config, __u64 config1,
     attr.sample_type = PERF_SAMPLE_IP | PERF_SAMPLE_TID | PERF_SAMPLE_ADDR;
     attr.pinned = 1;
     attr.disabled = 0;
-    // attr.inherit = 1;
     attr.exclude_kernel = 1;
     attr.exclude_hv = 1;
     attr.exclude_callchain_kernel = 1;
@@ -405,7 +229,6 @@ static struct perf_event_mmap_page *perf_setup(__u64 config, __u64 config1,
     assert(pfd[cpu][type] != -1);
 
     size_t mmap_size = sysconf(_SC_PAGESIZE) * PERF_PAGES;
-    /* printf("mmap_size = %zu\n", mmap_size); */
     struct perf_event_mmap_page *p = (struct perf_event_mmap_page *)mmap(
         NULL, mmap_size, PROT_READ | PROT_WRITE, MAP_SHARED, pfd[cpu][type], 0);
     if (p == MAP_FAILED) {
@@ -425,11 +248,7 @@ static void update_sampling_frequency() {
     }
 
     for (int i = 0; i < PEBS_NPROCS; i++) {
-#ifdef JOSEPM
-        if (i >= 8 && i < 16) {
-            continue;
-        }
-#elif defined C220G5
+#if defined C220G5
         if (i >= 10 && i < 20) {
             continue;
         }
@@ -444,9 +263,6 @@ static void update_sampling_frequency() {
 }
 
 void *pebs_scan_thread(void *_) {
-#ifdef SAMPLE_BASED_COOLING
-    uint64_t samples_since_cool = 0;
-#endif
 
     cpu_set_t cpuset;
     pthread_t thread;
@@ -462,11 +278,7 @@ void *pebs_scan_thread(void *_) {
 
     for (;;) {
         for (int i = 0; i < PEBS_NPROCS; i++) {
-#ifdef JOSEPM
-            if (i >= 8 && i < 16) {
-                continue;
-            }
-#elif defined C220G5
+#if defined C220G5
             if (i >= 10 && i < 20) {
                 continue;
             }
@@ -509,8 +321,6 @@ void *pebs_scan_thread(void *_) {
                     break;
                 case PERF_RECORD_THROTTLE:
                 case PERF_RECORD_UNTHROTTLE:
-                    // fprintf(stderr, "%s event!\n", ph->type ==
-                    // PERF_RECORD_THROTTLE ? "THROTTLE" : "UNTHROTTLE");
                     if (ph->type == PERF_RECORD_THROTTLE) {
                         throttle_cnt++;
                     } else {
@@ -518,8 +328,6 @@ void *pebs_scan_thread(void *_) {
                     }
                     break;
                 default:
-                    // fprintf(stderr, "Unknown type %u\n", ph->type);
-                    // assert(!"NYI");
                     break;
                 }
 
@@ -542,7 +350,7 @@ static void pebs_migrate_down(struct hemem_page *page, uint64_t offset) {
     page->migrating = false;
 
     gettimeofday(&end, NULL);
-    LOG_TIME("migrate_down: %f s\n", elapsed(&start, &end));
+    MY_LOG_TIME("migrate_down: %f s\n", elapsed(&start, &end));
 }
 
 static void pebs_migrate_up(struct hemem_page *page, uint64_t offset) {
@@ -556,7 +364,7 @@ static void pebs_migrate_up(struct hemem_page *page, uint64_t offset) {
     page->migrating = false;
 
     gettimeofday(&end, NULL);
-    LOG_TIME("migrate_up: %f s\n", elapsed(&start, &end));
+    MY_LOG_TIME("migrate_up: %f s\n", elapsed(&start, &end));
 }
 
 // Sorts in ascending order
@@ -578,40 +386,34 @@ static void reset_page_access_fields(struct hemem_page *page) {
     for (int i = 0; i < NPBUFTYPES; i++) {
         page->accesses[i][0] = 0;
         page->accesses[i][1] = 0;
-#ifdef SPATIAL_SMOOTHING
-        page->s_accesses[i] = 0;
-#endif
     }
     for (int i = 0; i < WINDOW_SIZE; i++) {
         page->w[i] = 0;
     }
     page->hot_age = 0;
     page->prev_score = 0;
+    page->accuracy = 0;
+}
+
+static inline float ewma(const float &old, const float &new_val,
+                         const float &alpha) {
+    return (1. - alpha) * old + (alpha * new_val);
 }
 
 static inline void update_window(struct hemem_page *page) {
-#ifdef SPATIAL_SMOOTHING
-    float accesses = page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD] +
-                     (WRITES_WEIGHT * page->s_accesses[WRITE]);
-#else
     uint32_t accesses =
         page->accesses[DRAMREAD][prev_access_version] +
         page->accesses[NVMREAD][prev_access_version] +
         (WRITES_WEIGHT * page->accesses[WRITE][prev_access_version]);
-#endif
 
     if (sampling_mode == DEFAULT_SAMPLING) {
+        constexpr float scaler = DEFAULT_SAMPLE_PERIOD / HF_SAMPLE_PERIOD;
         for (uint8_t i = 0; i < WINDOW_SIZE; i++) {
-            page->w[i] =
-                (1. - w_ewma_alpha[i]) * page->w[i] +
-                (w_ewma_alpha[i] *
-                 ((DEFAULT_SAMPLE_PERIOD / HF_SAMPLE_PERIOD) *
-                  accesses)); // We maintain counters in high-fidelity, so scale
+            page->w[i] = ewma(page->w[i], accesses * scaler, w_ewma_alpha[i]);
         }
     } else if (sampling_mode == HIGH_FIDELITY) {
         for (uint8_t i = 0; i < WINDOW_SIZE; i++) {
-            page->w[i] = (1. - w_ewma_alpha[i]) * page->w[i] +
-                         (w_ewma_alpha[i] * accesses);
+            page->w[i] = ewma(page->w[i], accesses, w_ewma_alpha[i]);
         }
     }
 }
@@ -628,188 +430,20 @@ static inline float compute_score(const struct hemem_page *page,
     return score;
 }
 
-static inline float _moving_avg_add(float avg, float new_val, uint32_t count) {
-    return ((count * avg) + new_val) / (count + 1);
-}
-static inline void moving_avg_add(float *avg, struct hemem_page *page,
-                                  uint32_t *count) {
-    avg[DRAMREAD] = _moving_avg_add(
-        avg[DRAMREAD], page->accesses[DRAMREAD][prev_access_version], *count);
-    avg[NVMREAD] = _moving_avg_add(
-        avg[NVMREAD], page->accesses[NVMREAD][prev_access_version], *count);
-    avg[WRITE] = _moving_avg_add(
-        avg[WRITE], page->accesses[WRITE][prev_access_version], *count);
-    (*count)++;
-}
-
-static inline float _moving_avg_sub(float avg, float old_val, uint32_t count) {
-    if ((count - 1) == 0) {
-        // no more elements in the moving average -- set the average to 0
-        return 0;
+static inline float model_loss(const float &observed, const float &model_pred,
+                               const float &huer_pred) {
+    if (false) {
+        std::cout << observed << " " << model_pred << " " << huer_pred << " "
+                  << (abs(observed - model_pred) - abs(observed - huer_pred)) /
+                         observed
+                  << "  " << std::endl;
     }
-    return ((count * avg) - old_val) / (count - 1);
+    return (abs(observed - model_pred) - abs(observed - huer_pred)) /
+           (observed + 1);
 }
-static inline void moving_avg_sub(float *avg, struct hemem_page *page,
-                                  uint32_t *count) {
-    avg[DRAMREAD] = _moving_avg_sub(
-        avg[DRAMREAD], page->accesses[DRAMREAD][prev_access_version], *count);
-    avg[NVMREAD] = _moving_avg_sub(
-        avg[NVMREAD], page->accesses[NVMREAD][prev_access_version], *count);
-    avg[WRITE] = _moving_avg_sub(
-        avg[WRITE], page->accesses[WRITE][prev_access_version], *count);
-    (*count)--;
-}
-
-#ifdef SPATIAL_SMOOTHING
-static size_t calculate_scores_tree(struct score_entry *scores_out,
-                                    const float *bias) {
-    struct ptimer window_timer, spatial_smooth_timer;
-    ptimer_init(&window_timer, "Scores (window)");
-    ptimer_init(&spatial_smooth_timer, "Scores (spatial smooth)");
-
-    struct hemem_page *page;
-    kbitr_t itr, n_itr;
-
-    size_t idx = 0;
-    size_t s_idx = 0;
-
-    page_tree_entry_t *entry_ptr;
-    struct hemem_page *p;
-    page_tree_entry_t *n_entry_ptr;
-    size_t n_idx;
-    uint64_t n_va;
-
-    float smooth_avg_v[NPBUFTYPES];
-    uint32_t smooth_avg_cnt = 0;
-    memset(smooth_avg_v, 0.0, sizeof(smooth_avg_v));
-
-    // Clear ring buffers
-    ring_buf_reset(l_neighbours);
-    ring_buf_reset(r_neighbours);
-
-    size_t pages_cnt = kb_size(pages_tree);
-    if (pages_cnt == 0) {
-        return 0; // no pages to process
-    }
-
-    // Init the (right) neightbour iterator
-    kb_itr_first(kPagesTree, pages_tree, &n_itr);
-    assert(kb_itr_valid(&n_itr));
-    kb_itr_next(kPagesTree, pages_tree, &n_itr);
-
-    // Iterate over the pages, in ascending order of VA
-    kb_itr_first(kPagesTree, pages_tree, &itr);
-    for (; kb_itr_valid(&itr);
-         kb_itr_next(kPagesTree, pages_tree, &itr), idx++) {
-        assert(idx < pages_cnt);
-
-        entry_ptr = &kb_itr_key(page_tree_entry_t, &itr);
-        page = entry_ptr->page;
-        if (page == NULL || !page->present) {
-            continue;
-        }
-
-        ptimer_continue(&spatial_smooth_timer);
-        // printf("Before smoothing\n");
-
-        // Pop left neighbour(s)
-        // printf("-> LEFT NEIGHBOURS\n");
-        while (ring_buf_size(l_neighbours) > 0) {
-            n_idx = idx - ring_buf_size(l_neighbours);
-            p = (struct hemem_page *)ring_buf_peek_tail(l_neighbours, 0);
-            if (p->va == page->va - ((idx - n_idx) * HUGEPAGE_SIZE)) {
-                break;
-            }
-            // Remove neighbour from left neighbours
-            moving_avg_sub(smooth_avg_v, p, &smooth_avg_cnt);
-            ring_buf_get(l_neighbours);
-        }
-        assert(ring_buf_size(l_neighbours) >= 0 &&
-               ring_buf_size(l_neighbours) <= NUM_NEIGHBOURS);
-
-        // Append right neighbour(s)
-        // printf("-> RIGHT NEIGHBOURS\n");
-        n_idx = idx + ring_buf_size(r_neighbours) + 1;
-        while (ring_buf_size(r_neighbours) < NUM_NEIGHBOURS) {
-            if (!kb_itr_valid(&n_itr)) {
-                break; // no more neighbours
-            }
-            // Check if the next neighbour exists
-            n_va = page->va + ((n_idx - idx) * HUGEPAGE_SIZE);
-            n_entry_ptr = &kb_itr_key(page_tree_entry_t, &n_itr);
-            p = n_entry_ptr->page;
-            assert(p != NULL);
-            assert(p->va == n_entry_ptr->va);
-            if (p->va != n_va) {
-                break;
-            }
-            // Add neighbour to right neighbours
-            ring_buf_put(r_neighbours, (uint64_t *)p);
-            moving_avg_add(smooth_avg_v, p, &smooth_avg_cnt);
-            // Move to the next neighbour
-            kb_itr_next(kPagesTree, pages_tree, &n_itr);
-            n_idx++;
-        }
-        assert(ring_buf_size(r_neighbours) >= 0 &&
-               ring_buf_size(r_neighbours) <= NUM_NEIGHBOURS);
-
-        // Add this page accesses to the moving average
-        moving_avg_add(smooth_avg_v, page, &smooth_avg_cnt);
-
-        // Calculate smoothed access count
-        page->s_accesses[DRAMREAD] = smooth_avg_v[DRAMREAD];
-        page->s_accesses[NVMREAD] = smooth_avg_v[NVMREAD];
-        page->s_accesses[WRITE] = smooth_avg_v[WRITE];
-
-        ptimer_stop(&spatial_smooth_timer);
-        // printf("After smoothing\n");
-
-        // TODO also update the groups here
-        // Update the window with the smoothed access count
-        update_window(page);
-
-        // Calculate the hotness score
-        page->score = compute_score(page, bias);
-        scores_out[s_idx++] = (struct score_entry){page, page->score};
-
-        // Append this page to the left neighbours
-        ring_buf_put(l_neighbours, (uint64_t *)page);
-
-        // If the left neighbours buffer is full, pop the leftmost neighbour
-        if (ring_buf_size(l_neighbours) > NUM_NEIGHBOURS) {
-            p = (struct hemem_page *)ring_buf_get(l_neighbours);
-            moving_avg_sub(smooth_avg_v, p, &smooth_avg_cnt);
-        }
-        // Pop the leftmost neighbour in right neighbours buffer
-        // This is soon-to-be the next page (i.e., the right neighbour)
-        if (ring_buf_size(r_neighbours) > 0) {
-            p = (struct hemem_page *)ring_buf_get(r_neighbours);
-            moving_avg_sub(smooth_avg_v, p, &smooth_avg_cnt);
-        }
-    }
-
-    // Zero the access counts of all the pages
-    for (kb_itr_first(kPagesTree, pages_tree, &itr); kb_itr_valid(&itr);
-         kb_itr_next(kPagesTree, pages_tree, &itr)) {
-        entry_ptr = &kb_itr_key(page_tree_entry_t, &itr);
-        page = entry_ptr->page;
-        if (page == NULL || !page->present) {
-            continue;
-        }
-        for (int i = 0; i < NPBUFTYPES; i++) {
-            page->accesses[i][prev_access_version] = 0;
-        }
-    }
-    ptimer_print(&spatial_smooth_timer);
-
-    return s_idx;
-}
-#endif
 
 static size_t calculate_scores_map(struct score_entry *scores_out,
                                    const float *bias) {
-    //    std::cout << "0" << std::endl;
-    // fflush(stdout)
     struct ptimer window_timer;
     ptimer_init(&window_timer, "Scores (window)");
 
@@ -824,14 +458,12 @@ static size_t calculate_scores_map(struct score_entry *scores_out,
         return 0; // no pages to process
     }
 
-    //    std::cout << "a" << std::endl;
-    // fflush(stdout)
-
     // Iterate over the pages
-    reset_group_hash();
+    grp_tracker->reset_group_hash();
 
-    //    std::cout << "b" << std::endl;
-    // fflush(stdout)
+    static std::ofstream ofs("output.txt");
+    static int timestep = 0;
+    timestep++;
     for (key = kh_begin(pages_map); key != kh_end(pages_map); ++key) {
         if (!kh_exist(pages_map, key)) {
             continue;
@@ -843,13 +475,20 @@ static size_t calculate_scores_map(struct score_entry *scores_out,
 
         update_window(page);
 
+        ofs << timestep << "," << page->va << ","
+            << page->accesses[DRAMREAD][prev_access_version] +
+                   page->accesses[NVMREAD][prev_access_version] +
+                   (WRITES_WEIGHT * page->accesses[WRITE][prev_access_version])
+            << "," << page->model_selection << "," << page->model_score << ","
+            << page->arms_score << std::endl;
+
         // Reset the access counts
         page->accesses[DRAMREAD][prev_access_version] = 0;
         page->accesses[NVMREAD][prev_access_version] = 0;
         page->accesses[WRITE][prev_access_version] = 0;
 
         // TODO update the group entry
-        update_group_entry(page->va, page->w[0]);
+        grp_tracker->update_group_entry(page->va, page->w[0]);
         if (page->w[0] > max_ewma2) {
             max_ewma2 = page->w[0];
         }
@@ -860,11 +499,21 @@ static size_t calculate_scores_map(struct score_entry *scores_out,
         max_ewma2 = 1;
     }
 
-    //    std::cout << "c" << std::endl;
-    // fflush(stdout)
+    float scaler = 1;
+    if (sampling_mode == DEFAULT_SAMPLING) {
+        // float scaler = DEFAULT_SAMPLE_PERIOD;
+    } else if (sampling_mode == HIGH_FIDELITY) {
+        // float scaler = HF_SAMPLE_PERIOD;
+    } else {
+        assert(0);
+    }
 
     // build the features
     std::vector<std::array<float, 13>> features;
+
+    float avg_loss = 0;
+    int count = 0;
+
     for (key = kh_begin(pages_map); key != kh_end(pages_map); ++key) {
         if (!kh_exist(pages_map, key)) {
             continue;
@@ -873,33 +522,44 @@ static size_t calculate_scores_map(struct score_entry *scores_out,
         if (page == NULL || !page->present) {
             continue;
         }
-        features.push_back(page_to_features(page, max_ewma2));
+        features.push_back(page_to_features(page, scaler)); // max_ewma2));
+
+        // Update the Model Accuracy
+
+        page->accuracy =
+            ewma(page->accuracy,
+                 model_loss(page->w[0], page->model_score, page->arms_score),
+                 2.0 / 21.0); // window size of 20
+
+        avg_loss += page->accuracy;
+        count++;
+
+        if (page->accuracy > 0.1f) {
+            page->model_selection = prediction_type::ARMS;
+        } else if (page->accuracy < -0.1f) {
+            page->model_selection = prediction_type::MODEL;
+        }
 
         // Calculate the hotness score
-        page->prev_score = page->score;
+        // page->prev_score = page->score;
         // this is the ARMS score
         // page->score = compute_score(page, bias);
-        scores_out[s_idx++] =
-            (struct score_entry){page, page->score * max_ewma2};
+        // scores_out[s_idx++] =
+        //    (struct score_entry){page, page->score * max_ewma2};
+
+        // scores_out[s_idx++] = (struct score_entry){page, page->score};
     }
 
-    //    std::cout << "d" << std::endl;
-    // fflush(stdout)
+    std::cout << "Avg loss: " << (avg_loss / count) << std::endl;
 
     // Load the model (to do only once).
     namespace ydf = yggdrasil_decision_forests;
-    auto model = ydf::exported_model_sqlite_4GB_ycsba::Load("sqlite_4GB_ycsba");
-
-    //    std::cout << "e" << std::endl;
-    // fflush(stdout)
+    auto model = ydf::exported_model::Load("sqlite_4GB_ycsba");
 
     // Run the model
     size_t prediction_index = 0;
     auto predictions = (*model)->Predict(features);
 
-    //    std::cout << "f" << std::endl;
-    // fflush(stdout)
-
     for (key = kh_begin(pages_map); key != kh_end(pages_map); ++key) {
         if (!kh_exist(pages_map, key)) {
             continue;
@@ -911,14 +571,20 @@ static size_t calculate_scores_map(struct score_entry *scores_out,
 
         // Calculate the hotness score
         page->prev_score = page->score;
-        page->score = predictions[prediction_index++];
-        // this is the ARMS score
-        // page->score = compute_score(page, bias);
+
+        page->model_score = predictions[prediction_index++] / scaler;
+        page->arms_score = compute_score(page, bias);
+
+        if (page->model_selection == prediction_type::MODEL) {
+            page->score = page->model_score;
+        } else if (page->model_selection == prediction_type::ARMS) {
+            page->score = page->arms_score;
+        } else {
+            assert(0);
+        }
+
         scores_out[s_idx++] = (struct score_entry){page, page->score};
     }
-
-    //    std::cout << "g" << std::endl;
-    // fflush(stdout)
 
     ptimer_print(&window_timer);
 
@@ -942,10 +608,6 @@ static inline int continue_migration(struct hemem_page *hp,
     }
 
     if (hot_page_min_avg < cold_page_max_avg) {
-        // fprintf(LOG_STREAM, "Stopping migration of 0x%lx (score: %.3f (%.3f
-        // %.3f)) and 0x%lx (score: %.3f (%.3f %.3f)) cause of min/max\n",
-        //       hp->va, hp->score, hp->w[0], hp->w[1],
-        //       cp->va, cp->score, cp->w[0], cp->w[1]);
         return 0;
     }
 
@@ -962,10 +624,6 @@ static inline int continue_migration(struct hemem_page *hp,
         (hp->score - cp->score) * hp->hot_age * HF_SAMPLE_PERIOD * latency_diff;
 
     if (benefit < cost) {
-        // fprintf(LOG_STREAM, "Stopping migration of 0x%lx (score: %.3f (%.3f
-        // %.3f)) and 0x%lx (score: %.3f (%.3f %.3f)) cause of cost-benefit\n",
-        //       hp->va, hp->score, hp->w[0], hp->w[1],
-        //       cp->va, cp->score, cp->w[0], cp->w[1]);
         return 0;
     }
 
@@ -1094,10 +752,6 @@ void *pebs_policy_thread(void *_) {
     double migrate_time_us;
     struct hemem_page *page = NULL;
 
-#ifdef SPATIAL_SMOOTHING
-    page_tree_entry_t entry;
-#endif
-
     size_t s_pages_cnt;
 
     struct migration_req *m_req;
@@ -1135,9 +789,9 @@ void *pebs_policy_thread(void *_) {
         ptimer_start(&loop_timer);
         ptimer_start(&remaining_timer);
 
-        fprintf(LOG_STREAM, "\n========================================\n");
-        fprintf(LOG_STREAM, "Starting new interval\n");
-        fprintf(LOG_STREAM, "========================================\n");
+        fprintf(MY_LOG_STREAM, "\n========================================\n");
+        fprintf(MY_LOG_STREAM, "Starting new interval\n");
+        fprintf(MY_LOG_STREAM, "========================================\n");
 
         // Update the window index (circular buffer)
         curr_window_index = global_version % WINDOW_SIZE;
@@ -1165,14 +819,14 @@ void *pebs_policy_thread(void *_) {
             if (cusum > 3 * nvm_bw_std) {
                 if (bias == hist_bias && cur_nvm_bw > 0.3) {
                     bias = recn_bias;
-                    fprintf(LOG_STREAM, "Switching to RECN bias\n");
+                    fprintf(MY_LOG_STREAM, "Switching to RECN bias\n");
                     time_since_recn = 0;
                 }
                 cusum = 0;
             } else if (time_since_recn >= 20 && cusum < 0) {
                 if (bias == recn_bias) {
                     bias = hist_bias;
-                    fprintf(LOG_STREAM, "Switching back to HIST bias\n");
+                    fprintf(MY_LOG_STREAM, "Switching back to HIST bias\n");
                 }
             }
 
@@ -1192,7 +846,7 @@ void *pebs_policy_thread(void *_) {
             }
 
             fprintf(
-                LOG_STREAM,
+                MY_LOG_STREAM,
                 "NVM bw: %f, NVM bw EWMA: %f, NVM bw stddev: %f, cusum: %f\n",
                 cur_nvm_bw, nvm_bw_ewma, nvm_bw_std, cusum);
         }
@@ -1213,24 +867,6 @@ void *pebs_policy_thread(void *_) {
             // fprintf(stderr, "Processing page %lu [va: %lu]\n", page,
             // page->va);
 
-#ifdef SPATIAL_SMOOTHING
-            entry.page = page;
-            entry.va = page->va;
-
-            if (mp->free) {
-                kb_del(kPagesTree, pages_tree, entry);
-
-                // Add page to correct free list
-                if (page->in_dram) {
-                    enqueue_fifo(&dram_free_list, page);
-                } else {
-                    enqueue_fifo(&nvm_free_list, page);
-                }
-                reset_page_access_fields(page);
-            } else {
-                kb_put(kPagesTree, pages_tree, entry);
-            }
-#else
             khiter_t k = kh_get(kPagesMap, pages_map, page->va);
             if (mp->free) {
                 if (k != kh_end(pages_map)) {
@@ -1244,28 +880,22 @@ void *pebs_policy_thread(void *_) {
                     }
                     reset_page_access_fields(page);
                 } else {
-                    fprintf(LOG_STREAM, "WARNING: Page not found in map\n");
+                    fprintf(MY_LOG_STREAM, "WARNING: Page not found in map\n");
                 }
             } else {
                 int absent;
                 k = kh_put(kPagesMap, pages_map, page->va, &absent);
                 assert(absent);
                 kh_value(pages_map, k) = page;
-                add_group_if_missing(page->va);
+                grp_tracker->add_group_if_missing(page->va);
             }
-
-#endif
         }
         ptimer_stop_and_print(&tree_timer);
 
         // Calculate the scores
         ptimer_start(&score_timer);
 
-#ifdef SPATIAL_SMOOTHING
-        s_pages_cnt = calculate_scores_tree(scores, bias);
-#else
         s_pages_cnt = calculate_scores_map(scores, bias);
-#endif
 
         ptimer_stop_and_print(&score_timer);
 
@@ -1298,13 +928,13 @@ void *pebs_policy_thread(void *_) {
         min_score = scores[s_pages_cnt - 1].score;
         max_score = scores[0].score;
 
-        fprintf(LOG_STREAM,
+        fprintf(MY_LOG_STREAM,
                 "min_score: %.3f (%.3f %.3f), max_score: %.3f (%.3f %.3f)\n",
                 min_score, scores[s_pages_cnt - 1].page->w[0],
                 scores[s_pages_cnt - 1].page->w[1], max_score,
                 scores[0].page->w[0], scores[0].page->w[1]);
-        fprintf(LOG_STREAM, "Prom cost: %f, Dem cost: %f\n", promotion_cost_avg,
-                demotion_cost_avg);
+        fprintf(MY_LOG_STREAM, "Prom cost: %f, Dem cost: %f\n",
+                promotion_cost_avg, demotion_cost_avg);
 
         // Perform migrations
         ptimer_reset(&id_timer);
@@ -1334,7 +964,7 @@ void *pebs_policy_thread(void *_) {
             // If we have scheduled the maximum number of migrations for this
             // interval, stop
             if (num_migration_jobs >= max_migrations_cur_interval) {
-                fprintf(LOG_STREAM, "Scheduled %lu migrations\n",
+                fprintf(MY_LOG_STREAM, "Scheduled %lu migrations\n",
                         num_migration_jobs);
                 break;
             }
@@ -1351,14 +981,9 @@ void *pebs_policy_thread(void *_) {
                 break;
             }
             p = scores[promote_idx].page;
-            // printf("Promoting page %lu [idx %lu] with score %f\n", p,
-            // promote_idx, scores[promote_idx].score);
             assert(!p->in_dram);
 
             if (!(p->can_promote)) {
-                // fprintf(LOG_STREAM, "Stopping promotion of 0x%lx (score: %.3f
-                // (%.3f %.3f))\n",
-                //       p->va, p->score, p->w[0], p->w[1]);
                 promote_idx++;
                 continue;
             }
@@ -1381,14 +1006,11 @@ void *pebs_policy_thread(void *_) {
                 float benefit =
                     p->score * p->hot_age * HF_SAMPLE_PERIOD * latency_diff;
                 if (benefit < cost) {
-                    // fprintf(LOG_STREAM, "Stopping promotion of 0x%lx (score:
-                    // %.3f (%.3f %.3f)) cause of cost-benefit analysis\n",
-                    //       p->va, p->score, p->w[0], p->w[1]);
                     enqueue_fifo(&dram_free_list, np);
                     break;
                 }
 
-                fprintf(LOG_STREAM,
+                fprintf(MY_LOG_STREAM,
                         "Promoting freely at %lu: 0x%lx score: %f (%f %f)\n",
                         promote_idx, p->va, p->score, p->w[0], p->w[1]);
 
@@ -1430,8 +1052,6 @@ void *pebs_policy_thread(void *_) {
             assert(cp->in_dram && cp->va > 0);
 
             if (!continue_migration(p, cp)) {
-                // fprintf(LOG_STREAM, "2. Stopping migration at promote_idx
-                // %u\n", promote_idx);
                 break;
             }
 
@@ -1440,10 +1060,11 @@ void *pebs_policy_thread(void *_) {
             assert(np != NULL);
             ptimer_stop(&id_timer);
 
-            fprintf(LOG_STREAM, "Demoting at %ld: 0x%lx score: %f (%f %f)\n",
+            fprintf(MY_LOG_STREAM, "Demoting at %ld: 0x%lx score: %f (%f %f)\n",
                     demote_idx, cp->va, cp->score, cp->w[0], cp->w[1]);
-            fprintf(LOG_STREAM, "Promoting at %ld: 0x%lx score: %f (%f %f)\n",
-                    promote_idx, p->va, p->score, p->w[0], p->w[1]);
+            fprintf(MY_LOG_STREAM,
+                    "Promoting at %ld: 0x%lx score: %f (%f %f)\n", promote_idx,
+                    p->va, p->score, p->w[0], p->w[1]);
 
             // move the cold DRAM page to NVM
             m_req =
@@ -1474,7 +1095,8 @@ void *pebs_policy_thread(void *_) {
         ptimer_stop_and_print(&loop_timer);
         ptimer_stop(&remaining_timer);
 
-        fprintf(LOG_STREAM, "Migrated %lu pages (%lu bytes) in this interval\n",
+        fprintf(MY_LOG_STREAM,
+                "Migrated %lu pages (%lu bytes) in this interval\n",
                 migrated_pages, migrated_bytes);
         if (migrated_pages == 0) {
             // Reset the migration cost averages
@@ -1489,21 +1111,8 @@ void *pebs_policy_thread(void *_) {
             }
         }
 
-        // Update sampling frequency if there a hot-set change detected
-        if (bias == recn_bias && sampling_mode != HIGH_FIDELITY) {
-            update_sampling_frequency();
-            sampling_mode = HIGH_FIDELITY;
-            fprintf(LOG_STREAM, "Switching to HIGH_FIDELITY sampling mode\n");
-        } else if (bias == hist_bias && sampling_mode != DEFAULT_SAMPLING) {
-            update_sampling_frequency();
-            sampling_mode = DEFAULT_SAMPLING;
-            fprintf(LOG_STREAM, "Switching to DEFAULT sampling mode\n");
-        }
-
         migrate_time_us = loop_timer.elapsed_us;
         if (migrate_time_us < (1.0 * policy_thread_period)) {
-            // printf("%lu", ((uint64_t)((1.0 * policy_thread_period) -
-            // migrate_time_us)));
             usleep((uint64_t)((1.0 * policy_thread_period) - migrate_time_us));
         }
     }
@@ -1522,10 +1131,9 @@ static struct hemem_page *pebs_allocate_page() {
         assert(!page->present);
 
         page->present = true;
-        // enqueue_fifo(&dram_cold_list, page);
 
         gettimeofday(&end, NULL);
-        LOG_TIME("mem_policy_allocate_page: %f s\n", elapsed(&start, &end));
+        MY_LOG_TIME("mem_policy_allocate_page: %f s\n", elapsed(&start, &end));
 
         return page;
     }
@@ -1537,10 +1145,9 @@ static struct hemem_page *pebs_allocate_page() {
         assert(!page->present);
 
         page->present = true;
-        // enqueue_fifo(&nvm_cold_list, page);
 
         gettimeofday(&end, NULL);
-        LOG_TIME("mem_policy_allocate_page: %f s\n", elapsed(&start, &end));
+        MY_LOG_TIME("mem_policy_allocate_page: %f s\n", elapsed(&start, &end));
 
         return page;
     }
@@ -1559,40 +1166,26 @@ struct hemem_page *pebs_pagefault(void) {
 }
 
 void pebs_add_page(struct hemem_page *page) {
-    //    std::cout << "i" << std::endl;
-    // fflush(stdout)
 
     int absent;
     khiter_t key;
     assert(page != NULL);
-    LOG("pebs: add page, put this page into add_pages_ring: va: 0x%lx\n",
-        page->va);
-
-    //    std::cout << "j" << std::endl;
-    // fflush(stdout)
-
-    // printf("Adding page %lu to the add_pages_ring [va: %lu]\n",
-    // (uint64_t)page, page->va);
+    MY_LOG("pebs: add page, put this page into add_pages_ring: va: 0x%lx\n",
+           page->va);
 
     // Add to the hash table
     pthread_mutex_lock(&pages_lock);
     key = kh_put(kPagesMap, pages, page->va, &absent);
     assert(absent);
     kh_value(pages, key) = page;
-    add_group_if_missing(page->va);
+    grp_tracker->add_group_if_missing(page->va);
     pthread_mutex_unlock(&pages_lock);
-
-    //    std::cout << "k" << std::endl;
-    // fflush(stdout)
 
     // Add to the new pages ring
     pthread_mutex_lock(&mod_page_dq_lock);
     mod_page_t mp = (mod_page_t){.page = page, .free = false};
     kdq_push(mod_page_t, mod_page_dq, mp);
     pthread_mutex_unlock(&mod_page_dq_lock);
-
-    //    std::cout << "l" << std::endl;
-    // fflush(stdout)
 }
 
 struct hemem_page *pebs_find_page(uint64_t va) {
@@ -1602,21 +1195,14 @@ struct hemem_page *pebs_find_page(uint64_t va) {
     key = kh_get(kPagesMap, pages, va);
     page = key == kh_end(pages) ? NULL : kh_value(pages, key);
     pthread_mutex_unlock(&pages_lock);
-    //    std::cout << "1 " << page << std::endl;
-    // fflush(stdout)
     return page;
 }
 
 void pebs_remove_page(struct hemem_page *page) {
-    //    std::cout << "2" << std::endl;
-    // fflush(stdout)
     khiter_t key;
     assert(page != NULL);
-    LOG("pebs: remove page, put this page into free_page_ring: va: 0x%lx\n",
-        page->va);
-
-    // printf("Removing page %lu from the add_pages_ring [va: %lu]\n",
-    // (uint64_t)page, page->va);
+    MY_LOG("pebs: remove page, put this page into free_page_ring: va: 0x%lx\n",
+           page->va);
 
     // Remove page from hash table
     pthread_mutex_lock(&pages_lock);
@@ -1637,25 +1223,17 @@ void pebs_remove_page(struct hemem_page *page) {
     pthread_mutex_unlock(&(page->page_lock));
 }
 
-#ifdef SCAILP
-#define L3_LOAD_MISS_LOCAL 0x2d3
-#define L3_LOAD_MISS_REMOTE 0x10d3
-#elif defined JOSEPM
-#define L3_LOAD_MISS_LOCAL 0x1d3
-#define L3_LOAD_MISS_REMOTE 0x80d1
-#elif defined C220G5
+#if defined C220G5
 #define L3_LOAD_MISS_LOCAL 0x1d3
 #define L3_LOAD_MISS_REMOTE 0x2d3
 #endif
 
 void pebs_init(void) {
-    //    std::cout << "3" << std::endl;
-    // fflush(stdout)
     pthread_t kswapd_thread;
     pthread_t scan_thread;
     pthread_t migration_threads[NUM_MIGRATION_THREADS];
 
-    LOG("pebs_init: started\n");
+    MY_LOG("pebs_init: started\n");
 
     for (int i = 0; i < PEBS_NPROCS; i++) {
 #ifdef JOSEPM
@@ -1667,9 +1245,6 @@ void pebs_init(void) {
             continue;
         }
 #endif
-        // perf_page[i][READ] = perf_setup(0x1cd, 0x4, i);  //
-        // MEM_TRANS_RETIRED.LOAD_LATENCY_GT_4 perf_page[i][READ] =
-        // perf_setup(0x81d0, 0, i);   // MEM_INST_RETIRED.ALL_LOADS
         perf_page[i][DRAMREAD] =
             perf_setup(L3_LOAD_MISS_LOCAL, 0, i,
                        DRAMREAD); // MEM_LOAD_L3_MISS_RETIRED.LOCAL_DRAM
@@ -1677,8 +1252,6 @@ void pebs_init(void) {
             L3_LOAD_MISS_REMOTE, 0, i, NVMREAD); // MEM_LOAD_RETIRED.LOCAL_PMM
         perf_page[i][WRITE] =
             perf_setup(0x82d0, 0, i, WRITE); // MEM_INST_RETIRED.ALL_STORES
-        // perf_page[i][WRITE] = perf_setup(0x12d0, 0, i);   //
-        // MEM_INST_RETIRED.STLB_MISS_STORES
     }
 
     pthread_mutex_init(&(dram_free_list.list_lock), NULL);
@@ -1709,29 +1282,15 @@ void pebs_init(void) {
 
     pages = kh_init(kPagesMap);
 
-#ifdef SPATIAL_SMOOTHING
-    pages_tree = kb_init(kPagesTree, KB_DEFAULT_SIZE);
-#else
     pages_map = kh_init(kPagesMap);
-#endif
 
-    page_groups = kh_init(kGroupMap);
+    grp_tracker = new group_tracker();
 
     scores = (struct score_entry *)malloc((MAX_NVME_PAGES + MAX_DRAM_PAGES) *
                                           sizeof(struct score_entry));
 
     // Initialize the free/add ring buffers
     mod_page_dq = kdq_init(mod_page_t);
-
-    // Initialize the neighbour ring buffers
-#ifdef SPATIAL_SMOOTHING
-    buffer = (uint64_t **)malloc(sizeof(uint64_t *) * (NUM_NEIGHBOURS + 2));
-    assert(buffer);
-    l_neighbours = ring_buf_init(buffer, NUM_NEIGHBOURS + 2);
-    buffer = (uint64_t **)malloc(sizeof(uint64_t *) * (NUM_NEIGHBOURS + 2));
-    assert(buffer);
-    r_neighbours = ring_buf_init(buffer, NUM_NEIGHBOURS + 2);
-#endif
 
     // Initialize bias values
     for (int i = 0; i < WINDOW_SIZE; i++) {
@@ -1766,34 +1325,21 @@ void pebs_init(void) {
         policy_thread_period = PEBS_KSWAPD_INTERVAL_BIG;
     }
 
-    LOG("Memory management policy is PEBS\n");
+    MY_LOG("Memory management policy is PEBS\n");
 
-    LOG("pebs_init: finished\n");
+    MY_LOG("pebs_init: finished\n");
 }
 
 void pebs_shutdown() {
-    //    std::cout << "4" << std::endl;
-    // fflush(stdout)
     for (int i = 0; i < PEBS_NPROCS; i++) {
         for (int j = 0; j < NPBUFTYPES; j++) {
             ioctl(pfd[i][j], PERF_EVENT_IOC_DISABLE, 0);
-            // munmap(perf_page[i][j], sysconf(_SC_PAGESIZE) * PERF_PAGES);
         }
     }
 }
 
 void pebs_stats() {
-    //    std::cout << "5" << std::endl;
-    // fflush(stdout)
-    // LOG_STATS("dram_hot_list:[%ld] dram_cold_list:[%ld] nvm_hot_list:[%ld]
-    // nvm_cold_list:[%ld] samples:[%ld/%ld] throttle/unthrottle_cnt:[%ld/%ld]
-    // cools:[%ld]\n",
-    LOG_STATS(
+    MY_LOG_STATS(
         "samples:[%ld/%ld] throttle/unthrottle_cnt:[%ld/%ld] cools:[%ld]\n",
-        // dram_hot_list.numentries,
-        // dram_cold_list.numentries,
-        // nvm_hot_list.numentries,
-        // nvm_cold_list.numentries,
         hemem_pages_cnt, total_pages_cnt, throttle_cnt, unthrottle_cnt, cools);
-    // hemem_pages_cnt = total_pages_cnt =  throttle_cnt = unthrottle_cnt = 0;
 }

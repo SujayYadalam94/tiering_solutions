@@ -58,7 +58,7 @@ void page_list_remove_page(struct fifo_list *list, struct hemem_page *page)
     assert(list->last == NULL);
     assert(list->numentries == 0);
     pthread_mutex_unlock(&(list->list_lock));
-    LOG("page_list_remove_page: list was empty!\n");
+    MY_LOG("page_list_remove_page: list was empty!\n");
     return;
   }
 
