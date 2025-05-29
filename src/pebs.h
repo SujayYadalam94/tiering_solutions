@@ -9,14 +9,6 @@
 
 #include "hemem_page.h"
 
-enum sampling_modes {
-    DEFAULT_SAMPLING = 0,
-    HIGH_FIDELITY = 1,
-    NUM_SAMPLING_MODES
-};
-
-enum imc_bw_counters { NVM_READS = 0, NVM_WRITES = 1, NUM_BW_COUNTERS };
-
 struct perf_sample {
     struct perf_event_header header;
     __u64 ip;

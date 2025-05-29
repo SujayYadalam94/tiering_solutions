@@ -41,8 +41,8 @@ khash_t(kPagesMap) * pages;
 pthread_mutex_t pages_lock = PTHREAD_MUTEX_INITIALIZER;
 
 group_tracker *grp_tracker = NULL;
-inline std::array<float, 13> page_to_features(const hemem_page *page,
-                                              const float &scaler) {
+yggdrasil_decision_forests::exported_model::ModelFeatures
+page_to_features(const hemem_page *page, const float &total_count) {
     struct page_group *page_group_min2 =
         grp_tracker->try_get_group(page->va, -2);
     struct page_group *page_group_min1 =
@@ -53,18 +53,19 @@ inline std::array<float, 13> page_to_features(const hemem_page *page,
     struct page_group *page_group_plus2 =
         grp_tracker->try_get_group(page->va, 2);
 
-    return yggdrasil_decision_forests::exported_model::ServingModel::
-        fill_features(page->w[0], page->w[1], page->w[2],
-                      page_group ? page_group->max * scaler : NAN,
-                      page_group_min2 ? page_group_min2->max * scaler : NAN,
-                      page_group_min1 ? page_group_min1->max * scaler : NAN,
-                      page_group_plus1 ? page_group_plus1->max * scaler : NAN,
-                      page_group_plus2 ? page_group_plus2->max * scaler : NAN,
-                      page_group ? page_group->avg * scaler : NAN,
-                      page_group_min2 ? page_group_min2->avg * scaler : NAN,
-                      page_group_min2 ? page_group_min2->avg * scaler : NAN,
-                      page_group_plus1 ? page_group_plus1->avg * scaler : NAN,
-                      page_group_plus2 ? page_group_plus2->avg * scaler : NAN);
+    return yggdrasil_decision_forests::exported_model::ModelFeatures(
+        total_count, page->w[0], page->w[1], page->w[2], page->w[3],
+        page->count_above_mean, page->count_below_mean,
+        page_group ? page_group->max : 0,
+        page_group_min2 ? page_group_min2->max : 0,
+        page_group_min1 ? page_group_min1->max : 0,
+        page_group_plus1 ? page_group_plus1->max : 0,
+        page_group_plus2 ? page_group_plus2->max : 0,
+        page_group ? page_group->avg : 0,
+        page_group_min2 ? page_group_min2->avg : 0,
+        page_group_min2 ? page_group_min2->avg : 0,
+        page_group_plus1 ? page_group_plus1->avg : 0,
+        page_group_plus2 ? page_group_plus2->avg : 0);
 }
 
 khash_t(kPagesMap) * pages_map;
@@ -89,8 +90,6 @@ KDQ_INIT(mod_page_t);
 
 static kdq_t(mod_page_t) * mod_page_dq;
 static pthread_mutex_t mod_page_dq_lock = PTHREAD_MUTEX_INITIALIZER;
-
-static const float w_ewma_alpha[WINDOW_SIZE] = W_EWMA_ALPHA;
 
 // TODO: remove thsee as well. We shouldn't need these actually leave it; we
 // need it for guardrails
@@ -124,7 +123,7 @@ uint64_t unthrottle_cnt = 0;
 uint64_t cools = 0;
 
 const float *bias = hist_bias; // History bias by default until triggered by PAR
-uint32_t sampling_mode = HIGH_FIDELITY;
+sampling_modes sampling_mode = HIGH_FIDELITY;
 
 static struct perf_event_mmap_page *perf_page[PEBS_NPROCS][NPBUFTYPES];
 int pfd[PEBS_NPROCS][NPBUFTYPES];
@@ -382,54 +381,6 @@ inline int sort_entry_cmp(const void *a, const void *b) {
     return (_a.score > _b.score) ? -1 : (_a.score < _b.score);
 }
 
-static void reset_page_access_fields(struct hemem_page *page) {
-    for (int i = 0; i < NPBUFTYPES; i++) {
-        page->accesses[i][0] = 0;
-        page->accesses[i][1] = 0;
-    }
-    for (int i = 0; i < WINDOW_SIZE; i++) {
-        page->w[i] = 0;
-    }
-    page->hot_age = 0;
-    page->prev_score = 0;
-    page->accuracy = 0;
-}
-
-static inline float ewma(const float &old, const float &new_val,
-                         const float &alpha) {
-    return (1. - alpha) * old + (alpha * new_val);
-}
-
-static inline void update_window(struct hemem_page *page) {
-    uint32_t accesses =
-        page->accesses[DRAMREAD][prev_access_version] +
-        page->accesses[NVMREAD][prev_access_version] +
-        (WRITES_WEIGHT * page->accesses[WRITE][prev_access_version]);
-
-    if (sampling_mode == DEFAULT_SAMPLING) {
-        constexpr float scaler = DEFAULT_SAMPLE_PERIOD / HF_SAMPLE_PERIOD;
-        for (uint8_t i = 0; i < WINDOW_SIZE; i++) {
-            page->w[i] = ewma(page->w[i], accesses * scaler, w_ewma_alpha[i]);
-        }
-    } else if (sampling_mode == HIGH_FIDELITY) {
-        for (uint8_t i = 0; i < WINDOW_SIZE; i++) {
-            page->w[i] = ewma(page->w[i], accesses, w_ewma_alpha[i]);
-        }
-    }
-}
-
-static inline float compute_score(const struct hemem_page *page,
-                                  const float *bias) {
-    // Update the score (average of the window)
-    // TODO: The model inference goes here
-    // Leave this code here. It will be useful for guardrails
-    float score = 0;
-    for (int i = 0; i < WINDOW_SIZE; i++) {
-        score += page->w[i] * bias[i];
-    }
-    return score;
-}
-
 static inline float model_loss(const float &observed, const float &model_pred,
                                const float &huer_pred) {
     if (false) {
@@ -438,8 +389,7 @@ static inline float model_loss(const float &observed, const float &model_pred,
                          observed
                   << "  " << std::endl;
     }
-    return (abs(observed - model_pred) - abs(observed - huer_pred)) /
-           (observed + 1);
+    return abs(observed - model_pred) - abs(observed - huer_pred);
 }
 
 static size_t calculate_scores_map(struct score_entry *scores_out,
@@ -464,6 +414,8 @@ static size_t calculate_scores_map(struct score_entry *scores_out,
     static std::ofstream ofs("output.txt");
     static int timestep = 0;
     timestep++;
+
+    float count_total = 0;
     for (key = kh_begin(pages_map); key != kh_end(pages_map); ++key) {
         if (!kh_exist(pages_map, key)) {
             continue;
@@ -473,43 +425,28 @@ static size_t calculate_scores_map(struct score_entry *scores_out,
             continue;
         }
 
-        update_window(page);
+        update_window(page, prev_access_version, sampling_mode);
 
-        ofs << timestep << "," << page->va << ","
-            << page->accesses[DRAMREAD][prev_access_version] +
-                   page->accesses[NVMREAD][prev_access_version] +
-                   (WRITES_WEIGHT * page->accesses[WRITE][prev_access_version])
-            << "," << page->model_selection << "," << page->model_score << ","
+        float accesses = calculate_accesses(page, prev_access_version);
+
+        ofs << timestep << "," << page->va << "," << accesses << ","
+            << page->model_selection << "," << page->model_score << ","
             << page->arms_score << std::endl;
+
+        // TODO update the group entry
+        grp_tracker->update_group_entry(page->va, accesses);
+        count_total += accesses;
 
         // Reset the access counts
         page->accesses[DRAMREAD][prev_access_version] = 0;
         page->accesses[NVMREAD][prev_access_version] = 0;
         page->accesses[WRITE][prev_access_version] = 0;
-
-        // TODO update the group entry
-        grp_tracker->update_group_entry(page->va, page->w[0]);
-        if (page->w[0] > max_ewma2) {
-            max_ewma2 = page->w[0];
-        }
     }
-    // if the results would cause nan or negative values, just return original
-    // values
-    if (max_ewma2 <= 0) {
-        max_ewma2 = 1;
-    }
-
-    float scaler = 1;
-    if (sampling_mode == DEFAULT_SAMPLING) {
-        // float scaler = DEFAULT_SAMPLE_PERIOD;
-    } else if (sampling_mode == HIGH_FIDELITY) {
-        // float scaler = HF_SAMPLE_PERIOD;
-    } else {
-        assert(0);
-    }
+    std::cout << "Total accesses: " << count_total << std::endl;
 
     // build the features
-    std::vector<std::array<float, 13>> features;
+    std::vector<yggdrasil_decision_forests::exported_model::ModelFeatures>
+        features;
 
     float avg_loss = 0;
     int count = 0;
@@ -522,21 +459,20 @@ static size_t calculate_scores_map(struct score_entry *scores_out,
         if (page == NULL || !page->present) {
             continue;
         }
-        features.push_back(page_to_features(page, scaler)); // max_ewma2));
+        features.push_back(page_to_features(page, count_total)); // max_ewma2));
 
         // Update the Model Accuracy
-
         page->accuracy =
             ewma(page->accuracy,
-                 model_loss(page->w[0], page->model_score, page->arms_score),
+                 model_loss(page->w[1], page->model_score, page->arms_score),
                  2.0 / 21.0); // window size of 20
 
         avg_loss += page->accuracy;
         count++;
 
-        if (page->accuracy > 0.1f) {
+        if (page->accuracy > 1000.0f) {
             page->model_selection = prediction_type::ARMS;
-        } else if (page->accuracy < -0.1f) {
+        } else if (page->accuracy < -1000.0f) {
             page->model_selection = prediction_type::MODEL;
         }
 
@@ -558,7 +494,7 @@ static size_t calculate_scores_map(struct score_entry *scores_out,
 
     // Run the model
     size_t prediction_index = 0;
-    auto predictions = (*model)->Predict(features);
+    auto predictions = (*model)->Predict(features, count_total);
 
     for (key = kh_begin(pages_map); key != kh_end(pages_map); ++key) {
         if (!kh_exist(pages_map, key)) {
@@ -572,7 +508,7 @@ static size_t calculate_scores_map(struct score_entry *scores_out,
         // Calculate the hotness score
         page->prev_score = page->score;
 
-        page->model_score = predictions[prediction_index++] / scaler;
+        page->model_score = predictions[prediction_index++];
         page->arms_score = compute_score(page, bias);
 
         if (page->model_selection == prediction_type::MODEL) {
@@ -1248,8 +1184,9 @@ void pebs_init(void) {
         perf_page[i][DRAMREAD] =
             perf_setup(L3_LOAD_MISS_LOCAL, 0, i,
                        DRAMREAD); // MEM_LOAD_L3_MISS_RETIRED.LOCAL_DRAM
-        perf_page[i][NVMREAD] = perf_setup(
-            L3_LOAD_MISS_REMOTE, 0, i, NVMREAD); // MEM_LOAD_RETIRED.LOCAL_PMM
+        perf_page[i][NVMREAD] =
+            perf_setup(L3_LOAD_MISS_REMOTE, 0, i,
+                       NVMREAD); // MEM_LOAD_RETIRED.LOCAL_PMM
         perf_page[i][WRITE] =
             perf_setup(0x82d0, 0, i, WRITE); // MEM_INST_RETIRED.ALL_STORES
     }

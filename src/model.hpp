@@ -21,34 +21,56 @@
 namespace yggdrasil_decision_forests {
 namespace exported_model {
 
+struct ModelFeatures {
+    float count_total;
+    float ewma_2;
+    float ewma_5;
+    float ewma_20;
+    float ewma_100;
+    float count_above_mean;
+    float count_below_mean;
+    float max_group_ewma_5;
+    float max_group_ewma_5_max__2;
+    float max_group_ewma_5_max__1;
+    float max_group_ewma_5_max_1;
+    float max_group_ewma_5_max_2;
+    float mean_group_ewma_5;
+    float mean_group_ewma_5_mean__2;
+    float mean_group_ewma_5_mean__1;
+    float mean_group_ewma_5_mean_1;
+    float mean_group_ewma_5_mean_2;
+    ModelFeatures(const float &count_total, const float &ewma_2,
+                  const float &ewma_5, const float &ewma_20,
+                  const float &ewma_100, const float &count_above_mean,
+                  const float &count_below_mean, const float &max_group_ewma_5,
+                  const float &max_group_ewma_5_max__2,
+                  const float &max_group_ewma_5_max__1,
+                  const float &max_group_ewma_5_max_1,
+                  const float &max_group_ewma_5_max_2,
+                  const float &mean_group_ewma_5,
+                  const float &mean_group_ewma_5_mean__2,
+                  const float &mean_group_ewma_5_mean__1,
+                  const float &mean_group_ewma_5_mean_1,
+                  const float &mean_group_ewma_5_mean_2)
+        : count_total(count_total), ewma_2(ewma_2), ewma_5(ewma_5),
+          ewma_20(ewma_20), ewma_100(ewma_100),
+          count_above_mean(count_above_mean),
+          count_below_mean(count_below_mean),
+          max_group_ewma_5(max_group_ewma_5),
+          max_group_ewma_5_max__2(max_group_ewma_5_max__2),
+          max_group_ewma_5_max__1(max_group_ewma_5_max__1),
+          max_group_ewma_5_max_1(max_group_ewma_5_max_1),
+          max_group_ewma_5_max_2(max_group_ewma_5_max_2),
+          mean_group_ewma_5(mean_group_ewma_5),
+          mean_group_ewma_5_mean__2(mean_group_ewma_5_mean__2),
+          mean_group_ewma_5_mean__1(mean_group_ewma_5_mean__1),
+          mean_group_ewma_5_mean_1(mean_group_ewma_5_mean_1),
+          mean_group_ewma_5_mean_2(mean_group_ewma_5_mean__2) {}
+};
+
 struct ServingModel {
     inline const std::vector<float> &
-    Predict(const std::vector<std::array<float, 13>> &Xs);
-
-    static inline std::array<float, 13> fill_features(
-        const float &ewma_2, const float ewma_20, const float &ewma_100,
-        const float &max_group_ewma_2, const float &max_group_ewma_2_max__2,
-        const float &max_group_ewma_2_max__1,
-        const float &max_group_ewma_2_max_1,
-        const float &max_group_ewma_2_max_2, const float &mean_group_ewma_2,
-        const float &mean_group_ewma_2_mean__2,
-        const float &mean_group_ewma_2_mean__1,
-        const float &mean_group_ewma_2_mean_1,
-        const float &mean_group_ewma_2_mean_2) {
-        return {ewma_2,
-                ewma_20,
-                ewma_100,
-                max_group_ewma_2,
-                max_group_ewma_2_max__2,
-                max_group_ewma_2_max__1,
-                max_group_ewma_2_max_1,
-                max_group_ewma_2_max_2,
-                mean_group_ewma_2,
-                mean_group_ewma_2_mean__2,
-                mean_group_ewma_2_mean__1,
-                mean_group_ewma_2_mean_1,
-                mean_group_ewma_2_mean_2};
-    }
+    Predict(const std::vector<ModelFeatures> &Xs, const float &count_total);
 
     // Compiled model.
     std::unique_ptr<serving_api::FastEngine> engine;
@@ -64,22 +86,26 @@ struct ServingModel {
     }
 
     // Indexes of the input features.
+    serving_api::NumericalFeatureId feature_Count_Total;
     serving_api::NumericalFeatureId feature_EWMA_2;
+    serving_api::NumericalFeatureId feature_EWMA_5;
     serving_api::NumericalFeatureId feature_EWMA_20;
     serving_api::NumericalFeatureId feature_EWMA_100;
-    serving_api::NumericalFeatureId feature_Max_Group_EWMA_2;
-    serving_api::NumericalFeatureId feature_Max_Group_EWMA_2_Max__2;
-    serving_api::NumericalFeatureId feature_Max_Group_EWMA_2_Max__1;
-    serving_api::NumericalFeatureId feature_Max_Group_EWMA_2_Max_1;
-    serving_api::NumericalFeatureId feature_Max_Group_EWMA_2_Max_2;
-    serving_api::NumericalFeatureId feature_Mean_Group_EWMA_2;
-    serving_api::NumericalFeatureId feature_Mean_Group_EWMA_2_Mean__2;
-    serving_api::NumericalFeatureId feature_Mean_Group_EWMA_2_Mean__1;
-    serving_api::NumericalFeatureId feature_Mean_Group_EWMA_2_Mean_1;
-    serving_api::NumericalFeatureId feature_Mean_Group_EWMA_2_Mean_2;
+    serving_api::NumericalFeatureId feature_Count_Above_Mean;
+    serving_api::NumericalFeatureId feature_Count_Below_Mean;
+    serving_api::NumericalFeatureId feature_Max_Group_EWMA_5;
+    serving_api::NumericalFeatureId feature_Max_Group_EWMA_5_Max__2;
+    serving_api::NumericalFeatureId feature_Max_Group_EWMA_5_Max__1;
+    serving_api::NumericalFeatureId feature_Max_Group_EWMA_5_Max_1;
+    serving_api::NumericalFeatureId feature_Max_Group_EWMA_5_Max_2;
+    serving_api::NumericalFeatureId feature_Mean_Group_EWMA_5;
+    serving_api::NumericalFeatureId feature_Mean_Group_EWMA_5_Mean__2;
+    serving_api::NumericalFeatureId feature_Mean_Group_EWMA_5_Mean__1;
+    serving_api::NumericalFeatureId feature_Mean_Group_EWMA_5_Mean_1;
+    serving_api::NumericalFeatureId feature_Mean_Group_EWMA_5_Mean_2;
 
     // Array of all feature IDs for convenience.
-    std::array<serving_api::NumericalFeatureId, 13> all_features;
+    std::vector<serving_api::NumericalFeatureId> all_features;
 
     int64_t examples_allocated = -1;
     std::unique_ptr<yggdrasil_decision_forests::serving::AbstractExampleSet>
@@ -87,26 +113,95 @@ struct ServingModel {
 };
 
 inline const std::vector<float> &
-ServingModel::Predict(const std::vector<std::array<float, 13>> &Xs) {
+ServingModel::Predict(const std::vector<ModelFeatures> &Xs,
+                      const float &count_total) {
+
     const int num_examples = Xs.size();
     if (examples_allocated != num_examples) {
-        fflush(stdout);
+
         examples = engine->AllocateExamples(num_examples);
         examples->FillMissing(*features);
         examples_allocated = num_examples;
     }
 
     for (int i = 0; i < num_examples; ++i) {
-        for (int j = 0; j < all_features.size(); ++j) {
-            examples->SetNumerical(i, all_features[j], Xs[i][j], *features);
-        }
+        if (feature_Count_Total.index != -1)
+            examples->SetNumerical(i, feature_Count_Total, Xs[i].count_total,
+                                   *features);
+        if (feature_EWMA_2.index != -1)
+            examples->SetNumerical(i, feature_EWMA_2, Xs[i].ewma_2, *features);
+        if (feature_EWMA_5.index != -1)
+            examples->SetNumerical(i, feature_EWMA_5, Xs[i].ewma_5, *features);
+        if (feature_EWMA_20.index != -1)
+            examples->SetNumerical(i, feature_EWMA_20, Xs[i].ewma_20,
+                                   *features);
+        if (feature_EWMA_100.index != -1)
+            examples->SetNumerical(i, feature_EWMA_100, Xs[i].ewma_100,
+                                   *features);
+        if (feature_Count_Above_Mean.index != -1)
+            examples->SetNumerical(i, feature_Count_Above_Mean,
+                                   Xs[i].count_above_mean, *features);
+        if (feature_Count_Below_Mean.index != -1)
+            examples->SetNumerical(i, feature_Count_Below_Mean,
+                                   Xs[i].count_below_mean, *features);
+        if (feature_Max_Group_EWMA_5.index != -1)
+            examples->SetNumerical(i, feature_Max_Group_EWMA_5,
+                                   Xs[i].max_group_ewma_5, *features);
+        if (feature_Max_Group_EWMA_5_Max__2.index != -1)
+            examples->SetNumerical(i, feature_Max_Group_EWMA_5_Max__2,
+                                   Xs[i].max_group_ewma_5_max__2, *features);
+        if (feature_Max_Group_EWMA_5_Max__1.index != -1)
+            examples->SetNumerical(i, feature_Max_Group_EWMA_5_Max__1,
+                                   Xs[i].max_group_ewma_5_max__1, *features);
+        if (feature_Max_Group_EWMA_5_Max_1.index != -1)
+            examples->SetNumerical(i, feature_Max_Group_EWMA_5_Max_1,
+                                   Xs[i].max_group_ewma_5_max_1, *features);
+        if (feature_Max_Group_EWMA_5_Max_2.index != -1)
+            examples->SetNumerical(i, feature_Max_Group_EWMA_5_Max_2,
+                                   Xs[i].max_group_ewma_5_max_2, *features);
+        if (feature_Mean_Group_EWMA_5.index != -1)
+            examples->SetNumerical(i, feature_Mean_Group_EWMA_5,
+                                   Xs[i].mean_group_ewma_5, *features);
+        if (feature_Mean_Group_EWMA_5_Mean__2.index != -1)
+            examples->SetNumerical(i, feature_Mean_Group_EWMA_5_Mean__2,
+                                   Xs[i].mean_group_ewma_5_mean__2, *features);
+        if (feature_Mean_Group_EWMA_5_Mean__1.index != -1)
+            examples->SetNumerical(i, feature_Mean_Group_EWMA_5_Mean__1,
+                                   Xs[i].mean_group_ewma_5_mean__1, *features);
+        if (feature_Mean_Group_EWMA_5_Mean_1.index != -1)
+            examples->SetNumerical(i, feature_Mean_Group_EWMA_5_Mean_1,
+                                   Xs[i].mean_group_ewma_5_mean_1, *features);
+        if (feature_Mean_Group_EWMA_5_Mean_2.index != -1)
+            examples->SetNumerical(i, feature_Mean_Group_EWMA_5_Mean_2,
+                                   Xs[i].mean_group_ewma_5_mean_2, *features);
     }
+
     engine->Predict(*examples, num_examples, &predictions);
+
+    // Normalize the predictions by the count_total.
+    for (auto &pred : predictions) {
+        // pred *= count_total;
+    }
+
     return predictions;
+}
+
+inline void try_assign_feature(ServingModel *m,
+                               serving_api::NumericalFeatureId &feature,
+                               const absl::string_view &name) {
+
+    if (m->features->HasInputFeature(name)) {
+        feature = m->features->GetNumericalFeatureId(name).value();
+    } else {
+
+        feature = serving_api::NumericalFeatureId{-1};
+    }
+    m->all_features.push_back(feature);
 }
 
 inline absl::StatusOr<ServingModel *> Load(const absl::string_view &path) {
     static ServingModel *m = NULL;
+    int x;
 
     if (m == NULL) {
         m = new ServingModel();
@@ -121,55 +216,35 @@ inline absl::StatusOr<ServingModel *> Load(const absl::string_view &path) {
         m->features = &(m->engine->features());
 
         // Index the input features.
-        ASSIGN_OR_RETURN(m->feature_EWMA_2,
-                         m->features->GetNumericalFeatureId("EWMA_2"));
-        ASSIGN_OR_RETURN(m->feature_EWMA_20,
-                         m->features->GetNumericalFeatureId("EWMA_20"));
-        ASSIGN_OR_RETURN(m->feature_EWMA_100,
-                         m->features->GetNumericalFeatureId("EWMA_100"));
-        ASSIGN_OR_RETURN(
-            m->feature_Max_Group_EWMA_2,
-            m->features->GetNumericalFeatureId("Max Group EWMA_2"));
-        ASSIGN_OR_RETURN(
-            m->feature_Max_Group_EWMA_2_Max__2,
-            m->features->GetNumericalFeatureId("Max Group EWMA_2 Max -2"));
-        ASSIGN_OR_RETURN(
-            m->feature_Max_Group_EWMA_2_Max__1,
-            m->features->GetNumericalFeatureId("Max Group EWMA_2 Max -1"));
-        ASSIGN_OR_RETURN(
-            m->feature_Max_Group_EWMA_2_Max_1,
-            m->features->GetNumericalFeatureId("Max Group EWMA_2 Max 1"));
-        ASSIGN_OR_RETURN(
-            m->feature_Max_Group_EWMA_2_Max_2,
-            m->features->GetNumericalFeatureId("Max Group EWMA_2 Max 2"));
-        ASSIGN_OR_RETURN(
-            m->feature_Mean_Group_EWMA_2,
-            m->features->GetNumericalFeatureId("Mean Group EWMA_2"));
-        ASSIGN_OR_RETURN(
-            m->feature_Mean_Group_EWMA_2_Mean__2,
-            m->features->GetNumericalFeatureId("Mean Group EWMA_2 Mean -2"));
-        ASSIGN_OR_RETURN(
-            m->feature_Mean_Group_EWMA_2_Mean__1,
-            m->features->GetNumericalFeatureId("Mean Group EWMA_2 Mean -1"));
-        ASSIGN_OR_RETURN(
-            m->feature_Mean_Group_EWMA_2_Mean_1,
-            m->features->GetNumericalFeatureId("Mean Group EWMA_2 Mean 1"));
-        ASSIGN_OR_RETURN(
-            m->feature_Mean_Group_EWMA_2_Mean_2,
-            m->features->GetNumericalFeatureId("Mean Group EWMA_2 Mean 2"));
-        m->all_features = {m->feature_EWMA_2,
-                           m->feature_EWMA_20,
-                           m->feature_EWMA_100,
-                           m->feature_Max_Group_EWMA_2,
-                           m->feature_Max_Group_EWMA_2_Max__2,
-                           m->feature_Max_Group_EWMA_2_Max__1,
-                           m->feature_Max_Group_EWMA_2_Max_1,
-                           m->feature_Max_Group_EWMA_2_Max_2,
-                           m->feature_Mean_Group_EWMA_2,
-                           m->feature_Mean_Group_EWMA_2_Mean__2,
-                           m->feature_Mean_Group_EWMA_2_Mean__1,
-                           m->feature_Mean_Group_EWMA_2_Mean_1,
-                           m->feature_Mean_Group_EWMA_2_Mean_2};
+
+        try_assign_feature(m, m->feature_Count_Total, "Count Total");
+
+        try_assign_feature(m, m->feature_EWMA_2, "EWMA_2");
+        try_assign_feature(m, m->feature_EWMA_5, "EWMA_5");
+        try_assign_feature(m, m->feature_EWMA_20, "EWMA_20");
+        try_assign_feature(m, m->feature_EWMA_100, "EWMA_100");
+        try_assign_feature(m, m->feature_Count_Above_Mean, "Count Above Mean");
+        try_assign_feature(m, m->feature_Count_Below_Mean, "Count Below Mean");
+        try_assign_feature(m, m->feature_Max_Group_EWMA_5, "Max Group EWMA_5");
+
+        try_assign_feature(m, m->feature_Max_Group_EWMA_5_Max__2,
+                           "Max Group EWMA_5 Max -2");
+        try_assign_feature(m, m->feature_Max_Group_EWMA_5_Max__1,
+                           "Max Group EWMA_5 Max -1");
+        try_assign_feature(m, m->feature_Max_Group_EWMA_5_Max_1,
+                           "Max Group EWMA_5 Max 1");
+        try_assign_feature(m, m->feature_Max_Group_EWMA_5_Max_2,
+                           "Max Group EWMA_5 Max 2");
+        try_assign_feature(m, m->feature_Mean_Group_EWMA_5,
+                           "Mean Group EWMA_5");
+        try_assign_feature(m, m->feature_Mean_Group_EWMA_5_Mean__2,
+                           "Mean Group EWMA_5 Mean -2");
+        try_assign_feature(m, m->feature_Mean_Group_EWMA_5_Mean__1,
+                           "Mean Group EWMA_5 Mean -1");
+        try_assign_feature(m, m->feature_Mean_Group_EWMA_5_Mean_1,
+                           "Mean Group EWMA_5 Mean 1");
+        try_assign_feature(m, m->feature_Mean_Group_EWMA_5_Mean_2,
+                           "Mean Group EWMA_5 Mean 2");
     }
 
     return m;

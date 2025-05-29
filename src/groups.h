@@ -49,7 +49,7 @@ class group_tracker {
 };
 
 inline uint64_t group_tracker::page_to_group_id(const uint64_t &va) {
-    return (va / HUGEPAGE_SIZE) >> 7;
+    return (va / HUGEPAGE_SIZE) / 512; // 1GB
 }
 
 inline void group_tracker::add_group_if_missing(const uint64_t &va) {
