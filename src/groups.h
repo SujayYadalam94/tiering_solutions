@@ -2,9 +2,9 @@
 
 #include "defs.h"
 #include "hemem_page.h"
-#include "khash.h"
 
 #include <array>
+#include <boost/unordered_map.hpp>
 
 struct page_group {
     uint64_t id;
@@ -35,10 +35,9 @@ static_assert(sizeof(struct page_group) == 24);
 
 class group_tracker {
   public:
-    KHASH_MAP_INIT_INT64(kGroupMap, struct page_group *);
-    khash_t(kGroupMap) * page_groups;
-    group_tracker() { page_groups = kh_init(kGroupMap); }
-    ~group_tracker() { kh_destroy(kGroupMap, page_groups); }
+    boost::unordered_map<uint64_t, page_group *> page_groups;
+    group_tracker() {}
+    ~group_tracker() {}
 
     inline uint64_t page_to_group_id(const uint64_t &va);
     inline void add_group_if_missing(const uint64_t &va);
@@ -49,54 +48,47 @@ class group_tracker {
 };
 
 inline uint64_t group_tracker::page_to_group_id(const uint64_t &va) {
-    return (va / HUGEPAGE_SIZE) / 512; // 1GB
+    return (va / HUGEPAGE_SIZE) / 128; // 1GB
 }
 
 inline void group_tracker::add_group_if_missing(const uint64_t &va) {
     thread_local static int ret;
     thread_local static int key;
     const uint64_t group_id = page_to_group_id(va);
-    key = kh_put(kGroupMap, page_groups, group_id, &ret);
-    if (ret == 1) { // bucket was empty
-        kh_val(page_groups, key) = new struct page_group(group_id);
+    if (page_groups.find(group_id) != page_groups.end()) {
+        return; // group already exists
     }
+    page_groups[group_id] = new struct page_group(group_id);
 }
 
 inline void group_tracker::reset_group_hash() {
-    khiter_t key;
-    struct page_group *group;
-    for (key = kh_begin(page_groups); key != kh_end(page_groups); ++key) {
-        if (!kh_exist(page_groups, key)) {
-            continue;
+    for (auto &entry : page_groups) {
+        auto group = reinterpret_cast<page_group *>(entry.second);
+        if (group) {
+            group->reset();
         }
-        group = kh_val(page_groups, key);
-        if (group == NULL) {
-            continue;
-        }
-        group->reset();
     }
 }
 
 inline void group_tracker::update_group_entry(const uint64_t &va,
-                                              const float &ewma2) {
-    const khiter_t group_key =
-        kh_get(kGroupMap, page_groups, page_to_group_id(va));
-    if (group_key == kh_end(page_groups)) {
+                                              const float &ewma) {
+    const uint64_t group_id = page_to_group_id(va);
+    auto it = page_groups.find(group_id);
+    if (it == page_groups.end()) {
         printf("Something very bad happened\n");
         fflush(stdout);
     } else {
-        // update the group with the page info
-        kh_val(page_groups, group_key)->update(ewma2);
+        auto group = reinterpret_cast<page_group *>(it->second);
+        group->update(ewma);
     }
 }
 
 inline struct page_group *
 group_tracker::try_get_group(const uint64_t &va, const int8_t &offset = 0) {
     struct page_group *group_entry = NULL;
-    const khiter_t key =
-        kh_get(kGroupMap, page_groups, page_to_group_id(va) + offset);
-    if (key != kh_end(page_groups)) {
-        group_entry = kh_val(page_groups, key);
+    auto it = page_groups.find(page_to_group_id(va) + offset);
+    if (it != page_groups.end()) {
+        group_entry = reinterpret_cast<page_group *>(it->second);
     }
     return group_entry;
 }

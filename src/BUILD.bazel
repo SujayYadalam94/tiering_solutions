@@ -7,7 +7,7 @@ cc_binary(
     name = "hemem_lib",
     #linkstatic = 1,
     linkshared = 1,
-    srcs = ["fifo.cpp", "hemem.cpp", "interpose.cpp", "pebs.cpp", "spsc-ring.cpp", "timer.cpp", "fifo.h", "hemem.h", "interpose.h", "kbtree.h", "kdq.h", "khash.h", "pebs.h", "spsc-ring.h", "timer.h", "hemem_page.h", "groups.h", "defs.h", "model.hpp"],
+    srcs = ["fifo.cpp", "hemem.cpp", "interpose.cpp", "pebs.cpp", "spsc-ring.cpp", "timer.cpp", "fifo.h", "hemem.h", "interpose.h", "pebs.h", "spsc-ring.h", "timer.h", "hemem_page.h", "groups.h", "defs.h", "model.hpp"],
     deps = [
         ":third_party",
         ":linux_headers"
@@ -18,7 +18,19 @@ cc_binary(
     tags = ["manual"],
     copts = ["-g -Wall -O3 -fPIC", "-Ilinux/usr/include/"],
     #https://stackoverflow.com/questions/65675412/bazel-build-cannot-find-shared-library
-    linkopts = ["-L/usr/local/lib", "-L/lib", "-L./Hoard/src", "-L/usr/lib", "-lm -lpthread -ldl -lsyscall_intercept -L../Hoard/src -lhoard"]
+    linkopts = [
+      "-L/usr/local/lib",
+      "-L/usr/include/boost",
+      "-L/lib",
+      "-L./Hoard/src",
+      "-L/usr/lib",
+      "-lm",
+      "-lpthread",
+      "-ldl",
+      "-lsyscall_intercept",
+      "-L../Hoard/src",
+      "-lhoard"
+    ]
 )
 
 cc_library(

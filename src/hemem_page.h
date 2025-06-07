@@ -31,14 +31,16 @@ struct hemem_page {
     struct fifo_list *list;
 
     float accuracy;
-    float model_score;
-    float arms_score;
+    uint8_t score_index = 0;
+    float model_score[3] = {0};
+    float arms_score[3] = {0};
+    float access_history[3] = {0};
     prediction_type model_selection;
     uint64_t count_above_mean;
     uint64_t count_below_mean;
-    uint64_t _padding[3];
+    uint64_t _padding[7];
 };
-static_assert(sizeof(struct hemem_page) == 192);
+static_assert(sizeof(struct hemem_page) == 256);
 
 static void reset_page_access_fields(struct hemem_page *page) {
     for (int i = 0; i < NPBUFTYPES; i++) {

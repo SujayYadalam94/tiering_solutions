@@ -31,46 +31,33 @@
 #include "spsc-ring.h"
 #include "timer.h"
 
-#include "kbtree.h"
-#include "kdq.h"
-#include "khash.h"
+#include <boost/container/deque.hpp>
+#include <boost/unordered_map.hpp>
 
 // Hash table for Hemem-handled pages
-KHASH_MAP_INIT_INT64(kPagesMap, struct hemem_page *)
-khash_t(kPagesMap) * pages;
+boost::unordered_map<uint64_t, struct hemem_page *> pages_map;
+boost::unordered_map<uint64_t, struct hemem_page *> pages;
+struct score_entry *scores;
 pthread_mutex_t pages_lock = PTHREAD_MUTEX_INITIALIZER;
 
 group_tracker *grp_tracker = NULL;
 yggdrasil_decision_forests::exported_model::ModelFeatures
 page_to_features(const hemem_page *page, const float &total_count) {
-    struct page_group *page_group_min2 =
-        grp_tracker->try_get_group(page->va, -2);
-    struct page_group *page_group_min1 =
-        grp_tracker->try_get_group(page->va, -1);
-    struct page_group *page_group = grp_tracker->try_get_group(page->va);
-    struct page_group *page_group_plus1 =
-        grp_tracker->try_get_group(page->va, 1);
-    struct page_group *page_group_plus2 =
-        grp_tracker->try_get_group(page->va, 2);
+    std::array<struct page_group *, 4> above_groups;
+    for (int i = 0; i < 4; i++) {
+        above_groups[i] = grp_tracker->try_get_group(page->va, i + 1);
+    }
+    struct page_group *at_group = grp_tracker->try_get_group(page->va, 0);
+    std::array<struct page_group *, 4> below_groups;
+    for (int i = 0; i < 4; i++) {
+        below_groups[i] = grp_tracker->try_get_group(page->va, -(i + 1));
+    }
 
     return yggdrasil_decision_forests::exported_model::ModelFeatures(
         total_count, page->w[0], page->w[1], page->w[2], page->w[3],
-        page->count_above_mean, page->count_below_mean,
-        page_group ? page_group->max : 0,
-        page_group_min2 ? page_group_min2->max : 0,
-        page_group_min1 ? page_group_min1->max : 0,
-        page_group_plus1 ? page_group_plus1->max : 0,
-        page_group_plus2 ? page_group_plus2->max : 0,
-        page_group ? page_group->avg : 0,
-        page_group_min2 ? page_group_min2->avg : 0,
-        page_group_min2 ? page_group_min2->avg : 0,
-        page_group_plus1 ? page_group_plus1->avg : 0,
-        page_group_plus2 ? page_group_plus2->avg : 0);
+        page->count_above_mean, page->count_below_mean, above_groups, at_group,
+        below_groups);
 }
-
-khash_t(kPagesMap) * pages_map;
-
-struct score_entry *scores;
 
 static struct fifo_list dram_free_list;
 static struct fifo_list nvm_free_list;
@@ -86,9 +73,7 @@ typedef struct mod_page {
 } mod_page_t;
 static_assert(sizeof(mod_page_t) == 16);
 
-KDQ_INIT(mod_page_t);
-
-static kdq_t(mod_page_t) * mod_page_dq;
+boost::container::deque<mod_page_t> mod_page_dq;
 static pthread_mutex_t mod_page_dq_lock = PTHREAD_MUTEX_INITIALIZER;
 
 // TODO: remove thsee as well. We shouldn't need these actually leave it; we
@@ -381,15 +366,14 @@ inline int sort_entry_cmp(const void *a, const void *b) {
     return (_a.score > _b.score) ? -1 : (_a.score < _b.score);
 }
 
-static inline float model_loss(const float &observed, const float &model_pred,
-                               const float &huer_pred) {
-    if (false) {
-        std::cout << observed << " " << model_pred << " " << huer_pred << " "
-                  << (abs(observed - model_pred) - abs(observed - huer_pred)) /
-                         observed
-                  << "  " << std::endl;
-    }
-    return abs(observed - model_pred) - abs(observed - huer_pred);
+static inline float window_compress(const float (&v)[3]) {
+    return (v[0] + v[1] + v[2]) / 3.0f;
+}
+
+static inline float model_loss(const float (&observed)[3],
+                               const float model_pred, const float &huer_pred) {
+    return abs(window_compress(observed) - model_pred) -
+           abs(window_compress(observed) - huer_pred);
 }
 
 static size_t calculate_scores_map(struct score_entry *scores_out,
@@ -398,12 +382,10 @@ static size_t calculate_scores_map(struct score_entry *scores_out,
     ptimer_init(&window_timer, "Scores (window)");
 
     struct hemem_page *page;
-    khiter_t key;
-    khiter_t group_key;
     size_t s_idx = 0;
     float max_ewma2 = -1;
 
-    size_t pages_cnt = kh_size(pages_map);
+    size_t pages_cnt = pages_map.size();
     if (pages_cnt == 0) {
         return 0; // no pages to process
     }
@@ -416,25 +398,27 @@ static size_t calculate_scores_map(struct score_entry *scores_out,
     timestep++;
 
     float count_total = 0;
-    for (key = kh_begin(pages_map); key != kh_end(pages_map); ++key) {
-        if (!kh_exist(pages_map, key)) {
-            continue;
-        }
-        page = kh_val(pages_map, key);
-        if (page == NULL || !page->present) {
-            continue;
-        }
+    for (auto &it : pages_map) {
+        const uint64_t &key = it.first;
+        struct hemem_page *page = it.second;
 
         update_window(page, prev_access_version, sampling_mode);
 
         float accesses = calculate_accesses(page, prev_access_version);
 
         ofs << timestep << "," << page->va << "," << accesses << ","
-            << page->model_selection << "," << page->model_score << ","
-            << page->arms_score << std::endl;
+            << page->model_selection << ","
+            << page->model_score[page->score_index] << ","
+            << page->arms_score[page->score_index] << "," << page->in_dram
+            << std::endl;
 
         // TODO update the group entry
         grp_tracker->update_group_entry(page->va, accesses);
+        page->access_history[page->score_index] = accesses;
+        constexpr uint8_t MAX_SCORE_ENTRIES =
+            (sizeof(page->model_score) / sizeof(page->model_score[0]));
+        page->score_index = (page->score_index + 1) % MAX_SCORE_ENTRIES;
+
         count_total += accesses;
 
         // Reset the access counts
@@ -451,21 +435,18 @@ static size_t calculate_scores_map(struct score_entry *scores_out,
     float avg_loss = 0;
     int count = 0;
 
-    for (key = kh_begin(pages_map); key != kh_end(pages_map); ++key) {
-        if (!kh_exist(pages_map, key)) {
-            continue;
-        }
-        page = kh_val(pages_map, key);
-        if (page == NULL || !page->present) {
-            continue;
-        }
+    for (auto &it : pages_map) {
+        const uint64_t &key = it.first;
+        struct hemem_page *page = it.second;
+
         features.push_back(page_to_features(page, count_total)); // max_ewma2));
 
         // Update the Model Accuracy
-        page->accuracy =
-            ewma(page->accuracy,
-                 model_loss(page->w[1], page->model_score, page->arms_score),
-                 2.0 / 21.0); // window size of 20
+        page->accuracy = ewma(page->accuracy,
+                              model_loss(page->access_history,
+                                         page->model_score[page->score_index],
+                                         page->arms_score[page->score_index]),
+                              2.0 / 21.0); // window size of 20
 
         avg_loss += page->accuracy;
         count++;
@@ -496,25 +477,19 @@ static size_t calculate_scores_map(struct score_entry *scores_out,
     size_t prediction_index = 0;
     auto predictions = (*model)->Predict(features, count_total);
 
-    for (key = kh_begin(pages_map); key != kh_end(pages_map); ++key) {
-        if (!kh_exist(pages_map, key)) {
-            continue;
-        }
-        page = kh_val(pages_map, key);
-        if (page == NULL || !page->present) {
-            continue;
-        }
+    for (auto &it : pages_map) {
+        const uint64_t &key = it.first;
+        struct hemem_page *page = it.second;
 
         // Calculate the hotness score
         page->prev_score = page->score;
 
-        page->model_score = predictions[prediction_index++];
-        page->arms_score = compute_score(page, bias);
-
+        page->model_score[page->score_index] = predictions[prediction_index++];
+        page->arms_score[page->score_index] = compute_score(page, bias);
         if (page->model_selection == prediction_type::MODEL) {
-            page->score = page->model_score;
+            page->score = page->model_score[page->score_index];
         } else if (page->model_selection == prediction_type::ARMS) {
-            page->score = page->arms_score;
+            page->score = page->arms_score[page->score_index];
         } else {
             assert(0);
         }
@@ -790,23 +765,24 @@ void *pebs_policy_thread(void *_) {
         // free pages using free page ring buffer
         ptimer_start(&tree_timer);
         while (true) {
-            mod_page_t *mp;
+            mod_page_t mp;
             pthread_mutex_lock(&mod_page_dq_lock);
-            if (kdq_size(mod_page_dq) == 0) {
+            if (mod_page_dq.size() == 0) {
                 pthread_mutex_unlock(&mod_page_dq_lock);
                 break;
             }
-            mp = kdq_shift(mod_page_t, mod_page_dq);
+            mp = mod_page_dq.front();
+            mod_page_dq.pop_front();
             pthread_mutex_unlock(&mod_page_dq_lock);
 
-            page = mp->page;
+            page = mp.page;
             // fprintf(stderr, "Processing page %lu [va: %lu]\n", page,
             // page->va);
 
-            khiter_t k = kh_get(kPagesMap, pages_map, page->va);
-            if (mp->free) {
-                if (k != kh_end(pages_map)) {
-                    kh_del(kPagesMap, pages_map, k);
+            if (mp.free) {
+                if (pages_map.size() != 0 &&
+                    pages_map.find(page->va) != pages_map.end()) {
+                    pages_map.erase(page->va);
 
                     // Add page to correct free list
                     if (page->in_dram) {
@@ -819,10 +795,7 @@ void *pebs_policy_thread(void *_) {
                     fprintf(MY_LOG_STREAM, "WARNING: Page not found in map\n");
                 }
             } else {
-                int absent;
-                k = kh_put(kPagesMap, pages_map, page->va, &absent);
-                assert(absent);
-                kh_value(pages_map, k) = page;
+                pages_map[page->va] = page;
                 grp_tracker->add_group_if_missing(page->va);
             }
         }
@@ -846,9 +819,15 @@ void *pebs_policy_thread(void *_) {
             struct hemem_page *top_page = scores[k].page;
             if (scores[k].score != 0) {
                 top_page->hot_age++;
+
                 if (top_page->hot_age > 1 &&
                     (top_page->score >= top_page->prev_score)) {
                     // Page has continued to stay hot, so can be promoted
+                    top_page->can_promote = true;
+                } else if (top_page->model_selection ==
+                           prediction_type::MODEL) {
+                    // I don't care if the page is continuously hot if it is
+                    // from the model
                     top_page->can_promote = true;
                 }
             }
@@ -1102,54 +1081,51 @@ struct hemem_page *pebs_pagefault(void) {
 }
 
 void pebs_add_page(struct hemem_page *page) {
-
     int absent;
-    khiter_t key;
     assert(page != NULL);
     MY_LOG("pebs: add page, put this page into add_pages_ring: va: 0x%lx\n",
            page->va);
 
     // Add to the hash table
     pthread_mutex_lock(&pages_lock);
-    key = kh_put(kPagesMap, pages, page->va, &absent);
-    assert(absent);
-    kh_value(pages, key) = page;
+    pages[page->va] = page;
     grp_tracker->add_group_if_missing(page->va);
     pthread_mutex_unlock(&pages_lock);
 
     // Add to the new pages ring
     pthread_mutex_lock(&mod_page_dq_lock);
     mod_page_t mp = (mod_page_t){.page = page, .free = false};
-    kdq_push(mod_page_t, mod_page_dq, mp);
+    mod_page_dq.push_back(mp);
     pthread_mutex_unlock(&mod_page_dq_lock);
 }
 
 struct hemem_page *pebs_find_page(uint64_t va) {
-    khiter_t key;
-    struct hemem_page *page;
+    if (pages.empty()) {
+        return NULL;
+    }
     pthread_mutex_lock(&pages_lock);
-    key = kh_get(kPagesMap, pages, va);
-    page = key == kh_end(pages) ? NULL : kh_value(pages, key);
+
+    auto page = pages.find(va);
     pthread_mutex_unlock(&pages_lock);
-    return page;
+    if (page == pages.end()) {
+        return NULL;
+    }
+    return page->second;
 }
 
 void pebs_remove_page(struct hemem_page *page) {
-    khiter_t key;
     assert(page != NULL);
     MY_LOG("pebs: remove page, put this page into free_page_ring: va: 0x%lx\n",
            page->va);
 
     // Remove page from hash table
     pthread_mutex_lock(&pages_lock);
-    key = kh_get(kPagesMap, pages, page->va);
-    assert(key != kh_end(pages));
-    kh_del(kPagesMap, pages, key);
+    pages.erase(page->va);
     pthread_mutex_unlock(&pages_lock);
 
     pthread_mutex_lock(&mod_page_dq_lock);
     mod_page_t mp = (mod_page_t){.page = page, .free = true};
-    kdq_push(mod_page_t, mod_page_dq, mp);
+    mod_page_dq.push_back(mp);
     pthread_mutex_unlock(&mod_page_dq_lock);
 
     // We set page->present to false so that
@@ -1217,17 +1193,10 @@ void pebs_init(void) {
         enqueue_fifo(&nvm_free_list, p);
     }
 
-    pages = kh_init(kPagesMap);
-
-    pages_map = kh_init(kPagesMap);
-
     grp_tracker = new group_tracker();
 
     scores = (struct score_entry *)malloc((MAX_NVME_PAGES + MAX_DRAM_PAGES) *
                                           sizeof(struct score_entry));
-
-    // Initialize the free/add ring buffers
-    mod_page_dq = kdq_init(mod_page_t);
 
     // Initialize bias values
     for (int i = 0; i < WINDOW_SIZE; i++) {
