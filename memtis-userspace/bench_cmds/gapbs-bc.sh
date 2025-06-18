@@ -4,7 +4,7 @@
 BIN=/mnt/nvme/workloads/gapbs
 GRAPH_DIR=/mnt/nvme/inputs/gapbs
 
-BENCH_RUN="env OMP_NUM_THREADS=12 ${BIN}/pr -f ${GRAPH_DIR}/twitter.sg -n 16"
+BENCH_RUN="env OMP_NUM_THREADS=12 ${BIN}/bc -n 16 -f ${GRAPH_DIR}/twitter.sg"
 BENCH_DRAM=""
 
 
@@ -15,7 +15,7 @@ if [[ "x${NVM_RATIO}" == "x1:32" ]]; then
 elif [[ "x${NVM_RATIO}" == "x1:16" ]]; then
     BENCH_DRAM="740MB"
 elif [[ "x${NVM_RATIO}" == "x1:8" ]]; then
-    BENCH_DRAM="1400MB"
+    BENCH_DRAM="1486MB"
 elif [[ "x${NVM_RATIO}" == "x1:4" ]]; then
     BENCH_DRAM="2520MB"
 elif [[ "x${NVM_RATIO}" == "x1:2" ]]; then

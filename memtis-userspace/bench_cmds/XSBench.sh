@@ -1,14 +1,12 @@
 #!/bin/bash
 
-BIN=/path/to/benchmark
-BENCH_RUN="${BIN}/XSBench -t 20 -g 130000 -p 30000000"
+BIN=/mnt/nvme/workloads/xsbench
+BENCH_RUN="${BIN}/XSBench -g 130000 -p 20000000 -t 12"
 BENCH_DRAM=""
 
 
-if [[ "x${NVM_RATIO}" == "x1:16" ]]; then
-    BENCH_DRAM="3850MB"
-elif [[ "x${NVM_RATIO}" == "x1:8" ]]; then
-    BENCH_DRAM="7200MB"
+if [[ "x${NVM_RATIO}" == "x1:8" ]]; then
+    BENCH_DRAM="8100MB"
 elif [[ "x${NVM_RATIO}" == "x1:4" ]]; then
     BENCH_DRAM="13107MB"
 elif [[ "x${NVM_RATIO}" == "x1:2" ]]; then
