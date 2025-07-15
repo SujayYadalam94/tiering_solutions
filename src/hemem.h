@@ -28,7 +28,7 @@ extern "C" {
 
 #ifdef ALLOC_SIMPLE
 #include "policies/simple.h"
-#endif 
+#endif
 
 #include "pebs.h"
 #include "timer.h"
@@ -130,6 +130,7 @@ extern FILE *statsf;
 #define MAX_UFFD_MSGS	    (1)
 #define MAX_COPY_THREADS  (4)
 
+extern int devmemfd;
 extern uint64_t cr3;
 extern int dramfd;
 extern int nvmfd;
