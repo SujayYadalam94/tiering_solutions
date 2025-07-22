@@ -26,7 +26,7 @@ libhemem-lru-swap.so: policies/hemem-lru-swap.o policies/lru_swap.o timer.o inte
 
 hemem.o: hemem.c hemem.h pebs.h interpose.h fifo.h spsc-ring.h
 	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_HEMEM -c hemem.c -o hemem.o
-	
+
 policies/hemem-lru.o: hemem.c hemem.h policies/lru.h interpose.h policies/paging.h fifo.h spsc-ring.h
 	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_LRU -c hemem.c -o policies/hemem-lru.o
 

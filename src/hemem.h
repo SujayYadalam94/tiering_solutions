@@ -36,7 +36,7 @@ extern "C" {
 #include "uthash.h"
 #include "fifo.h"
 
-#define SCAILP
+#define C220G5
 
 //#define HEMEM_DEBUG
 #define STATS_THREAD
