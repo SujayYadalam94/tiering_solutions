@@ -54,7 +54,7 @@ extern uint64_t dramsize;
 extern char* drampath;
 extern char* nvmpath;
 
-#define NVMSIZE_DEFAULT   (64L * (1024L * 1024L * 1024L))
+#define NVMSIZE_DEFAULT   (72L * (1024L * 1024L * 1024L))
 #define DRAMSIZE_DEFAULT  (32L * (1024L * 1024L * 1024L))
 
 #define DRAMPATH_DEFAULT  "/dev/dax0.0"

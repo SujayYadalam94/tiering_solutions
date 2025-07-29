@@ -16,6 +16,7 @@
 #include <sys/ioctl.h>
 
 #include "hemem.h"
+#include "util.h"
 #include "pebs.h"
 #include "timer.h"
 #include "spsc-ring.h"
@@ -46,7 +47,7 @@ int pfd[PEBS_NPROCS][NPBUFTYPES];
 volatile bool need_cool_dram = false;
 volatile bool need_cool_nvm = false;
 
-static long perf_event_open(struct perf_event_attr *hw_event, pid_t pid, 
+static long perf_event_open(struct perf_event_attr *hw_event, pid_t pid,
     int cpu, int group_fd, unsigned long flags)
 {
   int ret;
@@ -104,7 +105,7 @@ static struct perf_event_mmap_page* perf_setup(__u64 config, __u64 config1, __u6
 void make_hot_request(struct hemem_page* page)
 {
    page->ring_present = true;
-   ring_buf_put(hot_ring, (uint64_t*)page); 
+   ring_buf_put(hot_ring, (uint64_t*)page);
 }
 
 void make_cold_request(struct hemem_page* page)
@@ -162,7 +163,7 @@ void *pebs_scan_thread()
             assert(ps != NULL);
             if(ps->addr != 0) {
               __u64 pfn = ps->addr & HUGE_PFN_MASK;
-            
+
               page = get_hemem_page(pfn);
               if (page != NULL) {
                 if (page->va != 0) {
@@ -213,7 +214,7 @@ void *pebs_scan_thread()
               else {
                 other_pages_cnt++;
               }
-            
+
               total_pages_cnt++;
             }
             else {
@@ -243,36 +244,6 @@ void *pebs_scan_thread()
   }
 
   return NULL;
-}
-
-static void pebs_migrate_down(struct hemem_page *page, uint64_t offset)
-{
-  struct timeval start, end;
-
-  gettimeofday(&start, NULL);
-
-  page->migrating = true;
-  hemem_wp_page(page, true);
-  hemem_migrate_down(page, offset);
-  page->migrating = false; 
-
-  gettimeofday(&end, NULL);
-  LOG_TIME("migrate_down: %f s\n", elapsed(&start, &end));
-}
-
-static void pebs_migrate_up(struct hemem_page *page, uint64_t offset)
-{
-  struct timeval start, end;
-
-  gettimeofday(&start, NULL);
-
-  page->migrating = true;
-  hemem_wp_page(page, true);
-  hemem_migrate_up(page, offset);
-  page->migrating = false;
-
-  gettimeofday(&end, NULL);
-  LOG_TIME("migrate_up: %f s\n", elapsed(&start, &end));
 }
 
 // moves page to hot list -- called by migrate thread
@@ -388,7 +359,7 @@ struct hemem_page* partial_cool(struct fifo_list *hot, struct fifo_list *cold, b
     if ((tmp_accesses[WRITE] < HOT_WRITE_THRESHOLD) && (tmp_accesses[DRAMREAD] + tmp_accesses[NVMREAD] < HOT_READ_THRESHOLD)) {
         p->hot = false;
     }
-    
+
     if (dram && (p == start_dram_page)) {
         start_dram_page = NULL;
         need_cool_dram = false;
@@ -397,7 +368,7 @@ struct hemem_page* partial_cool(struct fifo_list *hot, struct fifo_list *cold, b
     if (!dram && (p == start_nvm_page)) {
         start_nvm_page = NULL;
         need_cool_nvm = false;
-    } 
+    }
 
     if (!p->hot) {
         current = p->next;
@@ -460,7 +431,7 @@ static void partial_cool(struct fifo_list *hot, struct fifo_list *cold, bool dra
     if (!dram && (p == start_nvm_page)) {
         start_nvm_page = NULL;
         need_cool_nvm = false;
-    } 
+    }
 
     if (p->hot) {
       enqueue_fifo(hot, p);
@@ -527,7 +498,7 @@ void *pebs_policy_thread()
         if (page == NULL) {
             continue;
         }
-        
+
         list = page->list;
         // If a page is removed from list during migration
         // because of race with pebs_remove_page(), then its list is NULL
@@ -558,7 +529,7 @@ void *pebs_policy_thread()
         if (page == NULL) {
             continue;
         }
-        
+
         #ifdef COOL_IN_PLACE
         update_current_cool_page(&cur_cool_in_dram, &cur_cool_in_nvm, page);
         #endif
@@ -584,7 +555,7 @@ void *pebs_policy_thread()
         make_cold(page);
         //printf("cold ring, cold pages:%llu\n", num_ring_reqs);
     }
-    
+
     // move each hot NVM page to DRAM
     for (migrated_bytes = 0; migrated_bytes < PEBS_KSWAPD_MIGRATE_RATE;) {
       p = dequeue_fifo(&nvm_hot_list);
@@ -602,7 +573,7 @@ void *pebs_policy_thread()
       if ((p->accesses[WRITE] < HOT_WRITE_THRESHOLD) && (p->accesses[DRAMREAD] + p->accesses[NVMREAD] < HOT_READ_THRESHOLD)) {
         // it has been cooled, need to move it into the cold list
         p->hot = false;
-        enqueue_fifo(&nvm_cold_list, p); 
+        enqueue_fifo(&nvm_cold_list, p);
         continue;
       }
 
@@ -627,7 +598,7 @@ void *pebs_policy_thread()
             break;
           } else {
             old_offset = p->devdax_offset;
-            pebs_migrate_up(p, np->devdax_offset);
+            page_migrate_up(p, np->devdax_offset);
             // We can release the lock now that migration is complete
             pthread_mutex_unlock(&(p->page_lock));
 
@@ -683,7 +654,7 @@ void *pebs_policy_thread()
             continue;
           } else {
             old_offset = cp->devdax_offset;
-            pebs_migrate_down(cp, np->devdax_offset);
+            page_migrate_down(cp, np->devdax_offset);
             pthread_mutex_unlock(&(cp->page_lock));
 
             np->devdax_offset = old_offset;
@@ -713,7 +684,7 @@ void *pebs_policy_thread()
     partial_cool(&dram_hot_list, &dram_cold_list, true);
     partial_cool(&nvm_hot_list, &nvm_cold_list, false);
     #endif
- 
+
 out:
 gettimeofday(&end, NULL);
     migrate_time = elapsed(&start, &end) * 1000000.0;
@@ -745,7 +716,7 @@ static struct hemem_page* pebs_allocate_page()
 
     return page;
   }
-    
+
   // DRAM is full, fall back to NVM
   page = dequeue_fifo(&nvm_free_list);
   if (page != NULL) {
@@ -784,7 +755,7 @@ void pebs_remove_page(struct hemem_page *page)
 
   pthread_mutex_lock(&free_page_ring_lock);
   while (ring_buf_full(free_page_ring));
-  ring_buf_put(free_page_ring, (uint64_t*)page); 
+  ring_buf_put(free_page_ring, (uint64_t*)page);
   pthread_mutex_unlock(&free_page_ring_lock);
 
   // We set page->present to false so that
@@ -863,21 +834,21 @@ void pebs_init(void)
   pthread_mutex_init(&(nvm_cold_list.list_lock), NULL);
 
   buffer = (uint64_t**)malloc(sizeof(uint64_t*) * CAPACITY);
-  assert(buffer); 
+  assert(buffer);
   hot_ring = ring_buf_init(buffer, CAPACITY);
   buffer = (uint64_t**)malloc(sizeof(uint64_t*) * CAPACITY);
-  assert(buffer); 
+  assert(buffer);
   cold_ring = ring_buf_init(buffer, CAPACITY);
   buffer = (uint64_t**)malloc(sizeof(uint64_t*) * CAPACITY);
-  assert(buffer); 
+  assert(buffer);
   free_page_ring = ring_buf_init(buffer, CAPACITY);
 
   int r = pthread_create(&scan_thread, NULL, pebs_scan_thread, NULL);
   assert(r == 0);
-  
+
   r = pthread_create(&kswapd_thread, NULL, pebs_policy_thread, NULL);
   assert(r == 0);
-  
+
   LOG("Memory management policy is PEBS\n");
 
   LOG("pebs_init: finished\n");

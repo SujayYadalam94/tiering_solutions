@@ -9,6 +9,7 @@
 #include <unistd.h>
 
 #include "../hemem.h"
+#include "../util.h"
 #include "paging.h"
 #include "lru.h"
 #include "../timer.h"
@@ -31,37 +32,6 @@ static pthread_mutex_t global_lock = PTHREAD_MUTEX_INITIALIZER;
 static bool __thread in_kswapd = false;
 uint64_t lru_runs = 0;
 static volatile bool in_kscand = false;
-
-static void lru_migrate_down(struct hemem_page *page, uint64_t offset)
-{
-  struct timeval start, end;
-
-  gettimeofday(&start, NULL);
-
-  page->migrating = true;
-  hemem_wp_page(page, true);
-  hemem_migrate_down(page, offset);
-  page->migrating = false; 
-
-  gettimeofday(&end, NULL);
-  LOG_TIME("migrate_down: %f s\n", elapsed(&start, &end));
-}
-
-static void lru_migrate_up(struct hemem_page *page, uint64_t offset)
-{
-  struct timeval start, end;
-
-  gettimeofday(&start, NULL);
-
-  page->migrating = true;
-  hemem_wp_page(page, true);
-  hemem_migrate_up(page, offset);
-  page->migrating = false;
-
-  gettimeofday(&end, NULL);
-  LOG_TIME("migrate_up: %f s\n", elapsed(&start, &end));
-}
-
 
 static void shrink_caches(struct fifo_list *active, struct fifo_list *inactive, struct fifo_list *written)
 {
@@ -162,7 +132,7 @@ static void check_writes(struct fifo_list *active, struct fifo_list *inactive, s
 
   for (i = 0; i < nr_pages; i++) {
     page = dequeue_fifo(written);
-    
+
     if (page == NULL) {
       break;
     }
@@ -219,11 +189,11 @@ void *lru_kscand()
     gettimeofday(&clear_start, NULL);
     for(uint64_t i = 0; i < vanum; i++) {
       struct hemem_page mypage = { .va = vas[i] };
-      hemem_clear_bits(&mypage);    
+      hemem_clear_bits(&mypage);
     }
     gettimeofday(&clear_end, NULL);
     LOG_TIME("clear_bits: %f s\n", elapsed(&clear_start, &clear_end));
-    
+
     hemem_tlb_shootdown(0);
 
     gettimeofday(&end, NULL);
@@ -246,7 +216,7 @@ void *lru_kswapd()
   uint64_t old_offset;
 
   //free(malloc(65536));
-  
+
   in_kswapd = true;
 
   for (;;) {
@@ -255,7 +225,7 @@ void *lru_kswapd()
     pthread_mutex_lock(&global_lock);
 
     gettimeofday(&start, NULL);
-    
+
     // move each active NVM page to DRAM
     for (migrated_bytes = 0; migrated_bytes < KSWAPD_MIGRATE_RATE;) {
       p = dequeue_fifo(&nvm_written_list);
@@ -285,7 +255,7 @@ void *lru_kswapd()
                 p->va, p->devdax_offset, np->devdax_offset, nvm_active_list.numentries, nvm_inactive_list.numentries, active_list.numentries, inactive_list.numentries);
 
           old_offset = p->devdax_offset;
-          lru_migrate_up(p, np->devdax_offset);
+          page_migrate_up(p, np->devdax_offset);
           np->devdax_offset = old_offset;
           np->in_dram = false;
           np->present = false;
@@ -327,7 +297,7 @@ void *lru_kswapd()
                 cp->va, cp->devdax_offset, np->devdax_offset, nvm_active_list.numentries, nvm_inactive_list.numentries, active_list.numentries, inactive_list.numentries);
 
           old_offset = cp->devdax_offset;
-          lru_migrate_down(cp, np->devdax_offset);
+          page_migrate_down(cp, np->devdax_offset);
           np->devdax_offset = old_offset;
           np->in_dram = true;
           np->present = false;
@@ -386,7 +356,7 @@ static struct hemem_page* lru_allocate_page()
 
       return page;
     }
-    
+
 #ifndef LRU_SWAP
     // DRAM is full, fall back to NVM
     page = dequeue_fifo(&nvm_free_list);
@@ -406,7 +376,7 @@ static struct hemem_page* lru_allocate_page()
 
       return page;
     }
-    
+
 #else
     // DRAM was full, try to free some space by moving a cold page down
     if (inactive_list.numentries == 0){
@@ -422,7 +392,7 @@ static struct hemem_page* lru_allocate_page()
       LOG("\tmoving va: 0x%lx\n", cp->va);
 
       uint64_t old_offset = cp->devdax_offset;
-      lru_migrate_down(cp, page->devdax_offset);
+      page_migrate_down(cp, page->devdax_offset);
       page->devdax_offset = old_offset;
       page->in_dram = true;
       page->present = false;
@@ -431,8 +401,8 @@ static struct hemem_page* lru_allocate_page()
       enqueue_fifo(&nvm_inactive_list, cp);
       enqueue_fifo(&dram_free_list, page);
     }
-    
-    
+
+
 #endif
 #ifdef LRU_SWAP
   }
@@ -472,14 +442,14 @@ void lru_remove_page(struct hemem_page *page)
   // wait for kscand thread to complete its scan
   // this is needed to avoid race conditions with kscand thread
   while (in_kscand);
-  
+
   pthread_mutex_lock(&global_lock);
- 
+
   assert(page != NULL);
   pthread_mutex_lock(&(page->page_lock));
 
   LOG("LRU: remove page: va: 0x%lx\n", page->va);
-  
+
   list = page->list;
   assert(list != NULL);
 
@@ -531,10 +501,10 @@ void lru_init(void)
 
   int r = pthread_create(&scan_thread, NULL, lru_kscand, NULL);
   assert(r == 0);
-  
+
   pthread_create(&kswapd_thread, NULL, lru_kswapd, NULL);
   assert(r == 0);
-  
+
 #ifndef LRU_SWAP
   LOG("Memory management policy is LRU\n");
 #else
