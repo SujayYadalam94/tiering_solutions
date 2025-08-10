@@ -3,7 +3,7 @@
 sudo apt update
 sudo apt-get install -y git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison cmake htop clang pkg-config libcapstone-dev numactl msr-tools
 
-git submodules update --init --recursive
+git submodule update --init --recursive
 
 pushd ./linux
 
