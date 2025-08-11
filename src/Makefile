@@ -6,7 +6,7 @@ INCLUDES = -I../linux/usr/include/
 LIBS = -lm -lpthread
 HEMEM_LIBS = $(LIBS) -ldl -lsyscall_intercept -L../Hoard/src -lhoard
 
-default: libhemem.so
+default: libhemem.so libhemem-lru.so libhemem-baseline.so
 
 all: hemem-libs
 
@@ -17,6 +17,9 @@ libhemem.so: hemem.o pebs.o timer.o interpose.o fifo.o spsc-ring.o util.o
 
 libhemem-lru.so: policies/hemem-lru.o policies/lru.o timer.o interpose.o policies/paging.o fifo.o spsc-ring.o
 	$(CC) $(LDFLAGS) -o libhemem-lru.so policies/hemem-lru.o timer.o policies/lru.o interpose.o policies/paging.o fifo.o spsc-ring.o $(HEMEM_LIBS)
+
+libhemem-baseline.so: hemem.o pebs-baseline.o timer.o interpose.o fifo.o spsc-ring.o util.o
+	$(CC) $(LDFLAGS) -o libhemem-baseline.so hemem.o timer.o interpose.o pebs-baseline.o fifo.o spsc-ring.o util.o $(HEMEM_LIBS)
 
 libhemem-simple.so: policies/hemem-simple.o policies/simple.o timer.o interpose.o policies/paging.o fifo.o spsc-ring.o
 	$(CC) $(LDFLAGS) -o libhemem-simple.so policies/hemem-simple.o timer.o policies/simple.o interpose.o policies/paging.o fifo.o spsc-ring.o $(HEMEM_LIBS)
@@ -56,6 +59,9 @@ policies/paging.o: policies/paging.c policies/paging.h
 
 pebs.o: pebs.c pebs.h hemem.h fifo.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c pebs.c
+
+pebs-baseline.o: pebs.c pebs.h hemem.h fifo.h
+	$(CC) $(CFLAGS) $(INCLUDES) -D HEMEM_BASELINE -c pebs.c -o pebs-baseline.o
 
 fifo.o: fifo.c fifo.h hemem.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c fifo.c

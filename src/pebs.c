@@ -843,11 +843,13 @@ void pebs_init(void)
   assert(buffer);
   free_page_ring = ring_buf_init(buffer, CAPACITY);
 
+#ifndef HEMEM_BASELINE //Baseline policy does no migrations.
   int r = pthread_create(&scan_thread, NULL, pebs_scan_thread, NULL);
   assert(r == 0);
 
   r = pthread_create(&kswapd_thread, NULL, pebs_policy_thread, NULL);
   assert(r == 0);
+#endif
 
   LOG("Memory management policy is PEBS\n");
 
