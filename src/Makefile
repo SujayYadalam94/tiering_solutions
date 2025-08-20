@@ -12,14 +12,14 @@ all: hemem-libs
 
 hemem-libs: libhemem-lru.so libhemem-simple.so libhemem-lru-swap.so libhemem.so
 
-libhemem.so: hemem.o pebs.o timer.o interpose.o fifo.o spsc-ring.o util.o
-	$(CC) $(LDFLAGS) -o libhemem.so hemem.o timer.o interpose.o pebs.o fifo.o spsc-ring.o util.o $(HEMEM_LIBS)
+libhemem.so: hemem.o pebs.o timer.o interpose.o fifo.o spsc-ring.o
+	$(CC) $(LDFLAGS) -o libhemem.so hemem.o timer.o interpose.o pebs.o fifo.o spsc-ring.o $(HEMEM_LIBS)
 
 libhemem-lru.so: policies/hemem-lru.o policies/lru.o timer.o interpose.o policies/paging.o fifo.o spsc-ring.o
 	$(CC) $(LDFLAGS) -o libhemem-lru.so policies/hemem-lru.o timer.o policies/lru.o interpose.o policies/paging.o fifo.o spsc-ring.o $(HEMEM_LIBS)
 
-libhemem-baseline.so: hemem.o pebs-baseline.o timer.o interpose.o fifo.o spsc-ring.o util.o
-	$(CC) $(LDFLAGS) -o libhemem-baseline.so hemem.o timer.o interpose.o pebs-baseline.o fifo.o spsc-ring.o util.o $(HEMEM_LIBS)
+libhemem-baseline.so: hemem.o pebs-baseline.o timer.o interpose.o fifo.o spsc-ring.o
+	$(CC) $(LDFLAGS) -o libhemem-baseline.so hemem.o timer.o interpose.o pebs-baseline.o fifo.o spsc-ring.o $(HEMEM_LIBS)
 
 libhemem-simple.so: policies/hemem-simple.o policies/simple.o timer.o interpose.o policies/paging.o fifo.o spsc-ring.o
 	$(CC) $(LDFLAGS) -o libhemem-simple.so policies/hemem-simple.o timer.o policies/simple.o interpose.o policies/paging.o fifo.o spsc-ring.o $(HEMEM_LIBS)
@@ -68,9 +68,6 @@ fifo.o: fifo.c fifo.h hemem.h
 
 spsc-ring.o: spsc-ring.c spsc-ring.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c spsc-ring.c
-
-util.o: util.c util.h hemem.h
-	$(CC) $(CFLAGS) $(INCLUDES) -c util.c
 
 clean:
 	$(RM) *.o *.so policies/*.o

@@ -16,7 +16,6 @@
 #include <sys/ioctl.h>
 
 #include "hemem.h"
-#include "util.h"
 #include "pebs.h"
 #include "timer.h"
 #include "spsc-ring.h"
@@ -244,6 +243,36 @@ void *pebs_scan_thread()
   }
 
   return NULL;
+}
+
+static void pebs_migrate_down(struct hemem_page *page, uint64_t offset)
+{
+  struct timeval start, end;
+
+  gettimeofday(&start, NULL);
+
+  page->migrating = true;
+  hemem_wp_page(page, true);
+  hemem_migrate_down(page, offset);
+  page->migrating = false;
+
+  gettimeofday(&end, NULL);
+  LOG_TIME("migrate_down: %f s\n", elapsed(&start, &end));
+}
+
+static void pebs_migrate_up(struct hemem_page *page, uint64_t offset)
+{
+  struct timeval start, end;
+
+  gettimeofday(&start, NULL);
+
+  page->migrating = true;
+  hemem_wp_page(page, true);
+  hemem_migrate_up(page, offset);
+  page->migrating = false;
+
+  gettimeofday(&end, NULL);
+  LOG_TIME("migrate_up: %f s\n", elapsed(&start, &end));
 }
 
 // moves page to hot list -- called by migrate thread
@@ -598,7 +627,7 @@ void *pebs_policy_thread()
             break;
           } else {
             old_offset = p->devdax_offset;
-            page_migrate_up(p, np->devdax_offset);
+            pebs_migrate_up(p, np->devdax_offset);
             // We can release the lock now that migration is complete
             pthread_mutex_unlock(&(p->page_lock));
 
@@ -654,7 +683,7 @@ void *pebs_policy_thread()
             continue;
           } else {
             old_offset = cp->devdax_offset;
-            page_migrate_down(cp, np->devdax_offset);
+            pebs_migrate_down(cp, np->devdax_offset);
             pthread_mutex_unlock(&(cp->page_lock));
 
             np->devdax_offset = old_offset;
