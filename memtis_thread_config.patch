@@ -1,0 +1,53 @@
+diff --git a/configs/c220g5.toml b/configs/c220g5.toml
+index 66efe47..d6da941 100644
+--- a/configs/c220g5.toml
++++ b/configs/c220g5.toml
+@@ -24,8 +24,8 @@ source_path = '/usr/local/hemem/src'
+ run_command_template = 'numactl -N0 -m0 -- sudo ${env} ${workload_run_command} > ${workload_output_filepath} 2>&1'
+ 
+ [engine.memtis]
+-source_path = '/users/SujayYS/memtis/memtis-userspace'
+-run_command_template = 'sudo /users/SujayYS/memtis/memtis-userspace/scripts/run_bench.sh -B ${workload} -R 1:8 -V iter_${iteration}'
++source_path = '/mnt/ssd/memtis/memtis-userspace'
++run_command_template = 'sudo NTHREADS=${num_threads} /mnt/ssd/memtis/memtis-userspace/scripts/run_bench.sh -B ${workload} -R 1:8 -V iter_${iteration}'
+ 
+ [workload]
+ num_threads = 16
+diff --git a/engines/__init__.py b/engines/__init__.py
+index cbdae99..1353261 100644
+--- a/engines/__init__.py
++++ b/engines/__init__.py
+@@ -66,6 +66,7 @@ class Engine(ABC):
+             "workload_run_command": workload.format_run_command(env),
+             "workload_output_filepath": workload.logging_output_filepath.as_posix(),
+             "workload": workload.name,
++            **workload.run_args,  # Add workload run_args (includes num_threads, source_path, etc.)
+         }
+ 
+         if iteration is not None:
+diff --git a/engines/memtis.py b/engines/memtis.py
+index f25c072..dd93fe1 100644
+--- a/engines/memtis.py
++++ b/engines/memtis.py
+@@ -83,9 +83,19 @@ class MemtisEngine(Engine):
+             "upper": 20,
+             "default_value": 5,
+             "_convert_func": lambda x: x * 100,
+-        }
++        },
+ 
+-        ## EXTRA PARAMETERS
++        # SAMPLING_CPU_QUOTA
++        "sampling_cpu_quota": {
++            "name": "sampling_cpu_quota",
++            "real_name": "SAMPLING_CPU_QUOTA",
++            "type": "int",
++            "lower": 10,
++            "upper": 100,
++            "default_value": 30,
++            "_convert_func": lambda x: x * 1,
++        }
++        # EXTRA PARAMETERS
+     }
+ 
+     def __init__(self, config: dict):
