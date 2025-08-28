@@ -1,7 +1,9 @@
 #!/bin/bash
 
 BIN=/mnt/ssd/workloads/graph500/omp-csr
-BENCH_RUN="env OMP_NUM_THREADS=12 SKIP_VALIDATION=1 ${BIN}/omp-csr -s 26 -V"
+# Use NTHREADS from environment if set, otherwise default to 12
+THREADS=${NTHREADS:-12}
+BENCH_RUN="env OMP_NUM_THREADS=${THREADS} SKIP_VALIDATION=1 ${BIN}/omp-csr -s 26 -V"
 BENCH_DRAM=""
 
 

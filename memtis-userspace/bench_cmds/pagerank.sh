@@ -4,7 +4,9 @@
 BIN=/mnt/ssd/workloads/gapbs
 GRAPH_DIR=/mnt/ssd/inputs/gapbs
 
-BENCH_RUN="env OMP_NUM_THREADS=12 ${BIN}/pr -n 8 -f ${GRAPH_DIR}/kron_s29.sg"
+# Use NTHREADS from environment if set, otherwise default to 12
+THREADS=${NTHREADS:-12}
+BENCH_RUN="env OMP_NUM_THREADS=${THREADS} ${BIN}/pr -n 8 -f ${GRAPH_DIR}/kron_s29.sg"
 BENCH_DRAM=""
 
 

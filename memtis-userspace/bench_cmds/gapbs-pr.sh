@@ -4,7 +4,9 @@
 BIN=/mnt/ssd/workloads/gapbs
 GRAPH_DIR=/mnt/ssd/inputs/gapbs
 
-BENCH_RUN="env OMP_NUM_THREADS=12 ${BIN}/pr -f ${GRAPH_DIR}/twitter.sg -n 16"
+# Use NTHREADS from environment if set, otherwise default to 12
+THREADS=${NTHREADS:-12}
+BENCH_RUN="env OMP_NUM_THREADS=${THREADS} ${BIN}/pr -f ${GRAPH_DIR}/twitter.sg -n 16"
 BENCH_DRAM=""
 
 

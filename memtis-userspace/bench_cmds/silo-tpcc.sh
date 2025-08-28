@@ -1,7 +1,9 @@
 #!/bin/bash
 
 BIN=/mnt/ssd/workloads/silo/out-perf.masstree/benchmarks
-BENCH_RUN="${BIN}/dbtest --verbose --bench tpcc --num-threads 12 --scale-factor 100 --ops-per-worker=10000000" # --numa-memory 81260781240
+# Use NTHREADS from environment if set, otherwise default to 12
+THREADS=${NTHREADS:-12}
+BENCH_RUN="${BIN}/dbtest --verbose --bench tpcc --num-threads ${THREADS} --scale-factor 100 --ops-per-worker=10000000" # --numa-memory 81260781240
 BENCH_DRAM=""
 
 if [[ "x${NVM_RATIO}" == "x1:8" ]]; then

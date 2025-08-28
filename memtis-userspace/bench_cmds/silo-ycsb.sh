@@ -1,7 +1,9 @@
 #!/bin/bash
 
 BIN=/mnt/ssd/workloads/silo/out-perf.masstree/benchmarks
-BENCH_RUN="${BIN}/dbtest --verbose --parallel-loading --bench ycsb --num-threads 12 --scale-factor 400000 --ops-per-worker=150000000" # --numa-memory 76665166233
+# Use NTHREADS from environment if set, otherwise default to 12
+THREADS=${NTHREADS:-12}
+BENCH_RUN="${BIN}/dbtest --verbose --parallel-loading --bench ycsb --num-threads ${THREADS} --scale-factor 400000 --ops-per-worker=150000000" # --numa-memory 76665166233
 BENCH_DRAM=""
 
 #####

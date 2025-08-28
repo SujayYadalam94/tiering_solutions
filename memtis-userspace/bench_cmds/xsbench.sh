@@ -1,7 +1,9 @@
 #!/bin/bash
 
 BIN=/mnt/ssd/workloads/xsbench
-BENCH_RUN="${BIN}/XSBench -g 130000 -p 20000000 -t 12"
+# Use NTHREADS from environment if set, otherwise default to 12
+THREADS=${NTHREADS:-12}
+BENCH_RUN="${BIN}/XSBench -g 130000 -p 20000000 -t ${THREADS}"
 BENCH_DRAM=""
 
 
