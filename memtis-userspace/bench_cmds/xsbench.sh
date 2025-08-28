@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BIN=/mnt/nvme/workloads/xsbench
+BIN=/mnt/ssd/workloads/xsbench
 BENCH_RUN="${BIN}/XSBench -g 130000 -p 20000000 -t 12"
 BENCH_DRAM=""
 

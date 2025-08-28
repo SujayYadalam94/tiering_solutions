@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BIN=/mnt/nvme/workloads/btree/bin
+BIN=/mnt/ssd/workloads/btree/bin
 BENCH_RUN="env OMP_NUM_THREADS=12 ${BIN}/bench_btree_mt -- 600000000 750000000"
 BENCH_DRAM=""
 

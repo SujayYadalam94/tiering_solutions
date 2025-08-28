@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BIN=/mnt/nvme/workloads/gups
+BIN=/mnt/ssd/workloads/gups
 BENCH_RUN="${BIN}/gups-hotset-move 12 1000000000 36 8 33"
 BENCH_DRAM="7270MB"
 

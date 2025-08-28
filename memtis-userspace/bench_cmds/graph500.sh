@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BIN=/mnt/nvme/workloads/graph500/omp-csr
+BIN=/mnt/ssd/workloads/graph500/omp-csr
 BENCH_RUN="env OMP_NUM_THREADS=12 SKIP_VALIDATION=1 ${BIN}/omp-csr -s 26 -V"
 BENCH_DRAM=""
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BIN=/mnt/nvme/workloads/silo/out-perf.masstree/benchmarks
+BIN=/mnt/ssd/workloads/silo/out-perf.masstree/benchmarks
 BENCH_RUN="${BIN}/dbtest --verbose --parallel-loading --bench ycsb --num-threads 12 --scale-factor 400000 --ops-per-worker=150000000" # --numa-memory 76665166233
 BENCH_DRAM=""
 

@@ -1,10 +1,10 @@
 #!/bin/bash
-BENCH_BIN=/mnt/nvme/workloads/liblinear
+BENCH_BIN=/mnt/ssd/workloads/liblinear
 
 # anon footprint 79640MB
 # file footprint 21581MB
 
-BENCH_RUN="${BENCH_BIN}/train -s 6 -m 20 /mnt/nvme/inputs/liblinear/kddb"
+BENCH_RUN="${BENCH_BIN}/train -s 6 -m 20 /mnt/ssd/inputs/liblinear/kddb"
 # Liblinear requires a dataset file (kdd12)
 # Please refer to memtis-userspace/bench_dir/README.md for downloading this dataset
 

@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ######## changes the below path
-BIN=/mnt/nvme/workloads/gapbs
-GRAPH_DIR=/mnt/nvme/inputs/gapbs
+BIN=/mnt/ssd/workloads/gapbs
+GRAPH_DIR=/mnt/ssd/inputs/gapbs
 
 BENCH_RUN="env OMP_NUM_THREADS=12 ${BIN}/pr -f ${GRAPH_DIR}/twitter.sg -n 16"
 BENCH_DRAM=""
