@@ -106,8 +106,12 @@ unsigned long get_nr_lru_pages_node(struct mem_cgroup *memcg, pg_data_t *pgdat)
 
     lruvec = mem_cgroup_lruvec(memcg, pgdat);
 
-    for_each_lru(lru)
+    for_each_lru(lru) {
+		// Skip page cache pages
+		if (is_file_lru(lru))
+			continue;
 	nr_pages += lruvec_lru_size(lruvec, lru, MAX_NR_ZONES);
+	}
    
     return nr_pages;
 }
@@ -538,6 +542,10 @@ static unsigned long demote_lruvec(unsigned long nr_to_reclaim, short priority,
     for_each_evictable_lru(tmp) {
 	lru = (tmp + 2) % 4;
 
+	// Skip file cache pages
+	if (is_file_lru(lru))
+	    continue;
+
 	if (!shrink_active && !is_file_lru(lru) && is_active_lru(lru))
 	    continue;	
 	
@@ -591,6 +599,10 @@ static unsigned long demote_node(pg_data_t *pgdat, struct mem_cgroup *memcg,
     bool shrink_active = false;
 
     for_each_evictable_lru(lru) {
+	// Skip file cache pages
+	if (is_file_lru(lru))
+	    continue;
+
 	if (!is_file_lru(lru) && is_active_lru(lru))
 	    continue;
 
