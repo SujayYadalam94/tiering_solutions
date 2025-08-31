@@ -51,3 +51,25 @@ index f25c072..dd93fe1 100644
      }
  
      def __init__(self, config: dict):
+diff --git a/run_config.py b/run_config.py
+index 6657292..a19c053 100644
+--- a/run_config.py
++++ b/run_config.py
+@@ -80,7 +80,7 @@ def run_config():
+ 
+     # Create output folder (for results and logs)
+     date_dirname = datetime.now().strftime('%Y-%m-%d') + '_config_run'
+-    run_dirname = f"{args.engine}_{args.workload}_{date_dirname}_{datetime.now().strftime('%H-%M-%S')}_config_run"
++    run_dirname = f"{args.engine}_{args.workload}_{args.num_threads}-threads_{args.memory_ratio}-ratio_{date_dirname}_{datetime.now().strftime('%H-%M-%S')}_config_run"
+     results_folder: Path = args.results_folder / date_dirname / run_dirname
+     results_folder.mkdir(parents=True, exist_ok=True)
+ 
+@@ -140,7 +140,7 @@ def run_config():
+         start_time = datetime.now()
+         try:
+             eval_result, workload_output = \
+-                evaluate_config(config, engine, workload, run_command, timeout_secs=None, capture_meminfo=True)
++                evaluate_config(config, engine, workload, run_command, timeout_secs=None, iteration=args.iter, capture_meminfo=True)
+ 
+         except Exception as err:
+             traceback.print_exc()
