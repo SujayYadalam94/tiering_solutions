@@ -1,3 +1,16 @@
+diff --git a/Makefile b/Makefile
+index 15c8251d4d5e..b7a2c4ef70a9 100644
+--- a/Makefile
++++ b/Makefile
+@@ -2,7 +2,7 @@
+ VERSION = 5
+ PATCHLEVEL = 1
+ SUBLEVEL = 0
+-EXTRAVERSION = -rc4
++EXTRAVERSION = -hemem-rc4
+ NAME = Shy Crocodile
+ 
+ # *DOCUMENTATION*
 diff --git a/arch/x86/Makefile b/arch/x86/Makefile
 index a587805c6687..48a2e93c876a 100644
 --- a/arch/x86/Makefile

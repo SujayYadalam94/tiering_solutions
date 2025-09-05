@@ -1,5 +1,43 @@
 #!/bin/bash
 
+set -euo pipefail
+
+GRUB_FILE="/etc/default/grub"
+APPEND_STR="memmap=80G!8G memmap=80G!104G"
+
+# Skip if memmap already present
+if grep -q "$APPEND_STR" "$GRUB_FILE"; then
+    echo "grub already has $APPEND_STR"
+else
+    # Backup first
+    cp -a "$GRUB_FILE" "$GRUB_FILE.bak.$(date +%s)"
+    tac /etc/default/grub | \
+        sed '0,/GRUB_CMDLINE_LINUX="[^"]*"/{s/\(GRUB_CMDLINE_LINUX="[^"]*\)"/\1 '"$APPEND_STR"'"\n# \1"/}' | \
+        tac | \
+        sudo tee $GRUB_FILE
+    sudo update-grub
+fi
+
+CONF_FILE="/etc/initramfs-tools/initramfs.conf"
+
+# Read current value of COMPRESS
+current_compress=$(grep -E '^COMPRESS=' "$CONF_FILE" | cut -d'=' -f2- || echo "")
+
+if [[ "$current_compress" == "gzip" ]]; then
+    echo "COMPRESS is already set to gzip. No changes made."
+else
+    BACKUP_FILE="${CONF_FILE}.bak.$(date +%s)"
+
+    # Make a backup first
+    sudo cp "$CONF_FILE" "$BACKUP_FILE"
+
+    # Update COMPRESS= line
+    sudo sed -i 's/^COMPRESS=.*/COMPRESS=gzip/' "$CONF_FILE"
+
+    echo "Updated COMPRESS= to gzip in $CONF_FILE"
+    echo "Backup saved as $BACKUP_FILE"
+fi
+
 sudo apt update
 sudo apt-get install -y git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison cmake htop clang pkg-config libcapstone-dev numactl msr-tools
 
@@ -59,6 +97,12 @@ popd
 # Install ndctl
 sudo apt install -y ndctl
 
-echo "=============================="
-echo "Setup almost done, you need to update /etc/initramfs-tools/initramfs.conf with gzip compression."
-echo "Edit /etc/default/grub and add memmap=32G!4G,66G!112G."
+echo "Setting grub default."
+KERNEL_VERSION="5.1.0-hemem-rc4+"
+sudo grub-reboot "Advanced options for Ubuntu>Ubuntu, with Linux $KERNEL_VERSION"
+
+#echo "=============================="
+echo "Setup almost done, you need to update /etc/default/grub with:"
+echo "\tGRUB_SAVEDEFAULT=true"
+echo "\tGRUB_DEFAULT=saved"
+#echo "Edit /etc/default/grub and add memmap=32G!4G,66G!112G."
