@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -euo pipefail
+trap 'echo "ERR: command \"$BASH_COMMAND\" failed at ${BASH_SOURCE}:${LINENO}" >&2' ERR
 
 GRUB_FILE="/etc/default/grub"
 APPEND_STR="memmap=80G!8G memmap=80G!104G"
@@ -45,7 +46,8 @@ git submodule update --init --recursive
 
 pushd ./linux
 
-patch -p1 < ../linux.patch
+#patch -p1 < ../linux.patch
+git apply ../linux.patch
 
 cp /boot/config-$(uname -r) .config
 scripts/config --disable SYSTEM_REVOCATION_KEYS
@@ -61,7 +63,9 @@ echo 'CONFIG_DEV_DAX_PMEM=y' >> .config
 echo 'CONFIG_DEV_DAX_KMEM=y' >> .config
 echo 'CONFIG_X86_MSR=y' >> .config
 
+set +e # Disable return checking
 yes '' | make localmodconfig
+set -e
 
 make -j$(nproc)
 sudo make modules_install -j$(nproc)
@@ -97,12 +101,36 @@ popd
 # Install ndctl
 sudo apt install -y ndctl
 
-echo "Setting grub default."
+# Configure crontab to run onboot.sh on boot
+
+# Find the absolute path to onboot.sh
+ONBOOT_SCRIPT="$(realpath ./scripts/onboot.sh)"
+echo "Adding crontab entry to run onboot.sh on boot for current user..."
+
+# Add the crontab entry for the current user if it doesn't already exist
+(crontab -l 2>/dev/null | grep -v '@reboot' || true; echo "@reboot $ONBOOT_SCRIPT") | crontab -
+
+echo "Setting grub default and configuring auto-boot..."
 KERNEL_VERSION="5.1.0-hemem-rc4+"
+
+# Update GRUB configuration with GRUB_SAVEDEFAULT and GRUB_DEFAULT
+if ! grep -q "GRUB_SAVEDEFAULT" "$GRUB_FILE"; then
+    echo "GRUB_SAVEDEFAULT=true" | sudo tee -a "$GRUB_FILE"
+fi
+
+if grep -q "^GRUB_DEFAULT=" "$GRUB_FILE"; then
+    sudo sed -i 's/^GRUB_DEFAULT=.*/GRUB_DEFAULT=saved/' "$GRUB_FILE"
+else
+    echo "GRUB_DEFAULT=saved" | sudo tee -a "$GRUB_FILE"
+fi
+
+sudo update-grub
 sudo grub-reboot "Advanced options for Ubuntu>Ubuntu, with Linux $KERNEL_VERSION"
 
-#echo "=============================="
-echo "Setup almost done, you need to update /etc/default/grub with:"
-echo "\tGRUB_SAVEDEFAULT=true"
-echo "\tGRUB_DEFAULT=saved"
-#echo "Edit /etc/default/grub and add memmap=32G!4G,66G!112G."
+echo "=============================="
+echo "Setup complete! The system will now reboot with the new kernel."
+echo "On boot, the onboot.sh script will run automatically via crontab."
+echo "=============================="
+
+# Reboot the system
+sudo reboot

@@ -10,4 +10,7 @@ sudo ndctl create-namespace -f -e namespace1.0 --mode=devdax --align 2M
 
 echo 1000000 | sudo tee /proc/sys/vm/max_map_count
 echo 0 | sudo tee /proc/sys/kernel/numa_balancing
-export LD_LIBRARY_PATH=/mydata/hemem/src:/mydata/hemem/Hoard/src:$LD_LIBRARY_PATH
+
+# Dynamically set LD_LIBRARY_PATH based on the location of this script
+SCRIPT_DIR="$(dirname $(realpath "$0"))"
+export LD_LIBRARY_PATH="$SCRIPT_DIR/../src:$SCRIPT_DIR/../Hoard/src:$LD_LIBRARY_PATH"
