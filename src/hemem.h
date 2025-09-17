@@ -1,5 +1,4 @@
 #ifndef HEMEM_H
-
 #define HEMEM_H
 
 #include <pthread.h>
@@ -30,12 +29,27 @@ extern "C" {
 #include "policies/simple.h"
 #endif
 
+// Define target system here
+// Options are SCAILP and C220G5
+#define C220G5
+
+
 #include "pebs.h"
 #include "timer.h"
 #include "interpose.h"
 #include "fifo.h"
 
-#define C220G5
+#ifdef C220G5
+#define FAULT_THREAD_CPU  (10)
+#define STATS_THREAD_CPU  (13)
+#elif defined SCAILP
+#define FAULT_THREAD_CPU  (0)
+#define STATS_THREAD_CPU  (3)
+#else
+// Compile error - unknown system
+#error "Unknown system - valid options are SCAILP and C220G5"
+#endif
+
 
 //#define HEMEM_DEBUG
 #define STATS_THREAD
@@ -59,12 +73,11 @@ extern char* nvmpath;
 #define DRAMPATH_DEFAULT  "/dev/dax0.0"
 #define NVMPATH_DEFAULT   "/dev/dax1.0"
 
-//#define PAGE_SIZE (1024 * 1024 * 1024)
-//#define PAGE_SIZE (2 * (1024 * 1024))
 #define BASEPAGE_SIZE	  (4UL * 1024UL)
 #define HUGEPAGE_SIZE 	(2UL * 1024UL * 1024UL)
 #define GIGAPAGE_SIZE   (1024UL * 1024UL * 1024UL)
 #define PAGE_SIZE 	    HUGEPAGE_SIZE
+#define CACHELINE_SIZE   (64)
 
 #define MAX_NVME_PAGES  (NVMSIZE_DEFAULT / PAGE_SIZE)
 #define MAX_DRAM_PAGES  (DRAMSIZE_DEFAULT / PAGE_SIZE)
@@ -76,9 +89,6 @@ extern char* nvmpath;
 #define BASE_PFN_MASK	(BASEPAGE_MASK ^ UINT64_MAX)
 #define HUGE_PFN_MASK	(HUGEPAGE_MASK ^ UINT64_MAX)
 #define GIGA_PFN_MASK   (GIGAPAGE_MASK ^ UINT64_MAX)
-
-#define FAULT_THREAD_CPU  (10)
-#define STATS_THREAD_CPU  (13)
 
 extern FILE *hememlogf;
 //#define LOG(...) fprintf(stderr, __VA_ARGS__)

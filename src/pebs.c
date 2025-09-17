@@ -477,9 +477,9 @@ static void reset_page_access_fields(struct hemem_page *page)
 
 static inline void update_window(struct hemem_page* page) {
 #ifdef SPATIAL_SMOOTHING
-  float accesses = page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD] + (WRITES_WEIGHT * page->s_accesses[WRITE]);
+  float accesses = page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD] + (NVM_WRITES_WEIGHT * page->s_accesses[WRITE]);
 #else
-  uint32_t accesses = page->accesses[DRAMREAD][prev_access_version] + page->accesses[NVMREAD][prev_access_version] + (WRITES_WEIGHT * page->accesses[WRITE][prev_access_version]);
+  uint32_t accesses = page->accesses[DRAMREAD][prev_access_version] + page->accesses[NVMREAD][prev_access_version] + (NVM_WRITES_WEIGHT * page->accesses[WRITE][prev_access_version]);
 #endif
 
   if (sampling_mode == DEFAULT_SAMPLING) {
@@ -743,12 +743,12 @@ static inline int continue_migration(struct hemem_page *hp, struct hemem_page *c
   }
 
   // Cost-benefit analysis
-  float cost = 1.5 * (promotion_cost_avg + demotion_cost_avg);
-  float latency_diff = 0.1;
-  
-  if (demotion_cost_avg > 20000) {
-    latency_diff = demotion_cost_avg / (PAGE_SIZE/64); // Number of cachelines in a page
-    latency_diff -= 0.1;
+  float cost = CB_MULTIPLIER * (promotion_cost_avg + demotion_cost_avg);
+  float latency_diff = LATENCY_DIFF;
+
+  if (demotion_cost_avg > NVM_HPAGE_MIGRATION_COST_KNEEPOINT) {
+    latency_diff = demotion_cost_avg / (PAGE_SIZE / CACHELINE_SIZE); // Number of cachelines in a page
+    //latency_diff -= 0.1;
   }
   float benefit =(hp->score - cp->score) * hp->hot_age * HF_SAMPLE_PERIOD * latency_diff;
 
@@ -938,30 +938,30 @@ void *pebs_policy_thread()
 
     // Compute peak-to-average ratio every 1 second
     if (global_version % (1000000 / policy_thread_period) == 0) {
-      cur_nvm_bw = (measure_nvm_bw() * 64.0) / (1024 * 1024 * 1024);
+      cur_nvm_bw = ((float)(measure_nvm_bw()) * (CACHELINE_SIZE)) / (1024ULL * 1024ULL * 1024ULL);
 
       // update the BW
-      nvm_bw_ewma = 0.7 * nvm_bw_ewma + 0.3 * cur_nvm_bw;
-      nvm_bw_std  = (0.9 * nvm_bw_std * nvm_bw_std) + 0.1 * (cur_nvm_bw - nvm_bw_ewma) * (cur_nvm_bw - nvm_bw_ewma);
+      nvm_bw_ewma = (1 - HCD_EWMA_ALPHA) * nvm_bw_ewma + HCD_EWMA_ALPHA * cur_nvm_bw;
+      nvm_bw_std  = ((1 - HCD_STD_ALPHA) * nvm_bw_std * nvm_bw_std) + HCD_STD_ALPHA * (cur_nvm_bw - nvm_bw_ewma) * (cur_nvm_bw - nvm_bw_ewma);
       nvm_bw_std = sqrt(nvm_bw_std);
 
       // Page-Hinkley test
-      cusum += ((cur_nvm_bw - nvm_bw_ewma) - 0.1);
-      if (cusum > 3 * nvm_bw_std) {
-        if (bias == hist_bias && cur_nvm_bw > 0.3) {
+      cusum += ((cur_nvm_bw - nvm_bw_ewma) - HCD_PH_DRIFT);
+      if (cusum > HCD_PH_THRESHOLD * nvm_bw_std) {
+        if (bias == hist_bias && cur_nvm_bw > HCD_RECN_MIN_NVM_BW) {
           bias = recn_bias;
           fprintf(LOG_STREAM, "Switching to RECN bias\n");
           time_since_recn = 0;
         }
         cusum = 0;
-      } else if (time_since_recn >= 20 && cusum < 0) {
+      } else if (time_since_recn >= HCD_RECN_MAX_PERIODS && cusum < 0) {
         if (bias == recn_bias) {
           bias = hist_bias;
           fprintf(LOG_STREAM, "Switching back to HIST bias\n");
         }
       }
 
-      if (cusum < -2) {
+      if (cusum < HCD_PH_RESET_THRESHOLD) {
         cusum = 0;
       }
 
@@ -1137,11 +1137,11 @@ void *pebs_policy_thread()
         ptimer_stop(&id_timer);
 
         // Cost-benefit analysis
-        float cost = 1.5 * (promotion_cost_avg + demotion_cost_avg);
-        float latency_diff = 0.1;
-        if (demotion_cost_avg > 20000) {
-          latency_diff = demotion_cost_avg / (PAGE_SIZE/64); // Number of cachelines in a page
-          latency_diff -= 0.1;
+        float cost = CB_MULTIPLIER * (promotion_cost_avg + demotion_cost_avg);
+        float latency_diff = LATENCY_DIFF;
+        if (demotion_cost_avg > NVM_HPAGE_MIGRATION_COST_KNEEPOINT) {
+          latency_diff = demotion_cost_avg / (PAGE_SIZE / CACHELINE_SIZE); // Number of cachelines in a page
+          //latency_diff -= 0.1;
         }
         float benefit = p->score * p->hot_age * HF_SAMPLE_PERIOD * latency_diff;
         if (benefit < cost) {
@@ -1231,8 +1231,9 @@ loop_end:
     if (migrated_pages == 0) {
       // Reset the migration cost averages
       // TOOD: Think about the best way to reset migration costs
-      promotion_cost_avg /= 1.5;
-      demotion_cost_avg  /= 1.5;
+      //promotion_cost_avg = promotion_cost_avg * 0.6 + (1-0.6) * MIN_PROMOTION_COST;
+      promotion_cost_avg /= MIGRATION_COST_DECAY_RATE;
+      demotion_cost_avg  /= MIGRATION_COST_DECAY_RATE;
       if (promotion_cost_avg < MIN_PROMOTION_COST) {
         promotion_cost_avg = MIN_PROMOTION_COST;
       }
