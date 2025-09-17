@@ -92,7 +92,7 @@
 #define MIGRATION_COST_DECAY_RATE (1.5)     // Decay rate for migration cost (1.5 means that the cost decreases by 1.5 every 1 interval)
 
 #define MIGRATION_WINDOW_SIZE     (20)      // Window size for migration cost averaging
-#define MIGRATION_COST_ALPHA      (0.0952)  // EWMA alpha for migration cost (20 periods -> 0.0952)
+#define MIGRATION_COST_ALPHA      (2./(double)(MIGRATION_WINDOW_SIZE + 1))  // EWMA alpha for migration cost (20 periods -> 0.0952)
 // ==============================================================================
 
 
@@ -104,8 +104,8 @@
 
 
 #define PERF_PAGES	(1 + (1 << 8))	// Has to be == 1+2^n, here 1MB
-#define DEFAULT_SAMPLE_PERIOD	10007
-#define HF_SAMPLE_PERIOD	5003
+#define DEFAULT_SAMPLE_PERIOD	(10007)
+#define HF_SAMPLE_PERIOD	(5003)
 
 enum sampling_modes {
   DEFAULT_SAMPLING = 0,

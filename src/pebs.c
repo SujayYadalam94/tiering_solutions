@@ -230,7 +230,7 @@ void open_perf_events(int rdwr)
     pe.inherit = 1;
     pe.config = (rdwr == 0) ? 0x304:0xC04;
 
-    fd = perf_event_open(&pe, -1, 10, -1, 0);	
+    fd = perf_event_open(&pe, -1, 10, -1, 0);
     if (fd == -1) {
       fprintf(stderr, "Failed to open perf event for BW monitoring\n");
       exit(1);
@@ -496,7 +496,6 @@ static inline void update_window(struct hemem_page* page) {
 
 static inline float compute_score(const struct hemem_page *page, const float *bias) {
   // Update the score (average of the window)
-  // TODO: Use a weighted average instead of a simple average
   float score = 0;
   for (int i = 0; i < WINDOW_SIZE; i++) {
     score += page->w[i] * bias[i];
