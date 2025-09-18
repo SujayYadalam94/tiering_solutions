@@ -56,19 +56,34 @@
 // ==============================================================================
 
 
+/// PEBS kswapd thread wakeup interval
+// ==============================================================================
+#define PEBS_KSWAPD_INTERVAL_BIG      (500000) // in us (500ms)
+#define PEBS_KSWAPD_INTERVAL_SMALL    (100000) // in us (100ms)
+// ==============================================================================
+
+
 /// Page scoring parameters
 // ==============================================================================
 // Number of EWMA windows
 #define WINDOW_SIZE   (2)
 
 // Bias values for history and recency
-#define HIST_BIAS     {0.4, 0.6}        // Harmonic progression (1/3, 1/2)
-#define RECN_BIAS     {0.731, 0.269}    // Exponential (e-1, e-2)
+#define HIST_BIAS_RECN  (0.4)
+#define HIST_BIAS       {HIST_BIAS_RECN, 1.-HIST_BIAS_RECN}
+//#define HIST_BIAS       {0.4, 0.6}  // Harmonic progression (1/3, 1/2)
 
-// 2/(2^i + 1)
-#define W_EWMA_ALPHA  {0.6667, 0.0952}  // 1s, 10s
-// #define W_EWMA_ALPHA {.6667, .3333, .0952, 0.0199} // 200ms, 500ms, 2s, 10s
-// #define W_EWMA_ALPHA {0.1818, .0952, 0.0392, 0.0199} // 1s, 2s, 5s, 10s
+#define RECN_BIAS_RECN  (0.731)
+#define RECN_BIAS       {RECN_BIAS_RECN, 1.-RECN_BIAS_RECN}
+//#define RECN_BIAS     {0.731, 0.269}    // Exponential (e-1, e-2)
+
+#define SHORT_TERM_WND_PERIOD_MS (1000)  // 1s
+#define LONG_TERM_WND_PERIOD_MS  (10000) // 10s
+
+#define SHORT_TERM_WND_ALPHA (2./(double)(SHORT_TERM_WND_PERIOD_MS/(PEBS_KSWAPD_INTERVAL_BIG/1000) + 1))  // 1s -> 0.6667
+#define LONG_TERM_WND_ALPHA  (2./(double)(LONG_TERM_WND_PERIOD_MS/(PEBS_KSWAPD_INTERVAL_BIG/1000) + 1))   // 10s -> 0.0952
+
+#define W_EWMA_ALPHA  {(SHORT_TERM_WND_ALPHA), (LONG_TERM_WND_ALPHA)}  // 1s, 10s
 // ==============================================================================
 
 
@@ -81,8 +96,8 @@
 #define HCD_RECN_MIN_NVM_BW     (0.3) // Min NVM bw to switch to RECN bias
 
 #define HCD_PH_DRIFT            (0.1) // Page-Hinkley drift
-#define HCD_PH_THRESHOLD        (3)   // Page-Hinkley threshold
-#define HCD_PH_RESET_THRESHOLD  (-2)  // Page-Hinkley reset threshold
+#define HCD_PH_THRESHOLD        (3.0)   // Page-Hinkley threshold
+#define HCD_PH_RESET_THRESHOLD  (-2.0)  // Page-Hinkley reset threshold
 // ==============================================================================
 
 
@@ -95,12 +110,6 @@
 #define MIGRATION_COST_ALPHA      (2./(double)(MIGRATION_WINDOW_SIZE + 1))  // EWMA alpha for migration cost (20 periods -> 0.0952)
 // ==============================================================================
 
-
-/// PEBS kswapd thread wakeup interval
-// ==============================================================================
-#define PEBS_KSWAPD_INTERVAL_BIG      (500000) // in us (500ms)
-#define PEBS_KSWAPD_INTERVAL_SMALL    (100000) // in us (100ms)
-// ==============================================================================
 
 
 #define PERF_PAGES	(1 + (1 << 8))	// Has to be == 1+2^n, here 1MB
