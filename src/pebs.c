@@ -90,7 +90,7 @@ static ring_handle_t add_pages_ring;
 static pthread_mutex_t add_pages_ring_lock = PTHREAD_MUTEX_INITIALIZER;
 */
 
-static const float w_ewma_alpha[WINDOW_SIZE]= W_EWMA_ALPHA;
+static const float w_ewma_alpha[WINDOW_SIZE] = W_EWMA_ALPHA;
 static const float hist_bias[WINDOW_SIZE] = HIST_BIAS;
 static const float recn_bias[WINDOW_SIZE] = RECN_BIAS;
 
@@ -257,6 +257,8 @@ static int setup_imc_bw_counters()
   return 0;
 }
 #endif
+
+void pebs_print_config();
 
 static struct perf_event_mmap_page* perf_setup(__u64 config, __u64 config1, __u64 cpu, __u64 type)
 {
@@ -1385,6 +1387,8 @@ void pebs_remove_page(struct hemem_page *page)
 
 void pebs_init(void)
 {
+  pebs_print_config();
+
   pthread_t kswapd_thread;
   pthread_t scan_thread;
   pthread_t migration_threads[NUM_MIGRATION_THREADS];
@@ -1518,4 +1522,46 @@ void pebs_stats()
           unthrottle_cnt,
           cools);
   // hemem_pages_cnt = total_pages_cnt =  throttle_cnt = unthrottle_cnt = 0;
+}
+
+void pebs_print_config()
+{
+ fprintf(stderr, "PEBS configuration:\n");
+ fprintf(stderr, "  =========================================\n");
+ fprintf(stderr,"  NUM_MIGRATION_THREADS: %d\n", NUM_MIGRATION_THREADS);
+ fprintf(stderr,"  PEBS_NPROCS: %d\n", PEBS_NPROCS);
+ fprintf(stderr,"  MAX_NVM_RD_BW: %d\n", MAX_NVM_RD_BW);
+ fprintf(stderr,"  MAX_NVM_WR_BW: %d\n", MAX_NVM_WR_BW);
+ fprintf(stderr,"  NVM_WRITES_WEIGHT: %d\n", NVM_WRITES_WEIGHT);
+ fprintf(stderr,"  LATENCY_DIFF: %f\n", LATENCY_DIFF);
+ fprintf(stderr,"  NVM_HPAGE_MIGRATION_COST_KNEEPOINT: %d\n", NVM_HPAGE_MIGRATION_COST_KNEEPOINT);
+ fprintf(stderr,"  MIN_PROMOTION_COST: %ld\n", MIN_PROMOTION_COST);
+ fprintf(stderr,"  MIN_DEMOTION_COST: %ld\n", MIN_DEMOTION_COST);
+ fprintf(stderr,"  =========================================\n");
+ fprintf(stderr,"  PEBS_KSWAPD_INTERVAL_BIG: %d\n", PEBS_KSWAPD_INTERVAL_BIG);
+ fprintf(stderr,"  PEBS_KSWAPD_INTERVAL_SMALL: %d\n", PEBS_KSWAPD_INTERVAL_SMALL);
+ fprintf(stderr,"  =========================================\n");
+ fprintf(stderr,"  WINDOW_SIZE: %d\n", WINDOW_SIZE);
+ fprintf(stderr,"  HIST_BIAS: {%f, %f}\n", hist_bias[0], hist_bias[1]);
+ fprintf(stderr,"  RECN_BIAS: {%f, %f}\n", recn_bias[0], recn_bias[1]);
+ fprintf(stderr,"  SHORT_TERM_WND_PERIOD_MS: %d\n", SHORT_TERM_WND_PERIOD_MS);
+ fprintf(stderr,"  LONG_TERM_WND_PERIOD_MS: %d\n", LONG_TERM_WND_PERIOD_MS);
+ fprintf(stderr,"  W_EWMA_ALPHA: {%f, %f}\n", w_ewma_alpha[0], w_ewma_alpha[1]);
+ fprintf(stderr,"  =========================================\n");
+ fprintf(stderr,"  HCD_EWMA_ALPHA: %f\n", HCD_EWMA_ALPHA);
+ fprintf(stderr,"  HCD_STD_ALPHA: %f\n", HCD_STD_ALPHA);
+ fprintf(stderr,"  HCD_RECN_MAX_PERIODS: %d\n", HCD_RECN_MAX_PERIODS);
+ fprintf(stderr,"  HCD_RECN_MIN_NVM_BW: %f\n", HCD_RECN_MIN_NVM_BW);
+ fprintf(stderr,"  HCD_PH_DRIFT: %f\n", HCD_PH_DRIFT);
+ fprintf(stderr,"  HCD_PH_THRESHOLD: %f\n", HCD_PH_THRESHOLD);
+ fprintf(stderr,"  HCD_PH_RESET_THRESHOLD: %f\n", HCD_PH_RESET_THRESHOLD);
+ fprintf(stderr,"  =========================================\n");
+ fprintf(stderr,"  CB_MULTIPLIER: %f\n", CB_MULTIPLIER);
+ fprintf(stderr,"  MIGRATION_COST_DECAY_RATE: %f\n", MIGRATION_COST_DECAY_RATE);
+ fprintf(stderr,"  MIGRATION_WINDOW_SIZE: %d\n", MIGRATION_WINDOW_SIZE);
+ fprintf(stderr,"  MIGRATION_COST_ALPHA: %f\n", MIGRATION_COST_ALPHA);
+ fprintf(stderr,"  =========================================\n");
+ fprintf(stderr,"  DEFAULT_SAMPLE_PERIOD: %d\n", DEFAULT_SAMPLE_PERIOD);
+ fprintf(stderr,"  HF_SAMPLE_PERIOD: %d\n", HF_SAMPLE_PERIOD);
+ fprintf(stderr,"  =========================================\n");
 }
