@@ -209,7 +209,10 @@ uint64_t measure_nvm_bw()
 
   for (int j = 0; j < 2; j++) {
     for (int k = 0; k < 6; k++) {
-      read(bw_fds[j][k], &cur_val, sizeof(cur_val));
+      if (read(bw_fds[j][k], &cur_val, sizeof(cur_val)) == -1) {
+        LOG_ERROR("ERROR: Failed to read perf event for BW monitoring\n");
+        exit(1);
+      }
       cur_nvm_bw       += cur_val - prev_bw_val[j][k];
       prev_bw_val[j][k] = cur_val;
     }
@@ -232,7 +235,7 @@ void open_perf_events(int rdwr)
 
     fd = perf_event_open(&pe, -1, 10, -1, 0);
     if (fd == -1) {
-      fprintf(stderr, "Failed to open perf event for BW monitoring\n");
+      LOG_ERROR("ERROR: Failed to open perf event for BW monitoring\n");
       exit(1);
     }
     bw_fds[rdwr][i] = fd;
@@ -290,7 +293,6 @@ static struct perf_event_mmap_page* perf_setup(__u64 config, __u64 config1, __u6
   assert(pfd[cpu][type] != -1);
 
   size_t mmap_size = sysconf(_SC_PAGESIZE) * PERF_PAGES;
-  /* printf("mmap_size = %zu\n", mmap_size); */
   struct perf_event_mmap_page *p = mmap(NULL, mmap_size, PROT_READ | PROT_WRITE, MAP_SHARED, pfd[cpu][type], 0);
   if(p == MAP_FAILED) {
     perror("mmap");
@@ -394,7 +396,7 @@ void *pebs_scan_thread()
   	      break;
         case PERF_RECORD_THROTTLE:
         case PERF_RECORD_UNTHROTTLE:
-          // fprintf(stderr, "%s event!\n", ph->type == PERF_RECORD_THROTTLE ? "THROTTLE" : "UNTHROTTLE");
+          LOG_INFO("%s event!\n", ph->type == PERF_RECORD_THROTTLE ? "THROTTLE" : "UNTHROTTLE");
           if (ph->type == PERF_RECORD_THROTTLE) {
               throttle_cnt++;
           }
@@ -403,8 +405,8 @@ void *pebs_scan_thread()
           }
           break;
         default:
-          //fprintf(stderr, "Unknown type %u\n", ph->type);
-          //assert(!"NYI");
+          LOG_ERROR("ERROR: Unknown perf_event type %u\n", ph->type);
+          assert(0);
           break;
         }
 
@@ -428,7 +430,7 @@ static void pebs_migrate_down(struct hemem_page *page, uint64_t offset)
   page->migrating = false;
 
   gettimeofday(&end, NULL);
-  LOG_TIME("migrate_down: %f s\n", elapsed(&start, &end));
+  LOG_DEBUG("migrate_down: %f s\n", elapsed(&start, &end));
 }
 
 static void pebs_migrate_up(struct hemem_page *page, uint64_t offset)
@@ -443,7 +445,7 @@ static void pebs_migrate_up(struct hemem_page *page, uint64_t offset)
   page->migrating = false;
 
   gettimeofday(&end, NULL);
-  LOG_TIME("migrate_up: %f s\n", elapsed(&start, &end));
+  LOG_DEBUG("migrate_up: %f s\n", elapsed(&start, &end));
 }
 
 // Sorts in ascending order
@@ -581,10 +583,10 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
     }
 
     ptimer_continue(&spatial_smooth_timer);
-    //printf("Before smoothing\n");
+    LOG_DEBUG("Before smoothing\n");
 
     // Pop left neighbour(s)
-    //printf("-> LEFT NEIGHBOURS\n");
+    LOG_DEBUG("-> LEFT NEIGHBOURS\n");
     while(ring_buf_size(l_neighbours) > 0) {
       n_idx = idx - ring_buf_size(l_neighbours);
       p = (struct hemem_page*)ring_buf_peek_tail(l_neighbours, 0);
@@ -598,7 +600,7 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
     assert(ring_buf_size(l_neighbours) >= 0 && ring_buf_size(l_neighbours) <= NUM_NEIGHBOURS);
 
     // Append right neighbour(s)
-    //printf("-> RIGHT NEIGHBOURS\n");
+    LOG_DEBUG("-> RIGHT NEIGHBOURS\n");
     n_idx = idx + ring_buf_size(r_neighbours) + 1;
     while(ring_buf_size(r_neighbours) < NUM_NEIGHBOURS) {
       if (!kb_itr_valid(&n_itr)) {
@@ -631,7 +633,7 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
     page->s_accesses[WRITE] = smooth_avg_v[WRITE];
 
     ptimer_stop(&spatial_smooth_timer);
-    //printf("After smoothing\n");
+    LOG_DEBUG("After smoothing\n");
 
     // Update the window with the smoothed access count
     update_window(page);
@@ -700,7 +702,10 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
       continue;
     }
 
-    // fprintf(fa, "%lu,%f|", page->va, page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD]); //+ page->s_accesses[WRITE]);
+    #ifdef SPATIAL_SMOOTHING
+    LOG_DEBUG("%lu,%f|", page->va, page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD]); //+ page->s_accesses[WRITE]);
+    #endif
+
     // Update the window values
     update_window(page);
 
@@ -737,9 +742,9 @@ static inline int continue_migration(struct hemem_page *hp, struct hemem_page *c
   }
 
   if (hot_page_min_avg < cold_page_max_avg) {
-    // fprintf(LOG_STREAM, "Stopping migration of 0x%lx (score: %.3f (%.3f %.3f)) and 0x%lx (score: %.3f (%.3f %.3f)) cause of min/max\n",
-    //       hp->va, hp->score, hp->w[0], hp->w[1],
-    //       cp->va, cp->score, cp->w[0], cp->w[1]);
+    LOG_INFO("Stopping migration of 0x%lx (score: %.3f (%.3f %.3f)) and 0x%lx (score: %.3f (%.3f %.3f)) cause of min/max\n",
+              hp->va, hp->score, hp->w[0], hp->w[1],
+              cp->va, cp->score, cp->w[0], cp->w[1]);
     return 0;
   }
 
@@ -754,9 +759,9 @@ static inline int continue_migration(struct hemem_page *hp, struct hemem_page *c
   float benefit =(hp->score - cp->score) * hp->hot_age * HF_SAMPLE_PERIOD * latency_diff;
 
   if (benefit < cost) {
-    // fprintf(LOG_STREAM, "Stopping migration of 0x%lx (score: %.3f (%.3f %.3f)) and 0x%lx (score: %.3f (%.3f %.3f)) cause of cost-benefit\n",
-    //       hp->va, hp->score, hp->w[0], hp->w[1],
-    //       cp->va, cp->score, cp->w[0], cp->w[1]);
+    LOG_INFO("Stopping migration of 0x%lx (score: %.3f (%.3f %.3f)) and 0x%lx (score: %.3f (%.3f %.3f)) cause of cost-benefit\n",
+              hp->va, hp->score, hp->w[0], hp->w[1],
+              cp->va, cp->score, cp->w[0], cp->w[1]);
     return 0;
   }
 
@@ -925,9 +930,9 @@ void *pebs_policy_thread()
     ptimer_start(&loop_timer);
     ptimer_start(&remaining_timer);
 
-    fprintf(LOG_STREAM, "\n========================================\n");
-    fprintf(LOG_STREAM, "Starting new interval\n");
-    fprintf(LOG_STREAM, "========================================\n");
+    LOG_REPORT("\n========================================\n");
+    LOG_REPORT("Starting new interval\n");
+    LOG_REPORT("========================================\n");
 
     // Update the window index (circular buffer)
     curr_window_index = global_version % WINDOW_SIZE;
@@ -951,14 +956,14 @@ void *pebs_policy_thread()
       if (cusum > HCD_PH_THRESHOLD * nvm_bw_std) {
         if (bias == hist_bias && cur_nvm_bw > HCD_RECN_MIN_NVM_BW) {
           bias = recn_bias;
-          fprintf(LOG_STREAM, "Switching to RECN bias\n");
+          LOG_REPORT("Switching to RECN bias\n");
           time_since_recn = 0;
         }
         cusum = 0;
       } else if (time_since_recn >= HCD_RECN_MAX_PERIODS && cusum < 0) {
         if (bias == recn_bias) {
           bias = hist_bias;
-          fprintf(LOG_STREAM, "Switching back to HIST bias\n");
+          LOG_REPORT("Switching back to HIST bias\n");
         }
       }
 
@@ -976,8 +981,8 @@ void *pebs_policy_thread()
         batch_size = 1;
       }
 
-      fprintf(LOG_STREAM, "NVM bw: %f, NVM bw EWMA: %f, NVM bw stddev: %f, cusum: %f\n",
-              cur_nvm_bw, nvm_bw_ewma, nvm_bw_std, cusum);
+      LOG_REPORT("NVM bw: %f, NVM bw EWMA: %f, NVM bw stddev: %f, cusum: %f\n",
+                 cur_nvm_bw, nvm_bw_ewma, nvm_bw_std, cusum);
     }
 
     // free pages using free page ring buffer
@@ -993,7 +998,7 @@ void *pebs_policy_thread()
       pthread_mutex_unlock(&mod_page_dq_lock);
 
       page = mp->page;
-      //fprintf(stderr, "Processing page %lu [va: %lu]\n", page, page->va);
+      LOG_DEBUG("Processing page %p [va: %lu]\n", page, page->va);
 
       #ifdef SPATIAL_SMOOTHING
       entry.page = page;
@@ -1026,7 +1031,7 @@ void *pebs_policy_thread()
           }
           reset_page_access_fields(page);
         } else {
-          fprintf(LOG_STREAM, "WARNING: Page not found in map\n");
+          LOG_ERROR("WARNING: Page not found in map\n");
         }
       }
       else {
@@ -1078,10 +1083,10 @@ void *pebs_policy_thread()
     min_score = scores[s_pages_cnt - 1].score;
     max_score = scores[0].score;
 
-    fprintf(LOG_STREAM, "min_score: %.3f (%.3f %.3f), max_score: %.3f (%.3f %.3f)\n",
-      min_score, scores[s_pages_cnt - 1].page->w[0], scores[s_pages_cnt - 1].page->w[1],
-      max_score, scores[0].page->w[0], scores[0].page->w[1]);
-    fprintf(LOG_STREAM, "Prom cost: %f, Dem cost: %f\n", promotion_cost_avg, demotion_cost_avg);
+    LOG_REPORT("min_score: %.3f (%.3f %.3f), max_score: %.3f (%.3f %.3f)\n",
+               min_score, scores[s_pages_cnt - 1].page->w[0], scores[s_pages_cnt - 1].page->w[1],
+               max_score, scores[0].page->w[0], scores[0].page->w[1]);
+    LOG_REPORT("Prom cost: %f, Dem cost: %f\n", promotion_cost_avg, demotion_cost_avg);
 
     // Perform migrations
     ptimer_reset(&id_timer);
@@ -1106,7 +1111,7 @@ void *pebs_policy_thread()
     while (promote_idx < dramsize/PAGE_SIZE && promote_idx < demote_idx) {
       // If we have scheduled the maximum number of migrations for this interval, stop
       if (num_migration_jobs >= max_migrations_cur_interval) {
-        fprintf(LOG_STREAM, "Scheduled %lu migrations\n", num_migration_jobs);
+        LOG_REPORT("Scheduled %lu migrations\n", num_migration_jobs);
         break;
       }
 
@@ -1121,12 +1126,13 @@ void *pebs_policy_thread()
         break;
       }
       p = scores[promote_idx].page;
-      //printf("Promoting page %lu [idx %lu] with score %f\n", p, promote_idx, scores[promote_idx].score);
+
+      LOG_INFO("Promoting page %p [idx %lu] with score %f\n", p, promote_idx, scores[promote_idx].score);
       assert(!p->in_dram);
 
       if (!(p->can_promote)) {
-        // fprintf(LOG_STREAM, "Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f))\n",
-        //       p->va, p->score, p->w[0], p->w[1]);
+        LOG_DEBUG("Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f))\n",
+                 p->va, p->score, p->w[0], p->w[1]);
         promote_idx++;
         continue;
       }
@@ -1146,13 +1152,13 @@ void *pebs_policy_thread()
         }
         float benefit = p->score * p->hot_age * HF_SAMPLE_PERIOD * latency_diff;
         if (benefit < cost) {
-          // fprintf(LOG_STREAM, "Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f)) cause of cost-benefit analysis\n",
-          //       p->va, p->score, p->w[0], p->w[1]);
+          LOG_DEBUG("Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f)) cause of cost-benefit analysis\n",
+                   p->va, p->score, p->w[0], p->w[1]);
           enqueue_fifo(&dram_free_list, np);
           break;
         }
 
-        fprintf(LOG_STREAM, "Promoting freely at %lu: 0x%lx score: %f (%f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1]);
+        LOG_DEBUG("Promoting freely at %lu: 0x%lx score: %f (%f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1]);
 
         m_req = malloc(sizeof(struct migration_req));
         memset(m_req, 0, sizeof(struct migration_req));
@@ -1188,7 +1194,7 @@ void *pebs_policy_thread()
       assert(cp->in_dram && cp->va > 0);
 
       if (!continue_migration(p, cp)) {
-        // fprintf(LOG_STREAM, "2. Stopping migration at promote_idx %u\n", promote_idx);
+        LOG_INFO("Stopping migration at promote_idx %ld\n", promote_idx);
         break;
       }
 
@@ -1197,8 +1203,8 @@ void *pebs_policy_thread()
       assert(np != NULL);
       ptimer_stop(&id_timer);
 
-      fprintf(LOG_STREAM, "Demoting at %ld: 0x%lx score: %f (%f %f)\n", demote_idx, cp->va, cp->score, cp->w[0], cp->w[1]);
-      fprintf(LOG_STREAM, "Promoting at %ld: 0x%lx score: %f (%f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1]);
+      LOG_REPORT("Demoting at %ld: 0x%lx score: %f (%f %f)\n", demote_idx, cp->va, cp->score, cp->w[0], cp->w[1]);
+      LOG_REPORT("Promoting at %ld: 0x%lx score: %f (%f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1]);
 
       // move the cold DRAM page to NVM
       m_req = malloc(sizeof(struct migration_req));
@@ -1228,7 +1234,7 @@ loop_end:
     ptimer_stop_and_print(&loop_timer);
     ptimer_stop(&remaining_timer);
 
-    fprintf(LOG_STREAM, "Migrated %lu pages (%lu bytes) in this interval\n", migrated_pages, migrated_bytes);
+    LOG_REPORT("Migrated %lu pages (%lu bytes) in this interval\n", migrated_pages, migrated_bytes);
     if (migrated_pages == 0) {
       // Reset the migration cost averages
       // TOOD: Think about the best way to reset migration costs
@@ -1247,16 +1253,16 @@ loop_end:
     if (bias == recn_bias && sampling_mode != HIGH_FIDELITY) {
       update_sampling_frequency();
       sampling_mode = HIGH_FIDELITY;
-      fprintf(LOG_STREAM, "Switching to HIGH_FIDELITY sampling mode\n");
+      LOG_REPORT("Switching to HIGH_FIDELITY sampling mode\n");
     } else if (bias == hist_bias && sampling_mode != DEFAULT_SAMPLING) {
       update_sampling_frequency();
       sampling_mode = DEFAULT_SAMPLING;
-      fprintf(LOG_STREAM, "Switching to DEFAULT sampling mode\n");
+      LOG_REPORT("Switching to DEFAULT sampling mode\n");
     }
 
     migrate_time_us = loop_timer.elapsed_us;
     if (migrate_time_us < (1.0 * policy_thread_period)) {
-      //printf("%lu", ((uint64_t)((1.0 * policy_thread_period) - migrate_time_us)));
+      LOG_INFO("Sleeping for %lu", ((uint64_t)((1.0 * policy_thread_period) - migrate_time_us)));
       usleep((uint64_t)((1.0 * policy_thread_period) - migrate_time_us));
     }
   }
@@ -1318,9 +1324,7 @@ void pebs_add_page(struct hemem_page *page)
   int absent;
   khiter_t key;
   assert(page != NULL);
-  LOG("pebs: add page, put this page into add_pages_ring: va: 0x%lx\n", page->va);
-
-  //printf("Adding page %lu to the add_pages_ring [va: %lu]\n", (uint64_t)page, page->va);
+  LOG_INFO("Adding page %lu to the add_pages_ring [va: %lu]\n", (uint64_t)page, page->va);
 
   // Add to the hash table
   pthread_mutex_lock(&pages_lock);
@@ -1351,9 +1355,7 @@ void pebs_remove_page(struct hemem_page *page)
 {
   khiter_t key;
   assert(page != NULL);
-  LOG("pebs: remove page, put this page into free_page_ring: va: 0x%lx\n", page->va);
-
-  //printf("Removing page %lu from the add_pages_ring [va: %lu]\n", (uint64_t)page, page->va);
+  LOG_INFO("Removing page %lu from the add_pages_ring [va: %lu]\n", (uint64_t)page, page->va);
 
   // Remove page from hash table
   pthread_mutex_lock(&pages_lock);
@@ -1393,7 +1395,7 @@ void pebs_init(void)
   pthread_t scan_thread;
   pthread_t migration_threads[NUM_MIGRATION_THREADS];
 
-  LOG("pebs_init: started\n");
+  LOG_INFO("pebs_init: started\n");
 
   for (int i = 0; i < PEBS_NPROCS; i++) {
 #ifdef JOSEPM
@@ -1462,13 +1464,13 @@ void pebs_init(void)
 
   // Initialize bias values
   for (int i = 0; i < WINDOW_SIZE; i++) {
-    printf("w_ewma_alpha[%d] = %f\n", i, w_ewma_alpha[i]);
+    LOG_REPORT("w_ewma_alpha[%d] = %f\n", i, w_ewma_alpha[i]);
   }
   for (int i = 0; i < WINDOW_SIZE; i++) {
-    printf("hist_bias[%d] = %f\n", i, hist_bias[i]);
+    LOG_REPORT("hist_bias[%d] = %f\n", i, hist_bias[i]);
   }
   for (int i = 0; i < WINDOW_SIZE; i++) {
-    printf("recn_bias[%d] = %f\n", i, recn_bias[i]);
+    LOG_REPORT("recn_bias[%d] = %f\n", i, recn_bias[i]);
   }
 
   // Start the policy and scan threads
@@ -1492,10 +1494,8 @@ void pebs_init(void)
     policy_thread_period = PEBS_KSWAPD_INTERVAL_BIG;
   }
 
-  LOG("Memory management policy is PEBS\n");
-
-  LOG("pebs_init: finished\n");
-
+  LOG_INFO("Memory management policy is PEBS\n");
+  LOG_INFO("pebs_init: finished\n");
 }
 
 void pebs_shutdown()
@@ -1526,42 +1526,42 @@ void pebs_stats()
 
 void pebs_print_config()
 {
- fprintf(stderr, "PEBS configuration:\n");
- fprintf(stderr, "  =========================================\n");
- fprintf(stderr,"  NUM_MIGRATION_THREADS: %d\n", NUM_MIGRATION_THREADS);
- fprintf(stderr,"  PEBS_NPROCS: %d\n", PEBS_NPROCS);
- fprintf(stderr,"  MAX_NVM_RD_BW: %d\n", MAX_NVM_RD_BW);
- fprintf(stderr,"  MAX_NVM_WR_BW: %d\n", MAX_NVM_WR_BW);
- fprintf(stderr,"  NVM_WRITES_WEIGHT: %d\n", NVM_WRITES_WEIGHT);
- fprintf(stderr,"  LATENCY_DIFF: %f\n", LATENCY_DIFF);
- fprintf(stderr,"  NVM_HPAGE_MIGRATION_COST_KNEEPOINT: %d\n", NVM_HPAGE_MIGRATION_COST_KNEEPOINT);
- fprintf(stderr,"  MIN_PROMOTION_COST: %ld\n", MIN_PROMOTION_COST);
- fprintf(stderr,"  MIN_DEMOTION_COST: %ld\n", MIN_DEMOTION_COST);
- fprintf(stderr,"  =========================================\n");
- fprintf(stderr,"  PEBS_KSWAPD_INTERVAL_BIG: %d\n", PEBS_KSWAPD_INTERVAL_BIG);
- fprintf(stderr,"  PEBS_KSWAPD_INTERVAL_SMALL: %d\n", PEBS_KSWAPD_INTERVAL_SMALL);
- fprintf(stderr,"  =========================================\n");
- fprintf(stderr,"  WINDOW_SIZE: %d\n", WINDOW_SIZE);
- fprintf(stderr,"  HIST_BIAS: {%f, %f}\n", hist_bias[0], hist_bias[1]);
- fprintf(stderr,"  RECN_BIAS: {%f, %f}\n", recn_bias[0], recn_bias[1]);
- fprintf(stderr,"  SHORT_TERM_WND_PERIOD_MS: %d\n", SHORT_TERM_WND_PERIOD_MS);
- fprintf(stderr,"  LONG_TERM_WND_PERIOD_MS: %d\n", LONG_TERM_WND_PERIOD_MS);
- fprintf(stderr,"  W_EWMA_ALPHA: {%f, %f}\n", w_ewma_alpha[0], w_ewma_alpha[1]);
- fprintf(stderr,"  =========================================\n");
- fprintf(stderr,"  HCD_EWMA_ALPHA: %f\n", HCD_EWMA_ALPHA);
- fprintf(stderr,"  HCD_STD_ALPHA: %f\n", HCD_STD_ALPHA);
- fprintf(stderr,"  HCD_RECN_MAX_PERIODS: %d\n", HCD_RECN_MAX_PERIODS);
- fprintf(stderr,"  HCD_RECN_MIN_NVM_BW: %f\n", HCD_RECN_MIN_NVM_BW);
- fprintf(stderr,"  HCD_PH_DRIFT: %f\n", HCD_PH_DRIFT);
- fprintf(stderr,"  HCD_PH_THRESHOLD: %f\n", HCD_PH_THRESHOLD);
- fprintf(stderr,"  HCD_PH_RESET_THRESHOLD: %f\n", HCD_PH_RESET_THRESHOLD);
- fprintf(stderr,"  =========================================\n");
- fprintf(stderr,"  CB_MULTIPLIER: %f\n", CB_MULTIPLIER);
- fprintf(stderr,"  MIGRATION_COST_DECAY_RATE: %f\n", MIGRATION_COST_DECAY_RATE);
- fprintf(stderr,"  MIGRATION_WINDOW_SIZE: %d\n", MIGRATION_WINDOW_SIZE);
- fprintf(stderr,"  MIGRATION_COST_ALPHA: %f\n", MIGRATION_COST_ALPHA);
- fprintf(stderr,"  =========================================\n");
- fprintf(stderr,"  DEFAULT_SAMPLE_PERIOD: %d\n", DEFAULT_SAMPLE_PERIOD);
- fprintf(stderr,"  HF_SAMPLE_PERIOD: %d\n", HF_SAMPLE_PERIOD);
- fprintf(stderr,"  =========================================\n");
+  LOG_REPORT("PEBS configuration:\n");
+  LOG_REPORT("  =========================================\n");
+  LOG_REPORT("  NUM_MIGRATION_THREADS: %d\n", NUM_MIGRATION_THREADS);
+  LOG_REPORT("  PEBS_NPROCS: %d\n", PEBS_NPROCS);
+  LOG_REPORT("  MAX_NVM_RD_BW: %d\n", MAX_NVM_RD_BW);
+  LOG_REPORT("  MAX_NVM_WR_BW: %d\n", MAX_NVM_WR_BW);
+  LOG_REPORT("  NVM_WRITES_WEIGHT: %d\n", NVM_WRITES_WEIGHT);
+  LOG_REPORT("  LATENCY_DIFF: %f\n", LATENCY_DIFF);
+  LOG_REPORT("  NVM_HPAGE_MIGRATION_COST_KNEEPOINT: %d\n", NVM_HPAGE_MIGRATION_COST_KNEEPOINT);
+  LOG_REPORT("  MIN_PROMOTION_COST: %ld\n", MIN_PROMOTION_COST);
+  LOG_REPORT("  MIN_DEMOTION_COST: %ld\n", MIN_DEMOTION_COST);
+  LOG_REPORT("  =========================================\n");
+  LOG_REPORT("  PEBS_KSWAPD_INTERVAL_BIG: %d\n", PEBS_KSWAPD_INTERVAL_BIG);
+  LOG_REPORT("  PEBS_KSWAPD_INTERVAL_SMALL: %d\n", PEBS_KSWAPD_INTERVAL_SMALL);
+  LOG_REPORT("  =========================================\n");
+  LOG_REPORT("  WINDOW_SIZE: %d\n", WINDOW_SIZE);
+  LOG_REPORT("  HIST_BIAS: {%f, %f}\n", hist_bias[0], hist_bias[1]);
+  LOG_REPORT("  RECN_BIAS: {%f, %f}\n", recn_bias[0], recn_bias[1]);
+  LOG_REPORT("  SHORT_TERM_WND_PERIOD_MS: %d\n", SHORT_TERM_WND_PERIOD_MS);
+  LOG_REPORT("  LONG_TERM_WND_PERIOD_MS: %d\n", LONG_TERM_WND_PERIOD_MS);
+  LOG_REPORT("  W_EWMA_ALPHA: {%f, %f}\n", w_ewma_alpha[0], w_ewma_alpha[1]);
+  LOG_REPORT("  =========================================\n");
+  LOG_REPORT("  HCD_EWMA_ALPHA: %f\n", HCD_EWMA_ALPHA);
+  LOG_REPORT("  HCD_STD_ALPHA: %f\n", HCD_STD_ALPHA);
+  LOG_REPORT("  HCD_RECN_MAX_PERIODS: %d\n", HCD_RECN_MAX_PERIODS);
+  LOG_REPORT("  HCD_RECN_MIN_NVM_BW: %f\n", HCD_RECN_MIN_NVM_BW);
+  LOG_REPORT("  HCD_PH_DRIFT: %f\n", HCD_PH_DRIFT);
+  LOG_REPORT("  HCD_PH_THRESHOLD: %f\n", HCD_PH_THRESHOLD);
+  LOG_REPORT("  HCD_PH_RESET_THRESHOLD: %f\n", HCD_PH_RESET_THRESHOLD);
+  LOG_REPORT("  =========================================\n");
+  LOG_REPORT("  CB_MULTIPLIER: %f\n", CB_MULTIPLIER);
+  LOG_REPORT("  MIGRATION_COST_DECAY_RATE: %f\n", MIGRATION_COST_DECAY_RATE);
+  LOG_REPORT("  MIGRATION_WINDOW_SIZE: %d\n", MIGRATION_WINDOW_SIZE);
+  LOG_REPORT("  MIGRATION_COST_ALPHA: %f\n", MIGRATION_COST_ALPHA);
+  LOG_REPORT("  =========================================\n");
+  LOG_REPORT("  DEFAULT_SAMPLE_PERIOD: %d\n", DEFAULT_SAMPLE_PERIOD);
+  LOG_REPORT("  HF_SAMPLE_PERIOD: %d\n", HF_SAMPLE_PERIOD);
+  LOG_REPORT("  =========================================\n");
 }

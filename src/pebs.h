@@ -9,7 +9,25 @@
 
 #include "hemem.h"
 
+// Logging Options
+// ==============================================================================
+//// Uncomment to enable debug logging
+//#define ARMS_DEBUG
+
 #define LOG_STREAM (stdout)
+
+#ifdef ARMS_DEBUG
+#define LOG_DEBUG(...)  fprintf(LOG_STREAM, __VA_ARGS__)
+#define LOG_INFO(...)   fprintf(LOG_STREAM, __VA_ARGS__)
+#else
+#define LOG_DEBUG(...)  while(0) {}
+#define LOG_INFO(...)   while(0) {}
+#endif
+
+#define LOG_REPORT(...) fprintf(LOG_STREAM, __VA_ARGS__)
+#define LOG_ERROR(...)  { fprintf(stderr, __VA_ARGS__); fprintf(LOG_STREAM, __VA_ARGS__); }
+// =============================================================================
+
 
 // Uncomment to enable spatial smoothing
 // #define SPATIAL_SMOOTHING
