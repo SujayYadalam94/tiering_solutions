@@ -115,15 +115,14 @@
 
 /// Hot-change Detector
 // ==============================================================================
-#define HCD_EWMA_ALPHA          (0.3) // EWMA alpha
-#define HCD_STD_ALPHA           (0.1) // std alpha
+#define HCD_EWMA_ALPHA          (0.1) // EWMA alpha
+#define HCD_STD_ALPHA           (0.2) // std alpha
 
 #define HCD_RECN_MAX_PERIODS    (20)  // Max periods to stay in RECN bias
 #define HCD_RECN_MIN_NVM_BW     (0.3) // Min NVM bw to switch to RECN bias
 
-#define HCD_PH_DRIFT            (0.1) // Page-Hinkley drift
-#define HCD_PH_THRESHOLD        (3.0)   // Page-Hinkley threshold
-#define HCD_PH_RESET_THRESHOLD  (-2.0)  // Page-Hinkley reset threshold
+#define HCD_PH_DRIFT            (0.5)   // CUSUM drift
+#define HCD_PH_THRESHOLD        (6.0)   // CUSUM threshold
 // ==============================================================================
 
 

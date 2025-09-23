@@ -966,30 +966,30 @@ void *pebs_policy_thread()
       dram_bw_ewma = (1 - HCD_EWMA_ALPHA) * dram_bw_ewma + HCD_EWMA_ALPHA * cur_dram_bw;
       nvm_bw_ewma = (1 - HCD_EWMA_ALPHA) * nvm_bw_ewma + HCD_EWMA_ALPHA * cur_nvm_bw;
       nvm_bw_std  = ((1 - HCD_STD_ALPHA) * nvm_bw_std * nvm_bw_std) + HCD_STD_ALPHA * (cur_nvm_bw - nvm_bw_ewma) * (cur_nvm_bw - nvm_bw_ewma);
-      nvm_bw_std = sqrt(nvm_bw_std);
+      nvm_bw_std = sqrtf(fmaxf(nvm_bw_std, 1e-12f)); // avoid stddev of 0
+
+      // Scale drift and threshold based on stddev
+      // This allows the algorithm to adapt to different levels of noise in the measurements
+      float drift = HCD_PH_DRIFT * nvm_bw_std;
+      float threshold = HCD_PH_THRESHOLD * nvm_bw_std;
 
       // Page-Hinkley test
-      cusum += ((cur_nvm_bw - nvm_bw_ewma) - HCD_PH_DRIFT);
-      if (cusum > HCD_PH_THRESHOLD * nvm_bw_std) {
+      cusum += ((cur_nvm_bw - nvm_bw_ewma) - drift);
+      cusum = fmaxf(cusum, 0.0f); // We are only interested in positive deviations
+      if (cusum > threshold) {
         if (bias == hist_bias && cur_nvm_bw > HCD_RECN_MIN_NVM_BW) {
           bias = recn_bias;
           LOG_REPORT("Switching to RECN bias\n");
           time_since_recn = 0;
         }
         cusum = 0;
-      } else if (time_since_recn >= HCD_RECN_MAX_PERIODS && cusum < 0) {
-        if (bias == recn_bias) {
+      } else if (bias == recn_bias) {
+          time_since_recn++;
+          if (time_since_recn >= HCD_RECN_MAX_PERIODS && cusum <= 0) {
           bias = hist_bias;
           LOG_REPORT("Switching back to HIST bias\n");
+          time_since_recn = 0;
         }
-      }
-
-      if (cusum < HCD_PH_RESET_THRESHOLD) {
-        cusum = 0;
-      }
-
-      if (bias == recn_bias) {
-        time_since_recn++;
       }
 
       batch_size = ((NVM_WR_BW_KNEE - cur_nvm_bw) / NVM_WR_BW_KNEE) * NUM_MIGRATION_THREADS;
@@ -1577,7 +1577,6 @@ void pebs_print_config()
   LOG_REPORT("  HCD_RECN_MIN_NVM_BW: %f\n", HCD_RECN_MIN_NVM_BW);
   LOG_REPORT("  HCD_PH_DRIFT: %f\n", HCD_PH_DRIFT);
   LOG_REPORT("  HCD_PH_THRESHOLD: %f\n", HCD_PH_THRESHOLD);
-  LOG_REPORT("  HCD_PH_RESET_THRESHOLD: %f\n", HCD_PH_RESET_THRESHOLD);
   LOG_REPORT("  =========================================\n");
   LOG_REPORT("  CB_MULTIPLIER: %f\n", CB_MULTIPLIER);
   LOG_REPORT("  MIGRATION_COST_DECAY_RATE: %f\n", MIGRATION_COST_DECAY_RATE);
