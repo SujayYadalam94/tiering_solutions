@@ -41,32 +41,40 @@
 #define NUM_MIGRATION_THREADS (4)
 #define PEBS_NPROCS           (24)
 
-// Max expected NVM bandwidth for single thread (for cost calculations)
-#define MAX_NVM_RD_BW         (6.6)     // GB/s
-#define MAX_NVM_WR_BW         (2.3)     // GB/s
-#define NVM_WRITES_WEIGHT     (3)       // Peak NVM read bw ~ 40GB/s and peak NVM write bw ~ 13GB/s (3x)
-#define LATENCY_DIFF          (0.1)     // latency diff bw DRAM and NVM = 0.1us or 100ms
+// DRAM bandwidth and latency curve parameters (used for latency diff calculations)
+#define UNLOADED_DRAM_LAT     (0.1)    // us
+#define DRAM_RD_BW_KNEE       (20)     // GB/s // TODO: Need to measure these
+#define DRAM_BW_SLOPE         (0.006)  // us per GB/s // TODO: Need to measure these
 
-#define NVM_HPAGE_MIGRATION_COST_KNEEPOINT (20000) // microseconds (20ms)
+// Max expected NVM bandwidth for single thread (for cost and latency calculations)
+#define UNLOADED_NVM_LAT       (0.2)     // NVM latency until knee point (us)
+#define NVM_RD_BW_KNEE         (6.6)     // GB/s
+#define NVM_WR_BW_KNEE         (2.3)     // GB/s
+#define NVM_BW_SLOPE           (0.09)    // us per GB/s // TODO: Need to measure these
+#define NVM_WRITES_WEIGHT      (3)       // Peak NVM read bw ~ 40GB/s and peak NVM write bw ~ 13GB/s (3x)
 
 #elif defined C220G5
 #define NUM_MIGRATION_THREADS (8)
 #define PEBS_NPROCS           (30)        // C220g5 has 20 cores on NUMA node 0 (0-9,20-29)
 
-// Max expected NVM bandwidth for single thread (for cost calculations)
-#define MAX_NVM_RD_BW         (20)      // GB/s
-#define MAX_NVM_WR_BW         (20)      // GB/s
-#define NVM_WRITES_WEIGHT     (1)
-#define LATENCY_DIFF          (0.1)     // latency diff bw DRAM and NVM = 0.1us or 100ms
+// DRAM bandwidth and latency curve parameters (used for latency diff calculations)
+#define UNLOADED_DRAM_LAT     (0.1)    // us
+#define DRAM_BW_KNEE          (25)     // GB/s
+#define DRAM_BW_SLOPE         (0.006)  // us per GB/s
 
-#define NVM_HPAGE_MIGRATION_COST_KNEEPOINT (20000)  // microseconds (20ms)
+// Max expected NVM bandwidth for single thread (for cost calculations)
+#define UNLOADED_NVM_LAT      (0.25)    // us
+#define NVM_RD_BW_KNEE        (15)      // GB/s
+#define NVM_WR_BW_KNEE        (15)      // GB/s
+#define NVM_BW_SLOPE          (0.09)    // us per GB/s
+#define NVM_WRITES_WEIGHT     (1)
 
 #else
 #error "Unknown system - valid options are SCAILP and C220G5"
 #endif
 
-#define MIN_PROMOTION_DATACOPY_TIME  (PAGE_SIZE / (MAX_NVM_RD_BW * 1024)) // ~ 700us
-#define MIN_DEMOTION_DATACOPY_TIME   (PAGE_SIZE / (MAX_NVM_WR_BW * 1024)) // ~ 1200us
+#define MIN_PROMOTION_DATACOPY_TIME  (PAGE_SIZE / (NVM_RD_BW_KNEE * 1024)) // ~ 700us
+#define MIN_DEMOTION_DATACOPY_TIME   (PAGE_SIZE / (NVM_WR_BW_KNEE * 1024)) // ~ 1200us
 #define MIGRATION_METADATA_COST      (500) // us
 
 #define MIN_PROMOTION_COST           (MIN_PROMOTION_DATACOPY_TIME + MIGRATION_METADATA_COST)
@@ -143,21 +151,33 @@ enum sampling_modes {
 #define SCANNING_THREAD_CPU (FAULT_THREAD_CPU + 1)
 #define MIGRATION_THREAD_CPU (SCANNING_THREAD_CPU + 1)
 
+
+#define NUM_TIERS (2) // DRAM and NVM
+
+#ifdef SCAILP
 #define NUM_IMC 4                 // IceLake has 4 iMCs
 #define IMC_BASE_ADDR 0xFB900000  // TODO: Need to find this dynamically, currently obtained from PCM
-
-// There are 4 counters: DRAM Reads, DRAM Writes, PMM Reads, PMM Writes
-// We are only interested in PMem bandwidth counters
-#define PCM_SERVER_IMC_PMM_READS   (0x22a0)
-#define PCM_SERVER_IMC_PMM_WRITES  (0x22a8)
-
 #define PCM_SERVER_IMC_MMAP_SIZE   (0x4000)
+// There are 4 counters: DRAM Reads, DRAM Writes, PMM Reads, PMM Writes
+#define PCM_SERVER_IMC_DRAM_READS   (0x2290)
+#define PCM_SERVER_IMC_DRAM_WRITES  (0x2298)
+#define PCM_SERVER_IMC_PMM_READS    (0x22a0)
+#define PCM_SERVER_IMC_PMM_WRITES   (0x22a8)
 
 enum imc_bw_counters {
-  NVM_READS = 0,
-  NVM_WRITES = 1,
+  DRAM_READS  = 0,
+  DRAM_WRITES = 1,
+  NVM_READS   = 2,
+  NVM_WRITES  = 3,
   NUM_BW_COUNTERS
 };
+
+#elif defined C220G5
+
+#define NUM_IMC        (6)
+#define NUM_EVENTS     (2) // There are 2 events per IMC: Reads and Writes
+
+#endif
 
 struct perf_sample {
   struct perf_event_header header;

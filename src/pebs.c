@@ -109,10 +109,12 @@ volatile uint8_t prev_access_version; // = 1 - curr_access_version
 volatile uint8_t curr_window_index = 0;
 volatile uint8_t prev_window_version;
 
+double dram_bw_ewma = 0.0;
 double nvm_bw_ewma = 0.0;
 double nvm_bw_std = 0.0;
 float promotion_cost_avg = MIN_PROMOTION_COST;
 float demotion_cost_avg = MIN_DEMOTION_COST;
+float latency_diff = UNLOADED_DRAM_LAT - UNLOADED_NVM_LAT;
 
 float min_score, max_score;
 
@@ -148,31 +150,43 @@ return ret;
 #ifdef SCAILP
 int mem_fd = -1;
 void *imc_mmio_addr[NUM_IMC];
-uint64_t prev_ctr_val[NUM_IMC][NUM_BW_COUNTERS] = {0};
+uint64_t prev_ctr_val[NUM_TIERS][NUM_IMC][NUM_BW_COUNTERS] = {0};
 
 static uint32_t get_imc_bw_counter_offset(enum imc_bw_counters e) {
   switch(e) {
-    case NVM_READS: return PCM_SERVER_IMC_PMM_READS;
-    case NVM_WRITES: return PCM_SERVER_IMC_PMM_WRITES;
+    case DRAM_READS:  return PCM_SERVER_IMC_DRAM_READS;
+    case DRAM_WRITES: return PCM_SERVER_IMC_DRAM_WRITES;
+    case NVM_READS:   return PCM_SERVER_IMC_PMM_READS;
+    case NVM_WRITES:  return PCM_SERVER_IMC_PMM_WRITES;
     default: assert(!"Unknown IMC counter");
   }
 }
 
-uint64_t measure_nvm_bw()
+uint64_t measure_bw(int tier)
 {
   int i, j;
   uint64_t cur_ctr_val = 0;
-  uint64_t cur_nvm_bw = 0;
+  uint64_t cur_bw = 0;
 
-  for (i=0; i<NUM_IMC; i++) {
-    for (j=0; j<1; j++) {
-      cur_ctr_val        = *((uint64_t *)(imc_mmio_addr[i] + get_imc_bw_counter_offset(j)));
-      cur_nvm_bw        += cur_ctr_val - prev_ctr_val[i][j];
-      prev_ctr_val[i][j] = cur_ctr_val;
+  if (tier == 0) { // DRAM
+    for (i=0; i<NUM_IMC; i++) {
+      for (j=0; j<2; j++) {
+        cur_ctr_val = *((uint64_t *)(imc_mmio_addr[i] + get_imc_bw_counter_offset(j)));
+        cur_bw     += cur_ctr_val - prev_ctr_val[0][i][j];
+        prev_ctr_val[tier][i][j] = cur_ctr_val;
+      }
+    }
+  } else if (tier == 1) { // NVM
+    for (i=0; i<NUM_IMC; i++) {
+      for (j=2; j<4; j++) {
+        cur_ctr_val = *((uint64_t *)(imc_mmio_addr[i] + get_imc_bw_counter_offset(j)));
+        cur_bw     += cur_ctr_val - prev_ctr_val[1][i][j];
+        prev_ctr_val[tier][i][j] = cur_ctr_val;
+      }
     }
   }
 
-  return cur_nvm_bw;
+  return cur_bw;
 }
 
 static int setup_imc_bw_counters() {
@@ -192,70 +206,76 @@ static int setup_imc_bw_counters() {
   }
 
   // Measure the bandwidth once to get the initial values
-  measure_nvm_bw();
+  for (int i = 0; i < NUM_TIERS; i++) {
+    measure_nvm_bw(i);
+  }
 
   return 0;
 }
 
 #elif defined C220G5
 
-int bw_fds[2][6];
-uint64_t prev_bw_val[2][6] = {0};
+int bw_fds[NUM_TIERS][NUM_EVENTS][NUM_IMC];
+uint64_t prev_bw_val[NUM_TIERS][NUM_EVENTS][NUM_IMC] = {0};
 
-uint64_t measure_nvm_bw()
+uint64_t measure_bw(int tier)
 {
-  uint64_t cur_nvm_bw = 0;
+  uint64_t cur_bw = 0;
   uint64_t cur_val = 0;
 
-  for (int j = 0; j < 2; j++) {
-    for (int k = 0; k < 6; k++) {
-      if (read(bw_fds[j][k], &cur_val, sizeof(cur_val)) == -1) {
+  for (int j = 0; j < NUM_EVENTS; j++) {
+    for (int k = 0; k < NUM_IMC; k++) {
+      if (read(bw_fds[tier][j][k], &cur_val, sizeof(cur_val)) == -1) {
         LOG_ERROR("ERROR: Failed to read perf event for BW monitoring\n");
         exit(1);
       }
-      cur_nvm_bw       += cur_val - prev_bw_val[j][k];
-      prev_bw_val[j][k] = cur_val;
+      cur_bw                 += cur_val - prev_bw_val[tier][j][k];
+      prev_bw_val[tier][j][k] = cur_val;
     }
   }
 
-  return cur_nvm_bw;
+  return cur_bw;
 }
-void open_perf_events(int rdwr)
+void open_perf_events()
 {
   int fd;
   struct perf_event_attr pe;
 
-  for (unsigned long i = 0; i < 6; i++) {
-    memset(&pe, 0, sizeof(pe));
-    pe.type = i + 12; // TODO: read type from /sys/devices/uncore_imc_x/type
-    pe.size = sizeof(pe);
-    pe.disabled = 1;
-    pe.inherit = 1;
-    pe.config = (rdwr == 0) ? 0x304:0xC04;
+  for (unsigned long i = 0; i < NUM_TIERS; i++) {
+    for (unsigned long j = 0; j < NUM_EVENTS; j++) {
+      for (unsigned long k = 0; k < NUM_IMC; k++) {
+        memset(&pe, 0, sizeof(pe));
+        pe.type = i + 12; // TODO: read type from /sys/devices/uncore_imc_x/type
+        pe.size = sizeof(pe);
+        pe.disabled = 1;
+        pe.inherit = 1;
+        pe.config = (j == 0) ? 0x304:0xC04;
 
-    fd = perf_event_open(&pe, -1, 10, -1, 0);
-    if (fd == -1) {
-      LOG_ERROR("ERROR: Failed to open perf event for BW monitoring\n");
-      exit(1);
+        fd = perf_event_open(&pe, -1, 10, -1, 0);
+        if (fd == -1) {
+          LOG_ERROR("ERROR: Failed to open perf event for BW monitoring\n");
+          exit(1);
+        }
+        bw_fds[i][j][k] = fd;
+      }
     }
-    bw_fds[rdwr][i] = fd;
   }
 }
 
 static int setup_imc_bw_counters()
 {
-  open_perf_events(0);
-  open_perf_events(1);
+  open_perf_events();
 
   // Reset the counters
-  for (int j = 0; j < 2; j++) {
-    for (int k = 0; k < 6; k++) {
-      ioctl(bw_fds[j][k], PERF_EVENT_IOC_RESET, 0);
-      ioctl(bw_fds[j][k], PERF_EVENT_IOC_ENABLE, 0);
+  for (int i = 0; i < NUM_TIERS; i++) {
+    for (int j = 0; j < NUM_EVENTS; j++) {
+      for (int k = 0; k < NUM_IMC; k++) {
+        ioctl(bw_fds[i][j][k], PERF_EVENT_IOC_RESET, 0);
+        ioctl(bw_fds[i][j][k], PERF_EVENT_IOC_ENABLE, 0);
+      }
     }
+    measure_bw(i); // Measure once to get the initial values
   }
-
-  measure_nvm_bw();
 
   return 0;
 }
@@ -750,12 +770,6 @@ static inline int continue_migration(struct hemem_page *hp, struct hemem_page *c
 
   // Cost-benefit analysis
   float cost = CB_MULTIPLIER * (promotion_cost_avg + demotion_cost_avg);
-  float latency_diff = LATENCY_DIFF;
-
-  if (demotion_cost_avg > NVM_HPAGE_MIGRATION_COST_KNEEPOINT) {
-    latency_diff = demotion_cost_avg / (PAGE_SIZE / CACHELINE_SIZE); // Number of cachelines in a page
-    //latency_diff -= 0.1;
-  }
   float benefit =(hp->score - cp->score) * hp->hot_age * HF_SAMPLE_PERIOD * latency_diff;
 
   if (benefit < cost) {
@@ -904,6 +918,7 @@ void *pebs_policy_thread()
   size_t num_migration_jobs = 0;
   float batch_size = NUM_MIGRATION_THREADS;
 
+  float    cur_dram_bw = 0;
   float    cur_nvm_bw = 0;
   float    cusum      = 0;
   uint32_t time_since_recn = 0;
@@ -944,9 +959,11 @@ void *pebs_policy_thread()
 
     // Compute peak-to-average ratio every 1 second
     if (global_version % (1000000 / policy_thread_period) == 0) {
-      cur_nvm_bw = ((float)(measure_nvm_bw()) * (CACHELINE_SIZE)) / (1024ULL * 1024ULL * 1024ULL);
+      cur_dram_bw = ((float)(measure_bw(0)) * (CACHELINE_SIZE)) / (1024ULL * 1024ULL * 1024ULL);
+      cur_nvm_bw = ((float)(measure_bw(1)) * (CACHELINE_SIZE)) / (1024ULL * 1024ULL * 1024ULL);
 
       // update the BW
+      dram_bw_ewma = (1 - HCD_EWMA_ALPHA) * dram_bw_ewma + HCD_EWMA_ALPHA * cur_dram_bw;
       nvm_bw_ewma = (1 - HCD_EWMA_ALPHA) * nvm_bw_ewma + HCD_EWMA_ALPHA * cur_nvm_bw;
       nvm_bw_std  = ((1 - HCD_STD_ALPHA) * nvm_bw_std * nvm_bw_std) + HCD_STD_ALPHA * (cur_nvm_bw - nvm_bw_ewma) * (cur_nvm_bw - nvm_bw_ewma);
       nvm_bw_std = sqrt(nvm_bw_std);
@@ -975,7 +992,7 @@ void *pebs_policy_thread()
         time_since_recn++;
       }
 
-      batch_size = ((MAX_NVM_WR_BW - cur_nvm_bw) / MAX_NVM_WR_BW) * NUM_MIGRATION_THREADS;
+      batch_size = ((NVM_WR_BW_KNEE - cur_nvm_bw) / NVM_WR_BW_KNEE) * NUM_MIGRATION_THREADS;
       batch_size = floor(batch_size);
       if (batch_size < 1) {
         batch_size = 1;
@@ -983,6 +1000,18 @@ void *pebs_policy_thread()
 
       LOG_REPORT("NVM bw: %f, NVM bw EWMA: %f, NVM bw stddev: %f, cusum: %f\n",
                  cur_nvm_bw, nvm_bw_ewma, nvm_bw_std, cusum);
+
+      // Calculate the latency diff between DRAM and NVM
+      float dram_lat = UNLOADED_DRAM_LAT;
+      float nvm_lat = UNLOADED_NVM_LAT;
+      if (dram_bw_ewma > DRAM_BW_KNEE) {
+        dram_lat += (dram_bw_ewma - DRAM_BW_KNEE) * DRAM_BW_SLOPE;
+      }
+      if (nvm_bw_ewma > NVM_RD_BW_KNEE) {
+        nvm_lat += (nvm_bw_ewma - NVM_RD_BW_KNEE) * NVM_BW_SLOPE;
+      }
+      latency_diff = nvm_lat - dram_lat;
+      LOG_REPORT("Estimated latency diff: %.2f us\n", latency_diff);
     }
 
     // free pages using free page ring buffer
@@ -1145,11 +1174,6 @@ void *pebs_policy_thread()
 
         // Cost-benefit analysis
         float cost = CB_MULTIPLIER * (promotion_cost_avg + demotion_cost_avg);
-        float latency_diff = LATENCY_DIFF;
-        if (demotion_cost_avg > NVM_HPAGE_MIGRATION_COST_KNEEPOINT) {
-          latency_diff = demotion_cost_avg / (PAGE_SIZE / CACHELINE_SIZE); // Number of cachelines in a page
-          //latency_diff -= 0.1;
-        }
         float benefit = p->score * p->hot_age * HF_SAMPLE_PERIOD * latency_diff;
         if (benefit < cost) {
           LOG_DEBUG("Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f)) cause of cost-benefit analysis\n",
@@ -1530,11 +1554,10 @@ void pebs_print_config()
   LOG_REPORT("  =========================================\n");
   LOG_REPORT("  NUM_MIGRATION_THREADS: %d\n", NUM_MIGRATION_THREADS);
   LOG_REPORT("  PEBS_NPROCS: %d\n", PEBS_NPROCS);
-  LOG_REPORT("  MAX_NVM_RD_BW: %d\n", MAX_NVM_RD_BW);
-  LOG_REPORT("  MAX_NVM_WR_BW: %d\n", MAX_NVM_WR_BW);
+  LOG_REPORT("  NVM_RD_BW_KNEE: %d\n", NVM_RD_BW_KNEE);
+  LOG_REPORT("  NVM_WR_BW_KNEE: %d\n", NVM_WR_BW_KNEE);
+  LOG_REPORT("  NVM_BW_SLOPE: %f\n", NVM_BW_SLOPE);
   LOG_REPORT("  NVM_WRITES_WEIGHT: %d\n", NVM_WRITES_WEIGHT);
-  LOG_REPORT("  LATENCY_DIFF: %f\n", LATENCY_DIFF);
-  LOG_REPORT("  NVM_HPAGE_MIGRATION_COST_KNEEPOINT: %d\n", NVM_HPAGE_MIGRATION_COST_KNEEPOINT);
   LOG_REPORT("  MIN_PROMOTION_COST: %ld\n", MIN_PROMOTION_COST);
   LOG_REPORT("  MIN_DEMOTION_COST: %ld\n", MIN_DEMOTION_COST);
   LOG_REPORT("  =========================================\n");
