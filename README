@@ -1,3 +1,9 @@
+# Hayden
+
+I've modified this version of arms to not have the Linux kernel included to minimize the storage footprint when
+deploying onto cloudlab machines with other versions of HeMem for comparison. It expects to be built with the
+Linux headers of another HeMem version.
+
 # HeMem
 
 This document describes the artifact for our [SOSP 2021 paper](https://dl.acm.org/doi/10.1145/3477132.3483550 "SOSP 2021 paper") on HeMem. HeMem is a tiered main memory management system designed from scratch for commercially available NVM and the big data applications that use it. HeMem manages tiered memory asynchronously, batching and amortizing memory access tracking, migration, and associated TLB synchronization overheads. HeMem monitors application memory use by sampling memory access via CPU events, rather than page tables. This allows HeMem to scale to terabytes of memory, keeping small and ephemeral data structures in fast memory, and allocating scarce, asymmetric NVM bandwidth according to access patterns. Finally, HeMem is flexible by placing per-application memory management policy at user-level.
