@@ -7,6 +7,3 @@
 [submodule "Hoard"]
 	path = Hoard
 	url = https://github.com/emeryberger/Hoard.git
-[submodule "linux"]
-	path = linux
-	url = https://github.com/cuhk-mass/hemem-linux
