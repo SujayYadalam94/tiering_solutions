@@ -25,7 +25,7 @@
 #include "paging.h"
 
 struct hemem_page* simple_pagefault(void);
-void simple_init(void);
+void simple_init(uint64_t dram_offset, uint64_t dram_size, uint64_t nvm_offset, uint64_t nvm_size);
 void simple_remove_page(struct hemem_page *page);
 void simple_stats();
 

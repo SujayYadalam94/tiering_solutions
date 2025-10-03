@@ -602,6 +602,14 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
       continue;
     }
 
+#ifdef ALLOC_RUNTIME
+    // Defensive check: ensure this page belongs to a PEBS region
+    if (page->region == NULL || page->region->policy->kind != HEMEM_POLICY_PEBs) {
+      LOG_ERROR("WARNING: Non-PEBS page found in PEBS tracking! VA=0x%lx\n", page->va);
+      continue;
+    }
+#endif
+
     ptimer_continue(&spatial_smooth_timer);
     LOG_DEBUG("Before smoothing\n");
 
@@ -632,6 +640,14 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
       p = n_entry_ptr->page;
       assert(p != NULL);
       assert(p->va == n_entry_ptr->va);
+      
+#ifdef ALLOC_RUNTIME
+      // Don't smooth across region boundaries
+      if (p->region != page->region) {
+        break;
+      }
+#endif
+      
       if (p->va != n_va) {
         break;
       }
@@ -721,6 +737,14 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
     if (page == NULL || !page->present) {
       continue;
     }
+
+#ifdef ALLOC_RUNTIME
+    // Defensive check: ensure this page belongs to a PEBS region
+    if (page->region == NULL || page->region->policy->kind != HEMEM_POLICY_PEBs) {
+      LOG_ERROR("WARNING: Non-PEBS page found in PEBS tracking! VA=0x%lx\n", page->va);
+      continue;
+    }
+#endif
 
     #ifdef SPATIAL_SMOOTHING
     LOG_DEBUG("%lu,%f|", page->va, page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD]); //+ page->s_accesses[WRITE]);
@@ -1348,6 +1372,26 @@ void pebs_add_page(struct hemem_page *page)
   int absent;
   khiter_t key;
   assert(page != NULL);
+  
+#ifdef ALLOC_RUNTIME
+  // Validate that this page belongs to a PEBS region
+  if (page->region == NULL) {
+    LOG_ERROR("ERROR: Attempting to add page without region assignment to PEBS\n");
+    assert(0);
+  }
+  if (page->region->policy->kind != HEMEM_POLICY_PEBs) {
+    LOG_ERROR("ERROR: Attempting to add non-PEBS page (policy=%d) to PEBS tracking\n", 
+              page->region->policy->kind);
+    assert(0);
+  }
+  // Validate VA is within region bounds
+  if (page->va < page->region->start || page->va >= page->region->end) {
+    LOG_ERROR("ERROR: Page VA 0x%lx outside region bounds [0x%lx-0x%lx)\n",
+              page->va, page->region->start, page->region->end);
+    assert(0);
+  }
+#endif
+  
   LOG_INFO("Adding page %lu to the add_pages_ring [va: %lu]\n", (uint64_t)page, page->va);
 
   // Add to the hash table
@@ -1411,7 +1455,7 @@ void pebs_remove_page(struct hemem_page *page)
 #define L3_LOAD_MISS_REMOTE 0x2d3
 #endif
 
-void pebs_init(void)
+void pebs_init(uint64_t dram_offset, uint64_t dram_size, uint64_t nvm_offset, uint64_t nvm_size)
 {
   pebs_print_config();
 
@@ -1419,7 +1463,8 @@ void pebs_init(void)
   pthread_t scan_thread;
   pthread_t migration_threads[NUM_MIGRATION_THREADS];
 
-  LOG_INFO("pebs_init: started\n");
+  LOG_INFO("pebs_init: started with DRAM[0x%lx-0x%lx) NVM[0x%lx-0x%lx)\n", 
+           dram_offset, dram_offset + dram_size, nvm_offset, nvm_offset + nvm_size);
 
   for (int i = 0; i < PEBS_NPROCS; i++) {
 #ifdef JOSEPM
@@ -1440,9 +1485,11 @@ void pebs_init(void)
   }
 
   pthread_mutex_init(&(dram_free_list.list_lock), NULL);
-  for (int i = 0; i < dramsize / PAGE_SIZE; i++) {
+  // Only create free pages for the assigned physical memory range
+  uint64_t dram_pages = dram_size / PAGE_SIZE;
+  for (uint64_t i = 0; i < dram_pages; i++) {
     struct hemem_page *p = calloc(1, sizeof(struct hemem_page));
-    p->devdax_offset = i * PAGE_SIZE;
+    p->devdax_offset = dram_offset + (i * PAGE_SIZE);
     p->present = false;
     p->in_dram = true;
     p->pt = pagesize_to_pt(PAGE_SIZE);
@@ -1452,9 +1499,11 @@ void pebs_init(void)
   }
 
   pthread_mutex_init(&(nvm_free_list.list_lock), NULL);
-  for (int i = 0; i < nvmsize / PAGE_SIZE; i++) {
+  // Only create free pages for the assigned physical memory range
+  uint64_t nvm_pages = nvm_size / PAGE_SIZE;
+  for (uint64_t i = 0; i < nvm_pages; i++) {
     struct hemem_page *p = calloc(1, sizeof(struct hemem_page));
-    p->devdax_offset = i * PAGE_SIZE;
+    p->devdax_offset = nvm_offset + (i * PAGE_SIZE);
     p->present = false;
     p->in_dram = false;
     p->pt = pagesize_to_pt(PAGE_SIZE);

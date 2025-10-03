@@ -16,7 +16,7 @@
 void *lru_kswapd();
 struct hemem_page* lru_pagefault(void);
 struct hemem_page* lru_pagefault_unlocked(void);
-void lru_init(void);
+void lru_init(uint64_t dram_offset, uint64_t dram_size, uint64_t nvm_offset, uint64_t nvm_size);
 void lru_remove_page(struct hemem_page *page);
 void lru_stats();
 

@@ -498,17 +498,20 @@ void lru_remove_page(struct hemem_page *page)
 }
 
 
-void lru_init(void)
+void lru_init(uint64_t dram_offset, uint64_t dram_size, uint64_t nvm_offset, uint64_t nvm_size)
 {
   pthread_t kswapd_thread;
   pthread_t scan_thread;
 
-  LOG("lru_init: started\n");
+  LOG("lru_init: started with DRAM[0x%lx-0x%lx) NVM[0x%lx-0x%lx)\n",
+      dram_offset, dram_offset + dram_size, nvm_offset, nvm_offset + nvm_size);
 
   pthread_mutex_init(&(dram_free_list.list_lock), NULL);
-  for (int i = 0; i < dramsize / PAGE_SIZE; i++) {
+  // Only create free pages for the assigned physical memory range
+  uint64_t dram_pages = dram_size / PAGE_SIZE;
+  for (uint64_t i = 0; i < dram_pages; i++) {
     struct hemem_page *p = calloc(1, sizeof(struct hemem_page));
-    p->devdax_offset = i * PAGE_SIZE;
+    p->devdax_offset = dram_offset + (i * PAGE_SIZE);
     p->present = false;
     p->in_dram = true;
     p->pt = pagesize_to_pt(PAGE_SIZE);
@@ -518,9 +521,11 @@ void lru_init(void)
   }
 
   pthread_mutex_init(&(nvm_free_list.list_lock), NULL);
-  for (int i = 0; i < nvmsize / PAGE_SIZE; i++) {
+  // Only create free pages for the assigned physical memory range
+  uint64_t nvm_pages = nvm_size / PAGE_SIZE;
+  for (uint64_t i = 0; i < nvm_pages; i++) {
     struct hemem_page *p = calloc(1, sizeof(struct hemem_page));
-    p->devdax_offset = i * PAGE_SIZE;
+    p->devdax_offset = nvm_offset + (i * PAGE_SIZE);
     p->present = false;
     p->in_dram = false;
     p->pt = pagesize_to_pt(PAGE_SIZE);

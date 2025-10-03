@@ -26,7 +26,7 @@
 #include "spsc-ring.h"
 #include "timer.h"
 
-#ifdef ALLOC_LRU
+#if defined(ALLOC_LRU) || defined(ALLOC_RUNTIME)
 #include "policies/paging.h"
 #endif
 
@@ -36,6 +36,7 @@ uint64_t min_interpose_mem_size = 0;
 
 uint64_t nvmsize = 0;
 uint64_t dramsize = 0;
+int devmemfd = -1;
 char* drampath = NULL;
 char* nvmpath = NULL;
 
@@ -219,6 +220,12 @@ void hemem_init()
   }
   assert(nvmfd >= 0);
 
+  devmemfd = open("/dev/mem", O_RDWR | O_SYNC);
+  if (devmemfd < 0) {
+    perror("devmem open");
+  }
+  assert(devmemfd >= 0);
+
   uffd = syscall(__NR_userfaultfd, O_CLOEXEC | O_NONBLOCK);
   if (uffd == -1) {
     perror("uffd");
@@ -305,7 +312,11 @@ void hemem_init()
   assert(s == 0);
 #endif
 
+#ifdef ALLOC_RUNTIME
+  hemem_regions_bootstrap();
+#else
   paging_init();
+#endif
 
   is_init = true;
 
@@ -339,7 +350,11 @@ void hemem_stop()
   }
 #endif
 
+#ifdef ALLOC_RUNTIME
+  hemem_policies_shutdown();
+#else
   policy_shutdown();
+#endif
 
   hemem_print_stats();
 }
@@ -378,7 +393,16 @@ static void hemem_mmap_populate(void* addr, size_t length)
   assert(length != 0);
 
   for (page_boundry = (uint64_t)addr; page_boundry < (uint64_t)addr + length;) {
+#ifdef ALLOC_RUNTIME
+    struct hemem_region *region = hemem_region_lookup(page_boundry);
+    if (region == NULL) {
+      fprintf(stderr, "hemem: no policy region configured for address 0x%lx\n", page_boundry);
+      abort();
+    }
+    page = hemem_policy_pagefault(region, page_boundry);
+#else
     page = pagefault();
+#endif
     assert(page != NULL);
 
     // let policy algorithm do most of the heavy lifting of finding a free page
@@ -431,7 +455,11 @@ static void hemem_mmap_populate(void* addr, size_t length)
     pages_allocated++;
 
     // place in hemem's page tracking list
-    mmgr_add(page);
+#ifdef ALLOC_RUNTIME
+  hemem_policy_register_page(page);
+#else
+  mmgr_add(page);
+#endif
     page_boundry += pagesize;
   }
 
@@ -519,11 +547,19 @@ int hemem_munmap(void* addr, size_t length)
 
   // for each page in region specified...
   for (page_boundry = (uint64_t)addr; page_boundry < (uint64_t)addr + length;) {
-    // find the page in hemem's trackign list
-    page = mmgr_find(page_boundry);
+  // find the page in hemem's tracking list
+#ifdef ALLOC_RUNTIME
+  page = hemem_page_lookup(page_boundry);
+#else
+  page = mmgr_find(page_boundry);
+#endif
     if (page != NULL) {
       //remove_page(page);
-      mmgr_remove(page);
+#ifdef ALLOC_RUNTIME
+    hemem_policy_unregister_page(page);
+#else
+    mmgr_remove(page);
+#endif
 
       mem_allocated -= pt_to_pagesize(page->pt);
       mem_mmaped -= pt_to_pagesize(page->pt);
@@ -690,7 +726,7 @@ void hemem_migrate_up(struct hemem_page *page, uint64_t dram_offset)
   page->in_dram = true;
   //page->pa = hemem_va_to_pa(page);
 
-#ifdef ALLOC_LRU
+#if defined(ALLOC_LRU) || defined(ALLOC_RUNTIME)
   hemem_tlb_shootdown(page->va);
 #endif
 
@@ -804,7 +840,7 @@ void hemem_migrate_down(struct hemem_page *page, uint64_t nvm_offset)
   page->in_dram = false;
   //page->pa = hemem_va_to_pa(page);
 
-#ifdef ALLOC_LRU
+#if defined(ALLOC_LRU) || defined(ALLOC_RUNTIME)
   hemem_tlb_shootdown(page->va);
 #endif
 
@@ -857,7 +893,11 @@ void handle_wp_fault(uint64_t page_boundry)
 
   internal_call = true;
 
+#ifdef ALLOC_RUNTIME
+  page = hemem_page_lookup(page_boundry);
+#else
   page = mmgr_find(page_boundry);
+#endif
   assert(page != NULL);
 
   migration_waits++;
@@ -881,6 +921,9 @@ void handle_missing_fault(uint64_t page_boundry)
   void* tmp_offset;
   bool in_dram;
   uint64_t pagesize;
+#ifdef ALLOC_RUNTIME
+  struct hemem_region *region;
+#endif
 
   internal_call = true;
 
@@ -901,7 +944,16 @@ void handle_missing_fault(uint64_t page_boundry)
 
   gettimeofday(&start, NULL);
   // let policy algorithm do most of the heavy lifting of finding a free page
+#ifdef ALLOC_RUNTIME
+  region = hemem_region_lookup(page_boundry);
+  if (region == NULL) {
+    fprintf(stderr, "hemem: no policy region configured for address 0x%lx\n", page_boundry);
+    abort();
+  }
+  page = hemem_policy_pagefault(region, page_boundry);
+#else
   page = pagefault();
+#endif
   assert(page != NULL);
 
   gettimeofday(&end, NULL);
@@ -971,7 +1023,11 @@ void handle_missing_fault(uint64_t page_boundry)
   //LOG("hemem_missing_fault: va: %lx assigned to %s frame %lu  pte: %lx\n", page->va, (in_dram ? "DRAM" : "NVM"), page->devdax_offset / pagesize, hemem_va_to_pa(page->va));
 
   // place in hemem's page tracking list
+#ifdef ALLOC_RUNTIME
+  hemem_policy_register_page(page);
+#else
   mmgr_add(page);
+#endif
 
   missing_faults_handled++;
   pages_allocated++;
@@ -1103,7 +1159,7 @@ void *handle_fault()
   }
 }
 
-#ifdef ALLOC_LRU
+#if defined(ALLOC_LRU) || defined(ALLOC_RUNTIME)
 void hemem_tlb_shootdown(uint64_t va)
 {
   uint64_t page_boundry = va & ~(PAGE_SIZE - 1);
@@ -1121,7 +1177,7 @@ void hemem_tlb_shootdown(uint64_t va)
 }
 #endif
 
-#ifdef ALLOC_LRU
+#if defined(ALLOC_LRU) || defined(ALLOC_RUNTIME)
 void hemem_clear_bits(struct hemem_page *page)
 {
   uint64_t ret;
@@ -1144,7 +1200,7 @@ void hemem_clear_bits(struct hemem_page *page)
 }
 #endif
 
-#ifdef ALLOC_LRU
+#if defined(ALLOC_LRU) || defined(ALLOC_RUNTIME)
 uint64_t hemem_get_bits(struct hemem_page *page)
 {
   uint64_t ret;
@@ -1177,7 +1233,11 @@ void hemem_print_stats()
                migrations_up,
                migrations_down,
                migration_waits);
-   mmgr_stats();
+#ifdef ALLOC_RUNTIME
+  hemem_policies_collect_stats();
+#else
+  mmgr_stats();
+#endif
 }
 
 

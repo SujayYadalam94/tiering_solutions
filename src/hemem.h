@@ -118,6 +118,7 @@ extern FILE *statsf;
 //#define LOG_STATS(str, ...) fprintf(statsf, str, __VA_ARGS__)
 //#define LOG_STATS(str, ...) while (0) {}
 
+#if !defined(ALLOC_RUNTIME)
 #if defined (ALLOC_HEMEM)
   #define pagefault(...) pebs_pagefault(__VA_ARGS__)
   #define paging_init(...) pebs_init(__VA_ARGS__)
@@ -139,11 +140,13 @@ extern FILE *statsf;
   #define mmgr_stats(...) simple_stats(__VA_ARGS__)
   #define policy_shutdown(...) while(0) {}
 #endif
+#endif
 
 
 #define MAX_UFFD_MSGS	    (1)
 #define MAX_COPY_THREADS  (4)
 
+extern int devmemfd;
 extern uint64_t cr3;
 extern int dramfd;
 extern int nvmfd;
@@ -169,6 +172,10 @@ enum pagetypes {
   NPAGETYPES
 };
 
+#ifdef ALLOC_RUNTIME
+struct hemem_region;
+#endif
+
 struct hemem_page {
   uint64_t va;
   uint64_t devdax_offset;
@@ -189,11 +196,21 @@ struct hemem_page {
   float prev_score;
   uint16_t hot_age;
   bool can_promote;
+  // LRU policy fields
+  bool written;
+  uint32_t naccesses;
 
   struct hemem_page *next, *prev;
   struct fifo_list *list;
+#ifdef ALLOC_RUNTIME
+  struct hemem_region *region;
+#endif
 };
+#ifdef ALLOC_RUNTIME
+static_assert(sizeof(struct hemem_page) >= 128, "hemem_page size expected to be at least 128 bytes");
+#else
 static_assert(sizeof(struct hemem_page) == 128);
+#endif
 
 struct migration_req {
   struct hemem_page *dram_page;
@@ -234,7 +251,7 @@ void hemem_wp_page(struct hemem_page *page, bool protect);
 void hemem_promote_pages(uint64_t addr);
 void hemem_demote_pages(uint64_t addr);
 
-#ifdef ALLOC_LRU
+#if defined(ALLOC_LRU) || defined(ALLOC_RUNTIME)
 void hemem_clear_bits(struct hemem_page *page);
 uint64_t hemem_get_bits(struct hemem_page *page);
 void hemem_tlb_shootdown(uint64_t va);
@@ -248,6 +265,48 @@ void hemem_clear_stats();
 
 void hemem_start_timing(void);
 void hemem_stop_timing(void);
+
+#ifdef ALLOC_RUNTIME
+enum hemem_policy_kind {
+  HEMEM_POLICY_PEBs = 0,
+  HEMEM_POLICY_LRU,
+  HEMEM_POLICY_SIMPLE,
+  HEMEM_POLICY_COUNT
+};
+
+struct hemem_policy_ops {
+  enum hemem_policy_kind kind;
+  const char *name;
+  void (*init)(uint64_t dram_offset, uint64_t dram_size, uint64_t nvm_offset, uint64_t nvm_size);
+  void (*shutdown)(void);
+  struct hemem_page* (*pagefault)(uint64_t va);
+  void (*page_add)(struct hemem_page *page);
+  void (*page_remove)(struct hemem_page *page);
+  void (*stats)(void);
+};
+
+struct hemem_region {
+  uint64_t start;
+  uint64_t end;
+  const struct hemem_policy_ops *policy;
+  char label[32];
+  // Physical memory ranges assigned to this region
+  uint64_t dram_offset_start;
+  uint64_t dram_size;
+  uint64_t nvm_offset_start;
+  uint64_t nvm_size;
+};
+
+void hemem_regions_bootstrap(void);
+struct hemem_region* hemem_region_lookup(uint64_t va);
+int hemem_region_register(uint64_t start, uint64_t end, enum hemem_policy_kind kind, const char *label);
+struct hemem_page* hemem_policy_pagefault(struct hemem_region *region, uint64_t va);
+void hemem_policy_register_page(struct hemem_page *page);
+void hemem_policy_unregister_page(struct hemem_page *page);
+void hemem_policies_collect_stats(void);
+void hemem_policies_shutdown(void);
+struct hemem_page* hemem_page_lookup(uint64_t va);
+#endif
 
 #ifdef __cplusplus
 }

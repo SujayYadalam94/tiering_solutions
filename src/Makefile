@@ -6,11 +6,14 @@ INCLUDES = -I ~/tiering_solutions/linux/usr/include/
 LIBS = -lm -lpthread
 HEMEM_LIBS = $(LIBS) -ldl -lsyscall_intercept -L../Hoard/src -lhoard
 
-default: libhemem.so
+default: libhemem-runtime.so
 
 all: hemem-libs
 
-hemem-libs: libhemem-lru.so libhemem-simple.so libhemem-lru-swap.so libhemem.so
+hemem-libs: libhemem-lru.so libhemem-simple.so libhemem-lru-swap.so libhemem.so libhemem-runtime.so
+
+libhemem-runtime.so: hemem-runtime.o policy_runtime.o pebs.o policies/lru.o policies/simple.o policies/paging.o timer.o interpose.o fifo.o spsc-ring.o
+	$(CC) $(LDFLAGS) -o libhemem-runtime.so hemem-runtime.o policy_runtime.o pebs.o policies/lru.o policies/simple.o policies/paging.o timer.o interpose.o fifo.o spsc-ring.o $(HEMEM_LIBS)
 
 libhemem.so: hemem.o pebs.o timer.o interpose.o fifo.o spsc-ring.o
 	$(CC) $(LDFLAGS) -o libhemem.so hemem.o timer.o interpose.o pebs.o fifo.o spsc-ring.o $(HEMEM_LIBS)
@@ -23,6 +26,12 @@ libhemem-simple.so: policies/hemem-simple.o policies/simple.o timer.o interpose.
 
 libhemem-lru-swap.so: policies/hemem-lru-swap.o policies/lru_swap.o timer.o interpose.o policies/paging.o fifo.o spsc-ring.o
 	$(CC) $(LDFLAGS) -o libhemem-lru-swap.so policies/hemem-lru-swap.o timer.o policies/lru_swap.o interpose.o policies/paging.o fifo.o spsc-ring.o $(HEMEM_LIBS)
+
+hemem-runtime.o: hemem.c hemem.h pebs.h interpose.h fifo.h spsc-ring.h policy_runtime.c
+	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_RUNTIME -c hemem.c -o hemem-runtime.o
+
+policy_runtime.o: policy_runtime.c hemem.h pebs.h policies/lru.h policies/simple.h policies/paging.h fifo.h spsc-ring.h
+	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_RUNTIME -c policy_runtime.c -o policy_runtime.o
 
 hemem.o: hemem.c hemem.h pebs.h interpose.h fifo.h spsc-ring.h
 	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_HEMEM -c hemem.c -o hemem.o
