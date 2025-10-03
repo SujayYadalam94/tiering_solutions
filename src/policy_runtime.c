@@ -24,6 +24,46 @@ KHASH_MAP_INIT_INT64(hemem_va_map, struct hemem_page*)
 
 static khash_t(hemem_va_map) *hemem_page_table;
 static pthread_mutex_t hemem_page_table_lock = PTHREAD_MUTEX_INITIALIZER;
+static bool hemem_page_table_shutting_down = false;
+/*
+#define HEMEM_PT_LOCK_ACQUIRE() \
+  do { \
+    fprintf(stderr, "[HEMEM-LOCK] %s:%d attempting lock\n", __func__, __LINE__); \
+    int __hemem_lock_rc = pthread_mutex_lock(&hemem_page_table_lock); \
+    if (__hemem_lock_rc != 0) { \
+      fprintf(stderr, "[HEMEM-LOCK] %s:%d lock failed: %s\n", __func__, __LINE__, strerror(__hemem_lock_rc)); \
+    } else { \
+      fprintf(stderr, "[HEMEM-LOCK] %s:%d lock acquired\n", __func__, __LINE__); \
+    } \
+  } while (0)
+
+#define HEMEM_PT_LOCK_RELEASE() \
+  do { \
+    fprintf(stderr, "[HEMEM-LOCK] %s:%d releasing lock\n", __func__, __LINE__); \
+    int __hemem_unlock_rc = pthread_mutex_unlock(&hemem_page_table_lock); \
+    if (__hemem_unlock_rc != 0) { \
+      fprintf(stderr, "[HEMEM-LOCK] %s:%d unlock failed: %s\n", __func__, __LINE__, strerror(__hemem_unlock_rc)); \
+    } else { \
+      fprintf(stderr, "[HEMEM-LOCK] %s:%d lock released\n", __func__, __LINE__); \
+    } \
+  } while (0)
+*/
+
+#define HEMEM_PT_LOCK_ACQUIRE() \
+  do { \
+    int __hemem_lock_rc = pthread_mutex_lock(&hemem_page_table_lock); \
+    if (__hemem_lock_rc != 0) { \
+    } else { \
+    } \
+  } while (0)
+
+#define HEMEM_PT_LOCK_RELEASE() \
+  do { \
+    int __hemem_unlock_rc = pthread_mutex_unlock(&hemem_page_table_lock); \
+    if (__hemem_unlock_rc != 0) { \
+    } else { \
+    } \
+  } while (0)
 
 static struct hemem_region regions[MAX_HEMEM_REGIONS];
 static size_t region_count;
@@ -37,7 +77,7 @@ struct hemem_policy_ops;
 
 static void ensure_page_table(void)
 {
-  if (hemem_page_table == NULL) {
+  if (hemem_page_table == NULL && !hemem_page_table_shutting_down) {
     hemem_page_table = kh_init(hemem_va_map);
   }
 }
@@ -122,7 +162,7 @@ static const struct hemem_policy_ops policy_ops_table[] = {
     .kind = HEMEM_POLICY_LRU,
     .name = "lru",
     .init = lru_init,
-    .shutdown = NULL,
+    .shutdown = lru_shutdown,
     .pagefault = lru_pagefault_wrapper,
     .page_add = lru_add_wrapper,
     .page_remove = lru_remove_page,
@@ -349,9 +389,24 @@ void hemem_regions_bootstrap(void)
 {
   pthread_mutex_lock(&regions_lock);
   if (!regions_bootstrapped) {
-    const char *spec = getenv("HEMEM_REGIONS");
-    parse_region_spec_locked(spec);
-    register_default_region_locked();
+    // Check for simple single-policy configuration first
+    const char *simple_policy = getenv("HEMEM_POLICY");
+    if (simple_policy != NULL && *simple_policy != '\0') {
+      // User specified a single policy for entire VA space
+      const struct hemem_policy_ops *policy = policy_by_name(simple_policy);
+      if (policy != NULL) {
+        add_region_locked(0, UINT64_MAX, policy, simple_policy);
+        LOG("HeMem: Using single policy '%s' for entire VA space (via HEMEM_POLICY)\n", simple_policy);
+      } else {
+        fprintf(stderr, "HeMem: Unknown policy '%s' in HEMEM_POLICY, falling back to default\n", simple_policy);
+        register_default_region_locked();
+      }
+    } else {
+      // Use multi-region configuration via HEMEM_REGIONS
+      const char *spec = getenv("HEMEM_REGIONS");
+      parse_region_spec_locked(spec);
+      register_default_region_locked();
+    }
     sort_regions_locked();
     
     // Calculate total virtual address space for each policy
@@ -435,6 +490,10 @@ void hemem_regions_bootstrap(void)
     regions_bootstrapped = true;
   }
   pthread_mutex_unlock(&regions_lock);
+
+  HEMEM_PT_LOCK_ACQUIRE();
+  hemem_page_table_shutting_down = false;
+  HEMEM_PT_LOCK_RELEASE();
 
   ensure_page_table();
 
@@ -521,12 +580,16 @@ void hemem_policy_register_page(struct hemem_page *page)
     page->region->policy->page_add(page);
   }
 
-  pthread_mutex_lock(&hemem_page_table_lock);
+  HEMEM_PT_LOCK_ACQUIRE();
+  if (hemem_page_table_shutting_down) {
+    HEMEM_PT_LOCK_RELEASE();
+    return;
+  }
   ensure_page_table();
   int status;
   khiter_t key = kh_put(hemem_va_map, hemem_page_table, page->va, &status);
   kh_value(hemem_page_table, key) = page;
-  pthread_mutex_unlock(&hemem_page_table_lock);
+  HEMEM_PT_LOCK_RELEASE();
 }
 
 void hemem_policy_unregister_page(struct hemem_page *page)
@@ -539,21 +602,21 @@ void hemem_policy_unregister_page(struct hemem_page *page)
     page->region->policy->page_remove(page);
   }
 
-  pthread_mutex_lock(&hemem_page_table_lock);
+  HEMEM_PT_LOCK_ACQUIRE();
   if (hemem_page_table != NULL) {
     khiter_t key = kh_get(hemem_va_map, hemem_page_table, page->va);
     if (key != kh_end(hemem_page_table)) {
       kh_del(hemem_va_map, hemem_page_table, key);
     }
   }
-  pthread_mutex_unlock(&hemem_page_table_lock);
+  HEMEM_PT_LOCK_RELEASE();
 
   page->region = NULL;
 }
 
 struct hemem_page* hemem_page_lookup(uint64_t va)
 {
-  pthread_mutex_lock(&hemem_page_table_lock);
+  HEMEM_PT_LOCK_ACQUIRE();
   struct hemem_page *page = NULL;
   if (hemem_page_table != NULL) {
     uint64_t aligned = va & ~(PAGE_SIZE - 1ULL);
@@ -562,7 +625,7 @@ struct hemem_page* hemem_page_lookup(uint64_t va)
       page = kh_value(hemem_page_table, key);
     }
   }
-  pthread_mutex_unlock(&hemem_page_table_lock);
+  HEMEM_PT_LOCK_RELEASE();
   return page;
 }
 
@@ -578,6 +641,7 @@ void hemem_policies_collect_stats(void)
 
 void hemem_policies_shutdown(void)
 {
+	fprintf(stderr, "HEMEM: policy shutdown start\n");
   for (size_t i = 0; i < sizeof(policy_ops_table) / sizeof(policy_ops_table[0]); i++) {
     enum hemem_policy_kind kind = policy_ops_table[i].kind;
     if (policy_initialized[kind] && policy_ops_table[i].shutdown != NULL) {
@@ -585,13 +649,21 @@ void hemem_policies_shutdown(void)
       policy_initialized[kind] = false;
     }
   }
+	fprintf(stderr, "HEMEM: policy shutdown mid\n");
 
-  pthread_mutex_lock(&hemem_page_table_lock);
+  khash_t(hemem_va_map) *old_table = NULL;
+  HEMEM_PT_LOCK_ACQUIRE();
+  hemem_page_table_shutting_down = true;
   if (hemem_page_table != NULL) {
-    kh_destroy(hemem_va_map, hemem_page_table);
+    old_table = hemem_page_table;
     hemem_page_table = NULL;
   }
-  pthread_mutex_unlock(&hemem_page_table_lock);
+  HEMEM_PT_LOCK_RELEASE();
+
+  if (old_table != NULL) {
+    kh_destroy(hemem_va_map, old_table);
+  }
+	fprintf(stderr, "HEMEM: policy shutdown end\n");
 }
 
 #endif /* ALLOC_RUNTIME */

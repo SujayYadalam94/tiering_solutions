@@ -31,6 +31,7 @@
 #endif
 
 pthread_t fault_thread;
+static bool fault_thread_active = false;
 
 uint64_t min_interpose_mem_size = 0;
 
@@ -245,6 +246,7 @@ void hemem_init()
     perror("pthread_create");
     assert(0);
   }
+  fault_thread_active = true;
 
   timef = fopen("times.txt", "w+");
   if (timef == NULL) {
@@ -338,6 +340,26 @@ void hemem_init()
 }
 
 
+static void hemem_shutdown_fault_thread(void)
+{
+  if (!fault_thread_active) {
+    return;
+  }
+
+  int rc = pthread_cancel(fault_thread);
+  if (rc != 0 && rc != ESRCH) {
+    fprintf(stderr, "HeMem: failed to cancel fault thread (%s)\n", strerror(rc));
+  }
+
+  rc = pthread_join(fault_thread, NULL);
+  if (rc != 0) {
+    fprintf(stderr, "HeMem: failed to join fault thread (%s)\n", strerror(rc));
+  }
+
+  fault_thread_active = false;
+}
+
+
 void hemem_stop()
 {
 #ifdef USE_DMA
@@ -350,11 +372,18 @@ void hemem_stop()
   }
 #endif
 
+  hemem_shutdown_fault_thread();
+
 #ifdef ALLOC_RUNTIME
   hemem_policies_shutdown();
 #else
   policy_shutdown();
 #endif
+
+  if (uffd != -1) {
+    close(uffd);
+    uffd = -1;
+  }
 
   hemem_print_stats();
 }

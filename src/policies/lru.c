@@ -7,6 +7,8 @@
 #include <assert.h>
 #include <sys/time.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <string.h>
 
 #include "../hemem.h"
 #include "paging.h"
@@ -30,7 +32,15 @@ static uint64_t vanum = 0;
 static pthread_mutex_t global_lock = PTHREAD_MUTEX_INITIALIZER;
 static bool __thread in_kswapd = false;
 uint64_t lru_runs = 0;
-static volatile bool in_kscand = false;
+static volatile bool lru_shutdown_requested = false;
+static pthread_t lru_scan_thread;
+static pthread_t lru_kswapd_thread;
+static bool lru_scan_thread_active = false;
+static bool lru_kswapd_thread_active = false;
+static bool lru_lists_initialized = false;
+
+static void init_fifo_list(struct fifo_list *list);
+static void cleanup_fifo_list(struct fifo_list *list);
 
 static void lru_migrate_down(struct hemem_page *page, uint64_t offset)
 {
@@ -60,6 +70,23 @@ static void lru_migrate_up(struct hemem_page *page, uint64_t offset)
 
   gettimeofday(&end, NULL);
   LOG_TIME("migrate_up: %f s\n", elapsed(&start, &end));
+}
+
+static void init_fifo_list(struct fifo_list *list)
+{
+  memset(list, 0, sizeof(*list));
+  pthread_mutex_init(&(list->list_lock), NULL);
+}
+
+static void cleanup_fifo_list(struct fifo_list *list)
+{
+  struct hemem_page *page;
+  while ((page = dequeue_fifo(list)) != NULL) {
+    pthread_mutex_destroy(&(page->page_lock));
+    free(page);
+  }
+  pthread_mutex_destroy(&(list->list_lock));
+  memset(list, 0, sizeof(*list));
 }
 
 
@@ -198,10 +225,19 @@ void *lru_kscand()
 {
   struct timeval start, end, clear_start, clear_end;
 
-  for (;;) {
+  while (true) {
+    if (lru_shutdown_requested) {
+      break;
+    }
+
     usleep(KSCAND_INTERVAL);
-    in_kscand = true;
-    //pthread_mutex_lock(&global_lock);
+
+    if (lru_shutdown_requested) {
+      break;
+    }
+
+    pthread_mutex_lock(&global_lock);
+    fprintf(stderr, "[LRU-DEBUG] kscand: starting scan\n");
 
     gettimeofday(&start, NULL);
 
@@ -229,9 +265,13 @@ void *lru_kscand()
     gettimeofday(&end, NULL);
 
     LOG_TIME("scan: %f s\n", elapsed(&start, &end));
-    //pthread_mutex_unlock(&global_lock);
-    in_kscand = false;
+    fprintf(stderr, "[LRU-DEBUG] kscand: completed scan, active=%lu inactive=%lu\n",
+            active_list.numentries, inactive_list.numentries);
+    pthread_mutex_unlock(&global_lock);
   }
+
+  fprintf(stderr, "[LRU-DEBUG] kscand: exiting\n");
+  return NULL;
 }
 
 void *lru_kswapd()
@@ -249,12 +289,21 @@ void *lru_kswapd()
   
   in_kswapd = true;
 
-  for (;;) {
+  while (true) {
+    if (lru_shutdown_requested) {
+      break;
+    }
+
     usleep(KSWAPD_INTERVAL);
+
+    if (lru_shutdown_requested) {
+      break;
+    }
 
     pthread_mutex_lock(&global_lock);
 
     gettimeofday(&start, NULL);
+    fprintf(stderr, "[LRU-DEBUG] kswapd: starting migration, target=%lu bytes\n", KSWAPD_MIGRATE_RATE);
     
     // move each active NVM page to DRAM
     for (migrated_bytes = 0; migrated_bytes < KSWAPD_MIGRATE_RATE;) {
@@ -336,8 +385,11 @@ void *lru_kswapd()
           enqueue_fifo(&dram_free_list, np);
 
           //pthread_mutex_unlock(&(np->page_lock));
+        } else {
+          fprintf(stderr, "[LRU-WARNING] NVM free list exhausted during demotion\n");
+          enqueue_fifo(&inactive_list, cp);
+          break;
         }
-        assert(np != NULL);
 
         //pthread_mutex_unlock(&(cp->page_lock));
       }
@@ -352,6 +404,8 @@ out:
     LOG_TIME("migrate: %f s\n", elapsed(&start, &end));
   }
 
+  in_kswapd = false;
+  fprintf(stderr, "[LRU-DEBUG] kswapd: exiting\n");
   return NULL;
 }
 
@@ -469,10 +523,7 @@ void lru_remove_page(struct hemem_page *page)
 {
   struct fifo_list *list;
 
-  // wait for kscand thread to complete its scan
-  // this is needed to avoid race conditions with kscand thread
-  while (in_kscand);
-  
+  // Acquire global lock for proper synchronization across lists
   pthread_mutex_lock(&global_lock);
  
   assert(page != NULL);
@@ -500,13 +551,25 @@ void lru_remove_page(struct hemem_page *page)
 
 void lru_init(uint64_t dram_offset, uint64_t dram_size, uint64_t nvm_offset, uint64_t nvm_size)
 {
-  pthread_t kswapd_thread;
-  pthread_t scan_thread;
-
   LOG("lru_init: started with DRAM[0x%lx-0x%lx) NVM[0x%lx-0x%lx)\n",
       dram_offset, dram_offset + dram_size, nvm_offset, nvm_offset + nvm_size);
 
-  pthread_mutex_init(&(dram_free_list.list_lock), NULL);
+  init_fifo_list(&active_list);
+  init_fifo_list(&inactive_list);
+  init_fifo_list(&written_list);
+  init_fifo_list(&nvm_active_list);
+  init_fifo_list(&nvm_inactive_list);
+  init_fifo_list(&nvm_written_list);
+  init_fifo_list(&dram_free_list);
+  init_fifo_list(&nvm_free_list);
+
+  lru_lists_initialized = true;
+  lru_shutdown_requested = false;
+  lru_scan_thread_active = false;
+  lru_kswapd_thread_active = false;
+  lru_runs = 0;
+  vanum = 0;
+
   // Only create free pages for the assigned physical memory range
   uint64_t dram_pages = dram_size / PAGE_SIZE;
   for (uint64_t i = 0; i < dram_pages; i++) {
@@ -520,7 +583,6 @@ void lru_init(uint64_t dram_offset, uint64_t dram_size, uint64_t nvm_offset, uin
     enqueue_fifo(&dram_free_list, p);
   }
 
-  pthread_mutex_init(&(nvm_free_list.list_lock), NULL);
   // Only create free pages for the assigned physical memory range
   uint64_t nvm_pages = nvm_size / PAGE_SIZE;
   for (uint64_t i = 0; i < nvm_pages; i++) {
@@ -534,11 +596,13 @@ void lru_init(uint64_t dram_offset, uint64_t dram_size, uint64_t nvm_offset, uin
     enqueue_fifo(&nvm_free_list, p);
   }
 
-  int r = pthread_create(&scan_thread, NULL, lru_kscand, NULL);
+  int r = pthread_create(&lru_scan_thread, NULL, lru_kscand, NULL);
   assert(r == 0);
+  lru_scan_thread_active = true;
   
-  pthread_create(&kswapd_thread, NULL, lru_kswapd, NULL);
+  r = pthread_create(&lru_kswapd_thread, NULL, lru_kswapd, NULL);
   assert(r == 0);
+  lru_kswapd_thread_active = true;
   
 #ifndef LRU_SWAP
   LOG("Memory management policy is LRU\n");
@@ -548,6 +612,40 @@ void lru_init(uint64_t dram_offset, uint64_t dram_size, uint64_t nvm_offset, uin
 
   LOG("lru_init: finished\n");
 
+}
+
+void lru_shutdown(void)
+{
+  fprintf(stderr, "[LRU-DEBUG] lru_shutdown: requested\n");
+  lru_shutdown_requested = true;
+
+  if (lru_scan_thread_active) {
+    pthread_join(lru_scan_thread, NULL);
+    lru_scan_thread_active = false;
+  }
+
+  if (lru_kswapd_thread_active) {
+    pthread_join(lru_kswapd_thread, NULL);
+    lru_kswapd_thread_active = false;
+  }
+
+  lru_shutdown_requested = false;
+
+  if (lru_lists_initialized) {
+    cleanup_fifo_list(&active_list);
+    cleanup_fifo_list(&inactive_list);
+    cleanup_fifo_list(&written_list);
+    cleanup_fifo_list(&nvm_active_list);
+    cleanup_fifo_list(&nvm_inactive_list);
+    cleanup_fifo_list(&nvm_written_list);
+    cleanup_fifo_list(&dram_free_list);
+    cleanup_fifo_list(&nvm_free_list);
+    lru_lists_initialized = false;
+  }
+
+  lru_runs = 0;
+  vanum = 0;
+  fprintf(stderr, "[LRU-DEBUG] lru_shutdown: completed\n");
 }
 
 void lru_stats()
