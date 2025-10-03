@@ -257,6 +257,9 @@ uint64_t hemem_get_bits(struct hemem_page *page);
 void hemem_tlb_shootdown(uint64_t va);
 #endif
 
+void hemem_debug_validate_offset(const char *ctx, const struct hemem_page *page,
+                                 enum memtypes tier, uint64_t offset, uint64_t pagesize);
+
 // Commented out because -- identical to find_page(uint64_t va)
 //struct hemem_page* get_hemem_page(uint64_t va);
 
@@ -286,6 +289,7 @@ struct hemem_policy_ops {
 };
 
 struct hemem_region {
+  int id;
   uint64_t start;
   uint64_t end;
   const struct hemem_policy_ops *policy;

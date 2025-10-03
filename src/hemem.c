@@ -20,6 +20,7 @@
 #include <inttypes.h>
 #include <stdbool.h>
 #include <sched.h>
+#include <strings.h>
 
 #include "hemem.h"
 #include "pebs.h"
@@ -47,6 +48,7 @@ long uffd = -1;
 
 bool is_init = false;
 bool timing = false;
+static bool debug_validate_offsets = false;
 
 uint64_t mem_mmaped = 0;
 uint64_t mem_allocated = 0;
@@ -81,6 +83,128 @@ void *nvm_devdax_mmap;
 
 __thread bool internal_call = false;
 __thread bool old_internal_call = false;
+
+static bool hemem_env_truthy(const char *value)
+{
+  if (value == NULL) {
+    return false;
+  }
+
+  while (*value == ' ' || *value == '\t') {
+    value++;
+  }
+
+  if (*value == '\0') {
+    return false;
+  }
+
+  if (!strcasecmp(value, "0") ||
+      !strcasecmp(value, "false") ||
+      !strcasecmp(value, "off") ||
+      !strcasecmp(value, "no")) {
+    return false;
+  }
+
+  return true;
+}
+
+void hemem_debug_validate_offset(const char *ctx, const struct hemem_page *page,
+                                 enum memtypes tier, uint64_t offset, uint64_t pagesize)
+{
+  const char *tier_name = (tier == FASTMEM) ? "dram" : "nvm";
+  uint64_t limit = (tier == FASTMEM) ? dramsize : nvmsize;
+
+  if (pagesize == 0 && page != NULL) {
+    pagesize = pt_to_pagesize(page->pt);
+  }
+
+  if (pagesize == 0) {
+    fprintf(stderr,
+            "HeMem: %s: unable to determine page size for offset validation\n",
+            ctx);
+    fflush(stderr);
+    abort();
+  }
+
+  if (offset >= limit || offset + pagesize > limit || (offset % pagesize) != 0) {
+    fprintf(stderr,
+            "HeMem: %s: invalid %s offset 0x%lx (pagesize=0x%lx limit=0x%lx)\n",
+            ctx,
+            tier_name,
+            offset,
+            pagesize,
+            limit);
+    if (page != NULL) {
+      fprintf(stderr,
+              "    page=%p va=0x%lx in_dram=%d migrating=%d\n",
+              (void*)page,
+              page->va,
+              page->in_dram,
+              page->migrating);
+#ifdef ALLOC_RUNTIME
+      if (page->region != NULL) {
+        fprintf(stderr,
+                "    region=%d label=%s dram=[0x%lx-0x%lx) nvm=[0x%lx-0x%lx)\n",
+                page->region->id,
+                page->region->label,
+                page->region->dram_offset_start,
+                page->region->dram_offset_start + page->region->dram_size,
+                page->region->nvm_offset_start,
+                page->region->nvm_offset_start + page->region->nvm_size);
+      }
+#endif
+    }
+    fflush(stderr);
+    abort();
+  }
+
+#ifdef ALLOC_RUNTIME
+  if (page != NULL && page->region != NULL) {
+    const struct hemem_region *region = page->region;
+    uint64_t region_start = (tier == FASTMEM) ? region->dram_offset_start : region->nvm_offset_start;
+    uint64_t region_size = (tier == FASTMEM) ? region->dram_size : region->nvm_size;
+    if (region_size > 0) {
+      uint64_t region_end = region_start + region_size;
+      if (offset < region_start || offset + pagesize > region_end) {
+        fprintf(stderr,
+                "HeMem: %s: offset 0x%lx outside region %d %s partition [0x%lx-0x%lx)\n",
+                ctx,
+                offset,
+                region->id,
+                tier_name,
+                region_start,
+                region_end);
+        fflush(stderr);
+        abort();
+      }
+    }
+  }
+#endif
+
+  if (debug_validate_offsets) {
+    fprintf(stderr,
+            "HeMem: validate[%s] tier=%s offset=0x%lx size=0x%lx limit=0x%lx",
+            ctx,
+            tier_name,
+            offset,
+            pagesize,
+            limit);
+    if (page != NULL) {
+      fprintf(stderr,
+              " page=%p va=0x%lx in_dram=%d",
+              (void*)page,
+              page->va,
+              page->in_dram);
+#ifdef ALLOC_RUNTIME
+      if (page->region != NULL) {
+        fprintf(stderr, " region=%d", page->region->id);
+      }
+#endif
+    }
+    fprintf(stderr, "\n");
+    fflush(stderr);
+  }
+}
 
 #ifndef USE_DMA
 struct pmemcpy {
@@ -258,6 +382,11 @@ void hemem_init()
   if (statsf == NULL) {
     perror("stats file fopen\n");
     assert(0);
+  }
+
+  debug_validate_offsets = hemem_env_truthy(getenv("HEMEM_DEBUG_VALIDATE"));
+  if (debug_validate_offsets) {
+    fprintf(stderr, "HeMem: offset validation debug enabled (HEMEM_DEBUG_VALIDATE)\n");
   }
 
   char* min_interpose_mem_size_string = getenv("MIN_INTERPOSE_MEM_SIZE");
@@ -438,6 +567,11 @@ static void hemem_mmap_populate(void* addr, size_t length)
     offset = page->devdax_offset;
     in_dram = page->in_dram;
     pagesize = pt_to_pagesize(page->pt);
+
+  hemem_debug_validate_offset("hemem_mmap_populate", page,
+                 in_dram ? FASTMEM : SLOWMEM,
+                 offset,
+                 pagesize);
 
     tmpaddr = (in_dram ? dram_devdax_mmap + offset : nvm_devdax_mmap + offset);
 #ifndef USE_DMA
@@ -682,13 +816,11 @@ void hemem_migrate_up(struct hemem_page *page, uint64_t dram_offset)
   old_addr_offset = page->devdax_offset;
   new_addr_offset = dram_offset;
 
+  hemem_debug_validate_offset("hemem_migrate_up:source", page, SLOWMEM, old_addr_offset, pagesize);
   old_addr = nvm_devdax_mmap + old_addr_offset;
-  assert((uint64_t)old_addr_offset < nvmsize);
-  assert((uint64_t)old_addr_offset + pagesize <= nvmsize);
 
+  hemem_debug_validate_offset("hemem_migrate_up:target", page, FASTMEM, new_addr_offset, pagesize);
   new_addr = dram_devdax_mmap + new_addr_offset;
-  assert((uint64_t)new_addr_offset < dramsize);
-  assert((uint64_t)new_addr_offset + pagesize <= dramsize);
 
   // copy page from faulting location to temp location
   gettimeofday(&start, NULL);
@@ -797,13 +929,11 @@ void hemem_migrate_down(struct hemem_page *page, uint64_t nvm_offset)
   old_addr_offset = page->devdax_offset;
   new_addr_offset = nvm_offset;
 
+  hemem_debug_validate_offset("hemem_migrate_down:source", page, FASTMEM, old_addr_offset, pagesize);
   old_addr = dram_devdax_mmap + old_addr_offset;
-  assert((uint64_t)old_addr_offset < dramsize);
-  assert((uint64_t)old_addr_offset + pagesize <= dramsize);
 
+  hemem_debug_validate_offset("hemem_migrate_down:target", page, SLOWMEM, new_addr_offset, pagesize);
   new_addr = nvm_devdax_mmap + new_addr_offset;
-  assert((uint64_t)new_addr_offset < nvmsize);
-  assert((uint64_t)new_addr_offset + pagesize <= nvmsize);
 
   // copy page from faulting location to temp location
   gettimeofday(&start, NULL);

@@ -821,6 +821,11 @@ void promote_to_free_dram_page(struct hemem_page *p, struct hemem_page *np)
     return;
   }
 
+  hemem_debug_validate_offset("promote_to_free_dram_page:hot_nvm", p, SLOWMEM,
+                               p->devdax_offset, pt_to_pagesize(p->pt));
+  hemem_debug_validate_offset("promote_to_free_dram_page:free_dram", np, FASTMEM,
+                               np->devdax_offset, pt_to_pagesize(np->pt));
+
   old_offset = p->devdax_offset;
   pebs_migrate_up(p, np->devdax_offset);
   // We can release the lock now that migration is complete
@@ -831,6 +836,9 @@ void promote_to_free_dram_page(struct hemem_page *p, struct hemem_page *np)
   np->in_dram = false;
   np->present = false;
   reset_page_access_fields(np);
+
+  hemem_debug_validate_offset("promote_to_free_dram_page:recycled_nvm", np, SLOWMEM,
+                               np->devdax_offset, pt_to_pagesize(np->pt));
 
   enqueue_fifo(&nvm_free_list, np);
 }
@@ -848,6 +856,11 @@ bool demote_to_free_nvm_page(struct hemem_page *cp, struct hemem_page *np)
     return false;
   }
 
+  hemem_debug_validate_offset("demote_to_free_nvm_page:hot_dram", cp, FASTMEM,
+                               cp->devdax_offset, pt_to_pagesize(cp->pt));
+  hemem_debug_validate_offset("demote_to_free_nvm_page:free_nvm", np, SLOWMEM,
+                               np->devdax_offset, pt_to_pagesize(np->pt));
+
   old_offset = cp->devdax_offset;
   pebs_migrate_down(cp, np->devdax_offset);
 
@@ -858,6 +871,9 @@ bool demote_to_free_nvm_page(struct hemem_page *cp, struct hemem_page *np)
   np->in_dram = true;
   np->present = false;
   reset_page_access_fields(np);
+
+  hemem_debug_validate_offset("demote_to_free_nvm_page:recycled_dram", np, FASTMEM,
+                               np->devdax_offset, pt_to_pagesize(np->pt));
 
   // Don't add the page to the free list because
   // it will be used immediately after
@@ -1329,6 +1345,9 @@ static struct hemem_page* pebs_allocate_page()
     assert(page->in_dram);
     assert(!page->present);
 
+    hemem_debug_validate_offset("pebs_allocate_page:dram", page, FASTMEM,
+                                 page->devdax_offset, pt_to_pagesize(page->pt));
+
     page->present = true;
     //enqueue_fifo(&dram_cold_list, page);
 
@@ -1343,6 +1362,9 @@ static struct hemem_page* pebs_allocate_page()
   if (page != NULL) {
     assert(!page->in_dram);
     assert(!page->present);
+
+    hemem_debug_validate_offset("pebs_allocate_page:nvm", page, SLOWMEM,
+                                 page->devdax_offset, pt_to_pagesize(page->pt));
 
     page->present = true;
     //enqueue_fifo(&nvm_cold_list, page);

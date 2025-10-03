@@ -4,6 +4,8 @@
 #include <pthread.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <stddef.h>
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -19,6 +21,10 @@
 #ifdef ALLOC_RUNTIME
 
 #define MAX_HEMEM_REGIONS 16
+#define HEMEM_ENV_GLOBAL_POLICY "GLOBAL_HEMEM_POLICY"
+#define HEMEM_ENV_LEGACY_POLICY "HEMEM_POLICY"
+#define HEMEM_ENV_VA_MAP "HEMEM_REGION_VA_MAP"
+#define HEMEM_ENV_PHYS_MAP "HEMEM_REGION_PHYS_MAP"
 
 KHASH_MAP_INIT_INT64(hemem_va_map, struct hemem_page*)
 
@@ -74,6 +80,203 @@ static uint32_t policy_usage[HEMEM_POLICY_COUNT];
 static bool policy_initialized[HEMEM_POLICY_COUNT];
 
 struct hemem_policy_ops;
+
+struct region_phys_assignment {
+  int id;
+  uint64_t dram_size;
+  uint64_t nvm_size;
+};
+
+static const struct hemem_policy_ops* policy_by_name(const char *name);
+static char *trim(char *s);
+static uint64_t parse_u64(const char *s);
+static void add_region_locked(uint64_t start, uint64_t end, const struct hemem_policy_ops *policy, const char *label, int region_id);
+
+static uint64_t parse_size_with_suffix(const char *input)
+{
+  if (input == NULL || *input == '\0') {
+    return 0;
+  }
+
+  char *endptr = NULL;
+  errno = 0;
+  unsigned long long base = strtoull(input, &endptr, 0);
+  if (errno != 0) {
+    fprintf(stderr, "HeMem: failed to parse size '%s' (%s)\n", input, strerror(errno));
+    return 0;
+  }
+
+  uint64_t multiplier = 1;
+  if (endptr != NULL) {
+    if (strcasecmp(endptr, "G") == 0) {
+      multiplier = 1ULL << 30;
+    } else if (strcasecmp(endptr, "M") == 0) {
+      multiplier = 1ULL << 20;
+    } else if (strcasecmp(endptr, "K") == 0) {
+      multiplier = 1ULL << 10;
+    } else if (*endptr == '\0' || strcasecmp(endptr, "B") == 0) {
+      multiplier = 1ULL;
+    } else {
+      fprintf(stderr, "HeMem: unknown size suffix '%s' in '%s'\n", endptr, input);
+      return 0;
+    }
+  }
+
+  return base * multiplier;
+}
+
+static int parse_region_id(const char *token)
+{
+  if (token == NULL || *token == '\0') {
+    return -1;
+  }
+  errno = 0;
+  long value = strtol(token, NULL, 10);
+  if (errno != 0 || value < 0 || value > INT32_MAX) {
+    fprintf(stderr, "HeMem: invalid region id '%s'\n", token);
+    return -1;
+  }
+  return (int)value;
+}
+
+static size_t parse_phys_partitions(const char *spec, struct region_phys_assignment *assignments, size_t max_assignments)
+{
+  if (spec == NULL || *spec == '\0') {
+    return 0;
+  }
+
+  size_t count = 0;
+  char *mutable_spec = strdup(spec);
+  if (mutable_spec == NULL) {
+    fprintf(stderr, "HeMem: failed to duplicate physical partition spec\n");
+    return 0;
+  }
+
+  char *cursor = mutable_spec;
+  while (cursor != NULL && *cursor != '\0' && count < max_assignments) {
+    char *next = strstr(cursor, "::");
+    if (next != NULL) {
+      *next = '\0';
+    }
+
+    char *entry = trim(cursor);
+    if (*entry != '\0') {
+      char *component_buffer = strdup(entry);
+      if (component_buffer == NULL) {
+        fprintf(stderr, "HeMem: failed to duplicate region partition token\n");
+        break;
+      }
+
+      char *saveptr_field = NULL;
+      char *id_token = strtok_r(component_buffer, ":", &saveptr_field);
+      char *dram_token = strtok_r(NULL, ":", &saveptr_field);
+      char *nvm_token = strtok_r(NULL, ":", &saveptr_field);
+
+      if (id_token != NULL) id_token = trim(id_token);
+      if (dram_token != NULL) dram_token = trim(dram_token);
+      if (nvm_token != NULL) nvm_token = trim(nvm_token);
+
+      if (id_token == NULL || dram_token == NULL || nvm_token == NULL || *id_token == '\0' || *dram_token == '\0' || *nvm_token == '\0') {
+        fprintf(stderr, "HeMem: invalid physical partition entry '%s'\n", entry);
+        free(component_buffer);
+      } else {
+        int region_id = parse_region_id(id_token);
+        if (region_id >= 0) {
+          uint64_t dram_size = parse_size_with_suffix(dram_token);
+          uint64_t nvm_size = parse_size_with_suffix(nvm_token);
+
+          assignments[count].id = region_id;
+          assignments[count].dram_size = dram_size;
+          assignments[count].nvm_size = nvm_size;
+          count++;
+        }
+        free(component_buffer);
+      }
+    }
+
+    if (next == NULL) {
+      break;
+    }
+    cursor = next + 2;
+  }
+
+  free(mutable_spec);
+  return count;
+}
+
+static size_t parse_va_regions(const char *spec)
+{
+  if (spec == NULL || *spec == '\0') {
+    return 0;
+  }
+
+  size_t added = 0;
+  char *mutable_spec = strdup(spec);
+  if (mutable_spec == NULL) {
+    fprintf(stderr, "HeMem: failed to duplicate VA region spec\n");
+    return 0;
+  }
+
+  char *cursor = mutable_spec;
+  while (cursor != NULL && *cursor != '\0') {
+    char *next = strstr(cursor, "::");
+    if (next != NULL) {
+      *next = '\0';
+    }
+
+    char *entry = trim(cursor);
+    if (*entry != '\0') {
+      char *component_buffer = strdup(entry);
+      if (component_buffer == NULL) {
+        fprintf(stderr, "HeMem: failed to duplicate VA region token\n");
+        break;
+      }
+
+      char *saveptr_field = NULL;
+      char *id_token = strtok_r(component_buffer, ":", &saveptr_field);
+      char *policy_token = strtok_r(NULL, ":", &saveptr_field);
+      char *start_token = strtok_r(NULL, ":", &saveptr_field);
+      char *end_token = strtok_r(NULL, ":", &saveptr_field);
+
+      if (id_token != NULL) id_token = trim(id_token);
+      if (policy_token != NULL) policy_token = trim(policy_token);
+      if (start_token != NULL) start_token = trim(start_token);
+      if (end_token != NULL) end_token = trim(end_token);
+
+      if (id_token == NULL || policy_token == NULL || start_token == NULL || end_token == NULL ||
+          *id_token == '\0' || *policy_token == '\0' || *start_token == '\0' || *end_token == '\0') {
+        fprintf(stderr, "HeMem: invalid VA region entry '%s'\n", entry);
+        free(component_buffer);
+      } else {
+        int region_id = parse_region_id(id_token);
+        if (region_id >= 0) {
+          const struct hemem_policy_ops *policy = policy_by_name(policy_token);
+          if (policy == NULL) {
+            fprintf(stderr, "HeMem: unknown policy '%s' in VA map\n", policy_token);
+          } else {
+            uint64_t start = parse_u64(start_token);
+            uint64_t end = parse_u64(end_token);
+            if (end <= start) {
+              fprintf(stderr, "HeMem: invalid VA range [%s-%s]\n", start_token, end_token);
+            } else {
+              add_region_locked(start, end, policy, policy->name, region_id);
+              added++;
+            }
+          }
+        }
+        free(component_buffer);
+      }
+    }
+
+    if (next == NULL) {
+      break;
+    }
+    cursor = next + 2;
+  }
+
+  free(mutable_spec);
+  return added;
+}
 
 static void ensure_page_table(void)
 {
@@ -229,7 +432,7 @@ static uint64_t parse_u64(const char *s)
   return value;
 }
 
-static void add_region_locked(uint64_t start, uint64_t end, const struct hemem_policy_ops *policy, const char *label)
+static void add_region_locked(uint64_t start, uint64_t end, const struct hemem_policy_ops *policy, const char *label, int region_id)
 {
   if (policy == NULL) {
     return;
@@ -253,14 +456,47 @@ static void add_region_locked(uint64_t start, uint64_t end, const struct hemem_p
     return;
   }
 
+  int resolved_id = region_id;
   if (region_count >= MAX_HEMEM_REGIONS) {
     fprintf(stderr, "HeMem: region table full, cannot register [%lx-%lx)\n", start, end);
     return;
   }
 
+  if (resolved_id < 0) {
+    resolved_id = (int)region_count;
+    bool unique = false;
+    while (!unique) {
+      unique = true;
+      for (size_t i = 0; i < region_count; i++) {
+        if (regions[i].id == resolved_id) {
+          resolved_id++;
+          unique = false;
+          break;
+        }
+      }
+    }
+  } else {
+    for (size_t i = 0; i < region_count; i++) {
+      if (regions[i].id == resolved_id) {
+        fprintf(stderr, "HeMem: duplicate region id %d ignored\n", resolved_id);
+        return;
+      }
+    }
+  }
+
+  for (size_t i = 0; i < region_count; i++) {
+    if (!(end <= regions[i].start || start >= regions[i].end)) {
+      fprintf(stderr, "HeMem: VA region [%lx-%lx) overlaps with existing region %d [%lx-%lx)\n",
+              start, end, regions[i].id, regions[i].start, regions[i].end);
+      return;
+    }
+  }
+
+  memset(&regions[region_count], 0, sizeof(regions[region_count]));
   regions[region_count].start = start;
   regions[region_count].end = end;
   regions[region_count].policy = policy;
+  regions[region_count].id = resolved_id;
   if (label != NULL) {
     snprintf(regions[region_count].label, sizeof(regions[region_count].label), "%s", label);
   } else {
@@ -278,7 +514,7 @@ static void register_default_region_locked(void)
     }
   }
   const struct hemem_policy_ops *policy = policy_by_kind(HEMEM_POLICY_PEBs);
-  add_region_locked(0, UINT64_MAX, policy, "default");
+  add_region_locked(0, UINT64_MAX, policy, "default", -1);
 }
 
 static void parse_region_spec_locked(const char *spec)
@@ -338,7 +574,7 @@ static void parse_region_spec_locked(const char *spec)
       continue;
     }
 
-    add_region_locked(start, end, policy, policy->name);
+  add_region_locked(start, end, policy, policy->name, -1);
     token = strtok(NULL, ",;");
   }
 
@@ -371,7 +607,7 @@ int hemem_region_register(uint64_t start, uint64_t end, enum hemem_policy_kind k
     return -EINVAL;
   }
   size_t prev_count = region_count;
-  add_region_locked(start, end, policy, label);
+  add_region_locked(start, end, policy, label, -1);
   if (region_count == prev_count) {
     pthread_mutex_unlock(&regions_lock);
     return -ENOSPC;
@@ -389,104 +625,144 @@ void hemem_regions_bootstrap(void)
 {
   pthread_mutex_lock(&regions_lock);
   if (!regions_bootstrapped) {
-    // Check for simple single-policy configuration first
-    const char *simple_policy = getenv("HEMEM_POLICY");
-    if (simple_policy != NULL && *simple_policy != '\0') {
-      // User specified a single policy for entire VA space
-      const struct hemem_policy_ops *policy = policy_by_name(simple_policy);
+    const char *global_policy_env = getenv(HEMEM_ENV_GLOBAL_POLICY);
+    if (global_policy_env == NULL || *global_policy_env == '\0') {
+      global_policy_env = getenv(HEMEM_ENV_LEGACY_POLICY);
+    }
+
+    if (global_policy_env != NULL && *global_policy_env != '\0') {
+      const struct hemem_policy_ops *policy = policy_by_name(global_policy_env);
       if (policy != NULL) {
-        add_region_locked(0, UINT64_MAX, policy, simple_policy);
-        LOG("HeMem: Using single policy '%s' for entire VA space (via HEMEM_POLICY)\n", simple_policy);
+        add_region_locked(0, UINT64_MAX, policy, global_policy_env, 0);
+        fprintf(stderr, "HeMem: Using single policy '%s' for entire VA/physical space (env override)\n", global_policy_env);
       } else {
-        fprintf(stderr, "HeMem: Unknown policy '%s' in HEMEM_POLICY, falling back to default\n", simple_policy);
-        register_default_region_locked();
+        fprintf(stderr, "HeMem: Unknown policy '%s' in %s, falling back to defaults\n", global_policy_env, HEMEM_ENV_GLOBAL_POLICY);
       }
-    } else {
-      // Use multi-region configuration via HEMEM_REGIONS
-      const char *spec = getenv("HEMEM_REGIONS");
-      parse_region_spec_locked(spec);
+    }
+
+    if (region_count == 0) {
+      const char *va_spec = getenv(HEMEM_ENV_VA_MAP);
+      if (va_spec != NULL && *va_spec != '\0') {
+        parse_va_regions(va_spec);
+      }
+    }
+
+    if (region_count == 0) {
+      const char *legacy_spec = getenv("HEMEM_REGIONS");
+      if (legacy_spec != NULL && *legacy_spec != '\0') {
+        parse_region_spec_locked(legacy_spec);
+      }
+    }
+
+    if (region_count == 0) {
       register_default_region_locked();
     }
+
     sort_regions_locked();
-    
-    // Calculate total virtual address space for each policy
-    // (excluding catchall regions to avoid overflow)
-    uint64_t policy_va_sizes[HEMEM_POLICY_COUNT] = {0};
-    for (size_t i = 0; i < region_count; i++) {
-      if (regions[i].policy != NULL) {
-        // Skip catchall regions in proportion calculation
-        if (regions[i].start == 0 && regions[i].end == UINT64_MAX) {
-          continue;
-        }
-        uint64_t region_size = regions[i].end - regions[i].start;
-        policy_va_sizes[regions[i].policy->kind] += region_size;
-      }
+
+  struct region_phys_assignment assignments[MAX_HEMEM_REGIONS] = {0};
+    size_t assignment_count = 0;
+    const char *phys_spec = getenv(HEMEM_ENV_PHYS_MAP);
+    if (phys_spec != NULL && *phys_spec != '\0') {
+      assignment_count = parse_phys_partitions(phys_spec, assignments, MAX_HEMEM_REGIONS);
     }
-    
-    // Calculate total available physical memory
+
+    for (size_t i = 0; i < region_count; i++) {
+      regions[i].dram_offset_start = 0;
+      regions[i].dram_size = 0;
+      regions[i].nvm_offset_start = 0;
+      regions[i].nvm_size = 0;
+    }
+
     uint64_t total_dram = dramsize;
     uint64_t total_nvm = nvmsize;
-    uint64_t total_va = 0;
-    for (size_t i = 0; i < HEMEM_POLICY_COUNT; i++) {
-      total_va += policy_va_sizes[i];
+    uint64_t dram_consumed = 0;
+    uint64_t nvm_consumed = 0;
+
+    for (size_t i = 0; i < assignment_count; i++) {
+      bool matched = false;
+      for (size_t j = 0; j < region_count; j++) {
+        if (regions[j].id == assignments[i].id) {
+          matched = true;
+          uint64_t dram_size = assignments[i].dram_size;
+          uint64_t nvm_size = assignments[i].nvm_size;
+
+          dram_size = (dram_size / PAGE_SIZE) * PAGE_SIZE;
+          nvm_size = (nvm_size / PAGE_SIZE) * PAGE_SIZE;
+
+          if (dram_consumed + dram_size > total_dram) {
+            fprintf(stderr, "HeMem: DRAM assignment for region %d truncated to available memory\n", regions[j].id);
+            dram_size = (total_dram > dram_consumed) ? (total_dram - dram_consumed) : 0;
+          }
+          if (nvm_consumed + nvm_size > total_nvm) {
+            fprintf(stderr, "HeMem: NVM assignment for region %d truncated to available memory\n", regions[j].id);
+            nvm_size = (total_nvm > nvm_consumed) ? (total_nvm - nvm_consumed) : 0;
+          }
+
+          regions[j].dram_offset_start = dram_consumed;
+          regions[j].dram_size = dram_size;
+          regions[j].nvm_offset_start = nvm_consumed;
+          regions[j].nvm_size = nvm_size;
+
+          dram_consumed += dram_size;
+          nvm_consumed += nvm_size;
+          break;
+        }
+      }
+      if (!matched) {
+        fprintf(stderr, "HeMem: physical partition references unknown region id %d\n", assignments[i].id);
+      }
     }
-    
-    // Partition physical memory proportionally to virtual address space
-    // (or equally if total_va is 0 or very large)
-    uint64_t dram_offset = 0;
-    uint64_t nvm_offset = 0;
-    
+
+    size_t remaining_regions = 0;
     for (size_t i = 0; i < region_count; i++) {
-      if (regions[i].policy == NULL) continue;
-      
-      uint64_t region_va_size = regions[i].end - regions[i].start;
-      uint64_t region_dram_size, region_nvm_size;
-      
-      // If this is a catchall region (0 to UINT64_MAX), give it all remaining memory
-      if (regions[i].start == 0 && regions[i].end == UINT64_MAX) {
-        region_dram_size = total_dram - dram_offset;
-        region_nvm_size = total_nvm - nvm_offset;
+      if (regions[i].dram_size == 0 && regions[i].nvm_size == 0) {
+        remaining_regions++;
       }
-      // Otherwise, allocate proportionally
-      else if (total_va > 0 && total_va < (UINT64_MAX / 2)) {
-        // Proportional allocation
-        region_dram_size = (region_va_size * total_dram) / total_va;
-        region_nvm_size = (region_va_size * total_nvm) / total_va;
-        
-        // Ensure we don't exceed available memory
-        if (dram_offset + region_dram_size > total_dram) {
-          region_dram_size = total_dram - dram_offset;
+    }
+
+    uint64_t remaining_dram = (dram_consumed < total_dram) ? (total_dram - dram_consumed) : 0;
+    uint64_t remaining_nvm = (nvm_consumed < total_nvm) ? (total_nvm - nvm_consumed) : 0;
+
+    for (size_t i = 0; i < region_count; i++) {
+      if (regions[i].dram_size == 0 && regions[i].nvm_size == 0) {
+        if (remaining_regions > 0) {
+          uint64_t dram_share = remaining_dram / remaining_regions;
+          uint64_t nvm_share = remaining_nvm / remaining_regions;
+
+          dram_share = (dram_share / PAGE_SIZE) * PAGE_SIZE;
+          nvm_share = (nvm_share / PAGE_SIZE) * PAGE_SIZE;
+
+          regions[i].dram_offset_start = dram_consumed;
+          regions[i].dram_size = dram_share;
+          regions[i].nvm_offset_start = nvm_consumed;
+          regions[i].nvm_size = nvm_share;
+
+          dram_consumed += dram_share;
+          nvm_consumed += nvm_share;
+          if (remaining_dram >= dram_share) {
+            remaining_dram -= dram_share;
+          } else {
+            remaining_dram = 0;
+          }
+          if (remaining_nvm >= nvm_share) {
+            remaining_nvm -= nvm_share;
+          } else {
+            remaining_nvm = 0;
+          }
         }
-        if (nvm_offset + region_nvm_size > total_nvm) {
-          region_nvm_size = total_nvm - nvm_offset;
+        if (remaining_regions > 0) {
+          remaining_regions--;
         }
       }
-      else {
-        // Equal split among regions
-        uint64_t regions_remaining = region_count - i;
-        region_dram_size = (total_dram - dram_offset) / regions_remaining;
-        region_nvm_size = (total_nvm - nvm_offset) / regions_remaining;
-      }
-      
-      // Align to page boundaries
-      region_dram_size = (region_dram_size / PAGE_SIZE) * PAGE_SIZE;
-      region_nvm_size = (region_nvm_size / PAGE_SIZE) * PAGE_SIZE;
-      
-      regions[i].dram_offset_start = dram_offset;
-      regions[i].dram_size = region_dram_size;
-      regions[i].nvm_offset_start = nvm_offset;
-      regions[i].nvm_size = region_nvm_size;
-      
-      dram_offset += region_dram_size;
-      nvm_offset += region_nvm_size;
-      
-      fprintf(stderr, "HeMem: Region %zu [%s] VA:[0x%lx-0x%lx) -> DRAM:[0x%lx-0x%lx) NVM:[0x%lx-0x%lx)\n",
-              i, regions[i].label,
+
+      fprintf(stderr, "HeMem: Region id=%d label=%s VA:[0x%lx-0x%lx) -> DRAM:[0x%lx-0x%lx) NVM:[0x%lx-0x%lx)\n",
+              regions[i].id, regions[i].label,
               regions[i].start, regions[i].end,
               regions[i].dram_offset_start, regions[i].dram_offset_start + regions[i].dram_size,
               regions[i].nvm_offset_start, regions[i].nvm_offset_start + regions[i].nvm_size);
     }
-    
+
     regions_bootstrapped = true;
   }
   pthread_mutex_unlock(&regions_lock);

@@ -237,7 +237,7 @@ void *lru_kscand()
     }
 
     pthread_mutex_lock(&global_lock);
-    fprintf(stderr, "[LRU-DEBUG] kscand: starting scan\n");
+    //fprintf(stderr, "[LRU-DEBUG] kscand: starting scan\n");
 
     gettimeofday(&start, NULL);
 
@@ -265,12 +265,12 @@ void *lru_kscand()
     gettimeofday(&end, NULL);
 
     LOG_TIME("scan: %f s\n", elapsed(&start, &end));
-    fprintf(stderr, "[LRU-DEBUG] kscand: completed scan, active=%lu inactive=%lu\n",
-            active_list.numentries, inactive_list.numentries);
+    //fprintf(stderr, "[LRU-DEBUG] kscand: completed scan, active=%lu inactive=%lu\n",
+            //active_list.numentries, inactive_list.numentries);
     pthread_mutex_unlock(&global_lock);
   }
 
-  fprintf(stderr, "[LRU-DEBUG] kscand: exiting\n");
+  //fprintf(stderr, "[LRU-DEBUG] kscand: exiting\n");
   return NULL;
 }
 
@@ -303,7 +303,7 @@ void *lru_kswapd()
     pthread_mutex_lock(&global_lock);
 
     gettimeofday(&start, NULL);
-    fprintf(stderr, "[LRU-DEBUG] kswapd: starting migration, target=%lu bytes\n", KSWAPD_MIGRATE_RATE);
+    //fprintf(stderr, "[LRU-DEBUG] kswapd: starting migration, target=%lu bytes\n", KSWAPD_MIGRATE_RATE);
     
     // move each active NVM page to DRAM
     for (migrated_bytes = 0; migrated_bytes < KSWAPD_MIGRATE_RATE;) {
@@ -405,7 +405,7 @@ out:
   }
 
   in_kswapd = false;
-  fprintf(stderr, "[LRU-DEBUG] kswapd: exiting\n");
+  //fprintf(stderr, "[LRU-DEBUG] kswapd: exiting\n");
   return NULL;
 }
 
@@ -616,7 +616,7 @@ void lru_init(uint64_t dram_offset, uint64_t dram_size, uint64_t nvm_offset, uin
 
 void lru_shutdown(void)
 {
-  fprintf(stderr, "[LRU-DEBUG] lru_shutdown: requested\n");
+  //fprintf(stderr, "[LRU-DEBUG] lru_shutdown: requested\n");
   lru_shutdown_requested = true;
 
   if (lru_scan_thread_active) {
@@ -645,7 +645,7 @@ void lru_shutdown(void)
 
   lru_runs = 0;
   vanum = 0;
-  fprintf(stderr, "[LRU-DEBUG] lru_shutdown: completed\n");
+  //fprintf(stderr, "[LRU-DEBUG] lru_shutdown: completed\n");
 }
 
 void lru_stats()
