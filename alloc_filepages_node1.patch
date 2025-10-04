@@ -1,6 +1,21 @@
-diff --git a/autonuma-linux b/autonuma-linux
---- a/autonuma-linux
-+++ b/autonuma-linux
-@@ -1 +1 @@
--Subproject commit 26cf3cdb4019f495f354a53090db03aa6549b291
-+Subproject commit 26cf3cdb4019f495f354a53090db03aa6549b291-dirty
+diff --git a/mm/filemap.c b/mm/filemap.c
+index 15800334147b..becfbfe8d3b2 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -957,6 +957,16 @@ struct folio *filemap_alloc_folio(gfp_t gfp, unsigned int order)
+ 	int n;
+ 	struct folio *folio;
+ 
++	// Try to allocate from node 1
++	int pnid = 1;
++	folio = __folio_alloc_node(gfp | __GFP_THISNODE, order, pnid);
++	if (folio)
++		return folio;
++
++	folio = __folio_alloc_node(gfp, order, pnid);
++	if (folio)
++		return folio;
++
+ 	if (cpuset_do_page_mem_spread()) {
+ 		unsigned int cpuset_mems_cookie;
+ 		do {
