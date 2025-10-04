@@ -1,4 +1,4 @@
-# Memory Tiering Solutions - AutoNUMA Branch
+# Tiering Solutions - AutoNUMA Branch
 
 This branch contains the source of Linux v6.2 with subtle modifications to enable tiering across NUMA nodes. 
 
@@ -57,3 +57,44 @@ Reboot the system into the desired kernel:
 ```bash
 sudo grub-reboot "Advanced options for Ubuntu>Ubuntu, with Linux 6.2.0+"
 ```
+
+## Running applications with AutoNUMA
+
+Verify that you have booted into the AutoNUMA kernel.
+
+```bash
+uname -r
+```
+
+Enable AutoNUMA.
+
+```bash
+# numad will override autoNUMA, so stop it
+sudo service numad stop
+
+echo 15 > /proc/sys/vm/zone_reclaim_mode
+echo 2 > /proc/sys/kernel/numa_balancing
+echo 1 > /sys/kernel/mm/numa/demotion_enabled
+echo 200 > /proc/sys/vm/watermark_scale_factor
+
+# Optional: If you want to use MGLRU demotion rather than simple LRU demotion
+echo 0x0007 > /sys/kernel/mm/lru_gen/enabled
+```
+
+If you want to restrict the size of local memory to a smaller value than the full capacity, you can use the `memeater` module from Colloid's repo.
+
+```bash
+git clone https://github.com/host-architecture/colloid.git
+cd colloid/tpp/memeater
+make
+export local_size=... # Desired value
+sudo insmod memeater.ko sizeMiB=$(numastat -m | grep MemFree | awk -v nidx=$local_numa -v sz=$local_size '{print int($(2+nidx)-sz)}')
+```
+
+Run any workload by pinning the threads to a single NUMA node. You could use `numactl` or `taskset` for this. For example,
+
+```bash
+numactl -N0 ./app
+```
+
+You can monitor the memory usage using `numastat -m` and monitor migrations using `cat /proc/vmstat`.
