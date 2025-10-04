@@ -1,0 +1,4 @@
+[submodule "linux"]
+	path = tpp-linux
+	url = https://github.com/kevins981/linux.git
+	branch = v6.0-tpp
