@@ -1,4 +1,4 @@
 [submodule "linux"]
-	path = autonuma-linux/
+	path = autonuma-linux
 	url = https://github.com/kevins981/linux.git
 	branch = v6.2-autonuma
