@@ -6,6 +6,12 @@ This branch also includes a patch to prioritize file page allocations on a remot
 
 ## Building Linux
 
+First, initialize the submodule.
+
+```bash
+git submodule update --init
+```
+
 You could follow your own approach to build Linux kernel or use the steps below:
 
 Optional: Apply the patch if you want to measure AutoNUMA tiering performance only for anonymous pages.
