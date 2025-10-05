@@ -1,32 +1,72 @@
-# MEMTIS: Efficient Memory Tiering with Dynamic Page Classification and Page Size Determination
+# Tiering Solutions - MEMTIS branch
 
-## System configuration
-* Fedora 33 server
-* Two 20-core Intel(R) Xeon(R) Gold 5218R CPU @ 2.10GHz
-* 6 x 16GB DRAM per socket
-* 6 x 128GB Intel Optane DC Persistent Memory per socket
+This branch contains the source for Linux with MEMTIS changes. It also includes the scripts to run applications with MEMTIS.
 
-MEMTIS currently supports two system configurations
+MEMTIS supports two system configurations
 * DRAM + Intel DCPMM (used only single socket)
 * local DRAM + remote DRAM (used two socket, CXL emulation mode)
 
-## Source code information
-See linux/
+## Building Linux
 
-You have to enable CONFIG\_HTMM when compiling the linux source.
+## Building Linux
+
+First, initialize the submodule.
+
+```bash
+git submodule update --init
 ```
-make menuconfig
-...
-CONFIG_HTMM=y
-...
+
+You could follow your own approach to build Linux kernel or use the steps below:
+
+Firt, install dependencies required to build Linux.
+
+```bash
+sudo apt update
+sudo apt-get install -y git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison numactl htop tree cgroup-tools libtraceevent-dev pkg-config msr-tools
 ```
 
-### Dependencies
-There are nothing special libraries for MEMTIS itself.
+Enable kernel config flags, some are mandatory such as `CONFIG_HTMM` while others are optional.
 
-(You just need to install libraries for Linux compilation.)
+``bash
+cd autonuma-linux
 
-## For experiments
+cp /boot/config-$(uname -r) .config
+scripts/config --disable SYSTEM_REVOCATION_KEYS
+
+# Mandatory
+echo 'CONFIG_HTMM=y' >> .config
+
+echo 'CONFIG_MEMORY_HOTPLUG=y' >> .config
+echo 'CONFIG_BLK_DEV_PMEM=m' >> .config
+echo 'CONFIG_NVDIMM_PFN=y' >> .config
+echo 'CONFIG_NVDIMM_DAX=y' >> .config
+echo 'CONFIG_FS_DAX=y' >> .config
+echo 'CONFIG_DAX=y' >> .config
+echo 'CONFIG_DEV_DAX=m' >> .config
+echo 'CONFIG_DEV_DAX_PMEM=m' >> .config
+echo 'CONFIG_DEV_DAX_KMEM=m' >> .config
+echo 'CONFIG_X86_MSR=y' >> .config
+```
+
+Build Linux.
+
+```bash
+yes '' | make localmodconfig
+make -j$(nproc)
+sudo make modules_install -j$(nproc)
+sudo make install
+```
+
+Reboot the system into the desired kernel:
+
+```bash
+sudo grub-reboot "Advanced options for Ubuntu>Ubuntu, with Linux 5.15.19-htmm"
+```
+
+## Running applications with MEMTIS
+
+Verify that you have booted into MEMTIS kernel.
+
 ### Userspace scripts
 See memtis-userspace/
 
@@ -44,16 +84,11 @@ sudo daxctl reconfigure-device dax0.0 --mode=system-ram
 ...
 ```
 
-### Preparing benchmarks
-We used open-sourced benchmarks except SPECCPU2017.
-
-We provided links to each benchmark source in memtis-userspace/bench\_dir/README.md
-
-### Running benchmarks
-It is necessary to create/update a simple script for each benchmark.
+### Using the run script to run workloads
+It is necessary to create/update a simple script for each benchmark. The `memtis-userspace/bench\_cmds` directory contains the scripts for some workloads.
 If you want to execute *XSBench*, for instance, you have to create memtis-userspace/bench\_cmds/XSBench.sh.
 
-This is a sample.
+Here is a sample:
 ```
 # memtis-userspace/bench_cmds/XSBench.sh
 
@@ -76,7 +111,8 @@ export BENCH_DRAM
 
 ```
 
-#### Test
+Once the script exists in that directory, you can run the workload using the commands below:
+
 ```
 cd memtis-userspace/
 
@@ -88,26 +124,4 @@ make
 
 # run
 sudo ./scripts/run_bench.sh -B ${BENCH} -R ${MEM_CONFIG} -V ${TEST_NAME}
-## or use scripts
-sudo ./run-fig5-6-10.sh
-sudo ./run-fig7.sh
-...
 ```
-
-#### Tips for setting other tiered memory systems
-See memtis-userspace/README.md
-
-## Commit number used for artifact evaluation
-174ca88
-
-## License
-<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
-
-## Bibtex
-To be updated 
-
-## Authors
-- Taehyung Lee (Sungkyunkwan University, SKKU) <taehyunggg@skku.edu>, <taehyung.tlee@gmail.com>
-- Sumit Kumar Monga (Virginia Tech) <sumitkm@vt.edu>
-- Changwoo Min (Virginia Tech) <changwoo@vt.edu>
-- Young Ik Eom (Sungkyunkwan University, SKKU) <yieom@skku.edu>
