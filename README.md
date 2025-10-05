@@ -6,6 +6,9 @@ MEMTIS supports two system configurations
 * DRAM + Intel DCPMM (used only single socket)
 * local DRAM + remote DRAM (used two socket, CXL emulation mode)
 
+** IMPORTANT NOTE **
+This branch contains some changes for a specific node (scail-p) that we use. We make some changes (PEBS events, number of cores) to the Linux kernel to run MEMTIS on this machine. Take a look at commit `eaa3465` (Changes to Linux for scailp). You would have to make changes to run MEMTIS on your machine.
+
 ## Building Linux
 
 ## Building Linux
