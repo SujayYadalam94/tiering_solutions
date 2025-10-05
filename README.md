@@ -85,6 +85,9 @@ echo 200 > /proc/sys/vm/watermark_scale_factor
 
 # Optional: If you want to use MGLRU demotion rather than simple LRU demotion
 echo 0x0007 > /sys/kernel/mm/lru_gen/enabled
+
+# Optional: Enable Hugepages
+echo always | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
 ```
 
 If you want to restrict the size of local memory to a smaller value than the full capacity, you can use the `memeater` module from Colloid's repo.
@@ -94,7 +97,15 @@ git clone https://github.com/host-architecture/colloid.git
 cd colloid/tpp/memeater
 make
 export local_size=... # Desired value
-sudo insmod memeater.ko sizeMiB=$(numastat -m | grep MemFree | awk -v nidx=$local_numa -v sz=$local_size '{print int($(2+nidx)-sz)}')
+sudo insmod memeater.ko sizeMiB=$(numastat -m | grep MemFree | awk -v nidx=0 -v sz=$local_size '{print int($(2+nidx)-sz)}')
+```
+
+Additionally, you might want to reset kswapd stats. kswapd stops migrating if the number of migrations failures exceed a threshold. Colloid's repo again has a useful tool to reset the stats periodically.
+
+```bash
+cd colloid/tpp/kswapdrst
+make
+sudo insmod kswapdrst.ko
 ```
 
 Run any workload by pinning the threads to a single NUMA node. You could use `numactl` or `taskset` for this. For example,
