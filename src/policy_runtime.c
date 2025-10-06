@@ -72,6 +72,10 @@ static pthread_mutex_t regions_lock = PTHREAD_MUTEX_INITIALIZER;
 
 static uint32_t policy_usage[HEMEM_POLICY_COUNT];
 static bool policy_initialized[HEMEM_POLICY_COUNT];
+static uint64_t policy_dram_offset_cache[HEMEM_POLICY_COUNT];
+static uint64_t policy_dram_size_cache[HEMEM_POLICY_COUNT];
+static uint64_t policy_nvm_offset_cache[HEMEM_POLICY_COUNT];
+static uint64_t policy_nvm_size_cache[HEMEM_POLICY_COUNT];
 
 struct hemem_policy_ops;
 
@@ -412,14 +416,18 @@ void hemem_regions_bootstrap(void)
     // Calculate total virtual address space for each policy
     // (excluding catchall regions to avoid overflow)
     uint64_t policy_va_sizes[HEMEM_POLICY_COUNT] = {0};
+    bool policy_has_catchall[HEMEM_POLICY_COUNT] = {false};
+    size_t policy_region_counts[HEMEM_POLICY_COUNT] = {0};
     for (size_t i = 0; i < region_count; i++) {
       if (regions[i].policy != NULL) {
-        // Skip catchall regions in proportion calculation
+        enum hemem_policy_kind kind = regions[i].policy->kind;
+        policy_region_counts[kind]++;
         if (regions[i].start == 0 && regions[i].end == UINT64_MAX) {
+          policy_has_catchall[kind] = true;
           continue;
         }
         uint64_t region_size = regions[i].end - regions[i].start;
-        policy_va_sizes[regions[i].policy->kind] += region_size;
+        policy_va_sizes[kind] += region_size;
       }
     }
     
@@ -431,61 +439,192 @@ void hemem_regions_bootstrap(void)
       total_va += policy_va_sizes[i];
     }
     
-    // Partition physical memory proportionally to virtual address space
-    // (or equally if total_va is 0 or very large)
+    uint64_t policy_dram_consumed[HEMEM_POLICY_COUNT] = {0};
+    uint64_t policy_nvm_consumed[HEMEM_POLICY_COUNT] = {0};
+    size_t policy_regions_remaining[HEMEM_POLICY_COUNT];
+    for (size_t i = 0; i < HEMEM_POLICY_COUNT; i++) {
+      policy_regions_remaining[i] = policy_region_counts[i];
+      policy_dram_offset_cache[i] = 0;
+      policy_dram_size_cache[i] = 0;
+      policy_nvm_offset_cache[i] = 0;
+      policy_nvm_size_cache[i] = 0;
+    }
+
+    size_t active_policies = 0;
+    for (size_t kind = 0; kind < HEMEM_POLICY_COUNT; kind++) {
+      if (policy_usage[kind] > 0) {
+        active_policies++;
+      }
+    }
+
     uint64_t dram_offset = 0;
     uint64_t nvm_offset = 0;
-    
-    for (size_t i = 0; i < region_count; i++) {
-      if (regions[i].policy == NULL) continue;
-      
-      uint64_t region_va_size = regions[i].end - regions[i].start;
-      uint64_t region_dram_size, region_nvm_size;
-      
-      // If this is a catchall region (0 to UINT64_MAX), give it all remaining memory
-      if (regions[i].start == 0 && regions[i].end == UINT64_MAX) {
-        region_dram_size = total_dram - dram_offset;
-        region_nvm_size = total_nvm - nvm_offset;
+    uint64_t dram_assigned = 0;
+    uint64_t nvm_assigned = 0;
+    size_t policies_remaining = active_policies;
+
+    for (size_t kind = 0; kind < HEMEM_POLICY_COUNT; kind++) {
+      if (policy_usage[kind] == 0) {
+        continue;
       }
-      // Otherwise, allocate proportionally
-      else if (total_va > 0 && total_va < (UINT64_MAX / 2)) {
-        // Proportional allocation
-        region_dram_size = (region_va_size * total_dram) / total_va;
-        region_nvm_size = (region_va_size * total_nvm) / total_va;
-        
-        // Ensure we don't exceed available memory
-        if (dram_offset + region_dram_size > total_dram) {
-          region_dram_size = total_dram - dram_offset;
-        }
-        if (nvm_offset + region_nvm_size > total_nvm) {
-          region_nvm_size = total_nvm - nvm_offset;
-        }
+
+      size_t remaining_after = (policies_remaining > 0) ? (policies_remaining - 1) : 0;
+      bool is_catchall = policy_has_catchall[kind];
+      uint64_t dram_share = 0;
+      uint64_t nvm_share = 0;
+
+      if (is_catchall) {
+        dram_share = (total_dram > dram_assigned) ? (total_dram - dram_assigned) : 0;
+        nvm_share = (total_nvm > nvm_assigned) ? (total_nvm - nvm_assigned) : 0;
+      } else if (total_va > 0 && total_va < (UINT64_MAX / 2) && policy_va_sizes[kind] > 0) {
+        dram_share = (policy_va_sizes[kind] * total_dram) / total_va;
+        nvm_share = (policy_va_sizes[kind] * total_nvm) / total_va;
+      } else {
+        size_t divisor = (remaining_after + 1) ? (remaining_after + 1) : 1;
+        uint64_t dram_remaining = (total_dram > dram_assigned) ? (total_dram - dram_assigned) : 0;
+        uint64_t nvm_remaining = (total_nvm > nvm_assigned) ? (total_nvm - nvm_assigned) : 0;
+        dram_share = (divisor > 0) ? (dram_remaining / divisor) : dram_remaining;
+        nvm_share = (divisor > 0) ? (nvm_remaining / divisor) : nvm_remaining;
       }
-      else {
-        // Equal split among regions
-        uint64_t regions_remaining = region_count - i;
-        region_dram_size = (total_dram - dram_offset) / regions_remaining;
-        region_nvm_size = (total_nvm - nvm_offset) / regions_remaining;
-      }
-      
+
       // Align to page boundaries
+      dram_share = (dram_share / PAGE_SIZE) * PAGE_SIZE;
+      nvm_share = (nvm_share / PAGE_SIZE) * PAGE_SIZE;
+
+      uint64_t dram_remaining = (total_dram > dram_assigned) ? (total_dram - dram_assigned) : 0;
+      uint64_t nvm_remaining = (total_nvm > nvm_assigned) ? (total_nvm - nvm_assigned) : 0;
+
+      if (remaining_after == 0) {
+        dram_share = dram_remaining;
+        nvm_share = nvm_remaining;
+      } else {
+        if (dram_share > dram_remaining) {
+          dram_share = dram_remaining;
+        }
+        if (nvm_share > nvm_remaining) {
+          nvm_share = nvm_remaining;
+        }
+        if (dram_share == 0 && dram_remaining >= PAGE_SIZE) {
+          dram_share = PAGE_SIZE;
+        }
+        if (nvm_share == 0 && nvm_remaining >= PAGE_SIZE) {
+          nvm_share = PAGE_SIZE;
+        }
+        if (dram_share == 0 && dram_remaining > 0 && dram_remaining < PAGE_SIZE) {
+          dram_share = dram_remaining;
+        }
+        if (nvm_share == 0 && nvm_remaining > 0 && nvm_remaining < PAGE_SIZE) {
+          nvm_share = nvm_remaining;
+        }
+      }
+
+  policy_dram_offset_cache[kind] = dram_offset;
+  policy_dram_size_cache[kind] = dram_share;
+  policy_nvm_offset_cache[kind] = nvm_offset;
+  policy_nvm_size_cache[kind] = nvm_share;
+
+      dram_offset += dram_share;
+      nvm_offset += nvm_share;
+      dram_assigned += dram_share;
+      nvm_assigned += nvm_share;
+
+      if (policies_remaining > 0) {
+        policies_remaining--;
+      }
+    }
+
+    for (size_t i = 0; i < region_count; i++) {
+      if (regions[i].policy == NULL) {
+        continue;
+      }
+
+      enum hemem_policy_kind kind = regions[i].policy->kind;
+  uint64_t policy_dram_total = policy_dram_size_cache[kind];
+  uint64_t policy_nvm_total = policy_nvm_size_cache[kind];
+      uint64_t dram_remaining = (policy_dram_total > policy_dram_consumed[kind]) ? (policy_dram_total - policy_dram_consumed[kind]) : 0;
+      uint64_t nvm_remaining = (policy_nvm_total > policy_nvm_consumed[kind]) ? (policy_nvm_total - policy_nvm_consumed[kind]) : 0;
+      size_t remaining_regions = policy_regions_remaining[kind];
+
+      uint64_t region_dram_size = 0;
+      uint64_t region_nvm_size = 0;
+
+      bool is_catchall_region = (regions[i].start == 0 && regions[i].end == UINT64_MAX);
+      uint64_t region_va_size = is_catchall_region ? 0 : (regions[i].end - regions[i].start);
+
+      if (remaining_regions == 0) {
+        remaining_regions = 1;
+      }
+
+      if (dram_remaining == 0) {
+        region_dram_size = 0;
+      } else if (remaining_regions == 1 || (is_catchall_region && policy_has_catchall[kind])) {
+        region_dram_size = dram_remaining;
+      } else if (policy_va_sizes[kind] > 0 && total_va < (UINT64_MAX / 2) && !is_catchall_region) {
+        region_dram_size = (region_va_size * policy_dram_total) / policy_va_sizes[kind];
+      } else {
+        region_dram_size = dram_remaining / remaining_regions;
+      }
+
+      if (region_dram_size > dram_remaining) {
+        region_dram_size = dram_remaining;
+      }
+
       region_dram_size = (region_dram_size / PAGE_SIZE) * PAGE_SIZE;
+      if (region_dram_size == 0 && dram_remaining > 0 && remaining_regions > 1) {
+        region_dram_size = (dram_remaining >= PAGE_SIZE) ? PAGE_SIZE : dram_remaining;
+      }
+      if (remaining_regions == 1) {
+        region_dram_size = (policy_dram_total >= policy_dram_consumed[kind]) ? (policy_dram_total - policy_dram_consumed[kind]) : 0;
+      }
+
+      if (region_dram_size > dram_remaining) {
+        region_dram_size = dram_remaining;
+      }
+
+      if (nvm_remaining == 0) {
+        region_nvm_size = 0;
+      } else if (remaining_regions == 1 || (is_catchall_region && policy_has_catchall[kind])) {
+        region_nvm_size = nvm_remaining;
+      } else if (policy_va_sizes[kind] > 0 && total_va < (UINT64_MAX / 2) && !is_catchall_region) {
+        region_nvm_size = (region_va_size * policy_nvm_total) / policy_va_sizes[kind];
+      } else {
+        region_nvm_size = nvm_remaining / remaining_regions;
+      }
+
+      if (region_nvm_size > nvm_remaining) {
+        region_nvm_size = nvm_remaining;
+      }
+
       region_nvm_size = (region_nvm_size / PAGE_SIZE) * PAGE_SIZE;
-      
-      regions[i].dram_offset_start = dram_offset;
+      if (region_nvm_size == 0 && nvm_remaining > 0 && remaining_regions > 1) {
+        region_nvm_size = (nvm_remaining >= PAGE_SIZE) ? PAGE_SIZE : nvm_remaining;
+      }
+      if (remaining_regions == 1) {
+        region_nvm_size = (policy_nvm_total >= policy_nvm_consumed[kind]) ? (policy_nvm_total - policy_nvm_consumed[kind]) : 0;
+      }
+
+      if (region_nvm_size > nvm_remaining) {
+        region_nvm_size = nvm_remaining;
+      }
+
+  regions[i].dram_offset_start = policy_dram_offset_cache[kind] + policy_dram_consumed[kind];
       regions[i].dram_size = region_dram_size;
-      regions[i].nvm_offset_start = nvm_offset;
+  regions[i].nvm_offset_start = policy_nvm_offset_cache[kind] + policy_nvm_consumed[kind];
       regions[i].nvm_size = region_nvm_size;
-      
-      dram_offset += region_dram_size;
-      nvm_offset += region_nvm_size;
-      
+
+      policy_dram_consumed[kind] += region_dram_size;
+      policy_nvm_consumed[kind] += region_nvm_size;
+      if (policy_regions_remaining[kind] > 0) {
+        policy_regions_remaining[kind]--;
+      }
+
       fprintf(stderr, "HeMem: Region %zu [%s] VA:[0x%lx-0x%lx) -> DRAM:[0x%lx-0x%lx) NVM:[0x%lx-0x%lx)\n",
               i, regions[i].label,
               regions[i].start, regions[i].end,
               regions[i].dram_offset_start, regions[i].dram_offset_start + regions[i].dram_size,
               regions[i].nvm_offset_start, regions[i].nvm_offset_start + regions[i].nvm_size);
     }
+
     
     regions_bootstrapped = true;
   }
@@ -502,35 +641,13 @@ void hemem_regions_bootstrap(void)
     enum hemem_policy_kind kind = policy_ops_table[i].kind;
     if (policy_usage[kind] > 0 && !policy_initialized[kind]) {
       if (policy_ops_table[i].init != NULL) {
-        // Find the first region using this policy to get memory ranges
-        // For now, we'll use the aggregate of all regions using this policy
-        uint64_t dram_start = UINT64_MAX;
-        uint64_t dram_end = 0;
-        uint64_t nvm_start = UINT64_MAX;
-        uint64_t nvm_end = 0;
-        
-        pthread_mutex_lock(&regions_lock);
-        for (size_t j = 0; j < region_count; j++) {
-          if (regions[j].policy != NULL && regions[j].policy->kind == kind) {
-            if (regions[j].dram_offset_start < dram_start) {
-              dram_start = regions[j].dram_offset_start;
-            }
-            if (regions[j].dram_offset_start + regions[j].dram_size > dram_end) {
-              dram_end = regions[j].dram_offset_start + regions[j].dram_size;
-            }
-            if (regions[j].nvm_offset_start < nvm_start) {
-              nvm_start = regions[j].nvm_offset_start;
-            }
-            if (regions[j].nvm_offset_start + regions[j].nvm_size > nvm_end) {
-              nvm_end = regions[j].nvm_offset_start + regions[j].nvm_size;
-            }
-          }
-        }
-        pthread_mutex_unlock(&regions_lock);
-        
-        uint64_t dram_size = (dram_end > dram_start) ? (dram_end - dram_start) : 0;
-        uint64_t nvm_size = (nvm_end > nvm_start) ? (nvm_end - nvm_start) : 0;
-        
+  pthread_mutex_lock(&regions_lock);
+  uint64_t dram_start = policy_dram_offset_cache[kind];
+  uint64_t dram_size = policy_dram_size_cache[kind];
+  uint64_t nvm_start = policy_nvm_offset_cache[kind];
+  uint64_t nvm_size = policy_nvm_size_cache[kind];
+  pthread_mutex_unlock(&regions_lock);
+
         if (dram_size > 0 || nvm_size > 0) {
           policy_ops_table[i].init(dram_start, dram_size, nvm_start, nvm_size);
         }
