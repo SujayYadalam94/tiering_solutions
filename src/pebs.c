@@ -158,7 +158,9 @@ static uint32_t get_imc_bw_counter_offset(enum imc_bw_counters e) {
     case DRAM_WRITES: return PCM_SERVER_IMC_DRAM_WRITES;
     case NVM_READS:   return PCM_SERVER_IMC_PMM_READS;
     case NVM_WRITES:  return PCM_SERVER_IMC_PMM_WRITES;
-    default: assert(!"Unknown IMC counter");
+    default:
+      fprintf(stderr, "ASSERT FAILED: Unknown IMC counter enum value: %d\n", (int)e);
+      assert(!"Unknown IMC counter");
   }
 }
 
@@ -309,6 +311,7 @@ static struct perf_event_mmap_page* perf_setup(__u64 config, __u64 config1, __u6
   pfd[cpu][type] = perf_event_open(&attr, -1, cpu, -1, 0);
   if(pfd[cpu][type] == -1) {
     perror("perf_event_open");
+    fprintf(stderr, "ASSERT FAILED: perf_event_open failed for cpu=%d type=%d\n", cpu, type);
   }
   assert(pfd[cpu][type] != -1);
 
@@ -316,6 +319,7 @@ static struct perf_event_mmap_page* perf_setup(__u64 config, __u64 config1, __u6
   struct perf_event_mmap_page *p = mmap(NULL, mmap_size, PROT_READ | PROT_WRITE, MAP_SHARED, pfd[cpu][type], 0);
   if(p == MAP_FAILED) {
     perror("mmap");
+    fprintf(stderr, "ASSERT FAILED: mmap failed for perf event buffer, size=%zu\n", mmap_size);
   }
   assert(p != MAP_FAILED);
 
@@ -365,6 +369,7 @@ void *pebs_scan_thread()
   int s = pthread_setaffinity_np(thread, sizeof(cpu_set_t), &cpuset);
   if (s != 0) {
     perror("pthread_setaffinity_np");
+    fprintf(stderr, "ASSERT FAILED: pthread_setaffinity_np failed with error=%d\n", s);
     assert(0);
   }
 
@@ -396,6 +401,9 @@ void *pebs_scan_thread()
         switch(ph->type) {
         case PERF_RECORD_SAMPLE:
             ps = (struct perf_sample*)ph;
+            if (ps == NULL) {
+              fprintf(stderr, "ASSERT FAILED: perf_sample is NULL for PERF_RECORD_SAMPLE\n");
+            }
             assert(ps != NULL);
             if(ps->addr != 0) {
               __u64 pfn = ps->addr & HUGE_PFN_MASK;
@@ -426,6 +434,7 @@ void *pebs_scan_thread()
           break;
         default:
           LOG_ERROR("ERROR: Unknown perf_event type %u\n", ph->type);
+          fprintf(stderr, "ASSERT FAILED: Unknown perf_event type %u at address %p\n", ph->type, (void*)ph);
           assert(0);
           break;
         }
@@ -585,6 +594,9 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
 
   // Init the (right) neightbour iterator
   kb_itr_first(kPagesTree, pages_tree, &n_itr);
+  if (!kb_itr_valid(&n_itr)) {
+    fprintf(stderr, "ASSERT FAILED: Initial B-tree iterator is invalid with pages_cnt=%zu\n", pages_cnt);
+  }
   assert(kb_itr_valid(&n_itr));
   kb_itr_next(kPagesTree, pages_tree, &n_itr);
 
@@ -625,6 +637,10 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
       moving_avg_sub(smooth_avg_v, p, &smooth_avg_cnt);
       ring_buf_get(l_neighbours);
     }
+    if (!(ring_buf_size(l_neighbours) >= 0 && ring_buf_size(l_neighbours) <= NUM_NEIGHBOURS)) {
+      fprintf(stderr, "ASSERT FAILED: l_neighbours ring buffer size=%ld out of bounds [0, %d]\n", 
+              (long)ring_buf_size(l_neighbours), NUM_NEIGHBOURS);
+    }
     assert(ring_buf_size(l_neighbours) >= 0 && ring_buf_size(l_neighbours) <= NUM_NEIGHBOURS);
 
     // Append right neighbour(s)
@@ -638,7 +654,14 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
       n_va = page->va + ((n_idx - idx) * HUGEPAGE_SIZE);
       n_entry_ptr = &kb_itr_key(page_tree_entry_t, &n_itr);
       p = n_entry_ptr->page;
+      if (p == NULL) {
+        fprintf(stderr, "ASSERT FAILED: Neighbour page is NULL in B-tree at n_idx=%zu\n", n_idx);
+      }
       assert(p != NULL);
+      if (p->va != n_entry_ptr->va) {
+        fprintf(stderr, "ASSERT FAILED: Page VA mismatch: p->va=0x%lx != n_entry_ptr->va=0x%lx\n", 
+                p->va, n_entry_ptr->va);
+      }
       assert(p->va == n_entry_ptr->va);
       
 #ifdef ALLOC_RUNTIME
@@ -1090,7 +1113,11 @@ void *pebs_policy_thread()
       else {
         int absent;
         k = kh_put(kPagesMap, pages_map, page->va, &absent);
-        assert(absent);
+        if (absent == 0) {
+          fprintf(stderr, "ASSERT FAILED: Page already exists in pages_map, VA=0x%lx\n", page->va);
+          // Skip duplicate add instead of crashing
+          continue;
+        }
         kh_value(pages_map, k) = page;
       }
 
@@ -1181,6 +1208,9 @@ void *pebs_policy_thread()
       p = scores[promote_idx].page;
 
       LOG_INFO("Promoting page %p [idx %lu] with score %f\n", p, promote_idx, scores[promote_idx].score);
+      if (p->in_dram) {
+        fprintf(stderr, "ASSERT FAILED: Attempting to promote page that is already in DRAM, VA=0x%lx\n", p->va);
+      }
       assert(!p->in_dram);
 
       if (!(p->can_promote)) {
@@ -1193,6 +1223,10 @@ void *pebs_policy_thread()
       // try to find a free DRAM page
       np = dequeue_fifo(&dram_free_list);
       if (np != NULL) {
+        if (np->present) {
+          fprintf(stderr, "ASSERT FAILED: Free DRAM page has present flag set, VA=0x%lx offset=0x%lx\n", 
+                  np->va, np->devdax_offset);
+        }
         assert(!(np->present));
         //ptimer_stop(&id_timer);
 
@@ -1239,6 +1273,13 @@ void *pebs_policy_thread()
       }
 
       cp = scores[demote_idx].page;
+      if (!cp->in_dram) {
+        fprintf(stderr, "ASSERT FAILED: Demotion candidate not in DRAM, VA=0x%lx in_dram=%d\n", 
+                cp->va, cp->in_dram);
+      }
+      if (cp->va == 0) {
+        fprintf(stderr, "ASSERT FAILED: Demotion candidate has VA=0\n");
+      }
       assert(cp->in_dram && cp->va > 0);
 
       if (!continue_migration(p, cp)) {
@@ -1326,7 +1367,15 @@ static struct hemem_page* pebs_allocate_page()
   gettimeofday(&start, NULL);
   page = dequeue_fifo(&dram_free_list);
   if (page != NULL) {
+    if (!page->in_dram) {
+      fprintf(stderr, "ASSERT FAILED: Page from DRAM free list has in_dram=false, offset=0x%lx\n", 
+              page->devdax_offset);
+    }
     assert(page->in_dram);
+    if (page->present) {
+      fprintf(stderr, "ASSERT FAILED: Page from DRAM free list has present=true, VA=0x%lx\n", 
+              page->va);
+    }
     assert(!page->present);
 
     page->present = true;
@@ -1341,7 +1390,15 @@ static struct hemem_page* pebs_allocate_page()
   // DRAM is full, fall back to NVM
   page = dequeue_fifo(&nvm_free_list);
   if (page != NULL) {
+    if (page->in_dram) {
+      fprintf(stderr, "ASSERT FAILED: Page from NVM free list has in_dram=true, offset=0x%lx\n", 
+              page->devdax_offset);
+    }
     assert(!page->in_dram);
+    if (page->present) {
+      fprintf(stderr, "ASSERT FAILED: Page from NVM free list has present=true, VA=0x%lx\n", 
+              page->va);
+    }
     assert(!page->present);
 
     page->present = true;
@@ -1353,6 +1410,7 @@ static struct hemem_page* pebs_allocate_page()
     return page;
   }
 
+  fprintf(stderr, "ASSERT FAILED: Out of memory - both DRAM and NVM free lists exhausted\n");
   assert(!"Out of memory");
 }
 
@@ -1362,6 +1420,9 @@ struct hemem_page* pebs_pagefault(void)
 
   // do the heavy lifting of finding the devdax file offset to place the page
   page = pebs_allocate_page();
+  if (page == NULL) {
+    fprintf(stderr, "ASSERT FAILED: pebs_allocate_page returned NULL\n");
+  }
   assert(page != NULL);
 
   return page;
@@ -1371,17 +1432,23 @@ void pebs_add_page(struct hemem_page *page)
 {
   int absent;
   khiter_t key;
+  if (page == NULL) {
+    fprintf(stderr, "ASSERT FAILED: pebs_add_page called with NULL page\n");
+  }
   assert(page != NULL);
   
 #ifdef ALLOC_RUNTIME
   // Validate that this page belongs to a PEBS region
   if (page->region == NULL) {
     LOG_ERROR("ERROR: Attempting to add page without region assignment to PEBS\n");
+    fprintf(stderr, "ASSERT FAILED: pebs_add_page - page->region is NULL for VA=0x%lx\n", page->va);
     assert(0);
   }
   if (page->region->policy->kind != HEMEM_POLICY_PEBs) {
     LOG_ERROR("ERROR: Attempting to add non-PEBS page (policy=%d) to PEBS tracking\n", 
               page->region->policy->kind);
+    fprintf(stderr, "ASSERT FAILED: pebs_add_page - wrong policy kind %d for VA=0x%lx\n",
+            page->region->policy->kind, page->va);
     assert(0);
   }
   // Validate VA is within region bounds
@@ -1397,6 +1464,10 @@ void pebs_add_page(struct hemem_page *page)
   // Add to the hash table
   pthread_mutex_lock(&pages_lock);
   key = kh_put(kPagesMap, pages, page->va, &absent);
+  if (!absent) {
+    fprintf(stderr, "ASSERT FAILED: pebs_add_page - page VA=0x%lx already exists in pages hash table\n", 
+            page->va);
+  }
   assert(absent);
   kh_value(pages, key) = page;
   pthread_mutex_unlock(&pages_lock);
@@ -1422,12 +1493,19 @@ struct hemem_page* pebs_find_page(uint64_t va)
 void pebs_remove_page(struct hemem_page *page)
 {
   khiter_t key;
+  if (page == NULL) {
+    fprintf(stderr, "ASSERT FAILED: pebs_remove_page called with NULL page\n");
+  }
   assert(page != NULL);
   LOG_INFO("Removing page %lu from the add_pages_ring [va: %lu]\n", (uint64_t)page, page->va);
 
   // Remove page from hash table
   pthread_mutex_lock(&pages_lock);
   key = kh_get(kPagesMap, pages, page->va);
+  if (key == kh_end(pages)) {
+    fprintf(stderr, "ASSERT FAILED: pebs_remove_page - page VA=0x%lx not found in pages hash table\n", 
+            page->va);
+  }
   assert(key != kh_end(pages));
   kh_del(kPagesMap, pages, key);
   pthread_mutex_unlock(&pages_lock);
