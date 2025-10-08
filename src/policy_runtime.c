@@ -150,7 +150,7 @@ static struct hemem_page* simple_pagefault_wrapper(uint64_t va)
 static const struct hemem_policy_ops policy_ops_table[] = {
   {
     .kind = HEMEM_POLICY_PEBs,
-    .name = "hemen",
+    .name = "hemem",
     .init = pebs_init_wrapper,
     .shutdown = pebs_shutdown_once,
     .pagefault = pebs_pagefault_wrapper,

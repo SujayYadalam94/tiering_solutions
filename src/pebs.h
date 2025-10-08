@@ -12,7 +12,7 @@
 // Logging Options
 // ==============================================================================
 //// Uncomment to enable debug logging
-#define ARMS_DEBUG
+// #define ARMS_DEBUG
 
 #define LOG_STREAM (stdout)
 
