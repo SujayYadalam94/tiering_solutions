@@ -75,6 +75,17 @@ static bool policy_initialized[HEMEM_POLICY_COUNT];
 
 struct hemem_policy_ops;
 
+// Test helper to reset region state
+void hemem_regions_reset(void) {
+  pthread_mutex_lock(&regions_lock);
+  memset(regions, 0, sizeof(regions));
+  region_count = 0;
+  regions_bootstrapped = false;
+  memset(policy_usage, 0, sizeof(policy_usage));
+  memset(policy_initialized, 0, sizeof(policy_initialized));
+  pthread_mutex_unlock(&regions_lock);
+}
+
 static void ensure_page_table(void)
 {
   if (hemem_page_table == NULL && !hemem_page_table_shutting_down) {
@@ -389,24 +400,29 @@ void hemem_regions_bootstrap(void)
 {
   pthread_mutex_lock(&regions_lock);
   if (!regions_bootstrapped) {
-    // Check for simple single-policy configuration first
-    const char *simple_policy = getenv("HEMEM_POLICY");
-    if (simple_policy != NULL && *simple_policy != '\0') {
-      // User specified a single policy for entire VA space
-      const struct hemem_policy_ops *policy = policy_by_name(simple_policy);
-      if (policy != NULL) {
-        add_region_locked(0, UINT64_MAX, policy, simple_policy);
-        LOG("HeMem: Using single policy '%s' for entire VA space (via HEMEM_POLICY)\n", simple_policy);
+    // If no regions have been registered yet, check environment variables
+    if (region_count == 0) {
+      // Check for simple single-policy configuration first
+      const char *simple_policy = getenv("HEMEM_POLICY");
+      if (simple_policy != NULL && *simple_policy != '\0') {
+        // User specified a single policy for entire VA space
+        const struct hemem_policy_ops *policy = policy_by_name(simple_policy);
+        if (policy != NULL) {
+          add_region_locked(0, UINT64_MAX, policy, simple_policy);
+          LOG("HeMem: Using single policy '%s' for entire VA space (via HEMEM_POLICY)\n", simple_policy);
+        } else {
+          fprintf(stderr, "HeMem: Unknown policy '%s' in HEMEM_POLICY, falling back to default\n", simple_policy);
+          register_default_region_locked();
+        }
       } else {
-        fprintf(stderr, "HeMem: Unknown policy '%s' in HEMEM_POLICY, falling back to default\n", simple_policy);
+        // Use multi-region configuration via HEMEM_REGIONS
+        const char *spec = getenv("HEMEM_REGIONS");
+        parse_region_spec_locked(spec);
         register_default_region_locked();
       }
-    } else {
-      // Use multi-region configuration via HEMEM_REGIONS
-      const char *spec = getenv("HEMEM_REGIONS");
-      parse_region_spec_locked(spec);
-      register_default_region_locked();
     }
+    // Otherwise, use the manually registered regions
+    
     sort_regions_locked();
     
     // Partition physical memory proportionally to virtual address space
@@ -463,6 +479,12 @@ void hemem_regions_bootstrap(void)
   HEMEM_PT_LOCK_RELEASE();
 
   ensure_page_table();
+
+  // Skip policy initialization if HEMEM_NO_THREADS is set (for testing)
+  if (getenv("HEMEM_NO_THREADS") != NULL) {
+    fprintf(stderr, "HeMem: Skipping policy thread initialization (HEMEM_NO_THREADS set)\n");
+    return;
+  }
 
   // Initialize each policy with its assigned physical memory ranges
   for (size_t i = 0; i < sizeof(policy_ops_table) / sizeof(policy_ops_table[0]); i++) {

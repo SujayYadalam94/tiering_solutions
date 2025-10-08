@@ -298,6 +298,7 @@ struct hemem_region {
 };
 
 void hemem_regions_bootstrap(void);
+void hemem_regions_reset(void);  // For testing: reset region state  
 struct hemem_region* hemem_region_lookup(uint64_t va);
 int hemem_region_register(uint64_t start, uint64_t end, enum hemem_policy_kind kind, const char *label);
 struct hemem_page* hemem_policy_pagefault(struct hemem_region *region, uint64_t va);
