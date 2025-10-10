@@ -294,6 +294,10 @@ struct hemem_policy_resources {
   struct fifo_list nvm_free_list;   // Free NVM pages for this policy
   uint64_t dram_offset_start;  // Physical offset in DAX device
   uint64_t nvm_offset_start;   // Physical offset in DAX device
+  // Per-policy migration statistics
+  uint64_t migrations_up;      // Promotions to DRAM
+  uint64_t migrations_down;    // Demotions to NVM
+  uint64_t bytes_migrated;     // Total bytes migrated by this policy
 };
 
 // Region = VA range + policy type (metadata only, no physical resources)
@@ -313,6 +317,8 @@ struct hemem_page* hemem_policy_pagefault(struct hemem_region *region, uint64_t 
 void hemem_policy_register_page(struct hemem_page *page);
 void hemem_policy_unregister_page(struct hemem_page *page);
 void hemem_policies_collect_stats(void);
+void hemem_policy_record_migration(enum hemem_policy_kind kind, bool to_dram, uint64_t bytes);
+struct hemem_policy_resources* hemem_get_policy_resources(enum hemem_policy_kind kind);  // For testing
 void hemem_policies_shutdown(void);
 struct hemem_page* hemem_page_lookup(uint64_t va);
 #endif

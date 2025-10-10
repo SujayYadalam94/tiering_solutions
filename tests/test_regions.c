@@ -271,7 +271,8 @@ bool test_bootstrap_empty_env() {
 
 /* ========================================================================
  * POLICY RESOURCE TESTS (New Architecture)
- * These tests verify that policies get allocated memory resources correctly
+ * These tests verify that policies are correctly assigned to regions
+ * AND that they receive the correct physical DRAM/NVM allocations.
  * ======================================================================== */
 
 bool test_policy_allocation_single_policy() {
@@ -302,22 +303,39 @@ bool test_policy_allocation_explicit_resources() {
   unsetenv("HEMEM_REGIONS");
   unsetenv("HEMEM_POLICY");
   
-  // Set explicit physical allocations
-  setenv("HEMEM_REGIONS", "0x0-0x200000:pebs,0x200000-0x400000:lru", 1);
-  setenv("HEMEM_REGION_PHYS", "pebs:512M:1G,lru:512M:1G", 1);
+  // Set explicit physical allocations: lru gets 512M DRAM + 1G NVM, simple gets 512M DRAM + 1G NVM
+  // Use lru and simple (not pebs) since pebs/hemem is the fallback policy
+  setenv("HEMEM_REGIONS", "0x0-0x200000:lru,0x200000-0x400000:simple", 1);
+  setenv("HEMEM_REGIONS_PHYS", "lru:512M:1G,simple:512M:1G", 1);  // Note: HEMEM_REGIONS_PHYS (with S)
   
   hemem_regions_bootstrap();
   
-  // Verify regions exist with correct policies
+  // Verify regions exist with correct VA ranges and policies
   struct hemem_region *r1 = hemem_region_lookup(0x100000);
   struct hemem_region *r2 = hemem_region_lookup(0x300000);
   
   ASSERT_NOT_NULL(r1, "Region 1 should exist");
   ASSERT_NOT_NULL(r2, "Region 2 should exist");
-  ASSERT_EQ(r1->policy_kind, HEMEM_POLICY_PEBs, "Region 1 should be PEBS");
-  ASSERT_EQ(r2->policy_kind, HEMEM_POLICY_LRU, "Region 2 should be LRU");
+  ASSERT_EQ(r1->policy_kind, HEMEM_POLICY_LRU, "Region 1 should be LRU");
+  ASSERT_EQ(r2->policy_kind, HEMEM_POLICY_SIMPLE, "Region 2 should be SIMPLE");
   
-  // Bootstrap should succeed (policies got their allocations)
+  // NOW VERIFY ACTUAL PHYSICAL ALLOCATIONS
+  struct hemem_policy_resources *lru_res = hemem_get_policy_resources(HEMEM_POLICY_LRU);
+  ASSERT_NOT_NULL(lru_res, "LRU policy resources should exist");
+  ASSERT_EQ(lru_res->dram_size, 512ULL * 1024 * 1024, "LRU should have 512M DRAM");
+  ASSERT_EQ(lru_res->nvm_size, 1024ULL * 1024 * 1024, "LRU should have 1G NVM");
+  
+  struct hemem_policy_resources *simple_res = hemem_get_policy_resources(HEMEM_POLICY_SIMPLE);
+  ASSERT_NOT_NULL(simple_res, "SIMPLE policy resources should exist");
+  ASSERT_EQ(simple_res->dram_size, 512ULL * 1024 * 1024, "SIMPLE should have 512M DRAM");
+  ASSERT_EQ(simple_res->nvm_size, 1024ULL * 1024 * 1024, "SIMPLE should have 1G NVM");
+  
+  // Fallback (PEBS/LFU/HEMEM) should get the leftover: 1GB DRAM, 2GB NVM
+  struct hemem_policy_resources *fallback_res = hemem_get_policy_resources(HEMEM_POLICY_PEBs);
+  ASSERT_NOT_NULL(fallback_res, "Fallback policy resources should exist");
+  ASSERT_EQ(fallback_res->dram_size, 1024ULL * 1024 * 1024, "Fallback should have 1GB DRAM (2GB - 1GB)");
+  ASSERT_EQ(fallback_res->nvm_size, 2048ULL * 1024 * 1024, "Fallback should have 2GB NVM (4GB - 2GB)");
+  
   return true;
 }
 
@@ -350,16 +368,16 @@ bool test_multiple_regions_same_policy() {
 
 bool test_fallback_gets_leftover_memory() {
   extern uint64_t dramsize, nvmsize;
-  dramsize = 2048ULL * 1024 * 1024;  // 2GB
-  nvmsize = 4096ULL * 1024 * 1024;   // 4GB
+  dramsize = 2048ULL * 1024 * 1024;  // 2GB total DRAM
+  nvmsize = 4096ULL * 1024 * 1024;   // 4GB total NVM
   
   unsetenv("HEMEM_REGIONS");
   unsetenv("HEMEM_POLICY");
   
-  // Allocate only partial memory to explicit policies
+  // Allocate only partial memory to explicit policies: lru gets 512M DRAM + 1G NVM
   setenv("HEMEM_REGIONS", "0x0-0x200000:lru", 1);
-  setenv("HEMEM_REGION_PHYS", "lru:512M:1G", 1);
-  // Fallback (LFU) should get remaining: 1.5GB DRAM, 3GB NVM
+  setenv("HEMEM_REGIONS_PHYS", "lru:512M:1G", 1);  // Note: HEMEM_REGIONS_PHYS (with S)
+  // Fallback (LFU/PEBS) should get the remaining: 1.5GB DRAM + 3GB NVM
   
   hemem_regions_bootstrap();
   
@@ -372,111 +390,20 @@ bool test_fallback_gets_leftover_memory() {
   ASSERT_NOT_NULL(r_fallback, "Fallback should handle unmapped VA");
   ASSERT_EQ(r_fallback->policy_kind, HEMEM_POLICY_PEBs, "Fallback should be LFU/PEBS");
   
-  return true;
-}
-
-/* ========================================================================
- * MEMORY ALLOCATION TESTS - DISABLED
- * These tests checked old per-region memory allocation (dram_size, nvm_size, 
- * dram_offset_start, nvm_offset_start fields in struct hemem_region).
- * 
- * In the new architecture, memory is allocated per-policy (in policy_resources),
- * not per-region. Regions only store VA ranges + policy type.
- * 
- * TODO: Rewrite these tests to verify policy_resources allocation instead.
- * ======================================================================== */
-
-#if 0
-bool test_memory_allocation_single_region() {
-  extern uint64_t dramsize, nvmsize;
-  dramsize = 1024ULL * 1024 * 1024;  // 1GB
-  nvmsize = 2048ULL * 1024 * 1024;   // 2GB
+  // VERIFY ACTUAL PHYSICAL ALLOCATIONS
+  struct hemem_policy_resources *lru_res = hemem_get_policy_resources(HEMEM_POLICY_LRU);
+  ASSERT_NOT_NULL(lru_res, "LRU policy resources should exist");
+  ASSERT_EQ(lru_res->dram_size, 512ULL * 1024 * 1024, "LRU should have 512M DRAM");
+  ASSERT_EQ(lru_res->nvm_size, 1024ULL * 1024 * 1024, "LRU should have 1G NVM");
   
-  unsetenv("HEMEM_REGIONS");
-  setenv("HEMEM_POLICY", "pebs", 1);
-  
-  hemem_regions_bootstrap();
-  
-  struct hemem_region *r = hemem_region_lookup(0x1000);
-  ASSERT_NOT_NULL(r, "Region should exist");
-  ASSERT(r->dram_size > 0, "Should have DRAM allocated");
-  ASSERT(r->nvm_size > 0, "Should have NVM allocated");
-  
-  // Should get most of the memory (allowing for alignment)
-  ASSERT(r->dram_size >= dramsize * 0.95, "Should get ~all DRAM");
-  ASSERT(r->nvm_size >= nvmsize * 0.95, "Should get ~all NVM");
+  // Fallback (PEBS/LFU) should get the leftover
+  struct hemem_policy_resources *fallback_res = hemem_get_policy_resources(HEMEM_POLICY_PEBs);
+  ASSERT_NOT_NULL(fallback_res, "Fallback policy resources should exist");
+  ASSERT_EQ(fallback_res->dram_size, 1536ULL * 1024 * 1024, "Fallback should have 1.5GB DRAM (2GB - 512M)");
+  ASSERT_EQ(fallback_res->nvm_size, 3072ULL * 1024 * 1024, "Fallback should have 3GB NVM (4GB - 1GB)");
   
   return true;
 }
-
-bool test_memory_allocation_multiple_regions() {
-  extern uint64_t dramsize, nvmsize;
-  dramsize = 1024ULL * 1024 * 1024;
-  nvmsize = 2048ULL * 1024 * 1024;
-  
-  unsetenv("HEMEM_REGIONS");
-  unsetenv("HEMEM_POLICY");
-  
-  hemem_region_register(0x0, MB2, HEMEM_POLICY_PEBs, "r1");
-  hemem_region_register(MB2, 2*MB2, HEMEM_POLICY_LRU, "r2");
-  hemem_regions_bootstrap();
-  
-  struct hemem_region *r1 = hemem_region_lookup(0x50000);
-  struct hemem_region *r2 = hemem_region_lookup(MB2 + MB2/2);
-  
-  ASSERT_NOT_NULL(r1, "Region 1 should exist");
-  ASSERT_NOT_NULL(r2, "Region 2 should exist");
-  
-  // Both should have memory
-  ASSERT(r1->dram_size > 0, "Region 1 should have DRAM");
-  ASSERT(r2->dram_size > 0, "Region 2 should have DRAM");
-  ASSERT(r1->nvm_size > 0, "Region 1 should have NVM");
-  ASSERT(r2->nvm_size > 0, "Region 2 should have NVM");
-  
-  // Total should not exceed available
-  uint64_t total_dram = r1->dram_size + r2->dram_size;
-  uint64_t total_nvm = r1->nvm_size + r2->nvm_size;
-  
-  ASSERT(total_dram <= dramsize, "Total DRAM should not exceed available");
-  ASSERT(total_nvm <= nvmsize, "Total NVM should not exceed available");
-  
-  return true;
-}
-
-bool test_memory_no_overlap() {
-  extern uint64_t dramsize, nvmsize;
-  dramsize = 1024ULL * 1024 * 1024;
-  nvmsize = 2048ULL * 1024 * 1024;
-  
-  unsetenv("HEMEM_REGIONS");
-  unsetenv("HEMEM_POLICY");
-  
-  hemem_region_register(0x0, MB2, HEMEM_POLICY_PEBs, "r1");
-  hemem_region_register(MB2, 2*MB2, HEMEM_POLICY_LRU, "r2");
-  hemem_region_register(2*MB2, 3*MB2, HEMEM_POLICY_SIMPLE, "r3");
-  hemem_regions_bootstrap();
-  
-  struct hemem_region *r1 = hemem_region_lookup(0x50000);
-  struct hemem_region *r2 = hemem_region_lookup(MB2 + MB2/2);
-  struct hemem_region *r3 = hemem_region_lookup(2*MB2 + MB2/2);
-  
-  // Check DRAM ranges don't overlap
-  uint64_t r1_dram_end = r1->dram_offset_start + r1->dram_size;
-  uint64_t r2_dram_end = r2->dram_offset_start + r2->dram_size;
-  
-  ASSERT(r1_dram_end <= r2->dram_offset_start, "R1 and R2 DRAM should not overlap");
-  ASSERT(r2_dram_end <= r3->dram_offset_start, "R2 and R3 DRAM should not overlap");
-  
-  // Check NVM ranges don't overlap
-  uint64_t r1_nvm_end = r1->nvm_offset_start + r1->nvm_size;
-  uint64_t r2_nvm_end = r2->nvm_offset_start + r2->nvm_size;
-  
-  ASSERT(r1_nvm_end <= r2->nvm_offset_start, "R1 and R2 NVM should not overlap");
-  ASSERT(r2_nvm_end <= r3->nvm_offset_start, "R2 and R3 NVM should not overlap");
-  
-  return true;
-}
-#endif
 
 /* ========================================================================
  * MAIN TEST RUNNER
@@ -508,20 +435,11 @@ int main(void) {
   RUN_TEST(test_bootstrap_multi_region_env);
   RUN_TEST(test_bootstrap_empty_env);
   
-  printf("\n--- Policy Resource Allocation (New Architecture) ---\n");
+  printf("\n--- Policy Resource Allocation ---\n");
   RUN_TEST(test_policy_allocation_single_policy);
   RUN_TEST(test_policy_allocation_explicit_resources);
   RUN_TEST(test_multiple_regions_same_policy);
   RUN_TEST(test_fallback_gets_leftover_memory);
-  
-  // NOTE: Old per-region memory allocation tests disabled  
-  // (memory is now managed per-policy in policy_resources, not per-region)
-  /*
-  printf("\n--- Memory Allocation (Old Tests) ---\n");
-  RUN_TEST(test_memory_allocation_single_region);
-  RUN_TEST(test_memory_allocation_multiple_regions);
-  RUN_TEST(test_memory_no_overlap);
-  */
   
   printf("\n========================================\n");
   printf(" Test Summary\n");

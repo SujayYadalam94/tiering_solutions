@@ -750,6 +750,7 @@ void hemem_migrate_up(struct hemem_page *page, uint64_t dram_offset)
 
   //page->migrations_up++;
   migrations_up++;
+  hemem_policy_record_migration(page->region->policy_kind, true, pagesize);
 
   page->devdax_offset = dram_offset;
   page->in_dram = true;
@@ -864,6 +865,7 @@ void hemem_migrate_down(struct hemem_page *page, uint64_t nvm_offset)
 
   //page->migrations_down++;
   migrations_down++;
+  hemem_policy_record_migration(page->region->policy_kind, false, pagesize);
 
   page->devdax_offset = nvm_offset;
   page->in_dram = false;

@@ -529,6 +529,17 @@ static struct hemem_policy_resources* get_policy_resources(enum hemem_policy_kin
   return NULL;
 }
 
+// Public API for testing: get policy resources by kind
+struct hemem_policy_resources* hemem_get_policy_resources(enum hemem_policy_kind kind)
+{
+  for (size_t i = 0; i < policy_resource_count; i++) {
+    if (policy_resources[i].kind == kind) {
+      return &policy_resources[i];
+    }
+  }
+  return NULL;
+}
+
 void hemem_regions_bootstrap(void)
 {
   pthread_mutex_lock(&regions_lock);
@@ -599,7 +610,7 @@ void hemem_regions_bootstrap(void)
   }
   
   // 1d. Parse HEMEM_REGION_PHYS for physical allocations
-  const char *phys_spec = getenv("HEMEM_REGION_PHYS");
+  const char *phys_spec = getenv("HEMEM_REGIONS_PHYS");
   if (phys_spec != NULL && *phys_spec != '\0') {
     parse_physical_allocation(phys_spec);
   }
@@ -662,6 +673,11 @@ void hemem_regions_bootstrap(void)
     // Track physical offsets
     res->dram_offset_start = dram_offset;
     res->nvm_offset_start = nvm_offset;
+    
+    // Initialize per-policy migration statistics
+    res->migrations_up = 0;
+    res->migrations_down = 0;
+    res->bytes_migrated = 0;
     
     // Create DRAM pages (2MB each)
     uint64_t dram_pages = res->dram_size / PAGE_SIZE;
@@ -854,12 +870,64 @@ struct hemem_page* hemem_page_lookup(uint64_t va)
 
 void hemem_policies_collect_stats(void)
 {
+  // Print stats for each initialized policy
   for (size_t i = 0; i < sizeof(policy_ops_table) / sizeof(policy_ops_table[0]); i++) {
     enum hemem_policy_kind kind = policy_ops_table[i].kind;
-    if (policy_usage[kind] > 0 && policy_ops_table[i].stats != NULL) {
+    if (policy_initialized[kind] && policy_ops_table[i].stats != NULL) {
+      // Print policy name prefix, then call policy's stats function
+      fprintf(stderr, "[%s] ", policy_ops_table[i].name);
       policy_ops_table[i].stats();
+      
+      // Also print per-policy migration stats if this policy has resources allocated
+      for (size_t j = 0; j < policy_resource_count; j++) {
+        if (policy_resources[j].kind == kind) {
+          fprintf(stderr, "[%s] migrations_up: [%lu]\tmigrations_down: [%lu]\tbytes_migrated: [%lu]\n",
+                  policy_ops_table[i].name,
+                  policy_resources[j].migrations_up,
+                  policy_resources[j].migrations_down,
+                  policy_resources[j].bytes_migrated);
+          break;
+        }
+      }
     }
   }
+  
+  // Special handling for fallback policy if it wasn't explicitly initialized
+  // (e.g., only has implicit fallback region with no explicit regions of that type)
+  if (!policy_initialized[fallback_policy_kind]) {
+    const struct hemem_policy_ops *fallback_ops = policy_by_kind(fallback_policy_kind);
+    if (fallback_ops != NULL && fallback_ops->stats != NULL) {
+      fprintf(stderr, "[%s-FALLBACK] ", fallback_ops->name);
+      // Note: Can't call stats() since policy isn't initialized, just print resource info
+      for (size_t j = 0; j < policy_resource_count; j++) {
+        if (policy_resources[j].kind == fallback_policy_kind) {
+          fprintf(stderr, "migrations_up: [%lu]\tmigrations_down: [%lu]\tbytes_migrated: [%lu]\n",
+                  policy_resources[j].migrations_up,
+                  policy_resources[j].migrations_down,
+                  policy_resources[j].bytes_migrated);
+          break;
+        }
+      }
+    }
+  }
+}
+
+void hemem_policy_record_migration(enum hemem_policy_kind kind, bool to_dram, uint64_t bytes)
+{
+  // Find the policy_resources entry for this policy and update its migration counters
+  for (size_t i = 0; i < policy_resource_count; i++) {
+    if (policy_resources[i].kind == kind) {
+      if (to_dram) {
+        policy_resources[i].migrations_up++;
+      } else {
+        policy_resources[i].migrations_down++;
+      }
+      policy_resources[i].bytes_migrated += bytes;
+      return;
+    }
+  }
+  // If we get here, policy wasn't found - shouldn't happen but don't crash
+  fprintf(stderr, "HeMem: Warning: migration recorded for unknown policy kind %d\n", kind);
 }
 
 void hemem_policies_shutdown(void)
