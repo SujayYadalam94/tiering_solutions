@@ -1,5 +1,4 @@
-#ifndef SPSC_RING_H
-#define SPSC_RING_H
+#pragma once
 
 #include <stdbool.h>
 
@@ -18,5 +17,3 @@ bool ring_buf_empty(ring_handle_t rbuf);
 bool ring_buf_full(ring_handle_t rbuf);
 size_t ring_buf_capacity(ring_handle_t rbuf);
 size_t ring_buf_size(ring_handle_t rbuf);
-
-#endif //SPSC_RING_H

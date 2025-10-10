@@ -1,5 +1,6 @@
-#ifndef HEMEM_H
-#define HEMEM_H
+#pragma once
+
+#include "defs.h"
 
 #include <pthread.h>
 #include <stdint.h>
@@ -29,36 +30,11 @@ extern "C" {
 #include "policies/simple.h"
 #endif
 
-// Define target system here
-// Options are SCAILP and C220G5
-#define C220G5
-
-
 #include "pebs.h"
 #include "timer.h"
 #include "interpose.h"
 #include "fifo.h"
-
-#ifdef C220G5
-#define FAULT_THREAD_CPU  (10)
-#define STATS_THREAD_CPU  (13)
-#elif defined SCAILP
-#define FAULT_THREAD_CPU  (0)
-#define STATS_THREAD_CPU  (3)
-#else
-// Compile error - unknown system
-#error "Unknown system - valid options are SCAILP and C220G5"
-#endif
-
-
-//#define HEMEM_DEBUG
-#define STATS_THREAD
-
-#define USE_DMA
-#define NUM_CHANNS 2
-#define SIZE_PER_DMA_REQUEST (1024*1024)
-
-#define MEM_BARRIER() __sync_synchronize()
+#include "hemem_page.h"
 
 extern uint64_t min_interpose_mem_size;
 
@@ -66,29 +42,6 @@ extern uint64_t nvmsize;
 extern uint64_t dramsize;
 extern char* drampath;
 extern char* nvmpath;
-
-#define NVMSIZE_DEFAULT   (64L * (1024L * 1024L * 1024L))
-#define DRAMSIZE_DEFAULT  (32L * (1024L * 1024L * 1024L))
-
-#define DRAMPATH_DEFAULT  "/dev/dax0.0"
-#define NVMPATH_DEFAULT   "/dev/dax1.0"
-
-#define BASEPAGE_SIZE	  (4UL * 1024UL)
-#define HUGEPAGE_SIZE 	(2UL * 1024UL * 1024UL)
-#define GIGAPAGE_SIZE   (1024UL * 1024UL * 1024UL)
-#define PAGE_SIZE 	    HUGEPAGE_SIZE
-#define CACHELINE_SIZE   (64)
-
-#define MAX_NVME_PAGES  (NVMSIZE_DEFAULT / PAGE_SIZE)
-#define MAX_DRAM_PAGES  (DRAMSIZE_DEFAULT / PAGE_SIZE)
-
-#define BASEPAGE_MASK	(BASEPAGE_SIZE - 1)
-#define HUGEPAGE_MASK	(HUGEPAGE_SIZE - 1)
-#define GIGAPAGE_MASK   (GIGAPAGE_SIZE - 1)
-
-#define BASE_PFN_MASK	(BASEPAGE_MASK ^ UINT64_MAX)
-#define HUGE_PFN_MASK	(HUGEPAGE_MASK ^ UINT64_MAX)
-#define GIGA_PFN_MASK   (GIGAPAGE_MASK ^ UINT64_MAX)
 
 extern FILE *hememlogf;
 //#define LOG(...) fprintf(stderr, __VA_ARGS__)
@@ -163,38 +116,6 @@ enum memtypes {
   NMEMTYPES,
 };
 
-enum pagetypes {
-  HUGEP = 0,
-  BASEP = 1,
-  NPAGETYPES
-};
-
-struct hemem_page {
-  uint64_t va;
-  uint64_t devdax_offset;
-  bool in_dram;
-  enum pagetypes pt;
-  volatile bool migrating;
-  bool present;
-  uint16_t accesses[NPBUFTYPES][2];
-  pthread_mutex_t page_lock;
-
-  // Our system
-#ifdef SPATIAL_SMOOTHING
-  float s_accesses[NPBUFTYPES];
-#endif
-
-  float w[WINDOW_SIZE];
-  float score;
-  float prev_score;
-  uint16_t hot_age;
-  bool can_promote;
-
-  struct hemem_page *next, *prev;
-  struct fifo_list *list;
-};
-static_assert(sizeof(struct hemem_page) == 128);
-
 struct migration_req {
   struct hemem_page *dram_page;
   struct hemem_page *nvm_page;
@@ -252,5 +173,3 @@ void hemem_stop_timing(void);
 #ifdef __cplusplus
 }
 #endif
-
-#endif /* HEMEM_H */

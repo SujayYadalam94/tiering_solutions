@@ -13,6 +13,8 @@
 #include "hemem.h"
 #include "interpose.h"
 
+#include "defs.h"
+
 void* (*libc_mmap)(void *addr, size_t length, int prot, int flags, int fd, off_t offset) = NULL;
 int (*libc_munmap)(void *addr, size_t length) = NULL;
 void* (*libc_malloc)(size_t size) = NULL;

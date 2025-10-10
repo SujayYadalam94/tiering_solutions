@@ -1,5 +1,4 @@
-#ifndef HEMEM_FIFO_H
-#define HEMEM_FIFO_H
+#pragma once 
 
 #include <pthread.h>
 #include <semaphore.h>
@@ -28,6 +27,3 @@ void page_list_remove_page(struct fifo_list *list, struct hemem_page *page);
 void next_page(struct fifo_list *list, struct hemem_page *page, struct hemem_page **res);
 void enqueue_fifo_m(struct migration_req_list *list, struct migration_req *req);
 struct migration_req* dequeue_fifo_m(struct migration_req_list *list);
-
-#endif
-

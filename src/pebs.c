@@ -90,10 +90,6 @@ static ring_handle_t add_pages_ring;
 static pthread_mutex_t add_pages_ring_lock = PTHREAD_MUTEX_INITIALIZER;
 */
 
-static const float w_ewma_alpha[WINDOW_SIZE] = W_EWMA_ALPHA;
-static const float hist_bias[WINDOW_SIZE] = HIST_BIAS;
-static const float recn_bias[WINDOW_SIZE] = RECN_BIAS;
-
 // Neighbour buffers
 #ifdef SPATIAL_SMOOTHING
 static ring_handle_t l_neighbours;
@@ -483,50 +479,6 @@ int sort_entry_cmp(const void *a, const void *b) {
   return (_a.score > _b.score) ? -1 : (_a.score < _b.score);
 }
 
-static void reset_page_access_fields(struct hemem_page *page)
-{
-  for (int i = 0; i < NPBUFTYPES; i++) {
-    page->accesses[i][0] = 0;
-    page->accesses[i][1] = 0;
-    #ifdef SPATIAL_SMOOTHING
-    page->s_accesses[i] = 0;
-    #endif
-  }
-  for (int i = 0; i < WINDOW_SIZE; i++) {
-    page->w[i] = 0;
-  }
-  page->hot_age = 0;
-  page->prev_score = 0;
-}
-
-static inline void update_window(struct hemem_page* page) {
-#ifdef SPATIAL_SMOOTHING
-  float accesses = page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD] + (NVM_WRITES_WEIGHT * page->s_accesses[WRITE]);
-#else
-  uint32_t accesses = page->accesses[DRAMREAD][prev_access_version] + page->accesses[NVMREAD][prev_access_version] + (NVM_WRITES_WEIGHT * page->accesses[WRITE][prev_access_version]);
-#endif
-
-  if (sampling_mode == DEFAULT_SAMPLING) {
-    for (uint8_t i = 0; i < WINDOW_SIZE; i++) {
-      page->w[i] = (1. - w_ewma_alpha[i]) * page->w[i] +
-          (w_ewma_alpha[i] * ((DEFAULT_SAMPLE_PERIOD/HF_SAMPLE_PERIOD) * accesses)); // We maintain counters in high-fidelity, so scale
-    }
-  } else if (sampling_mode == HIGH_FIDELITY) {
-    for (uint8_t i = 0; i < WINDOW_SIZE; i++) {
-      page->w[i] = (1. - w_ewma_alpha[i]) * page->w[i] + (w_ewma_alpha[i] * accesses);
-    }
-  }
-}
-
-static inline float compute_score(const struct hemem_page *page, const float *bias) {
-  // Update the score (average of the window)
-  float score = 0;
-  for (int i = 0; i < WINDOW_SIZE; i++) {
-    score += page->w[i] * bias[i];
-  }
-  return score;
-}
-
 static inline float _moving_avg_add(float avg, float new_val, uint32_t count) {
   return ((count * avg) + new_val) / (count + 1);
 }
@@ -550,153 +502,6 @@ static inline void moving_avg_sub(float* avg, struct hemem_page* page, uint32_t*
   avg[WRITE] = _moving_avg_sub(avg[WRITE], page->accesses[WRITE][prev_access_version], *count);
   (*count)--;
 }
-
-#ifdef SPATIAL_SMOOTHING
-static size_t calculate_scores_tree(struct score_entry *scores_out, const float *bias)
-{
-  struct ptimer window_timer, spatial_smooth_timer;
-  ptimer_init(&window_timer, "Scores (window)");
-  ptimer_init(&spatial_smooth_timer, "Scores (spatial smooth)");
-
-  struct hemem_page *page;
-  kbitr_t itr, n_itr;
-
-  size_t idx = 0;
-  size_t s_idx = 0;
-
-  page_tree_entry_t *entry_ptr;
-  struct hemem_page *p;
-  page_tree_entry_t *n_entry_ptr;
-  size_t n_idx;
-  uint64_t n_va;
-
-  float smooth_avg_v[NPBUFTYPES];
-  uint32_t smooth_avg_cnt = 0;
-  memset(smooth_avg_v, 0.0, sizeof(smooth_avg_v));
-
-  // Clear ring buffers
-  ring_buf_reset(l_neighbours);
-  ring_buf_reset(r_neighbours);
-
-  size_t pages_cnt = kb_size(pages_tree);
-  if (pages_cnt == 0) {
-    return 0; // no pages to process
-  }
-
-  // Init the (right) neightbour iterator
-  kb_itr_first(kPagesTree, pages_tree, &n_itr);
-  assert(kb_itr_valid(&n_itr));
-  kb_itr_next(kPagesTree, pages_tree, &n_itr);
-
-  // Iterate over the pages, in ascending order of VA
-  kb_itr_first(kPagesTree, pages_tree, &itr);
-  for (;
-      kb_itr_valid(&itr);
-      kb_itr_next(kPagesTree, pages_tree, &itr), idx++
-  ) {
-    assert(idx < pages_cnt);
-
-    entry_ptr = &kb_itr_key(page_tree_entry_t, &itr);
-    page = entry_ptr->page;
-    if (page == NULL || !page->present) {
-      continue;
-    }
-
-    ptimer_continue(&spatial_smooth_timer);
-    LOG_DEBUG("Before smoothing\n");
-
-    // Pop left neighbour(s)
-    LOG_DEBUG("-> LEFT NEIGHBOURS\n");
-    while(ring_buf_size(l_neighbours) > 0) {
-      n_idx = idx - ring_buf_size(l_neighbours);
-      p = (struct hemem_page*)ring_buf_peek_tail(l_neighbours, 0);
-      if (p->va == page->va - ((idx - n_idx) * HUGEPAGE_SIZE)) {
-        break;
-      }
-      // Remove neighbour from left neighbours
-      moving_avg_sub(smooth_avg_v, p, &smooth_avg_cnt);
-      ring_buf_get(l_neighbours);
-    }
-    assert(ring_buf_size(l_neighbours) >= 0 && ring_buf_size(l_neighbours) <= NUM_NEIGHBOURS);
-
-    // Append right neighbour(s)
-    LOG_DEBUG("-> RIGHT NEIGHBOURS\n");
-    n_idx = idx + ring_buf_size(r_neighbours) + 1;
-    while(ring_buf_size(r_neighbours) < NUM_NEIGHBOURS) {
-      if (!kb_itr_valid(&n_itr)) {
-        break; // no more neighbours
-      }
-      // Check if the next neighbour exists
-      n_va = page->va + ((n_idx - idx) * HUGEPAGE_SIZE);
-      n_entry_ptr = &kb_itr_key(page_tree_entry_t, &n_itr);
-      p = n_entry_ptr->page;
-      assert(p != NULL);
-      assert(p->va == n_entry_ptr->va);
-      if (p->va != n_va) {
-        break;
-      }
-      // Add neighbour to right neighbours
-      ring_buf_put(r_neighbours, (uint64_t*)p);
-      moving_avg_add(smooth_avg_v, p, &smooth_avg_cnt);
-      // Move to the next neighbour
-      kb_itr_next(kPagesTree, pages_tree, &n_itr);
-      n_idx++;
-    }
-    assert(ring_buf_size(r_neighbours) >= 0 && ring_buf_size(r_neighbours) <= NUM_NEIGHBOURS);
-
-    // Add this page accesses to the moving average
-    moving_avg_add(smooth_avg_v, page, &smooth_avg_cnt);
-
-    // Calculate smoothed access count
-    page->s_accesses[DRAMREAD] = smooth_avg_v[DRAMREAD];
-    page->s_accesses[NVMREAD] = smooth_avg_v[NVMREAD];
-    page->s_accesses[WRITE] = smooth_avg_v[WRITE];
-
-    ptimer_stop(&spatial_smooth_timer);
-    LOG_DEBUG("After smoothing\n");
-
-    // Update the window with the smoothed access count
-    update_window(page);
-
-    // Calculate the hotness score
-    page->score = compute_score(page, bias);
-    scores_out[s_idx++] = (struct score_entry){ page, page->score };
-
-    // Append this page to the left neighbours
-    ring_buf_put(l_neighbours, (uint64_t*)page);
-
-    // If the left neighbours buffer is full, pop the leftmost neighbour
-    if (ring_buf_size(l_neighbours) > NUM_NEIGHBOURS) {
-      p = (struct hemem_page*)ring_buf_get(l_neighbours);
-      moving_avg_sub(smooth_avg_v, p, &smooth_avg_cnt);
-    }
-    // Pop the leftmost neighbour in right neighbours buffer
-    // This is soon-to-be the next page (i.e., the right neighbour)
-    if (ring_buf_size(r_neighbours) > 0) {
-      p = (struct hemem_page*)ring_buf_get(r_neighbours);
-      moving_avg_sub(smooth_avg_v, p, &smooth_avg_cnt);
-    }
-  }
-
-  // Zero the access counts of all the pages
-  for (kb_itr_first(kPagesTree, pages_tree, &itr);
-      kb_itr_valid(&itr);
-      kb_itr_next(kPagesTree, pages_tree, &itr)
-  ) {
-    entry_ptr = &kb_itr_key(page_tree_entry_t, &itr);
-    page = entry_ptr->page;
-    if (page == NULL || !page->present) {
-      continue;
-    }
-    for (int i = 0; i < NPBUFTYPES; i++) {
-      page->accesses[i][prev_access_version] = 0;
-    }
-  }
-  ptimer_print(&spatial_smooth_timer);
-
-  return s_idx;
-}
-#endif
 
 static size_t calculate_scores_map(struct score_entry *scores_out, const float *bias)
 {
@@ -727,12 +532,10 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
     #endif
 
     // Update the window values
-    update_window(page);
+    update_window(page, prev_access_version, sampling_mode);
 
     // Reset the access counts
-    page->accesses[DRAMREAD][prev_access_version] = 0;
-    page->accesses[NVMREAD][prev_access_version] = 0;
-    page->accesses[WRITE][prev_access_version] = 0;
+    reset_page_access_fields(page);
 
     // Calculate the hotness score
     page->prev_score = page->score;
@@ -1476,16 +1279,6 @@ void pebs_init(void)
   // Initialize the free/add ring buffers
   mod_page_dq = kdq_init(mod_page_t);
 
-  // Initialize the neighbour ring buffers
-#ifdef SPATIAL_SMOOTHING
-  buffer = (uint64_t**)malloc(sizeof(uint64_t*) * (NUM_NEIGHBOURS + 2));
-  assert(buffer);
-  l_neighbours = ring_buf_init(buffer, NUM_NEIGHBOURS + 2);
-  buffer = (uint64_t**)malloc(sizeof(uint64_t*) * (NUM_NEIGHBOURS + 2));
-  assert(buffer);
-  r_neighbours = ring_buf_init(buffer, NUM_NEIGHBOURS + 2);
-#endif
-
   // Initialize bias values
   for (int i = 0; i < WINDOW_SIZE; i++) {
     LOG_REPORT("w_ewma_alpha[%d] = %f\n", i, w_ewma_alpha[i]);
@@ -1524,6 +1317,10 @@ void pebs_init(void)
 
 void pebs_shutdown()
 {
+  printf("Shutting down PEBS\n");
+  sleep(20);
+  printf("PEBS shutdown complete\n");
+
   for (int i = 0; i < PEBS_NPROCS; i++) {
     for (int j = 0; j < NPBUFTYPES; j++) {
       ioctl(pfd[i][j], PERF_EVENT_IOC_DISABLE, 0);
