@@ -8,6 +8,8 @@
 #include "../hemem.h"
 #include "paging.h"
 
+// Forward declaration
+struct fifo_list;
 
 #define KSCAND_INTERVAL   (50000) // in us (20ms)
 #define KSWAPD_INTERVAL   (1000000) // in us (1s)
@@ -16,7 +18,7 @@
 void *lru_kswapd();
 struct hemem_page* lru_pagefault(void);
 struct hemem_page* lru_pagefault_unlocked(void);
-void lru_init(uint64_t dram_offset, uint64_t dram_size, uint64_t nvm_offset, uint64_t nvm_size);
+void lru_init(struct fifo_list *dram_fl, struct fifo_list *nvm_fl);
 void lru_remove_page(struct hemem_page *page);
 void lru_stats();
 void lru_shutdown(void);

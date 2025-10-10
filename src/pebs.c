@@ -616,7 +616,7 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
 
 #ifdef ALLOC_RUNTIME
     // Defensive check: ensure this page belongs to a PEBS region
-    if (page->region == NULL || page->region->policy->kind != HEMEM_POLICY_PEBs) {
+    if (page->region == NULL || page->region->policy_kind != HEMEM_POLICY_PEBs) {
       LOG_ERROR("WARNING: Non-PEBS page found in PEBS tracking! VA=0x%lx\n", page->va);
       continue;
     }
@@ -763,7 +763,7 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
 
 #ifdef ALLOC_RUNTIME
     // Defensive check: ensure this page belongs to a PEBS region
-    if (page->region == NULL || page->region->policy->kind != HEMEM_POLICY_PEBs) {
+    if (page->region == NULL || page->region->policy_kind != HEMEM_POLICY_PEBs) {
       LOG_ERROR("WARNING: Non-PEBS page found in PEBS tracking! VA=0x%lx\n", page->va);
       continue;
     }
@@ -1444,11 +1444,11 @@ void pebs_add_page(struct hemem_page *page)
     fprintf(stderr, "ASSERT FAILED: pebs_add_page - page->region is NULL for VA=0x%lx\n", page->va);
     assert(0);
   }
-  if (page->region->policy->kind != HEMEM_POLICY_PEBs) {
+  if (page->region->policy_kind != HEMEM_POLICY_PEBs) {
     LOG_ERROR("ERROR: Attempting to add non-PEBS page (policy=%d) to PEBS tracking\n", 
-              page->region->policy->kind);
+              page->region->policy_kind);
     fprintf(stderr, "ASSERT FAILED: pebs_add_page - wrong policy kind %d for VA=0x%lx\n",
-            page->region->policy->kind, page->va);
+            page->region->policy_kind, page->va);
     assert(0);
   }
   // Validate VA is within region bounds
@@ -1533,7 +1533,7 @@ void pebs_remove_page(struct hemem_page *page)
 #define L3_LOAD_MISS_REMOTE 0x2d3
 #endif
 
-void pebs_init(uint64_t dram_offset, uint64_t dram_size, uint64_t nvm_offset, uint64_t nvm_size)
+void pebs_init(struct fifo_list *dram_fl, struct fifo_list *nvm_fl)
 {
   pebs_print_config();
 
@@ -1541,8 +1541,12 @@ void pebs_init(uint64_t dram_offset, uint64_t dram_size, uint64_t nvm_offset, ui
   pthread_t scan_thread;
   pthread_t migration_threads[NUM_MIGRATION_THREADS];
 
-  LOG_INFO("pebs_init: started with DRAM[0x%lx-0x%lx) NVM[0x%lx-0x%lx)\n", 
-           dram_offset, dram_offset + dram_size, nvm_offset, nvm_offset + nvm_size);
+  LOG_INFO("pebs_init: started with %lu DRAM pages and %lu NVM pages\n", 
+           dram_fl->numentries, nvm_fl->numentries);
+
+  // Use the provided free lists instead of creating new ones
+  dram_free_list = *dram_fl;
+  nvm_free_list = *nvm_fl;
 
   for (int i = 0; i < PEBS_NPROCS; i++) {
 #ifdef JOSEPM
@@ -1560,34 +1564,6 @@ void pebs_init(uint64_t dram_offset, uint64_t dram_size, uint64_t nvm_offset, ui
     perf_page[i][NVMREAD] = perf_setup(L3_LOAD_MISS_REMOTE, 0, i, NVMREAD);     // MEM_LOAD_RETIRED.LOCAL_PMM
     perf_page[i][WRITE] = perf_setup(0x82d0, 0, i, WRITE);    // MEM_INST_RETIRED.ALL_STORES
     //perf_page[i][WRITE] = perf_setup(0x12d0, 0, i);   // MEM_INST_RETIRED.STLB_MISS_STORES
-  }
-
-  pthread_mutex_init(&(dram_free_list.list_lock), NULL);
-  // Only create free pages for the assigned physical memory range
-  uint64_t dram_pages = dram_size / PAGE_SIZE;
-  for (uint64_t i = 0; i < dram_pages; i++) {
-    struct hemem_page *p = calloc(1, sizeof(struct hemem_page));
-    p->devdax_offset = dram_offset + (i * PAGE_SIZE);
-    p->present = false;
-    p->in_dram = true;
-    p->pt = pagesize_to_pt(PAGE_SIZE);
-    pthread_mutex_init(&(p->page_lock), NULL);
-
-    enqueue_fifo(&dram_free_list, p);
-  }
-
-  pthread_mutex_init(&(nvm_free_list.list_lock), NULL);
-  // Only create free pages for the assigned physical memory range
-  uint64_t nvm_pages = nvm_size / PAGE_SIZE;
-  for (uint64_t i = 0; i < nvm_pages; i++) {
-    struct hemem_page *p = calloc(1, sizeof(struct hemem_page));
-    p->devdax_offset = nvm_offset + (i * PAGE_SIZE);
-    p->present = false;
-    p->in_dram = false;
-    p->pt = pagesize_to_pt(PAGE_SIZE);
-    pthread_mutex_init(&(p->page_lock), NULL);
-
-    enqueue_fifo(&nvm_free_list, p);
   }
 
   pages = kh_init(kPagesMap);

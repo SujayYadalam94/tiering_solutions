@@ -549,10 +549,10 @@ void lru_remove_page(struct hemem_page *page)
 }
 
 
-void lru_init(uint64_t dram_offset, uint64_t dram_size, uint64_t nvm_offset, uint64_t nvm_size)
+void lru_init(struct fifo_list *dram_fl, struct fifo_list *nvm_fl)
 {
-  LOG("lru_init: started with DRAM[0x%lx-0x%lx) NVM[0x%lx-0x%lx)\n",
-      dram_offset, dram_offset + dram_size, nvm_offset, nvm_offset + nvm_size);
+  LOG("lru_init: started with %lu DRAM pages and %lu NVM pages\n",
+      dram_fl->numentries, nvm_fl->numentries);
 
   init_fifo_list(&active_list);
   init_fifo_list(&inactive_list);
@@ -560,8 +560,10 @@ void lru_init(uint64_t dram_offset, uint64_t dram_size, uint64_t nvm_offset, uin
   init_fifo_list(&nvm_active_list);
   init_fifo_list(&nvm_inactive_list);
   init_fifo_list(&nvm_written_list);
-  init_fifo_list(&dram_free_list);
-  init_fifo_list(&nvm_free_list);
+  
+  // Use the provided free lists instead of creating new ones
+  dram_free_list = *dram_fl;
+  nvm_free_list = *nvm_fl;
 
   lru_lists_initialized = true;
   lru_shutdown_requested = false;
@@ -569,32 +571,6 @@ void lru_init(uint64_t dram_offset, uint64_t dram_size, uint64_t nvm_offset, uin
   lru_kswapd_thread_active = false;
   lru_runs = 0;
   vanum = 0;
-
-  // Only create free pages for the assigned physical memory range
-  uint64_t dram_pages = dram_size / PAGE_SIZE;
-  for (uint64_t i = 0; i < dram_pages; i++) {
-    struct hemem_page *p = calloc(1, sizeof(struct hemem_page));
-    p->devdax_offset = dram_offset + (i * PAGE_SIZE);
-    p->present = false;
-    p->in_dram = true;
-    p->pt = pagesize_to_pt(PAGE_SIZE);
-    pthread_mutex_init(&(p->page_lock), NULL);
-
-    enqueue_fifo(&dram_free_list, p);
-  }
-
-  // Only create free pages for the assigned physical memory range
-  uint64_t nvm_pages = nvm_size / PAGE_SIZE;
-  for (uint64_t i = 0; i < nvm_pages; i++) {
-    struct hemem_page *p = calloc(1, sizeof(struct hemem_page));
-    p->devdax_offset = nvm_offset + (i * PAGE_SIZE);
-    p->present = false;
-    p->in_dram = false;
-    p->pt = pagesize_to_pt(PAGE_SIZE);
-    pthread_mutex_init(&(p->page_lock), NULL);
-
-    enqueue_fifo(&nvm_free_list, p);
-  }
 
   int r = pthread_create(&lru_scan_thread, NULL, lru_kscand, NULL);
   assert(r == 0);

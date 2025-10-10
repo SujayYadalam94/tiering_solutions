@@ -34,10 +34,10 @@ extern "C" {
 #define C220G5
 
 
+#include "fifo.h"
 #include "pebs.h"
 #include "timer.h"
 #include "interpose.h"
-#include "fifo.h"
 
 #ifdef C220G5
 #define FAULT_THREAD_CPU  (10)
@@ -277,7 +277,7 @@ enum hemem_policy_kind {
 struct hemem_policy_ops {
   enum hemem_policy_kind kind;
   const char *name;
-  void (*init)(uint64_t dram_offset, uint64_t dram_size, uint64_t nvm_offset, uint64_t nvm_size);
+  void (*init)(struct fifo_list *dram_free_list, struct fifo_list *nvm_free_list);
   void (*shutdown)(void);
   struct hemem_page* (*pagefault)(uint64_t va);
   void (*page_add)(struct hemem_page *page);
@@ -285,16 +285,24 @@ struct hemem_policy_ops {
   void (*stats)(void);
 };
 
+// Per-policy resource allocation
+struct hemem_policy_resources {
+  enum hemem_policy_kind kind;
+  uint64_t dram_size;  // Total DRAM allocated to this policy
+  uint64_t nvm_size;   // Total NVM allocated to this policy
+  struct fifo_list dram_free_list;  // Free DRAM pages for this policy
+  struct fifo_list nvm_free_list;   // Free NVM pages for this policy
+  uint64_t dram_offset_start;  // Physical offset in DAX device
+  uint64_t nvm_offset_start;   // Physical offset in DAX device
+};
+
+// Region = VA range + policy type (metadata only, no physical resources)
 struct hemem_region {
-  uint64_t start;
-  uint64_t end;
-  const struct hemem_policy_ops *policy;
+  uint64_t start;  // VA range start
+  uint64_t end;    // VA range end
+  enum hemem_policy_kind policy_kind;  // Which policy manages this VA range
   char label[32];
-  // Physical memory ranges assigned to this region
-  uint64_t dram_offset_start;
-  uint64_t dram_size;
-  uint64_t nvm_offset_start;
-  uint64_t nvm_size;
+  bool is_fallback;  // True if this is the catchall fallback region
 };
 
 void hemem_regions_bootstrap(void);

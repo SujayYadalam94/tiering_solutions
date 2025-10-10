@@ -9,6 +9,9 @@
 
 #include "hemem.h"
 
+// Forward declaration
+struct fifo_list;
+
 // Logging Options
 // ==============================================================================
 //// Uncomment to enable debug logging
@@ -202,7 +205,7 @@ struct score_entry {
 void *pebs_kswapd();
 struct hemem_page* pebs_pagefault(void);
 struct hemem_page* pebs_pagefault_unlocked(void);
-void pebs_init(uint64_t dram_offset, uint64_t dram_size, uint64_t nvm_offset, uint64_t nvm_size);
+void pebs_init(struct fifo_list *dram_fl, struct fifo_list *nvm_fl);
 
 void pebs_add_page(struct hemem_page *page);
 struct hemem_page* pebs_find_page(uint64_t va);

@@ -24,8 +24,11 @@
 #include "../hemem.h"
 #include "paging.h"
 
+// Forward declaration
+struct fifo_list;
+
 struct hemem_page* simple_pagefault(void);
-void simple_init(uint64_t dram_offset, uint64_t dram_size, uint64_t nvm_offset, uint64_t nvm_size);
+void simple_init(struct fifo_list *dram_fl, struct fifo_list *nvm_fl);
 void simple_remove_page(struct hemem_page *page);
 void simple_stats();
 
