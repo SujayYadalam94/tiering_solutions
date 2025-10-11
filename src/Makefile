@@ -12,8 +12,8 @@ all: hemem-libs
 
 hemem-libs: libhemem-lru.so libhemem-simple.so libhemem-lru-swap.so libhemem.so
 
-libhemem.so: hemem.o pebs.o timer.o interpose.o fifo.o spsc-ring.o
-	$(CC) $(LDFLAGS) -o libhemem.so hemem.o timer.o interpose.o pebs.o fifo.o spsc-ring.o $(HEMEM_LIBS)
+libhemem.so: hemem.o pebs.o timer.o interpose.o fifo.o spsc-ring.o groups.o hemem_page.o logging.o model.o models/model_discounted_reward_0.90_l2.o
+	$(CC) $(LDFLAGS) -o libhemem.so hemem.o timer.o interpose.o pebs.o fifo.o spsc-ring.o groups.o hemem_page.o logging.o model.o models/model_discounted_reward_0.90_l2.o $(HEMEM_LIBS)
 
 libhemem-lru.so: policies/hemem-lru.o policies/lru.o timer.o interpose.o policies/paging.o fifo.o spsc-ring.o
 	$(CC) $(LDFLAGS) -o libhemem-lru.so policies/hemem-lru.o timer.o policies/lru.o interpose.o policies/paging.o fifo.o spsc-ring.o $(HEMEM_LIBS)
@@ -24,7 +24,7 @@ libhemem-simple.so: policies/hemem-simple.o policies/simple.o timer.o interpose.
 libhemem-lru-swap.so: policies/hemem-lru-swap.o policies/lru_swap.o timer.o interpose.o policies/paging.o fifo.o spsc-ring.o
 	$(CC) $(LDFLAGS) -o libhemem-lru-swap.so policies/hemem-lru-swap.o timer.o policies/lru_swap.o interpose.o policies/paging.o fifo.o spsc-ring.o $(HEMEM_LIBS)
 
-hemem.o: hemem.c hemem.h pebs.h interpose.h fifo.h spsc-ring.h
+hemem.o: hemem.c hemem.h pebs.h interpose.h fifo.h spsc-ring.h defs.h hemem_page.h
 	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_HEMEM -c hemem.c -o hemem.o
 	
 policies/hemem-lru.o: hemem.c hemem.h policies/lru.h interpose.h policies/paging.h fifo.h spsc-ring.h
@@ -54,7 +54,19 @@ policies/lru_swap.o: policies/lru.c policies/lru.h hemem.h fifo.h spsc-ring.h
 policies/paging.o: policies/paging.c policies/paging.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c policies/paging.c -o policies/paging.o
 
-pebs.o: pebs.c pebs.h hemem.h fifo.h
+groups.o: groups.c groups.h defs.h
+	$(CC) $(CFLAGS) $(INCLUDES) -c groups.c
+
+hemem_page.o: hemem_page.c hemem_page.h defs.h pebs.h hemem.h
+	$(CC) $(CFLAGS) $(INCLUDES) -c hemem_page.c
+
+logging.o: logging.c logging.h defs.h hemem_page.h groups.h
+	$(CC) $(CFLAGS) $(INCLUDES) -c logging.c
+
+model.o: model.c model.h hemem_page.h logging.h
+	$(CC) $(CFLAGS) $(INCLUDES) -c model.c
+
+pebs.o: pebs.c pebs.h hemem.h fifo.h groups.h defs.h hemem_page.h logging.h model.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c pebs.c
 
 fifo.o: fifo.c fifo.h hemem.h

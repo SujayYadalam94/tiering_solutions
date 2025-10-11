@@ -23,15 +23,24 @@
 #include "pebs.h"
 #include "timer.h"
 #include "spsc-ring.h"
+#include "groups.h"
+#include "hemem_page.h"
+#include "logging.h"
+#include "model.h"
 
 #include "khash.h"
 #include "kdq.h"
 #include "kbtree.h"
 
+struct group_tracker *grp_tracker = NULL;
+bool pebs_finished_init = false;
+bool terminated = false;
+
 // Hash table for Hemem-handled pages
 KHASH_MAP_INIT_INT64(kPagesMap, struct hemem_page*)
 khash_t(kPagesMap) *pages;
 pthread_mutex_t pages_lock = PTHREAD_MUTEX_INITIALIZER;
+
 
 #ifdef SPATIAL_SMOOTHING
 /*
@@ -364,7 +373,7 @@ void *pebs_scan_thread()
     assert(0);
   }
 
-  for(;;) {
+  while(!terminated) {
     for (int i = 0; i < PEBS_NPROCS; i++) {
 #ifdef JOSEPM
       if (i >= 8 && i < 16) {
@@ -396,13 +405,17 @@ void *pebs_scan_thread()
             if(ps->addr != 0) {
               __u64 pfn = ps->addr & HUGE_PFN_MASK;
               page = pebs_find_page(pfn);
-              if (page != NULL) {
-                if (page->va != 0) {
-                  page->accesses[j][curr_access_version]++;
-                }
-                hemem_pages_cnt++;
-              } else {
-                other_pages_cnt++;
+              if (page != NULL)
+              {
+                  if (page->va != 0)
+                  {
+                      page->accesses[j][curr_access_version]++;
+                  }
+                  hemem_pages_cnt++;
+              }
+              else
+              {
+                  other_pages_cnt++;
               }
               total_pages_cnt++;
             }
@@ -471,12 +484,20 @@ int ulong_sort_cmp(const void *a, const void *b) {
   return (_a < _b) ? -1 : (_a > _b);
 }
 
-// Sorts in descending order
-int sort_entry_cmp(const void *a, const void *b) {
+// Sorts in descending order by score
+int sort_entry_cmp_by_score(const void *a, const void *b) {
   struct score_entry _a = *(const struct score_entry*)a;
   struct score_entry _b = *(const struct score_entry*)b;
 
   return (_a.score > _b.score) ? -1 : (_a.score < _b.score);
+}
+
+// Sorts in descending order by ewma5
+int sort_entry_cmp_by_ewma5(const void *a, const void *b) {
+  struct score_entry _a = *(const struct score_entry*)a;
+  struct score_entry _b = *(const struct score_entry*)b;
+
+  return (_a.page->w[1] > _b.page->w[1]) ? -1 : (_a.page->w[1] < _b.page->w[1]);
 }
 
 static inline float _moving_avg_add(float avg, float new_val, uint32_t count) {
@@ -505,6 +526,8 @@ static inline void moving_avg_sub(float* avg, struct hemem_page* page, uint32_t*
 
 static size_t calculate_scores_map(struct score_entry *scores_out, const float *bias)
 {
+  update_proc_stats();
+
   struct ptimer window_timer;
   ptimer_init(&window_timer, "Scores (window)");
 
@@ -516,6 +539,13 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
   if (pages_cnt == 0) {
     return 0; // no pages to process
   }
+
+  reset_group_hash(grp_tracker);
+
+  static int timestep = 0;
+  timestep++;
+
+  size_t count_total = 0;
 
   // Iterate over the pages
   for (key = kh_begin(pages_map); key != kh_end(pages_map); ++key) {
@@ -534,16 +564,38 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
     // Update the window values
     update_window(page, prev_access_version, sampling_mode);
 
-    // Reset the access counts
-    reset_page_access_fields(page);
+    update_group_entry(grp_tracker, page);
+    count_total += page->count;
 
     // Calculate the hotness score
     page->prev_score = page->score;
-    page->score = compute_score(page, bias);
-    scores_out[s_idx++] = (struct score_entry){ page, page->score };
-
+    scores_out[s_idx++] = (struct score_entry){ page, 0.0 };
   }
   ptimer_print(&window_timer);
+
+  qsort(scores_out, s_idx, sizeof(struct score_entry), sort_entry_cmp_by_ewma5);
+
+  for (size_t i = 0; i < s_idx; i++) {
+    update_derivative_features(scores_out[i].page, i, s_idx, count_total);
+
+    scores_out[i].page->arms_score = compute_score(scores_out[i].page, bias);
+    scores_out[i].page->model_score = model_predict(scores_out[i].page);
+    
+    if (PRINT_TRAINING_DATA){
+      scores_out[i].page->score = scores_out[i].page->arms_score;
+    }
+    else {
+      // TODO switch here between arms_score and model_score
+      scores_out[i].page->score = scores_out[i].page->model_score;
+    }
+    scores_out[i].score = scores_out[i].page->score;
+
+    log_row(timestep, scores_out[i].page, grp_tracker, count_total);
+  }
+
+
+
+  printf("Count Total: %zu\n", count_total);
 
   return s_idx;
 }
@@ -651,10 +703,10 @@ void *pebs_migration_thread()
 
   ptimer_init(&migrate_timer, "Migrate");
 
-  while(true) {
+  while(!terminated) {
     sem_wait(&submission_sem);
 
-    while(true) {
+    while(!terminated) {
       req = dequeue_fifo_m(&migration_queue);
       if (req == NULL) {
         break;
@@ -683,6 +735,7 @@ void *pebs_migration_thread()
       free(req);
     }
   }
+  return NULL;
 }
 
 void *pebs_policy_thread()
@@ -744,7 +797,7 @@ void *pebs_policy_thread()
   // Sleep first to allow the scanning thread to start
   usleep((uint64_t)((1.0 * policy_thread_period)));
 
-  for (;;) {
+  while(!terminated) {
     ptimer_start(&loop_timer);
     ptimer_start(&remaining_timer);
 
@@ -871,6 +924,7 @@ void *pebs_policy_thread()
         k = kh_put(kPagesMap, pages_map, page->va, &absent);
         assert(absent);
         kh_value(pages_map, k) = page;
+        add_group_if_missing(grp_tracker, page);
       }
 
       #endif
@@ -890,7 +944,7 @@ void *pebs_policy_thread()
 
     // Sort the scores (in descending order)
     ptimer_start(&sort_timer);
-    qsort(scores, s_pages_cnt, sizeof(struct score_entry), sort_entry_cmp);
+    qsort(scores, s_pages_cnt, sizeof(struct score_entry), sort_entry_cmp_by_score);
     ptimer_stop_and_print(&sort_timer);
 
     // Set the top_since_iter for the top pages
@@ -1159,12 +1213,15 @@ void pebs_add_page(struct hemem_page *page)
   assert(absent);
   kh_value(pages, key) = page;
   pthread_mutex_unlock(&pages_lock);
+  add_group_if_missing(grp_tracker, page);
 
   // Add to the new pages ring
   pthread_mutex_lock(&mod_page_dq_lock);
   mod_page_t mp = (mod_page_t){ .page = page, .free = false };
   kdq_push(mod_page_t, mod_page_dq, mp);
   pthread_mutex_unlock(&mod_page_dq_lock);
+
+
 }
 
 struct hemem_page* pebs_find_page(uint64_t va)
@@ -1203,6 +1260,57 @@ void pebs_remove_page(struct hemem_page *page)
   pthread_mutex_unlock(&(page->page_lock));
 }
 
+void pebs_log_read(void *addr, size_t len){
+    if (!pebs_finished_init)
+    {
+        return;
+    }
+    uint64_t round_down = (uint64_t)addr & ~(PAGE_SIZE - 1);
+    struct hemem_page *page = NULL;
+    //pthread_mutex_lock(&pages_lock);
+    khiter_t k = kh_get(kPagesMap, pages, round_down);
+    page = k == kh_end(pages) ? NULL : kh_value(pages, k);
+    //pthread_mutex_unlock(&pages_lock);
+    if (page != NULL) {
+        page->_read_syscalls++;
+        page->_read_bytes += len;
+    }
+}
+void pebs_log_write(void *addr, size_t len){
+    if (!pebs_finished_init)
+    {
+        return;
+    }
+    uint64_t round_down = (uint64_t)addr & ~(PAGE_SIZE - 1);
+    struct hemem_page *page = NULL;
+    //pthread_mutex_lock(&pages_lock);
+    khiter_t k = kh_get(kPagesMap, pages, round_down);
+    page = k == kh_end(pages) ? NULL : kh_value(pages, k);
+    //pthread_mutex_unlock(&pages_lock);
+    if (page != NULL) {
+        page->_write_syscalls++;
+        page->_write_bytes += len;
+    }
+}
+
+void pebs_log_malloc(void *addr, size_t len){
+    if (!pebs_finished_init)
+    {
+        return;
+    }
+    uint64_t round_down = (uint64_t)addr & ~(PAGE_SIZE - 1);
+    struct hemem_page *page = NULL;
+    //pthread_mutex_lock(&pages_lock);
+    khiter_t k = kh_get(kPagesMap, pages, round_down);
+    page = k == kh_end(pages) ? NULL : kh_value(pages, k);
+    //pthread_mutex_unlock(&pages_lock);
+    if (page != NULL) {
+        page->_malloc_call++;
+        page->_malloc_bytes += len;
+    }
+
+}
+
 #ifdef SCAILP
 #define L3_LOAD_MISS_LOCAL 0x2d3
 #define L3_LOAD_MISS_REMOTE 0x10d3
@@ -1214,9 +1322,16 @@ void pebs_remove_page(struct hemem_page *page)
 #define L3_LOAD_MISS_REMOTE 0x2d3
 #endif
 
+extern struct data_row *scores_log;
 void pebs_init(void)
 {
   pebs_print_config();
+
+  if(PRINT_TRAINING_DATA){
+    scores_log = (struct data_row *)malloc(MAX_LOGGED_SAMPLES * sizeof(struct data_row));
+    double gigabytes_allocated = (double)(MAX_LOGGED_SAMPLES * sizeof(struct data_row)) / (1024 * 1024 * 1024);
+    printf("Allocated %f GB for scores_log\n", gigabytes_allocated);
+  }
 
   pthread_t kswapd_thread;
   pthread_t scan_thread;
@@ -1266,6 +1381,8 @@ void pebs_init(void)
     enqueue_fifo(&nvm_free_list, p);
   }
 
+  grp_tracker = create_group_tracker();
+
   pages = kh_init(kPagesMap);
 
   #ifdef SPATIAL_SMOOTHING
@@ -1311,15 +1428,16 @@ void pebs_init(void)
     policy_thread_period = PEBS_KSWAPD_INTERVAL_BIG;
   }
 
+  pebs_finished_init = true;
+
   LOG_INFO("Memory management policy is PEBS\n");
   LOG_INFO("pebs_init: finished\n");
 }
 
 void pebs_shutdown()
 {
-  printf("Shutting down PEBS\n");
-  sleep(20);
-  printf("PEBS shutdown complete\n");
+  terminated = true;
+  pebs_write_log();
 
   for (int i = 0; i < PEBS_NPROCS; i++) {
     for (int j = 0; j < NPBUFTYPES; j++) {

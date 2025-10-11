@@ -106,10 +106,18 @@ static int hook(long syscall_number, long arg0, long arg1, long arg2, long arg3,
 	  return mmap_filter((void*)arg0, (size_t)arg1, (int)arg2, (int)arg3, (int)arg4, (off_t)arg5, (uint64_t*)result);
 	} else if (syscall_number == SYS_munmap){
     return munmap_filter((void*)arg0, (size_t)arg1, (uint64_t*)result);
-  } else {
-    // ignore non-mmap system calls
-		return 1;
-	}
+  }else if (syscall_number == SYS_read) {
+        internal_call = true;
+        pebs_log_read((void *)arg1, (size_t)arg2);
+        internal_call = false;
+        return 1;
+    } else if (syscall_number == SYS_write) {
+        internal_call = true;
+        pebs_log_write((void *)arg1, (size_t)arg2);
+        internal_call = false;
+        return 1;
+    }
+  return 1;
 }
 
 static __attribute__((constructor)) void init(void)

@@ -9,7 +9,8 @@
 #define C220G5
 
 
-#define MIN_INTERPOSE_MEM_SIZE_DEFAULT (1 * 1024UL * 1024UL * 1024UL)
+#define MIN_INTERPOSE_MEM_SIZE_DEFAULT (2 * 1024UL * 1024UL)
+//(1 * 1024UL * 1024UL * 1024UL)
 
 #define FAULT_THREAD_CPU  (10)
 #define STATS_THREAD_CPU  (13)
@@ -115,8 +116,8 @@
 
 /// PEBS kswapd thread wakeup interval
 // ==============================================================================
-#define PEBS_KSWAPD_INTERVAL_BIG      (500000) // in us (500ms)
-#define PEBS_KSWAPD_INTERVAL_SMALL    (100000) // in us (100ms)
+#define PEBS_KSWAPD_INTERVAL_BIG      (250000) // in us (500ms)
+#define PEBS_KSWAPD_INTERVAL_SMALL    (250000) // in us (100ms)
 // ==============================================================================
 
 
@@ -171,7 +172,7 @@
 
 
 #define PERF_PAGES	(1 + (1 << 8))	// Has to be == 1+2^n, here 1MB
-#define DEFAULT_SAMPLE_PERIOD	(10007)
+#define DEFAULT_SAMPLE_PERIOD	(5003)
 #define HF_SAMPLE_PERIOD	(5003)
 
 enum sampling_modes {

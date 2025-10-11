@@ -19,11 +19,6 @@ struct perf_sample {
   /* __u64 data_src;    /\* if PERF_SAMPLE_DATA_SRC *\/ */
 };
 
-struct score_entry {
-  struct hemem_page* page;
-  float score;
-};
-
 void *pebs_kswapd();
 struct hemem_page* pebs_pagefault(void);
 struct hemem_page* pebs_pagefault_unlocked(void);
@@ -33,5 +28,11 @@ void pebs_add_page(struct hemem_page *page);
 struct hemem_page* pebs_find_page(uint64_t va);
 void pebs_remove_page(struct hemem_page *page);
 
+void pebs_log_read(void *addr, size_t len);
+void pebs_log_write(void *addr, size_t len);
+void pebs_log_malloc(void *addr, size_t len);
+
 void pebs_stats();
 void pebs_shutdown();
+
+extern bool terminated;

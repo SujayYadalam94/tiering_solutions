@@ -103,7 +103,7 @@ void *hemem_parallel_memcpy_thread(void *arg)
   assert(tid < MAX_COPY_THREADS);
 
 
-  for (;;) {
+  while(!terminated) {
     /* while(!pmemcpy.activate || pmemcpy.done_bitmap[tid]) { } */
     int r = pthread_barrier_wait(&pmemcpy.barrier);
     assert(r == 0 || r == PTHREAD_BARRIER_SERIAL_THREAD);
@@ -159,7 +159,7 @@ static void *hemem_stats_thread()
     assert(0);
   }
 
-  for (;;) {
+  while(!terminated) {
     sleep(1);
 
     hemem_print_stats();
@@ -1007,7 +1007,7 @@ void *handle_fault()
     assert(0);
   }
 
-  for (;;) {
+  while(!terminated) {
     struct pollfd pollfd;
     int pollres;
     pollfd.fd = uffd;
@@ -1101,6 +1101,7 @@ void *handle_fault()
       }
     }
   }
+  return NULL;
 }
 
 #ifdef ALLOC_LRU
