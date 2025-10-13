@@ -6,6 +6,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+// Stub global variables for brk interception tracking
+uint64_t brk_intercepted_bytes = 0;
+uint64_t brk_intercepted_count = 0;
+
 // Stub the functions that require kernel support
 int hemem_wp_page(uint64_t addr) {
   (void)addr;

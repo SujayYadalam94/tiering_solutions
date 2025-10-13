@@ -52,6 +52,8 @@ uint64_t mem_mmaped = 0;
 uint64_t mem_allocated = 0;
 uint64_t pages_allocated = 0;
 uint64_t dram_small_allocation_bytes = 0;
+uint64_t brk_intercepted_bytes = 0;
+uint64_t brk_intercepted_count = 0;
 uint64_t pages_freed = 0;
 uint64_t fastmem_allocated = 0;
 uint64_t slowmem_allocated = 0;
@@ -1255,10 +1257,17 @@ uint64_t hemem_get_bits(struct hemem_page *page)
 
 void hemem_print_stats()
 {
-  LOG_STATS("mem_allocated: [%lu]\tdram_small_allocation_bytes: [%lu]\tpages_allocated: [%lu]\tmissing_faults_handled: [%lu]\tbytes_migrated: [%lu]\tmigrations_up: [%lu]\tmigrations_down: [%lu]\tmigration_waits: [%lu]\n",
+  LOG_STATS("mem_allocated: [%lu bytes (%.2f MB)]\tdram_small_allocation_bytes: [%lu bytes (%.2f MB)]\tbrk_intercepted: [%lu calls, %lu bytes (%.2f MB)]\n",
                mem_allocated,
+               mem_allocated / (1024.0 * 1024.0),
                dram_small_allocation_bytes,
+               dram_small_allocation_bytes / (1024.0 * 1024.0),
+               brk_intercepted_count,
+               brk_intercepted_bytes,
+               brk_intercepted_bytes / (1024.0 * 1024.0));
+  LOG_STATS("pages_allocated: [%lu (%.2f GB with 2MB pages)]\tmissing_faults_handled: [%lu]\tbytes_migrated: [%lu]\tmigrations_up: [%lu]\tmigrations_down: [%lu]\tmigration_waits: [%lu]\n",
                pages_allocated,
+               (pages_allocated * 2.0),  // 2MB pages -> GB
                missing_faults_handled,
                bytes_migrated,
                migrations_up,

@@ -311,7 +311,7 @@ static struct perf_event_mmap_page* perf_setup(__u64 config, __u64 config1, __u6
   pfd[cpu][type] = perf_event_open(&attr, -1, cpu, -1, 0);
   if(pfd[cpu][type] == -1) {
     perror("perf_event_open");
-    fprintf(stderr, "ASSERT FAILED: perf_event_open failed for cpu=%d type=%d\n", cpu, type);
+    fprintf(stderr, "ASSERT FAILED: perf_event_open failed for cpu=%lld type=%lld\n", cpu, type);
   }
   assert(pfd[cpu][type] != -1);
 
@@ -564,8 +564,8 @@ static inline void moving_avg_sub(float* avg, struct hemem_page* page, uint32_t*
 static size_t calculate_scores_tree(struct score_entry *scores_out, const float *bias)
 {
   struct ptimer window_timer, spatial_smooth_timer;
-  //ptimer_init(&window_timer, "Scores (window)");
-  //ptimer_init(&spatial_smooth_timer, "Scores (spatial smooth)");
+  ptimer_init(&window_timer, "Scores (window)");
+  ptimer_init(&spatial_smooth_timer, "Scores (spatial smooth)");
 
   struct hemem_page *page;
   kbitr_t itr, n_itr;
@@ -622,7 +622,7 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
     }
 #endif
 
-    //ptimer_continue(&spatial_smooth_timer);
+    ptimer_continue(&spatial_smooth_timer);
     LOG_DEBUG("Before smoothing\n");
 
     // Pop left neighbour(s)
@@ -691,7 +691,7 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
     page->s_accesses[NVMREAD] = smooth_avg_v[NVMREAD];
     page->s_accesses[WRITE] = smooth_avg_v[WRITE];
 
-    //ptimer_stop(&spatial_smooth_timer);
+    ptimer_stop(&spatial_smooth_timer);
     LOG_DEBUG("After smoothing\n");
 
     // Update the window with the smoothed access count
@@ -731,7 +731,7 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
       page->accesses[i][prev_access_version] = 0;
     }
   }
-  //ptimer_print(&spatial_smooth_timer);
+  ptimer_print(&spatial_smooth_timer);
 
   return s_idx;
 }
@@ -740,7 +740,7 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
 static size_t calculate_scores_map(struct score_entry *scores_out, const float *bias)
 {
   struct ptimer window_timer;
-  //ptimer_init(&window_timer, "Scores (window)");
+  ptimer_init(&window_timer, "Scores (window)");
 
   struct hemem_page *page;
   khiter_t key;
@@ -787,7 +787,7 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
     scores_out[s_idx++] = (struct score_entry){ page, page->score };
 
   }
-  //ptimer_print(&window_timer);
+  ptimer_print(&window_timer);
 
   return s_idx;
 }
@@ -893,7 +893,7 @@ void *pebs_migration_thread()
   struct migration_req *req;
   struct ptimer migrate_timer;
 
-  //ptimer_init(&migrate_timer, "Migrate");
+  ptimer_init(&migrate_timer, "Migrate");
 
   while(true) {
     sem_wait(&submission_sem);
@@ -906,21 +906,21 @@ void *pebs_migration_thread()
 
       // Demote a page if necessary
       if (req->need_demotion) {
-        //ptimer_start(&migrate_timer);
+        ptimer_start(&migrate_timer);
         if (!demote_to_free_nvm_page(req->dram_page, req->free_page)) {
           enqueue_fifo(&nvm_free_list, req->free_page);
           sem_post(&completion_sem);
           free(req);
           continue;
         }
-        //ptimer_stop(&migrate_timer);
+        ptimer_stop(&migrate_timer);
         demotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * demotion_cost_avg);
       }
 
       // Promote the hot NVM page
-      //ptimer_start(&migrate_timer);
+      ptimer_start(&migrate_timer);
       promote_to_free_dram_page(req->nvm_page, req->free_page);
-      //ptimer_stop(&migrate_timer);
+      ptimer_stop(&migrate_timer);
       promotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * promotion_cost_avg);
 
       sem_post(&completion_sem);
@@ -933,12 +933,12 @@ void *pebs_policy_thread()
 {
   struct ptimer loop_timer, tree_timer, score_timer, sort_timer, id_timer;
   struct ptimer remaining_timer;
-  //ptimer_init(&loop_timer, "Loop");
-  //ptimer_init(&tree_timer, "Tree");
-  //ptimer_init(&score_timer, "Score");
-  //ptimer_init(&sort_timer, "Sort");
-  //ptimer_init(&id_timer, "Identify");
-  //ptimer_init(&remaining_timer, "Remaining");
+  ptimer_init(&loop_timer, "Loop");
+  ptimer_init(&tree_timer, "Tree");
+  ptimer_init(&score_timer, "Score");
+  ptimer_init(&sort_timer, "Sort");
+  ptimer_init(&id_timer, "Identify");
+  ptimer_init(&remaining_timer, "Remaining");
 
   cpu_set_t cpuset;
   pthread_t thread;
@@ -989,8 +989,8 @@ void *pebs_policy_thread()
   usleep((uint64_t)((1.0 * policy_thread_period)));
 
   for (;;) {
-    //ptimer_start(&loop_timer);
-    //ptimer_start(&remaining_timer);
+    ptimer_start(&loop_timer);
+    ptimer_start(&remaining_timer);
 
     LOG_REPORT("\n========================================\n");
     LOG_REPORT("Starting new interval\n");
@@ -1062,7 +1062,7 @@ void *pebs_policy_thread()
     }
 
     // free pages using free page ring buffer
-    //ptimer_start(&tree_timer);
+    ptimer_start(&tree_timer);
     while (true) {
       mod_page_t* mp;
       pthread_mutex_lock(&mod_page_dq_lock);
@@ -1123,10 +1123,10 @@ void *pebs_policy_thread()
 
       #endif
     }
-    //ptimer_stop_and_print(&tree_timer);
+    ptimer_stop_and_print(&tree_timer);
 
     // Calculate the scores
-    //ptimer_start(&score_timer);
+    ptimer_start(&score_timer);
 
     #ifdef SPATIAL_SMOOTHING
     s_pages_cnt = calculate_scores_tree(scores, bias);
@@ -1134,12 +1134,12 @@ void *pebs_policy_thread()
     s_pages_cnt = calculate_scores_map(scores, bias);
     #endif
 
-    //ptimer_stop_and_print(&score_timer);
+    ptimer_stop_and_print(&score_timer);
 
     // Sort the scores (in descending order)
-    //ptimer_start(&sort_timer);
+    ptimer_start(&sort_timer);
     qsort(scores, s_pages_cnt, sizeof(struct score_entry), sort_entry_cmp);
-    //ptimer_stop_and_print(&sort_timer);
+    ptimer_stop_and_print(&sort_timer);
 
     // Set the top_since_iter for the top pages
     for (int k = 0; k < dramsize/PAGE_SIZE && k < s_pages_cnt; k++) {
@@ -1169,7 +1169,7 @@ void *pebs_policy_thread()
     LOG_REPORT("Prom cost: %f, Dem cost: %f\n", promotion_cost_avg, demotion_cost_avg);
 
     // Perform migrations
-    //ptimer_reset(&id_timer);
+    ptimer_reset(&id_timer);
 
     promote_idx = 0;
     demote_idx = s_pages_cnt - 1;
@@ -1181,7 +1181,7 @@ void *pebs_policy_thread()
       num_migration_jobs--;
     }
 
-    //ptimer_stop(&remaining_timer);
+    ptimer_stop(&remaining_timer);
 
     /*******************/
     /* MIGRATIONs LOOP*/
@@ -1198,7 +1198,7 @@ void *pebs_policy_thread()
       if (scores[promote_idx].score == 0)
         break;
       // find the hotest NVM page that needs to be promoted
-      //ptimer_continue(&id_timer);
+      ptimer_continue(&id_timer);
       while (promote_idx < demote_idx && scores[promote_idx].page->in_dram) {
         promote_idx++;
       }
@@ -1228,7 +1228,7 @@ void *pebs_policy_thread()
                   np->va, np->devdax_offset);
         }
         assert(!(np->present));
-        //ptimer_stop(&id_timer);
+        ptimer_stop(&id_timer);
 
         // Cost-benefit analysis
         float cost = CB_MULTIPLIER * (promotion_cost_avg + demotion_cost_avg);
@@ -1290,7 +1290,7 @@ void *pebs_policy_thread()
       // try to find a free NVM page
       np = dequeue_fifo(&nvm_free_list);
       assert(np != NULL);
-      //ptimer_stop(&id_timer);
+      ptimer_stop(&id_timer);
 
       LOG_REPORT("Demoting at %ld: 0x%lx score: %f (%f %f)\n", demote_idx, cp->va, cp->score, cp->w[0], cp->w[1]);
       LOG_REPORT("Promoting at %ld: 0x%lx score: %f (%f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1]);
@@ -1319,10 +1319,10 @@ void *pebs_policy_thread()
     }
 
 loop_end:
-    //ptimer_print(&id_timer);
-//    ptimer_stop_and_print(&loop_timer);
-//    ptimer_stop(&remaining_timer);
-//
+    ptimer_print(&id_timer);
+    ptimer_stop_and_print(&loop_timer);
+    ptimer_stop(&remaining_timer);
+
     LOG_REPORT("Migrated %lu pages (%lu bytes) in this interval\n", migrated_pages, migrated_bytes);
     if (migrated_pages == 0) {
       // Reset the migration cost averages

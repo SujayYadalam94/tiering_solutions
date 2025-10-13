@@ -209,6 +209,7 @@ static const struct hemem_policy_ops* policy_by_kind(enum hemem_policy_kind kind
   return NULL;
 }
 
+#if 0
 static const struct hemem_policy_ops* policy_by_name(const char *name)
 {
   for (size_t i = 0; i < sizeof(policy_ops_table) / sizeof(policy_ops_table[0]); i++) {
@@ -247,6 +248,7 @@ static uint64_t parse_u64(const char *s)
   }
   return value;
 }
+#endif
 
 static void add_region_locked(uint64_t start, uint64_t end, enum hemem_policy_kind kind, const char *label)
 {

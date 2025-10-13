@@ -19,12 +19,22 @@ HEMEM_SRCS = \
 HEMEM_OBJS = $(HEMEM_SRCS:.c=.o)
 
 # Test executables
+TESTS = test_regions test_brk_interception
+
+all: $(TESTS)
+
 test_regions: test_regions.o $(HEMEM_OBJS)
 	$(CC) $(CFLAGS) -o test_regions test_regions.o $(HEMEM_OBJS) $(LDFLAGS)
+
+test_brk_interception: test_brk_interception.o $(HEMEM_OBJS)
+	$(CC) $(CFLAGS) -o test_brk_interception test_brk_interception.o $(HEMEM_OBJS) $(LDFLAGS)
 
 # Compile test file
 test_regions.o: test_regions.c
 	$(CC) $(CFLAGS) -c -o test_regions.o test_regions.c
+
+test_brk_interception.o: test_brk_interception.c
+	$(CC) $(CFLAGS) -c -o test_brk_interception.o test_brk_interception.c
 
 # Compile HeMem sources
 $(SRC_DIR)/%.o: $(SRC_DIR)/%.c
@@ -34,11 +44,21 @@ $(POLICY_DIR)/%.o: $(POLICY_DIR)/%.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 # Run the test
-test: test_regions
+test: $(TESTS)
 	@echo "========================================="
 	@echo "Running HeMem Multi-Region Core Tests"
 	@echo "========================================="
 	@./test_regions
+	@echo ""
+	@echo "========================================="
+	@echo "Running HeMem brk Interception Tests"
+	@echo "========================================="
+	@./test_brk_interception
+	@echo ""
+	@echo "========================================="
+	@echo "Running HeMem brk Runtime Interception Test"
+	@echo "========================================="
+	@./test_brk_runtime.sh
 
 # Quick smoke test  
 smoke: test
@@ -46,7 +66,7 @@ smoke: test
 
 # Clean
 clean:
-	rm -f test_regions test_simple *.o $(SRC_DIR)/*.o $(POLICY_DIR)/*.o
+	rm -f $(TESTS) test_simple *.o $(SRC_DIR)/*.o $(POLICY_DIR)/*.o
 
 .PHONY: all test smoke clean
 
