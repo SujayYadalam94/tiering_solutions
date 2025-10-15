@@ -1574,18 +1574,35 @@ void pebs_init(struct fifo_list *dram_fl, struct fifo_list *nvm_fl)
   pages_map = kh_init(kPagesMap);
   #endif
 
-  scores = (struct score_entry*)malloc((MAX_NVME_PAGES + MAX_DRAM_PAGES) * sizeof(struct score_entry));
+  // Use mmap instead of malloc for init-time allocation
+  size_t scores_size = (MAX_NVME_PAGES + MAX_DRAM_PAGES) * sizeof(struct score_entry);
+  scores = (struct score_entry*)mmap(NULL, scores_size, PROT_READ | PROT_WRITE,
+                                     MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+  if (scores == MAP_FAILED) {
+    perror("mmap scores");
+    abort();
+  }
 
   // Initialize the free/add ring buffers
   mod_page_dq = kdq_init(mod_page_t);
 
   // Initialize the neighbour ring buffers
 #ifdef SPATIAL_SMOOTHING
-  buffer = (uint64_t**)malloc(sizeof(uint64_t*) * (NUM_NEIGHBOURS + 2));
-  assert(buffer);
+  size_t buffer_size = sizeof(uint64_t*) * (NUM_NEIGHBOURS + 2);
+  buffer = (uint64_t**)mmap(NULL, buffer_size, PROT_READ | PROT_WRITE,
+                            MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+  if (buffer == MAP_FAILED) {
+    perror("mmap buffer");
+    abort();
+  }
   l_neighbours = ring_buf_init(buffer, NUM_NEIGHBOURS + 2);
-  buffer = (uint64_t**)malloc(sizeof(uint64_t*) * (NUM_NEIGHBOURS + 2));
-  assert(buffer);
+  
+  buffer = (uint64_t**)mmap(NULL, buffer_size, PROT_READ | PROT_WRITE,
+                            MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+  if (buffer == MAP_FAILED) {
+    perror("mmap buffer");
+    abort();
+  }
   r_neighbours = ring_buf_init(buffer, NUM_NEIGHBOURS + 2);
 #endif
 

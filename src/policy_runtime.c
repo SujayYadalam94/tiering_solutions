@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
+#include <sys/mman.h>
 
 #include "hemem.h"
 #include "pebs.h"
@@ -69,6 +70,46 @@ static struct hemem_region regions[MAX_HEMEM_REGIONS];
 static size_t region_count;
 static bool regions_bootstrapped;
 static pthread_mutex_t regions_lock = PTHREAD_MUTEX_INITIALIZER;
+
+// ===================================================================
+// MMAP-BASED PAGE ALLOCATOR (no malloc during init!)
+// ===================================================================
+static struct hemem_page *page_pool = NULL;
+static size_t page_pool_size = 0;
+static size_t page_pool_used = 0;
+static pthread_mutex_t page_pool_lock = PTHREAD_MUTEX_INITIALIZER;
+
+// Pre-allocate page structures using mmap (not malloc!)
+static void init_page_pool(size_t num_pages) {
+  pthread_mutex_lock(&page_pool_lock);
+  if (page_pool == NULL) {
+    size_t size = num_pages * sizeof(struct hemem_page);
+    page_pool = mmap(NULL, size, PROT_READ | PROT_WRITE, 
+                     MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+    if (page_pool == MAP_FAILED) {
+      perror("mmap page_pool");
+      abort();
+    }
+    page_pool_size = num_pages;
+    page_pool_used = 0;
+  }
+  pthread_mutex_unlock(&page_pool_lock);
+}
+
+// Allocate a page structure from the pool (replacement for calloc)
+static struct hemem_page *alloc_page_struct(void) {
+  pthread_mutex_lock(&page_pool_lock);
+  if (page_pool_used >= page_pool_size) {
+    fprintf(stderr, "ERROR: Page pool exhausted! Need more than %zu pages\n", page_pool_size);
+    pthread_mutex_unlock(&page_pool_lock);
+    abort();
+  }
+  struct hemem_page *p = &page_pool[page_pool_used++];
+  memset(p, 0, sizeof(struct hemem_page));
+  pthread_mutex_unlock(&page_pool_lock);
+  return p;
+}
+// ===================================================================
 
 // Per-policy resource tracking (Step 2 of assignment)
 #define MAX_POLICIES 3  // LRU, PEBS/LFU, SIMPLE
@@ -637,7 +678,14 @@ void hemem_regions_bootstrap(void)
           leftover_dram, leftover_dram / (1024.0*1024.0*1024.0),
           leftover_nvm, leftover_nvm / (1024.0*1024.0*1024.0));
   
-  // 1f. Merge leftover into fallback policy's resources
+  // 1f. Pre-allocate page pool (mmap, not malloc!)
+  uint64_t total_dram_pages = dramsize / PAGE_SIZE;
+  uint64_t total_nvm_pages = nvmsize / PAGE_SIZE;
+  uint64_t total_pages = total_dram_pages + total_nvm_pages;
+  fprintf(stderr, "HeMem: Pre-allocating page pool for %lu pages (using mmap, not malloc)\n", total_pages);
+  init_page_pool(total_pages);
+  
+  // 1g. Merge leftover into fallback policy's resources
   struct hemem_policy_resources *fallback_res = get_policy_resources(fallback_policy_kind);
   if (fallback_res != NULL) {
     fallback_res->dram_size += leftover_dram;
@@ -684,7 +732,7 @@ void hemem_regions_bootstrap(void)
     // Create DRAM pages (2MB each)
     uint64_t dram_pages = res->dram_size / PAGE_SIZE;
     for (uint64_t j = 0; j < dram_pages; j++) {
-      struct hemem_page *p = calloc(1, sizeof(struct hemem_page));
+      struct hemem_page *p = alloc_page_struct();
       p->devdax_offset = dram_offset + (j * PAGE_SIZE);
       p->present = false;
       p->in_dram = true;
@@ -696,7 +744,7 @@ void hemem_regions_bootstrap(void)
     // Create NVM pages (2MB each)
     uint64_t nvm_pages = res->nvm_size / PAGE_SIZE;
     for (uint64_t j = 0; j < nvm_pages; j++) {
-      struct hemem_page *p = calloc(1, sizeof(struct hemem_page));
+      struct hemem_page *p = alloc_page_struct();
       p->devdax_offset = nvm_offset + (j * PAGE_SIZE);
       p->present = false;
       p->in_dram = false;

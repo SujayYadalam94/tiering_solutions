@@ -201,8 +201,9 @@ void hemem_init()
 
   drampath = getenv("DRAMPATH");
   if(drampath == NULL) {
-    drampath = malloc(sizeof(DRAMPATH_DEFAULT));
-    strcpy(drampath, DRAMPATH_DEFAULT);
+    static char default_drampath[256];
+    strcpy(default_drampath, DRAMPATH_DEFAULT);
+    drampath = default_drampath;
   }
 
   dramfd = open(drampath, O_RDWR);
@@ -213,8 +214,9 @@ void hemem_init()
 
   nvmpath = getenv("NVMPATH");
   if(nvmpath == NULL) {
-    nvmpath = malloc(sizeof(NVMPATH_DEFAULT));
-    strcpy(nvmpath, NVMPATH_DEFAULT);
+    static char default_nvmpath[256];
+    strcpy(default_nvmpath, NVMPATH_DEFAULT);
+    nvmpath = default_nvmpath;
   }
 
   nvmfd = open(nvmpath, O_RDWR);
@@ -388,6 +390,7 @@ void hemem_stop()
   }
 
   hemem_print_stats();
+  hemem_heap_print_stats();
 }
 
 #ifndef USE_DMA
@@ -1265,9 +1268,9 @@ void hemem_print_stats()
                brk_intercepted_count,
                brk_intercepted_bytes,
                brk_intercepted_bytes / (1024.0 * 1024.0));
-  LOG_STATS("pages_allocated: [%lu (%.2f GB with 2MB pages)]\tmissing_faults_handled: [%lu]\tbytes_migrated: [%lu]\tmigrations_up: [%lu]\tmigrations_down: [%lu]\tmigration_waits: [%lu]\n",
+  LOG_STATS("pages_allocated: [%lu (%.2f MB with 2MB pages)]\tmissing_faults_handled: [%lu]\tbytes_migrated: [%lu]\tmigrations_up: [%lu]\tmigrations_down: [%lu]\tmigration_waits: [%lu]\n",
                pages_allocated,
-               (pages_allocated * 2.0),  // 2MB pages -> GB
+               (pages_allocated * 2.0),  // 2MB pages -> MB
                missing_faults_handled,
                bytes_migrated,
                migrations_up,

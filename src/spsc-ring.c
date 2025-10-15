@@ -3,6 +3,8 @@
 #include <stddef.h>
 #include <string.h>
 #include <assert.h>
+#include <sys/mman.h>
+#include <stdio.h>
 
 #include "spsc-ring.h"
 
@@ -46,8 +48,12 @@ ring_handle_t ring_buf_init(uint64_t** buffer, size_t size)
 {
 	assert(buffer && size);
 
-	ring_handle_t rbuf = malloc(sizeof(ring_buf_t));
-	assert(rbuf);
+	ring_handle_t rbuf = mmap(NULL, sizeof(ring_buf_t), PROT_READ | PROT_WRITE,
+	                          MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+	if (rbuf == MAP_FAILED) {
+		perror("mmap ring_buf_t");
+		abort();
+	}
 
 	rbuf->buffer = buffer;
 	rbuf->capacity = size;
