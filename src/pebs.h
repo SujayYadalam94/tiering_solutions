@@ -19,7 +19,22 @@ struct perf_sample {
   /* __u64 data_src;    /\* if PERF_SAMPLE_DATA_SRC *\/ */
 };
 
-void *pebs_kswapd();
+
+enum syscall_type {
+  READ_SYSCALL = 0,
+  WRITE_SYSCALL = 1,
+  MALLOC_SYSCALL = 2,
+  NUM_SYSCALL_TYPES
+};
+struct syscall_event
+{
+  enum syscall_type type;
+  void *addr;
+  size_t len;
+};
+
+void *
+pebs_kswapd();
 struct hemem_page* pebs_pagefault(void);
 struct hemem_page* pebs_pagefault_unlocked(void);
 void pebs_init(void);

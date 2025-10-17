@@ -48,11 +48,11 @@ static int mmap_filter(void *addr, size_t length, int prot, int flags, int fd, o
     return 1;
   }
 
-  if (internal_call) {
+  if (internal_call_depth - malloc_call_depth > 0) {
     LOG("hemem interpose: calling libc mmap due to internal memory call: mmap(0x%lx, %ld, %x, %x, %d, %ld)\n", (uint64_t)addr, length, prot, flags, fd, offset);
     return 1;
   }
-  
+
   if (!is_init) {
     //LOG("hemem interpose: calling libc mmap due to hemem init in progress\n");
     return 1;
@@ -79,7 +79,7 @@ static int munmap_filter(void *addr, size_t length, uint64_t* result)
   
   //TODO: figure out which munmap calls should go to libc vs hemem
   
-  if (internal_call) {
+  if (internal_call_depth - malloc_call_depth > 0) {
     return 1;
   }
 
@@ -106,17 +106,7 @@ static int hook(long syscall_number, long arg0, long arg1, long arg2, long arg3,
 	  return mmap_filter((void*)arg0, (size_t)arg1, (int)arg2, (int)arg3, (int)arg4, (off_t)arg5, (uint64_t*)result);
 	} else if (syscall_number == SYS_munmap){
     return munmap_filter((void*)arg0, (size_t)arg1, (uint64_t*)result);
-  }else if (syscall_number == SYS_read) {
-        internal_call = true;
-        pebs_log_read((void *)arg1, (size_t)arg2);
-        internal_call = false;
-        return 1;
-    } else if (syscall_number == SYS_write) {
-        internal_call = true;
-        pebs_log_write((void *)arg1, (size_t)arg2);
-        internal_call = false;
-        return 1;
-    }
+  }
   return 1;
 }
 
@@ -136,24 +126,27 @@ static __attribute__((destructor)) void hemem_shutdown(void)
   hemem_stop();
 }
 
-/* 
-void* malloc(size_t size)
-{
-  void* ret;
-  if(libc_malloc == NULL) {
-    libc_malloc = bind_symbol("malloc");
-  }
-  assert(libc_malloc != NULL);
-  ret = libc_malloc(size);
-  return ret;
-}
+void* malloc(size_t size) {
+    malloc_call_depth++;
+    internal_call_depth++;
 
-void free(void* ptr)
-{
-  if(libc_free == NULL) {
-    libc_free = bind_symbol("free");
-  }
-  assert(libc_free != NULL);
-  libc_free(ptr);
+    static void *(*next)(size_t) = NULL;
+    if (!next) {
+        next = dlsym(RTLD_NEXT, "malloc");
+    }
+
+    void *ptr = next(size);
+
+    if (malloc_call_depth > 1) {
+        malloc_call_depth--;
+        internal_call_depth--;
+        return ptr;
+    }
+
+    internal_call_depth--;
+    malloc_call_depth--;
+
+    pebs_log_malloc(ptr, size);
+
+    return ptr;
 }
-*/

@@ -23,7 +23,6 @@ struct score_entry {
 };
 struct hemem_page {
     uint64_t va;
-    size_t malloc_size;
     int prot;
     int flags;
     uint64_t devdax_offset;
@@ -37,24 +36,22 @@ struct hemem_page {
     uint16_t accesses[NPBUFTYPES][2];
     pthread_mutex_t page_lock;
 
-    uint32_t _read_syscalls;
-    uint32_t _write_syscalls;
-    uint32_t _read_bytes;
-    uint32_t _write_bytes;
-    uint32_t _malloc_bytes;
-    uint32_t _malloc_call;
-
     uint32_t read_syscalls;
     uint32_t write_syscalls;
     uint32_t read_bytes;
     uint32_t write_bytes;
-    uint32_t malloc_bytes;
+    uint64_t sum_malloc_bytes;
+    int32_t min_malloc_bytes;
+    int32_t max_malloc_bytes;
     uint32_t malloc_call;
 
     uint32_t prev_count;
     float w[WINDOW_SIZE];
     float w_r[WINDOW_SIZE];
     float w_w[WINDOW_SIZE];
+
+    float malloc_call_ewma[WINDOW_SIZE];
+    float malloc_size_ewma[WINDOW_SIZE];
 
     double cumsum_reads;
     double cumsum_writes;
@@ -80,7 +77,7 @@ struct hemem_page {
     uint64_t global_count_similar;
     int32_t diff;
 
-    uint64_t _padding[7];
+    uint64_t _padding[6];
 };
 static_assert(sizeof(struct hemem_page) == 64 * 6);
 

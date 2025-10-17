@@ -67,9 +67,13 @@ static inline void log_time(const char* fmt, ...)
 #define LOG_TIME(str, ...) while(0) {}
 
 extern FILE *statsf;
-#define LOG_STATS(str, ...) fprintf(stderr, str,  __VA_ARGS__)
-//#define LOG_STATS(str, ...) fprintf(statsf, str, __VA_ARGS__)
-//#define LOG_STATS(str, ...) while (0) {}
+#define LOG_STATS(str, ...)\
+internal_call_depth++;\
+fprintf(statsf, str, __VA_ARGS__);\
+internal_call_depth--
+
+// #define LOG_STATS(str, ...) fprintf(statsf, str, __VA_ARGS__)
+// #define LOG_STATS(str, ...) while (0) {}
 
 #if defined (ALLOC_HEMEM)
   #define pagefault(...) pebs_pagefault(__VA_ARGS__)
@@ -105,10 +109,8 @@ extern uint64_t dram_small_allocation_bytes;
 extern uint64_t missing_faults_handled;
 extern uint64_t migrations_up;
 extern uint64_t migrations_down;
-extern __thread bool internal_malloc;
-extern __thread bool old_internal_call;
-extern __thread bool internal_call;
-extern __thread bool internal_munmap;
+extern __thread int32_t internal_call_depth;
+extern __thread int32_t malloc_call_depth;
 
 enum memtypes {
   FASTMEM = 0,

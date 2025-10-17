@@ -27,6 +27,7 @@
 #include "hemem_page.h"
 #include "logging.h"
 #include "model.h"
+#include "interpose.h"
 
 #include "khash.h"
 #include "kdq.h"
@@ -41,6 +42,25 @@ KHASH_MAP_INIT_INT64(kPagesMap, struct hemem_page*)
 khash_t(kPagesMap) *pages;
 pthread_mutex_t pages_lock = PTHREAD_MUTEX_INITIALIZER;
 
+#define SYSCALL_EVENT_QUEUE_CAPACITY (128 * 1024)
+_Atomic size_t syscall_queue_index = 0;
+_Atomic size_t syscall_queue_size = 0;
+_Atomic(struct syscall_event *) syscall_event_queue;
+
+struct syscall_event *create_syscall_event_queue(){
+  internal_call_depth++;
+  malloc_call_depth++;
+  struct syscall_event *queue =
+      (struct syscall_event *)malloc(SYSCALL_EVENT_QUEUE_CAPACITY * sizeof(struct syscall_event));
+  if (queue == NULL)
+  {
+      LOG_ERROR("Failed to allocate memory for syscall event queue\n");
+      exit(EXIT_FAILURE);
+  }
+  malloc_call_depth--;
+  internal_call_depth--;
+  return queue;
+}
 
 #ifdef SPATIAL_SMOOTHING
 /*
@@ -228,6 +248,7 @@ uint64_t measure_bw(int tier)
   uint64_t cur_bw = 0;
   uint64_t cur_val = 0;
 
+  internal_call_depth++;
   for (int j = 0; j < NUM_EVENTS; j++) {
     for (int k = 0; k < NUM_IMC; k++) {
       if (read(bw_fds[tier][j][k], &cur_val, sizeof(cur_val)) == -1) {
@@ -238,6 +259,7 @@ uint64_t measure_bw(int tier)
       prev_bw_val[tier][j][k] = cur_val;
     }
   }
+  internal_call_depth--;
 
   return cur_bw;
 }
@@ -290,31 +312,33 @@ void pebs_print_config();
 
 static struct perf_event_mmap_page* perf_setup(__u64 config, __u64 config1, __u64 cpu, __u64 type)
 {
-  struct perf_event_attr attr;
+    internal_call_depth++;
+    struct perf_event_attr attr;
 
-  memset(&attr, 0, sizeof(struct perf_event_attr));
+    memset(&attr, 0, sizeof(struct perf_event_attr));
 
-  attr.type = PERF_TYPE_RAW;
-  attr.size = sizeof(struct perf_event_attr);
+    attr.type = PERF_TYPE_RAW;
+    attr.size = sizeof(struct perf_event_attr);
 
-  attr.config = config;
-  attr.config1 = config1;
-  attr.sample_period = DEFAULT_SAMPLE_PERIOD;
+    attr.config = config;
+    attr.config1 = config1;
+    attr.sample_period = DEFAULT_SAMPLE_PERIOD;
 
-  attr.sample_type = PERF_SAMPLE_IP | PERF_SAMPLE_TID | PERF_SAMPLE_ADDR;
-  attr.pinned = 1;
-  attr.disabled = 0;
-  //attr.inherit = 1;
-  attr.exclude_kernel = 1;
-  attr.exclude_hv = 1;
-  attr.exclude_callchain_kernel = 1;
-  attr.exclude_callchain_user = 1;
-  attr.precise_ip = 1;
+    attr.sample_type = PERF_SAMPLE_IP | PERF_SAMPLE_TID | PERF_SAMPLE_ADDR;
+    attr.pinned = 1;
+    attr.disabled = 0;
+    // attr.inherit = 1;
+    attr.exclude_kernel = 1;
+    attr.exclude_hv = 1;
+    attr.exclude_callchain_kernel = 1;
+    attr.exclude_callchain_user = 1;
+    attr.precise_ip = 1;
 
-  pfd[cpu][type] = perf_event_open(&attr, -1, cpu, -1, 0);
-  if(pfd[cpu][type] == -1) {
-    perror("perf_event_open");
-  }
+    pfd[cpu][type] = perf_event_open(&attr, -1, cpu, -1, 0);
+    if (pfd[cpu][type] == -1)
+    {
+        perror("perf_event_open");
+    }
   assert(pfd[cpu][type] != -1);
 
   size_t mmap_size = sysconf(_SC_PAGESIZE) * PERF_PAGES;
@@ -324,6 +348,7 @@ static struct perf_event_mmap_page* perf_setup(__u64 config, __u64 config1, __u6
   }
   assert(p != MAP_FAILED);
 
+  internal_call_depth--;
   return p;
 }
 
@@ -449,6 +474,7 @@ void *pebs_scan_thread()
 
 static void pebs_migrate_down(struct hemem_page *page, uint64_t offset)
 {
+  internal_call_depth++;
   struct timeval start, end;
 
   gettimeofday(&start, NULL);
@@ -460,10 +486,12 @@ static void pebs_migrate_down(struct hemem_page *page, uint64_t offset)
 
   gettimeofday(&end, NULL);
   LOG_DEBUG("migrate_down: %f s\n", elapsed(&start, &end));
+  internal_call_depth--;
 }
 
 static void pebs_migrate_up(struct hemem_page *page, uint64_t offset)
 {
+  internal_call_depth++;
   struct timeval start, end;
 
   gettimeofday(&start, NULL);
@@ -475,6 +503,7 @@ static void pebs_migrate_up(struct hemem_page *page, uint64_t offset)
 
   gettimeofday(&end, NULL);
   LOG_DEBUG("migrate_up: %f s\n", elapsed(&start, &end));
+  internal_call_depth--;
 }
 
 // Sorts in ascending order
@@ -500,30 +529,6 @@ int sort_entry_cmp_by_ewma5(const void *a, const void *b) {
   return (_a.page->w[1] > _b.page->w[1]) ? -1 : (_a.page->w[1] < _b.page->w[1]);
 }
 
-static inline float _moving_avg_add(float avg, float new_val, uint32_t count) {
-  return ((count * avg) + new_val) / (count + 1);
-}
-static inline void moving_avg_add(float* avg, struct hemem_page* page, uint32_t* count) {
-  avg[DRAMREAD] = _moving_avg_add(avg[DRAMREAD], page->accesses[DRAMREAD][prev_access_version], *count);
-  avg[NVMREAD] = _moving_avg_add(avg[NVMREAD], page->accesses[NVMREAD][prev_access_version], *count);
-  avg[WRITE] = _moving_avg_add(avg[WRITE], page->accesses[WRITE][prev_access_version], *count);
-  (*count)++;
-}
-
-static inline float _moving_avg_sub(float avg, float old_val, uint32_t count) {
-  if ((count - 1) == 0) {
-    // no more elements in the moving average -- set the average to 0
-    return 0;
-  }
-  return ((count * avg) - old_val) / (count - 1);
-}
-static inline void moving_avg_sub(float* avg, struct hemem_page* page, uint32_t* count) {
-  avg[DRAMREAD] = _moving_avg_sub(avg[DRAMREAD], page->accesses[DRAMREAD][prev_access_version], *count);
-  avg[NVMREAD] = _moving_avg_sub(avg[NVMREAD], page->accesses[NVMREAD][prev_access_version], *count);
-  avg[WRITE] = _moving_avg_sub(avg[WRITE], page->accesses[WRITE][prev_access_version], *count);
-  (*count)--;
-}
-
 static size_t calculate_scores_map(struct score_entry *scores_out, const float *bias)
 {
   update_proc_stats();
@@ -537,6 +542,7 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
 
   size_t pages_cnt = kh_size(pages_map);
   if (pages_cnt == 0) {
+    printf("No pages to process\n");
     return 0; // no pages to process
   }
 
@@ -571,7 +577,46 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
     page->prev_score = page->score;
     scores_out[s_idx++] = (struct score_entry){ page, 0.0 };
   }
-  ptimer_print(&window_timer);
+  // Only process events if we have a valid queue (will be NULL on first call)
+  size_t size = atomic_load(&syscall_queue_size);
+  size_t index = atomic_load(&syscall_queue_index);
+  printf("Processing %ld syscall events\n", size - index);
+  for (; index < size; atomic_store(&syscall_queue_index, (++index)))
+  {
+      struct syscall_event item = atomic_load(&syscall_event_queue)[index % SYSCALL_EVENT_QUEUE_CAPACITY];
+      uint64_t round_down = (uint64_t)item.addr & ~(PAGE_SIZE - 1);
+      for (uint64_t off = 0; off < item.len; off += PAGE_SIZE)
+      {
+          struct hemem_page *page = pebs_find_page(round_down + off);
+          if (page == NULL)
+          {
+              break;
+          }
+          // printf("Found page 0x%lx in Hemem\n", round_down);
+          switch (item.type)
+          {
+          case MALLOC_SYSCALL:
+              page->min_malloc_bytes = (page->min_malloc_bytes == -1) ? item.len : 
+                  ((item.len < page->min_malloc_bytes) ? item.len : page->min_malloc_bytes);
+              page->max_malloc_bytes = (page->max_malloc_bytes == -1) ? item.len : 
+                  ((item.len > page->max_malloc_bytes) ? item.len : page->max_malloc_bytes);
+              page->sum_malloc_bytes += item.len;
+              page->malloc_call++;
+              break;
+          case READ_SYSCALL:
+              page->read_bytes += item.len;
+              page->read_syscalls++;
+              break;
+          case WRITE_SYSCALL:
+              page->write_bytes += item.len;
+              page->write_syscalls++;
+              break;
+          default:
+              printf("Unknown syscall type %d\n", item.type);
+              break;
+          }
+    }
+  }
 
   qsort(scores_out, s_idx, sizeof(struct score_entry), sort_entry_cmp_by_ewma5);
 
@@ -592,6 +637,7 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
 
     log_row(timestep, scores_out[i].page, grp_tracker, count_total);
   }
+  ptimer_print(&window_timer);
 
 
 
@@ -740,25 +786,25 @@ void *pebs_migration_thread()
 
 void *pebs_policy_thread()
 {
-  struct ptimer loop_timer, tree_timer, score_timer, sort_timer, id_timer;
-  struct ptimer remaining_timer;
-  ptimer_init(&loop_timer, "Loop");
-  ptimer_init(&tree_timer, "Tree");
-  ptimer_init(&score_timer, "Score");
-  ptimer_init(&sort_timer, "Sort");
-  ptimer_init(&id_timer, "Identify");
-  ptimer_init(&remaining_timer, "Remaining");
+  internal_call_depth++;
 
-  cpu_set_t cpuset;
-  pthread_t thread;
-  //int tries;
-  struct hemem_page *p;
-  struct hemem_page *cp;
-  struct hemem_page *np;
-  uint64_t migrated_bytes;
-  //uint64_t old_offset;
-  double migrate_time_us;
-  struct hemem_page* page = NULL;
+    struct ptimer loop_timer, tree_timer, score_timer, sort_timer, id_timer;
+    struct ptimer remaining_timer;
+    ptimer_init(&loop_timer, "Loop");
+    ptimer_init(&tree_timer, "Tree");
+    ptimer_init(&score_timer, "Score");
+    ptimer_init(&sort_timer, "Sort");
+    ptimer_init(&id_timer, "Identify");
+    ptimer_init(&remaining_timer, "Remaining");
+
+    cpu_set_t cpuset;
+    pthread_t thread;
+    struct hemem_page *p;
+    struct hemem_page *cp;
+    struct hemem_page *np;
+    uint64_t migrated_bytes;
+    double migrate_time_us;
+    struct hemem_page *page = NULL;
 
   #ifdef SPATIAL_SMOOTHING
   page_tree_entry_t entry;
@@ -1156,6 +1202,7 @@ static struct hemem_page* pebs_allocate_page()
   struct timeval start, end;
   struct hemem_page *page;
 
+  internal_call_depth++;
   gettimeofday(&start, NULL);
   page = dequeue_fifo(&dram_free_list);
   if (page != NULL) {
@@ -1168,6 +1215,7 @@ static struct hemem_page* pebs_allocate_page()
     gettimeofday(&end, NULL);
     LOG_TIME("mem_policy_allocate_page: %f s\n", elapsed(&start, &end));
 
+    internal_call_depth--;
     return page;
   }
 
@@ -1183,6 +1231,7 @@ static struct hemem_page* pebs_allocate_page()
     gettimeofday(&end, NULL);
     LOG_TIME("mem_policy_allocate_page: %f s\n", elapsed(&start, &end));
 
+    internal_call_depth--;
     return page;
   }
 
@@ -1202,6 +1251,7 @@ struct hemem_page* pebs_pagefault(void)
 
 void pebs_add_page(struct hemem_page *page)
 {
+  
   int absent;
   khiter_t key;
   assert(page != NULL);
@@ -1210,9 +1260,16 @@ void pebs_add_page(struct hemem_page *page)
   // Add to the hash table
   pthread_mutex_lock(&pages_lock);
   key = kh_put(kPagesMap, pages, page->va, &absent);
+  if(!absent) {
+    // Page already exists, this should not happen
+    LOG_ERROR("Page already exists in the hash table\n");
+    pthread_mutex_unlock(&pages_lock);
+    return;
+  }
   assert(absent);
   kh_value(pages, key) = page;
   pthread_mutex_unlock(&pages_lock);
+
   add_group_if_missing(grp_tracker, page);
 
   // Add to the new pages ring
@@ -1220,34 +1277,36 @@ void pebs_add_page(struct hemem_page *page)
   mod_page_t mp = (mod_page_t){ .page = page, .free = false };
   kdq_push(mod_page_t, mod_page_dq, mp);
   pthread_mutex_unlock(&mod_page_dq_lock);
-
-
 }
 
 struct hemem_page* pebs_find_page(uint64_t va)
 {
-  khiter_t key;
-  struct hemem_page *page;
-  pthread_mutex_lock(&pages_lock);
-  key = kh_get(kPagesMap, pages, va);
-  page = key == kh_end(pages) ? NULL : kh_value(pages, key);
-  pthread_mutex_unlock(&pages_lock);
-  return page;
+    khiter_t key;
+    struct hemem_page *page;
+    internal_call_depth++;
+    pthread_mutex_lock(&pages_lock);
+    key = kh_get(kPagesMap, pages, va);
+    page = ((key == kh_end(pages)) ? NULL : kh_value(pages, key));
+    pthread_mutex_unlock(&pages_lock);
+    internal_call_depth--;
+    return page;
 }
 
 void pebs_remove_page(struct hemem_page *page)
 {
+
   khiter_t key;
   assert(page != NULL);
   LOG_INFO("Removing page %lu from the add_pages_ring [va: %lu]\n", (uint64_t)page, page->va);
 
   // Remove page from hash table
+  internal_call_depth++;
   pthread_mutex_lock(&pages_lock);
   key = kh_get(kPagesMap, pages, page->va);
   assert(key != kh_end(pages));
   kh_del(kPagesMap, pages, key);
   pthread_mutex_unlock(&pages_lock);
-
+  
   pthread_mutex_lock(&mod_page_dq_lock);
   mod_page_t mp = (mod_page_t){ .page = page, .free = true};
   kdq_push(mod_page_t, mod_page_dq, mp);
@@ -1258,57 +1317,29 @@ void pebs_remove_page(struct hemem_page *page)
   pthread_mutex_lock(&(page->page_lock));
   page->present = false;
   pthread_mutex_unlock(&(page->page_lock));
+  internal_call_depth--;
+}
+
+inline void pebs_log_syscall(void *addr, size_t len, enum syscall_type type){
+
+    if (!pebs_finished_init || internal_call_depth)
+    {
+        return;
+    }
+
+    size_t idx = (atomic_fetch_add(&syscall_queue_size, 1)) % SYSCALL_EVENT_QUEUE_CAPACITY;
+    struct syscall_event *queue = atomic_load(&syscall_event_queue);
+    queue[idx] = (struct syscall_event){ .type = type, .addr = addr, .len = len };
 }
 
 void pebs_log_read(void *addr, size_t len){
-    if (!pebs_finished_init)
-    {
-        return;
-    }
-    uint64_t round_down = (uint64_t)addr & ~(PAGE_SIZE - 1);
-    struct hemem_page *page = NULL;
-    //pthread_mutex_lock(&pages_lock);
-    khiter_t k = kh_get(kPagesMap, pages, round_down);
-    page = k == kh_end(pages) ? NULL : kh_value(pages, k);
-    //pthread_mutex_unlock(&pages_lock);
-    if (page != NULL) {
-        page->_read_syscalls++;
-        page->_read_bytes += len;
-    }
+  pebs_log_syscall(addr, len, READ_SYSCALL);
 }
 void pebs_log_write(void *addr, size_t len){
-    if (!pebs_finished_init)
-    {
-        return;
-    }
-    uint64_t round_down = (uint64_t)addr & ~(PAGE_SIZE - 1);
-    struct hemem_page *page = NULL;
-    //pthread_mutex_lock(&pages_lock);
-    khiter_t k = kh_get(kPagesMap, pages, round_down);
-    page = k == kh_end(pages) ? NULL : kh_value(pages, k);
-    //pthread_mutex_unlock(&pages_lock);
-    if (page != NULL) {
-        page->_write_syscalls++;
-        page->_write_bytes += len;
-    }
+  pebs_log_syscall(addr, len, WRITE_SYSCALL);
 }
-
 void pebs_log_malloc(void *addr, size_t len){
-    if (!pebs_finished_init)
-    {
-        return;
-    }
-    uint64_t round_down = (uint64_t)addr & ~(PAGE_SIZE - 1);
-    struct hemem_page *page = NULL;
-    //pthread_mutex_lock(&pages_lock);
-    khiter_t k = kh_get(kPagesMap, pages, round_down);
-    page = k == kh_end(pages) ? NULL : kh_value(pages, k);
-    //pthread_mutex_unlock(&pages_lock);
-    if (page != NULL) {
-        page->_malloc_call++;
-        page->_malloc_bytes += len;
-    }
-
+  pebs_log_syscall(addr, len, MALLOC_SYSCALL);
 }
 
 #ifdef SCAILP
@@ -1325,7 +1356,12 @@ void pebs_log_malloc(void *addr, size_t len){
 extern struct data_row *scores_log;
 void pebs_init(void)
 {
+  internal_call_depth++;
+
   pebs_print_config();
+
+  struct syscall_event *queue = create_syscall_event_queue();
+  atomic_store(&syscall_event_queue, queue);
 
   if(PRINT_TRAINING_DATA){
     scores_log = (struct data_row *)malloc(MAX_LOGGED_SAMPLES * sizeof(struct data_row));
@@ -1432,11 +1468,18 @@ void pebs_init(void)
 
   LOG_INFO("Memory management policy is PEBS\n");
   LOG_INFO("pebs_init: finished\n");
+
+  internal_call_depth--;
 }
 
 void pebs_shutdown()
 {
   terminated = true;
+  internal_call_depth++;
+  malloc_call_depth++;
+  printf("----------------------------------------\n");
+  printf("Shutting down PEBS policy\n");
+  printf("----------------------------------------\n");
   pebs_write_log();
 
   for (int i = 0; i < PEBS_NPROCS; i++) {
@@ -1449,18 +1492,17 @@ void pebs_shutdown()
 
 void pebs_stats()
 {
-  //LOG_STATS("dram_hot_list:[%ld] dram_cold_list:[%ld] nvm_hot_list:[%ld] nvm_cold_list:[%ld] samples:[%ld/%ld] throttle/unthrottle_cnt:[%ld/%ld] cools:[%ld]\n",
-  LOG_STATS("samples:[%ld/%ld] throttle/unthrottle_cnt:[%ld/%ld] cools:[%ld]\n",
-          //dram_hot_list.numentries,
-          //dram_cold_list.numentries,
-          //nvm_hot_list.numentries,
-          //nvm_cold_list.numentries,
-          hemem_pages_cnt,
-          total_pages_cnt,
-          throttle_cnt,
-          unthrottle_cnt,
-          cools);
-  // hemem_pages_cnt = total_pages_cnt =  throttle_cnt = unthrottle_cnt = 0;
+    internal_call_depth++;
+    // LOG_STATS("dram_hot_list:[%ld] dram_cold_list:[%ld] nvm_hot_list:[%ld] nvm_cold_list:[%ld] samples:[%ld/%ld]
+    // throttle/unthrottle_cnt:[%ld/%ld] cools:[%ld]\n",
+    LOG_STATS("samples:[%ld/%ld] throttle/unthrottle_cnt:[%ld/%ld] cools:[%ld]\n",
+              // dram_hot_list.numentries,
+              // dram_cold_list.numentries,
+              // nvm_hot_list.numentries,
+              // nvm_cold_list.numentries,
+              hemem_pages_cnt, total_pages_cnt, throttle_cnt, unthrottle_cnt, cools);
+    internal_call_depth--;
+    // hemem_pages_cnt = total_pages_cnt =  throttle_cnt = unthrottle_cnt = 0;
 }
 
 void pebs_print_config()

@@ -25,15 +25,23 @@ struct data_row{
     double ewma_2;
     double ewma_2_r;
     double ewma_2_w;
+    double ewma_2_malloc_size;
+    double ewma_2_malloc_calls;
     double ewma_5;
     double ewma_5_r;
     double ewma_5_w;
+    double ewma_5_malloc_size;
+    double ewma_5_malloc_calls;
     double ewma_20;
     double ewma_20_r;
     double ewma_20_w;
+    double ewma_20_malloc_size;
+    double ewma_20_malloc_calls;
     double ewma_100;
     double ewma_100_r;
     double ewma_100_w;
+    double ewma_100_malloc_size;
+    double ewma_100_malloc_calls;
     double global_count_since_top1_percent_ewma5;
     double global_count_since_top50_percent_ewma5;
     size_t rank;
@@ -54,8 +62,11 @@ struct data_row{
     uint32_t write_syscalls;
     uint32_t read_bytes;
     uint32_t write_bytes;
-    uint32_t malloc_bytes;
+    uint32_t sum_malloc_bytes;
+    int32_t min_malloc_bytes;
+    int32_t max_malloc_bytes;
     uint32_t malloc_call;
+    uint32_t age;
 };
 
 struct cpu_stat {

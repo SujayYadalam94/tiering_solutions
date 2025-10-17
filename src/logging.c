@@ -169,6 +169,14 @@ void print_row(FILE *f, struct data_row *row, bool header) {
     PRINT_CELL_AUTO(ewma_5_w, "%f");
     PRINT_CELL_AUTO(ewma_20_w, "%f");
     PRINT_CELL_AUTO(ewma_100_w, "%f");
+    PRINT_CELL_AUTO(ewma_2_malloc_size, "%f");
+    PRINT_CELL_AUTO(ewma_5_malloc_size, "%f");
+    PRINT_CELL_AUTO(ewma_20_malloc_size, "%f");
+    PRINT_CELL_AUTO(ewma_100_malloc_size, "%f");
+    PRINT_CELL_AUTO(ewma_2_malloc_calls, "%f");
+    PRINT_CELL_AUTO(ewma_5_malloc_calls, "%f");
+    PRINT_CELL_AUTO(ewma_20_malloc_calls, "%f");
+    PRINT_CELL_AUTO(ewma_100_malloc_calls, "%f");
     PRINT_CELL_AUTO(global_count_since_top1_percent_ewma5, "%f");
     PRINT_CELL_AUTO(global_count_since_top50_percent_ewma5, "%f");
     PRINT_CELL_AUTO(rank, "%zu");
@@ -180,6 +188,7 @@ void print_row(FILE *f, struct data_row *row, bool header) {
     PRINT_CELL_AUTO(disk_write_bytes, "%lld");
     PRINT_CELL_AUTO(syscr, "%lld");
     PRINT_CELL_AUTO(syscw, "%lld");
+    PRINT_CELL_AUTO(age, "%d");
 
     for (int offset = -3; offset <= 3; offset++){
         char group_header[32];
@@ -196,7 +205,9 @@ void print_row(FILE *f, struct data_row *row, bool header) {
     PRINT_CELL_AUTO(write_syscalls, "%u");
     PRINT_CELL_AUTO(read_bytes, "%u");
     PRINT_CELL_AUTO(write_bytes, "%u");
-    PRINT_CELL_AUTO(malloc_bytes, "%u");
+    PRINT_CELL_AUTO(sum_malloc_bytes, "%u");
+    PRINT_CELL_AUTO(min_malloc_bytes, "%d");
+    PRINT_CELL_AUTO(max_malloc_bytes, "%d");
     PRINT_CELL_AUTO(malloc_call, "%u");
     fprintf(f, "\n");
 }
@@ -231,21 +242,28 @@ void log_row(size_t step, struct hemem_page *page, struct group_tracker *grp_tra
     scores_log[logged_samples].read = page->reads;
     scores_log[logged_samples].write = page->writes;
     scores_log[logged_samples].count = page->count;
-    scores_log[logged_samples].malloc_size = page->malloc_size;
     scores_log[logged_samples].prot = page->prot;
     scores_log[logged_samples].flags = page->flags;
     scores_log[logged_samples].ewma_2 = page->w[0];
     scores_log[logged_samples].ewma_2_r = page->w_r[0];
     scores_log[logged_samples].ewma_2_w = page->w_w[0];
+    scores_log[logged_samples].ewma_2_malloc_size = page->malloc_size_ewma[0];
+    scores_log[logged_samples].ewma_2_malloc_calls = page->malloc_call_ewma[0];
     scores_log[logged_samples].ewma_5 = page->w[1];
     scores_log[logged_samples].ewma_5_r = page->w_r[1];
     scores_log[logged_samples].ewma_5_w = page->w_w[1];
+    scores_log[logged_samples].ewma_5_malloc_size = page->malloc_size_ewma[1];
+    scores_log[logged_samples].ewma_5_malloc_calls = page->malloc_call_ewma[1];
     scores_log[logged_samples].ewma_20 = page->w[2];
     scores_log[logged_samples].ewma_20_r = page->w_r[2];
     scores_log[logged_samples].ewma_20_w = page->w_w[2];
+    scores_log[logged_samples].ewma_20_malloc_size = page->malloc_size_ewma[2];
+    scores_log[logged_samples].ewma_20_malloc_calls = page->malloc_call_ewma[2];
     scores_log[logged_samples].ewma_100 = page->w[3];
     scores_log[logged_samples].ewma_100_r = page->w_r[3];
     scores_log[logged_samples].ewma_100_w = page->w_w[3];
+    scores_log[logged_samples].ewma_100_malloc_size = page->malloc_size_ewma[3];
+    scores_log[logged_samples].ewma_100_malloc_calls = page->malloc_call_ewma[3];
     scores_log[logged_samples].global_count_since_top1_percent_ewma5 = page->global_count_since_top1_percent_ewma5;
     scores_log[logged_samples].global_count_since_top50_percent_ewma5 = page->global_count_since_top50_percent_ewma5;
     scores_log[logged_samples].rank = page->rank;
@@ -269,8 +287,11 @@ void log_row(size_t step, struct hemem_page *page, struct group_tracker *grp_tra
     scores_log[logged_samples].write_syscalls = page->write_syscalls;
     scores_log[logged_samples].read_bytes = page->read_bytes;
     scores_log[logged_samples].write_bytes = page->write_bytes;
-    scores_log[logged_samples].malloc_bytes = page->malloc_bytes;
+    scores_log[logged_samples].sum_malloc_bytes = page->sum_malloc_bytes;
+    scores_log[logged_samples].min_malloc_bytes = page->min_malloc_bytes;
+    scores_log[logged_samples].max_malloc_bytes = page->max_malloc_bytes;
     scores_log[logged_samples].malloc_call = page->malloc_call;
+    scores_log[logged_samples].age = page->age;
 
     logged_samples++;
 }

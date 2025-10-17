@@ -11,6 +11,8 @@ void reset_page_access_fields(struct hemem_page *page) {
         page->w[i] = 0;
         page->w_r[i] = 0;
         page->w_w[i] = 0;
+        page->malloc_call_ewma[i] = 0;
+        page->malloc_size_ewma[i] = 0;
     }
 
     page->cumsum_reads = 0;
@@ -23,17 +25,13 @@ void reset_page_access_fields(struct hemem_page *page) {
 
     page->prev_count = 0;
 
-    page->_read_bytes = 0;
-    page->_write_bytes = 0;
-    page->_read_syscalls = 0;
-    page->_write_syscalls = 0;
-    page->_malloc_bytes = 0;
-    page->_malloc_call = 0;
     page->read_bytes = 0;
     page->write_bytes = 0;
     page->read_syscalls = 0;
     page->write_syscalls = 0;
-    page->malloc_bytes = 0;
+    page->sum_malloc_bytes = 0;
+    page->min_malloc_bytes = -1;
+    page->max_malloc_bytes = -1;
     page->malloc_call = 0;
 }
 
@@ -66,18 +64,12 @@ float calculate_accesses(const struct hemem_page *page,
 void update_window(struct hemem_page *page,
                                  volatile uint8_t prev_access_version,
                                  const enum sampling_modes sampling_mode) {
-    page->read_bytes = page->_read_bytes;
-    page->write_bytes = page->_write_bytes;
-    page->read_syscalls = page->_read_syscalls;
-    page->write_syscalls = page->_write_syscalls;
-    page->malloc_bytes = page->_malloc_bytes;
-    page->malloc_call = page->_malloc_call;
-    page->_read_bytes = 0;
-    page->_write_bytes = 0;
-    page->_read_syscalls = 0;
-    page->_write_syscalls = 0;
-    page->_malloc_bytes = 0;
-    page->_malloc_call = 0;
+    page->read_bytes = 0;
+    page->write_bytes = 0;
+    page->read_syscalls = 0;
+    page->write_syscalls = 0;
+    page->sum_malloc_bytes = 0;
+    page->malloc_call = 0;
 
     page->age++;
     
@@ -125,6 +117,13 @@ update_derivative_features(struct hemem_page *page,
 
     size_t top1_percent_index = num_sorted_pages / 100;
     size_t top50_percent_index = num_sorted_pages / 2;
+
+    for (uint8_t i = 0; i < WINDOW_SIZE; i++) {
+        page->malloc_call_ewma[i] = adjusted_ewma(page->malloc_call_ewma[i], page->malloc_call,
+                                     get_adjusted_ewma_denom(i, page->age));
+        page->malloc_size_ewma[i] = adjusted_ewma(page->malloc_size_ewma[i], page->sum_malloc_bytes,
+                                     get_adjusted_ewma_denom(i, page->age));
+    }
 
     if (page->age == 0 && page->count == 0) {
         page->global_count_since_top1_percent_ewma5 = 0;
