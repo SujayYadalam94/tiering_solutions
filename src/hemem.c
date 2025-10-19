@@ -267,7 +267,7 @@ void hemem_init()
   LOG_STATS("DRAMSIZE: %lu\n", dramsize);
 
   if(dramsize != 0) {
-    dram_devdax_mmap =libc_mmap(NULL, dramsize, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, dramfd, 0);
+    dram_devdax_mmap = libc_mmap(NULL, dramsize, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, dramfd, 0);
     if (dram_devdax_mmap == MAP_FAILED) {
       perror("dram devdax mmap");
       assert(0);
@@ -281,7 +281,7 @@ void hemem_init()
     nvmsize = NVMSIZE_DEFAULT;
   LOG_STATS("NVMSIZE: %lu\n", nvmsize);
 
-  nvm_devdax_mmap =libc_mmap(NULL, nvmsize, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, nvmfd, 0);
+  nvm_devdax_mmap = libc_mmap(NULL, nvmsize, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, nvmfd, 0);
   if (nvm_devdax_mmap == MAP_FAILED) {
     perror("nvm devdax mmap");
     assert(0);

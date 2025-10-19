@@ -43,10 +43,10 @@ static int mmap_filter(void *addr, size_t length, int prot, int flags, int fd, o
     //return 1;
   //}
   
-  if ((fd == dramfd) || (fd == nvmfd)) {
-    //LOG("hemem interpose: calling libc mmap due to hemem devdax mapping\n");
+  /*if ((fd == dramfd) || (fd == nvmfd)) {
+    printf("hemem interpose: calling libc mmap due to hemem devdax mapping\n");
     return 1;
-  }
+  }*/
 
   if (internal_call_depth - malloc_call_depth > 0) {
     LOG("hemem interpose: calling libc mmap due to internal memory call: mmap(0x%lx, %ld, %x, %x, %d, %ld)\n", (uint64_t)addr, length, prot, flags, fd, offset);

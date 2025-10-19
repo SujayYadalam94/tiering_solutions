@@ -36,11 +36,15 @@
 struct group_tracker *grp_tracker = NULL;
 bool pebs_finished_init = false;
 bool terminated = false;
+size_t prev_count_total = 0;
+size_t count_total = 0;
 
 // Hash table for Hemem-handled pages
 KHASH_MAP_INIT_INT64(kPagesMap, struct hemem_page*)
 khash_t(kPagesMap) *pages;
 pthread_mutex_t pages_lock = PTHREAD_MUTEX_INITIALIZER;
+
+int timestep = 0;
 
 #define SYSCALL_EVENT_QUEUE_CAPACITY (128 * 1024)
 _Atomic size_t syscall_queue_index = 0;
@@ -60,6 +64,65 @@ struct syscall_event *create_syscall_event_queue(){
   malloc_call_depth--;
   internal_call_depth--;
   return queue;
+}
+
+struct migration_event *create_migration_event_queue(){
+  internal_call_depth++;
+  malloc_call_depth++;
+  struct migration_event *queue =
+      (struct migration_event *)malloc(MIGRATION_EVENT_QUEUE_CAPACITY * sizeof(struct migration_event));
+  if (queue == NULL)
+  {
+      LOG_ERROR("Failed to allocate memory for migration event queue\n");
+      exit(EXIT_FAILURE);
+  }
+  malloc_call_depth--;
+  internal_call_depth--;
+  return queue;
+}
+
+inline void pebs_log_syscall(void *addr, size_t len, enum syscall_type type){
+
+    if (!pebs_finished_init || internal_call_depth)
+    {
+        return;
+    }
+
+    size_t idx = (atomic_fetch_add(&syscall_queue_size, 1)) % SYSCALL_EVENT_QUEUE_CAPACITY;
+    struct syscall_event *queue = atomic_load(&syscall_event_queue);
+    queue[idx] = (struct syscall_event){ .type = type, .addr = addr, .len = len };
+}
+
+inline void pebs_log_migration(struct hemem_page *page_dram, struct hemem_page *page_nvm, double time, enum migration_type type){
+
+    if (!pebs_finished_init || internal_call_depth || !PRINT_TRAINING_DATA)
+    {
+        return;
+    }
+
+    size_t idx = (atomic_fetch_add(&migration_queue_size, 1)) % MIGRATION_EVENT_QUEUE_CAPACITY;
+    struct migration_event *queue = atomic_load(&migration_event_queue);
+    queue[idx] = (struct migration_event){
+      .time = time,
+      .va_dram = page_dram->va,
+      .va_nvm = page_nvm->va,
+      .read_dram = page_dram->reads,
+      .write_dram = page_dram->writes,
+      .read_nvm = page_nvm->reads,
+      .write_nvm = page_nvm->writes,
+      .timestep = timestep,
+      .type = type
+    };
+}
+
+void pebs_log_read(void *addr, size_t len){
+  pebs_log_syscall(addr, len, READ_SYSCALL);
+}
+void pebs_log_write(void *addr, size_t len){
+  pebs_log_syscall(addr, len, WRITE_SYSCALL);
+}
+void pebs_log_malloc(void *addr, size_t len){
+  pebs_log_syscall(addr, len, MALLOC_SYSCALL);
 }
 
 #ifdef SPATIAL_SMOOTHING
@@ -540,6 +603,9 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
   khiter_t key;
   size_t s_idx = 0;
 
+  size_t pages_in_dram = 0;
+  size_t pages_in_nvm = 0;
+
   size_t pages_cnt = kh_size(pages_map);
   if (pages_cnt == 0) {
     printf("No pages to process\n");
@@ -548,10 +614,10 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
 
   reset_group_hash(grp_tracker);
 
-  static int timestep = 0;
   timestep++;
 
-  size_t count_total = 0;
+  prev_count_total = count_total;
+  count_total = 0;
 
   // Iterate over the pages
   for (key = kh_begin(pages_map); key != kh_end(pages_map); ++key) {
@@ -567,6 +633,13 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
     LOG_DEBUG("%lu,%f|", page->va, page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD]); //+ page->s_accesses[WRITE]);
     #endif
 
+    if (page->in_dram) {
+      pages_in_dram++;
+    }
+    else {
+      pages_in_nvm++;
+    }
+
     // Update the window values
     update_window(page, prev_access_version, sampling_mode);
 
@@ -577,6 +650,9 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
     page->prev_score = page->score;
     scores_out[s_idx++] = (struct score_entry){ page, 0.0 };
   }
+
+  printf("Pages in DRAM: %zu, Pages in NVM: %zu\n", pages_in_dram, pages_in_nvm);
+
   // Only process events if we have a valid queue (will be NULL on first call)
   size_t size = atomic_load(&syscall_queue_size);
   size_t index = atomic_load(&syscall_queue_index);
@@ -620,26 +696,25 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
 
   qsort(scores_out, s_idx, sizeof(struct score_entry), sort_entry_cmp_by_ewma5);
 
+  double cpu_usage = calc_cpu_usage_pct();
   for (size_t i = 0; i < s_idx; i++) {
     update_derivative_features(scores_out[i].page, i, s_idx, count_total);
 
     scores_out[i].page->arms_score = compute_score(scores_out[i].page, bias);
-    scores_out[i].page->model_score = model_predict(scores_out[i].page);
+    scores_out[i].page->model_score = model_predict(scores_out[i].page, grp_tracker, count_total, cpu_usage);
     
-    if (PRINT_TRAINING_DATA){
-      scores_out[i].page->score = scores_out[i].page->arms_score;
+    if (USE_MODEL){
+      scores_out[i].page->score = scores_out[i].page->model_score;
     }
     else {
       // TODO switch here between arms_score and model_score
-      scores_out[i].page->score = scores_out[i].page->model_score;
+      scores_out[i].page->score = scores_out[i].page->arms_score;
     }
     scores_out[i].score = scores_out[i].page->score;
 
     log_row(timestep, scores_out[i].page, grp_tracker, count_total);
   }
   ptimer_print(&window_timer);
-
-
 
   printf("Count Total: %zu\n", count_total);
 
@@ -670,8 +745,18 @@ static inline int continue_migration(struct hemem_page *hp, struct hemem_page *c
   }
 
   // Cost-benefit analysis
+  float benefit;
   float cost = CB_MULTIPLIER * (promotion_cost_avg + demotion_cost_avg);
-  float benefit =(hp->score - cp->score) * hp->hot_age * HF_SAMPLE_PERIOD * latency_diff;
+  if (USE_MODEL)
+  {
+    benefit = (hp->score - cp->score) * HF_SAMPLE_PERIOD * latency_diff;
+    float migration_time = fmax(demotion_cost_avg, promotion_cost_avg);
+    //cost = 0.1 * fmax(fmax(count_total, prev_count_total), 1000) * HF_SAMPLE_PERIOD * migration_time / PEBS_KSWAPD_INTERVAL_SMALL;
+  }
+  else{
+    benefit = (hp->score - cp->score) * hp->hot_age * HF_SAMPLE_PERIOD * latency_diff;
+    //cost = CB_MULTIPLIER * (promotion_cost_avg + demotion_cost_avg);
+  }
 
   if (benefit < cost) {
     LOG_INFO("Stopping migration of 0x%lx (score: %.3f (%.3f %.3f)) and 0x%lx (score: %.3f (%.3f %.3f)) cause of cost-benefit\n",
@@ -768,6 +853,8 @@ void *pebs_migration_thread()
           continue;
         }
         ptimer_stop(&migrate_timer);
+
+        pebs_log_migration(req->dram_page, req->nvm_page, migrate_timer.elapsed_us, TO_NVM);
         demotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * demotion_cost_avg);
       }
 
@@ -775,8 +862,10 @@ void *pebs_migration_thread()
       ptimer_start(&migrate_timer);
       promote_to_free_dram_page(req->nvm_page, req->free_page);
       ptimer_stop(&migrate_timer);
-      promotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * promotion_cost_avg);
 
+      pebs_log_migration(req->dram_page, req->nvm_page, migrate_timer.elapsed_us, TO_DRAM);
+      promotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * promotion_cost_avg);
+      
       sem_post(&completion_sem);
       free(req);
     }
@@ -996,9 +1085,9 @@ void *pebs_policy_thread()
     // Set the top_since_iter for the top pages
     for (int k = 0; k < dramsize/PAGE_SIZE && k < s_pages_cnt; k++) {
       struct hemem_page* top_page = scores[k].page;
-      if (scores[k].score != 0) {
+      if (scores[k].score != 0 || USE_MODEL) {
         top_page->hot_age++;
-        if (top_page->hot_age > 1 && (top_page->score >= top_page->prev_score)) {
+        if ((top_page->hot_age > 1 && (top_page->score >= top_page->prev_score)) || USE_MODEL) {
           // Page has continued to stay hot, so can be promoted
           top_page->can_promote = true;
         }
@@ -1040,120 +1129,144 @@ void *pebs_policy_thread()
     migrated_bytes     = 0;
     num_migration_jobs = 0;
     max_migrations_cur_interval = ((policy_thread_period) / (promotion_cost_avg+demotion_cost_avg)) * batch_size;
-    while (promote_idx < dramsize/PAGE_SIZE && promote_idx < demote_idx) {
-      // If we have scheduled the maximum number of migrations for this interval, stop
-      if (num_migration_jobs >= max_migrations_cur_interval) {
-        LOG_REPORT("Scheduled %lu migrations\n", num_migration_jobs);
-        break;
-      }
-
-      if (scores[promote_idx].score == 0)
-        break;
-      // find the hotest NVM page that needs to be promoted
-      ptimer_continue(&id_timer);
-      while (promote_idx < demote_idx && scores[promote_idx].page->in_dram) {
-        promote_idx++;
-      }
-      if (promote_idx >= demote_idx) {
-        break;
-      }
-      p = scores[promote_idx].page;
-
-      LOG_INFO("Promoting page %p [idx %lu] with score %f\n", p, promote_idx, scores[promote_idx].score);
-      assert(!p->in_dram);
-
-      if (!(p->can_promote)) {
-        LOG_DEBUG("Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f))\n",
-                 p->va, p->score, p->w[0], p->w[1]);
-        promote_idx++;
-        continue;
-      }
-
-      // try to find a free DRAM page
-      np = dequeue_fifo(&dram_free_list);
-      if (np != NULL) {
-        assert(!(np->present));
-        ptimer_stop(&id_timer);
-
-        // Cost-benefit analysis
-        float cost = CB_MULTIPLIER * (promotion_cost_avg + demotion_cost_avg);
-        float benefit = p->score * p->hot_age * HF_SAMPLE_PERIOD * latency_diff;
-        if (benefit < cost) {
-          LOG_DEBUG("Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f)) cause of cost-benefit analysis\n",
-                   p->va, p->score, p->w[0], p->w[1]);
-          enqueue_fifo(&dram_free_list, np);
-          break;
+    while (promote_idx < dramsize / PAGE_SIZE && promote_idx < demote_idx)
+    {
+        // If we have scheduled the maximum number of migrations for this interval, stop
+        if (num_migration_jobs >= max_migrations_cur_interval)
+        {
+            LOG_REPORT("Scheduled %lu migrations\n", num_migration_jobs);
+            break;
         }
 
-        LOG_DEBUG("Promoting freely at %lu: 0x%lx score: %f (%f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1]);
+        if (scores[promote_idx].score == 0)
+            break;
+        // find the hotest NVM page that needs to be promoted
+        ptimer_continue(&id_timer);
+        while (promote_idx < demote_idx && scores[promote_idx].page->in_dram)
+        {
+            promote_idx++;
+        }
+        if (promote_idx >= demote_idx)
+        {
+            break;
+        }
+        p = scores[promote_idx].page;
 
+        LOG_INFO("Promoting page %p [idx %lu] with score %f\n", p, promote_idx, scores[promote_idx].score);
+        assert(!p->in_dram);
+
+        if (!(p->can_promote))
+        {
+            LOG_DEBUG("Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f))\n", p->va, p->score, p->w[0], p->w[1]);
+            promote_idx++;
+            continue;
+        }
+
+        // try to find a free DRAM page
+        np = dequeue_fifo(&dram_free_list);
+        if (np != NULL)
+        {
+            assert(!(np->present));
+            ptimer_stop(&id_timer);
+
+            // Cost-benefit analysis
+
+            float benefit;
+            float cost = CB_MULTIPLIER * (promotion_cost_avg + demotion_cost_avg);
+            if (USE_MODEL)
+            {
+                float migration_time = fmax(demotion_cost_avg, promotion_cost_avg);
+                //local_cost = 0.1 * fmax(fmax(count_total, prev_count_total), 1000) * HF_SAMPLE_PERIOD * migration_time /
+                //       PEBS_KSWAPD_INTERVAL_SMALL;
+                benefit = p->score * HF_SAMPLE_PERIOD * latency_diff;
+            }
+            else
+            {
+                benefit = p->score * p->hot_age * HF_SAMPLE_PERIOD * latency_diff;
+            }
+            if (benefit < cost)
+            {
+                LOG_DEBUG("Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f)) cause of cost-benefit analysis\n",
+                          p->va, p->score, p->w[0], p->w[1]);
+                enqueue_fifo(&dram_free_list, np);
+                break;
+            }
+
+            LOG_DEBUG("Promoting freely at %lu: 0x%lx score: %f (%f %f)\n", promote_idx, p->va, p->score, p->w[0],
+                      p->w[1]);
+
+            m_req = malloc(sizeof(struct migration_req));
+            memset(m_req, 0, sizeof(struct migration_req));
+            m_req->nvm_page = p;
+            m_req->free_page = np;
+            m_req->need_demotion = false;
+
+            enqueue_fifo_m(&migration_queue, m_req);
+
+            num_migration_jobs++;
+            migrated_bytes += pt_to_pagesize(p->pt);
+            migrated_pages++;
+
+            if (num_migration_jobs <= batch_size)
+            {
+                // Wake up only as many threads as the batch size
+                // This is to avoid waking up all threads and then blocking them
+                sem_post(&submission_sem);
+            }
+
+            promote_idx++;
+            continue;
+        }
+
+        // Find the coldest DRAM page that needs to be demoted
+        while (demote_idx > promote_idx && !scores[demote_idx].page->in_dram)
+        {
+            demote_idx--;
+        }
+        if (demote_idx <= promote_idx || demote_idx <= (dramsize / PAGE_SIZE))
+        {
+            break;
+        }
+
+        cp = scores[demote_idx].page;
+        assert(cp->in_dram && cp->va > 0);
+
+        if (!continue_migration(p, cp))
+        {
+            LOG_INFO("Stopping migration at promote_idx %ld\n", promote_idx);
+            break;
+        }
+
+        // try to find a free NVM page
+        np = dequeue_fifo(&nvm_free_list);
+        assert(np != NULL);
+        ptimer_stop(&id_timer);
+
+        LOG_REPORT("Demoting at %ld: 0x%lx score: %f (%f %f)\n", demote_idx, cp->va, cp->score, cp->w[0], cp->w[1]);
+        LOG_REPORT("Promoting at %ld: 0x%lx score: %f (%f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1]);
+
+        // move the cold DRAM page to NVM
         m_req = malloc(sizeof(struct migration_req));
         memset(m_req, 0, sizeof(struct migration_req));
-        m_req->nvm_page      = p;
-        m_req->free_page     = np;
-        m_req->need_demotion = false;
+        m_req->dram_page = cp;
+        m_req->nvm_page = p;
+        m_req->free_page = np;
+        m_req->need_demotion = true;
 
         enqueue_fifo_m(&migration_queue, m_req);
 
         num_migration_jobs++;
-        migrated_bytes += pt_to_pagesize(p->pt);
-        migrated_pages++;
-
-        if (num_migration_jobs <= batch_size) {
-          // Wake up only as many threads as the batch size
-          // This is to avoid waking up all threads and then blocking them
-          sem_post(&submission_sem);
-        }
-
+        migrated_bytes += (2 * pt_to_pagesize(cp->pt));
+        migrated_pages += 2;
         promote_idx++;
-        continue;
-      }
-
-      // Find the coldest DRAM page that needs to be demoted
-      while (demote_idx > promote_idx && !scores[demote_idx].page->in_dram) {
         demote_idx--;
-      }
-      if (demote_idx <= promote_idx || demote_idx <= (dramsize/PAGE_SIZE)) {
-        break;
-      }
 
-      cp = scores[demote_idx].page;
-      assert(cp->in_dram && cp->va > 0);
-
-      if (!continue_migration(p, cp)) {
-        LOG_INFO("Stopping migration at promote_idx %ld\n", promote_idx);
-        break;
-      }
-
-      // try to find a free NVM page
-      np = dequeue_fifo(&nvm_free_list);
-      assert(np != NULL);
-      ptimer_stop(&id_timer);
-
-      LOG_REPORT("Demoting at %ld: 0x%lx score: %f (%f %f)\n", demote_idx, cp->va, cp->score, cp->w[0], cp->w[1]);
-      LOG_REPORT("Promoting at %ld: 0x%lx score: %f (%f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1]);
-
-      // move the cold DRAM page to NVM
-      m_req = malloc(sizeof(struct migration_req));
-      memset(m_req, 0, sizeof(struct migration_req));
-      m_req->dram_page     = cp;
-      m_req->nvm_page      = p;
-      m_req->free_page = np;
-      m_req->need_demotion = true;
-
-      enqueue_fifo_m(&migration_queue, m_req);
-
-      num_migration_jobs++;
-      migrated_bytes += (2 * pt_to_pagesize(cp->pt));
-      migrated_pages += 2;
-      promote_idx++;
-      demote_idx--;
-
-      if (num_migration_jobs <= batch_size) {
-        // Wake up only as many threads as the batch size
-        // This is to avoid waking up all threads and then blocking them
-        sem_post(&submission_sem);
-      }
+        if (num_migration_jobs <= batch_size)
+        {
+            // Wake up only as many threads as the batch size
+            // This is to avoid waking up all threads and then blocking them
+            sem_post(&submission_sem);
+        }
     }
 
 loop_end:
@@ -1320,28 +1433,6 @@ void pebs_remove_page(struct hemem_page *page)
   internal_call_depth--;
 }
 
-inline void pebs_log_syscall(void *addr, size_t len, enum syscall_type type){
-
-    if (!pebs_finished_init || internal_call_depth)
-    {
-        return;
-    }
-
-    size_t idx = (atomic_fetch_add(&syscall_queue_size, 1)) % SYSCALL_EVENT_QUEUE_CAPACITY;
-    struct syscall_event *queue = atomic_load(&syscall_event_queue);
-    queue[idx] = (struct syscall_event){ .type = type, .addr = addr, .len = len };
-}
-
-void pebs_log_read(void *addr, size_t len){
-  pebs_log_syscall(addr, len, READ_SYSCALL);
-}
-void pebs_log_write(void *addr, size_t len){
-  pebs_log_syscall(addr, len, WRITE_SYSCALL);
-}
-void pebs_log_malloc(void *addr, size_t len){
-  pebs_log_syscall(addr, len, MALLOC_SYSCALL);
-}
-
 #ifdef SCAILP
 #define L3_LOAD_MISS_LOCAL 0x2d3
 #define L3_LOAD_MISS_REMOTE 0x10d3
@@ -1360,8 +1451,11 @@ void pebs_init(void)
 
   pebs_print_config();
 
-  struct syscall_event *queue = create_syscall_event_queue();
-  atomic_store(&syscall_event_queue, queue);
+  struct syscall_event *syscall_queue = create_syscall_event_queue();
+  atomic_store(&syscall_event_queue, syscall_queue);
+
+  struct migration_event *migration_event_queue_mem = create_migration_event_queue();
+  atomic_store(&migration_event_queue, migration_event_queue_mem);
 
   if(PRINT_TRAINING_DATA){
     scores_log = (struct data_row *)malloc(MAX_LOGGED_SAMPLES * sizeof(struct data_row));
@@ -1542,5 +1636,9 @@ void pebs_print_config()
   LOG_REPORT("  =========================================\n");
   LOG_REPORT("  DEFAULT_SAMPLE_PERIOD: %d\n", DEFAULT_SAMPLE_PERIOD);
   LOG_REPORT("  HF_SAMPLE_PERIOD: %d\n", HF_SAMPLE_PERIOD);
+  LOG_REPORT("  =========================================\n");
+  LOG_REPORT("  DRAM PAGES: %lu\n", dramsize / PAGE_SIZE);
+  LOG_REPORT("  NVM PAGES: %lu\n", nvmsize / PAGE_SIZE);
+  LOG_REPORT("  TOTAL PAGES: %lu\n", (dramsize + nvmsize) / PAGE_SIZE);
   LOG_REPORT("  =========================================\n");
 }

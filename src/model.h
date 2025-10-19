@@ -2,6 +2,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "groups.h"
 
 void forest_root(double *data, double *out, int offset, int n_preds);
 
@@ -15,13 +16,8 @@ struct hemem_page;
  */
 int model_init(const char *model_path);
 
-/**
- * Predict using the loaded LightGBM model
- * This function extracts features from the hemem_page and runs inference
- * @param page Pointer to the hemem_page structure containing features
- * @return Predicted score from the model
- */
-double model_predict(struct hemem_page *page);
+
+double model_predict(struct hemem_page *page, struct group_tracker *grp_tracker, size_t count_total, double cpu_usage);
 
 /**
  * Clean up and free model resources

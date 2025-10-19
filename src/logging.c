@@ -10,7 +10,9 @@ struct disk_stat curr_disk_stat = {0};
 
 size_t logged_samples = 0;
 struct data_row *scores_log = NULL;
-
+_Atomic size_t migration_queue_index = 0;
+_Atomic size_t migration_queue_size = 0;
+_Atomic(struct migration_event *) migration_event_queue;
 
 int get_disk_usage(const pid_t pid) {
     prev_disk_stat = curr_disk_stat;
@@ -212,8 +214,24 @@ void print_row(FILE *f, struct data_row *row, bool header) {
     fprintf(f, "\n");
 }
 
+void print_migration_row(FILE *f, struct migration_event *event, size_t count_total, bool header) {
+    PRINT_CELL(f, event->timestep, "timestep", header, "%zu");
+    PRINT_CELL(f, event->va_dram, "va_dram", header, "%zu");
+    PRINT_CELL(f, event->va_nvm, "va_nvm", header, "%zu");
+    PRINT_CELL(f, event->read_dram, "read_dram", header, "%zu");
+    PRINT_CELL(f, event->write_dram, "write_dram", header, "%zu");
+    PRINT_CELL(f, event->read_nvm, "read_nvm", header, "%zu");
+    PRINT_CELL(f, event->write_nvm, "write_nvm", header, "%zu");
+    PRINT_CELL(f, event->time, "time_us", header, "%f");
+    PRINT_CELL(f, event->type, "migration_type", header, "%d");
+    PRINT_CELL(f, count_total, "count_total", header, "%zu");
+    fprintf(f, "\n");
+}
+
 void pebs_write_log(){
     if (PRINT_TRAINING_DATA){
+        size_t *step_to_count = malloc(sizeof(size_t) * (scores_log[logged_samples - 1].step + 1));
+
         FILE *f = fopen("output.txt", "w");
         if (!f) {
             perror("fopen");
@@ -222,8 +240,21 @@ void pebs_write_log(){
         print_row(f, scores_log, true); // print header
         for (size_t i = 0; i < logged_samples; i++){
             print_row(f, &scores_log[i], false);
+            step_to_count[scores_log[i].step] = scores_log[i].count_total;
         }
         fclose(f);
+
+        FILE *f_mig = fopen("migration_log.txt", "w");
+        if (!f_mig) {
+            perror("fopen");
+            return;
+        }
+
+        print_migration_row(f_mig, migration_event_queue, 0, true);
+        for (size_t i = 0; i < migration_queue_size; i++){
+            print_migration_row(f_mig, &migration_event_queue[i], step_to_count[migration_event_queue[i].timestep], false);
+        }
+        fclose(f_mig);
     }
 }
 

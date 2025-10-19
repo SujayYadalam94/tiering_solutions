@@ -8,6 +8,7 @@
 // Options are SCAILP and C220G5
 #define C220G5
 
+#define USE_MODEL (false)
 
 #define MIN_INTERPOSE_MEM_SIZE_DEFAULT (2 * 1024UL * 1024UL)
 //(1 * 1024UL * 1024UL * 1024UL)
@@ -26,7 +27,7 @@
 
 
 #define NVMSIZE_DEFAULT   (64L * (1024L * 1024L * 1024L))
-#define DRAMSIZE_DEFAULT  (32L * (1024L * 1024L * 1024L))
+#define DRAMSIZE_DEFAULT  (0)
 
 #define DRAMPATH_DEFAULT  "/dev/dax0.0"
 #define NVMPATH_DEFAULT   "/dev/dax1.0"
