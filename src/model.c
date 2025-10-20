@@ -51,6 +51,7 @@ static void extract_features(struct hemem_page *page, struct group_tracker *grp_
     features[16] = (double)page->malloc_call_ewma[3];
     features[17] = (double)page->min_malloc_bytes;
     features[18] = (double)page->max_malloc_bytes;
+
 }
 
 double model_predict(struct hemem_page *page, struct group_tracker *grp_tracker, size_t count_total, double cpu_usage)
@@ -59,6 +60,7 @@ double model_predict(struct hemem_page *page, struct group_tracker *grp_tracker,
         LOG_ERROR("Null page pointer in model_predict\n");
         return 0.0;
     }
+
     double feature_buffer[MODEL_NUM_FEATURES];
     double out;
 

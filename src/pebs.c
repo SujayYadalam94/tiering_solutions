@@ -717,7 +717,6 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
   ptimer_print(&window_timer);
 
   printf("Count Total: %zu\n", count_total);
-
   return s_idx;
 }
 
@@ -749,9 +748,9 @@ static inline int continue_migration(struct hemem_page *hp, struct hemem_page *c
   float cost = CB_MULTIPLIER * (promotion_cost_avg + demotion_cost_avg);
   if (USE_MODEL)
   {
+   float migration_time = fmax(demotion_cost_avg, promotion_cost_avg);
+    cost = 0.05 * fmax(fmax(count_total, prev_count_total), 1000) * HF_SAMPLE_PERIOD * migration_time / PEBS_KSWAPD_INTERVAL_SMALL;
     benefit = (hp->score - cp->score) * HF_SAMPLE_PERIOD * latency_diff;
-    float migration_time = fmax(demotion_cost_avg, promotion_cost_avg);
-    //cost = 0.1 * fmax(fmax(count_total, prev_count_total), 1000) * HF_SAMPLE_PERIOD * migration_time / PEBS_KSWAPD_INTERVAL_SMALL;
   }
   else{
     benefit = (hp->score - cp->score) * hp->hot_age * HF_SAMPLE_PERIOD * latency_diff;
@@ -1085,7 +1084,7 @@ void *pebs_policy_thread()
     // Set the top_since_iter for the top pages
     for (int k = 0; k < dramsize/PAGE_SIZE && k < s_pages_cnt; k++) {
       struct hemem_page* top_page = scores[k].page;
-      if (scores[k].score != 0 || USE_MODEL) {
+      if (scores[k].score > 0) {
         top_page->hot_age++;
         if ((top_page->hot_age > 1 && (top_page->score >= top_page->prev_score)) || USE_MODEL) {
           // Page has continued to stay hot, so can be promoted
@@ -1176,8 +1175,7 @@ void *pebs_policy_thread()
             if (USE_MODEL)
             {
                 float migration_time = fmax(demotion_cost_avg, promotion_cost_avg);
-                //local_cost = 0.1 * fmax(fmax(count_total, prev_count_total), 1000) * HF_SAMPLE_PERIOD * migration_time /
-                //       PEBS_KSWAPD_INTERVAL_SMALL;
+                cost = 0.05 * fmax(fmax(count_total, prev_count_total), 1000) * HF_SAMPLE_PERIOD * migration_time / PEBS_KSWAPD_INTERVAL_SMALL;
                 benefit = p->score * HF_SAMPLE_PERIOD * latency_diff;
             }
             else
@@ -1521,7 +1519,7 @@ void pebs_init(void)
   pages_map = kh_init(kPagesMap);
   #endif
 
-  scores = (struct score_entry*)malloc((MAX_NVME_PAGES + MAX_DRAM_PAGES) * sizeof(struct score_entry));
+  scores = (struct score_entry*)malloc(2 * (MAX_NVME_PAGES + MAX_DRAM_PAGES) * sizeof(struct score_entry));
 
   // Initialize the free/add ring buffers
   mod_page_dq = kdq_init(mod_page_t);
