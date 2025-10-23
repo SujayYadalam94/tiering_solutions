@@ -42,13 +42,13 @@ void ptimer_stop(struct ptimer *t)
 
 void ptimer_print(struct ptimer *t)
 {
-  fprintf(stderr, "[%s] elapsed: %.2lf ms\n", t->prefix, t->elapsed_us / 1000);
+  //fprintf(stderr, "[%s] elapsed: %.2lf ms\n", t->prefix, t->elapsed_us / 1000);
 }
 
 void ptimer_stop_and_print(struct ptimer *t)
 {
   ptimer_stop(t);
-  ptimer_print(t);
+  //ptimer_print(t);
 }
 
 

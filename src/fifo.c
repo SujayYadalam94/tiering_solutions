@@ -6,7 +6,9 @@
 
 void enqueue_fifo(struct fifo_list *queue, struct hemem_page *entry)
 {
+  LOCK_TRACE_TRY("queue->list_lock");
   pthread_mutex_lock(&(queue->list_lock));
+  LOCK_TRACE_GOT("queue->list_lock");
   assert(entry->prev == NULL);
   entry->next = queue->first;
   if(queue->first != NULL) {
@@ -21,16 +23,20 @@ void enqueue_fifo(struct fifo_list *queue, struct hemem_page *entry)
   queue->first = entry;
   entry->list = queue;
   queue->numentries++;
+  LOCK_TRACE_REL("queue->list_lock");
   pthread_mutex_unlock(&(queue->list_lock));
 }
 
 struct hemem_page *dequeue_fifo(struct fifo_list *queue)
 {
+  LOCK_TRACE_TRY("queue->list_lock");
   pthread_mutex_lock(&(queue->list_lock));
+  LOCK_TRACE_GOT("queue->list_lock");
   struct hemem_page *ret = queue->last;
 
   if(ret == NULL) {
     //assert(queue->numentries == 0);
+    LOCK_TRACE_REL("queue->list_lock");
     pthread_mutex_unlock(&(queue->list_lock));
     return ret;
   }
@@ -46,6 +52,7 @@ struct hemem_page *dequeue_fifo(struct fifo_list *queue)
   ret->list = NULL;
   assert(queue->numentries > 0);
   queue->numentries--;
+  LOCK_TRACE_REL("queue->list_lock");
   pthread_mutex_unlock(&(queue->list_lock));
 
   return ret;
@@ -53,10 +60,13 @@ struct hemem_page *dequeue_fifo(struct fifo_list *queue)
 
 void page_list_remove_page(struct fifo_list *list, struct hemem_page *page)
 {
+  LOCK_TRACE_TRY("list->list_lock");
   pthread_mutex_lock(&(list->list_lock));
+  LOCK_TRACE_GOT("list->list_lock");
   if (list->first == NULL) {
     assert(list->last == NULL);
     assert(list->numentries == 0);
+    LOCK_TRACE_REL("list->list_lock");
     pthread_mutex_unlock(&(list->list_lock));
     LOG("page_list_remove_page: list was empty!\n");
     return;
@@ -83,12 +93,15 @@ void page_list_remove_page(struct fifo_list *list, struct hemem_page *page)
   page->next = NULL;
   page->prev = NULL;
   page->list = NULL;
+  LOCK_TRACE_REL("list->list_lock");
   pthread_mutex_unlock(&(list->list_lock));
 }
 
 void next_page(struct fifo_list *list, struct hemem_page *page, struct hemem_page **next_page)
 {
+    LOCK_TRACE_TRY("list->list_lock");
     pthread_mutex_lock(&(list->list_lock));
+    LOCK_TRACE_GOT("list->list_lock");
     if (page == NULL) {
         *next_page = list->last;
     }
@@ -96,12 +109,15 @@ void next_page(struct fifo_list *list, struct hemem_page *page, struct hemem_pag
         *next_page = page->prev;
         assert(page->list == list);
     }
+    LOCK_TRACE_REL("list->list_lock");
     pthread_mutex_unlock(&(list->list_lock));
 }
 
 void enqueue_fifo_m(struct migration_req_list *queue, struct migration_req *entry)
 {
+  LOCK_TRACE_TRY("queue->list_lock");
   pthread_mutex_lock(&(queue->list_lock));
+  LOCK_TRACE_GOT("queue->list_lock");
   assert(entry->prev == NULL);
   entry->next = queue->first;
   if(queue->first != NULL) {
@@ -116,16 +132,20 @@ void enqueue_fifo_m(struct migration_req_list *queue, struct migration_req *entr
   queue->first = entry;
   entry->list = queue;
   queue->numentries++;
+  LOCK_TRACE_REL("queue->list_lock");
   pthread_mutex_unlock(&(queue->list_lock));
 }
 
 struct migration_req *dequeue_fifo_m(struct migration_req_list *queue)
 {
+  LOCK_TRACE_TRY("queue->list_lock");
   pthread_mutex_lock(&(queue->list_lock));
+  LOCK_TRACE_GOT("queue->list_lock");
   struct migration_req *ret = queue->last;
 
   if(ret == NULL) {
     //assert(queue->numentries == 0);
+    LOCK_TRACE_REL("queue->list_lock");
     pthread_mutex_unlock(&(queue->list_lock));
     return ret;
   }
@@ -141,6 +161,7 @@ struct migration_req *dequeue_fifo_m(struct migration_req_list *queue)
   ret->list = NULL;
   assert(queue->numentries > 0);
   queue->numentries--;
+  LOCK_TRACE_REL("queue->list_lock");
   pthread_mutex_unlock(&(queue->list_lock));
 
   return ret;

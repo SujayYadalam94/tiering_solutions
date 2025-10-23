@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <unistd.h>
 #include <libsyscall_intercept_hook_point.h>
 #include <syscall.h>
 #include <errno.h>
@@ -9,9 +10,11 @@
 #include <pthread.h>
 #include <sys/mman.h>
 #include <assert.h>
+#include <execinfo.h>
 
 #include "hemem.h"
 #include "interpose.h"
+#define PROT_HC 0x03000000	/* */
 
 // Round up to 2MB huge page boundaries (HUGEPAGE_SIZE is defined in hemem.h)
 //#define PAGE_ROUND_UP(x) (((x) + (HUGEPAGE_SIZE)-1) & (~((HUGEPAGE_SIZE)-1)))
@@ -25,18 +28,34 @@ int (*libc_brk)(void *addr) = NULL;
 
 static int mmap_filter(void *addr, size_t length, int prot, int flags, int fd, off_t offset, uint64_t *result)
 {
+  // Print internal_call_depth using write() to avoid malloc
+  {
+    char buf[128];
+    int len = snprintf(buf, sizeof(buf), "INTERNAL CALL IS : %d\n", internal_call_depth);
+    write(STDERR_FILENO, buf, len);
+  }
+  
+  if (internal_call_depth > 0) {
+    //LOG("hemem interpose: calling libc mmap due to internal memory call: mmap(0x%lx, %ld, %x, %x, %d, %ld)\n", (uint64_t)addr, length, prot, flags, fd, offset);
+    fputs("hemem interpose: Internal call depth > 0, passing to libc mmap\n", stderr);
+    return 1;
+  }
+
   //ensure_init();
+  //LOG("INTERNAL CALL IS : %d\n", internal_call_depth);
 
   //TODO: figure out which mmap calls should go to libc vs hemem
   // non-anonymous mappings should probably go to libc (e.g., file mappings)
   if (((flags & MAP_ANONYMOUS) != MAP_ANONYMOUS) && !((fd == dramfd) || (fd == nvmfd))) {
-    LOG("hemem interpose: calling libc mmap due to non-anonymous, non-devdax mapping: mmap(0x%lx, %ld, %x, %x, %d, %ld)\n", (uint64_t)addr, length, prot, flags, fd, offset);
+    //LOG("hemem interpose: calling libc mmap due to non-anonymous, non-devdax mapping: mmap(0x%lx, %ld, %x, %x, %d, %ld)\n", (uint64_t)addr, length, prot, flags, fd, offset);
+    fputs("hemem interpose: calling libc mmap due to non-anonymous, non-devdax mapping:\n", stderr);
     return 1;
   }
 
   if ((flags & MAP_STACK) == MAP_STACK) {
     // pthread mmaps are called with MAP_STACK
-    LOG("hemem interpose: calling libc mmap due to stack mapping: mmap(0x%lx, %ld, %x, %x, %d, %ld)\n", (uint64_t)addr, length, prot, flags, fd, offset);
+    //LOG("hemem interpose: calling libc mmap due to stack mapping: mmap(0x%lx, %ld, %x, %x, %d, %ld)\n", (uint64_t)addr, length, prot, flags, fd, offset);
+    fputs("hemem interpose: calling libc mmap due to stack mapping\n", stderr);
     return 1;
   }
 
@@ -51,10 +70,6 @@ static int mmap_filter(void *addr, size_t length, int prot, int flags, int fd, o
     return 1;
   }
 
-  if (internal_call) {
-    LOG("hemem interpose: calling libc mmap due to internal memory call: mmap(0x%lx, %ld, %x, %x, %d, %ld)\n", (uint64_t)addr, length, prot, flags, fd, offset);
-    return 1;
-  }
   
   if (!is_init) {
     //LOG("hemem interpose: calling libc mmap due to hemem init in progress\n");
@@ -63,14 +78,73 @@ static int mmap_filter(void *addr, size_t length, int prot, int flags, int fd, o
 
   if (length < min_interpose_mem_size) {
     dram_small_allocation_bytes += length;
-    LOG("hemem interpose calling libc mmap due to small allocation size: mmap(0x%lx, %ld, %x, %x, %d, %ld)\n", (uint64_t)addr, length, prot, flags, fd, offset);
+    ///LOG("hemem interpose calling libc mmap due to small allocation size: mmap(0x%lx, %ld, %x, %x, %d, %ld)\n", (uint64_t)addr, length, prot, flags, fd, offset);
+    fputs("hemem interpose: calling libc mmap due to small allocation size\n", stderr);
     return 1;
   }
 
-  LOG("hemem interpose: calling hemem mmap(0x%lx, %ld, %x, %x, %d, %ld)\n", (uint64_t)addr, length, prot, flags, fd, offset);
+  //LOG("hemem interpose: calling hemem mmap(0x%lx, %ld, %x, %x, %d, %ld)\n", (uint64_t)addr, length, prot, flags, fd, offset);
+  fputs("hemem interpose: calling hemem mmap\n", stderr);
+  #if 0
+  
+  // Print stack trace using __builtin_return_address, calling it only when needed
+  HEMEM_LOG("HeMem: Stack trace for mmap(size=%ld, flags=0x%x) from TID %lu:\n", length, flags, (unsigned long)pthread_self());
+
+  if (flags & PROT_HC) {
+      LOG("  [*] PROT_HC flag detected\n");
+      // Clear the flag to avoid issues in hemem_mmap
+      flags &= ~PROT_HC;
+      LOG("  [*] PROT_HC flag cleared for hemem_mmap\n");
+      LOG("hemem interpose: calling hemem mmap without PROT_HC: mmap(0x%lx, %ld, %x, %x, %d, %ld)\n", (uint64_t)addr, length, prot, flags, fd, offset);
+      return 1;
+  }
+  #if 0 
+  for (int i = 0; i < 15; i++) {
+    void *addr_i = NULL;
+    
+    // Try to get return address at level i
+    // We call __builtin_return_address right before use to go as deep as possible
+    switch(i) {
+      case 0: addr_i = __builtin_return_address(0); break;
+      case 1: addr_i = __builtin_return_address(1); break;
+      case 2: addr_i = __builtin_return_address(2); break;
+      case 3: addr_i = __builtin_return_address(3); break;
+      case 4: addr_i = __builtin_return_address(4); break;
+      case 5: addr_i = __builtin_return_address(5); break;
+      case 6: addr_i = __builtin_return_address(6); break;
+      case 7: addr_i = __builtin_return_address(7); break;
+      case 8: addr_i = __builtin_return_address(8); break;
+      case 9: addr_i = __builtin_return_address(9); break;
+      case 10: addr_i = __builtin_return_address(10); break;
+      case 11: addr_i = __builtin_return_address(11); break;
+      case 12: addr_i = __builtin_return_address(12); break;
+      case 13: addr_i = __builtin_return_address(13); break;
+      case 14: addr_i = __builtin_return_address(14); break;
+      case 15: addr_i = __builtin_return_address(15); break;
+      default: addr_i = NULL; break;
+    }
+    
+    if (!addr_i) break;
+    
+    Dl_info info;
+    if (dladdr(addr_i, &info) && info.dli_fname) {
+      long offset_in_lib = (char*)addr_i - (char*)info.dli_fbase;
+      const char *libname = strrchr(info.dli_fname, '/');
+      libname = libname ? libname + 1 : info.dli_fname;
+      HEMEM_LOG("  [%d] %s+0x%lx", i, libname, offset_in_lib);
+      if (info.dli_sname) {
+        HEMEM_LOG(" (%s)", info.dli_sname);
+      }
+      HEMEM_LOG("\n");
+    }
+  }
+    #endif
+  #endif
+  
   if ((*result = (uint64_t)hemem_mmap(addr, length, prot, flags, fd, offset)) == (uint64_t)MAP_FAILED) {
     // hemem failed for some reason, try libc
-    LOG("hemem mmap failed\n\tmmap(0x%lx, %ld, %x, %x, %d, %ld)\n", (uint64_t)addr, length, prot, flags, fd, offset);
+    //LOG("hemem mmap failed\n\tmmap(0x%lx, %ld, %x, %x, %d, %ld)\n", (uint64_t)addr, length, prot, flags, fd, offset);
+    fputs("hemem interpose: hemem mmap failed, falling back to libc mmap\n", stderr);
   }
   return 0;
 }
@@ -81,8 +155,8 @@ static int munmap_filter(void *addr, size_t length, uint64_t* result)
   //ensure_init();
   
   //TODO: figure out which munmap calls should go to libc vs hemem
-  
-  if (internal_call) {
+
+  if (internal_call_depth > 0) {
     return 1;
   }
 
@@ -131,7 +205,7 @@ static void* bind_symbol(const char *sym)
 {
   void *ptr;
   if ((ptr = dlsym(RTLD_NEXT, sym)) == NULL) {
-    fprintf(stderr, "hemem memory manager interpose: dlsym failed (%s)\n", sym);
+    HEMEM_LOG("hemem memory manager interpose: dlsym failed (%s)\n", sym);
     abort();
   }
   return ptr;
@@ -153,6 +227,8 @@ static int hook(long syscall_number, long arg0, long arg1, long arg2, long arg3,
 
 static __attribute__((constructor)) void init(void)
 {
+  HEMEM_LOG("HEMEM_TRACE: [TID %lu] Constructor init() starting\n", (unsigned long)pthread_self());
+  
   libc_mmap = bind_symbol("mmap");
   libc_munmap = bind_symbol("munmap");
   libc_malloc = bind_symbol("malloc");
@@ -161,7 +237,9 @@ static __attribute__((constructor)) void init(void)
   libc_brk = bind_symbol("brk");
   intercept_hook_point = hook;
 
+  HEMEM_LOG("HEMEM_TRACE: [TID %lu] Constructor about to call hemem_init()\n", (unsigned long)pthread_self());
   hemem_init();
+  HEMEM_LOG("HEMEM_TRACE: [TID %lu] Constructor: hemem_init() returned\n", (unsigned long)pthread_self());
 }
 
 static __attribute__((destructor)) void hemem_shutdown(void)

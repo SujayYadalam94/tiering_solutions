@@ -24,7 +24,9 @@ static _Atomic uint64_t slowmem_freebytes = nvmsize;
 
 static void mmgr_list_add(struct mmgr_list *list, struct mmgr_node *node)
 {
+  LOCK_TRACE_TRY("list->list_lock");
   pthread_mutex_lock(&(list->list_lock));
+  LOCK_TRACE_GOT("list->list_lock");
   assert(node->prev == NULL);
   node->next = list->first;
   if(list->first != NULL) {
@@ -40,16 +42,20 @@ static void mmgr_list_add(struct mmgr_list *list, struct mmgr_node *node)
   list->first = node;
   node->list = list;
   list->numentries++;
+  LOCK_TRACE_REL("list->list_lock");
   pthread_mutex_unlock(&(list->list_lock));
 }
 
 static struct mmgr_node* mmgr_list_remove(struct mmgr_list *list)
 {
+  LOCK_TRACE_TRY("list->list_lock");
   pthread_mutex_lock(&(list->list_lock));
+  LOCK_TRACE_GOT("list->list_lock");
   struct mmgr_node *ret = list->last;
 
   if(ret == NULL) {
     assert(list->numentries == 0);
+    LOCK_TRACE_REL("list->list_lock");
     pthread_mutex_unlock(&(list->list_lock));
     return ret;
   }
@@ -66,6 +72,7 @@ static struct mmgr_node* mmgr_list_remove(struct mmgr_list *list)
   ret->list = NULL;
   assert(list->numentries > 0);
   list->numentries--;
+  LOCK_TRACE_REL("list->list_lock");
   pthread_mutex_unlock(&(list->list_lock));
   return ret;
 }
@@ -77,10 +84,13 @@ static struct mmgr_node* mmgr_list_peek(struct mmgr_list *list)
 
 static void mmgr_list_remove_node(struct mmgr_list *list, struct mmgr_node *node)
 {
+  LOCK_TRACE_TRY("list->list_lock");
   pthread_mutex_lock(&(list->list_lock));
+  LOCK_TRACE_GOT("list->list_lock");
   if (list->first == NULL) {
     assert(list->last == NULL);
     assert(list->numentries == 0);
+    LOCK_TRACE_REL("list->list_lock");
     pthread_mutex_unlock(&(list->list_lock));
     LOG("mmgr_list_remove_node: list was empty\n");
     return;
@@ -106,6 +116,7 @@ static void mmgr_list_remove_node(struct mmgr_list *list, struct mmgr_node *node
   node->next = NULL;
   node->prev = NULL;
   node->list = NULL;
+  LOCK_TRACE_REL("list->list_lock");
   pthread_mutex_unlock(&(list->list_lock));
 }
 
@@ -127,7 +138,9 @@ static void move_hot(void)
     }
 
     mmgr_list_add(&transition[HUGEP], n);
+    LOCK_TRACE_TRY("n->page->page_lock");
     pthread_mutex_lock(&(n->page->page_lock));
+    LOCK_TRACE_GOT("n->page->page_lock");
     n->page->migrating = true;
     hemem_wp_page(n->page, true);
 
@@ -195,6 +208,7 @@ static void move_hot(void)
     assert(nn->page->devdax_offset == nn->offset);
 
     nn->page->migrating = false;
+    LOCK_TRACE_REL("nn->page->page_lock");
     pthread_mutex_unlock(&(nn->page->page_lock));
   }
 }
@@ -213,7 +227,9 @@ static void move_cold(void)
     while ((n = mmgr_list_remove(&mem_inactive[FASTMEM][pt])) != NULL) {
       mmgr_list_add(&transition[pt], n);
 
+      LOCK_TRACE_TRY("n->page->page_lock");
       pthread_mutex_lock(&(n->page->page_lock));
+      LOCK_TRACE_GOT("n->page->page_lock");
       n->page->migrating = true;
       hemem_wp_page(n->page, true);
       transition_bytes += pt_to_pagesize(pt);
@@ -236,7 +252,9 @@ move:
         while ((n = mmgr_list_remove(&mem_active[FASTMEM][pt])) != NULL) {
           mmgr_list_add(&transition[pt], n);
 
+          LOCK_TRACE_TRY("n->page->page_lock");
           pthread_mutex_lock(&(n->page->page_lock));
+          LOCK_TRACE_GOT("n->page->page_lock");
           n->page->migrating = true;
           hemem_wp_page(n->page, true);
           transition_bytes += pt_to_pagesize(pt);
@@ -304,6 +322,7 @@ move:
         assert(nn->page->devdax_offset == nn->offset);
 
         nn->page->migrating = false;
+        LOCK_TRACE_REL("nn->page->page_lock");
         pthread_mutex_unlock(&(nn->page->page_lock));
       //}
 

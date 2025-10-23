@@ -24,6 +24,15 @@
 #include "timer.h"
 #include "spsc-ring.h"
 
+// CRITICAL: Override khash/kdq allocation functions to use our allocator
+// This MUST come before including khash.h and kdq.h
+#include "pebs_allocator.h"
+#define kcalloc(n, z) pebs_calloc(n, z)
+#define kmalloc(z) pebs_malloc(z)
+#define malloc(z) pebs_malloc(z)
+#define krealloc(p, z) pebs_realloc(p, z)
+#define kfree(p) pebs_free(p)
+
 #include "khash.h"
 #include "kdq.h"
 #include "kbtree.h"
@@ -159,7 +168,7 @@ static uint32_t get_imc_bw_counter_offset(enum imc_bw_counters e) {
     case NVM_READS:   return PCM_SERVER_IMC_PMM_READS;
     case NVM_WRITES:  return PCM_SERVER_IMC_PMM_WRITES;
     default:
-      fprintf(stderr, "ASSERT FAILED: Unknown IMC counter enum value: %d\n", (int)e);
+      LOG_ERROR("ASSERT FAILED: Unknown IMC counter enum value: %d\n", (int)e);
       assert(!"Unknown IMC counter");
   }
 }
@@ -311,7 +320,7 @@ static struct perf_event_mmap_page* perf_setup(__u64 config, __u64 config1, __u6
   pfd[cpu][type] = perf_event_open(&attr, -1, cpu, -1, 0);
   if(pfd[cpu][type] == -1) {
     perror("perf_event_open");
-    fprintf(stderr, "ASSERT FAILED: perf_event_open failed for cpu=%lld type=%lld\n", cpu, type);
+    LOG_ERROR("ASSERT FAILED: perf_event_open failed for cpu=%lld type=%lld\n", cpu, type);
   }
   assert(pfd[cpu][type] != -1);
 
@@ -319,7 +328,7 @@ static struct perf_event_mmap_page* perf_setup(__u64 config, __u64 config1, __u6
   struct perf_event_mmap_page *p = mmap(NULL, mmap_size, PROT_READ | PROT_WRITE, MAP_SHARED, pfd[cpu][type], 0);
   if(p == MAP_FAILED) {
     perror("mmap");
-    fprintf(stderr, "ASSERT FAILED: mmap failed for perf event buffer, size=%zu\n", mmap_size);
+    LOG_ERROR("ASSERT FAILED: mmap failed for perf event buffer, size=%zu\n", mmap_size);
   }
   assert(p != MAP_FAILED);
 
@@ -356,6 +365,9 @@ static void update_sampling_frequency()
 
 void *pebs_scan_thread()
 {
+  // CRITICAL: Set internal_call to prevent HeMem interception in background thread
+  //internal_call_depth++;
+  
 #ifdef SAMPLE_BASED_COOLING
   uint64_t samples_since_cool = 0;
 #endif
@@ -369,7 +381,7 @@ void *pebs_scan_thread()
   int s = pthread_setaffinity_np(thread, sizeof(cpu_set_t), &cpuset);
   if (s != 0) {
     perror("pthread_setaffinity_np");
-    fprintf(stderr, "ASSERT FAILED: pthread_setaffinity_np failed with error=%d\n", s);
+    LOG_ERROR("ASSERT FAILED: pthread_setaffinity_np failed with error=%d\n", s);
     assert(0);
   }
 
@@ -402,7 +414,7 @@ void *pebs_scan_thread()
         case PERF_RECORD_SAMPLE:
             ps = (struct perf_sample*)ph;
             if (ps == NULL) {
-              fprintf(stderr, "ASSERT FAILED: perf_sample is NULL for PERF_RECORD_SAMPLE\n");
+              LOG_ERROR("ASSERT FAILED: perf_sample is NULL for PERF_RECORD_SAMPLE\n");
             }
             assert(ps != NULL);
             if(ps->addr != 0) {
@@ -434,7 +446,7 @@ void *pebs_scan_thread()
           break;
         default:
           LOG_ERROR("ERROR: Unknown perf_event type %u\n", ph->type);
-          fprintf(stderr, "ASSERT FAILED: Unknown perf_event type %u at address %p\n", ph->type, (void*)ph);
+          LOG_ERROR("ASSERT FAILED: Unknown perf_event type %u at address %p\n", ph->type, (void*)ph);
           assert(0);
           break;
         }
@@ -595,7 +607,7 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
   // Init the (right) neightbour iterator
   kb_itr_first(kPagesTree, pages_tree, &n_itr);
   if (!kb_itr_valid(&n_itr)) {
-    fprintf(stderr, "ASSERT FAILED: Initial B-tree iterator is invalid with pages_cnt=%zu\n", pages_cnt);
+    LOG_ERROR("ASSERT FAILED: Initial B-tree iterator is invalid with pages_cnt=%zu\n", pages_cnt);
   }
   assert(kb_itr_valid(&n_itr));
   kb_itr_next(kPagesTree, pages_tree, &n_itr);
@@ -638,7 +650,7 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
       ring_buf_get(l_neighbours);
     }
     if (!(ring_buf_size(l_neighbours) >= 0 && ring_buf_size(l_neighbours) <= NUM_NEIGHBOURS)) {
-      fprintf(stderr, "ASSERT FAILED: l_neighbours ring buffer size=%ld out of bounds [0, %d]\n", 
+      LOG_ERROR("ASSERT FAILED: l_neighbours ring buffer size=%ld out of bounds [0, %d]\n", 
               (long)ring_buf_size(l_neighbours), NUM_NEIGHBOURS);
     }
     assert(ring_buf_size(l_neighbours) >= 0 && ring_buf_size(l_neighbours) <= NUM_NEIGHBOURS);
@@ -655,11 +667,11 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
       n_entry_ptr = &kb_itr_key(page_tree_entry_t, &n_itr);
       p = n_entry_ptr->page;
       if (p == NULL) {
-        fprintf(stderr, "ASSERT FAILED: Neighbour page is NULL in B-tree at n_idx=%zu\n", n_idx);
+        LOG_ERROR("ASSERT FAILED: Neighbour page is NULL in B-tree at n_idx=%zu\n", n_idx);
       }
       assert(p != NULL);
       if (p->va != n_entry_ptr->va) {
-        fprintf(stderr, "ASSERT FAILED: Page VA mismatch: p->va=0x%lx != n_entry_ptr->va=0x%lx\n", 
+        LOG_ERROR("ASSERT FAILED: Page VA mismatch: p->va=0x%lx != n_entry_ptr->va=0x%lx\n", 
                 p->va, n_entry_ptr->va);
       }
       assert(p->va == n_entry_ptr->va);
@@ -835,11 +847,14 @@ void promote_to_free_dram_page(struct hemem_page *p, struct hemem_page *np)
 
   // There could be a possible race with pebs_remove_page()
   // So acquire lock to ensure page is not removed while being migrated
+  LOCK_TRACE_TRY("p->page_lock");
   pthread_mutex_lock(&(p->page_lock));
+  LOCK_TRACE_GOT("p->page_lock");
   if (!p->present) {
     // Don't migrate as this page is being removed
     // Put np back on the dram_free_list because we are not going to migrate
     enqueue_fifo(&dram_free_list, np);
+    LOCK_TRACE_REL("p->page_lock");
     pthread_mutex_unlock(&(p->page_lock));
     return;
   }
@@ -847,6 +862,7 @@ void promote_to_free_dram_page(struct hemem_page *p, struct hemem_page *np)
   old_offset = p->devdax_offset;
   pebs_migrate_up(p, np->devdax_offset);
   // We can release the lock now that migration is complete
+  LOCK_TRACE_REL("p->page_lock");
   pthread_mutex_unlock(&(p->page_lock));
 
   // Reset the page fields
@@ -864,9 +880,12 @@ bool demote_to_free_nvm_page(struct hemem_page *cp, struct hemem_page *np)
 
   // There could be a possible race with pebs_remove_page()
   // So acquire lock to ensure page is not removed while being migrated
+  LOCK_TRACE_TRY("cp->page_lock");
   pthread_mutex_lock(&(cp->page_lock));
+  LOCK_TRACE_GOT("cp->page_lock");
   if (!cp->present) {
     // Don't migrate as this page is being removed
+    LOCK_TRACE_REL("cp->page_lock");
     pthread_mutex_unlock(&(cp->page_lock));
     return false;
   }
@@ -874,6 +893,7 @@ bool demote_to_free_nvm_page(struct hemem_page *cp, struct hemem_page *np)
   old_offset = cp->devdax_offset;
   pebs_migrate_down(cp, np->devdax_offset);
 
+  LOCK_TRACE_REL("cp->page_lock");
   pthread_mutex_unlock(&(cp->page_lock));
 
   // Reset the page fields
@@ -890,6 +910,9 @@ bool demote_to_free_nvm_page(struct hemem_page *cp, struct hemem_page *np)
 
 void *pebs_migration_thread()
 {
+  // CRITICAL: Set internal_call to prevent HeMem interception in background thread
+  //internal_call_depth++;
+  
   struct migration_req *req;
   struct ptimer migrate_timer;
 
@@ -931,6 +954,10 @@ void *pebs_migration_thread()
 
 void *pebs_policy_thread()
 {
+  // CRITICAL: Set internal_call to prevent HeMem from intercepting memory allocations
+  // in this background thread (e.g., kdq resize operations)
+  //internal_call_depth++;
+  
   struct ptimer loop_timer, tree_timer, score_timer, sort_timer, id_timer;
   struct ptimer remaining_timer;
   ptimer_init(&loop_timer, "Loop");
@@ -989,6 +1016,7 @@ void *pebs_policy_thread()
   usleep((uint64_t)((1.0 * policy_thread_period)));
 
   for (;;) {
+    fputs("PEBS_POLICY_THREAD: Starting new interval\n", stderr);
     ptimer_start(&loop_timer);
     ptimer_start(&remaining_timer);
 
@@ -1066,10 +1094,12 @@ void *pebs_policy_thread()
     while (true) {
       mod_page_t* mp;
       pthread_mutex_lock(&mod_page_dq_lock);
+      LOG("kdq_size:\n");
       if (kdq_size(mod_page_dq) == 0) {
         pthread_mutex_unlock(&mod_page_dq_lock);
         break;
       }
+      LOG("kdq_shift\n");
       mp = kdq_shift(mod_page_t, mod_page_dq);
       pthread_mutex_unlock(&mod_page_dq_lock);
 
@@ -1114,7 +1144,7 @@ void *pebs_policy_thread()
         int absent;
         k = kh_put(kPagesMap, pages_map, page->va, &absent);
         if (absent == 0) {
-          fprintf(stderr, "ASSERT FAILED: Page already exists in pages_map, VA=0x%lx\n", page->va);
+          LOG_ERROR("ASSERT FAILED: Page already exists in pages_map, VA=0x%lx\n", page->va);
           // Skip duplicate add instead of crashing
           continue;
         }
@@ -1209,7 +1239,7 @@ void *pebs_policy_thread()
 
       LOG_INFO("Promoting page %p [idx %lu] with score %f\n", p, promote_idx, scores[promote_idx].score);
       if (p->in_dram) {
-        fprintf(stderr, "ASSERT FAILED: Attempting to promote page that is already in DRAM, VA=0x%lx\n", p->va);
+        LOG_ERROR("ASSERT FAILED: Attempting to promote page that is already in DRAM, VA=0x%lx\n", p->va);
       }
       assert(!p->in_dram);
 
@@ -1224,7 +1254,7 @@ void *pebs_policy_thread()
       np = dequeue_fifo(&dram_free_list);
       if (np != NULL) {
         if (np->present) {
-          fprintf(stderr, "ASSERT FAILED: Free DRAM page has present flag set, VA=0x%lx offset=0x%lx\n", 
+          LOG_ERROR("ASSERT FAILED: Free DRAM page has present flag set, VA=0x%lx offset=0x%lx\n", 
                   np->va, np->devdax_offset);
         }
         assert(!(np->present));
@@ -1274,11 +1304,11 @@ void *pebs_policy_thread()
 
       cp = scores[demote_idx].page;
       if (!cp->in_dram) {
-        fprintf(stderr, "ASSERT FAILED: Demotion candidate not in DRAM, VA=0x%lx in_dram=%d\n", 
+        LOG_ERROR("ASSERT FAILED: Demotion candidate not in DRAM, VA=0x%lx in_dram=%d\n", 
                 cp->va, cp->in_dram);
       }
       if (cp->va == 0) {
-        fprintf(stderr, "ASSERT FAILED: Demotion candidate has VA=0\n");
+        LOG_ERROR("ASSERT FAILED: Demotion candidate has VA=0\n");
       }
       assert(cp->in_dram && cp->va > 0);
 
@@ -1368,12 +1398,12 @@ static struct hemem_page* pebs_allocate_page()
   page = dequeue_fifo(&dram_free_list);
   if (page != NULL) {
     if (!page->in_dram) {
-      fprintf(stderr, "ASSERT FAILED: Page from DRAM free list has in_dram=false, offset=0x%lx\n", 
+      LOG_ERROR("ASSERT FAILED: Page from DRAM free list has in_dram=false, offset=0x%lx\n", 
               page->devdax_offset);
     }
     assert(page->in_dram);
     if (page->present) {
-      fprintf(stderr, "ASSERT FAILED: Page from DRAM free list has present=true, VA=0x%lx\n", 
+      LOG_ERROR("ASSERT FAILED: Page from DRAM free list has present=true, VA=0x%lx\n", 
               page->va);
     }
     assert(!page->present);
@@ -1391,12 +1421,12 @@ static struct hemem_page* pebs_allocate_page()
   page = dequeue_fifo(&nvm_free_list);
   if (page != NULL) {
     if (page->in_dram) {
-      fprintf(stderr, "ASSERT FAILED: Page from NVM free list has in_dram=true, offset=0x%lx\n", 
+      LOG_ERROR("ASSERT FAILED: Page from NVM free list has in_dram=true, offset=0x%lx\n", 
               page->devdax_offset);
     }
     assert(!page->in_dram);
     if (page->present) {
-      fprintf(stderr, "ASSERT FAILED: Page from NVM free list has present=true, VA=0x%lx\n", 
+      LOG_ERROR("ASSERT FAILED: Page from NVM free list has present=true, VA=0x%lx\n", 
               page->va);
     }
     assert(!page->present);
@@ -1410,7 +1440,7 @@ static struct hemem_page* pebs_allocate_page()
     return page;
   }
 
-  fprintf(stderr, "ASSERT FAILED: Out of memory - both DRAM and NVM free lists exhausted\n");
+  LOG_ERROR("ASSERT FAILED: Out of memory - both DRAM and NVM free lists exhausted\n");
   assert(!"Out of memory");
 }
 
@@ -1421,7 +1451,7 @@ struct hemem_page* pebs_pagefault(void)
   // do the heavy lifting of finding the devdax file offset to place the page
   page = pebs_allocate_page();
   if (page == NULL) {
-    fprintf(stderr, "ASSERT FAILED: pebs_allocate_page returned NULL\n");
+    LOG_ERROR("ASSERT FAILED: pebs_allocate_page returned NULL\n");
   }
   assert(page != NULL);
 
@@ -1433,7 +1463,7 @@ void pebs_add_page(struct hemem_page *page)
   int absent;
   khiter_t key;
   if (page == NULL) {
-    fprintf(stderr, "ASSERT FAILED: pebs_add_page called with NULL page\n");
+    LOG_ERROR("ASSERT FAILED: pebs_add_page called with NULL page\n");
   }
   assert(page != NULL);
   
@@ -1441,13 +1471,13 @@ void pebs_add_page(struct hemem_page *page)
   // Validate that this page belongs to a PEBS region
   if (page->region == NULL) {
     LOG_ERROR("ERROR: Attempting to add page without region assignment to PEBS\n");
-    fprintf(stderr, "ASSERT FAILED: pebs_add_page - page->region is NULL for VA=0x%lx\n", page->va);
+    LOG_ERROR("ASSERT FAILED: pebs_add_page - page->region is NULL for VA=0x%lx\n", page->va);
     assert(0);
   }
   if (page->region->policy_kind != HEMEM_POLICY_PEBs) {
     LOG_ERROR("ERROR: Attempting to add non-PEBS page (policy=%d) to PEBS tracking\n", 
               page->region->policy_kind);
-    fprintf(stderr, "ASSERT FAILED: pebs_add_page - wrong policy kind %d for VA=0x%lx\n",
+    LOG_ERROR("ASSERT FAILED: pebs_add_page - wrong policy kind %d for VA=0x%lx\n",
             page->region->policy_kind, page->va);
     assert(0);
   }
@@ -1465,7 +1495,7 @@ void pebs_add_page(struct hemem_page *page)
   pthread_mutex_lock(&pages_lock);
   key = kh_put(kPagesMap, pages, page->va, &absent);
   if (!absent) {
-    fprintf(stderr, "ASSERT FAILED: pebs_add_page - page VA=0x%lx already exists in pages hash table\n", 
+    LOG_ERROR("ASSERT FAILED: pebs_add_page - page VA=0x%lx already exists in pages hash table\n", 
             page->va);
   }
   assert(absent);
@@ -1475,6 +1505,9 @@ void pebs_add_page(struct hemem_page *page)
   // Add to the new pages ring
   pthread_mutex_lock(&mod_page_dq_lock);
   mod_page_t mp = (mod_page_t){ .page = page, .free = false };
+  LOG("kdq_push\n");
+  LOG("HEMEM_TRACE: [TID %lu] pebs_add_page() about to call kdq_push (VA=0x%lx)\n", 
+      (unsigned long)pthread_self(), page->va);
   kdq_push(mod_page_t, mod_page_dq, mp);
   pthread_mutex_unlock(&mod_page_dq_lock);
 }
@@ -1494,7 +1527,7 @@ void pebs_remove_page(struct hemem_page *page)
 {
   khiter_t key;
   if (page == NULL) {
-    fprintf(stderr, "ASSERT FAILED: pebs_remove_page called with NULL page\n");
+    LOG_ERROR("ASSERT FAILED: pebs_remove_page called with NULL page\n");
   }
   assert(page != NULL);
   LOG_INFO("Removing page %lu from the add_pages_ring [va: %lu]\n", (uint64_t)page, page->va);
@@ -1503,7 +1536,7 @@ void pebs_remove_page(struct hemem_page *page)
   pthread_mutex_lock(&pages_lock);
   key = kh_get(kPagesMap, pages, page->va);
   if (key == kh_end(pages)) {
-    fprintf(stderr, "ASSERT FAILED: pebs_remove_page - page VA=0x%lx not found in pages hash table\n", 
+    LOG_ERROR("ASSERT FAILED: pebs_remove_page - page VA=0x%lx not found in pages hash table\n", 
             page->va);
   }
   assert(key != kh_end(pages));
@@ -1512,13 +1545,19 @@ void pebs_remove_page(struct hemem_page *page)
 
   pthread_mutex_lock(&mod_page_dq_lock);
   mod_page_t mp = (mod_page_t){ .page = page, .free = true};
+  LOG("kdq_push\n");
+  LOG("HEMEM_TRACE: [TID %lu] pebs_remove_page() about to call kdq_push (VA=0x%lx)\n", 
+      (unsigned long)pthread_self(), page->va);
   kdq_push(mod_page_t, mod_page_dq, mp);
   pthread_mutex_unlock(&mod_page_dq_lock);
 
   // We set page->present to false so that
   // the migration thread does not migrate this page
+  LOCK_TRACE_TRY("page->page_lock");
   pthread_mutex_lock(&(page->page_lock));
+  LOCK_TRACE_GOT("page->page_lock");
   page->present = false;
+  LOCK_TRACE_REL("page->page_lock");
   pthread_mutex_unlock(&(page->page_lock));
 }
 
@@ -1566,7 +1605,11 @@ void pebs_init(struct fifo_list *dram_fl, struct fifo_list *nvm_fl)
     //perf_page[i][WRITE] = perf_setup(0x12d0, 0, i);   // MEM_INST_RETIRED.STLB_MISS_STORES
   }
 
+  fputs("PEBS POLICY INIT STARTING\n", stderr);
+
+  fputs("PEBS: KH INIT START \n", stderr);
   pages = kh_init(kPagesMap);
+  fputs("PEBS: KH INIT DONE \n", stderr);
 
   #ifdef SPATIAL_SMOOTHING
   pages_tree = kb_init(kPagesTree, KB_DEFAULT_SIZE);
@@ -1577,7 +1620,9 @@ void pebs_init(struct fifo_list *dram_fl, struct fifo_list *nvm_fl)
   scores = (struct score_entry*)malloc((MAX_NVME_PAGES + MAX_DRAM_PAGES) * sizeof(struct score_entry));
 
   // Initialize the free/add ring buffers
+  LOG("PEBS Initializing ring buffers\n");
   mod_page_dq = kdq_init(mod_page_t);
+  LOG("PEBS DONE Initializing ring buffers\n");
 
   // Initialize the neighbour ring buffers
 #ifdef SPATIAL_SMOOTHING
@@ -1621,6 +1666,7 @@ void pebs_init(struct fifo_list *dram_fl, struct fifo_list *nvm_fl)
     policy_thread_period = PEBS_KSWAPD_INTERVAL_BIG;
   }
 
+  LOG("PEBS DONE POLICY INIT DONE \n");
   LOG_INFO("Memory management policy is PEBS\n");
   LOG_INFO("pebs_init: finished\n");
 }
@@ -1633,6 +1679,9 @@ void pebs_shutdown()
       //munmap(perf_page[i][j], sysconf(_SC_PAGESIZE) * PERF_PAGES);
     }
   }
+  
+  // Print allocator statistics
+  //pebs_alloc_stats();
 }
 
 void pebs_stats()

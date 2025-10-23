@@ -28,37 +28,40 @@ static bool hemem_page_table_shutting_down = false;
 /*
 #define HEMEM_PT_LOCK_ACQUIRE() \
   do { \
-    fprintf(stderr, "[HEMEM-LOCK] %s:%d attempting lock\n", __func__, __LINE__); \
+    HEMEM_LOG( "[HEMEM-LOCK] %s:%d attempting lock\n", __func__, __LINE__); \
     int __hemem_lock_rc = pthread_mutex_lock(&hemem_page_table_lock); \
     if (__hemem_lock_rc != 0) { \
-      fprintf(stderr, "[HEMEM-LOCK] %s:%d lock failed: %s\n", __func__, __LINE__, strerror(__hemem_lock_rc)); \
+      HEMEM_LOG( "[HEMEM-LOCK] %s:%d lock failed: %s\n", __func__, __LINE__, strerror(__hemem_lock_rc)); \
     } else { \
-      fprintf(stderr, "[HEMEM-LOCK] %s:%d lock acquired\n", __func__, __LINE__); \
+      HEMEM_LOG( "[HEMEM-LOCK] %s:%d lock acquired\n", __func__, __LINE__); \
     } \
   } while (0)
 
 #define HEMEM_PT_LOCK_RELEASE() \
   do { \
-    fprintf(stderr, "[HEMEM-LOCK] %s:%d releasing lock\n", __func__, __LINE__); \
+    HEMEM_LOG( "[HEMEM-LOCK] %s:%d releasing lock\n", __func__, __LINE__); \
     int __hemem_unlock_rc = pthread_mutex_unlock(&hemem_page_table_lock); \
     if (__hemem_unlock_rc != 0) { \
-      fprintf(stderr, "[HEMEM-LOCK] %s:%d unlock failed: %s\n", __func__, __LINE__, strerror(__hemem_unlock_rc)); \
+      HEMEM_LOG( "[HEMEM-LOCK] %s:%d unlock failed: %s\n", __func__, __LINE__, strerror(__hemem_unlock_rc)); \
     } else { \
-      fprintf(stderr, "[HEMEM-LOCK] %s:%d lock released\n", __func__, __LINE__); \
+      HEMEM_LOG( "[HEMEM-LOCK] %s:%d lock released\n", __func__, __LINE__); \
     } \
   } while (0)
 */
 
 #define HEMEM_PT_LOCK_ACQUIRE() \
   do { \
+    LOCK_TRACE_TRY("hemem_page_table_lock"); \
     int __hemem_lock_rc = pthread_mutex_lock(&hemem_page_table_lock); \
     if (__hemem_lock_rc != 0) { \
     } else { \
+      LOCK_TRACE_GOT("hemem_page_table_lock"); \
     } \
   } while (0)
 
 #define HEMEM_PT_LOCK_RELEASE() \
   do { \
+    LOCK_TRACE_REL("hemem_page_table_lock"); \
     int __hemem_unlock_rc = pthread_mutex_unlock(&hemem_page_table_lock); \
     if (__hemem_unlock_rc != 0) { \
     } else { \
@@ -85,19 +88,24 @@ struct hemem_policy_ops;
 
 // Test helper to reset region state
 void hemem_regions_reset(void) {
+  LOCK_TRACE_TRY("regions_lock");
   pthread_mutex_lock(&regions_lock);
+  LOCK_TRACE_GOT("regions_lock");
   memset(regions, 0, sizeof(regions));
   region_count = 0;
   regions_bootstrapped = false;
   memset(policy_usage, 0, sizeof(policy_usage));
   memset(policy_initialized, 0, sizeof(policy_initialized));
+  LOCK_TRACE_REL("regions_lock");
   pthread_mutex_unlock(&regions_lock);
 }
 
 static void ensure_page_table(void)
 {
   if (hemem_page_table == NULL && !hemem_page_table_shutting_down) {
+    fputs("Hemem policy init pagetable\n", stderr);
     hemem_page_table = kh_init(hemem_va_map);
+    fputs("Hemem policy init pagetable done \n", stderr);
   }
 }
 
@@ -243,7 +251,7 @@ static uint64_t parse_u64(const char *s)
   errno = 0;
   uint64_t value = strtoull(s, NULL, 0);
   if (errno != 0) {
-    fprintf(stderr, "HeMem: failed to parse integer '%s' (%s)\n", s, strerror(errno));
+    HEMEM_LOG( "HeMem: failed to parse integer '%s' (%s)\n", s, strerror(errno));
     return 0;
   }
   return value;
@@ -253,7 +261,7 @@ static uint64_t parse_u64(const char *s)
 static void add_region_locked(uint64_t start, uint64_t end, enum hemem_policy_kind kind, const char *label)
 {
   if (end <= start) {
-    fprintf(stderr, "HeMem: invalid region bounds [%lx, %lx)\n", start, end);
+    HEMEM_LOG( "HeMem: invalid region bounds [%lx, %lx)\n", start, end);
     return;
   }
 
@@ -266,12 +274,12 @@ static void add_region_locked(uint64_t start, uint64_t end, enum hemem_policy_ki
   }
 
   if (end <= start) {
-    fprintf(stderr, "HeMem: region bounds collapse after alignment [%lx, %lx)\n", start, end);
+    HEMEM_LOG( "HeMem: region bounds collapse after alignment [%lx, %lx)\n", start, end);
     return;
   }
 
   if (region_count >= MAX_HEMEM_REGIONS) {
-    fprintf(stderr, "HeMem: region table full, cannot register [%lx-%lx)\n", start, end);
+    HEMEM_LOG( "HeMem: region table full, cannot register [%lx-%lx)\n", start, end);
     return;
   }
 
@@ -321,15 +329,15 @@ static void parse_regions_new(const char *spec)
       } else if (strcasecmp(policy_name, "simple") == 0) {
         kind = HEMEM_POLICY_SIMPLE;
       } else {
-        fprintf(stderr, "HeMem: Unknown policy '%s' in region spec, skipping\n", policy_name);
+        HEMEM_LOG( "HeMem: Unknown policy '%s' in region spec, skipping\n", policy_name);
         token = strtok(NULL, ",");
         continue;
       }
       
       add_region_locked(start, end, kind, policy_name);
-      fprintf(stderr, "HeMem: Registered region [0x%lx-0x%lx) with policy %s\n", start, end, policy_name);
+      HEMEM_LOG( "HeMem: Registered region [0x%lx-0x%lx) with policy %s\n", start, end, policy_name);
     } else {
-      fprintf(stderr, "HeMem: Failed to parse region spec: '%s'\n", token);
+      HEMEM_LOG( "HeMem: Failed to parse region spec: '%s'\n", token);
     }
     
     token = strtok(NULL, ",");
@@ -350,7 +358,7 @@ static void parse_region_spec_locked(const char *spec)
 
   char *mutable_spec = strdup(spec);
   if (mutable_spec == NULL) {
-    fprintf(stderr, "HeMem: failed to duplicate region specification string\n");
+    HEMEM_LOG( "HeMem: failed to duplicate region specification string\n");
     return;
   }
 
@@ -364,7 +372,7 @@ static void parse_region_spec_locked(const char *spec)
 
     char *colon = strchr(entry, ':');
     if (colon == NULL) {
-      fprintf(stderr, "HeMem: invalid region spec '%s' (missing policy)\n", entry);
+      HEMEM_LOG( "HeMem: invalid region spec '%s' (missing policy)\n", entry);
       token = strtok(NULL, ",;");
       continue;
     }
@@ -375,7 +383,7 @@ static void parse_region_spec_locked(const char *spec)
 
     char *dash = strchr(range_str, '-');
     if (dash == NULL) {
-      fprintf(stderr, "HeMem: invalid region spec '%s' (missing '-')\n", range_str);
+      HEMEM_LOG( "HeMem: invalid region spec '%s' (missing '-')\n", range_str);
       token = strtok(NULL, ",;");
       continue;
     }
@@ -387,14 +395,14 @@ static void parse_region_spec_locked(const char *spec)
     uint64_t start = parse_u64(start_str);
     uint64_t end = parse_u64(end_str);
     if (end <= start) {
-      fprintf(stderr, "HeMem: invalid region range '%s-%s'\n", start_str, end_str);
+      HEMEM_LOG( "HeMem: invalid region range '%s-%s'\n", start_str, end_str);
       token = strtok(NULL, ",;");
       continue;
     }
 
     const struct hemem_policy_ops *policy = policy_by_name(policy_str);
     if (policy == NULL) {
-      fprintf(stderr, "HeMem: unknown policy '%s'\n", policy_str);
+      HEMEM_LOG( "HeMem: unknown policy '%s'\n", policy_str);
       token = strtok(NULL, ",;");
       continue;
     }
@@ -425,15 +433,19 @@ static void sort_regions_locked(void)
 
 int hemem_region_register(uint64_t start, uint64_t end, enum hemem_policy_kind kind, const char *label)
 {
+  LOCK_TRACE_TRY("regions_lock");
   pthread_mutex_lock(&regions_lock);
+  LOCK_TRACE_GOT("regions_lock");
   bool bootstrapped = regions_bootstrapped;
   size_t prev_count = region_count;
   add_region_locked(start, end, kind, label);
   if (region_count == prev_count) {
-    pthread_mutex_unlock(&regions_lock);
+    LOCK_TRACE_REL("regions_lock");
+  pthread_mutex_unlock(&regions_lock);
     return -ENOSPC;
   }
   sort_regions_locked();
+  LOCK_TRACE_REL("regions_lock");
   pthread_mutex_unlock(&regions_lock);
 
   if (bootstrapped) {
@@ -487,7 +499,7 @@ static int parse_physical_allocation(const char *spec)
       } else if (strcasecmp(policy_name, "simple") == 0) {
         kind = HEMEM_POLICY_SIMPLE;
       } else {
-        fprintf(stderr, "HeMem: Unknown policy '%s' in HEMEM_REGION_PHYS\n", policy_name);
+        HEMEM_LOG( "HeMem: Unknown policy '%s' in HEMEM_REGION_PHYS\n", policy_name);
         token = strtok(NULL, ",");
         continue;
       }
@@ -496,7 +508,7 @@ static int parse_physical_allocation(const char *spec)
       policy_resources[count].dram_size = parse_size_string(dram_str);
       policy_resources[count].nvm_size = parse_size_string(nvm_str);
       
-      fprintf(stderr, "HeMem: Physical allocation for %s: DRAM=%lu bytes, NVM=%lu bytes\n",
+      HEMEM_LOG( "HeMem: Physical allocation for %s: DRAM=%lu bytes, NVM=%lu bytes\n",
               policy_name, policy_resources[count].dram_size, policy_resources[count].nvm_size);
       
       count++;
@@ -544,16 +556,19 @@ struct hemem_policy_resources* hemem_get_policy_resources(enum hemem_policy_kind
 
 void hemem_regions_bootstrap(void)
 {
+  LOCK_TRACE_TRY("regions_lock");
   pthread_mutex_lock(&regions_lock);
+  LOCK_TRACE_GOT("regions_lock");
   
   if (regions_bootstrapped) {
-    pthread_mutex_unlock(&regions_lock);
+    LOCK_TRACE_REL("regions_lock");
+  pthread_mutex_unlock(&regions_lock);
     return;
   }
   
-  fprintf(stderr, "HeMem: ========================================\n");
-  fprintf(stderr, "HeMem: Starting bootstrap (Assignment.md implementation)\n");
-  fprintf(stderr, "HeMem: ========================================\n");
+  HEMEM_LOG( "HeMem: ========================================\n");
+  HEMEM_LOG( "HeMem: Starting bootstrap (Assignment.md implementation)\n");
+  HEMEM_LOG( "HeMem: ========================================\n");
   
   // ===================================================================
   // STEP 1: CONFIGURATION PARSING
@@ -571,7 +586,7 @@ void hemem_regions_bootstrap(void)
   }
   
   const char *fallback_name = (fallback_policy_kind == HEMEM_POLICY_LRU) ? "LRU" : "LFU";
-  fprintf(stderr, "HeMem: Fallback policy: %s\n", fallback_name);
+  HEMEM_LOG( "HeMem: Fallback policy: %s\n", fallback_name);
   
   // 1b. Check for backwards compat: HEMEM_POLICY (single policy for entire VA space)
   if (region_count == 0) {
@@ -585,13 +600,13 @@ void hemem_regions_bootstrap(void)
       } else if (strcasecmp(simple_policy, "simple") == 0) {
         kind = HEMEM_POLICY_SIMPLE;
       } else {
-        fprintf(stderr, "HeMem: Unknown policy '%s', using fallback\n", simple_policy);
+        HEMEM_LOG( "HeMem: Unknown policy '%s', using fallback\n", simple_policy);
         kind = fallback_policy_kind;
       }
       
       // In backwards compat mode, no explicit regions, just fallback covers everything
       fallback_policy_kind = kind;
-      fprintf(stderr, "HeMem: Backwards compat mode (HEMEM_POLICY=%s), no explicit regions\n", simple_policy);
+      HEMEM_LOG( "HeMem: Backwards compat mode (HEMEM_POLICY=%s), no explicit regions\n", simple_policy);
     }
   }
   
@@ -603,11 +618,11 @@ void hemem_regions_bootstrap(void)
     }
   }
   
-  fprintf(stderr, "HeMem: Registered %zu explicit regions\n", region_count);
+  HEMEM_LOG( "HeMem: Registered %zu explicit regions\n", region_count);
   for (size_t i = 0; i < region_count; i++) {
     const char *pname = (regions[i].policy_kind == HEMEM_POLICY_LRU) ? "LRU" :
                         (regions[i].policy_kind == HEMEM_POLICY_PEBs) ? "LFU" : "SIMPLE";
-    fprintf(stderr, "HeMem:   Region %zu [%s]: VA [0x%lx-0x%lx) policy=%s\n",
+    HEMEM_LOG( "HeMem:   Region %zu [%s]: VA [0x%lx-0x%lx) policy=%s\n",
             i, regions[i].label, regions[i].start, regions[i].end, pname);
   }
   
@@ -627,13 +642,13 @@ void hemem_regions_bootstrap(void)
   uint64_t leftover_dram = (dramsize > allocated_dram) ? (dramsize - allocated_dram) : 0;
   uint64_t leftover_nvm = (nvmsize > allocated_nvm) ? (nvmsize - allocated_nvm) : 0;
   
-  fprintf(stderr, "HeMem: Total DAX: DRAM=%lu bytes (%.2f GB), NVM=%lu bytes (%.2f GB)\n",
+  HEMEM_LOG( "HeMem: Total DAX: DRAM=%lu bytes (%.2f GB), NVM=%lu bytes (%.2f GB)\n",
           dramsize, dramsize / (1024.0*1024.0*1024.0),
           nvmsize, nvmsize / (1024.0*1024.0*1024.0));
-  fprintf(stderr, "HeMem: Allocated: DRAM=%lu bytes (%.2f GB), NVM=%lu bytes (%.2f GB)\n",
+  HEMEM_LOG( "HeMem: Allocated: DRAM=%lu bytes (%.2f GB), NVM=%lu bytes (%.2f GB)\n",
           allocated_dram, allocated_dram / (1024.0*1024.0*1024.0),
           allocated_nvm, allocated_nvm / (1024.0*1024.0*1024.0));
-  fprintf(stderr, "HeMem: Leftover for fallback: DRAM=%lu bytes (%.2f GB), NVM=%lu bytes (%.2f GB)\n",
+  HEMEM_LOG( "HeMem: Leftover for fallback: DRAM=%lu bytes (%.2f GB), NVM=%lu bytes (%.2f GB)\n",
           leftover_dram, leftover_dram / (1024.0*1024.0*1024.0),
           leftover_nvm, leftover_nvm / (1024.0*1024.0*1024.0));
   
@@ -643,7 +658,7 @@ void hemem_regions_bootstrap(void)
     fallback_res->dram_size += leftover_dram;
     fallback_res->nvm_size += leftover_nvm;
     const char *fb_name = (fallback_policy_kind == HEMEM_POLICY_LRU) ? "LRU" : "LFU";
-    fprintf(stderr, "HeMem: Fallback policy (%s) total: DRAM=%lu bytes (%.2f GB), NVM=%lu bytes (%.2f GB)\n",
+    HEMEM_LOG( "HeMem: Fallback policy (%s) total: DRAM=%lu bytes (%.2f GB), NVM=%lu bytes (%.2f GB)\n",
             fb_name,
             fallback_res->dram_size, fallback_res->dram_size / (1024.0*1024.0*1024.0),
             fallback_res->nvm_size, fallback_res->nvm_size / (1024.0*1024.0*1024.0));
@@ -653,7 +668,7 @@ void hemem_regions_bootstrap(void)
   // STEP 2: RESOURCE ALLOCATION - Create page lists for each policy
   // ===================================================================
   
-  fprintf(stderr, "HeMem: Creating page lists for %zu policies\n", policy_resource_count);
+  HEMEM_LOG( "HeMem: Creating page lists for %zu policies\n", policy_resource_count);
   
   uint64_t dram_offset = 0;
   uint64_t nvm_offset = 0;
@@ -707,7 +722,7 @@ void hemem_regions_bootstrap(void)
     
     const char *policy_name = (res->kind == HEMEM_POLICY_LRU) ? "LRU" :
                               (res->kind == HEMEM_POLICY_PEBs) ? "LFU" : "SIMPLE";
-    fprintf(stderr, "HeMem: Policy %s: %lu DRAM pages, %lu NVM pages (DRAM offset=0x%lx, NVM offset=0x%lx)\n",
+    HEMEM_LOG( "HeMem: Policy %s: %lu DRAM pages, %lu NVM pages (DRAM offset=0x%lx, NVM offset=0x%lx)\n",
             policy_name, dram_pages, nvm_pages, dram_offset, nvm_offset);
     
     dram_offset += res->dram_size;
@@ -715,11 +730,14 @@ void hemem_regions_bootstrap(void)
   }
   
   regions_bootstrapped = true;
+  LOCK_TRACE_REL("regions_lock");
   pthread_mutex_unlock(&regions_lock);
   
+  internal_call_depth++;  // Prevent interception while holding lock
   HEMEM_PT_LOCK_ACQUIRE();
   hemem_page_table_shutting_down = false;
   HEMEM_PT_LOCK_RELEASE();
+  internal_call_depth--;
   
   ensure_page_table();
   
@@ -729,14 +747,14 @@ void hemem_regions_bootstrap(void)
   
   // Skip if HEMEM_NO_THREADS is set (for testing)
   if (getenv("HEMEM_NO_THREADS") != NULL) {
-    fprintf(stderr, "HeMem: Skipping policy initialization (HEMEM_NO_THREADS set)\n");
-    fprintf(stderr, "HeMem: ========================================\n");
-    fprintf(stderr, "HeMem: Bootstrap complete\n");
-    fprintf(stderr, "HeMem: ========================================\n");
+    HEMEM_LOG( "HeMem: Skipping policy initialization (HEMEM_NO_THREADS set)\n");
+    HEMEM_LOG( "HeMem: ========================================\n");
+    HEMEM_LOG( "HeMem: Bootstrap complete\n");
+    HEMEM_LOG( "HeMem: ========================================\n");
     return;
   }
   
-  fprintf(stderr, "HeMem: Initializing %zu unique policies\n", policy_resource_count);
+  HEMEM_LOG( "HeMem: Initializing %zu unique policies\n", policy_resource_count);
   
   // Initialize each unique policy with its free lists
   for (size_t i = 0; i < policy_resource_count; i++) {
@@ -744,7 +762,7 @@ void hemem_regions_bootstrap(void)
     const struct hemem_policy_ops *ops = policy_by_kind(res->kind);
     
     if (ops != NULL && ops->init != NULL && !policy_initialized[res->kind]) {
-      fprintf(stderr, "HeMem: Calling %s->init() with %lu DRAM pages and %lu NVM pages\n",
+      HEMEM_LOG( "HeMem: Calling %s->init() with %lu DRAM pages and %lu NVM pages\n",
               ops->name,
               res->dram_free_list.numentries,
               res->nvm_free_list.numentries);
@@ -756,20 +774,23 @@ void hemem_regions_bootstrap(void)
     }
   }
   
-  fprintf(stderr, "HeMem: ========================================\n");
-  fprintf(stderr, "HeMem: Bootstrap complete\n");
-  fprintf(stderr, "HeMem: ========================================\n");
+  HEMEM_LOG( "HeMem: ========================================\n");
+  HEMEM_LOG( "HeMem: Bootstrap complete\n");
+  HEMEM_LOG( "HeMem: ========================================\n");
 }
 
 struct hemem_region* hemem_region_lookup(uint64_t va)
 {
+  LOCK_TRACE_TRY("regions_lock");
   pthread_mutex_lock(&regions_lock);
+  LOCK_TRACE_GOT("regions_lock");
   
   // First, check explicit regions
   for (size_t i = 0; i < region_count; i++) {
     if (va >= regions[i].start && va < regions[i].end) {
       struct hemem_region *match = &regions[i];
-      pthread_mutex_unlock(&regions_lock);
+      LOCK_TRACE_REL("regions_lock");
+  pthread_mutex_unlock(&regions_lock);
       return match;
     }
   }
@@ -783,6 +804,7 @@ struct hemem_region* hemem_region_lookup(uint64_t va)
   fallback_region.is_fallback = true;
   snprintf(fallback_region.label, sizeof(fallback_region.label), "fallback");
   
+  LOCK_TRACE_REL("regions_lock");
   pthread_mutex_unlock(&regions_lock);
   return &fallback_region;
 }
@@ -808,26 +830,42 @@ struct hemem_page* hemem_policy_pagefault(struct hemem_region *region, uint64_t 
 
 void hemem_policy_register_page(struct hemem_page *page)
 {
+  HEMEM_LOG( "HEMEM_TRACE: [TID %lu] hemem_policy_register_page() called (VA=0x%lx)\n",
+          (unsigned long)pthread_self(), page ? page->va : 0);
+    fputs("Hemem policy register 1\n", stderr);
   if (page == NULL || page->region == NULL) {
     return;
   }
+    fputs("Hemem policy register 2\n", stderr);
 
   // Get the policy ops for this region
   const struct hemem_policy_ops *policy = policy_by_kind(page->region->policy_kind);
   if (policy != NULL && policy->page_add != NULL) {
+    HEMEM_LOG( "HEMEM_TRACE: [TID %lu] hemem_policy_register_page() calling policy->page_add\n",
+            (unsigned long)pthread_self());
     policy->page_add(page);
   }
+    fputs("Hemem policy register 3\n", stderr);
 
+  internal_call_depth++;  // Prevent interception of any malloc calls while holding lock
+    fputs("Hemem policy register 4\n", stderr);
   HEMEM_PT_LOCK_ACQUIRE();
   if (hemem_page_table_shutting_down) {
     HEMEM_PT_LOCK_RELEASE();
+    internal_call_depth--;
     return;
   }
+    fputs("Hemem policy register 5\n", stderr);
   ensure_page_table();
+    fputs("Hemem policy register 6\n", stderr);
   int status;
   khiter_t key = kh_put(hemem_va_map, hemem_page_table, page->va, &status);
+    fputs("Hemem policy register 7\n", stderr);
   kh_value(hemem_page_table, key) = page;
+    fputs("Hemem policy register 8\n", stderr);
   HEMEM_PT_LOCK_RELEASE();
+    fputs("Hemem policy register 9\n", stderr);
+  internal_call_depth--;
 }
 
 void hemem_policy_unregister_page(struct hemem_page *page)
@@ -843,6 +881,7 @@ void hemem_policy_unregister_page(struct hemem_page *page)
     }
   }
 
+  internal_call_depth++;  // Prevent interception while holding lock
   HEMEM_PT_LOCK_ACQUIRE();
   if (hemem_page_table != NULL) {
     khiter_t key = kh_get(hemem_va_map, hemem_page_table, page->va);
@@ -851,12 +890,14 @@ void hemem_policy_unregister_page(struct hemem_page *page)
     }
   }
   HEMEM_PT_LOCK_RELEASE();
+  internal_call_depth--;
 
   page->region = NULL;
 }
 
 struct hemem_page* hemem_page_lookup(uint64_t va)
 {
+  internal_call_depth++;  // Prevent interception while holding lock
   HEMEM_PT_LOCK_ACQUIRE();
   struct hemem_page *page = NULL;
   if (hemem_page_table != NULL) {
@@ -867,6 +908,7 @@ struct hemem_page* hemem_page_lookup(uint64_t va)
     }
   }
   HEMEM_PT_LOCK_RELEASE();
+  internal_call_depth--;
   return page;
 }
 
@@ -877,13 +919,13 @@ void hemem_policies_collect_stats(void)
     enum hemem_policy_kind kind = policy_ops_table[i].kind;
     if (policy_initialized[kind] && policy_ops_table[i].stats != NULL) {
       // Print policy name prefix, then call policy's stats function
-      fprintf(stderr, "[%s] ", policy_ops_table[i].name);
+      HEMEM_LOG( "[%s] ", policy_ops_table[i].name);
       policy_ops_table[i].stats();
       
       // Also print per-policy migration stats if this policy has resources allocated
       for (size_t j = 0; j < policy_resource_count; j++) {
         if (policy_resources[j].kind == kind) {
-          fprintf(stderr, "[%s] migrations_up: [%lu]\tmigrations_down: [%lu]\tbytes_migrated: [%lu]\n",
+          HEMEM_LOG( "[%s] migrations_up: [%lu]\tmigrations_down: [%lu]\tbytes_migrated: [%lu]\n",
                   policy_ops_table[i].name,
                   policy_resources[j].migrations_up,
                   policy_resources[j].migrations_down,
@@ -899,11 +941,11 @@ void hemem_policies_collect_stats(void)
   if (!policy_initialized[fallback_policy_kind]) {
     const struct hemem_policy_ops *fallback_ops = policy_by_kind(fallback_policy_kind);
     if (fallback_ops != NULL && fallback_ops->stats != NULL) {
-      fprintf(stderr, "[%s-FALLBACK] ", fallback_ops->name);
+      HEMEM_LOG( "[%s-FALLBACK] ", fallback_ops->name);
       // Note: Can't call stats() since policy isn't initialized, just print resource info
       for (size_t j = 0; j < policy_resource_count; j++) {
         if (policy_resources[j].kind == fallback_policy_kind) {
-          fprintf(stderr, "migrations_up: [%lu]\tmigrations_down: [%lu]\tbytes_migrated: [%lu]\n",
+          HEMEM_LOG( "migrations_up: [%lu]\tmigrations_down: [%lu]\tbytes_migrated: [%lu]\n",
                   policy_resources[j].migrations_up,
                   policy_resources[j].migrations_down,
                   policy_resources[j].bytes_migrated);
@@ -929,12 +971,12 @@ void hemem_policy_record_migration(enum hemem_policy_kind kind, bool to_dram, ui
     }
   }
   // If we get here, policy wasn't found - shouldn't happen but don't crash
-  fprintf(stderr, "HeMem: Warning: migration recorded for unknown policy kind %d\n", kind);
+  HEMEM_LOG( "HeMem: Warning: migration recorded for unknown policy kind %d\n", kind);
 }
 
 void hemem_policies_shutdown(void)
 {
-	fprintf(stderr, "HEMEM: policy shutdown start\n");
+	HEMEM_LOG( "HEMEM: policy shutdown start\n");
   for (size_t i = 0; i < sizeof(policy_ops_table) / sizeof(policy_ops_table[0]); i++) {
     enum hemem_policy_kind kind = policy_ops_table[i].kind;
     if (policy_initialized[kind] && policy_ops_table[i].shutdown != NULL) {
@@ -942,9 +984,10 @@ void hemem_policies_shutdown(void)
       policy_initialized[kind] = false;
     }
   }
-	fprintf(stderr, "HEMEM: policy shutdown mid\n");
+	HEMEM_LOG( "HEMEM: policy shutdown mid\n");
 
   khash_t(hemem_va_map) *old_table = NULL;
+  internal_call_depth++;  // Prevent interception while holding lock
   HEMEM_PT_LOCK_ACQUIRE();
   hemem_page_table_shutting_down = true;
   if (hemem_page_table != NULL) {
@@ -952,11 +995,12 @@ void hemem_policies_shutdown(void)
     hemem_page_table = NULL;
   }
   HEMEM_PT_LOCK_RELEASE();
+  internal_call_depth--;
 
   if (old_table != NULL) {
     kh_destroy(hemem_va_map, old_table);
   }
-	fprintf(stderr, "HEMEM: policy shutdown end\n");
+	HEMEM_LOG( "HEMEM: policy shutdown end\n");
 }
 
 #endif /* ALLOC_RUNTIME */

@@ -91,9 +91,19 @@ extern char* nvmpath;
 #define GIGA_PFN_MASK   (GIGAPAGE_MASK ^ UINT64_MAX)
 
 extern FILE *hememlogf;
-//#define LOG(...) fprintf(stderr, __VA_ARGS__)
+#define LOG(...) do { internal_call_depth++; fputs("IN LOG\n", stderr); internal_call_depth--; } while(0)
+//#define LOG(...) do { internal_call_depth++; fputs("IN LOG\n", stderr);fprintf(stderr, __VA_ARGS__); internal_call_depth--; } while(0)
 //#define LOG(...)	fprintf(hememlogf, __VA_ARGS__)
-#define LOG(str, ...) while(0) {}
+//#define LOG(str, ...) while(0) {}
+
+// For general HeMem logging (includes thread ID protection)
+//#define HEMEM_LOG(...) do { internal_call_depth++; fputs("IN LOG\n", stderr);fprintf(stderr, __VA_ARGS__); internal_call_depth--; } while(0)
+#define HEMEM_LOG(...) do { internal_call_depth++; fputs("IN LOG2\n", stderr); internal_call_depth--; } while(0)
+
+// Lock tracing macros that don't use malloc
+#define LOCK_TRACE_TRY(lockname) fputs("LOCK_TRY: " lockname "\n", stderr)
+#define LOCK_TRACE_GOT(lockname) fputs("LOCK_GOT: " lockname "\n", stderr)
+#define LOCK_TRACE_REL(lockname) fputs("LOCK_REL: " lockname "\n", stderr)
 
 extern FILE *timef;
 extern bool timing;
@@ -114,7 +124,7 @@ static inline void log_time(const char* fmt, ...)
 #define LOG_TIME(str, ...) while(0) {}
 
 extern FILE *statsf;
-#define LOG_STATS(str, ...) fprintf(stderr, str,  __VA_ARGS__)
+#define LOG_STATS(str, ...) do { internal_call_depth++; fprintf(stderr, str,  __VA_ARGS__); internal_call_depth--; } while(0)
 //#define LOG_STATS(str, ...) fprintf(statsf, str, __VA_ARGS__)
 //#define LOG_STATS(str, ...) while (0) {}
 
@@ -157,10 +167,10 @@ extern uint64_t brk_intercepted_count;
 extern uint64_t missing_faults_handled;
 extern uint64_t migrations_up;
 extern uint64_t migrations_down;
-extern __thread bool internal_malloc;
-extern __thread bool old_internal_call;
-extern __thread bool internal_call;
-extern __thread bool internal_munmap;
+//extern __thread bool internal_malloc;
+//extern __thread bool old_internal_call;
+extern __thread int32_t internal_call_depth;
+//extern __thread bool internal_munmap;
 
 enum memtypes {
   FASTMEM = 0,

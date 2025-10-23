@@ -266,11 +266,11 @@ void scan_fourth_level(uint64_t pde, bool clear_flag, uint64_t flag)
   pte_ptr = (uint64_t*)ptable4_ptr;
   for (int i = 0; i < 512; i++) {
     pte = *pte_ptr;
-    fprintf(ptes, "%016lx\n", pte);
+    HEMEM_LOG( "%016lx\n", pte);
 
     if (((pte & FLAGS_MASK) & HEMEM_PAGE_WALK_FLAGS) == HEMEM_PAGE_WALK_FLAGS) {
       if (((pte & FLAGS_MASK) & HEMEM_PWTPCD_FLAGS) == 0) {
-        fprintf(valid, "pte[%x]:   %016lx\n", i, pte);
+        HEMEM_LOG( "pte[%x]:   %016lx\n", i, pte);
 
         if (clear_flag) {
           pte = pte & ~flag;
@@ -300,11 +300,11 @@ void scan_third_level(uint64_t pdtpe, bool clear_flag, uint64_t flag)
   pde_ptr = (uint64_t*)ptable3_ptr;
   for (int i = 0; i < 512; i++) {
     pde = *pde_ptr;
-    fprintf(pdes, "%016lx\n", pde);
+    HEMEM_LOG( "%016lx\n", pde);
 
     if (((pde & FLAGS_MASK) & HEMEM_PAGE_WALK_FLAGS) == HEMEM_PAGE_WALK_FLAGS) {
       if (((pde & FLAGS_MASK) & HEMEM_PWTPCD_FLAGS) == 0) {
-        fprintf(valid, "pde[%x]:   %016lx\n", i, pde);
+        HEMEM_LOG( "pde[%x]:   %016lx\n", i, pde);
         scan_fourth_level(pde, clear_flag, flag);
       }
     }
@@ -331,11 +331,11 @@ void scan_second_level(uint64_t pml4e, bool clear_flag, uint64_t flag)
   pdtpe_ptr = (uint64_t*)ptable2_ptr;
   for (int i = 0; i < 512; i++) {
     pdtpe = *pdtpe_ptr;
-    fprintf(pdtpes, "%016lx\n", pdtpe);
+    HEMEM_LOG( "%016lx\n", pdtpe);
 
     if (((pdtpe & FLAGS_MASK) & HEMEM_PAGE_WALK_FLAGS) == HEMEM_PAGE_WALK_FLAGS) {
       if (((pdtpe & FLAGS_MASK) & HEMEM_PWTPCD_FLAGS) == 0) {
-        fprintf(valid, "pdtpe[%x]: %016lx\n", i, pdtpe);
+        HEMEM_LOG( "pdtpe[%x]: %016lx\n", i, pdtpe);
         scan_third_level(pdtpe, clear_flag, flag);
       }
     }
@@ -392,11 +392,11 @@ void _scan_pagetable(bool clear_flag, uint64_t flag)
   pml4e_ptr = (uint64_t*)rootptr;
   for (int i = 0; i < 512; i++) {
     pml4e = *pml4e_ptr;
-    fprintf(pml4es, "%016lx\n", pml4e);
+    HEMEM_LOG( "%016lx\n", pml4e);
 
     if (((pml4e & FLAGS_MASK) & HEMEM_PAGE_WALK_FLAGS) == HEMEM_PAGE_WALK_FLAGS) {
       if (((pml4e & FLAGS_MASK) & HEMEM_PWTPCD_FLAGS) == 0) {
-        fprintf(valid, "pml4e[%x]: %016lx\n", i, pml4e);
+        HEMEM_LOG( "pml4e[%x]: %016lx\n", i, pml4e);
         scan_second_level(pml4e, clear_flag, flag); 
       }
     }
@@ -472,7 +472,7 @@ void *examine_pagetables()
     if (strstr(line, drampath) != NULL) {
       n = sscanf(line, "%lX-%lX", &vm_start, &vm_end);
       if (n != 2) {
-        fprintf(stderr, "error, invalid line: %s\n", line);
+        HEMEM_LOG( "error, invalid line: %s\n", line);
         assert(0);
       }
 
@@ -501,7 +501,7 @@ void *examine_pagetables()
           entry.swapped = (pfn >> 62) & 1;
           entry.present = (pfn >> 63) & 1;
 
-          fprintf(pfn_file, "DRAM: %016lX\n", (entry.pfn * sysconf(_SC_PAGESIZE)));
+          HEMEM_LOG( "DRAM: %016lX\n", (entry.pfn * sysconf(_SC_PAGESIZE)));
           num_pages--;
     num_pfn++;
         }
@@ -510,7 +510,7 @@ void *examine_pagetables()
     else if (strstr(line, NVMPATH) != NULL) {
       n = sscanf(line, "%lX-%lX", &vm_start, &vm_end);
       if (n != 2) {
-        fprintf(stderr, "error, invalid line: %s\n", line);
+        HEMEM_LOG( "error, invalid line: %s\n", line);
         assert(0);
       }
 
@@ -539,7 +539,7 @@ void *examine_pagetables()
           entry.swapped = (pfn >> 62) & 1;
           entry.present = (pfn >> 63) & 1;
 
-          fprintf(pfn_file, "NVM:  %016lX\n", (entry.pfn * sysconf(_SC_PAGE_SIZE)));
+          HEMEM_LOG( "NVM:  %016lX\n", (entry.pfn * sysconf(_SC_PAGE_SIZE)));
           num_pages--;
     num_pfn++;
         }

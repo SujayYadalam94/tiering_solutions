@@ -1,10 +1,10 @@
 CC = gcc
-CFLAGS = -g -Wall -O3 -fPIC
+CFLAGS = -g -Wall -O3 -fPIC -fno-omit-frame-pointer
 #CFLAGS = -g3 -Wall -O0 -fPIC
 LDFLAGS = -shared
 INCLUDES = -I ~/tiering_solutions/linux/usr/include/
 LIBS = -lm -lpthread
-HEMEM_LIBS = $(LIBS) -ldl -lsyscall_intercept -L../Hoard/src -lhoard
+HEMEM_LIBS = $(LIBS) -ldl -lsyscall_intercept -L../Hoard/src -lhoard -lunwind
 
 default: libhemem-runtime.so
 

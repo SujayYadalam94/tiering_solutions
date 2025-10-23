@@ -386,7 +386,7 @@ void *lru_kswapd()
 
           //pthread_mutex_unlock(&(np->page_lock));
         } else {
-          fprintf(stderr, "[LRU-WARNING] NVM free list exhausted during demotion\n");
+          HEMEM_LOG("[LRU-WARNING] NVM free list exhausted during demotion\n");
           enqueue_fifo(&inactive_list, cp);
           break;
         }
@@ -527,7 +527,9 @@ void lru_remove_page(struct hemem_page *page)
   pthread_mutex_lock(&global_lock);
  
   assert(page != NULL);
+  LOCK_TRACE_TRY("page->page_lock");
   pthread_mutex_lock(&(page->page_lock));
+  LOCK_TRACE_GOT("page->page_lock");
 
   LOG("LRU: remove page: va: 0x%lx\n", page->va);
   
@@ -544,6 +546,7 @@ void lru_remove_page(struct hemem_page *page)
     enqueue_fifo(&nvm_free_list, page);
   }
 
+  LOCK_TRACE_REL("page->page_lock");
   pthread_mutex_unlock(&(page->page_lock));
   pthread_mutex_unlock(&global_lock);
 }

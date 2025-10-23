@@ -177,16 +177,16 @@ typedef khint_t khiter_t;
 #endif
 
 #ifndef kcalloc
-#define kcalloc(N,Z) calloc(N,Z)
+#define kcalloc(N,Z) (fputs("khash: calling calloc\n", stderr), calloc(N,Z))
 #endif
 #ifndef kmalloc
-#define kmalloc(Z) malloc(Z)
+#define kmalloc(Z) (fputs("khash: calling malloc\n", stderr), malloc(Z))
 #endif
 #ifndef krealloc
-#define krealloc(P,Z) realloc(P,Z)
+#define krealloc(P,Z) (fputs("khash: calling realloc\n", stderr), realloc(P,Z))
 #endif
 #ifndef kfree
-#define kfree(P) free(P)
+#define kfree(P) (fputs("khash: calling free\n", stderr), free(P))
 #endif
 
 static const double __ac_HASH_UPPER = 0.77;
@@ -308,31 +308,43 @@ static const double __ac_HASH_UPPER = 0.77;
 	{																	\
 		khint_t x;														\
 		if (h->n_occupied >= h->upper_bound) { /* update the hash table */ \
+			fputs("khash: kh_put needs resize\n", stderr);				\
 			if (h->n_buckets > (h->size<<1)) {							\
+				fputs("khash: kh_put calling resize to shrink\n", stderr); \
 				if (kh_resize_##name(h, h->n_buckets - 1) < 0) { /* clear "deleted" elements */ \
+					fputs("khash: resize failed\n", stderr);			\
 					*ret = -1; return h->n_buckets;						\
 				}														\
+				fputs("khash: resize shrink done\n", stderr);			\
 			} else if (kh_resize_##name(h, h->n_buckets + 1) < 0) { /* expand the hash table */ \
+				fputs("khash: resize expand failed\n", stderr);			\
 				*ret = -1; return h->n_buckets;							\
+			} else {													\
+				fputs("khash: resize expand done\n", stderr);			\
 			}															\
 		} /* TODO: to implement automatically shrinking; resize() already support shrinking */ \
 		{																\
+			fputs("khash: kh_put finding slot\n", stderr);				\
 			khint_t k, i, site, last, mask = h->n_buckets - 1, step = 0; \
 			x = site = h->n_buckets; k = __hash_func(key); i = k & mask; \
 			if (__ac_isempty(h->flags, i)) x = i; /* for speed up */	\
 			else {														\
 				last = i; \
+				khint_t loop_count = 0; \
 				while (!__ac_isempty(h->flags, i) && (__ac_isdel(h->flags, i) || !__hash_equal(h->keys[i], key))) { \
+					if (loop_count++ > h->n_buckets) { fputs("khash: INFINITE LOOP DETECTED\n", stderr); break; } \
 					if (__ac_isdel(h->flags, i)) site = i;				\
 					i = (i + (++step)) & mask; \
 					if (i == last) { x = site; break; }					\
 				}														\
+				fputs("khash: kh_put probe loop done\n", stderr);		\
 				if (x == h->n_buckets) {								\
 					if (__ac_isempty(h->flags, i) && site != h->n_buckets) x = site; \
 					else x = i;											\
 				}														\
 			}															\
 		}																\
+		fputs("khash: kh_put inserting\n", stderr);						\
 		if (__ac_isempty(h->flags, x)) { /* not present at all */		\
 			h->keys[x] = key;											\
 			__ac_set_isboth_false(h->flags, x);							\
@@ -344,6 +356,7 @@ static const double __ac_HASH_UPPER = 0.77;
 			++h->size;													\
 			*ret = 2;													\
 		} else *ret = 0; /* Don't touch h->keys[x] if present and not deleted */ \
+		fputs("khash: kh_put done\n", stderr);							\
 		return x;														\
 	}																	\
 	SCOPE void kh_del_##name(kh_##name##_t *h, khint_t x)				\
