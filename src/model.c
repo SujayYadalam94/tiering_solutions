@@ -11,7 +11,7 @@
 
 // Number of features - this should match your model's training configuration
 // Set to a placeholder value; adjust based on your actual model
-#define MODEL_NUM_FEATURES 19
+#define MODEL_NUM_FEATURES 15
 
 
 /**
@@ -21,36 +21,36 @@
  */
 static void extract_features(struct hemem_page *page, struct group_tracker *grp_tracker, size_t count_total, double cpu_usage, double *features)
 {
-    features[0] = (double)page->w[0];
-    features[1] = (double)page->w[1];
-    features[2] = (double)page->w[3];
-    features[3] = (double)page->w_w[0];
-    features[4] = (double)page->w_w[1];
-    features[5] = (double)page->w_w[3];
-    features[6] = (double)page->global_count_since_top50_percent_ewma5;
-    features[7] = (double)count_total;
+    features[0] = count_total ? (double)page->w[0] / (double)count_total : 0.0;
+    features[1] = count_total ? (double)page->w[1] / (double)count_total : 0.0;
+    features[2] = count_total ? (double)page->w[3] / (double)count_total : 0.0;
+    features[3] = count_total ? (double)page->w_w[0] / (double)count_total : 0.0;
+    features[4] = count_total ? (double)page->w_w[1] / (double)count_total : 0.0;
+    features[5] = count_total ? (double)page->w_w[3] / (double)count_total : 0.0;
+    //features[6] = (double)page->global_count_since_top50_percent_ewma5;
+    //features[7] = (double)count_total;
 
     struct page_group *pg = try_get_group(grp_tracker, page->va, -1);
-    features[8] = pg ? pg->avg : 0.0;
+    features[6] = count_total ? (pg ? pg->avg : 0.0) / (double)count_total : 0.0;
 
     pg = try_get_group(grp_tracker, page->va, 1);
-    features[9] = pg ? pg->avg : 0.0;
+    features[7] = count_total ? (pg ? pg->avg : 0.0) / (double)count_total : 0.0;
 
     pg = try_get_group(grp_tracker, page->va, -2);
-    features[10] = pg ? pg->avg : 0.0;
+    features[8] = count_total ? (pg ? pg->avg : 0.0) / (double)count_total : 0.0;
 
     pg = try_get_group(grp_tracker, page->va, 2);
-    features[11] = pg ? pg->avg : 0.0;
+    features[9] = count_total ? (pg ? pg->avg : 0.0) / (double)count_total : 0.0;
 
     pg = try_get_group(grp_tracker, page->va, 0);
-    features[12] = pg ? pg->avg : 0.0;
+    features[10] = count_total ? (pg ? pg->avg : 0.0) / (double)count_total : 0.0;
 
-    features[13] = (double)page->age;
-    features[14] = cpu_usage;
-    features[15] = (double)page->malloc_size_ewma[3];
-    features[16] = (double)page->malloc_call_ewma[3];
-    features[17] = (double)page->min_malloc_bytes;
-    features[18] = (double)page->max_malloc_bytes;
+    features[11] = (double)page->age;
+    features[12] = cpu_usage;
+    //features[15] = (double)page->malloc_size_ewma[3];
+    //features[16] = (double)page->malloc_call_ewma[3];
+    features[13] = (double)page->min_malloc_bytes;
+    features[14] = (double)page->max_malloc_bytes;
 
 }
 
@@ -69,6 +69,7 @@ double model_predict(struct hemem_page *page, struct group_tracker *grp_tracker,
 
     // Perform prediction using lleaves
     // lleaves provides fast inference optimized for LightGBM models
+
     forest_root(feature_buffer, &out, 0, 1);
 
     return out;

@@ -4,15 +4,26 @@ void page_group_reset(struct page_group *pg) {
     pg->sum = 0;
     pg->avg = 0;
     pg->max = 0;
+    pg->sum_perc = 0;
+    pg->avg_perc = 0;
+    pg->max_perc = 0;
     pg->count = 0;
 }
 
-void page_group_update(struct page_group *pg, const float count) {
+void page_group_update(struct page_group *pg, const float count, const float total) {
     pg->sum += count;
     pg->count++;
     pg->avg = pg->sum / pg->count;
     if (count > pg->max) {
         pg->max = count;
+    }
+    if (total > 0) {
+        float perc = (count / total);
+        pg->sum_perc += perc;
+        pg->avg_perc = pg->sum_perc / pg->count;
+        if (perc > pg->max_perc) {
+            pg->max_perc = perc;
+        }
     }
 }
 struct group_tracker *create_group_tracker() {
@@ -65,7 +76,7 @@ void reset_group_hash(struct group_tracker *gt) {
 }
 
 void update_group_entry(struct group_tracker *gt,
-                                              struct hemem_page *page) {
+                                              struct hemem_page *page, const float total) {
     const uint64_t group_id = page_to_group_id(page->va);
 
     pthread_mutex_lock(&gt->group_lock);
@@ -77,7 +88,7 @@ void update_group_entry(struct group_tracker *gt,
         return;
     }
     struct page_group *group = kh_val(gt->groups_map, k);
-    page_group_update(group, page->count);
+    page_group_update(group, page->count, total);
     pthread_mutex_unlock(&gt->group_lock);
 }
 

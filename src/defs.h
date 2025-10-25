@@ -8,9 +8,9 @@
 // Options are SCAILP and C220G5
 #define C220G5
 
-#define USE_MODEL (true)
+#define USE_MODEL (false)
 
-#define MIN_INTERPOSE_MEM_SIZE_DEFAULT (4 * 1024UL * 1024UL)
+#define MIN_INTERPOSE_MEM_SIZE_DEFAULT (4UL * 1024UL * 1024UL)
 //(1 * 1024UL * 1024UL * 1024UL)
 
 #define FAULT_THREAD_CPU  (10)
@@ -26,8 +26,8 @@
 #define MEM_BARRIER() __sync_synchronize()
 
 
-#define NVMSIZE_DEFAULT   (32L * (1024L * 1024L * 1024L))
-#define DRAMSIZE_DEFAULT  (1L * (128 * 1024L * 1024L))
+#define NVMSIZE_DEFAULT   (64L * (1024L * 1024L * 1024L))
+#define DRAMSIZE_DEFAULT  (32L * (1024L * 1024L * 1024L))
 
 #define DRAMPATH_DEFAULT  "/dev/dax0.0"
 #define NVMPATH_DEFAULT   "/dev/dax1.0"
@@ -65,7 +65,7 @@
 #endif
 
 #define LOG_REPORT(...) fprintf(LOG_STREAM, __VA_ARGS__)
-#define LOG_ERROR(...)  { fprintf(stderr, __VA_ARGS__); fprintf(LOG_STREAM, __VA_ARGS__); }
+#define LOG_ERROR(...)  { fprintf(stderr, __VA_ARGS__); }
 // =============================================================================
 
 /// Hardware-related parameters (should be set once for each system)
@@ -172,7 +172,7 @@
 
 
 
-#define PERF_PAGES	(1 + (1 << 8))	// Has to be == 1+2^n, here 1MB
+#define PERF_PAGES	(1 + (4 << 8))	// Has to be == 1+2^n, here 4MB
 #define DEFAULT_SAMPLE_PERIOD	(5003)
 #define HF_SAMPLE_PERIOD	(5003)
 

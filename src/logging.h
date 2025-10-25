@@ -25,21 +25,33 @@ struct data_row{
     double ewma_2;
     double ewma_2_r;
     double ewma_2_w;
+    double ewma_2_perc;
+    double ewma_2_r_perc;
+    double ewma_2_w_perc;
     double ewma_2_malloc_size;
     double ewma_2_malloc_calls;
     double ewma_5;
     double ewma_5_r;
     double ewma_5_w;
+    double ewma_5_perc;
+    double ewma_5_r_perc;
+    double ewma_5_w_perc;
     double ewma_5_malloc_size;
     double ewma_5_malloc_calls;
     double ewma_20;
     double ewma_20_r;
     double ewma_20_w;
+    double ewma_20_perc;
+    double ewma_20_r_perc;
+    double ewma_20_w_perc;
     double ewma_20_malloc_size;
     double ewma_20_malloc_calls;
     double ewma_100;
     double ewma_100_r;
     double ewma_100_w;
+    double ewma_100_perc;
+    double ewma_100_r_perc;
+    double ewma_100_w_perc;
     double ewma_100_malloc_size;
     double ewma_100_malloc_calls;
     double global_count_since_top1_percent_ewma5;
@@ -54,6 +66,7 @@ struct data_row{
     long long syscr;
     long long syscw;
     double groups[7];
+    double groups_perc[7];
     size_t model_selection;
     double model_score;
     double arms_score;
@@ -67,6 +80,7 @@ struct data_row{
     int32_t max_malloc_bytes;
     uint32_t malloc_call;
     uint32_t age;
+    uint64_t age_count_total;
 };
 
 struct cpu_stat {

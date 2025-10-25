@@ -171,6 +171,18 @@ void print_row(FILE *f, struct data_row *row, bool header) {
     PRINT_CELL_AUTO(ewma_5_w, "%f");
     PRINT_CELL_AUTO(ewma_20_w, "%f");
     PRINT_CELL_AUTO(ewma_100_w, "%f");
+    PRINT_CELL_AUTO(ewma_2_perc, "%f");
+    PRINT_CELL_AUTO(ewma_5_perc, "%f");
+    PRINT_CELL_AUTO(ewma_20_perc, "%f");
+    PRINT_CELL_AUTO(ewma_100_perc, "%f");
+    PRINT_CELL_AUTO(ewma_2_r_perc, "%f");
+    PRINT_CELL_AUTO(ewma_5_r_perc, "%f");
+    PRINT_CELL_AUTO(ewma_20_r_perc, "%f");
+    PRINT_CELL_AUTO(ewma_100_r_perc, "%f");
+    PRINT_CELL_AUTO(ewma_2_w_perc, "%f");
+    PRINT_CELL_AUTO(ewma_5_w_perc, "%f");
+    PRINT_CELL_AUTO(ewma_20_w_perc, "%f");
+    PRINT_CELL_AUTO(ewma_100_w_perc, "%f");
     PRINT_CELL_AUTO(ewma_2_malloc_size, "%f");
     PRINT_CELL_AUTO(ewma_5_malloc_size, "%f");
     PRINT_CELL_AUTO(ewma_20_malloc_size, "%f");
@@ -191,11 +203,15 @@ void print_row(FILE *f, struct data_row *row, bool header) {
     PRINT_CELL_AUTO(syscr, "%lld");
     PRINT_CELL_AUTO(syscw, "%lld");
     PRINT_CELL_AUTO(age, "%d");
+    PRINT_CELL_AUTO(age_count_total, "%lu");
 
     for (int offset = -3; offset <= 3; offset++){
         char group_header[32];
         snprintf(group_header, sizeof(group_header), "group_%d_mean", offset);
         PRINT_CELL(f, row->groups[offset + 3], group_header, header, "%f");
+
+        snprintf(group_header, sizeof(group_header), "group_%d_mean_perc", offset);
+        PRINT_CELL(f, row->groups_perc[offset + 3], group_header, header, "%f");
     }
 
     PRINT_CELL_AUTO(model_selection, "%zu");
@@ -278,21 +294,33 @@ void log_row(size_t step, struct hemem_page *page, struct group_tracker *grp_tra
     scores_log[logged_samples].ewma_2 = page->w[0];
     scores_log[logged_samples].ewma_2_r = page->w_r[0];
     scores_log[logged_samples].ewma_2_w = page->w_w[0];
+    scores_log[logged_samples].ewma_2_perc = page->w_perc[0];
+    scores_log[logged_samples].ewma_2_r_perc = page->w_r_perc[0];
+    scores_log[logged_samples].ewma_2_w_perc = page->w_w_perc[0];
     scores_log[logged_samples].ewma_2_malloc_size = page->malloc_size_ewma[0];
     scores_log[logged_samples].ewma_2_malloc_calls = page->malloc_call_ewma[0];
     scores_log[logged_samples].ewma_5 = page->w[1];
     scores_log[logged_samples].ewma_5_r = page->w_r[1];
     scores_log[logged_samples].ewma_5_w = page->w_w[1];
+    scores_log[logged_samples].ewma_5_perc = page->w_perc[1];
+    scores_log[logged_samples].ewma_5_r_perc = page->w_r_perc[1];
+    scores_log[logged_samples].ewma_5_w_perc = page->w_w_perc[1];
     scores_log[logged_samples].ewma_5_malloc_size = page->malloc_size_ewma[1];
     scores_log[logged_samples].ewma_5_malloc_calls = page->malloc_call_ewma[1];
     scores_log[logged_samples].ewma_20 = page->w[2];
     scores_log[logged_samples].ewma_20_r = page->w_r[2];
     scores_log[logged_samples].ewma_20_w = page->w_w[2];
+    scores_log[logged_samples].ewma_20_perc = page->w_perc[2];
+    scores_log[logged_samples].ewma_20_r_perc = page->w_r_perc[2];
+    scores_log[logged_samples].ewma_20_w_perc = page->w_w_perc[2];
     scores_log[logged_samples].ewma_20_malloc_size = page->malloc_size_ewma[2];
     scores_log[logged_samples].ewma_20_malloc_calls = page->malloc_call_ewma[2];
     scores_log[logged_samples].ewma_100 = page->w[3];
     scores_log[logged_samples].ewma_100_r = page->w_r[3];
     scores_log[logged_samples].ewma_100_w = page->w_w[3];
+    scores_log[logged_samples].ewma_100_perc = page->w_perc[3];
+    scores_log[logged_samples].ewma_100_r_perc = page->w_r_perc[3];
+    scores_log[logged_samples].ewma_100_w_perc = page->w_w_perc[3];
     scores_log[logged_samples].ewma_100_malloc_size = page->malloc_size_ewma[3];
     scores_log[logged_samples].ewma_100_malloc_calls = page->malloc_call_ewma[3];
     scores_log[logged_samples].global_count_since_top1_percent_ewma5 = page->global_count_since_top1_percent_ewma5;
@@ -309,6 +337,7 @@ void log_row(size_t step, struct hemem_page *page, struct group_tracker *grp_tra
     for (int i = 0; i < 7; ++i) {
         struct page_group *pg = try_get_group(grp_tracker, page->va, i);
         scores_log[logged_samples].groups[i] = pg != NULL ? pg->avg : 0.0;
+        scores_log[logged_samples].groups_perc[i] = pg != NULL ? pg->avg_perc : 0.0;
     }
     scores_log[logged_samples].model_selection = page->model_selection;
     scores_log[logged_samples].model_score = page->model_score;
@@ -323,6 +352,7 @@ void log_row(size_t step, struct hemem_page *page, struct group_tracker *grp_tra
     scores_log[logged_samples].max_malloc_bytes = page->max_malloc_bytes;
     scores_log[logged_samples].malloc_call = page->malloc_call;
     scores_log[logged_samples].age = page->age;
+    scores_log[logged_samples].age_count_total = page->age_count_total;
 
     logged_samples++;
 }

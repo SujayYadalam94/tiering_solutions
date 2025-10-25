@@ -50,6 +50,10 @@ struct hemem_page {
     float w_r[WINDOW_SIZE];
     float w_w[WINDOW_SIZE];
 
+    float w_perc[WINDOW_SIZE];
+    float w_r_perc[WINDOW_SIZE];
+    float w_w_perc[WINDOW_SIZE];
+
     float malloc_call_ewma[WINDOW_SIZE];
     float malloc_size_ewma[WINDOW_SIZE];
 
@@ -62,6 +66,7 @@ struct hemem_page {
     bool can_promote;
 
     uint32_t age;
+    uint64_t age_count_total;
 
     struct hemem_page *next, *prev;
     struct fifo_list *list;
@@ -77,9 +82,9 @@ struct hemem_page {
     uint64_t global_count_similar;
     int32_t diff;
 
-    uint64_t _padding[6];
+    uint64_t _padding[7];
 };
-static_assert(sizeof(struct hemem_page) == 64 * 6);
+static_assert(sizeof(struct hemem_page) == 64 * 7);
 
 void reset_page_access_fields(struct hemem_page *page);
 float ewma(const float yp, const float x, const float alpha);

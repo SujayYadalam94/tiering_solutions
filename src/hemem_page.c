@@ -11,6 +11,9 @@ void reset_page_access_fields(struct hemem_page *page) {
         page->w[i] = 0;
         page->w_r[i] = 0;
         page->w_w[i] = 0;
+        page->w_perc[i] = 0;
+        page->w_r_perc[i] = 0;
+        page->w_w_perc[i] = 0;
         page->malloc_call_ewma[i] = 0;
         page->malloc_size_ewma[i] = 0;
     }
@@ -114,6 +117,7 @@ update_derivative_features(struct hemem_page *page,
 
     // time since top 1% and 50% in ewma5
     page->rank = rank;
+    page->age_count_total += count_total;
 
     size_t top1_percent_index = num_sorted_pages / 100;
     size_t top50_percent_index = num_sorted_pages / 2;
@@ -122,6 +126,13 @@ update_derivative_features(struct hemem_page *page,
         page->malloc_call_ewma[i] = adjusted_ewma(page->malloc_call_ewma[i], page->malloc_call,
                                      get_adjusted_ewma_denom(i, page->age));
         page->malloc_size_ewma[i] = adjusted_ewma(page->malloc_size_ewma[i], page->sum_malloc_bytes,
+                                     get_adjusted_ewma_denom(i, page->age));
+
+        page->w_perc[i] = adjusted_ewma(page->w[i], count_total ? (double)(page->count) / (double)(count_total) : 0.0,
+                                     get_adjusted_ewma_denom(i, page->age));
+        page->w_r_perc[i] = adjusted_ewma(page->w_r[i], count_total ? (double)(page->reads) / (double)(count_total) : 0.0,
+                                     get_adjusted_ewma_denom(i, page->age));
+        page->w_w_perc[i] = adjusted_ewma(page->w_w[i], count_total ? (double)(page->writes) / (double)(count_total) : 0.0,
                                      get_adjusted_ewma_denom(i, page->age));
     }
 

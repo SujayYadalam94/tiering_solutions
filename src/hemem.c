@@ -496,10 +496,10 @@ void* hemem_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t o
 
 
   if ((flags & MAP_POPULATE) == MAP_POPULATE) {
-    hemem_mmap_populate(p, length);
+      hemem_mmap_populate(p, length);
   }
 
-  mem_mmaped = length;
+  mem_mmaped += length;
 
   internal_call_depth--;
 
@@ -521,11 +521,8 @@ int hemem_munmap(void* addr, size_t length)
   // for each page in region specified...
   for (page_boundry = (uint64_t)addr; page_boundry < (uint64_t)addr + length;) {
     // find the page in hemem's trackign list
-    page = mmgr_find(page_boundry);
+    page = mmgr_remove(page_boundry);
     if (page != NULL) {
-      //remove_page(page);
-      mmgr_remove(page);
-
       mem_allocated -= pt_to_pagesize(page->pt);
       mem_mmaped -= pt_to_pagesize(page->pt);
       pages_freed++;

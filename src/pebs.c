@@ -55,7 +55,7 @@ struct syscall_event *create_syscall_event_queue(){
   internal_call_depth++;
   malloc_call_depth++;
   struct syscall_event *queue =
-      (struct syscall_event *)malloc(SYSCALL_EVENT_QUEUE_CAPACITY * sizeof(struct syscall_event));
+      (struct syscall_event *)malloc(2 * SYSCALL_EVENT_QUEUE_CAPACITY * sizeof(struct syscall_event));
   if (queue == NULL)
   {
       LOG_ERROR("Failed to allocate memory for syscall event queue\n");
@@ -70,7 +70,7 @@ struct migration_event *create_migration_event_queue(){
   internal_call_depth++;
   malloc_call_depth++;
   struct migration_event *queue =
-      (struct migration_event *)malloc(MIGRATION_EVENT_QUEUE_CAPACITY * sizeof(struct migration_event));
+      (struct migration_event *)malloc(2 * MIGRATION_EVENT_QUEUE_CAPACITY * sizeof(struct migration_event));
   if (queue == NULL)
   {
       LOG_ERROR("Failed to allocate memory for migration event queue\n");
@@ -86,6 +86,14 @@ inline void pebs_log_syscall(void *addr, size_t len, enum syscall_type type){
     if (!pebs_finished_init || internal_call_depth)
     {
         return;
+    }
+
+    size_t end = atomic_load(&syscall_queue_size);
+    size_t start = atomic_load(&syscall_queue_index);
+
+    if (end - start >= SYSCALL_EVENT_QUEUE_CAPACITY){
+      //queue full, drop event
+      return;
     }
 
     size_t idx = (atomic_fetch_add(&syscall_queue_size, 1)) % SYSCALL_EVENT_QUEUE_CAPACITY;
@@ -521,6 +529,9 @@ void *pebs_scan_thread()
               unthrottle_cnt++;
           }
           break;
+        case PERF_RECORD_LOST:
+          //LOG_REPORT("PERF_RECORD_LOST event!\n");
+          break;
         default:
           LOG_ERROR("ERROR: Unknown perf_event type %u\n", ph->type);
           assert(0);
@@ -594,23 +605,24 @@ int sort_entry_cmp_by_ewma5(const void *a, const void *b) {
 
 static size_t calculate_scores_map(struct score_entry *scores_out, const float *bias)
 {
-  update_proc_stats();
+    update_proc_stats();
 
-  struct ptimer window_timer;
-  ptimer_init(&window_timer, "Scores (window)");
+    struct ptimer window_timer;
+    ptimer_init(&window_timer, "Scores (window)");
 
-  struct hemem_page *page;
-  khiter_t key;
-  size_t s_idx = 0;
+    struct hemem_page *page;
+    khiter_t key;
+    size_t s_idx = 0;
 
-  size_t pages_in_dram = 0;
-  size_t pages_in_nvm = 0;
+    size_t pages_in_dram = 0;
+    size_t pages_in_nvm = 0;
 
-  size_t pages_cnt = kh_size(pages_map);
-  if (pages_cnt == 0) {
-    printf("No pages to process\n");
-    return 0; // no pages to process
-  }
+    size_t pages_cnt = kh_size(pages_map);
+    if (pages_cnt == 0)
+    {
+        printf("No pages to process\n");
+        return 0; // no pages to process
+    }
 
   reset_group_hash(grp_tracker);
 
@@ -642,8 +654,6 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
 
     // Update the window values
     update_window(page, prev_access_version, sampling_mode);
-
-    update_group_entry(grp_tracker, page);
     count_total += page->count;
 
     // Calculate the hotness score
@@ -699,6 +709,7 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
   double cpu_usage = calc_cpu_usage_pct();
   for (size_t i = 0; i < s_idx; i++) {
     update_derivative_features(scores_out[i].page, i, s_idx, count_total);
+    update_group_entry(grp_tracker, scores_out[i].page, count_total);
 
     scores_out[i].page->arms_score = compute_score(scores_out[i].page, bias);
     scores_out[i].page->model_score = model_predict(scores_out[i].page, grp_tracker, count_total, cpu_usage);
@@ -749,7 +760,7 @@ static inline int continue_migration(struct hemem_page *hp, struct hemem_page *c
   if (USE_MODEL)
   {
    float migration_time = fmax(demotion_cost_avg, promotion_cost_avg);
-    cost = 0.05 * fmax(fmax(count_total, prev_count_total), 1000) * HF_SAMPLE_PERIOD * migration_time / PEBS_KSWAPD_INTERVAL_SMALL;
+    //cost = 0.05 * fmax(fmax(count_total, prev_count_total), 1000) * HF_SAMPLE_PERIOD * migration_time / PEBS_KSWAPD_INTERVAL_SMALL;
     benefit = (hp->score - cp->score) * HF_SAMPLE_PERIOD * latency_diff;
   }
   else{
@@ -1004,12 +1015,14 @@ void *pebs_policy_thread()
       LOG_REPORT("Estimated latency diff: %.2f us\n", latency_diff);
     }
 
+
     // free pages using free page ring buffer
     ptimer_start(&tree_timer);
     while (true) {
       mod_page_t* mp;
       pthread_mutex_lock(&mod_page_dq_lock);
       if (kdq_size(mod_page_dq) == 0) {
+
         pthread_mutex_unlock(&mod_page_dq_lock);
         break;
       }
@@ -1175,7 +1188,7 @@ void *pebs_policy_thread()
             if (USE_MODEL)
             {
                 float migration_time = fmax(demotion_cost_avg, promotion_cost_avg);
-                cost = 0.05 * fmax(fmax(count_total, prev_count_total), 1000) * HF_SAMPLE_PERIOD * migration_time / PEBS_KSWAPD_INTERVAL_SMALL;
+                //cost = 0.05 * fmax(fmax(count_total, prev_count_total), 1000) * HF_SAMPLE_PERIOD * migration_time / PEBS_KSWAPD_INTERVAL_SMALL;
                 benefit = p->score * HF_SAMPLE_PERIOD * latency_diff;
             }
             else
@@ -1362,7 +1375,8 @@ struct hemem_page* pebs_pagefault(void)
 
 void pebs_add_page(struct hemem_page *page)
 {
-  
+  internal_call_depth++;
+
   int absent;
   khiter_t key;
   assert(page != NULL);
@@ -1371,11 +1385,13 @@ void pebs_add_page(struct hemem_page *page)
   // Add to the hash table
   pthread_mutex_lock(&pages_lock);
   key = kh_put(kPagesMap, pages, page->va, &absent);
-  if(!absent) {
-    // Page already exists, this should not happen
-    LOG_ERROR("Page already exists in the hash table\n");
-    pthread_mutex_unlock(&pages_lock);
-    return;
+  if (!absent)
+  {
+      // Page already exists, this should not happen
+      LOG_ERROR("Page already exists in the hash table error %lx\n", page->va);
+      pthread_mutex_unlock(&pages_lock);
+      internal_call_depth--;
+      return;
   }
   assert(absent);
   kh_value(pages, key) = page;
@@ -1388,6 +1404,8 @@ void pebs_add_page(struct hemem_page *page)
   mod_page_t mp = (mod_page_t){ .page = page, .free = false };
   kdq_push(mod_page_t, mod_page_dq, mp);
   pthread_mutex_unlock(&mod_page_dq_lock);
+
+  internal_call_depth--;
 }
 
 struct hemem_page* pebs_find_page(uint64_t va)
@@ -1403,18 +1421,22 @@ struct hemem_page* pebs_find_page(uint64_t va)
     return page;
 }
 
-void pebs_remove_page(struct hemem_page *page)
+struct hemem_page* pebs_remove_page(uint64_t va)
 {
-
   khiter_t key;
-  assert(page != NULL);
-  LOG_INFO("Removing page %lu from the add_pages_ring [va: %lu]\n", (uint64_t)page, page->va);
+  struct hemem_page *page;
+  LOG_INFO("Removing page from the add_pages_ring [va: %lu]\n", page->va);
 
   // Remove page from hash table
   internal_call_depth++;
   pthread_mutex_lock(&pages_lock);
-  key = kh_get(kPagesMap, pages, page->va);
-  assert(key != kh_end(pages));
+  key = kh_get(kPagesMap, pages, va);
+  page = ((key == kh_end(pages)) ? NULL : kh_value(pages, key));
+  if(page == NULL){
+    pthread_mutex_unlock(&pages_lock);
+    internal_call_depth--;
+    return NULL;
+  }
   kh_del(kPagesMap, pages, key);
   pthread_mutex_unlock(&pages_lock);
   
@@ -1429,6 +1451,8 @@ void pebs_remove_page(struct hemem_page *page)
   page->present = false;
   pthread_mutex_unlock(&(page->page_lock));
   internal_call_depth--;
+
+  return page;
 }
 
 #ifdef SCAILP

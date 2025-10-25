@@ -41,7 +41,7 @@ void pebs_init(void);
 
 void pebs_add_page(struct hemem_page *page);
 struct hemem_page* pebs_find_page(uint64_t va);
-void pebs_remove_page(struct hemem_page *page);
+struct hemem_page* pebs_remove_page(uint64_t va);
 
 void pebs_log_read(void *addr, size_t len);
 void pebs_log_write(void *addr, size_t len);
