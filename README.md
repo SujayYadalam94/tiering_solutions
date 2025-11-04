@@ -14,7 +14,7 @@ git submodule update --init
 
 You could follow your own approach to build Linux kernel or use the steps below:
 
-Optional: Apply the patch if you want to measure AutoNUMA tiering performance only for anonymous pages.
+Optional: Apply the patch if you want AutoNUMA to only handle anonymous pages.
 
 ```bash
 pushd autonuma-linux
