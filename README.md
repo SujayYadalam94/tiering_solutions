@@ -81,7 +81,7 @@ sudo service numad stop
 echo 15 > /proc/sys/vm/zone_reclaim_mode
 echo 2 > /proc/sys/kernel/numa_balancing
 echo 1 > /sys/kernel/mm/numa/demotion_enabled
-echo 200 > /proc/sys/vm/watermark_scale_factorgit
+echo 200 > /proc/sys/vm/watermark_scale_factor
 
 # Optional: Enable Hugepages
 echo always | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
