@@ -199,6 +199,8 @@ struct score_entry {
   float score;
 };
 
+void reset_page_access_fields(struct hemem_page *page);
+
 void *pebs_kswapd();
 struct hemem_page* pebs_pagefault(void);
 struct hemem_page* pebs_pagefault_unlocked(void);
