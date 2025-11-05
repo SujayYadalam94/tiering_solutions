@@ -147,6 +147,10 @@ ret = syscall(__NR_perf_event_open, hw_event, pid, cpu,
 return ret;
 }
 
+/*************************************************
+* Enabling Bandwidth Measurement
+*************************************************/
+
 #ifdef SCAILP
 int mem_fd = -1;
 void *imc_mmio_addr[NUM_IMC];
@@ -283,6 +287,11 @@ static int setup_imc_bw_counters()
 
 void pebs_print_config();
 
+/*************************************************
+* PEBS initialization and scanning
+*************************************************/
+
+// Setup a perf event for PEBS
 static struct perf_event_mmap_page* perf_setup(__u64 config, __u64 config1, __u64 cpu, __u64 type)
 {
   struct perf_event_attr attr;
@@ -402,6 +411,7 @@ void *pebs_scan_thread()
               page = pebs_find_page(pfn);
               if (page != NULL) {
                 if (page->va != 0) {
+                  // TODO: Replace with a function for PolicySmith to update page state heuristics (access counts, age, etc.)
                   page->accesses[j][curr_access_version]++;
                 }
                 hemem_pages_cnt++;
@@ -438,6 +448,10 @@ void *pebs_scan_thread()
   return NULL;
 }
 
+/*************************************************
+* Migration mechanisms
+*************************************************/
+
 static void pebs_migrate_down(struct hemem_page *page, uint64_t offset)
 {
   struct timeval start, end;
@@ -468,6 +482,110 @@ static void pebs_migrate_up(struct hemem_page *page, uint64_t offset)
   LOG_DEBUG("migrate_up: %f s\n", elapsed(&start, &end));
 }
 
+void promote_to_free_dram_page(struct hemem_page *p, struct hemem_page *np)
+{
+  uint64_t old_offset;
+
+  // There could be a possible race with pebs_remove_page()
+  // So acquire lock to ensure page is not removed while being migrated
+  pthread_mutex_lock(&(p->page_lock));
+  if (!p->present) {
+    // Don't migrate as this page is being removed
+    // Put np back on the dram_free_list because we are not going to migrate
+    enqueue_fifo(&dram_free_list, np);
+    pthread_mutex_unlock(&(p->page_lock));
+    return;
+  }
+
+  old_offset = p->devdax_offset;
+  pebs_migrate_up(p, np->devdax_offset);
+  // We can release the lock now that migration is complete
+  pthread_mutex_unlock(&(p->page_lock));
+
+  // Reset the page fields
+  np->devdax_offset = old_offset;
+  np->in_dram = false;
+  np->present = false;
+  reset_page_access_fields(np);
+
+  enqueue_fifo(&nvm_free_list, np);
+}
+
+bool demote_to_free_nvm_page(struct hemem_page *cp, struct hemem_page *np)
+{
+  uint64_t old_offset;
+
+  // There could be a possible race with pebs_remove_page()
+  // So acquire lock to ensure page is not removed while being migrated
+  pthread_mutex_lock(&(cp->page_lock));
+  if (!cp->present) {
+    // Don't migrate as this page is being removed
+    pthread_mutex_unlock(&(cp->page_lock));
+    return false;
+  }
+
+  old_offset = cp->devdax_offset;
+  pebs_migrate_down(cp, np->devdax_offset);
+
+  pthread_mutex_unlock(&(cp->page_lock));
+
+  // Reset the page fields
+  np->devdax_offset = old_offset;
+  np->in_dram = true;
+  np->present = false;
+  reset_page_access_fields(np);
+
+  // Don't add the page to the free list because
+  // it will be used immediately after
+  //enqueue_fifo(&dram_free_list, np);
+  return true;
+}
+
+void *pebs_migration_thread()
+{
+  struct migration_req *req;
+  struct ptimer migrate_timer;
+
+  ptimer_init(&migrate_timer, "Migrate");
+
+  while(true) {
+    sem_wait(&submission_sem);
+
+    while(true) {
+      req = dequeue_fifo_m(&migration_queue);
+      if (req == NULL) {
+        break;
+      }
+
+      // Demote a page if necessary
+      if (req->need_demotion) {
+        ptimer_start(&migrate_timer);
+        if (!demote_to_free_nvm_page(req->dram_page, req->free_page)) {
+          enqueue_fifo(&nvm_free_list, req->free_page);
+          sem_post(&completion_sem);
+          free(req);
+          continue;
+        }
+        ptimer_stop(&migrate_timer);
+        demotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * demotion_cost_avg);
+      }
+
+      // Promote the hot NVM page
+      ptimer_start(&migrate_timer);
+      promote_to_free_dram_page(req->nvm_page, req->free_page);
+      ptimer_stop(&migrate_timer);
+      promotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * promotion_cost_avg);
+
+      sem_post(&completion_sem);
+      free(req);
+    }
+  }
+}
+
+/*************************************************
+* Page scoring related functions
+*************************************************/
+
 // Sorts in ascending order
 int ulong_sort_cmp(const void *a, const void *b) {
   uint64_t _a = *(const uint64_t *)a;
@@ -483,7 +601,7 @@ int sort_entry_cmp(const void *a, const void *b) {
   return (_a.score > _b.score) ? -1 : (_a.score < _b.score);
 }
 
-static void reset_page_access_fields(struct hemem_page *page)
+void reset_page_access_fields(struct hemem_page *page)
 {
   for (int i = 0; i < NPBUFTYPES; i++) {
     page->accesses[i][0] = 0;
@@ -698,7 +816,8 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
 }
 #endif
 
-static size_t calculate_scores_map(struct score_entry *scores_out, const float *bias)
+// TODO: Function to change for PolicySmith to calculate scores differently
+static size_t calculate_scores_map_and_sort(struct score_entry *scores_out, const float *bias)
 {
   struct ptimer window_timer;
   ptimer_init(&window_timer, "Scores (window)");
@@ -726,21 +845,39 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
     LOG_DEBUG("%lu,%f|", page->va, page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD]); //+ page->s_accesses[WRITE]);
     #endif
 
-    // Update the window values
+    // 1. Update moving average and calculate score for each page
     update_window(page);
+    page->prev_score = page->score;
+    page->score = compute_score(page, bias);
 
     // Reset the access counts
     page->accesses[DRAMREAD][prev_access_version] = 0;
     page->accesses[NVMREAD][prev_access_version] = 0;
     page->accesses[WRITE][prev_access_version] = 0;
 
-    // Calculate the hotness score
-    page->prev_score = page->score;
-    page->score = compute_score(page, bias);
     scores_out[s_idx++] = (struct score_entry){ page, page->score };
 
   }
   ptimer_print(&window_timer);
+
+  // 2. Sort pages by score in descending order
+  qsort(scores_out, s_idx, sizeof(struct score_entry), sort_entry_cmp);
+
+  // 3. Update hot age and can_promote fields
+  for (int k = 0; k < dramsize/PAGE_SIZE && k < s_idx; k++) {
+    struct hemem_page* top_page = scores[k].page;
+    if (scores[k].score != 0) {
+      top_page->hot_age++;
+      if (top_page->hot_age > 1 && (top_page->score >= top_page->prev_score)) {
+        // Page has continued to stay hot, so can be promoted
+        top_page->can_promote = true;
+      }
+    }
+  }
+  for (int k = dramsize/PAGE_SIZE; k < s_idx; k++) {
+    scores[k].page->hot_age = 0;
+    scores[k].page->can_promote = false;
+  }
 
   return s_idx;
 }
@@ -782,105 +919,142 @@ static inline int continue_migration(struct hemem_page *hp, struct hemem_page *c
   return 1;
 }
 
-void promote_to_free_dram_page(struct hemem_page *p, struct hemem_page *np)
+static void issue_migrations(struct score_entry *scores, size_t s_pages_cnt, int64_t *promote_idx_p, int64_t *demote_idx_p,
+                               size_t *migrated_pages_p, size_t *num_migration_jobs_p, uint64_t *migrated_bytes_p,
+                               float batch_size)
 {
-  uint64_t old_offset;
+  struct hemem_page *p;
+  struct hemem_page *cp;
+  struct hemem_page *np;
+  struct migration_req *m_req;
 
-  // There could be a possible race with pebs_remove_page()
-  // So acquire lock to ensure page is not removed while being migrated
-  pthread_mutex_lock(&(p->page_lock));
-  if (!p->present) {
-    // Don't migrate as this page is being removed
-    // Put np back on the dram_free_list because we are not going to migrate
-    enqueue_fifo(&dram_free_list, np);
-    pthread_mutex_unlock(&(p->page_lock));
-    return;
-  }
+  int64_t promote_idx = *promote_idx_p;
+  int64_t demote_idx = *demote_idx_p;
+  size_t migrated_pages = *migrated_pages_p;
+  size_t num_migration_jobs = *num_migration_jobs_p;
+  uint64_t migrated_bytes = *migrated_bytes_p;
 
-  old_offset = p->devdax_offset;
-  pebs_migrate_up(p, np->devdax_offset);
-  // We can release the lock now that migration is complete
-  pthread_mutex_unlock(&(p->page_lock));
+  size_t max_migrations_cur_interval = ((policy_thread_period) / (promotion_cost_avg+demotion_cost_avg)) * batch_size;
 
-  // Reset the page fields
-  np->devdax_offset = old_offset;
-  np->in_dram = false;
-  np->present = false;
-  reset_page_access_fields(np);
+  while (promote_idx < dramsize/PAGE_SIZE && promote_idx < demote_idx) {
+    if (num_migration_jobs >= max_migrations_cur_interval) {
+      LOG_REPORT("Scheduled %lu migrations\n", num_migration_jobs);
+      break;
+    }
 
-  enqueue_fifo(&nvm_free_list, np);
-}
+    if (scores[promote_idx].score == 0)
+      break;
 
-bool demote_to_free_nvm_page(struct hemem_page *cp, struct hemem_page *np)
-{
-  uint64_t old_offset;
+    /* find the hottest NVM page that needs to be promoted */
+    while (promote_idx < demote_idx && scores[promote_idx].page->in_dram) {
+      promote_idx++;
+    }
+    if (promote_idx >= demote_idx) {
+      break;
+    }
+    p = scores[promote_idx].page;
 
-  // There could be a possible race with pebs_remove_page()
-  // So acquire lock to ensure page is not removed while being migrated
-  pthread_mutex_lock(&(cp->page_lock));
-  if (!cp->present) {
-    // Don't migrate as this page is being removed
-    pthread_mutex_unlock(&(cp->page_lock));
-    return false;
-  }
+    LOG_INFO("Promoting page %p [idx %lu] with score %f\n", p, promote_idx, scores[promote_idx].score);
+    assert(!p->in_dram);
 
-  old_offset = cp->devdax_offset;
-  pebs_migrate_down(cp, np->devdax_offset);
+    if (!(p->can_promote)) {
+      LOG_DEBUG("Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f))\n",
+               p->va, p->score, p->w[0], p->w[1]);
+      promote_idx++;
+      continue;
+    }
 
-  pthread_mutex_unlock(&(cp->page_lock));
+    /* try to find a free DRAM page */
+    np = dequeue_fifo(&dram_free_list);
+    if (np != NULL) {
+      assert(!(np->present));
 
-  // Reset the page fields
-  np->devdax_offset = old_offset;
-  np->in_dram = true;
-  np->present = false;
-  reset_page_access_fields(np);
-
-  // Don't add the page to the free list because
-  // it will be used immediately after
-  //enqueue_fifo(&dram_free_list, np);
-  return true;
-}
-
-void *pebs_migration_thread()
-{
-  struct migration_req *req;
-  struct ptimer migrate_timer;
-
-  ptimer_init(&migrate_timer, "Migrate");
-
-  while(true) {
-    sem_wait(&submission_sem);
-
-    while(true) {
-      req = dequeue_fifo_m(&migration_queue);
-      if (req == NULL) {
+      /* Cost-benefit analysis */
+      float cost = CB_MULTIPLIER * (promotion_cost_avg + demotion_cost_avg);
+      float benefit = p->score * p->hot_age * HF_SAMPLE_PERIOD * latency_diff;
+      if (benefit < cost) {
+        LOG_DEBUG("Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f)) cause of cost-benefit analysis\n",
+                 p->va, p->score, p->w[0], p->w[1]);
+        enqueue_fifo(&dram_free_list, np);
         break;
       }
 
-      // Demote a page if necessary
-      if (req->need_demotion) {
-        ptimer_start(&migrate_timer);
-        if (!demote_to_free_nvm_page(req->dram_page, req->free_page)) {
-          enqueue_fifo(&nvm_free_list, req->free_page);
-          sem_post(&completion_sem);
-          free(req);
-          continue;
-        }
-        ptimer_stop(&migrate_timer);
-        demotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * demotion_cost_avg);
+      LOG_DEBUG("Promoting freely at %lu: 0x%lx score: %f (%f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1]);
+
+      m_req = malloc(sizeof(struct migration_req));
+      memset(m_req, 0, sizeof(struct migration_req));
+      m_req->nvm_page      = p;
+      m_req->free_page     = np;
+      m_req->need_demotion = false;
+
+      enqueue_fifo_m(&migration_queue, m_req);
+
+      num_migration_jobs++;
+      migrated_bytes += pt_to_pagesize(p->pt);
+      migrated_pages++;
+
+      if (num_migration_jobs <= batch_size) {
+        sem_post(&submission_sem);
       }
 
-      // Promote the hot NVM page
-      ptimer_start(&migrate_timer);
-      promote_to_free_dram_page(req->nvm_page, req->free_page);
-      ptimer_stop(&migrate_timer);
-      promotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * promotion_cost_avg);
+      promote_idx++;
+      continue;
+    }
 
-      sem_post(&completion_sem);
-      free(req);
+    /* Find the coldest DRAM page that needs to be demoted */
+    while (demote_idx > promote_idx && !scores[demote_idx].page->in_dram) {
+      demote_idx--;
+    }
+    if (demote_idx <= promote_idx || demote_idx <= (dramsize/PAGE_SIZE)) {
+      break;
+    }
+
+    cp = scores[demote_idx].page;
+    assert(cp->in_dram && cp->va > 0);
+
+    if (!continue_migration(p, cp)) {
+      LOG_INFO("Stopping migration at promote_idx %ld\n", promote_idx);
+      break;
+    }
+
+    /* try to find a free NVM page */
+    np = dequeue_fifo(&nvm_free_list);
+    assert(np != NULL);
+
+    LOG_REPORT("Demoting at %ld: 0x%lx score: %f (%f %f)\n", demote_idx, cp->va, cp->score, cp->w[0], cp->w[1]);
+    LOG_REPORT("Promoting at %ld: 0x%lx score: %f (%f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1]);
+
+    m_req = malloc(sizeof(struct migration_req));
+    memset(m_req, 0, sizeof(struct migration_req));
+    m_req->dram_page     = cp;
+    m_req->nvm_page      = p;
+    m_req->free_page = np;
+    m_req->need_demotion = true;
+
+    enqueue_fifo_m(&migration_queue, m_req);
+
+    num_migration_jobs++;
+    migrated_bytes += (2 * pt_to_pagesize(cp->pt));
+    migrated_pages += 2;
+    promote_idx++;
+    demote_idx--;
+
+    if (num_migration_jobs <= batch_size) {
+      sem_post(&submission_sem);
     }
   }
+
+  /* write back mutated values */
+  *promote_idx_p = promote_idx;
+  *demote_idx_p = demote_idx;
+  *migrated_pages_p = migrated_pages;
+  *num_migration_jobs_p = num_migration_jobs;
+  *migrated_bytes_p = migrated_bytes;
 }
+
+/*************************************************
+* Policy thread (main thread that makes migration decisions)
+*************************************************/
 
 void *pebs_policy_thread()
 {
@@ -941,6 +1115,7 @@ void *pebs_policy_thread()
   // Sleep first to allow the scanning thread to start
   usleep((uint64_t)((1.0 * policy_thread_period)));
 
+  // Infinite loop
   for (;;) {
     ptimer_start(&loop_timer);
     ptimer_start(&remaining_timer);
@@ -957,7 +1132,7 @@ void *pebs_policy_thread()
     curr_access_version = 1 - curr_access_version;
     __sync_synchronize();
 
-    // Compute peak-to-average ratio every 1 second
+    // Hot-set change detection using Page-Hinkley test
     if (global_version % (1000000 / policy_thread_period) == 0) {
       cur_dram_bw = ((float)(measure_bw(0)) * (CACHELINE_SIZE)) / (1024ULL * 1024ULL * 1024ULL);
       cur_nvm_bw = ((float)(measure_bw(1)) * (CACHELINE_SIZE)) / (1024ULL * 1024ULL * 1024ULL);
@@ -1080,31 +1255,10 @@ void *pebs_policy_thread()
     #ifdef SPATIAL_SMOOTHING
     s_pages_cnt = calculate_scores_tree(scores, bias);
     #else
-    s_pages_cnt = calculate_scores_map(scores, bias);
+    s_pages_cnt = calculate_scores_map_and_sort(scores, bias);
     #endif
 
     ptimer_stop_and_print(&score_timer);
-
-    // Sort the scores (in descending order)
-    ptimer_start(&sort_timer);
-    qsort(scores, s_pages_cnt, sizeof(struct score_entry), sort_entry_cmp);
-    ptimer_stop_and_print(&sort_timer);
-
-    // Set the top_since_iter for the top pages
-    for (int k = 0; k < dramsize/PAGE_SIZE && k < s_pages_cnt; k++) {
-      struct hemem_page* top_page = scores[k].page;
-      if (scores[k].score != 0) {
-        top_page->hot_age++;
-        if (top_page->hot_age > 1 && (top_page->score >= top_page->prev_score)) {
-          // Page has continued to stay hot, so can be promoted
-          top_page->can_promote = true;
-        }
-      }
-    }
-    for (int k = dramsize/PAGE_SIZE; k < s_pages_cnt; k++) {
-      scores[k].page->hot_age = 0;
-      scores[k].page->can_promote = false;
-    }
 
     if (s_pages_cnt == 0) {
       goto loop_end;
@@ -1113,8 +1267,8 @@ void *pebs_policy_thread()
     max_score = scores[0].score;
 
     LOG_REPORT("min_score: %.3f (%.3f %.3f), max_score: %.3f (%.3f %.3f)\n",
-               min_score, scores[s_pages_cnt - 1].page->w[0], scores[s_pages_cnt - 1].page->w[1],
-               max_score, scores[0].page->w[0], scores[0].page->w[1]);
+                min_score, scores[s_pages_cnt - 1].page->w[0], scores[s_pages_cnt - 1].page->w[1],
+                max_score, scores[0].page->w[0], scores[0].page->w[1]);
     LOG_REPORT("Prom cost: %f, Dem cost: %f\n", promotion_cost_avg, demotion_cost_avg);
 
     // Perform migrations
@@ -1137,121 +1291,10 @@ void *pebs_policy_thread()
     migrated_bytes     = 0;
     num_migration_jobs = 0;
     max_migrations_cur_interval = ((policy_thread_period) / (promotion_cost_avg+demotion_cost_avg)) * batch_size;
-    while (promote_idx < dramsize/PAGE_SIZE && promote_idx < demote_idx) {
-      // If we have scheduled the maximum number of migrations for this interval, stop
-      if (num_migration_jobs >= max_migrations_cur_interval) {
-        LOG_REPORT("Scheduled %lu migrations\n", num_migration_jobs);
-        break;
-      }
 
-      if (scores[promote_idx].score == 0)
-        break;
-      // find the hotest NVM page that needs to be promoted
-      ptimer_continue(&id_timer);
-      while (promote_idx < demote_idx && scores[promote_idx].page->in_dram) {
-        promote_idx++;
-      }
-      if (promote_idx >= demote_idx) {
-        break;
-      }
-      p = scores[promote_idx].page;
+    issue_migrations(scores, s_pages_cnt, &promote_idx, &demote_idx,
+                        &migrated_pages, &num_migration_jobs, &migrated_bytes, batch_size);
 
-      LOG_INFO("Promoting page %p [idx %lu] with score %f\n", p, promote_idx, scores[promote_idx].score);
-      assert(!p->in_dram);
-
-      if (!(p->can_promote)) {
-        LOG_DEBUG("Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f))\n",
-                 p->va, p->score, p->w[0], p->w[1]);
-        promote_idx++;
-        continue;
-      }
-
-      // try to find a free DRAM page
-      np = dequeue_fifo(&dram_free_list);
-      if (np != NULL) {
-        assert(!(np->present));
-        ptimer_stop(&id_timer);
-
-        // Cost-benefit analysis
-        float cost = CB_MULTIPLIER * (promotion_cost_avg + demotion_cost_avg);
-        float benefit = p->score * p->hot_age * HF_SAMPLE_PERIOD * latency_diff;
-        if (benefit < cost) {
-          LOG_DEBUG("Stopping promotion of 0x%lx (score: %.3f (%.3f %.3f)) cause of cost-benefit analysis\n",
-                   p->va, p->score, p->w[0], p->w[1]);
-          enqueue_fifo(&dram_free_list, np);
-          break;
-        }
-
-        LOG_DEBUG("Promoting freely at %lu: 0x%lx score: %f (%f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1]);
-
-        m_req = malloc(sizeof(struct migration_req));
-        memset(m_req, 0, sizeof(struct migration_req));
-        m_req->nvm_page      = p;
-        m_req->free_page     = np;
-        m_req->need_demotion = false;
-
-        enqueue_fifo_m(&migration_queue, m_req);
-
-        num_migration_jobs++;
-        migrated_bytes += pt_to_pagesize(p->pt);
-        migrated_pages++;
-
-        if (num_migration_jobs <= batch_size) {
-          // Wake up only as many threads as the batch size
-          // This is to avoid waking up all threads and then blocking them
-          sem_post(&submission_sem);
-        }
-
-        promote_idx++;
-        continue;
-      }
-
-      // Find the coldest DRAM page that needs to be demoted
-      while (demote_idx > promote_idx && !scores[demote_idx].page->in_dram) {
-        demote_idx--;
-      }
-      if (demote_idx <= promote_idx || demote_idx <= (dramsize/PAGE_SIZE)) {
-        break;
-      }
-
-      cp = scores[demote_idx].page;
-      assert(cp->in_dram && cp->va > 0);
-
-      if (!continue_migration(p, cp)) {
-        LOG_INFO("Stopping migration at promote_idx %ld\n", promote_idx);
-        break;
-      }
-
-      // try to find a free NVM page
-      np = dequeue_fifo(&nvm_free_list);
-      assert(np != NULL);
-      ptimer_stop(&id_timer);
-
-      LOG_REPORT("Demoting at %ld: 0x%lx score: %f (%f %f)\n", demote_idx, cp->va, cp->score, cp->w[0], cp->w[1]);
-      LOG_REPORT("Promoting at %ld: 0x%lx score: %f (%f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1]);
-
-      // move the cold DRAM page to NVM
-      m_req = malloc(sizeof(struct migration_req));
-      memset(m_req, 0, sizeof(struct migration_req));
-      m_req->dram_page     = cp;
-      m_req->nvm_page      = p;
-      m_req->free_page = np;
-      m_req->need_demotion = true;
-
-      enqueue_fifo_m(&migration_queue, m_req);
-
-      num_migration_jobs++;
-      migrated_bytes += (2 * pt_to_pagesize(cp->pt));
-      migrated_pages += 2;
-      promote_idx++;
-      demote_idx--;
-
-      if (num_migration_jobs <= batch_size) {
-        // Wake up only as many threads as the batch size
-        // This is to avoid waking up all threads and then blocking them
-        sem_post(&submission_sem);
-      }
-    }
 
 loop_end:
     ptimer_print(&id_timer);
@@ -1293,6 +1336,10 @@ loop_end:
 
   return NULL;
 }
+
+/*************************************************
+* Page management functions
+*************************************************/
 
 static struct hemem_page* pebs_allocate_page()
 {
@@ -1399,6 +1446,10 @@ void pebs_remove_page(struct hemem_page *page)
   page->present = false;
   pthread_mutex_unlock(&(page->page_lock));
 }
+
+/*************************************************
+* Intitialization and cleanup functions
+*************************************************/
 
 #ifdef SCAILP
 #define L3_LOAD_MISS_LOCAL 0x2d3
