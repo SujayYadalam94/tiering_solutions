@@ -1,5 +1,5 @@
-#ifndef HEMEM_PEBS_H
-#define HEMEM_PEBS_H
+#ifndef ARMS_PEBS_H
+#define ARMS_PEBS_H
 
 #include <pthread.h>
 #include <stdint.h>
@@ -7,7 +7,7 @@
 #include <linux/perf_event.h>
 #include <linux/hw_breakpoint.h>
 
-#include "hemem.h"
+#include "arms.h"
 
 // Logging Options
 // ==============================================================================
@@ -195,20 +195,20 @@ enum pbuftype {
 };
 
 struct score_entry {
-  struct hemem_page* page;
+  struct arms_page* page;
   float score;
 };
 
 void *pebs_kswapd();
-struct hemem_page* pebs_pagefault(void);
-struct hemem_page* pebs_pagefault_unlocked(void);
+struct arms_page* pebs_pagefault(void);
+struct arms_page* pebs_pagefault_unlocked(void);
 void pebs_init(void);
 
-void pebs_add_page(struct hemem_page *page);
-struct hemem_page* pebs_find_page(uint64_t va);
-void pebs_remove_page(struct hemem_page *page);
+void pebs_add_page(struct arms_page *page);
+struct arms_page* pebs_find_page(uint64_t va);
+void pebs_remove_page(struct arms_page *page);
 
 void pebs_stats();
 void pebs_shutdown();
 
-#endif /*  HEMEM_LRU_MODIFIED_H  */
+#endif /*  ARMS_LRU_MODIFIED_H  */

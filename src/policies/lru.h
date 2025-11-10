@@ -1,11 +1,11 @@
-#ifndef HEMEM_LRU_H
-#define HEMEM_LRU_H
+#ifndef ARMS_LRU_H
+#define ARMS_LRU_H
 
 #include <pthread.h>
 #include <stdint.h>
 #include <inttypes.h>
 
-#include "../hemem.h"
+#include "../arms.h"
 #include "paging.h"
 
 
@@ -14,11 +14,11 @@
 #define KSWAPD_MIGRATE_RATE  (50UL * 1024UL * 1024UL * 1024UL) // 50GB
 
 void *lru_kswapd();
-struct hemem_page* lru_pagefault(void);
-struct hemem_page* lru_pagefault_unlocked(void);
+struct arms_page* lru_pagefault(void);
+struct arms_page* lru_pagefault_unlocked(void);
 void lru_init(void);
-void lru_remove_page(struct hemem_page *page);
+void lru_remove_page(struct arms_page *page);
 void lru_stats();
 
 
-#endif /*  HEMEM_LRU_MODIFIED_H  */
+#endif /*  ARMS_LRU_MODIFIED_H  */

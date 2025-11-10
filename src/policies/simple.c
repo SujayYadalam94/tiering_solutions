@@ -24,7 +24,7 @@
 #include <assert.h>
 #include <sys/time.h>
 
-#include "../hemem.h"
+#include "../arms.h"
 #include "paging.h"
 #include "../timer.h"
 #include "../fifo.h"
@@ -35,7 +35,7 @@ bool slowmem_switch = false;
 
 static struct fifo_list dram_free, nvm_free;
 
-void simple_remove_page(struct hemem_page *page)
+void simple_remove_page(struct arms_page *page)
 {
   if (page->in_dram) {
     page->present = false;
@@ -49,10 +49,10 @@ void simple_remove_page(struct hemem_page *page)
   }
 }
 
-struct hemem_page* simple_pagefault(void)
+struct arms_page* simple_pagefault(void)
 {
   struct timeval start, end;
-  struct hemem_page *page;
+  struct arms_page *page;
 
   gettimeofday(&start, NULL);
 
@@ -82,7 +82,7 @@ void simple_init(void)
 {
   pthread_mutex_init(&(dram_free.list_lock), NULL);
   for (int i = 0; i < dramsize / PAGE_SIZE; i++) {
-    struct hemem_page *p = calloc(1, sizeof(struct hemem_page));
+    struct arms_page *p = calloc(1, sizeof(struct arms_page));
     p->devdax_offset = i * PAGE_SIZE;
     p->present = false;
     p->in_dram = true;
@@ -93,7 +93,7 @@ void simple_init(void)
 
   pthread_mutex_init(&(nvm_free.list_lock), NULL);
   for (int i = 0; i < nvmsize / PAGE_SIZE; i++) {
-    struct hemem_page *p = calloc(1, sizeof(struct hemem_page));
+    struct arms_page *p = calloc(1, sizeof(struct arms_page));
     p->devdax_offset = i * PAGE_SIZE;
     p->present = false;
     p->in_dram = false;

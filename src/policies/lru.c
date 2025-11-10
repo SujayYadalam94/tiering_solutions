@@ -8,7 +8,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 
-#include "../hemem.h"
+#include "../arms.h"
 #include "paging.h"
 #include "lru.h"
 #include "../timer.h"
@@ -32,30 +32,30 @@ static bool __thread in_kswapd = false;
 uint64_t lru_runs = 0;
 static volatile bool in_kscand = false;
 
-static void lru_migrate_down(struct hemem_page *page, uint64_t offset)
+static void lru_migrate_down(struct arms_page *page, uint64_t offset)
 {
   struct timeval start, end;
 
   gettimeofday(&start, NULL);
 
   page->migrating = true;
-  hemem_wp_page(page, true);
-  hemem_migrate_down(page, offset);
+  arms_wp_page(page, true);
+  arms_migrate_down(page, offset);
   page->migrating = false; 
 
   gettimeofday(&end, NULL);
   LOG_TIME("migrate_down: %f s\n", elapsed(&start, &end));
 }
 
-static void lru_migrate_up(struct hemem_page *page, uint64_t offset)
+static void lru_migrate_up(struct arms_page *page, uint64_t offset)
 {
   struct timeval start, end;
 
   gettimeofday(&start, NULL);
 
   page->migrating = true;
-  hemem_wp_page(page, true);
-  hemem_migrate_up(page, offset);
+  arms_wp_page(page, true);
+  arms_migrate_up(page, offset);
   page->migrating = false;
 
   gettimeofday(&end, NULL);
@@ -69,16 +69,16 @@ static void shrink_caches(struct fifo_list *active, struct fifo_list *inactive, 
   uint64_t bits;
   // find cold pages and move to inactive list
   while (nr_pages > 0 && active->numentries > 0) {
-    struct hemem_page *page = dequeue_fifo(active);
-    bits = hemem_get_bits(page);
-    if ((bits & HEMEM_ACCESSED_FLAG) == HEMEM_ACCESSED_FLAG) {
-      if ((bits & HEMEM_DIRTY_FLAG) == HEMEM_DIRTY_FLAG) {
+    struct arms_page *page = dequeue_fifo(active);
+    bits = arms_get_bits(page);
+    if ((bits & ARMS_ACCESSED_FLAG) == ARMS_ACCESSED_FLAG) {
+      if ((bits & ARMS_DIRTY_FLAG) == ARMS_DIRTY_FLAG) {
         // page was written, so put it in the highest priority
         // written list for memory type; if in DRAM, will
         // remain in DRAM; if in NVM, has highest priority
         // for migration to DRAM
         page->written = true;
-        //hemem_clear_bits(page);
+        //arms_clear_bits(page);
         assert(vanum < MAX_VAS);
         vas[vanum++] = page->va;
         enqueue_fifo(written, page);
@@ -87,7 +87,7 @@ static void shrink_caches(struct fifo_list *active, struct fifo_list *inactive, 
         // page was not written but was already in active list, so
         // keep it in active list since it was accessed
         page->written = false;
-        //hemem_clear_bits(page);
+        //arms_clear_bits(page);
         assert(vanum < MAX_VAS);
         vas[vanum++] = page->va;
         enqueue_fifo(active, page);
@@ -107,7 +107,7 @@ static void expand_caches(struct fifo_list *active, struct fifo_list *inactive, 
 {
   size_t nr_pages = inactive->numentries;
   size_t i;
-  struct hemem_page *page;
+  struct arms_page *page;
   uint64_t bits;
 
   // examine each page in inactive list and move to active list if accessed
@@ -118,9 +118,9 @@ static void expand_caches(struct fifo_list *active, struct fifo_list *inactive, 
       break;
     }
 
-    bits = hemem_get_bits(page);
-    if ((bits & HEMEM_ACCESSED_FLAG) == HEMEM_ACCESSED_FLAG) {
-      if ((bits & HEMEM_DIRTY_FLAG) == HEMEM_DIRTY_FLAG) {
+    bits = arms_get_bits(page);
+    if ((bits & ARMS_ACCESSED_FLAG) == ARMS_ACCESSED_FLAG) {
+      if ((bits & ARMS_DIRTY_FLAG) == ARMS_DIRTY_FLAG) {
         // page was written, so put it in the highest priority
         // written list for memory type; if in DRAM, will
         // remain in DRAM; if in NVM, has highest priority
@@ -139,7 +139,7 @@ static void expand_caches(struct fifo_list *active, struct fifo_list *inactive, 
         }
         else {
           page->naccesses++;
-          //hemem_clear_bits(page);
+          //arms_clear_bits(page);
           assert(vanum < MAX_VAS);
           vas[vanum++] = page->va;
           enqueue_fifo(inactive, page);
@@ -157,7 +157,7 @@ static void check_writes(struct fifo_list *active, struct fifo_list *inactive, s
 {
   size_t nr_pages = written->numentries;
   size_t i;
-  struct hemem_page *page;
+  struct arms_page *page;
   uint64_t bits;
 
   for (i = 0; i < nr_pages; i++) {
@@ -167,14 +167,14 @@ static void check_writes(struct fifo_list *active, struct fifo_list *inactive, s
       break;
     }
 
-    bits = hemem_get_bits(page);
-    if ((bits & HEMEM_ACCESSED_FLAG) == HEMEM_ACCESSED_FLAG) {
-      if ((bits & HEMEM_DIRTY_FLAG) == HEMEM_DIRTY_FLAG) {
+    bits = arms_get_bits(page);
+    if ((bits & ARMS_ACCESSED_FLAG) == ARMS_ACCESSED_FLAG) {
+      if ((bits & ARMS_DIRTY_FLAG) == ARMS_DIRTY_FLAG) {
         // page was written in the recent past and continues to be written
         // keep in written list for high priority migration to DRAM/high
         // priority for remaining in DRAM
         page->written = true;
-        //hemem_clear_bits(page);
+        //arms_clear_bits(page);
         assert(vanum < MAX_VAS);
         vas[vanum++] = page->va;
         enqueue_fifo(written, page);
@@ -218,13 +218,13 @@ void *lru_kscand()
 
     gettimeofday(&clear_start, NULL);
     for(uint64_t i = 0; i < vanum; i++) {
-      struct hemem_page mypage = { .va = vas[i] };
-      hemem_clear_bits(&mypage);    
+      struct arms_page mypage = { .va = vas[i] };
+      arms_clear_bits(&mypage);    
     }
     gettimeofday(&clear_end, NULL);
     LOG_TIME("clear_bits: %f s\n", elapsed(&clear_start, &clear_end));
     
-    hemem_tlb_shootdown(0);
+    arms_tlb_shootdown(0);
 
     gettimeofday(&end, NULL);
 
@@ -237,9 +237,9 @@ void *lru_kscand()
 void *lru_kswapd()
 {
   int tries;
-  struct hemem_page *p;
-  struct hemem_page *cp;
-  struct hemem_page *np;
+  struct arms_page *p;
+  struct arms_page *cp;
+  struct arms_page *np;
   struct timeval start, end;
   uint64_t migrated_bytes;
   bool from_written_list = true;
@@ -357,12 +357,12 @@ out:
 
 
 /*  called with global lock held via lru_pagefault function */
-static struct hemem_page* lru_allocate_page()
+static struct arms_page* lru_allocate_page()
 {
   struct timeval start, end;
-  struct hemem_page *page;
+  struct arms_page *page;
 #ifdef LRU_SWAP
-  struct hemem_page *cp;
+  struct arms_page *cp;
   int tries;
 #endif
 
@@ -442,9 +442,9 @@ static struct hemem_page* lru_allocate_page()
 }
 
 
-struct hemem_page* lru_pagefault(void)
+struct arms_page* lru_pagefault(void)
 {
-  struct hemem_page *page;
+  struct arms_page *page;
 
   pthread_mutex_lock(&global_lock);
   // do the heavy lifting of finding the devdax file offset to place the page
@@ -455,9 +455,9 @@ struct hemem_page* lru_pagefault(void)
   return page;
 }
 
-struct hemem_page* lru_pagefault_unlocked(void)
+struct arms_page* lru_pagefault_unlocked(void)
 {
-  struct hemem_page *page;
+  struct arms_page *page;
 
   page = lru_allocate_page();
   assert(page != NULL);
@@ -465,7 +465,7 @@ struct hemem_page* lru_pagefault_unlocked(void)
   return page;
 }
 
-void lru_remove_page(struct hemem_page *page)
+void lru_remove_page(struct arms_page *page)
 {
   struct fifo_list *list;
 
@@ -507,7 +507,7 @@ void lru_init(void)
 
   pthread_mutex_init(&(dram_free_list.list_lock), NULL);
   for (int i = 0; i < dramsize / PAGE_SIZE; i++) {
-    struct hemem_page *p = calloc(1, sizeof(struct hemem_page));
+    struct arms_page *p = calloc(1, sizeof(struct arms_page));
     p->devdax_offset = i * PAGE_SIZE;
     p->present = false;
     p->in_dram = true;
@@ -519,7 +519,7 @@ void lru_init(void)
 
   pthread_mutex_init(&(nvm_free_list.list_lock), NULL);
   for (int i = 0; i < nvmsize / PAGE_SIZE; i++) {
-    struct hemem_page *p = calloc(1, sizeof(struct hemem_page));
+    struct arms_page *p = calloc(1, sizeof(struct arms_page));
     p->devdax_offset = i * PAGE_SIZE;
     p->present = false;
     p->in_dram = false;

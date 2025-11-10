@@ -1,42 +1,42 @@
-#ifndef HEMEM_PAGING_H
-#define HEMEM_PAGING_H
+#ifndef ARMS_PAGING_H
+#define ARMS_PAGING_H
 
 #include <pthread.h>
 #include <stdint.h>
 #include <inttypes.h>
 
-#include "../hemem.h"
+#include "../arms.h"
 
 
 #define ADDRESS_MASK  ((uint64_t)0x00000ffffffff000UL)
 #define FLAGS_MASK  ((uint64_t)0x0000000000000fffUL)
 
-#define HEMEM_PRESENT_FLAG  ((uint64_t)0x0000000000000001UL)
-#define HEMEM_WRITE_FLAG  ((uint64_t)0x0000000000000002UL)
-#define HEMEM_USER_FLAG   ((uint64_t)0x0000000000000004UL)
-#define HEMEM_PWT_FLAG    ((uint64_t)0x0000000000000008UL)
-#define HEMEM_PCD_FLAG    ((uint64_t)0x0000000000000010UL)
-#define HEMEM_ACCESSED_FLAG ((uint64_t)0x0000000000000020UL)
-#define HEMEM_DIRTY_FLAG  ((uint64_t)0x0000000000000040UL)
-#define HEMEM_HUGEPAGE_FLAG ((uint64_t)0x0000000000000080UL)
+#define ARMS_PRESENT_FLAG  ((uint64_t)0x0000000000000001UL)
+#define ARMS_WRITE_FLAG  ((uint64_t)0x0000000000000002UL)
+#define ARMS_USER_FLAG   ((uint64_t)0x0000000000000004UL)
+#define ARMS_PWT_FLAG    ((uint64_t)0x0000000000000008UL)
+#define ARMS_PCD_FLAG    ((uint64_t)0x0000000000000010UL)
+#define ARMS_ACCESSED_FLAG ((uint64_t)0x0000000000000020UL)
+#define ARMS_DIRTY_FLAG  ((uint64_t)0x0000000000000040UL)
+#define ARMS_HUGEPAGE_FLAG ((uint64_t)0x0000000000000080UL)
 
 
-#define HEMEM_PAGE_WALK_FLAGS (HEMEM_PRESENT_FLAG |   \
-               HEMEM_WRITE_FLAG | \
-         HEMEM_USER_FLAG |  \
-         HEMEM_ACCESSED_FLAG |  \
-         HEMEM_DIRTY_FLAG)
+#define ARMS_PAGE_WALK_FLAGS (ARMS_PRESENT_FLAG |   \
+               ARMS_WRITE_FLAG | \
+         ARMS_USER_FLAG |  \
+         ARMS_ACCESSED_FLAG |  \
+         ARMS_DIRTY_FLAG)
 
-#define HEMEM_PWTPCD_FLAGS  (HEMEM_PWT_FLAG | HEMEM_PCD_FLAG)
+#define ARMS_PWTPCD_FLAGS  (ARMS_PWT_FLAG | ARMS_PCD_FLAG)
 
-#define HEMEM_PGDIR_SHIFT 39
-#define HEMEM_PTRS_PER_PGD  512
-#define HEMEM_PUD_SHIFT   30
-#define HEMEM_PTRS_PER_PUD  512
-#define HEMEM_PMD_SHIFT   21
-#define HEMEM_PTRS_PER_PMD  512
-#define HEMEM_PAGE_SHIFT  12
-#define HEMEM_PTRS_PER_PTE  512
+#define ARMS_PGDIR_SHIFT 39
+#define ARMS_PTRS_PER_PGD  512
+#define ARMS_PUD_SHIFT   30
+#define ARMS_PTRS_PER_PUD  512
+#define ARMS_PMD_SHIFT   21
+#define ARMS_PTRS_PER_PMD  512
+#define ARMS_PAGE_SHIFT  12
+#define ARMS_PTRS_PER_PTE  512
 
 //#define EXAMINE_PGTABLES
 
@@ -66,5 +66,5 @@ void *examine_pagetables();
 
 #endif /*EXAMINE_PGTABLES*/
 
-#endif /* HEMEM_PAGING_H */
+#endif /* ARMS_PAGING_H */
 

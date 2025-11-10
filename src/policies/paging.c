@@ -18,7 +18,7 @@
 #include <stdint.h>
 #include <inttypes.h>
 
-#include "../hemem.h"
+#include "../arms.h"
 #include "../timer.h"
 #include "paging.h"
 #include "../interpose.h"
@@ -42,46 +42,46 @@ uint64_t* va_to_pa(uint64_t va)
   uint64_t pte_entry;
 
   pgd = (devmem_mmap + pt_base);
-  pgd_offset = (((va) >> HEMEM_PGDIR_SHIFT) & (HEMEM_PTRS_PER_PGD - 1));
+  pgd_offset = (((va) >> ARMS_PGDIR_SHIFT) & (ARMS_PTRS_PER_PGD - 1));
   assert(pgd_offset < PAGE_SIZE);
   pgd_entry = *(pgd + pgd_offset);
   LOG("pgd_entry: %lx\n", pgd_entry);
-  if (!((pgd_entry & HEMEM_PRESENT_FLAG) == HEMEM_PRESENT_FLAG)) {
-    LOG("hemem_va_to_pa: pgd not present: %016lx\n", pgd_entry);
+  if (!((pgd_entry & ARMS_PRESENT_FLAG) == ARMS_PRESENT_FLAG)) {
+    LOG("arms_va_to_pa: pgd not present: %016lx\n", pgd_entry);
     assert(0);
   }
 
   pud = (uint64_t*)(pgd_entry & ADDRESS_MASK);
-  pud_offset = (((va) >> HEMEM_PUD_SHIFT) & (HEMEM_PTRS_PER_PUD - 1));
+  pud_offset = (((va) >> ARMS_PUD_SHIFT) & (ARMS_PTRS_PER_PUD - 1));
   assert(pud_offset < PAGE_SIZE);
   pud_entry = *(pud + pud_offset);
   LOG("pud_entry: %lx\n", pud_entry);
-  if (!((pud_entry & HEMEM_PRESENT_FLAG) == HEMEM_PRESENT_FLAG)) {
-    LOG("hemem_va_to_pa: pud not present: %016lx\n", pud_entry);
+  if (!((pud_entry & ARMS_PRESENT_FLAG) == ARMS_PRESENT_FLAG)) {
+    LOG("arms_va_to_pa: pud not present: %016lx\n", pud_entry);
     assert(0);
   }
 
   pmd = (uint64_t*)(pud_entry & ADDRESS_MASK);
-  pmd_offset = (((va) >> HEMEM_PMD_SHIFT) & (HEMEM_PTRS_PER_PMD - 1));
+  pmd_offset = (((va) >> ARMS_PMD_SHIFT) & (ARMS_PTRS_PER_PMD - 1));
   assert(pmd_offset < PAGE_SIZE);
   pmd_entry = *(pmd + pmd_offset);
   LOG("pmd_entry: %lx\n", pmd_entry);
-  if (!((pmd_entry & HEMEM_PRESENT_FLAG) == HEMEM_PRESENT_FLAG)) {
-    LOG("hemem_va_to_pa: pmd not present: %016lx\n", pmd_entry);
+  if (!((pmd_entry & ARMS_PRESENT_FLAG) == ARMS_PRESENT_FLAG)) {
+    LOG("arms_va_to_pa: pmd not present: %016lx\n", pmd_entry);
     assert(0);
   }
 
-  if ((pmd_entry & HEMEM_HUGEPAGE_FLAG) == HEMEM_HUGEPAGE_FLAG) {
+  if ((pmd_entry & ARMS_HUGEPAGE_FLAG) == ARMS_HUGEPAGE_FLAG) {
     return pmd + pmd_offset;
   }
 
   pte = (uint64_t*)(pmd_entry & ADDRESS_MASK);
-  pte_offset = (((va) >> HEMEM_PAGE_SHIFT) & (HEMEM_PTRS_PER_PTE - 1));
+  pte_offset = (((va) >> ARMS_PAGE_SHIFT) & (ARMS_PTRS_PER_PTE - 1));
   assert(pte_offset < PAGE_SIZE);
   pte_entry = *(pte + pte_offset);
   LOG("pte_entry: %lx\n", pte_entry);
-  if (!((pte_entry & HEMEM_PRESENT_FLAG) == HEMEM_PRESENT_FLAG)) {
-    LOG("hemem_va_to_pa: pte not present: %016lx\n", pte_entry);
+  if (!((pte_entry & ARMS_PRESENT_FLAG) == ARMS_PRESENT_FLAG)) {
+    LOG("arms_va_to_pa: pte not present: %016lx\n", pte_entry);
     assert(0);
   }
 
@@ -105,49 +105,49 @@ void clear_bit(uint64_t va, uint64_t bit)
   uint64_t *pte_entry;
 
   pgd = (devmem_mmap + pt_base);  
-  pgd_offset = (((va) >> HEMEM_PGDIR_SHIFT) & (HEMEM_PTRS_PER_PGD - 1));
+  pgd_offset = (((va) >> ARMS_PGDIR_SHIFT) & (ARMS_PTRS_PER_PGD - 1));
   assert(pgd_offset < PAGE_SIZE);
   pgd_entry = (pgd + pgd_offset);
   LOG("pgd_entry: %lx\n", *pgd_entry);
-  if (!((*pgd_entry & HEMEM_PRESENT_FLAG) == HEMEM_PRESENT_FLAG)) {
+  if (!((*pgd_entry & ARMS_PRESENT_FLAG) == ARMS_PRESENT_FLAG)) {
     LOG("clear_bit: pgd not present: %016lx\n", *pgd_entry);
     //assert(0);
     return;
   }
 
   pud = (uint64_t*)(*pgd_entry & ADDRESS_MASK);
-  pud_offset = (((va) >> HEMEM_PUD_SHIFT) & (HEMEM_PTRS_PER_PUD - 1));
+  pud_offset = (((va) >> ARMS_PUD_SHIFT) & (ARMS_PTRS_PER_PUD - 1));
   assert(pud_offset < PAGE_SIZE);
   pud_entry = (pud + pud_offset);
   LOG("pud_entry: %lx\n", *pud_entry);
-  if (!((*pud_entry & HEMEM_PRESENT_FLAG) == HEMEM_PRESENT_FLAG)) {
+  if (!((*pud_entry & ARMS_PRESENT_FLAG) == ARMS_PRESENT_FLAG)) {
     LOG("clear_bit: pud not present: %016lx\n", *pud_entry);
     //assert(0);
     return;
   }
 
   pmd = (uint64_t*)(*pud_entry & ADDRESS_MASK);
-  pmd_offset = (((va) >> HEMEM_PMD_SHIFT) & (HEMEM_PTRS_PER_PMD - 1));
+  pmd_offset = (((va) >> ARMS_PMD_SHIFT) & (ARMS_PTRS_PER_PMD - 1));
   assert(pmd_offset < PAGE_SIZE);
   pmd_entry = (pmd + pmd_offset);
   LOG("pmd_entry: %lx\n", *pmd_entry);
-  if (!((*pmd_entry & HEMEM_PRESENT_FLAG) == HEMEM_PRESENT_FLAG)) {
+  if (!((*pmd_entry & ARMS_PRESENT_FLAG) == ARMS_PRESENT_FLAG)) {
     LOG("clear_bit: pmd not present: %016lx\n", *pmd_entry);
     //assert(0);
     return;
   }
 
-  if ((*pmd_entry & HEMEM_HUGEPAGE_FLAG) == HEMEM_HUGEPAGE_FLAG) {
+  if ((*pmd_entry & ARMS_HUGEPAGE_FLAG) == ARMS_HUGEPAGE_FLAG) {
     *pmd_entry = *pmd_entry & ~bit;
     return;
   }
 
   pte = (uint64_t*)(*pmd_entry & ADDRESS_MASK);
-  pte_offset = (((va) >> HEMEM_PAGE_SHIFT) & (HEMEM_PTRS_PER_PTE - 1));
+  pte_offset = (((va) >> ARMS_PAGE_SHIFT) & (ARMS_PTRS_PER_PTE - 1));
   assert(pte_offset < PAGE_SIZE);
   pte_entry = (pte + pte_offset);
   LOG("pte_entry: %lx\n", *pte_entry);
-  if (!((*pte_entry & HEMEM_PRESENT_FLAG) == HEMEM_PRESENT_FLAG)) {
+  if (!((*pte_entry & ARMS_PRESENT_FLAG) == ARMS_PRESENT_FLAG)) {
     LOG("clear_bit: pte not present: %016lx\n", *pte_entry);
     //assert(0);
     return;
@@ -173,48 +173,48 @@ uint64_t get_bit(uint64_t va, uint64_t bit)
   uint64_t *pte_entry;
 
   pgd = (devmem_mmap + pt_base);  
-  pgd_offset = (((va) >> HEMEM_PGDIR_SHIFT) & (HEMEM_PTRS_PER_PGD - 1));
+  pgd_offset = (((va) >> ARMS_PGDIR_SHIFT) & (ARMS_PTRS_PER_PGD - 1));
   assert(pgd_offset < PAGE_SIZE);
   pgd_entry = (pgd + pgd_offset);
   LOG("pgd_entry: %lx\n", *pgd_entry);
-  if (!((*pgd_entry & HEMEM_PRESENT_FLAG) == HEMEM_PRESENT_FLAG)) {
+  if (!((*pgd_entry & ARMS_PRESENT_FLAG) == ARMS_PRESENT_FLAG)) {
     LOG("set_bit: pgd not present: %016lx\n", *pgd_entry);
     //assert(0);
     return 0;
   }
 
   pud = (uint64_t*)(*pgd_entry & ADDRESS_MASK);
-  pud_offset = (((va) >> HEMEM_PUD_SHIFT) & (HEMEM_PTRS_PER_PUD - 1));
+  pud_offset = (((va) >> ARMS_PUD_SHIFT) & (ARMS_PTRS_PER_PUD - 1));
   assert(pud_offset < PAGE_SIZE);
   pud_entry = (pud + pud_offset);
   LOG("pud_entry: %lx\n", *pud_entry);
-  if (!((*pud_entry & HEMEM_PRESENT_FLAG) == HEMEM_PRESENT_FLAG)) {
+  if (!((*pud_entry & ARMS_PRESENT_FLAG) == ARMS_PRESENT_FLAG)) {
     LOG("set_bit: pud not present: %016lx\n", *pud_entry);
     //assert(0);
     return 0;
   }
 
   pmd = (uint64_t*)(*pud_entry & ADDRESS_MASK);
-  pmd_offset = (((va) >> HEMEM_PMD_SHIFT) & (HEMEM_PTRS_PER_PMD - 1));
+  pmd_offset = (((va) >> ARMS_PMD_SHIFT) & (ARMS_PTRS_PER_PMD - 1));
   assert(pmd_offset < PAGE_SIZE);
   pmd_entry = (pmd + pmd_offset);
   LOG("pmd_entry: %lx\n", *pmd_entry);
-  if (!((*pmd_entry & HEMEM_PRESENT_FLAG) == HEMEM_PRESENT_FLAG)) {
+  if (!((*pmd_entry & ARMS_PRESENT_FLAG) == ARMS_PRESENT_FLAG)) {
     LOG("set_bit: pmd not present: %016lx\n", *pmd_entry);
     //assert(0);
     return 0;
   }
 
-  if ((*pmd_entry & HEMEM_HUGEPAGE_FLAG) == HEMEM_HUGEPAGE_FLAG) {
+  if ((*pmd_entry & ARMS_HUGEPAGE_FLAG) == ARMS_HUGEPAGE_FLAG) {
     return *pmd_entry & bit;
   }
 
   pte = (uint64_t*)(*pmd_entry & ADDRESS_MASK);
-  pte_offset = (((va) >> HEMEM_PAGE_SHIFT) & (HEMEM_PTRS_PER_PTE - 1));
+  pte_offset = (((va) >> ARMS_PAGE_SHIFT) & (ARMS_PTRS_PER_PTE - 1));
   assert(pte_offset < PAGE_SIZE);
   pte_entry = (pte + pte_offset);
   LOG("pte_entry: %lx\n", *pte_entry);
-  if (!((*pte_entry & HEMEM_PRESENT_FLAG) == HEMEM_PRESENT_FLAG)) {
+  if (!((*pte_entry & ARMS_PRESENT_FLAG) == ARMS_PRESENT_FLAG)) {
     LOG("set_bit: pte not present: %016lx\n", *pte_entry);
     //assert(0);
     return 0;
@@ -226,25 +226,25 @@ uint64_t get_bit(uint64_t va, uint64_t bit)
 
 void clear_accessed_bit(uint64_t va)
 {
-  clear_bit(va, HEMEM_ACCESSED_FLAG);
+  clear_bit(va, ARMS_ACCESSED_FLAG);
 }
 
 
 uint64_t get_accessed_bit(uint64_t va)
 {
-  return get_bit(va, HEMEM_ACCESSED_FLAG);
+  return get_bit(va, ARMS_ACCESSED_FLAG);
 }
 
 
 void clear_dirty_bit(uint64_t va)
 {
-  clear_bit(va, HEMEM_DIRTY_FLAG);
+  clear_bit(va, ARMS_DIRTY_FLAG);
 }
 
 
 uint64_t get_dirty_bit(uint64_t va)
 {
-  return get_bit(va, HEMEM_DIRTY_FLAG);
+  return get_bit(va, ARMS_DIRTY_FLAG);
 }
 
 #endif
@@ -268,8 +268,8 @@ void scan_fourth_level(uint64_t pde, bool clear_flag, uint64_t flag)
     pte = *pte_ptr;
     fprintf(ptes, "%016lx\n", pte);
 
-    if (((pte & FLAGS_MASK) & HEMEM_PAGE_WALK_FLAGS) == HEMEM_PAGE_WALK_FLAGS) {
-      if (((pte & FLAGS_MASK) & HEMEM_PWTPCD_FLAGS) == 0) {
+    if (((pte & FLAGS_MASK) & ARMS_PAGE_WALK_FLAGS) == ARMS_PAGE_WALK_FLAGS) {
+      if (((pte & FLAGS_MASK) & ARMS_PWTPCD_FLAGS) == 0) {
         fprintf(valid, "pte[%x]:   %016lx\n", i, pte);
 
         if (clear_flag) {
@@ -302,8 +302,8 @@ void scan_third_level(uint64_t pdtpe, bool clear_flag, uint64_t flag)
     pde = *pde_ptr;
     fprintf(pdes, "%016lx\n", pde);
 
-    if (((pde & FLAGS_MASK) & HEMEM_PAGE_WALK_FLAGS) == HEMEM_PAGE_WALK_FLAGS) {
-      if (((pde & FLAGS_MASK) & HEMEM_PWTPCD_FLAGS) == 0) {
+    if (((pde & FLAGS_MASK) & ARMS_PAGE_WALK_FLAGS) == ARMS_PAGE_WALK_FLAGS) {
+      if (((pde & FLAGS_MASK) & ARMS_PWTPCD_FLAGS) == 0) {
         fprintf(valid, "pde[%x]:   %016lx\n", i, pde);
         scan_fourth_level(pde, clear_flag, flag);
       }
@@ -333,8 +333,8 @@ void scan_second_level(uint64_t pml4e, bool clear_flag, uint64_t flag)
     pdtpe = *pdtpe_ptr;
     fprintf(pdtpes, "%016lx\n", pdtpe);
 
-    if (((pdtpe & FLAGS_MASK) & HEMEM_PAGE_WALK_FLAGS) == HEMEM_PAGE_WALK_FLAGS) {
-      if (((pdtpe & FLAGS_MASK) & HEMEM_PWTPCD_FLAGS) == 0) {
+    if (((pdtpe & FLAGS_MASK) & ARMS_PAGE_WALK_FLAGS) == ARMS_PAGE_WALK_FLAGS) {
+      if (((pdtpe & FLAGS_MASK) & ARMS_PWTPCD_FLAGS) == 0) {
         fprintf(valid, "pdtpe[%x]: %016lx\n", i, pdtpe);
         scan_third_level(pdtpe, clear_flag, flag);
       }
@@ -394,8 +394,8 @@ void _scan_pagetable(bool clear_flag, uint64_t flag)
     pml4e = *pml4e_ptr;
     fprintf(pml4es, "%016lx\n", pml4e);
 
-    if (((pml4e & FLAGS_MASK) & HEMEM_PAGE_WALK_FLAGS) == HEMEM_PAGE_WALK_FLAGS) {
-      if (((pml4e & FLAGS_MASK) & HEMEM_PWTPCD_FLAGS) == 0) {
+    if (((pml4e & FLAGS_MASK) & ARMS_PAGE_WALK_FLAGS) == ARMS_PAGE_WALK_FLAGS) {
+      if (((pml4e & FLAGS_MASK) & ARMS_PWTPCD_FLAGS) == 0) {
         fprintf(valid, "pml4e[%x]: %016lx\n", i, pml4e);
         scan_second_level(pml4e, clear_flag, flag); 
       }

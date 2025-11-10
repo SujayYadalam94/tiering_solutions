@@ -1,5 +1,5 @@
-#ifndef HEMEM_H
-#define HEMEM_H
+#ifndef ARMS_H
+#define ARMS_H
 
 #include <pthread.h>
 #include <stdint.h>
@@ -51,7 +51,7 @@ extern "C" {
 #endif
 
 
-//#define HEMEM_DEBUG
+//#define ARMS_DEBUG
 #define STATS_THREAD
 
 #define USE_DMA
@@ -90,9 +90,9 @@ extern char* nvmpath;
 #define HUGE_PFN_MASK	(HUGEPAGE_MASK ^ UINT64_MAX)
 #define GIGA_PFN_MASK   (GIGAPAGE_MASK ^ UINT64_MAX)
 
-extern FILE *hememlogf;
+extern FILE *armslogf;
 //#define LOG(...) fprintf(stderr, __VA_ARGS__)
-//#define LOG(...)	fprintf(hememlogf, __VA_ARGS__)
+//#define LOG(...)	fprintf(armslogf, __VA_ARGS__)
 #define LOG(str, ...) while(0) {}
 
 extern FILE *timef;
@@ -118,7 +118,7 @@ extern FILE *statsf;
 //#define LOG_STATS(str, ...) fprintf(statsf, str, __VA_ARGS__)
 //#define LOG_STATS(str, ...) while (0) {}
 
-#if defined (ALLOC_HEMEM)
+#if defined (ALLOC_ARMS)
   #define pagefault(...) pebs_pagefault(__VA_ARGS__)
   #define paging_init(...) pebs_init(__VA_ARGS__)
   #define mmgr_add(...) pebs_add_page(__VA_ARGS__)
@@ -169,7 +169,7 @@ enum pagetypes {
   NPAGETYPES
 };
 
-struct hemem_page {
+struct arms_page {
   uint64_t va;
   uint64_t devdax_offset;
   bool in_dram;
@@ -190,15 +190,15 @@ struct hemem_page {
   uint16_t hot_age;
   bool can_promote;
 
-  struct hemem_page *next, *prev;
+  struct arms_page *next, *prev;
   struct fifo_list *list;
 };
-static_assert(sizeof(struct hemem_page) == 128);
+static_assert(sizeof(struct arms_page) == 128);
 
 struct migration_req {
-  struct hemem_page *dram_page;
-  struct hemem_page *nvm_page;
-  struct hemem_page *free_page;
+  struct arms_page *dram_page;
+  struct arms_page *nvm_page;
+  struct arms_page *free_page;
   bool need_demotion;
 
   struct migration_req *next, *prev;
@@ -223,34 +223,34 @@ static inline enum pagetypes pagesize_to_pt(uint64_t pagesize)
   }
 }
 
-void hemem_init();
-void hemem_stop();
-void* hemem_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset);
-int hemem_munmap(void* addr, size_t length);
+void arms_init();
+void arms_stop();
+void* arms_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset);
+int arms_munmap(void* addr, size_t length);
 void *handle_fault();
-void hemem_migrate_up(struct hemem_page *page, uint64_t dram_offset);
-void hemem_migrate_down(struct hemem_page *page, uint64_t nvm_offset);
-void hemem_wp_page(struct hemem_page *page, bool protect);
-void hemem_promote_pages(uint64_t addr);
-void hemem_demote_pages(uint64_t addr);
+void arms_migrate_up(struct arms_page *page, uint64_t dram_offset);
+void arms_migrate_down(struct arms_page *page, uint64_t nvm_offset);
+void arms_wp_page(struct arms_page *page, bool protect);
+void arms_promote_pages(uint64_t addr);
+void arms_demote_pages(uint64_t addr);
 
 #ifdef ALLOC_LRU
-void hemem_clear_bits(struct hemem_page *page);
-uint64_t hemem_get_bits(struct hemem_page *page);
-void hemem_tlb_shootdown(uint64_t va);
+void arms_clear_bits(struct arms_page *page);
+uint64_t arms_get_bits(struct arms_page *page);
+void arms_tlb_shootdown(uint64_t va);
 #endif
 
 // Commented out because -- identical to find_page(uint64_t va)
-//struct hemem_page* get_hemem_page(uint64_t va);
+//struct arms_page* get_arms_page(uint64_t va);
 
-void hemem_print_stats();
-void hemem_clear_stats();
+void arms_print_stats();
+void arms_clear_stats();
 
-void hemem_start_timing(void);
-void hemem_stop_timing(void);
+void arms_start_timing(void);
+void arms_stop_timing(void);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* HEMEM_H */
+#endif /* ARMS_H */

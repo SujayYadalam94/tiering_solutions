@@ -1,10 +1,10 @@
 #include <pthread.h>
 #include <stdlib.h>
 
-#include "hemem.h"
+#include "arms.h"
 #include "fifo.h"
 
-void enqueue_fifo(struct fifo_list *queue, struct hemem_page *entry)
+void enqueue_fifo(struct fifo_list *queue, struct arms_page *entry)
 {
   pthread_mutex_lock(&(queue->list_lock));
   assert(entry->prev == NULL);
@@ -24,10 +24,10 @@ void enqueue_fifo(struct fifo_list *queue, struct hemem_page *entry)
   pthread_mutex_unlock(&(queue->list_lock));
 }
 
-struct hemem_page *dequeue_fifo(struct fifo_list *queue)
+struct arms_page *dequeue_fifo(struct fifo_list *queue)
 {
   pthread_mutex_lock(&(queue->list_lock));
-  struct hemem_page *ret = queue->last;
+  struct arms_page *ret = queue->last;
 
   if(ret == NULL) {
     //assert(queue->numentries == 0);
@@ -51,7 +51,7 @@ struct hemem_page *dequeue_fifo(struct fifo_list *queue)
   return ret;
 }
 
-void page_list_remove_page(struct fifo_list *list, struct hemem_page *page)
+void page_list_remove_page(struct fifo_list *list, struct arms_page *page)
 {
   pthread_mutex_lock(&(list->list_lock));
   if (list->first == NULL) {
@@ -86,7 +86,7 @@ void page_list_remove_page(struct fifo_list *list, struct hemem_page *page)
   pthread_mutex_unlock(&(list->list_lock));
 }
 
-void next_page(struct fifo_list *list, struct hemem_page *page, struct hemem_page **next_page)
+void next_page(struct fifo_list *list, struct arms_page *page, struct arms_page **next_page)
 {
     pthread_mutex_lock(&(list->list_lock));
     if (page == NULL) {

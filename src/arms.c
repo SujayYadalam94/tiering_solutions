@@ -21,7 +21,7 @@
 #include <stdbool.h>
 #include <sched.h>
 
-#include "hemem.h"
+#include "arms.h"
 #include "pebs.h"
 #include "spsc-ring.h"
 #include "timer.h"
@@ -65,7 +65,7 @@ uint64_t migration_waits = 0;
 static bool cr3_set = false;
 uint64_t cr3 = 0;
 
-FILE* hememlogf;
+FILE* armslogf;
 FILE* statsf;
 FILE* timef;
 
@@ -92,7 +92,7 @@ struct pmemcpy {
 
 static struct pmemcpy pmemcpy;
 
-void *hemem_parallel_memcpy_thread(void *arg)
+void *arms_parallel_memcpy_thread(void *arg)
 {
   uint64_t tid = (uint64_t)arg;
   void *src;
@@ -123,7 +123,7 @@ void *hemem_parallel_memcpy_thread(void *arg)
       memset(dst, 0, chunk_size);
     }
 
-#ifdef HEMEM_DEBUG
+#ifdef ARMS_DEBUG
     uint64_t *tmp1, *tmp2, i;
     tmp1 = dst;
     tmp2 = src;
@@ -145,7 +145,7 @@ void *hemem_parallel_memcpy_thread(void *arg)
 }
 #endif
 
-static void *hemem_stats_thread()
+static void *arms_stats_thread()
 {
   cpu_set_t cpuset;
   pthread_t thread;
@@ -162,14 +162,14 @@ static void *hemem_stats_thread()
   for (;;) {
     sleep(1);
 
-    hemem_print_stats();
-    // hemem_clear_stats();
+    arms_print_stats();
+    // arms_clear_stats();
   }
   return NULL;
 }
 
 
-void hemem_init()
+void arms_init()
 {
   struct uffdio_api uffdio_api;
 #ifdef USE_DMA
@@ -187,13 +187,13 @@ void hemem_init()
   }
 */
 
-  hememlogf = fopen("logs.txt", "w+");
-  if (hememlogf == NULL) {
+  armslogf = fopen("logs.txt", "w+");
+  if (armslogf == NULL) {
     perror("log file open\n");
     assert(0);
   }
 
-  LOG("hemem_init: started\n");
+  LOG("arms_init: started\n");
 
   drampath = getenv("DRAMPATH");
   if(drampath == NULL) {
@@ -295,13 +295,13 @@ void hemem_init()
   assert(r == 0);
 
   for (i = 0; i < MAX_COPY_THREADS; i++) {
-    s = pthread_create(&copy_threads[i], NULL, hemem_parallel_memcpy_thread, (void*)i);
+    s = pthread_create(&copy_threads[i], NULL, arms_parallel_memcpy_thread, (void*)i);
     assert(s == 0);
   }
 #endif
 
 #ifdef STATS_THREAD
-  s = pthread_create(&stats_thread, NULL, hemem_stats_thread, NULL);
+  s = pthread_create(&stats_thread, NULL, arms_stats_thread, NULL);
   assert(s == 0);
 #endif
 
@@ -309,7 +309,7 @@ void hemem_init()
 
   is_init = true;
 
-  //struct hemem_page *dummy_page = calloc(1, sizeof(struct hemem_page));
+  //struct arms_page *dummy_page = calloc(1, sizeof(struct arms_page));
   //mmgr_add(dummy_page);
 
 #ifdef USE_DMA
@@ -321,13 +321,13 @@ void hemem_init()
   }
 #endif
 
-  LOG("hemem_init: finished\n");
+  LOG("arms_init: finished\n");
 
   internal_call = false;
 }
 
 
-void hemem_stop()
+void arms_stop()
 {
 #ifdef USE_DMA
   struct uffdio_dma_channs uffdio_dma_channs;
@@ -341,11 +341,11 @@ void hemem_stop()
 
   policy_shutdown();
 
-  hemem_print_stats();
+  arms_print_stats();
 }
 
 #ifndef USE_DMA
-static void hemem_parallel_memset(void* addr, int c, size_t n)
+static void arms_parallel_memset(void* addr, int c, size_t n)
 {
   pthread_mutex_lock(&(pmemcpy.lock));
   pmemcpy.dst = addr;
@@ -362,13 +362,13 @@ static void hemem_parallel_memset(void* addr, int c, size_t n)
 }
 #endif
 
-static void hemem_mmap_populate(void* addr, size_t length)
+static void arms_mmap_populate(void* addr, size_t length)
 {
   // Page mising fault case - probably the first touch case
   // allocate in DRAM via LRU
   void* newptr;
   uint64_t offset;
-  struct hemem_page *page;
+  struct arms_page *page;
   bool in_dram;
   uint64_t page_boundry;
   void* tmpaddr;
@@ -388,7 +388,7 @@ static void hemem_mmap_populate(void* addr, size_t length)
 
     tmpaddr = (in_dram ? dram_devdax_mmap + offset : nvm_devdax_mmap + offset);
 #ifndef USE_DMA
-    hemem_parallel_memset(tmpaddr, 0, pagesize);
+    arms_parallel_memset(tmpaddr, 0, pagesize);
 #else
     memset(tmpaddr, 0, pagesize);
 #endif
@@ -403,7 +403,7 @@ static void hemem_mmap_populate(void* addr, size_t length)
     }
 
     if (newptr != (void*)page_boundry) {
-      fprintf(stderr, "hemem: mmap populate: warning, newptr != page boundry\n");
+      fprintf(stderr, "arms: mmap populate: warning, newptr != page boundry\n");
     }
 
     // re-register new mmap region with userfaultfd
@@ -423,14 +423,14 @@ static void hemem_mmap_populate(void* addr, size_t length)
     assert(page->va % HUGEPAGE_SIZE == 0);
     page->migrating = false;
     //page->migrations_up = page->migrations_down = 0;
-    //page->pa = hemem_va_to_pa(page);
+    //page->pa = arms_va_to_pa(page);
 
     pthread_mutex_init(&(page->page_lock), NULL);
 
     mem_allocated += pagesize;
     pages_allocated++;
 
-    // place in hemem's page tracking list
+    // place in arms's page tracking list
     mmgr_add(page);
     page_boundry += pagesize;
   }
@@ -439,7 +439,7 @@ static void hemem_mmap_populate(void* addr, size_t length)
 
 #define PAGE_ROUND_UP(x) (((x) + (HUGEPAGE_SIZE)-1) & (~((HUGEPAGE_SIZE)-1)))
 
-void* hemem_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset)
+void* arms_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset)
 {
   void *p;
   struct uffdio_cr3 uffdio_cr3;
@@ -452,17 +452,17 @@ void* hemem_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t o
   if ((flags & MAP_PRIVATE) == MAP_PRIVATE) {
     flags &= ~MAP_PRIVATE;
     flags |= MAP_SHARED;
-    LOG("hemem_mmap: changed flags to MAP_SHARED\n");
+    LOG("arms_mmap: changed flags to MAP_SHARED\n");
   }
 
   if ((flags & MAP_ANONYMOUS) == MAP_ANONYMOUS) {
     flags &= ~MAP_ANONYMOUS;
-    LOG("hemem_mmap: unset MAP_ANONYMOUS\n");
+    LOG("arms_mmap: unset MAP_ANONYMOUS\n");
   }
 
   if ((flags & MAP_HUGETLB) == MAP_HUGETLB) {
     flags &= ~MAP_HUGETLB;
-    LOG("hemem_mmap: unset MAP_HUGETLB\n");
+    LOG("arms_mmap: unset MAP_HUGETLB\n");
   }
 
   // reserve block of memory
@@ -495,7 +495,7 @@ void* hemem_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t o
 
 
   if ((flags & MAP_POPULATE) == MAP_POPULATE) {
-    hemem_mmap_populate(p, length);
+    arms_mmap_populate(p, length);
   }
 
   mem_mmaped = length;
@@ -506,10 +506,10 @@ void* hemem_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t o
 }
 
 
-int hemem_munmap(void* addr, size_t length)
+int arms_munmap(void* addr, size_t length)
 {
   uint64_t page_boundry;
-  struct hemem_page *page;
+  struct arms_page *page;
   int ret;
 
   internal_call = true;
@@ -519,7 +519,7 @@ int hemem_munmap(void* addr, size_t length)
 
   // for each page in region specified...
   for (page_boundry = (uint64_t)addr; page_boundry < (uint64_t)addr + length;) {
-    // find the page in hemem's trackign list
+    // find the page in arms's trackign list
     page = mmgr_find(page_boundry);
     if (page != NULL) {
       //remove_page(page);
@@ -534,7 +534,7 @@ int hemem_munmap(void* addr, size_t length)
     }
     else {
       // TODO: deal with holes?
-      //LOG("hemem_mmunmap: no page to umnap\n");
+      //LOG("arms_mmunmap: no page to umnap\n");
       //assert(0);
       page_boundry += BASEPAGE_SIZE;
     }
@@ -549,7 +549,7 @@ int hemem_munmap(void* addr, size_t length)
 }
 
 #ifndef USE_DMA
-static void hemem_parallel_memcpy(void *dst, void *src, size_t length)
+static void arms_parallel_memcpy(void *dst, void *src, size_t length)
 {
   /* uint64_t i; */
   /* bool all_threads_done; */
@@ -589,7 +589,7 @@ static void hemem_parallel_memcpy(void *dst, void *src, size_t length)
 }
 #endif
 
-void hemem_migrate_up(struct hemem_page *page, uint64_t dram_offset)
+void arms_migrate_up(struct arms_page *page, uint64_t dram_offset)
 {
   void *old_addr;
   void *new_addr;
@@ -606,7 +606,7 @@ void hemem_migrate_up(struct hemem_page *page, uint64_t dram_offset)
 
   assert(!page->in_dram);
 
-  //LOG("hemem_migrate_up: migrate down addr: %lx pte: %lx\n", page->va, hemem_va_to_pa(page->va));
+  //LOG("arms_migrate_up: migrate down addr: %lx pte: %lx\n", page->va, arms_va_to_pa(page->va));
 
   gettimeofday(&migrate_start, NULL);
 
@@ -635,21 +635,21 @@ void hemem_migrate_up(struct hemem_page *page, uint64_t dram_offset)
   uffdio_dma_copy.mode = 0;
   uffdio_dma_copy.copy = 0;
   if (ioctl(uffd, UFFDIO_DMA_COPY, &uffdio_dma_copy) == -1) {
-    LOG("hemem_migrate_up, ioctl dma_copy fails for src:%lx, dst:%lx\n", (uint64_t)old_addr, (uint64_t)new_addr);
+    LOG("arms_migrate_up, ioctl dma_copy fails for src:%lx, dst:%lx\n", (uint64_t)old_addr, (uint64_t)new_addr);
     assert(false);
   }
 #else
-  hemem_parallel_memcpy(new_addr, old_addr, pagesize);
+  arms_parallel_memcpy(new_addr, old_addr, pagesize);
 #endif
   gettimeofday(&end, NULL);
   LOG_TIME("memcpy_to_dram: %f s\n", elapsed(&start, &end));
 
-#ifdef HEMEM_DEBUG
+#ifdef ARMS_DEBUG
   uint64_t* src = (uint64_t*)old_addr;
   uint64_t* dst = (uint64_t*)new_addr;
   for (int i = 0; i < (pagesize / sizeof(uint64_t)); i++) {
     if (dst[i] != src[i]) {
-      LOG("hemem_migrate_up: dst[%d] = %lu != src[%d] = %lu\n", i, dst[i], i, src[i]);
+      LOG("arms_migrate_up: dst[%d] = %lu != src[%d] = %lu\n", i, dst[i], i, src[i]);
       assert(dst[i] == src[i]);
     }
   }
@@ -688,24 +688,24 @@ void hemem_migrate_up(struct hemem_page *page, uint64_t dram_offset)
 
   page->devdax_offset = dram_offset;
   page->in_dram = true;
-  //page->pa = hemem_va_to_pa(page);
+  //page->pa = arms_va_to_pa(page);
 
 #ifdef ALLOC_LRU
-  hemem_tlb_shootdown(page->va);
+  arms_tlb_shootdown(page->va);
 #endif
 
   bytes_migrated += pagesize;
 
-  //LOG("hemem_migrate_up: new pte: %lx\n", hemem_va_to_pa(page->va));
+  //LOG("arms_migrate_up: new pte: %lx\n", arms_va_to_pa(page->va));
 
   gettimeofday(&migrate_end, NULL);
-  LOG_TIME("hemem_migrate_up: %f s\n", elapsed(&migrate_start, &migrate_end));
+  LOG_TIME("arms_migrate_up: %f s\n", elapsed(&migrate_start, &migrate_end));
 
   internal_call = false;
 }
 
 
-void hemem_migrate_down(struct hemem_page *page, uint64_t nvm_offset)
+void arms_migrate_down(struct arms_page *page, uint64_t nvm_offset)
 {
   void *old_addr;
   void *new_addr;
@@ -722,7 +722,7 @@ void hemem_migrate_down(struct hemem_page *page, uint64_t nvm_offset)
 
   assert(page->in_dram);
 
-  //LOG("hemem_migrate_down: migrate down addr: %lx pte: %lx\n", page->va, hemem_va_to_pa(page->va));
+  //LOG("arms_migrate_down: migrate down addr: %lx pte: %lx\n", page->va, arms_va_to_pa(page->va));
 
   gettimeofday(&migrate_start, NULL);
 
@@ -750,21 +750,21 @@ void hemem_migrate_down(struct hemem_page *page, uint64_t nvm_offset)
   uffdio_dma_copy.mode = 0;
   uffdio_dma_copy.copy = 0;
   if (ioctl(uffd, UFFDIO_DMA_COPY, &uffdio_dma_copy) == -1) {
-    LOG("hemem_migrate_down, ioctl dma_copy fails for src:%lx, dst:%lx\n", (uint64_t)old_addr, (uint64_t)new_addr);
+    LOG("arms_migrate_down, ioctl dma_copy fails for src:%lx, dst:%lx\n", (uint64_t)old_addr, (uint64_t)new_addr);
     assert(false);
   }
 #else
-  hemem_parallel_memcpy(new_addr, old_addr, pagesize);
+  arms_parallel_memcpy(new_addr, old_addr, pagesize);
 #endif
   gettimeofday(&end, NULL);
   LOG_TIME("memcpy_to_nvm: %f s\n", elapsed(&start, &end));
 
-#ifdef HEMEM_DEBUG
+#ifdef ARMS_DEBUG
   uint64_t* src = (uint64_t*)old_addr;
   uint64_t* dst = (uint64_t*)new_addr;
   for (int i = 0; i < (pagesize / sizeof(uint64_t)); i++) {
     if (dst[i] != src[i]) {
-      LOG("hemem_migrate_down: dst[%d] = %lu != src[%d] = %lu\n", i, dst[i], i, src[i]);
+      LOG("arms_migrate_down: dst[%d] = %lu != src[%d] = %lu\n", i, dst[i], i, src[i]);
       assert(dst[i] == src[i]);
     }
   }
@@ -802,23 +802,23 @@ void hemem_migrate_down(struct hemem_page *page, uint64_t nvm_offset)
 
   page->devdax_offset = nvm_offset;
   page->in_dram = false;
-  //page->pa = hemem_va_to_pa(page);
+  //page->pa = arms_va_to_pa(page);
 
 #ifdef ALLOC_LRU
-  hemem_tlb_shootdown(page->va);
+  arms_tlb_shootdown(page->va);
 #endif
 
   bytes_migrated += pagesize;
 
-  //LOG("hemem_migrate_down: new pte: %lx\n", hemem_va_to_pa(page->va));
+  //LOG("arms_migrate_down: new pte: %lx\n", arms_va_to_pa(page->va));
 
   gettimeofday(&migrate_end, NULL);
-  LOG_TIME("hemem_migrate_down: %f s\n", elapsed(&migrate_start, &migrate_end));
+  LOG_TIME("arms_migrate_down: %f s\n", elapsed(&migrate_start, &migrate_end));
 
   internal_call = false;
 }
 
-void hemem_wp_page(struct hemem_page *page, bool protect)
+void arms_wp_page(struct arms_page *page, bool protect)
 {
   uint64_t addr = page->va;
   struct uffdio_writeprotect wp;
@@ -828,7 +828,7 @@ void hemem_wp_page(struct hemem_page *page, bool protect)
 
   internal_call = true;
 
-  //LOG("hemem_wp_page: wp addr %lx pte: %lx\n", addr, hemem_va_to_pa(addr));
+  //LOG("arms_wp_page: wp addr %lx pte: %lx\n", addr, arms_va_to_pa(addr));
 
   assert(addr != 0);
   assert(addr % HUGEPAGE_SIZE == 0);
@@ -853,7 +853,7 @@ void hemem_wp_page(struct hemem_page *page, bool protect)
 
 void handle_wp_fault(uint64_t page_boundry)
 {
-  struct hemem_page *page;
+  struct arms_page *page;
 
   internal_call = true;
 
@@ -862,7 +862,7 @@ void handle_wp_fault(uint64_t page_boundry)
 
   migration_waits++;
 
-  LOG("hemem: handle_wp_fault: waiting for migration for page %lx\n", page_boundry);
+  LOG("arms: handle_wp_fault: waiting for migration for page %lx\n", page_boundry);
 
   while (page->migrating);
   internal_call = false;
@@ -876,7 +876,7 @@ void handle_missing_fault(uint64_t page_boundry)
   void* newptr;
   struct timeval missing_start, missing_end;
   struct timeval start, end;
-  struct hemem_page *page;
+  struct arms_page *page;
   uint64_t offset;
   void* tmp_offset;
   bool in_dram;
@@ -891,7 +891,7 @@ void handle_missing_fault(uint64_t page_boundry)
   page = find_page(page_boundry);
   if (page != NULL) {
     // if yes, must have unmapped it for migration, wait for migration to finish
-    LOG("hemem: encountered a page in the middle of migration, waiting\n");
+    LOG("arms: encountered a page in the middle of migration, waiting\n");
     handle_wp_fault(page_boundry);
     return;
   }
@@ -916,11 +916,11 @@ void handle_missing_fault(uint64_t page_boundry)
 #ifdef USE_DMA
   memset(tmp_offset, 0, pagesize);
 #else
-  hemem_parallel_memset(tmp_offset, 0, pagesize);
+  arms_parallel_memset(tmp_offset, 0, pagesize);
 #endif
   memsets++;
 
-#ifdef HEMEM_DEBUG
+#ifdef ARMS_DEBUG
   char* tmp = (char*)tmp_offset;
   for (int i = 0; i < pagesize; i++) {
     assert(tmp[i] == 0);
@@ -936,7 +936,7 @@ void handle_missing_fault(uint64_t page_boundry)
     /* free(page); */
     assert(0);
   }
-  LOG("hemem: mmaping at %p\n", newptr);
+  LOG("arms: mmaping at %p\n", newptr);
   if(newptr != (void *)page_boundry) {
     fprintf(stderr, "Not mapped where expected (%p != %p)\n", newptr, (void *)page_boundry);
     assert(0);
@@ -964,19 +964,19 @@ void handle_missing_fault(uint64_t page_boundry)
   assert(page->va % HUGEPAGE_SIZE == 0);
   page->migrating = false;
   //page->migrations_up = page->migrations_down = 0;
-  //page->pa = hemem_va_to_pa(page);
+  //page->pa = arms_va_to_pa(page);
 
   mem_allocated += pagesize;
 
-  //LOG("hemem_missing_fault: va: %lx assigned to %s frame %lu  pte: %lx\n", page->va, (in_dram ? "DRAM" : "NVM"), page->devdax_offset / pagesize, hemem_va_to_pa(page->va));
+  //LOG("arms_missing_fault: va: %lx assigned to %s frame %lu  pte: %lx\n", page->va, (in_dram ? "DRAM" : "NVM"), page->devdax_offset / pagesize, arms_va_to_pa(page->va));
 
-  // place in hemem's page tracking list
+  // place in arms's page tracking list
   mmgr_add(page);
 
   missing_faults_handled++;
   pages_allocated++;
   gettimeofday(&missing_end, NULL);
-  LOG_TIME("hemem_missing_fault: %f s\n", elapsed(&missing_start, &missing_end));
+  LOG_TIME("arms_missing_fault: %f s\n", elapsed(&missing_start, &missing_end));
 
   internal_call = false;
 }
@@ -1104,7 +1104,7 @@ void *handle_fault()
 }
 
 #ifdef ALLOC_LRU
-void hemem_tlb_shootdown(uint64_t va)
+void arms_tlb_shootdown(uint64_t va)
 {
   uint64_t page_boundry = va & ~(PAGE_SIZE - 1);
   struct uffdio_range range;
@@ -1122,15 +1122,15 @@ void hemem_tlb_shootdown(uint64_t va)
 #endif
 
 #ifdef ALLOC_LRU
-void hemem_clear_bits(struct hemem_page *page)
+void arms_clear_bits(struct arms_page *page)
 {
   uint64_t ret;
   struct uffdio_page_flags page_flags;
 
   page_flags.va = page->va;
   assert(page_flags.va % HUGEPAGE_SIZE == 0);
-  page_flags.flag1 = HEMEM_ACCESSED_FLAG;
-  page_flags.flag2 = HEMEM_DIRTY_FLAG;
+  page_flags.flag1 = ARMS_ACCESSED_FLAG;
+  page_flags.flag2 = ARMS_DIRTY_FLAG;
 
   if (ioctl(uffd, UFFDIO_CLEAR_FLAG, &page_flags) < 0) {
     fprintf(stderr, "userfaultfd_clear_flag returned < 0\n");
@@ -1139,21 +1139,21 @@ void hemem_clear_bits(struct hemem_page *page)
 
   ret = page_flags.res1;
   if (ret == 0) {
-    LOG("hemem_clear_accessed_bit: accessed bit not cleared\n");
+    LOG("arms_clear_accessed_bit: accessed bit not cleared\n");
   }
 }
 #endif
 
 #ifdef ALLOC_LRU
-uint64_t hemem_get_bits(struct hemem_page *page)
+uint64_t arms_get_bits(struct arms_page *page)
 {
   uint64_t ret;
   struct uffdio_page_flags page_flags;
 
   page_flags.va = page->va;
   assert(page_flags.va % HUGEPAGE_SIZE == 0);
-  page_flags.flag1 = HEMEM_ACCESSED_FLAG;
-  page_flags.flag2 = HEMEM_DIRTY_FLAG;
+  page_flags.flag1 = ARMS_ACCESSED_FLAG;
+  page_flags.flag2 = ARMS_DIRTY_FLAG;
 
   if (ioctl(uffd, UFFDIO_GET_FLAG, &page_flags) < 0) {
     fprintf(stderr, "userfaultfd_get_flag returned < 0\n");
@@ -1166,7 +1166,7 @@ uint64_t hemem_get_bits(struct hemem_page *page)
 }
 #endif
 
-void hemem_print_stats()
+void arms_print_stats()
 {
   LOG_STATS("mem_allocated: [%lu]\tdram_small_allocation_bytes: [%lu]\tpages_allocated: [%lu]\tmissing_faults_handled: [%lu]\tbytes_migrated: [%lu]\tmigrations_up: [%lu]\tmigrations_down: [%lu]\tmigration_waits: [%lu]\n",
                mem_allocated,
@@ -1181,7 +1181,7 @@ void hemem_print_stats()
 }
 
 
-void hemem_clear_stats()
+void arms_clear_stats()
 {
   pages_allocated = 0;
   pages_freed = 0;
@@ -1191,17 +1191,17 @@ void hemem_clear_stats()
 }
 
 
-//struct hemem_page* get_hemem_page(uint64_t va)
+//struct arms_page* get_arms_page(uint64_t va)
 //{
 //  return find_page(va);
 //}
 
-void hemem_start_timing(void)
+void arms_start_timing(void)
 {
   timing = true;
 }
 
-void hemem_stop_timing(void)
+void arms_stop_timing(void)
 {
   timing = false;
 }

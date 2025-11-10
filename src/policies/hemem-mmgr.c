@@ -9,10 +9,10 @@
 #include <unistd.h>
 #include <sys/time.h>
 
-#include "hemem.h"
+#include "arms.h"
 #include "paging.h"
 #include "timer.h"
-#include "hemem-mmgr.h"
+#include "arms-mmgr.h"
 #include "fifo.h"
 
 static struct mmgr_list mem_free[NMEMTYPES][NPAGETYPES];
@@ -129,7 +129,7 @@ static void move_hot(void)
     mmgr_list_add(&transition[HUGEP], n);
     pthread_mutex_lock(&(n->page->page_lock));
     n->page->migrating = true;
-    hemem_wp_page(n->page, true);
+    arms_wp_page(n->page, true);
 
     transition_bytes += pt_to_pagesize(HUGEP);
   }
@@ -139,7 +139,7 @@ static void move_hot(void)
     return;
   }
 
-  hemem_tlb_shootdown(0);
+  arms_tlb_shootdown(0);
 
   while ((n = mmgr_list_remove(&transition[HUGEP])) != NULL) {
     struct mmgr_node *nn;
@@ -152,7 +152,7 @@ static void move_hot(void)
       struct mmgr_node *hn = mmgr_list_remove(&mem_free[FASTMEM][HUGEP]);
       assert(hn != NULL);
 
-      //hemem_demote_pages(hn->page->va);
+      //arms_demote_pages(hn->page->va);
 
       nn = calloc(512, sizeof(struct mmgr_node));
       for (size_t i = 0; i < 512; i++) {
@@ -170,7 +170,7 @@ static void move_hot(void)
     fastmem_freebytes -= pt_to_pagesize(HUGEP);
     slowmem_freebytes += pt_to_pagesize(HUGEP);
 
-    hemem_migrate_up(n->page, nn->offset);
+    arms_migrate_up(n->page, nn->offset);
 
     // add migrated node to active list
     mmgr_list_add(&mem_active[FASTMEM][HUGEP], nn);
@@ -179,7 +179,7 @@ static void move_hot(void)
     mmgr_list_add(&mem_free[SLOWMEM][HUGEP], n);
 
     // swap page structures on nodes
-    struct hemem_page *tmp;
+    struct arms_page *tmp;
     tmp = nn->page;
     nn->page = n->page;
     nn->page->management = nn;
@@ -215,11 +215,11 @@ static void move_cold(void)
 
       pthread_mutex_lock(&(n->page->page_lock));
       n->page->migrating = true;
-      hemem_wp_page(n->page, true);
+      arms_wp_page(n->page, true);
       transition_bytes += pt_to_pagesize(pt);
 
       // until enough free fastmem
-      if (fastmem_freebytes + transition_bytes >= HEMEM_FASTFREE) {
+      if (fastmem_freebytes + transition_bytes >= ARMS_FASTFREE) {
         goto move;
       }
     }
@@ -227,7 +227,7 @@ static void move_cold(void)
 
 move:
   if (transition_bytes == 0) {
-    if (fastmem_freebytes <= HEMEM_FASTFREE) {
+    if (fastmem_freebytes <= ARMS_FASTFREE) {
       LOG("COLD emergency cooling -- picking a random page\n");
       // if low on memory and all is hot, pick a random page to move down
       //for (enum pagetypes pt = HUGEP; pt < NPAGETYPES; pt++) {
@@ -238,10 +238,10 @@ move:
 
           pthread_mutex_lock(&(n->page->page_lock));
           n->page->migrating = true;
-          hemem_wp_page(n->page, true);
+          arms_wp_page(n->page, true);
           transition_bytes += pt_to_pagesize(pt);
 
-          if (fastmem_freebytes + transition_bytes >= HEMEM_FASTFREE) {
+          if (fastmem_freebytes + transition_bytes >= ARMS_FASTFREE) {
             goto move;
           }
         }
@@ -253,7 +253,7 @@ move:
     }
   }
 
-  hemem_tlb_shootdown(0);
+  arms_tlb_shootdown(0);
 
   LOG("COLD identified %zu bytes as cold\n", transition_bytes);
 
@@ -279,7 +279,7 @@ move:
         slowmem_freebytes -= pt_to_pagesize(HUGEP);
         fastmem_freebytes += pt_to_pagesize(HUGEP);
 
-        hemem_migrate_down(n->page, nn->offset);
+        arms_migrate_down(n->page, nn->offset);
 
         // add migrated node to inactive list
         mmgr_list_add(&mem_inactive[SLOWMEM][HUGEP], nn);
@@ -288,7 +288,7 @@ move:
         mmgr_list_add(&mem_free[FASTMEM][HUGEP], n);
 
         // swap page structures on nodes
-        struct hemem_page *tmp;
+        struct arms_page *tmp;
         tmp = nn->page;
         nn->page = n->page;
         nn->page->management = nn;
@@ -319,7 +319,7 @@ static void cool(void)
 
   memset(bookmark, 0, sizeof(bookmark));
 
-  for (sweeped = 0; sweeped < HEMEM_COOL_RATE;) {
+  for (sweeped = 0; sweeped < ARMS_COOL_RATE;) {
     oldsweeped = sweeped;
 
     for (enum memtypes mt = FASTMEM; mt < NMEMTYPES; mt++) {
@@ -336,8 +336,8 @@ static void cool(void)
 
         n = mmgr_list_remove(&mem_active[mt][pt]);
 
-        if (hemem_get_bits(n->page) == HEMEM_ACCESSED_FLAG) {
-          hemem_clear_bits(n->page);
+        if (arms_get_bits(n->page) == ARMS_ACCESSED_FLAG) {
+          arms_clear_bits(n->page);
           mmgr_list_add(&mem_active[mt][pt], n);
 
           // remember first recirculated page;
@@ -368,7 +368,7 @@ static void thaw(void)
 
   memset(bookmark, 0, sizeof(bookmark));
 
-  for (sweeped = 0; sweeped < HEMEM_THAW_RATE;) {
+  for (sweeped = 0; sweeped < ARMS_THAW_RATE;) {
     oldsweeped = sweeped;
 
     for (enum memtypes mt = FASTMEM; mt < NMEMTYPES; mt++) {
@@ -385,16 +385,16 @@ static void thaw(void)
         }
         n = mmgr_list_remove(&mem_inactive[mt][pt]);
 
-        if (hemem_get_bits(n->page) == HEMEM_ACCESSED_FLAG) {
+        if (arms_get_bits(n->page) == ARMS_ACCESSED_FLAG) {
           n->tot_accesses++;
           if (n->accesses >= 2) {
             n->accesses = 0;
-            hemem_clear_bits(n->page);
+            arms_clear_bits(n->page);
             mmgr_list_add(&mem_active[mt][pt], n);
           }
           else {
             n->accesses++;
-            hemem_clear_bits(n->page);
+            arms_clear_bits(n->page);
             mmgr_list_add(&mem_inactive[mt][pt], n);
             recirculated = true;
           }
@@ -424,7 +424,7 @@ static void *mmgr_thread(void *arg)
   struct timeval start, end, tick_start, tick_end;
 
   for (;;) {
-    usleep(HEMEM_INTERVAL);
+    usleep(ARMS_INTERVAL);
 
     pthread_mutex_lock(&global_lock);
 
@@ -435,12 +435,12 @@ static void *mmgr_thread(void *arg)
     gettimeofday(&end, NULL);
     LOG_TIME("scan: %f s\n", elapsed(&tick_start, &end));
 
-    hemem_tlb_shootdown(0);
+    arms_tlb_shootdown(0);
 
     gettimeofday(&start, NULL);
 
     // under memory pressure in fastmem?
-    if (fastmem_freebytes < HEMEM_FASTFREE) {
+    if (fastmem_freebytes < ARMS_FASTFREE) {
       move_cold();
     }
 
@@ -449,7 +449,7 @@ static void *mmgr_thread(void *arg)
       move_hot();
     }
 
-    hemem_tlb_shootdown(0);
+    arms_tlb_shootdown(0);
 
     gettimeofday(&tick_end, NULL);
     LOG_TIME("migrate: %f s\n", elapsed(&start, &tick_end));
@@ -461,7 +461,7 @@ static void *mmgr_thread(void *arg)
   return NULL;
 }
 
-static struct hemem_page* mmgr_allocate_page()
+static struct arms_page* mmgr_allocate_page()
 {
   struct timeval start, end;
   struct mmgr_node *node;
@@ -513,9 +513,9 @@ static struct hemem_page* mmgr_allocate_page()
   return NULL;
 }
 
-struct hemem_page* hemem_mmgr_pagefault()
+struct arms_page* arms_mmgr_pagefault()
 {
-  struct hemem_page *page;
+  struct arms_page *page;
   
   pthread_mutex_lock(&global_lock);
   page = mmgr_allocate_page();
@@ -525,9 +525,9 @@ struct hemem_page* hemem_mmgr_pagefault()
   return page;
 }
 
-struct hemem_page* hemem_mmgr_pagefault_unlocked()
+struct arms_page* arms_mmgr_pagefault_unlocked()
 {
-  struct hemem_page *page;
+  struct arms_page *page;
   
   page = mmgr_allocate_page();
   assert(page != NULL);
@@ -535,7 +535,7 @@ struct hemem_page* hemem_mmgr_pagefault_unlocked()
   return page;
 }
 
-void hemem_mmgr_remove_page(struct hemem_page *page)
+void arms_mmgr_remove_page(struct arms_page *page)
 {
   struct mmgr_node *node;
   struct mmgr_list *list;
@@ -559,7 +559,7 @@ void hemem_mmgr_remove_page(struct hemem_page *page)
   }
 }
 
-void hemem_mmgr_init(void)
+void arms_mmgr_init(void)
 {
   pthread_t thread;
  
@@ -571,7 +571,7 @@ void hemem_mmgr_init(void)
     struct mmgr_node *n = calloc(1, sizeof(struct mmgr_node));
     n->offset = i * HUGEPAGE_SIZE;
 
-    struct hemem_page *p = calloc(1, sizeof(struct hemem_page));
+    struct arms_page *p = calloc(1, sizeof(struct arms_page));
     p->devdax_offset = i * HUGEPAGE_SIZE;
     p->present = false;
     p->in_dram = true;
@@ -587,7 +587,7 @@ void hemem_mmgr_init(void)
     struct mmgr_node *n = calloc(1, sizeof(struct mmgr_node));
     n->offset = i * HUGEPAGE_SIZE;
 
-    struct hemem_page *p = calloc(1, sizeof(struct hemem_page));
+    struct arms_page *p = calloc(1, sizeof(struct arms_page));
     p->devdax_offset = i * HUGEPAGE_SIZE;
     p->present = false;
     p->in_dram = false;
@@ -602,10 +602,10 @@ void hemem_mmgr_init(void)
   int r = pthread_create(&thread, NULL, mmgr_thread, NULL);
   assert(r == 0);
 
-  LOG("Memory management policy is Hemem\n");
+  LOG("Memory management policy is ARMS\n");
 }
 
-void hemem_mmgr_stats()
+void arms_mmgr_stats()
 {
 //  LOG_STATS("\tfastmem_freebytes: [%ld]\tslowmem_freebytes: [%ld]\tactive_list.numentries: [%ld : %ld]\tinactive_list.numentries: [%ld : %ld]\n",
 //            fastmem_freebytes,

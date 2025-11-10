@@ -4,60 +4,60 @@ CFLAGS = -g -Wall -O3 -fPIC
 LDFLAGS = -shared
 INCLUDES = -I../linux/usr/include/
 LIBS = -lm -lpthread
-HEMEM_LIBS = $(LIBS) -ldl -lsyscall_intercept -L../Hoard/src -lhoard
+ARMS_LIBS = $(LIBS) -ldl -lsyscall_intercept -L../Hoard/src -lhoard
 
-default: libhemem.so
+default: libarms.so
 
-all: hemem-libs
+all: arms-libs
 
-hemem-libs: libhemem-lru.so libhemem-simple.so libhemem-lru-swap.so libhemem.so
+arms-libs: libarms-lru.so libarms-simple.so libarms-lru-swap.so libarms.so
 
-libhemem.so: hemem.o pebs.o timer.o interpose.o fifo.o spsc-ring.o
-	$(CC) $(LDFLAGS) -o libhemem.so hemem.o timer.o interpose.o pebs.o fifo.o spsc-ring.o $(HEMEM_LIBS)
+libarms.so: arms.o pebs.o timer.o interpose.o fifo.o spsc-ring.o
+	$(CC) $(LDFLAGS) -o libarms.so arms.o timer.o interpose.o pebs.o fifo.o spsc-ring.o $(ARMS_LIBS)
 
-libhemem-lru.so: policies/hemem-lru.o policies/lru.o timer.o interpose.o policies/paging.o fifo.o spsc-ring.o
-	$(CC) $(LDFLAGS) -o libhemem-lru.so policies/hemem-lru.o timer.o policies/lru.o interpose.o policies/paging.o fifo.o spsc-ring.o $(HEMEM_LIBS)
+libarms-lru.so: policies/arms-lru.o policies/lru.o timer.o interpose.o policies/paging.o fifo.o spsc-ring.o
+	$(CC) $(LDFLAGS) -o libarms-lru.so policies/arms-lru.o timer.o policies/lru.o interpose.o policies/paging.o fifo.o spsc-ring.o $(ARMS_LIBS)
 
-libhemem-simple.so: policies/hemem-simple.o policies/simple.o timer.o interpose.o policies/paging.o fifo.o spsc-ring.o
-	$(CC) $(LDFLAGS) -o libhemem-simple.so policies/hemem-simple.o timer.o policies/simple.o interpose.o policies/paging.o fifo.o spsc-ring.o $(HEMEM_LIBS)
+libarms-simple.so: policies/arms-simple.o policies/simple.o timer.o interpose.o policies/paging.o fifo.o spsc-ring.o
+	$(CC) $(LDFLAGS) -o libarms-simple.so policies/arms-simple.o timer.o policies/simple.o interpose.o policies/paging.o fifo.o spsc-ring.o $(ARMS_LIBS)
 
-libhemem-lru-swap.so: policies/hemem-lru-swap.o policies/lru_swap.o timer.o interpose.o policies/paging.o fifo.o spsc-ring.o
-	$(CC) $(LDFLAGS) -o libhemem-lru-swap.so policies/hemem-lru-swap.o timer.o policies/lru_swap.o interpose.o policies/paging.o fifo.o spsc-ring.o $(HEMEM_LIBS)
+libarms-lru-swap.so: policies/arms-lru-swap.o policies/lru_swap.o timer.o interpose.o policies/paging.o fifo.o spsc-ring.o
+	$(CC) $(LDFLAGS) -o libarms-lru-swap.so policies/arms-lru-swap.o timer.o policies/lru_swap.o interpose.o policies/paging.o fifo.o spsc-ring.o $(ARMS_LIBS)
 
-hemem.o: hemem.c hemem.h pebs.h interpose.h fifo.h spsc-ring.h
-	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_HEMEM -c hemem.c -o hemem.o
+arms.o: arms.c arms.h pebs.h interpose.h fifo.h spsc-ring.h
+	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_ARMS -c arms.c -o arms.o
 	
-policies/hemem-lru.o: hemem.c hemem.h policies/lru.h interpose.h policies/paging.h fifo.h spsc-ring.h
-	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_LRU -c hemem.c -o policies/hemem-lru.o
+policies/arms-lru.o: arms.c arms.h policies/lru.h interpose.h policies/paging.h fifo.h spsc-ring.h
+	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_LRU -c arms.c -o policies/arms-lru.o
 
-policies/hemem-simple.o: hemem.c hemem.h policies/simple.h interpose.h policies/paging.h fifo.h spsc-ring.h
-	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_SIMPLE -c hemem.c -o policies/hemem-simple.o
+policies/arms-simple.o: arms.c arms.h policies/simple.h interpose.h policies/paging.h fifo.h spsc-ring.h
+	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_SIMPLE -c arms.c -o policies/arms-simple.o
 
-policies/hemem-lru-swap.o: hemem.c hemem.h policies/lru.h interpose.h policies/paging.h fifo.h spsc-ring.h
-	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_LRU -D LRU_SWAP -c hemem.c -o policies/hemem-lru-swap.o
+policies/arms-lru-swap.o: arms.c arms.h policies/lru.h interpose.h policies/paging.h fifo.h spsc-ring.h
+	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_LRU -D LRU_SWAP -c arms.c -o policies/arms-lru-swap.o
 
-interpose.o: interpose.c interpose.h hemem.h
+interpose.o: interpose.c interpose.h arms.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c interpose.c
 
 timer.o: timer.c timer.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c timer.c
 
-policies/lru.o: policies/lru.c policies/lru.h hemem.h fifo.h spsc-ring.h
+policies/lru.o: policies/lru.c policies/lru.h arms.h fifo.h spsc-ring.h
 	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_LRU -c policies/lru.c -o policies/lru.o
 
-policies/simple.o: policies/simple.c policies/simple.h hemem.h spsc-ring.h
+policies/simple.o: policies/simple.c policies/simple.h arms.h spsc-ring.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c policies/simple.c -o policies/simple.o
 
-policies/lru_swap.o: policies/lru.c policies/lru.h hemem.h fifo.h spsc-ring.h
+policies/lru_swap.o: policies/lru.c policies/lru.h arms.h fifo.h spsc-ring.h
 	$(CC) $(CFLAGS) $(INCLUDES) -D LRU_SWAP -D ALLOC_LRU -c policies/lru.c -o policies/lru_swap.o
 
 policies/paging.o: policies/paging.c policies/paging.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c policies/paging.c -o policies/paging.o
 
-pebs.o: pebs.c pebs.h hemem.h fifo.h
+pebs.o: pebs.c pebs.h arms.h fifo.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c pebs.c
 
-fifo.o: fifo.c fifo.h hemem.h
+fifo.o: fifo.c fifo.h arms.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c fifo.c
 
 spsc-ring.o: spsc-ring.c spsc-ring.h

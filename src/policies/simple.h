@@ -15,18 +15,18 @@
  *
  * =====================================================================================
  */
-#ifndef HEMEM_SIMPLE_H
-#define HEMEM_SIMPLE_H
+#ifndef ARMS_SIMPLE_H
+#define ARMS_SIMPLE_H
 
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "../hemem.h"
+#include "../arms.h"
 #include "paging.h"
 
-struct hemem_page* simple_pagefault(void);
+struct arms_page* simple_pagefault(void);
 void simple_init(void);
-void simple_remove_page(struct hemem_page *page);
+void simple_remove_page(struct arms_page *page);
 void simple_stats();
 
-#endif // HEMEM_SIMPLE_H
+#endif // ARMS_SIMPLE_H

@@ -19,7 +19,7 @@
 #include <fcntl.h>
 #include <math.h>
 
-#include "hemem.h"
+#include "arms.h"
 #include "pebs.h"
 #include "timer.h"
 #include "spsc-ring.h"
@@ -28,8 +28,8 @@
 #include "kdq.h"
 #include "kbtree.h"
 
-// Hash table for Hemem-handled pages
-KHASH_MAP_INIT_INT64(kPagesMap, struct hemem_page*)
+// Hash table for ARMS-handled pages
+KHASH_MAP_INIT_INT64(kPagesMap, struct arms_page*)
 khash_t(kPagesMap) *pages;
 pthread_mutex_t pages_lock = PTHREAD_MUTEX_INITIALIZER;
 
@@ -37,12 +37,12 @@ pthread_mutex_t pages_lock = PTHREAD_MUTEX_INITIALIZER;
 /*
 #define ktree_cmp(a,b) ((a) < (b.va) ? -1 : (a.va) > (b.va))
 #define ktree_cmp(a,b) (                                                      \
-  ((((struct hemem_page*)a)->va) < (((struct hemem_page*)b)->va))             \
-    ? -1 : ((((struct hemem_page*)a)->va) > (((struct hemem_page*)b)->va)) )
-KBTREE_INIT(kPagesTree, struct hemem_page*, ktree_cmp)
+  ((((struct arms_page*)a)->va) < (((struct arms_page*)b)->va))             \
+    ? -1 : ((((struct arms_page*)a)->va) > (((struct arms_page*)b)->va)) )
+KBTREE_INIT(kPagesTree, struct arms_page*, ktree_cmp)
 */
 typedef struct {
-  struct hemem_page* page;
+  struct arms_page* page;
   uint64_t va;
 } page_tree_entry_t;
 
@@ -73,7 +73,7 @@ sem_t completion_sem;
 
 // Pages to be freed/added in the next interval
 typedef struct mod_page {
-  struct hemem_page* page;
+  struct arms_page* page;
   bool free;
 } mod_page_t;
 static_assert(sizeof(mod_page_t) == 16);
@@ -120,7 +120,7 @@ float min_score, max_score;
 
 //uint64_t global_clock = 0;
 
-uint64_t hemem_pages_cnt = 0;
+uint64_t arms_pages_cnt = 0;
 uint64_t other_pages_cnt = 0;
 uint64_t total_pages_cnt = 0;
 uint64_t zero_pages_cnt = 0;
@@ -391,7 +391,7 @@ void *pebs_scan_thread()
 
         struct perf_event_header *ph = (void *)(pbuf + (p->data_tail % p->data_size));
         struct perf_sample* ps;
-        struct hemem_page* page;
+        struct arms_page* page;
 
         switch(ph->type) {
         case PERF_RECORD_SAMPLE:
@@ -404,7 +404,7 @@ void *pebs_scan_thread()
                 if (page->va != 0) {
                   page->accesses[j][curr_access_version]++;
                 }
-                hemem_pages_cnt++;
+                arms_pages_cnt++;
               } else {
                 other_pages_cnt++;
               }
@@ -438,30 +438,30 @@ void *pebs_scan_thread()
   return NULL;
 }
 
-static void pebs_migrate_down(struct hemem_page *page, uint64_t offset)
+static void pebs_migrate_down(struct arms_page *page, uint64_t offset)
 {
   struct timeval start, end;
 
   gettimeofday(&start, NULL);
 
   page->migrating = true;
-  hemem_wp_page(page, true);
-  hemem_migrate_down(page, offset);
+  arms_wp_page(page, true);
+  arms_migrate_down(page, offset);
   page->migrating = false;
 
   gettimeofday(&end, NULL);
   LOG_DEBUG("migrate_down: %f s\n", elapsed(&start, &end));
 }
 
-static void pebs_migrate_up(struct hemem_page *page, uint64_t offset)
+static void pebs_migrate_up(struct arms_page *page, uint64_t offset)
 {
   struct timeval start, end;
 
   gettimeofday(&start, NULL);
 
   page->migrating = true;
-  hemem_wp_page(page, true);
-  hemem_migrate_up(page, offset);
+  arms_wp_page(page, true);
+  arms_migrate_up(page, offset);
   page->migrating = false;
 
   gettimeofday(&end, NULL);
@@ -483,7 +483,7 @@ int sort_entry_cmp(const void *a, const void *b) {
   return (_a.score > _b.score) ? -1 : (_a.score < _b.score);
 }
 
-static void reset_page_access_fields(struct hemem_page *page)
+static void reset_page_access_fields(struct arms_page *page)
 {
   for (int i = 0; i < NPBUFTYPES; i++) {
     page->accesses[i][0] = 0;
@@ -499,7 +499,7 @@ static void reset_page_access_fields(struct hemem_page *page)
   page->prev_score = 0;
 }
 
-static inline void update_window(struct hemem_page* page) {
+static inline void update_window(struct arms_page* page) {
 #ifdef SPATIAL_SMOOTHING
   float accesses = page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD] + (NVM_WRITES_WEIGHT * page->s_accesses[WRITE]);
 #else
@@ -518,7 +518,7 @@ static inline void update_window(struct hemem_page* page) {
   }
 }
 
-static inline float compute_score(const struct hemem_page *page, const float *bias) {
+static inline float compute_score(const struct arms_page *page, const float *bias) {
   // Update the score (average of the window)
   float score = 0;
   for (int i = 0; i < WINDOW_SIZE; i++) {
@@ -530,7 +530,7 @@ static inline float compute_score(const struct hemem_page *page, const float *bi
 static inline float _moving_avg_add(float avg, float new_val, uint32_t count) {
   return ((count * avg) + new_val) / (count + 1);
 }
-static inline void moving_avg_add(float* avg, struct hemem_page* page, uint32_t* count) {
+static inline void moving_avg_add(float* avg, struct arms_page* page, uint32_t* count) {
   avg[DRAMREAD] = _moving_avg_add(avg[DRAMREAD], page->accesses[DRAMREAD][prev_access_version], *count);
   avg[NVMREAD] = _moving_avg_add(avg[NVMREAD], page->accesses[NVMREAD][prev_access_version], *count);
   avg[WRITE] = _moving_avg_add(avg[WRITE], page->accesses[WRITE][prev_access_version], *count);
@@ -544,7 +544,7 @@ static inline float _moving_avg_sub(float avg, float old_val, uint32_t count) {
   }
   return ((count * avg) - old_val) / (count - 1);
 }
-static inline void moving_avg_sub(float* avg, struct hemem_page* page, uint32_t* count) {
+static inline void moving_avg_sub(float* avg, struct arms_page* page, uint32_t* count) {
   avg[DRAMREAD] = _moving_avg_sub(avg[DRAMREAD], page->accesses[DRAMREAD][prev_access_version], *count);
   avg[NVMREAD] = _moving_avg_sub(avg[NVMREAD], page->accesses[NVMREAD][prev_access_version], *count);
   avg[WRITE] = _moving_avg_sub(avg[WRITE], page->accesses[WRITE][prev_access_version], *count);
@@ -558,14 +558,14 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
   ptimer_init(&window_timer, "Scores (window)");
   ptimer_init(&spatial_smooth_timer, "Scores (spatial smooth)");
 
-  struct hemem_page *page;
+  struct arms_page *page;
   kbitr_t itr, n_itr;
 
   size_t idx = 0;
   size_t s_idx = 0;
 
   page_tree_entry_t *entry_ptr;
-  struct hemem_page *p;
+  struct arms_page *p;
   page_tree_entry_t *n_entry_ptr;
   size_t n_idx;
   uint64_t n_va;
@@ -609,7 +609,7 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
     LOG_DEBUG("-> LEFT NEIGHBOURS\n");
     while(ring_buf_size(l_neighbours) > 0) {
       n_idx = idx - ring_buf_size(l_neighbours);
-      p = (struct hemem_page*)ring_buf_peek_tail(l_neighbours, 0);
+      p = (struct arms_page*)ring_buf_peek_tail(l_neighbours, 0);
       if (p->va == page->va - ((idx - n_idx) * HUGEPAGE_SIZE)) {
         break;
       }
@@ -667,13 +667,13 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
 
     // If the left neighbours buffer is full, pop the leftmost neighbour
     if (ring_buf_size(l_neighbours) > NUM_NEIGHBOURS) {
-      p = (struct hemem_page*)ring_buf_get(l_neighbours);
+      p = (struct arms_page*)ring_buf_get(l_neighbours);
       moving_avg_sub(smooth_avg_v, p, &smooth_avg_cnt);
     }
     // Pop the leftmost neighbour in right neighbours buffer
     // This is soon-to-be the next page (i.e., the right neighbour)
     if (ring_buf_size(r_neighbours) > 0) {
-      p = (struct hemem_page*)ring_buf_get(r_neighbours);
+      p = (struct arms_page*)ring_buf_get(r_neighbours);
       moving_avg_sub(smooth_avg_v, p, &smooth_avg_cnt);
     }
   }
@@ -703,7 +703,7 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
   struct ptimer window_timer;
   ptimer_init(&window_timer, "Scores (window)");
 
-  struct hemem_page *page;
+  struct arms_page *page;
   khiter_t key;
   size_t s_idx = 0;
 
@@ -745,7 +745,7 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
   return s_idx;
 }
 
-static inline int continue_migration(struct hemem_page *hp, struct hemem_page *cp)
+static inline int continue_migration(struct arms_page *hp, struct arms_page *cp)
 {
  // Compare the min of hot page and max of cold page
  // A hot page should hav all EWMAs greater than the max EWMA of a cold page
@@ -782,7 +782,7 @@ static inline int continue_migration(struct hemem_page *hp, struct hemem_page *c
   return 1;
 }
 
-void promote_to_free_dram_page(struct hemem_page *p, struct hemem_page *np)
+void promote_to_free_dram_page(struct arms_page *p, struct arms_page *np)
 {
   uint64_t old_offset;
 
@@ -811,7 +811,7 @@ void promote_to_free_dram_page(struct hemem_page *p, struct hemem_page *np)
   enqueue_fifo(&nvm_free_list, np);
 }
 
-bool demote_to_free_nvm_page(struct hemem_page *cp, struct hemem_page *np)
+bool demote_to_free_nvm_page(struct arms_page *cp, struct arms_page *np)
 {
   uint64_t old_offset;
 
@@ -896,13 +896,13 @@ void *pebs_policy_thread()
   cpu_set_t cpuset;
   pthread_t thread;
   //int tries;
-  struct hemem_page *p;
-  struct hemem_page *cp;
-  struct hemem_page *np;
+  struct arms_page *p;
+  struct arms_page *cp;
+  struct arms_page *np;
   uint64_t migrated_bytes;
   //uint64_t old_offset;
   double migrate_time_us;
-  struct hemem_page* page = NULL;
+  struct arms_page* page = NULL;
 
   #ifdef SPATIAL_SMOOTHING
   page_tree_entry_t entry;
@@ -1092,7 +1092,7 @@ void *pebs_policy_thread()
 
     // Set the top_since_iter for the top pages
     for (int k = 0; k < dramsize/PAGE_SIZE && k < s_pages_cnt; k++) {
-      struct hemem_page* top_page = scores[k].page;
+      struct arms_page* top_page = scores[k].page;
       if (scores[k].score != 0) {
         top_page->hot_age++;
         if (top_page->hot_age > 1 && (top_page->score >= top_page->prev_score)) {
@@ -1294,10 +1294,10 @@ loop_end:
   return NULL;
 }
 
-static struct hemem_page* pebs_allocate_page()
+static struct arms_page* pebs_allocate_page()
 {
   struct timeval start, end;
-  struct hemem_page *page;
+  struct arms_page *page;
 
   gettimeofday(&start, NULL);
   page = dequeue_fifo(&dram_free_list);
@@ -1332,9 +1332,9 @@ static struct hemem_page* pebs_allocate_page()
   assert(!"Out of memory");
 }
 
-struct hemem_page* pebs_pagefault(void)
+struct arms_page* pebs_pagefault(void)
 {
-  struct hemem_page *page;
+  struct arms_page *page;
 
   // do the heavy lifting of finding the devdax file offset to place the page
   page = pebs_allocate_page();
@@ -1343,7 +1343,7 @@ struct hemem_page* pebs_pagefault(void)
   return page;
 }
 
-void pebs_add_page(struct hemem_page *page)
+void pebs_add_page(struct arms_page *page)
 {
   int absent;
   khiter_t key;
@@ -1364,10 +1364,10 @@ void pebs_add_page(struct hemem_page *page)
   pthread_mutex_unlock(&mod_page_dq_lock);
 }
 
-struct hemem_page* pebs_find_page(uint64_t va)
+struct arms_page* pebs_find_page(uint64_t va)
 {
   khiter_t key;
-  struct hemem_page *page;
+  struct arms_page *page;
   pthread_mutex_lock(&pages_lock);
   key = kh_get(kPagesMap, pages, va);
   page = key == kh_end(pages) ? NULL : kh_value(pages, key);
@@ -1375,7 +1375,7 @@ struct hemem_page* pebs_find_page(uint64_t va)
   return page;
 }
 
-void pebs_remove_page(struct hemem_page *page)
+void pebs_remove_page(struct arms_page *page)
 {
   khiter_t key;
   assert(page != NULL);
@@ -1441,7 +1441,7 @@ void pebs_init(void)
 
   pthread_mutex_init(&(dram_free_list.list_lock), NULL);
   for (int i = 0; i < dramsize / PAGE_SIZE; i++) {
-    struct hemem_page *p = calloc(1, sizeof(struct hemem_page));
+    struct arms_page *p = calloc(1, sizeof(struct arms_page));
     p->devdax_offset = i * PAGE_SIZE;
     p->present = false;
     p->in_dram = true;
@@ -1453,7 +1453,7 @@ void pebs_init(void)
 
   pthread_mutex_init(&(nvm_free_list.list_lock), NULL);
   for (int i = 0; i < nvmsize / PAGE_SIZE; i++) {
-    struct hemem_page *p = calloc(1, sizeof(struct hemem_page));
+    struct arms_page *p = calloc(1, sizeof(struct arms_page));
     p->devdax_offset = i * PAGE_SIZE;
     p->present = false;
     p->in_dram = false;
@@ -1540,12 +1540,12 @@ void pebs_stats()
           //dram_cold_list.numentries,
           //nvm_hot_list.numentries,
           //nvm_cold_list.numentries,
-          hemem_pages_cnt,
+          arms_pages_cnt,
           total_pages_cnt,
           throttle_cnt,
           unthrottle_cnt,
           cools);
-  // hemem_pages_cnt = total_pages_cnt =  throttle_cnt = unthrottle_cnt = 0;
+  // arms_pages_cnt = total_pages_cnt =  throttle_cnt = unthrottle_cnt = 0;
 }
 
 void pebs_print_config()
