@@ -14,10 +14,10 @@ git submodule update --init
 
 You could follow your own approach to build Linux kernel or use the steps below:
 
-Optional: Apply the patch if you want AutoNUMA to only handle anonymous pages.
+Optional: Apply the patch if you want TPP to only handle anonymous pages.
 
 ```bash
-pushd autonuma-linux
+pushd tpp-linux
 git apply ../alloc_filepages_node1.patch
 popd
 ```
@@ -32,7 +32,7 @@ sudo apt-get install -y git fakeroot build-essential ncurses-dev xz-utils libssl
 We enable some kernel flags that we use for our evaluations. You could skip them.
 
 ```bash
-cd autonuma-linux
+cd tpp-linux
 
 cp /boot/config-$(uname -r) .config
 scripts/config --disable SYSTEM_REVOCATION_KEYS
@@ -61,21 +61,21 @@ sudo make install
 Reboot the system into the desired kernel:
 
 ```bash
-sudo grub-reboot "Advanced options for Ubuntu>Ubuntu, with Linux 6.2.0+"
+sudo grub-reboot "Advanced options for Ubuntu>Ubuntu, with Linux 6.0+"
 ```
 
-## Running applications with AutoNUMA
+## Running applications with TPP
 
-Verify that you have booted into the AutoNUMA kernel.
+Verify that you have booted into the TPP kernel.
 
 ```bash
 uname -r
 ```
 
-Enable AutoNUMA.
+Enable TPP.
 
 ```bash
-# numad will override autoNUMA, so stop it
+# numad will override TPP, so stop it
 sudo service numad stop
 
 echo 15 > /proc/sys/vm/zone_reclaim_mode
@@ -85,6 +85,10 @@ echo 200 > /proc/sys/vm/watermark_scale_factor
 
 # Optional: Enable Hugepages
 echo always | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
+
+# Optional: Lower node 1 memory controller frequency to emulate CXL
+sudo modprobe msr
+sudo wrmsr --processor 10 0x620 0x707
 ```
 
 If you want to restrict the size of local memory to a smaller value than the full capacity, you can use the `memeater` module from Colloid's repo.
