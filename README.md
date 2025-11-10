@@ -88,6 +88,10 @@ echo 0x0007 > /sys/kernel/mm/lru_gen/enabled
 
 # Optional: Enable Hugepages
 echo always | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
+
+# Optional: Lower node 1 memory controller frequency to emulate CXL
+sudo modprobe msr
+sudo wrmsr --processor 10 0x620 0x707
 ```
 
 If you want to restrict the size of local memory to a smaller value than the full capacity, you can use the `memeater` module from Colloid's repo.
