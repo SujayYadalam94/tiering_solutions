@@ -5,6 +5,8 @@ This branch contains the source of Linux and the shim library of ARMS (Adaptive 
 
 ## Building Linux and the userspace library
 
+If you are running ARMS on c220g5 (Cloudlab) using the ARMS profile, then skip the building instructions below and jump right into the running instructions at the end.
+
 # Building Linux
 
 Start by cloning the repo and its submodules.
@@ -117,6 +119,13 @@ ndctl create-namespace --region=1 --mode=devdax
 
 
 ## Running
+
+If you want to increase/decrease the remote NUMA memory access latency, you can change the offcore frequency:
+
+```bash
+sudo modprobe msr
+sudo wrmsr --processor 10 0x620 0x707
+```
 
 Running applications with ARMS is as simple as this:
 
