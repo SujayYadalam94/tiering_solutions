@@ -35,6 +35,12 @@
 #define NUM_NEIGHBOURS (2)
 #endif
 
+// Uncomment to enable weighted accesses
+// #define WEIGHTED_ACCESSES
+
+// Use a history of accesses for score calculation
+#define HISTORY_ACCESSES
+
 /// Hardware-related parameters (should be set once for each system)
 // ==============================================================================
 #ifdef SCAILP
@@ -92,9 +98,16 @@
 /// Page scoring parameters
 // ==============================================================================
 // Number of EWMA windows
+#ifdef WEIGHTED_ACCESSES
 #define WINDOW_SIZE   (2)
+#endif
+
+#ifdef HISTORY_ACCESSES
+#define WINDOW_SIZE   (5)
+#endif
 
 // Bias values for history and recency
+#ifdef WEIGHTED_ACCESSES
 #define HIST_BIAS_RECN  (0.4)
 #define HIST_BIAS       {HIST_BIAS_RECN, 1.-HIST_BIAS_RECN}
 //#define HIST_BIAS       {0.4, 0.6}  // Harmonic progression (1/3, 1/2)
@@ -102,6 +115,12 @@
 #define RECN_BIAS_RECN  (0.731)
 #define RECN_BIAS       {RECN_BIAS_RECN, 1.-RECN_BIAS_RECN}
 //#define RECN_BIAS     {0.731, 0.269}    // Exponential (e-1, e-2)
+#endif
+
+#ifdef HISTORY_ACCESSES
+#define HIST_BIAS       {0.44, 0.22, 0.15, 0.11, 0.08}  // More weight to history windows
+#define RECN_BIAS       {0.7, 0.15, 0.08, 0.04, 0.03} // More weight to recent windows
+#endif
 
 #define SHORT_TERM_WND_PERIOD_MS (1000)  // 1s
 #define LONG_TERM_WND_PERIOD_MS  (10000) // 10s
@@ -197,6 +216,14 @@ enum pbuftype {
 struct score_entry {
   struct hemem_page* page;
   float score;
+};
+
+struct global_stats {
+  double dram_bw_ewma;
+  double nvm_bw_ewma;
+  double nvm_bw_std;
+  float cur_dram_bw;
+  float cur_nvm_bw;
 };
 
 void reset_page_access_fields(struct hemem_page *page);

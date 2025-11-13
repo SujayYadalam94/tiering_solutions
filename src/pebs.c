@@ -24,6 +24,9 @@
 #include "timer.h"
 #include "spsc-ring.h"
 
+// LLM-generated code.
+#include "LLMCode.h"
+
 #include "khash.h"
 #include "kdq.h"
 #include "kbtree.h"
@@ -55,6 +58,8 @@ khash_t(kPagesMap) *pages_map;
 #endif
 
 struct score_entry *scores;
+
+struct global_stats *g_stats;
 
 //static struct fifo_list dram_hot_list;
 //static struct fifo_list dram_cold_list;
@@ -104,10 +109,12 @@ uint32_t policy_thread_period = PEBS_KSWAPD_INTERVAL_BIG;
 
 volatile uint64_t global_version = 0;
 volatile uint8_t curr_access_version = 0;
-volatile uint8_t prev_access_version; // = 1 - curr_access_version
+
+// prev_access_version is 1 - curr_access_version if WEIGHTED_ACCESSES
+// and (curr_window_index - 1) % WINDOW_SIZE if HISTORY_ACCESSES
+volatile uint8_t prev_access_version;
 
 volatile uint8_t curr_window_index = 0;
-volatile uint8_t prev_window_version;
 
 double dram_bw_ewma = 0.0;
 double nvm_bw_ewma = 0.0;
@@ -411,7 +418,7 @@ void *pebs_scan_thread()
               page = pebs_find_page(pfn);
               if (page != NULL) {
                 if (page->va != 0) {
-                  // TODO: Replace with a function for PolicySmith to update page state heuristics (access counts, age, etc.)
+                  // Update the access counts.
                   page->accesses[j][curr_access_version]++;
                 }
                 hemem_pages_cnt++;
@@ -610,9 +617,13 @@ void reset_page_access_fields(struct hemem_page *page)
     page->s_accesses[i] = 0;
     #endif
   }
+
+  #ifdef WEIGHTED_ACCESSES
   for (int i = 0; i < WINDOW_SIZE; i++) {
     page->w[i] = 0;
   }
+  #endif
+
   page->hot_age = 0;
   page->prev_score = 0;
 }
@@ -624,6 +635,7 @@ static inline void update_window(struct hemem_page* page) {
   uint32_t accesses = page->accesses[DRAMREAD][prev_access_version] + page->accesses[NVMREAD][prev_access_version] + (NVM_WRITES_WEIGHT * page->accesses[WRITE][prev_access_version]);
 #endif
 
+#ifdef WEIGHTED_ACCESSES
   if (sampling_mode == DEFAULT_SAMPLING) {
     for (uint8_t i = 0; i < WINDOW_SIZE; i++) {
       page->w[i] = (1. - w_ewma_alpha[i]) * page->w[i] +
@@ -634,14 +646,23 @@ static inline void update_window(struct hemem_page* page) {
       page->w[i] = (1. - w_ewma_alpha[i]) * page->w[i] + (w_ewma_alpha[i] * accesses);
     }
   }
+#endif
 }
 
 static inline float compute_score(const struct hemem_page *page, const float *bias) {
   // Update the score (average of the window)
   float score = 0;
+
+  #ifdef WEIGHTED_ACCESSES
   for (int i = 0; i < WINDOW_SIZE; i++) {
     score += page->w[i] * bias[i];
   }
+  #endif
+
+  #ifdef HISTORY_ACCESSES
+  score = scoring_function(page, g_stats);
+  #endif
+
   return score;
 }
 
@@ -845,8 +866,12 @@ static size_t calculate_scores_map_and_sort(struct score_entry *scores_out, cons
     LOG_DEBUG("%lu,%f|", page->va, page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD]); //+ page->s_accesses[WRITE]);
     #endif
 
-    // 1. Update moving average and calculate score for each page
+    #ifdef WEIGHTED_ACCESSES
+    // 0. Update moving average if using WEIGHTED_ACCESSES
     update_window(page);
+    #endif
+    
+    // 1. Calculate score for each page
     page->prev_score = page->score;
     page->score = compute_score(page, bias);
 
@@ -884,18 +909,20 @@ static size_t calculate_scores_map_and_sort(struct score_entry *scores_out, cons
 
 static inline int continue_migration(struct hemem_page *hp, struct hemem_page *cp)
 {
- // Compare the min of hot page and max of cold page
- // A hot page should hav all EWMAs greater than the max EWMA of a cold page
- float hot_page_min_avg = hp->w[0];
- float cold_page_max_avg = cp->w[WINDOW_SIZE-1];
 
- for (int i = 1; i < WINDOW_SIZE; i++) {
-   if (hp->w[i] < hot_page_min_avg) {
-     hot_page_min_avg = hp->w[i];
-   }
-   if (cp->w[i] > cold_page_max_avg) {
-     cold_page_max_avg = cp->w[i];
-   }
+#ifdef WEIGHTED_ACCESSES
+  // Compare the min of hot page and max of cold page
+  // A hot page should hav all EWMAs greater than the max EWMA of a cold page
+  float hot_page_min_avg = hp->w[0];
+  float cold_page_max_avg = cp->w[WINDOW_SIZE-1];
+
+  for (int i = 1; i < WINDOW_SIZE; i++) {
+    if (hp->w[i] < hot_page_min_avg) {
+      hot_page_min_avg = hp->w[i];
+    }
+    if (cp->w[i] > cold_page_max_avg) {
+      cold_page_max_avg = cp->w[i];
+    }
   }
 
   if (hot_page_min_avg < cold_page_max_avg) {
@@ -904,15 +931,22 @@ static inline int continue_migration(struct hemem_page *hp, struct hemem_page *c
               cp->va, cp->score, cp->w[0], cp->w[1]);
     return 0;
   }
+#endif
 
   // Cost-benefit analysis
   float cost = CB_MULTIPLIER * (promotion_cost_avg + demotion_cost_avg);
   float benefit =(hp->score - cp->score) * hp->hot_age * HF_SAMPLE_PERIOD * latency_diff;
 
   if (benefit < cost) {
+    #ifdef WEIGHTED_ACCESSES
     LOG_INFO("Stopping migration of 0x%lx (score: %.3f (%.3f %.3f)) and 0x%lx (score: %.3f (%.3f %.3f)) cause of cost-benefit\n",
               hp->va, hp->score, hp->w[0], hp->w[1],
               cp->va, cp->score, cp->w[0], cp->w[1]);
+    #else
+    LOG_INFO("Stopping migration of 0x%lx (score: %.3f) and 0x%lx (score: %.3f) cause of cost-benefit\n",
+              hp->va, hp->score, cp->va, cp->score);
+    #endif
+
     return 0;
   }
 
@@ -1021,8 +1055,13 @@ static void issue_migrations(struct score_entry *scores, size_t s_pages_cnt, int
     np = dequeue_fifo(&nvm_free_list);
     assert(np != NULL);
 
+    #ifdef WEIGHTED_ACCESSES
     LOG_REPORT("Demoting at %ld: 0x%lx score: %f (%f %f)\n", demote_idx, cp->va, cp->score, cp->w[0], cp->w[1]);
     LOG_REPORT("Promoting at %ld: 0x%lx score: %f (%f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1]);
+    #else
+    LOG_REPORT("Demoting at %ld: 0x%lx score: %f\n", demote_idx, cp->va, cp->score);
+    LOG_REPORT("Promoting at %ld: 0x%lx score: %f\n", promote_idx, p->va, p->score);
+    #endif
 
     m_req = malloc(sizeof(struct migration_req));
     memset(m_req, 0, sizeof(struct migration_req));
@@ -1129,7 +1168,8 @@ void *pebs_policy_thread()
     // "Bump" the global version to indicate that we are starting a new interval
     global_version++;
     prev_access_version = curr_access_version;
-    curr_access_version = 1 - curr_access_version;
+    curr_access_version = (curr_access_version + 1) % WINDOW_SIZE;
+
     __sync_synchronize();
 
     // Hot-set change detection using Page-Hinkley test
@@ -1142,6 +1182,13 @@ void *pebs_policy_thread()
       nvm_bw_ewma = (1 - HCD_EWMA_ALPHA) * nvm_bw_ewma + HCD_EWMA_ALPHA * cur_nvm_bw;
       nvm_bw_std  = ((1 - HCD_STD_ALPHA) * nvm_bw_std * nvm_bw_std) + HCD_STD_ALPHA * (cur_nvm_bw - nvm_bw_ewma) * (cur_nvm_bw - nvm_bw_ewma);
       nvm_bw_std = sqrtf(fmaxf(nvm_bw_std, 1e-12f)); // avoid stddev of 0
+
+      // Update global stats
+      g_stats->dram_bw_ewma = dram_bw_ewma;
+      g_stats->nvm_bw_ewma = nvm_bw_ewma;
+      g_stats->nvm_bw_std = nvm_bw_std;
+      g_stats->cur_dram_bw = cur_dram_bw;
+      g_stats->cur_nvm_bw = cur_nvm_bw;
 
       // Scale drift and threshold based on stddev
       // This allows the algorithm to adapt to different levels of noise in the measurements
@@ -1266,9 +1313,14 @@ void *pebs_policy_thread()
     min_score = scores[s_pages_cnt - 1].score;
     max_score = scores[0].score;
 
+    #ifdef WEIGHTED_ACCESSES
     LOG_REPORT("min_score: %.3f (%.3f %.3f), max_score: %.3f (%.3f %.3f)\n",
                 min_score, scores[s_pages_cnt - 1].page->w[0], scores[s_pages_cnt - 1].page->w[1],
                 max_score, scores[0].page->w[0], scores[0].page->w[1]);
+    #else
+    LOG_REPORT("min_score: %.3f, max_score: %.3f \n", min_score, max_score);
+    #endif
+
     LOG_REPORT("Prom cost: %f, Dem cost: %f\n", promotion_cost_avg, demotion_cost_avg);
 
     // Perform migrations
@@ -1523,6 +1575,10 @@ void pebs_init(void)
   #endif
 
   scores = (struct score_entry*)malloc((MAX_NVME_PAGES + MAX_DRAM_PAGES) * sizeof(struct score_entry));
+
+  // Initialize the global stats struct.
+  g_stats = (struct global_stats*)malloc(sizeof(struct global_stats));
+  memset(g_stats, 0, sizeof(struct global_stats));
 
   // Initialize the free/add ring buffers
   mod_page_dq = kdq_init(mod_page_t);

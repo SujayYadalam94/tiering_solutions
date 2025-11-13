@@ -176,7 +176,19 @@ struct hemem_page {
   enum pagetypes pt;
   volatile bool migrating;
   bool present;
-  uint16_t accesses[NPBUFTYPES][2];
+
+  // Maintain history of last few windows of accesses
+  // Num of windows is defined by whether WEIGHTED_ACCESSES or HISTORY_ACCESSES is defined.
+  uint16_t accesses[NPBUFTYPES][WINDOW_SIZE];
+
+#ifdef WEIGHTED_ACCESSES
+  float w[WINDOW_SIZE];
+#endif
+
+#ifdef HISTORY_ACCESSES
+  uint8_t access_count;   // Number of access windows filled
+#endif
+
   pthread_mutex_t page_lock;
 
   // Our system
@@ -184,7 +196,6 @@ struct hemem_page {
   float s_accesses[NPBUFTYPES];
 #endif
 
-  float w[WINDOW_SIZE];
   float score;
   float prev_score;
   uint16_t hot_age;
@@ -193,7 +204,7 @@ struct hemem_page {
   struct hemem_page *next, *prev;
   struct fifo_list *list;
 };
-static_assert(sizeof(struct hemem_page) == 128);
+static_assert(sizeof(struct hemem_page) == 144);
 
 struct migration_req {
   struct hemem_page *dram_page;
