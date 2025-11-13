@@ -4,6 +4,7 @@
 *.patch
 *.data
 *.sh
+!cloudlab/**
 *.csv
 *.pdf
 *.py
