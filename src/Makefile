@@ -8,9 +8,12 @@ HEMEM_LIBS = $(LIBS) -ldl -lsyscall_intercept -L../Hoard/src -lhoard
 
 default: libhemem.so
 
-all: hemem-libs
+all: hemem-libs libllmcode.so
 
 hemem-libs: libhemem-lru.so libhemem-simple.so libhemem-lru-swap.so libhemem.so
+
+libllmcode.so: llmcode_shlib.o
+	$(CC) $(LDFLAGS) -o libllmcode.so llmcode_shlib.o $(LIBS)
 
 libhemem.so: hemem.o pebs.o timer.o interpose.o fifo.o spsc-ring.o
 	$(CC) $(LDFLAGS) -o libhemem.so hemem.o timer.o interpose.o pebs.o fifo.o spsc-ring.o $(HEMEM_LIBS)
@@ -62,6 +65,9 @@ fifo.o: fifo.c fifo.h hemem.h
 
 spsc-ring.o: spsc-ring.c spsc-ring.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c spsc-ring.c
+
+llmcode_shlib.o: llmcode_shlib.c hemem.h pebs.h
+	$(CC) $(CFLAGS) $(INCLUDES) -c llmcode_shlib.c
 
 clean:
 	$(RM) *.o *.so policies/*.o

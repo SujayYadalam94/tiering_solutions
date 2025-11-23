@@ -51,4 +51,42 @@ for i in "${!HOSTS[@]}"; do
 done
 wait
 
+# Create the data/ directory and clone worklaads.
+for i in "${!HOSTS[@]}"; do
+  host=${HOSTS[$i]}
+  echo "Cloning workloads on $host ..."
+  ssh -o StrictHostKeyChecking=no $host "tmux new-session -d -s workloads \"
+    sudo mkdir -p /mnt/data &&
+    sudo chown -R \$USER: /mnt/data &&
+    
+    pushd /mnt/data &&
+    git clone --recursive https://github.com/SujayYadalam94/workloads.git &&
+    sudo chown -R \$USER: workloads &&
+
+    pushd workloads/gups_hemem &&
+    make &&
+    popd &&
+
+    popd
+    \""
+done
+wait
+
+# Push the update_kernel.sh script to all nodes and run it
+for i in "${!HOSTS[@]}"; do
+  host=${HOSTS[$i]}
+  echo "Setting up crontab on $host ..."
+  scp -o StrictHostKeyChecking=no setup/update_kernel.sh $host:~/
+  ssh -o StrictHostKeyChecking=no $host "bash update_kernel.sh"
+done
+wait
+
+# Reboot all nodes to finalize setup
+for i in "${!HOSTS[@]}"; do
+  host=${HOSTS[$i]}
+  echo "Rebooting $host ..."
+  ssh -o StrictHostKeyChecking=no $host "sudo reboot"
+done
+wait
+
 echo "Setup complete on all nodes."
