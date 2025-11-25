@@ -204,7 +204,12 @@ struct hemem_page {
   struct hemem_page *next, *prev;
   struct fifo_list *list;
 };
+#ifdef WEIGHTED_ACCESSES
+static_assert(sizeof(struct hemem_page) == 128);
+#endif
+#ifdef HISTORY_ACCESSES
 static_assert(sizeof(struct hemem_page) == 144);
+#endif
 
 struct migration_req {
   struct hemem_page *dram_page;
