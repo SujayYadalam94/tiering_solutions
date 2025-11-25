@@ -68,7 +68,7 @@ extern char* drampath;
 extern char* nvmpath;
 
 #define NVMSIZE_DEFAULT   (64L * (1024L * 1024L * 1024L))
-#define DRAMSIZE_DEFAULT  (32L * (1024L * 1024L * 1024L))
+#define DRAMSIZE_DEFAULT  (8L * (1024L * 1024L * 1024L))
 
 #define DRAMPATH_DEFAULT  "/dev/dax0.0"
 #define NVMPATH_DEFAULT   "/dev/dax1.0"
@@ -80,7 +80,8 @@ extern char* nvmpath;
 #define CACHELINE_SIZE   (64)
 
 #define MAX_NVME_PAGES  (NVMSIZE_DEFAULT / PAGE_SIZE)
-#define MAX_DRAM_PAGES  (DRAMSIZE_DEFAULT / PAGE_SIZE)
+/* declare the global variable; define it in one .c file */
+extern size_t MAX_DRAM_PAGES;
 
 #define BASEPAGE_MASK	(BASEPAGE_SIZE - 1)
 #define HUGEPAGE_MASK	(HUGEPAGE_SIZE - 1)

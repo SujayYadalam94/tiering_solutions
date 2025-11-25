@@ -34,6 +34,8 @@ pthread_t fault_thread;
 
 uint64_t min_interpose_mem_size = 0;
 
+size_t MAX_DRAM_PAGES = (DRAMSIZE_DEFAULT / PAGE_SIZE);
+
 uint64_t nvmsize = 0;
 uint64_t dramsize = 0;
 char* drampath = NULL;
@@ -259,10 +261,14 @@ void hemem_init()
   LOG_STATS("MIN_INTERPOSE_MEM_SIZE: %lu\n", min_interpose_mem_size);
 
   char* dramsize_string = getenv("DRAMSIZE");
-  if(dramsize_string != NULL)
+  if(dramsize_string != NULL){
     dramsize = strtoull(dramsize_string, NULL, 10);
-  else
+    MAX_DRAM_PAGES = dramsize / PAGE_SIZE;
+  }
+  else{
     dramsize = DRAMSIZE_DEFAULT;
+    MAX_DRAM_PAGES = dramsize / PAGE_SIZE;
+  }
   LOG_STATS("DRAMSIZE: %lu\n", dramsize);
 
   if(dramsize != 0) {

@@ -700,6 +700,9 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
 
 static size_t calculate_scores_map(struct score_entry *scores_out, const float *bias)
 {
+  size_t pages_in_dram = 0;
+  size_t pages_in_nvm = 0;
+
   struct ptimer window_timer;
   ptimer_init(&window_timer, "Scores (window)");
 
@@ -726,6 +729,13 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
     LOG_DEBUG("%lu,%f|", page->va, page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD]); //+ page->s_accesses[WRITE]);
     #endif
 
+    if (page->in_dram) {
+      pages_in_dram++;
+    }
+    else {
+      pages_in_nvm++;
+    }
+
     // Update the window values
     update_window(page);
 
@@ -740,6 +750,7 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
     scores_out[s_idx++] = (struct score_entry){ page, page->score };
 
   }
+  printf("Pages in DRAM: %zu, Pages in NVM: %zu\n", pages_in_dram, pages_in_nvm);
   ptimer_print(&window_timer);
 
   return s_idx;
