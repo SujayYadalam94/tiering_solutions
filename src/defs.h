@@ -3,12 +3,15 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <math.h>
+#include <stddef.h>
 
 // Define target system here
 // Options are SCAILP and C220G5
 #define C220G5
 
 #define USE_MODEL (false)
+#define PRINT_TRAINING_DATA (false)
+#define MAX_LOGGED_SAMPLES (20000000)
 
 #define MIN_INTERPOSE_MEM_SIZE_DEFAULT (4UL * 1024UL * 1024UL)
 //(1 * 1024UL * 1024UL * 1024UL)
@@ -39,7 +42,8 @@
 #define CACHELINE_SIZE   (64)
 
 #define MAX_NVME_PAGES  (NVMSIZE_DEFAULT / PAGE_SIZE)
-#define MAX_DRAM_PAGES  (DRAMSIZE_DEFAULT / PAGE_SIZE)
+/* declare the global variable; define it in one .c file */
+extern size_t MAX_DRAM_PAGES;
 
 #define BASEPAGE_MASK	(BASEPAGE_SIZE - 1)
 #define HUGEPAGE_MASK	(HUGEPAGE_SIZE - 1)

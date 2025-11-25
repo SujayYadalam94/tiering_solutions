@@ -16,26 +16,41 @@ void reset_page_access_fields(struct hemem_page *page) {
         page->w_w_perc[i] = 0;
         page->malloc_call_ewma[i] = 0;
         page->malloc_size_ewma[i] = 0;
+        page->rank_perc_ewma[i] = 0;
     }
 
-    page->cumsum_reads = 0;
-    page->cumsum_writes = 0;
-
-    page->age = 0;
-    page->hot_age = 0;
-    page->prev_score = 0;
-    page->accuracy = 0;
-
-    page->prev_count = 0;
-
-    page->read_bytes = 0;
-    page->write_bytes = 0;
+    page->prot = 0;
+    page->flags = 0;
+    page->count = 0;
+    page->reads = 0;
+    page->writes = 0;
     page->read_syscalls = 0;
     page->write_syscalls = 0;
+    page->read_bytes = 0;
+    page->write_bytes = 0;
     page->sum_malloc_bytes = 0;
     page->min_malloc_bytes = -1;
     page->max_malloc_bytes = -1;
     page->malloc_call = 0;
+    page->cumsum_reads = 0;
+    page->cumsum_writes = 0;
+
+    page->age = 0;
+    page->age_count_total = 0;
+    page->non_resetting_ewma100 = 0;
+    page->non_resetting_age = 0;
+    page->accuracy = 0;
+    page->model_score = 0;
+    page->arms_score = 0;
+
+    page->rank = 0;
+    page->rank_perc = 0;
+    page->hot_age = 0;
+    page->prev_score = 0;
+
+    page->prev_count = 0;
+    page->global_count_similar = 0;
+    page->diff = 0;
 }
 
 float ewma(const float yp, const float x, const float alpha) {
@@ -117,6 +132,8 @@ update_derivative_features(struct hemem_page *page,
 
     // time since top 1% and 50% in ewma5
     page->rank = rank;
+    page->rank_perc = (float)rank / (float)num_sorted_pages;
+
     page->age_count_total += count_total;
 
     size_t top1_percent_index = num_sorted_pages / 100;
@@ -128,11 +145,14 @@ update_derivative_features(struct hemem_page *page,
         page->malloc_size_ewma[i] = adjusted_ewma(page->malloc_size_ewma[i], page->sum_malloc_bytes,
                                      get_adjusted_ewma_denom(i, page->age));
 
-        page->w_perc[i] = adjusted_ewma(page->w[i], count_total ? (double)(page->count) / (double)(count_total) : 0.0,
+        page->rank_perc_ewma[i] = adjusted_ewma(page->rank_perc_ewma[i], page->rank_perc,
+                                    get_adjusted_ewma_denom(i, page->age));
+
+        page->w_perc[i] = adjusted_ewma(page->w_perc[i], count_total ? (double)(page->count) / (double)(count_total) : 0.0,
                                      get_adjusted_ewma_denom(i, page->age));
-        page->w_r_perc[i] = adjusted_ewma(page->w_r[i], count_total ? (double)(page->reads) / (double)(count_total) : 0.0,
+        page->w_r_perc[i] = adjusted_ewma(page->w_r_perc[i], count_total ? (double)(page->reads) / (double)(count_total) : 0.0,
                                      get_adjusted_ewma_denom(i, page->age));
-        page->w_w_perc[i] = adjusted_ewma(page->w_w[i], count_total ? (double)(page->writes) / (double)(count_total) : 0.0,
+        page->w_w_perc[i] = adjusted_ewma(page->w_w_perc[i], count_total ? (double)(page->writes) / (double)(count_total) : 0.0,
                                      get_adjusted_ewma_denom(i, page->age));
     }
 
@@ -142,7 +162,7 @@ update_derivative_features(struct hemem_page *page,
         return;
     }
 
-    if (rank <= top1_percent_index) {
+    if (page->rank_perc <= 0.01f) {
         page->global_count_since_top1_percent_ewma5 =
             fmin(page->global_count_since_top1_percent_ewma5,
                      0) -
@@ -154,7 +174,7 @@ update_derivative_features(struct hemem_page *page,
             count_total;
     }
 
-    if (rank <= top50_percent_index) {
+    if (page->rank_perc <= 0.50f) {
         page->global_count_since_top50_percent_ewma5 =
             fmin(page->global_count_since_top50_percent_ewma5,
                      0) -

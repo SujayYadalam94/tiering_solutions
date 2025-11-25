@@ -1,0 +1,6 @@
+NAS_ft.D
+run.sh: line 3: 1718270 Killed                  numactl -N0 -m0 -- taskset -c 0-9,20-25 sudo $pre_args LD_PRELOAD=./$ld_lreload $binary $args 2>&1
+
+real	0m34.545s
+user	0m0.001s
+sys	0m0.022s

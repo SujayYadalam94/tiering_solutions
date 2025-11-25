@@ -1,0 +1,40 @@
+bc
+
+real	3m41.049s
+user	0m0.068s
+sys	0m0.247s
+bfs
+
+real	0m29.556s
+user	0m0.013s
+sys	0m0.051s
+cc
+
+real	0m29.792s
+user	0m0.010s
+sys	0m0.045s
+cc_sv
+
+real	7m23.174s
+user	0m0.178s
+sys	0m0.457s
+pr
+
+real	14m17.411s
+user	0m0.251s
+sys	0m0.962s
+pr_spmv
+
+real	14m13.655s
+user	0m0.141s
+sys	0m1.046s
+sssp
+
+real	0m0.740s
+user	0m0.018s
+sys	0m0.000s
+tc
+
+real	0m14.684s
+user	0m0.010s
+sys	0m0.033s

@@ -68,6 +68,9 @@ struct hemem_page {
     uint32_t age;
     uint64_t age_count_total;
 
+    uint32_t non_resetting_ewma100;
+    uint32_t non_resetting_age;
+
     struct hemem_page *next, *prev;
     struct fifo_list *list;
 
@@ -79,10 +82,13 @@ struct hemem_page {
     int64_t global_count_since_top1_percent_ewma5;
     int64_t global_count_since_top50_percent_ewma5;
     uint32_t rank;
+    float rank_perc;
+    float rank_perc_ewma[WINDOW_SIZE];
+
     uint64_t global_count_similar;
     int32_t diff;
 
-    uint64_t _padding[7];
+    uint64_t _padding[4];
 };
 static_assert(sizeof(struct hemem_page) == 64 * 7);
 

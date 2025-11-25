@@ -1,0 +1,41 @@
+bc
+run.sh: line 5:  4303 Bus error               numactl -N0 -m0 -- taskset -c 0-9,20-25 sudo LD_PRELOAD=./libhemem.so ~/gapbs/bc -n 16 -f ~/gapbs/benchmark/graphs/twitter.sg 2>&1
+
+real	1m40.909s
+user	0m0.040s
+sys	0m0.127s
+bfs
+
+real	0m30.210s
+user	0m0.018s
+sys	0m0.048s
+cc
+
+real	0m26.157s
+user	0m0.025s
+sys	0m0.033s
+cc_sv
+
+real	3m46.964s
+user	0m0.088s
+sys	0m0.268s
+pr
+
+real	6m26.183s
+user	0m0.075s
+sys	0m0.466s
+pr_spmv
+
+real	6m21.674s
+user	0m0.093s
+sys	0m0.448s
+sssp
+
+real	0m0.737s
+user	0m0.004s
+sys	0m0.015s
+tc
+
+real	0m17.562s
+user	0m0.011s
+sys	0m0.040s

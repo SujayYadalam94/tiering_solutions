@@ -22,14 +22,17 @@ void (*libc_free)(void* ptr) = NULL;
 
 static int mmap_filter(void *addr, size_t length, int prot, int flags, int fd, off_t offset, uint64_t *result)
 {
-  //ensure_init();
+    // ensure_init();
 
-  //TODO: figure out which mmap calls should go to libc vs hemem
-  // non-anonymous mappings should probably go to libc (e.g., file mappings)
-  if (((flags & MAP_ANONYMOUS) != MAP_ANONYMOUS) && !((fd == dramfd) || (fd == nvmfd))) {
-    LOG("hemem interpose: calling libc mmap due to non-anonymous, non-devdax mapping: mmap(0x%lx, %ld, %x, %x, %d, %ld)\n", (uint64_t)addr, length, prot, flags, fd, offset);
-    return 1;
-  }
+    // TODO: figure out which mmap calls should go to libc vs hemem
+    //  non-anonymous mappings should probably go to libc (e.g., file mappings)
+    if (((flags & MAP_ANONYMOUS) != MAP_ANONYMOUS) && !((fd == dramfd) || (fd == nvmfd)))
+    {
+        LOG("hemem interpose: calling libc mmap due to non-anonymous, non-devdax mapping: mmap(0x%lx, %ld, %x, %x, %d, "
+            "%ld)\n",
+            (uint64_t)addr, length, prot, flags, fd, offset);
+        return 1;
+    }
 
   if ((flags & MAP_STACK) == MAP_STACK) {
     // pthread mmaps are called with MAP_STACK
@@ -37,11 +40,11 @@ static int mmap_filter(void *addr, size_t length, int prot, int flags, int fd, o
     return 1;
   }
 
-  //if (((flags & MAP_NORESERVE) == MAP_NORESERVE)) {
-    // thread stack is called without swap space reserved, so we can probably ignore these
-    //fprintf(stderr, "hemem interpose: calling libc mmap due to non-swap space reserved mapping: mmap(0x%lx, %ld, %x, %x, %d, %ld)\n", (uint64_t)addr, length, prot, flags, fd, offset);
-    //return 1;
-  //}
+  /*if (((flags & MAP_NORESERVE) == MAP_NORESERVE)) {
+    //thread stack is called without swap space reserved, so we can probably ignore these
+    fprintf(stderr, "hemem interpose: calling libc mmap due to non-swap space reserved mapping: mmap(0x%lx, %ld, %x, %x, %d, %ld)\n", (uint64_t)addr, length, prot, flags, fd, offset);
+    return 1;
+  }*/
   
   /*if ((fd == dramfd) || (fd == nvmfd)) {
     printf("hemem interpose: calling libc mmap due to hemem devdax mapping\n");

@@ -6,35 +6,17 @@ INCLUDES = -I../linux/usr/include/
 LIBS = -lm -lpthread
 HEMEM_LIBS = $(LIBS) -ldl -lsyscall_intercept -L../Hoard/src -lhoard
 
-default: libhemem.so
+# Generate list of all .so files from models/*.o files
+MODEL_OBJS := $(wildcard models/l2_99_*.o)
+MODEL_TARGETS := $(patsubst models/l2_99_%.o,libhemem-%.so,$(MODEL_OBJS))
 
-all: hemem-libs
+default: $(MODEL_TARGETS)
 
-hemem-libs: libhemem-lru.so libhemem-simple.so libhemem-lru-swap.so libhemem.so
-
-libhemem.so: hemem.o pebs.o timer.o interpose.o fifo.o spsc-ring.o groups.o hemem_page.o logging.o model.o models/model_discounted_reward_0.95_l2.o
-	$(CC) $(LDFLAGS) -o libhemem.so hemem.o timer.o interpose.o pebs.o fifo.o spsc-ring.o groups.o hemem_page.o logging.o model.o models/model_discounted_reward_0.95_l2.o $(HEMEM_LIBS)
-
-libhemem-lru.so: policies/hemem-lru.o policies/lru.o timer.o interpose.o policies/paging.o fifo.o spsc-ring.o
-	$(CC) $(LDFLAGS) -o libhemem-lru.so policies/hemem-lru.o timer.o policies/lru.o interpose.o policies/paging.o fifo.o spsc-ring.o $(HEMEM_LIBS)
-
-libhemem-simple.so: policies/hemem-simple.o policies/simple.o timer.o interpose.o policies/paging.o fifo.o spsc-ring.o
-	$(CC) $(LDFLAGS) -o libhemem-simple.so policies/hemem-simple.o timer.o policies/simple.o interpose.o policies/paging.o fifo.o spsc-ring.o $(HEMEM_LIBS)
-
-libhemem-lru-swap.so: policies/hemem-lru-swap.o policies/lru_swap.o timer.o interpose.o policies/paging.o fifo.o spsc-ring.o
-	$(CC) $(LDFLAGS) -o libhemem-lru-swap.so policies/hemem-lru-swap.o timer.o policies/lru_swap.o interpose.o policies/paging.o fifo.o spsc-ring.o $(HEMEM_LIBS)
+libhemem-%.so: models/l2_99_%.o defs.o hemem.o pebs.o timer.o interpose.o fifo.o spsc-ring.o groups.o hemem_page.o logging.o model.o
+	$(CC) $(LDFLAGS) -o $@ defs.o hemem.o timer.o interpose.o pebs.o fifo.o spsc-ring.o groups.o hemem_page.o logging.o model.o models/l2_99_$*.o $(HEMEM_LIBS)
 
 hemem.o: hemem.c hemem.h pebs.h interpose.h fifo.h spsc-ring.h defs.h hemem_page.h
 	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_HEMEM -c hemem.c -o hemem.o
-	
-policies/hemem-lru.o: hemem.c hemem.h policies/lru.h interpose.h policies/paging.h fifo.h spsc-ring.h
-	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_LRU -c hemem.c -o policies/hemem-lru.o
-
-policies/hemem-simple.o: hemem.c hemem.h policies/simple.h interpose.h policies/paging.h fifo.h spsc-ring.h
-	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_SIMPLE -c hemem.c -o policies/hemem-simple.o
-
-policies/hemem-lru-swap.o: hemem.c hemem.h policies/lru.h interpose.h policies/paging.h fifo.h spsc-ring.h
-	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_LRU -D LRU_SWAP -c hemem.c -o policies/hemem-lru-swap.o
 
 interpose.o: interpose.c interpose.h hemem.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c interpose.c
@@ -65,6 +47,9 @@ logging.o: logging.c logging.h defs.h hemem_page.h groups.h
 
 model.o: model.c model.h hemem_page.h logging.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c model.c
+
+defs.o: defs.c defs.h 
+	$(CC) $(CFLAGS) $(INCLUDES) -c defs.c
 
 pebs.o: pebs.c pebs.h hemem.h fifo.h groups.h defs.h hemem_page.h logging.h model.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c pebs.c

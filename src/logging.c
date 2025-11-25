@@ -194,6 +194,11 @@ void print_row(FILE *f, struct data_row *row, bool header) {
     PRINT_CELL_AUTO(global_count_since_top1_percent_ewma5, "%f");
     PRINT_CELL_AUTO(global_count_since_top50_percent_ewma5, "%f");
     PRINT_CELL_AUTO(rank, "%zu");
+    PRINT_CELL_AUTO(rank_perc, "%f");
+    PRINT_CELL_AUTO(rank_ewma_2, "%f");
+    PRINT_CELL_AUTO(rank_ewma_5, "%f");
+    PRINT_CELL_AUTO(rank_ewma_20, "%f");
+    PRINT_CELL_AUTO(rank_ewma_100, "%f");
     PRINT_CELL_AUTO(count_total, "%zu");
     PRINT_CELL_AUTO(global_count_similar, "%zu");
     PRINT_CELL_AUTO(diff, "%f");
@@ -205,13 +210,21 @@ void print_row(FILE *f, struct data_row *row, bool header) {
     PRINT_CELL_AUTO(age, "%d");
     PRINT_CELL_AUTO(age_count_total, "%lu");
 
-    for (int offset = -3; offset <= 3; offset++){
-        char group_header[32];
+    int pm_offset = 7;
+    for (int offset = -pm_offset; offset <= pm_offset; offset++)
+    {
+        char group_header[64];
         snprintf(group_header, sizeof(group_header), "group_%d_mean", offset);
-        PRINT_CELL(f, row->groups[offset + 3], group_header, header, "%f");
+        PRINT_CELL(f, row->groups[offset + pm_offset], group_header, header, "%f");
 
         snprintf(group_header, sizeof(group_header), "group_%d_mean_perc", offset);
-        PRINT_CELL(f, row->groups_perc[offset + 3], group_header, header, "%f");
+        PRINT_CELL(f, row->groups_perc[offset + pm_offset], group_header, header, "%f");
+
+        snprintf(group_header, sizeof(group_header), "group_%d_mean_ewma5", offset);
+        PRINT_CELL(f, row->group_ewma5[offset + pm_offset], group_header, header, "%f");
+
+        snprintf(group_header, sizeof(group_header), "group_%d_mean_ewma5_perc", offset);
+        PRINT_CELL(f, row->group_ewma5_perc[offset + pm_offset], group_header, header, "%f");
     }
 
     PRINT_CELL_AUTO(model_selection, "%zu");
@@ -230,20 +243,6 @@ void print_row(FILE *f, struct data_row *row, bool header) {
     fprintf(f, "\n");
 }
 
-void print_migration_row(FILE *f, struct migration_event *event, size_t count_total, bool header) {
-    PRINT_CELL(f, event->timestep, "timestep", header, "%zu");
-    PRINT_CELL(f, event->va_dram, "va_dram", header, "%zu");
-    PRINT_CELL(f, event->va_nvm, "va_nvm", header, "%zu");
-    PRINT_CELL(f, event->read_dram, "read_dram", header, "%zu");
-    PRINT_CELL(f, event->write_dram, "write_dram", header, "%zu");
-    PRINT_CELL(f, event->read_nvm, "read_nvm", header, "%zu");
-    PRINT_CELL(f, event->write_nvm, "write_nvm", header, "%zu");
-    PRINT_CELL(f, event->time, "time_us", header, "%f");
-    PRINT_CELL(f, event->type, "migration_type", header, "%d");
-    PRINT_CELL(f, count_total, "count_total", header, "%zu");
-    fprintf(f, "\n");
-}
-
 void pebs_write_log(){
     if (PRINT_TRAINING_DATA){
         size_t *step_to_count = malloc(sizeof(size_t) * (scores_log[logged_samples - 1].step + 1));
@@ -254,23 +253,11 @@ void pebs_write_log(){
             return;
         }
         print_row(f, scores_log, true); // print header
-        for (size_t i = 0; i < logged_samples; i++){
+        for (size_t i = 0; (i < logged_samples) && i < MAX_LOGGED_SAMPLES; i++){
             print_row(f, &scores_log[i], false);
             step_to_count[scores_log[i].step] = scores_log[i].count_total;
         }
         fclose(f);
-
-        FILE *f_mig = fopen("migration_log.txt", "w");
-        if (!f_mig) {
-            perror("fopen");
-            return;
-        }
-
-        print_migration_row(f_mig, migration_event_queue, 0, true);
-        for (size_t i = 0; i < migration_queue_size; i++){
-            print_migration_row(f_mig, &migration_event_queue[i], step_to_count[migration_event_queue[i].timestep], false);
-        }
-        fclose(f_mig);
     }
 }
 
@@ -289,6 +276,7 @@ void log_row(size_t step, struct hemem_page *page, struct group_tracker *grp_tra
     scores_log[logged_samples].read = page->reads;
     scores_log[logged_samples].write = page->writes;
     scores_log[logged_samples].count = page->count;
+    scores_log[logged_samples].age = page->age;
     scores_log[logged_samples].prot = page->prot;
     scores_log[logged_samples].flags = page->flags;
     scores_log[logged_samples].ewma_2 = page->w[0];
@@ -326,6 +314,11 @@ void log_row(size_t step, struct hemem_page *page, struct group_tracker *grp_tra
     scores_log[logged_samples].global_count_since_top1_percent_ewma5 = page->global_count_since_top1_percent_ewma5;
     scores_log[logged_samples].global_count_since_top50_percent_ewma5 = page->global_count_since_top50_percent_ewma5;
     scores_log[logged_samples].rank = page->rank;
+    scores_log[logged_samples].rank_perc = page->rank_perc;
+    scores_log[logged_samples].rank_ewma_2 = page->rank_perc_ewma[0];
+    scores_log[logged_samples].rank_ewma_5 = page->rank_perc_ewma[1];
+    scores_log[logged_samples].rank_ewma_20 = page->rank_perc_ewma[2];
+    scores_log[logged_samples].rank_ewma_100 = page->rank_perc_ewma[3];
     scores_log[logged_samples].count_total = count_all_pages;
     scores_log[logged_samples].global_count_similar = page->global_count_similar;
     scores_log[logged_samples].diff = page->diff;
@@ -334,10 +327,12 @@ void log_row(size_t step, struct hemem_page *page, struct group_tracker *grp_tra
     scores_log[logged_samples].disk_write_bytes = (curr_disk_stat.write_bytes - prev_disk_stat.write_bytes);
     scores_log[logged_samples].syscr = (curr_disk_stat.syscr - prev_disk_stat.syscr);
     scores_log[logged_samples].syscw = (curr_disk_stat.syscw - prev_disk_stat.syscw);
-    for (int i = 0; i < 7; ++i) {
+    for (int8_t i = -7; i <= 7; ++i) {
         struct page_group *pg = try_get_group(grp_tracker, page->va, i);
-        scores_log[logged_samples].groups[i] = pg != NULL ? pg->avg : 0.0;
-        scores_log[logged_samples].groups_perc[i] = pg != NULL ? pg->avg_perc : 0.0;
+        scores_log[logged_samples].groups[i + 7] = pg != NULL ? pg->avg : 0.0;
+        scores_log[logged_samples].groups_perc[i + 7] = pg != NULL ? pg->avg_perc : 0.0;
+        scores_log[logged_samples].group_ewma5[i + 7] = pg != NULL ? pg->avg_ewma5 : 0.0;
+        scores_log[logged_samples].group_ewma5_perc[i + 7] = pg != NULL ? pg->avg_perc_ewma5 : 0.0;
     }
     scores_log[logged_samples].model_selection = page->model_selection;
     scores_log[logged_samples].model_score = page->model_score;
@@ -351,7 +346,6 @@ void log_row(size_t step, struct hemem_page *page, struct group_tracker *grp_tra
     scores_log[logged_samples].min_malloc_bytes = page->min_malloc_bytes;
     scores_log[logged_samples].max_malloc_bytes = page->max_malloc_bytes;
     scores_log[logged_samples].malloc_call = page->malloc_call;
-    scores_log[logged_samples].age = page->age;
     scores_log[logged_samples].age_count_total = page->age_count_total;
 
     logged_samples++;

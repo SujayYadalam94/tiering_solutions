@@ -9,9 +9,7 @@
 
 #include "hemem_page.h"
 #include "groups.h"
-
-#define PRINT_TRAINING_DATA (false)
-#define MAX_LOGGED_SAMPLES (50000000)
+#include "defs.h"
 
 struct data_row{
     size_t step;
@@ -57,6 +55,11 @@ struct data_row{
     double global_count_since_top1_percent_ewma5;
     double global_count_since_top50_percent_ewma5;
     size_t rank;
+    double rank_perc;
+    double rank_ewma_2;
+    double rank_ewma_5;
+    double rank_ewma_20;
+    double rank_ewma_100;
     size_t count_total;
     size_t global_count_similar;
     double diff;
@@ -65,8 +68,10 @@ struct data_row{
     long long disk_write_bytes;
     long long syscr;
     long long syscw;
-    double groups[7];
-    double groups_perc[7];
+    double groups[15];
+    double groups_perc[15];
+    double group_ewma5[15];
+    double group_ewma5_perc[15];
     size_t model_selection;
     double model_score;
     double arms_score;
@@ -101,23 +106,6 @@ struct disk_stat {
     long long write_bytes;
 };
 
-enum migration_type {
-  TO_DRAM = 0,
-  TO_NVM = 1,
-};
-struct migration_event
-{
-    double time;
-    uint64_t va_dram;
-    uint64_t va_nvm;
-    size_t write_dram;
-    size_t read_dram;
-    size_t write_nvm;
-    size_t read_nvm;
-    size_t timestep;
-    enum migration_type type;
-};
-
 /* Global process statistics - declared here, defined in logging.c to avoid
     multiple-definition linker errors when this header is included by many
     translation units. Keep only declarations in headers; provide one
@@ -136,11 +124,6 @@ void update_proc_stats();
     logging.c. */
 extern size_t logged_samples;
 extern struct data_row *scores_log;
-
-#define MIGRATION_EVENT_QUEUE_CAPACITY (256 * 1024)
-extern _Atomic size_t migration_queue_index;
-extern _Atomic size_t migration_queue_size;
-extern _Atomic(struct migration_event *) migration_event_queue;
 
 void print_row(FILE *f, struct data_row *row, bool header);
 void pebs_write_log();

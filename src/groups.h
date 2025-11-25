@@ -14,16 +14,23 @@ struct page_group {
     float avg;
     float max;
 
+    float sum_ewma5;
+    float avg_ewma5;
+    float max_ewma5;
+
     float sum_perc;
     float avg_perc;
     float max_perc;
+
+    float sum_perc_ewma5;
+    float avg_perc_ewma5;
+    float max_perc_ewma5;
     uint32_t count;
 };
 
 void page_group_reset(struct page_group *pg);
-void page_group_update(struct page_group *pg, const float count, const float total);
+void page_group_update(struct page_group *pg, const float count, const float ewma5, const float total);
 
-static_assert(sizeof(struct page_group) == 40);
 KHASH_MAP_INIT_INT64(kGroupMap, struct page_group *);
 
 struct group_tracker {
@@ -36,4 +43,4 @@ uint64_t page_to_group_id(const uint64_t va);
 void add_group_if_missing(struct group_tracker *gt, const struct hemem_page *page);
 void reset_group_hash(struct group_tracker *gt);
 void update_group_entry(struct group_tracker *gt, struct hemem_page *page, const float total);
-struct page_group * try_get_group(struct group_tracker *, const uint64_t, const int8_t);
+struct page_group *try_get_group(struct group_tracker *, const uint64_t, const int8_t);
