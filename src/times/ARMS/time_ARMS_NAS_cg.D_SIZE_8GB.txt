@@ -1,0 +1,6 @@
+NAS_cg.D
+run_ARMS.sh: line 3: 2372228 Aborted                 numactl -N0 -m0 -- taskset -c 0-9,20-25 sudo $pre_args LD_PRELOAD=./libhemem.so $binary $args 2>&1
+
+real	0m37.061s
+user	0m0.012s
+sys	0m0.054s
