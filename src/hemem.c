@@ -260,11 +260,14 @@ void hemem_init()
   LOG_STATS("MIN_INTERPOSE_MEM_SIZE: %lu\n", min_interpose_mem_size);
 
   char* dramsize_string = getenv("DRAMSIZE");
-  if(dramsize_string != NULL)
+  if(dramsize_string != NULL) {
     dramsize = strtoull(dramsize_string, NULL, 10);
-  else
+    MAX_DRAM_PAGES = dramsize / PAGE_SIZE;
+  } else {
     dramsize = DRAMSIZE_DEFAULT;
-  LOG_STATS("DRAMSIZE: %lu\n", dramsize);
+    MAX_DRAM_PAGES = dramsize / PAGE_SIZE;
+  }
+  printf("DRAMSIZE: %lu\n", dramsize);
 
   if(dramsize != 0) {
     dram_devdax_mmap = libc_mmap(NULL, dramsize, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, dramfd, 0);

@@ -51,6 +51,33 @@ _Atomic size_t syscall_queue_index = 0;
 _Atomic size_t syscall_queue_size = 0;
 _Atomic(struct syscall_event *) syscall_event_queue;
 
+// Pages to be freed/added in the next interval
+typedef struct mod_page {
+  struct hemem_page* page;
+  bool free;
+} mod_page_t;
+static_assert(sizeof(mod_page_t) == 16);
+
+#define MOD_PAGE_DQ_CAPACITY (128 * 1024)
+_Atomic size_t mod_page_dq_index = 0;
+_Atomic size_t mod_page_dq_size = 0;
+_Atomic(struct mod_page *) mod_page_dq_queue;
+
+struct mod_page *create_page_dq(){
+  internal_call_depth++;
+  malloc_call_depth++;
+  struct mod_page *queue =
+      (struct mod_page *)malloc(2 * MOD_PAGE_DQ_CAPACITY * sizeof(struct mod_page));
+  if (queue == NULL)
+  {
+      LOG_ERROR("Failed to allocate memory for mod page queue\n");
+      exit(EXIT_FAILURE);
+  }
+  malloc_call_depth--;
+  internal_call_depth--;
+  return queue;
+}
+
 struct syscall_event *create_syscall_event_queue(){
   internal_call_depth++;
   malloc_call_depth++;
@@ -59,21 +86,6 @@ struct syscall_event *create_syscall_event_queue(){
   if (queue == NULL)
   {
       LOG_ERROR("Failed to allocate memory for syscall event queue\n");
-      exit(EXIT_FAILURE);
-  }
-  malloc_call_depth--;
-  internal_call_depth--;
-  return queue;
-}
-
-struct migration_event *create_migration_event_queue(){
-  internal_call_depth++;
-  malloc_call_depth++;
-  struct migration_event *queue =
-      (struct migration_event *)malloc(2 * MIGRATION_EVENT_QUEUE_CAPACITY * sizeof(struct migration_event));
-  if (queue == NULL)
-  {
-      LOG_ERROR("Failed to allocate memory for migration event queue\n");
       exit(EXIT_FAILURE);
   }
   malloc_call_depth--;
@@ -99,28 +111,6 @@ inline void pebs_log_syscall(void *addr, size_t len, enum syscall_type type){
     size_t idx = (atomic_fetch_add(&syscall_queue_size, 1)) % SYSCALL_EVENT_QUEUE_CAPACITY;
     struct syscall_event *queue = atomic_load(&syscall_event_queue);
     queue[idx] = (struct syscall_event){ .type = type, .addr = addr, .len = len };
-}
-
-inline void pebs_log_migration(struct hemem_page *page_dram, struct hemem_page *page_nvm, double time, enum migration_type type){
-
-    if (!pebs_finished_init || internal_call_depth || !PRINT_TRAINING_DATA)
-    {
-        return;
-    }
-
-    size_t idx = (atomic_fetch_add(&migration_queue_size, 1)) % MIGRATION_EVENT_QUEUE_CAPACITY;
-    struct migration_event *queue = atomic_load(&migration_event_queue);
-    queue[idx] = (struct migration_event){
-      .time = time,
-      .va_dram = page_dram->va,
-      .va_nvm = page_nvm->va,
-      .read_dram = page_dram->reads,
-      .write_dram = page_dram->writes,
-      .read_nvm = page_nvm->reads,
-      .write_nvm = page_nvm->writes,
-      .timestep = timestep,
-      .type = type
-    };
 }
 
 void pebs_log_read(void *addr, size_t len){
@@ -170,18 +160,6 @@ sem_t completion_sem;
 
 //static ring_handle_t promote_page_ring;
 //static ring_handle_t demote_page_ring;
-
-// Pages to be freed/added in the next interval
-typedef struct mod_page {
-  struct hemem_page* page;
-  bool free;
-} mod_page_t;
-static_assert(sizeof(mod_page_t) == 16);
-
-KDQ_INIT(mod_page_t);
-
-static kdq_t(mod_page_t) *mod_page_dq;
-static pthread_mutex_t mod_page_dq_lock = PTHREAD_MUTEX_INITIALIZER;
 
 /*
 static ring_handle_t free_page_ring;
@@ -605,24 +583,23 @@ int sort_entry_cmp_by_ewma5(const void *a, const void *b) {
 
 static size_t calculate_scores_map(struct score_entry *scores_out, const float *bias)
 {
-    update_proc_stats();
+  update_proc_stats();
 
-    struct ptimer window_timer;
-    ptimer_init(&window_timer, "Scores (window)");
+  struct ptimer window_timer;
+  ptimer_init(&window_timer, "Scores (window)");
 
-    struct hemem_page *page;
-    khiter_t key;
-    size_t s_idx = 0;
+  struct hemem_page *page;
+  khiter_t key;
+  size_t s_idx = 0;
 
-    size_t pages_in_dram = 0;
-    size_t pages_in_nvm = 0;
+  size_t pages_in_dram = 0;
+  size_t pages_in_nvm = 0;
 
-    size_t pages_cnt = kh_size(pages_map);
-    if (pages_cnt == 0)
-    {
-        printf("No pages to process\n");
-        return 0; // no pages to process
-    }
+  size_t pages_cnt = kh_size(pages_map);
+  if (pages_cnt == 0) {
+    printf("No pages to process\n");
+    return 0; // no pages to process
+  }
 
   reset_group_hash(grp_tracker);
 
@@ -658,7 +635,7 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
 
     // Calculate the hotness score
     page->prev_score = page->score;
-    scores_out[s_idx++] = (struct score_entry){ page, 0.0 };
+    scores_out[s_idx++] = (struct score_entry){ page, 0 };
   }
 
   printf("Pages in DRAM: %zu, Pages in NVM: %zu\n", pages_in_dram, pages_in_nvm);
@@ -710,7 +687,8 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
   for (size_t i = 0; i < s_idx; i++) {
     update_derivative_features(scores_out[i].page, i, s_idx, count_total);
     update_group_entry(grp_tracker, scores_out[i].page, count_total);
-
+  }
+  for (size_t i = 0; i < s_idx; i++) {
     scores_out[i].page->arms_score = compute_score(scores_out[i].page, bias);
     scores_out[i].page->model_score = model_predict(scores_out[i].page, grp_tracker, count_total, cpu_usage);
     
@@ -849,8 +827,9 @@ void *pebs_migration_thread()
 
     while(!terminated) {
       req = dequeue_fifo_m(&migration_queue);
-      if (req == NULL) {
-        break;
+      if (req == NULL)
+      {
+          break;
       }
 
       // Demote a page if necessary
@@ -864,7 +843,6 @@ void *pebs_migration_thread()
         }
         ptimer_stop(&migrate_timer);
 
-        pebs_log_migration(req->dram_page, req->nvm_page, migrate_timer.elapsed_us, TO_NVM);
         demotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * demotion_cost_avg);
       }
 
@@ -873,7 +851,6 @@ void *pebs_migration_thread()
       promote_to_free_dram_page(req->nvm_page, req->free_page);
       ptimer_stop(&migrate_timer);
 
-      pebs_log_migration(req->dram_page, req->nvm_page, migrate_timer.elapsed_us, TO_DRAM);
       promotion_cost_avg = (MIGRATION_COST_ALPHA * migrate_timer.elapsed_us) + ((1 - MIGRATION_COST_ALPHA) * promotion_cost_avg);
       
       sem_post(&completion_sem);
@@ -1019,17 +996,18 @@ void *pebs_policy_thread()
     // free pages using free page ring buffer
     ptimer_start(&tree_timer);
     while (true) {
-      mod_page_t* mp;
-      pthread_mutex_lock(&mod_page_dq_lock);
-      if (kdq_size(mod_page_dq) == 0) {
-
-        pthread_mutex_unlock(&mod_page_dq_lock);
+      mod_page_t mp;
+      size_t size = atomic_load(&mod_page_dq_size);
+      size_t index = atomic_load(&mod_page_dq_index);
+      if (size == index) {
         break;
       }
-      mp = kdq_shift(mod_page_t, mod_page_dq);
-      pthread_mutex_unlock(&mod_page_dq_lock);
+      mod_page_t *dq = atomic_load(&mod_page_dq_queue);
+      index = atomic_fetch_add(&mod_page_dq_index, 1);
+      mp = dq[index % MOD_PAGE_DQ_CAPACITY];
 
-      page = mp->page;
+
+      page = mp.page;
       LOG_DEBUG("Processing page %p [va: %lu]\n", page, page->va);
 
       #ifdef SPATIAL_SMOOTHING
@@ -1051,7 +1029,7 @@ void *pebs_policy_thread()
       }
       #else
       khiter_t k = kh_get(kPagesMap, pages_map, page->va);
-      if (mp->free) {
+      if (mp.free) {
         if (k != kh_end(pages_map)) {
           kh_del(kPagesMap, pages_map, k);
 
@@ -1316,7 +1294,7 @@ loop_end:
       LOG_INFO("Sleeping for %lu", ((uint64_t)((1.0 * policy_thread_period) - migrate_time_us)));
       usleep((uint64_t)((1.0 * policy_thread_period) - migrate_time_us));
     }
-  }
+}
 
   return NULL;
 }
@@ -1396,14 +1374,12 @@ void pebs_add_page(struct hemem_page *page)
   assert(absent);
   kh_value(pages, key) = page;
   pthread_mutex_unlock(&pages_lock);
-
-  add_group_if_missing(grp_tracker, page);
-
+  
   // Add to the new pages ring
-  pthread_mutex_lock(&mod_page_dq_lock);
   mod_page_t mp = (mod_page_t){ .page = page, .free = false };
-  kdq_push(mod_page_t, mod_page_dq, mp);
-  pthread_mutex_unlock(&mod_page_dq_lock);
+  mod_page_t *dq = atomic_load(&mod_page_dq_queue);
+  size_t size = atomic_fetch_add(&mod_page_dq_size, 1);
+  dq[size % MOD_PAGE_DQ_CAPACITY] = mp;
 
   internal_call_depth--;
 }
@@ -1439,11 +1415,11 @@ struct hemem_page* pebs_remove_page(uint64_t va)
   }
   kh_del(kPagesMap, pages, key);
   pthread_mutex_unlock(&pages_lock);
-  
-  pthread_mutex_lock(&mod_page_dq_lock);
-  mod_page_t mp = (mod_page_t){ .page = page, .free = true};
-  kdq_push(mod_page_t, mod_page_dq, mp);
-  pthread_mutex_unlock(&mod_page_dq_lock);
+
+  mod_page_t mp = (mod_page_t){.page = page, .free = true};
+  mod_page_t *dq = atomic_load(&mod_page_dq_queue);
+  size_t size = atomic_fetch_add(&mod_page_dq_size, 1);
+  dq[size % MOD_PAGE_DQ_CAPACITY] = mp;
 
   // We set page->present to false so that
   // the migration thread does not migrate this page
@@ -1476,8 +1452,8 @@ void pebs_init(void)
   struct syscall_event *syscall_queue = create_syscall_event_queue();
   atomic_store(&syscall_event_queue, syscall_queue);
 
-  struct migration_event *migration_event_queue_mem = create_migration_event_queue();
-  atomic_store(&migration_event_queue, migration_event_queue_mem);
+  struct mod_page *mod_page_dq_queue_mem = create_page_dq();
+  atomic_store(&mod_page_dq_queue, mod_page_dq_queue_mem);
 
   if(PRINT_TRAINING_DATA){
     scores_log = (struct data_row *)malloc(MAX_LOGGED_SAMPLES * sizeof(struct data_row));
@@ -1544,9 +1520,6 @@ void pebs_init(void)
   #endif
 
   scores = (struct score_entry*)malloc(2 * (MAX_NVME_PAGES + MAX_DRAM_PAGES) * sizeof(struct score_entry));
-
-  // Initialize the free/add ring buffers
-  mod_page_dq = kdq_init(mod_page_t);
 
   // Initialize bias values
   for (int i = 0; i < WINDOW_SIZE; i++) {
