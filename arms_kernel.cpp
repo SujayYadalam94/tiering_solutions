@@ -5,13 +5,7 @@
  * userspace devdax + userfaultfd. The PEBS-based policy and scoring logic
  * from ARMS is retained, but page management and migration now relies on
  * the kernel via numa_move_pages() system calls.
- * 
- * Key differences from original ARMS:
- * - No userfaultfd or devdax devices
- * - Uses /proc/self/pagemap to discover pages
- * - Uses numa_move_pages() for page migration
- * - Kernel handles page allocation and VMA management
- * - PEBS-based access sampling and scoring policy retained
+ *
  */
 
 #include <iostream>
@@ -20,7 +14,6 @@
 #include <unistd.h>
 #include <string.h>
 #include <sys/ioctl.h>
-#include <linux/perf_event.h>
 #include <asm/unistd.h>
 #include <sys/mman.h>
 #include <cassert>
@@ -39,7 +32,6 @@
 #include <sys/types.h>
 #include <vector>
 #include <unordered_map>
-#include <mutex>
 #include <fcntl.h>
 #include <sched.h>
 #include <math.h>
@@ -56,39 +48,6 @@ uint64_t FAST_MEMORY_SIZE = 0;
 static const float w_ewma_alpha[WINDOW_SIZE] = {SHORT_TERM_WND_ALPHA, LONG_TERM_WND_ALPHA};
 static const float hist_bias[WINDOW_SIZE] = {0.4, 0.6};  // History-focused
 static const float recn_bias[WINDOW_SIZE] = {0.731, 0.269};  // Recency-focused
-
-// PEBS sample structure
-struct perf_sample {
-  struct perf_event_header header;
-  __u64 addr;  // Virtual address
-};
-
-// Page tracking structure
-struct arms_page_info {
-  uint64_t va;  // Virtual address
-  float w[WINDOW_SIZE];  // EWMA windows
-  float score;
-  float prev_score;
-  uint16_t accesses[NPBUFTYPES][2];  // Access counts per version
-  uint16_t hot_age;
-  bool in_dram;
-  bool can_promote;
-  std::mutex page_lock;
-  
-  arms_page_info() : va(0), score(0), prev_score(0), hot_age(0), 
-                     in_dram(false), can_promote(true) {
-    for (int i = 0; i < WINDOW_SIZE; i++) w[i] = 0;
-    for (int i = 0; i < NPBUFTYPES; i++) {
-      accesses[i][0] = accesses[i][1] = 0;
-    }
-  }
-};
-
-// Score entry for sorting
-struct score_entry {
-  arms_page_info* page;
-  float score;
-};
 
 // Global state
 static uint64_t dramsize = FAST_MEMORY_SIZE;
@@ -118,7 +77,7 @@ static uint32_t sampling_mode = DEFAULT_SAMPLING;
 // Statistics
 static uint64_t migrations_up = 0;
 static uint64_t migrations_down = 0;
-static uint64_t total_samples = 0;
+static uint64_t total_samples[NPBUFTYPES] = {0};
 
 // Hot-Change Detection state
 static float dram_bw_ewma = 0.0;
@@ -328,9 +287,6 @@ static struct perf_event_mmap_page* perf_setup(__u64 config, __u64 config1, __u1
 #ifdef SCAILP
 #define L3_LOAD_MISS_LOCAL 0x2d3
 #define L3_LOAD_MISS_REMOTE 0x10d3
-#elif defined JOSEPM
-#define L3_LOAD_MISS_LOCAL 0x1d3
-#define L3_LOAD_MISS_REMOTE 0x80d1
 #elif defined C220G5
 #define L3_LOAD_MISS_LOCAL 0x1d3
 #define L3_LOAD_MISS_REMOTE 0x2d3
@@ -443,7 +399,7 @@ static void* pebs_scan_thread(void *arg) {
                 // Increment access count
                 arms_page_info* page = it->second;
                 page->accesses[type][curr_access_version]++;
-                total_samples++;
+                total_samples[type]++;
               }
             }
             break;
@@ -719,6 +675,11 @@ static void update_scores_and_migrate() {
     page->hot_age = 0;
     page->can_promote = false;
   }
+
+  // Print the max and min scores for debugging
+  std::cout << "[ARMS] Number of tracked pages: " << scores.size()
+            << ", Max score: " << scores[1].score
+            << ", Min score: " << scores[scores.size() - 1].score << std::endl;
   
   // Identify promotion and demotion candidates
   std::vector<uint64_t> promote_list;
@@ -921,6 +882,12 @@ static void* arms_policy_thread(void *arg) {
       change_sampling_frequency();
       sampling_mode = DEFAULT_SAMPLING;
     }
+
+    // Print total samples
+    std::cout << "[ARMS] Total samples - DRAMREAD: " << total_samples[DRAMREAD]
+              << ", NVMREAD: " << total_samples[NVMREAD]
+              << ", WRITE: " << total_samples[WRITE] << std::endl;
+    total_samples[DRAMREAD] = total_samples[NVMREAD] = total_samples[WRITE] = 0;
 
     // TODO: Measure loop time and adjust sleep accordingly
     usleep(policy_thread_interval);

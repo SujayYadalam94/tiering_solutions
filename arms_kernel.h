@@ -5,6 +5,10 @@
 #ifndef ARMS_KERNEL_H
 #define ARMS_KERNEL_H
 
+#include <linux/perf_event.h>
+
+#include <mutex>
+
 #define C220G5
 
 #define FAST_TIER 0
@@ -156,6 +160,38 @@ enum pbuftype {
   NVMREAD = 1,
   WRITE = 2,
   NPBUFTYPES
+};
+
+// PEBS sample structure
+struct perf_sample {
+  struct perf_event_header header;
+  __u64 addr;  // Virtual address
+};
+
+struct arms_page_info {
+  uint64_t va;  // Virtual address
+  float w[WINDOW_SIZE];  // EWMA windows
+  float score;
+  float prev_score;
+  uint16_t accesses[NPBUFTYPES][2];  // Access counts per version
+  uint16_t hot_age;
+  bool in_dram;
+  bool can_promote;
+  std::mutex page_lock;
+
+  arms_page_info() : va(0), score(0), prev_score(0), hot_age(0),
+                     in_dram(false), can_promote(true) {
+    for (int i = 0; i < WINDOW_SIZE; i++) w[i] = 0;
+    for (int i = 0; i < NPBUFTYPES; i++) {
+      accesses[i][0] = accesses[i][1] = 0;
+    }
+  }
+};
+
+// Score entry for sorting
+struct score_entry {
+  arms_page_info* page;
+  float score;
 };
 
 void arms_start_tiering();
