@@ -649,7 +649,7 @@ static inline void update_window(struct hemem_page* page) {
 #endif
 }
 
-static inline float compute_score(const struct hemem_page *page, const float *bias) {
+static inline float compute_score(const struct hemem_page *page, const uint8_t curr_access_version, const float *bias) {
   // Update the score (average of the window)
   float score = 0;
 
@@ -660,7 +660,7 @@ static inline float compute_score(const struct hemem_page *page, const float *bi
   #endif
 
   #ifdef HISTORY_ACCESSES
-  score = scoring_function(page, g_stats);
+  score = scoring_function(page, curr_access_version, g_stats);
   #endif
 
   return score;
@@ -873,7 +873,7 @@ static size_t calculate_scores_map_and_sort(struct score_entry *scores_out, cons
     
     // 1. Calculate score for each page
     page->prev_score = page->score;
-    page->score = compute_score(page, bias);
+    page->score = compute_score(page, curr_access_version, bias);
 
     // Reset the access counts
     page->accesses[DRAMREAD][prev_access_version] = 0;

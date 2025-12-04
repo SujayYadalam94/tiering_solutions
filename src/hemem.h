@@ -208,7 +208,7 @@ struct hemem_page {
 static_assert(sizeof(struct hemem_page) == 128);
 #endif
 #ifdef HISTORY_ACCESSES
-static_assert(sizeof(struct hemem_page) == 144);
+static_assert(sizeof(struct hemem_page) == 232);
 #endif
 
 struct migration_req {
