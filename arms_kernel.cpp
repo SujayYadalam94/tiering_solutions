@@ -38,6 +38,7 @@
 #include <regex>
 
 #include "arms_kernel.h"
+#include "timer.h"
 
 #ifdef FAST_MEMORY_SIZE_GB
 uint64_t FAST_MEMORY_SIZE = (FAST_MEMORY_SIZE_GB * (1024L * 1024L * 1024L)); // size of fast tier memory in bytes
@@ -45,9 +46,9 @@ uint64_t FAST_MEMORY_SIZE = (FAST_MEMORY_SIZE_GB * (1024L * 1024L * 1024L)); // 
 uint64_t FAST_MEMORY_SIZE = 0;
 #endif
 
-static const float w_ewma_alpha[WINDOW_SIZE] = {SHORT_TERM_WND_ALPHA, LONG_TERM_WND_ALPHA};
-static const float hist_bias[WINDOW_SIZE] = {0.4, 0.6};  // History-focused
-static const float recn_bias[WINDOW_SIZE] = {0.731, 0.269};  // Recency-focused
+static const float w_ewma_alpha[WINDOW_SIZE] = W_EWMA_ALPHA;
+static const float hist_bias[WINDOW_SIZE] = HIST_BIAS;
+static const float recn_bias[WINDOW_SIZE] = RECN_BIAS;
 
 // Global state
 static uint64_t dramsize = FAST_MEMORY_SIZE;
@@ -257,7 +258,7 @@ static struct perf_event_mmap_page* perf_setup(__u64 config, __u64 config1, __u1
   pe.config = config;
   pe.config1 = config1;
   pe.sample_period = DEFAULT_SAMPLE_PERIOD;
-  pe.sample_type = PERF_SAMPLE_IP | PERF_SAMPLE_ADDR;
+  pe.sample_type = PERF_SAMPLE_IP | PERF_SAMPLE_TID | PERF_SAMPLE_ADDR;
   pe.pinned = 1;
   pe.disabled = 0;
   pe.exclude_kernel = 1;
@@ -384,15 +385,15 @@ static void* pebs_scan_thread(void *arg) {
               uint64_t page_va = ps->addr & HUGE_PFN_MASK;  // Align to page
 
               if (page_va != 0) {
-                std::lock_guard<std::mutex> lock(pages_map_lock);
-
                 auto it = pages_map.find(page_va);
                 if (it == pages_map.end()) {
                   // New page discovered
-                  arms_page_info* page = new arms_page_info();
-                  page->va = page_va;
-                  pages_map[page_va] = page;
-                  it = pages_map.find(page_va);
+                  // arms_page_info* page = new arms_page_info();
+                  // page->va = page_va;
+                  // pages_map[page_va] = page;
+                  // it = pages_map.find(page_va);
+                  // std::cout << "[ARMS] Discovered new page: VA = 0x" << std::hex << page_va << std::dec << std::endl;
+                  break;
                 }
                 assert (it != pages_map.end());
                 
@@ -477,6 +478,8 @@ static void scan_process_pages() {
     
     // Scan this VMA range
     for (uint64_t va = start_addr; va < end_addr; va += PAGE_SIZE) {
+      // Align to page size
+      va = va & HUGE_PFN_MASK;
       uint64_t pagemap_index = (va / 4096) * sizeof(uint64_t);
       uint64_t pagemap_entry;
       
@@ -504,6 +507,8 @@ static void scan_process_pages() {
       }
     }
   }
+
+  std::cout << "[ARMS] Number of process pages tracked: " << pages_map.size() << std::endl;
   
   maps_file.close();
 }
@@ -678,7 +683,7 @@ static void update_scores_and_migrate() {
 
   // Print the max and min scores for debugging
   std::cout << "[ARMS] Number of tracked pages: " << scores.size()
-            << ", Max score: " << scores[1].score
+            << ", Max score: " << scores[0].score
             << ", Min score: " << scores[scores.size() - 1].score << std::endl;
   
   // Identify promotion and demotion candidates
@@ -841,9 +846,12 @@ static void* arms_policy_thread(void *arg) {
   CPU_ZERO(&cpuset);
   CPU_SET(POLICY_THREAD_CPU, &cpuset);
   pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset);
+
+  struct ptimer loop_timer;
+  ptimer_init(&loop_timer, "Policy loop timer");
   
   for(;;) {
-
+    ptimer_start(&loop_timer);
     curr_window_index = global_version % WINDOW_SIZE;
     global_version++;
     prev_access_version = curr_access_version;
@@ -889,8 +897,12 @@ static void* arms_policy_thread(void *arg) {
               << ", WRITE: " << total_samples[WRITE] << std::endl;
     total_samples[DRAMREAD] = total_samples[NVMREAD] = total_samples[WRITE] = 0;
 
-    // TODO: Measure loop time and adjust sleep accordingly
-    usleep(policy_thread_interval);
+    ptimer_stop_and_print(&loop_timer);
+    double elapsed_us = loop_timer.elapsed_us;
+
+    if (elapsed_us < policy_thread_interval) {
+      usleep(policy_thread_interval - elapsed_us);
+    }
   }
   
   return nullptr;

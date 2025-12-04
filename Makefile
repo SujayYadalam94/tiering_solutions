@@ -21,12 +21,8 @@ TARGET_EXE_NAME ?= test_app
 TARGET_LIB = libarms_kernel.so
 
 # Source files
-SRCS = arms_kernel.cpp
+SRCS = arms_kernel.cpp timer.cpp hook/hook.cpp
 OBJS = $(SRCS:.cpp=.o)
-
-# Hook source
-HOOK_SRC = hook/hook.cpp
-HOOK_OBJ = hook/hook.o
 
 # System detection
 UNAME_M := $(shell uname -m)
@@ -40,7 +36,7 @@ $(TARGET_LIB): $(HOOK_SRC) arms_kernel.cpp
 	@echo "Building $(TARGET_LIB) with ARMS Kernel integration..."
 	@echo "  FAST_MEMORY_SIZE_GB: $(FAST_MEMORY_SIZE_GB)"
 	@echo "  TARGET_EXE_NAME: $(TARGET_EXE_NAME)"
-	$(CXX) -shared -fPIC -g $(HOOK_SRC) arms_kernel.cpp -o $(TARGET_LIB) -O3 \
+	$(CXX) -shared -fPIC -g hook/hook.cpp timer.cpp arms_kernel.cpp -o $(TARGET_LIB) -O3 \
 	    -ldl -lpthread -lnuma \
 	    -DFAST_MEMORY_SIZE_GB=$(FAST_MEMORY_SIZE_GB) \
 	    -DTARGET_EXE_NAME=\"$(TARGET_EXE_NAME)\" \
@@ -54,7 +50,7 @@ $(TARGET_LIB): $(HOOK_SRC) arms_kernel.cpp
 
 # Clean build artifacts
 clean:
-	rm -f $(OBJS) $(TEST_OBJ) $(TARGET_LIB) $(TARGET_STATIC) $(TEST_PROG) $(HOOK_SO) $(HOOK_OBJ)
+	rm -f $(OBJS) $(TARGET_LIB)
 
 # Help
 help:
