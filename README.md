@@ -30,7 +30,7 @@ sudo apt-get install -y git fakeroot build-essential ncurses-dev xz-utils libssl
 
 Enable kernel config flags, some are mandatory such as `CONFIG_HTMM` while others are optional.
 
-``bash
+```bash
 cd autonuma-linux
 
 cp /boot/config-$(uname -r) .config
