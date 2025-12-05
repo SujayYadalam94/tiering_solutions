@@ -165,6 +165,8 @@ enum pbuftype {
 // PEBS sample structure
 struct perf_sample {
   struct perf_event_header header;
+  __u64 ip;
+  __u32 pid, tid;
   __u64 addr;  // Virtual address
 };
 
