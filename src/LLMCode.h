@@ -1,7 +1,7 @@
 #include "hemem.h"
 
 // Scoring function to be evolved using PolicySmith
-float scoring_function(const struct hemem_page *page, const struct global_stats *g_stats, const uint8_t curr_window_index) {
+float scoring_function(const struct hemem_page *page, const uint8_t start_index, const struct global_stats *g_stats) {
   // Implement scoring logic here
   assert(false); // Placeholder to ensure this function is replaced
 

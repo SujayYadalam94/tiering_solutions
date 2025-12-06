@@ -127,6 +127,7 @@ float min_score, max_score;
 
 //uint64_t global_clock = 0;
 
+// TODO: Make an array of NPBUFTYPES. And send a richer feedback.
 uint64_t hemem_pages_cnt = 0;
 uint64_t other_pages_cnt = 0;
 uint64_t total_pages_cnt = 0;
@@ -649,7 +650,7 @@ static inline void update_window(struct hemem_page* page) {
 #endif
 }
 
-static inline float compute_score(const struct hemem_page *page, const uint8_t curr_access_version, const float *bias) {
+static inline float compute_score(const struct hemem_page *page, const uint8_t start_index, const float *bias) {
   // Update the score (average of the window)
   float score = 0;
 
@@ -660,7 +661,7 @@ static inline float compute_score(const struct hemem_page *page, const uint8_t c
   #endif
 
   #ifdef HISTORY_ACCESSES
-  score = scoring_function(page, curr_access_version, g_stats);
+  score = scoring_function(page, start_index, g_stats);
   #endif
 
   return score;
@@ -837,7 +838,7 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
 }
 #endif
 
-// TODO: Function to change for PolicySmith to calculate scores differently
+// Function to change for PolicySmith to calculate scores differently
 static size_t calculate_scores_map_and_sort(struct score_entry *scores_out, const float *bias)
 {
   struct ptimer window_timer;
@@ -873,12 +874,15 @@ static size_t calculate_scores_map_and_sort(struct score_entry *scores_out, cons
     
     // 1. Calculate score for each page
     page->prev_score = page->score;
-    page->score = compute_score(page, curr_access_version, bias);
 
-    // Reset the access counts
-    page->accesses[DRAMREAD][prev_access_version] = 0;
-    page->accesses[NVMREAD][prev_access_version] = 0;
-    page->accesses[WRITE][prev_access_version] = 0;
+    // For computing score, send the prev_access_version to avoid race conditions.
+    page->score = compute_score(page, prev_access_version, bias);
+
+    // Reset the access counts of the next window that the PEBS sampler will update.
+    uint8_t next_access_version = (curr_access_version + 1) % WINDOW_SIZE;
+    page->accesses[DRAMREAD][next_access_version] = 0;
+    page->accesses[NVMREAD][next_access_version] = 0;
+    page->accesses[WRITE][next_access_version] = 0;
 
     scores_out[s_idx++] = (struct score_entry){ page, page->score };
 

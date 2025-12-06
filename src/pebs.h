@@ -90,7 +90,7 @@
 
 /// PEBS kswapd thread wakeup interval
 // ==============================================================================
-#define PEBS_KSWAPD_INTERVAL_BIG      (1000000) // in us (1 second)
+#define PEBS_KSWAPD_INTERVAL_BIG      (500000) // in us (500ms)
 #define PEBS_KSWAPD_INTERVAL_SMALL    (100000) // in us (100ms)
 // ==============================================================================
 
