@@ -128,7 +128,7 @@ float min_score, max_score;
 //uint64_t global_clock = 0;
 
 // TODO: Make an array of NPBUFTYPES. And send a richer feedback.
-uint64_t hemem_pages_cnt = 0;
+uint64_t hemem_pages_cnt[NPBUFTYPES];
 uint64_t other_pages_cnt = 0;
 uint64_t total_pages_cnt = 0;
 uint64_t zero_pages_cnt = 0;
@@ -422,7 +422,9 @@ void *pebs_scan_thread()
                   // Update the access counts.
                   page->accesses[j][curr_access_version]++;
                 }
-                hemem_pages_cnt++;
+
+                // Increment the correct page type.
+                hemem_pages_cnt[j]++;
               } else {
                 other_pages_cnt++;
               }
@@ -1646,13 +1648,15 @@ void pebs_shutdown()
 void pebs_stats()
 {
   //LOG_STATS("dram_hot_list:[%ld] dram_cold_list:[%ld] nvm_hot_list:[%ld] nvm_cold_list:[%ld] samples:[%ld/%ld] throttle/unthrottle_cnt:[%ld/%ld] cools:[%ld]\n",
-  LOG_STATS("samples:[%ld/%ld] throttle/unthrottle_cnt:[%ld/%ld] cools:[%ld]\n",
+  LOG_STATS("DRAM reads:[%ld] NVM reads:[%ld] Writes:[%ld] throttle/unthrottle_cnt:[%ld/%ld] cools:[%ld]\n",
           //dram_hot_list.numentries,
           //dram_cold_list.numentries,
           //nvm_hot_list.numentries,
           //nvm_cold_list.numentries,
-          hemem_pages_cnt,
-          total_pages_cnt,
+          hemem_pages_cnt[DRAMREAD],
+          hemem_pages_cnt[NVMREAD],
+          hemem_pages_cnt[WRITE],
+          // total_pages_cnt,
           throttle_cnt,
           unthrottle_cnt,
           cools);
