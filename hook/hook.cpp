@@ -43,21 +43,6 @@ extern "C" int __libc_start_main(
     original_libc_start_main_t original_libc_start_main;
     original_libc_start_main = (original_libc_start_main_t) dlsym(RTLD_NEXT, "__libc_start_main");
 
-   // If this isn't cachebench, bypass the interception
-#ifdef TARGET_EXE_NAME
-    std::string target_executable_name = TARGET_EXE_NAME;
-    std::cout << "Target executable name is " << target_executable_name << std::endl;
-#else
-    std::cout << "ERROR: target executable name not provided. " << std::endl;
-    exit(1);
-#endif
-
-    if (executable_name != target_executable_name) {
-        // Get the real __libc_start_main function and call it
-      std::cout << "executable not target app. just run " << std::endl;
-      return original_libc_start_main(main, argc, argv, init, fini, rtld_fini, stack_end);
-    }
-
     std::cout << "found process " << executable_name << std::endl;
     // start tiering threads
     arms_start_tiering();
