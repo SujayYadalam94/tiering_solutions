@@ -34,11 +34,9 @@ all: $(TARGET_LIB)
 $(TARGET_LIB): $(HOOK_SRC) arms_kernel.cpp
 	@echo "Building $(TARGET_LIB) with ARMS Kernel integration..."
 	@echo "  FAST_MEMORY_SIZE_GB: $(FAST_MEMORY_SIZE_GB)"
-	@echo "  TARGET_EXE_NAME: $(TARGET_EXE_NAME)"
-	$(CXX) -shared -fPIC -g hook/hook.cpp timer.cpp arms_kernel.cpp -o $(TARGET_EXE_NAME)_$(TARGET_LIB) -O3 \
+	$(CXX) -shared -fPIC -g hook/hook.cpp timer.cpp arms_kernel.cpp -o $(TARGET_LIB) -O3 \
 	    -ldl -lpthread -lnuma \
 	    -DFAST_MEMORY_SIZE_GB=$(FAST_MEMORY_SIZE_GB) \
-	    -DTARGET_EXE_NAME=\"$(TARGET_EXE_NAME)\" \
 	    $(EXTRA_COMPILE_ARGS)
 	@echo "Hook library built successfully: $(TARGET_LIB)"
 	@echo "Usage: LD_PRELOAD=./$(TARGET_LIB) ./your_application"
