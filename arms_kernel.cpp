@@ -1,6 +1,6 @@
 /*
  * ARMS Kernel-based Memory Tiering System
- * 
+ *
  * This is a port of ARMS to use kernel-based page management instead of
  * userspace devdax + userfaultfd. The PEBS-based policy and scoring logic
  * from ARMS is retained, but page management and migration now relies on
@@ -295,7 +295,7 @@ static struct perf_event_mmap_page* perf_setup(__u64 config, __u64 config1, __u1
 
 static void setup_perf_events() {
   std::cout << "[ARMS] Setting up PEBS counters..." << std::endl;
-  
+
   for (int i = 0; i < PEBS_NPROCS; i++) {
 #ifdef C220G5
     // Skip node 1 cores on C220G5 (cores 10-19 are on NUMA node 1)
@@ -315,7 +315,7 @@ static void setup_perf_events() {
 
 static void close_perf_events() {
   std::cout << "[ARMS] Closing PEBS counters..." << std::endl;
-  
+
   for (int i = 0; i < PEBS_NPROCS; i++) {
     for (int j = 0; j < NPBUFTYPES; j++) {
       if (perf_page[i][j]) {
@@ -358,7 +358,7 @@ static void* pebs_scan_thread(void *arg) {
   CPU_ZERO(&cpuset);
   CPU_SET(SCANNING_THREAD_CPU, &cpuset);  // Use a dedicated core
   pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset);
-  
+
   for (;;) {
     for (int cpu = 0; cpu < PEBS_NPROCS; cpu++) {
     #ifdef C220G5
@@ -372,10 +372,10 @@ static void* pebs_scan_thread(void *arg) {
         if(header->data_head == header->data_tail) {
           continue;
         }
-          
+
         struct perf_event_header *ph = (struct perf_event_header *)(pbuf + (header->data_tail % header->data_size));
         struct perf_sample* ps;
-        
+
         switch (ph->type) {
           case PERF_RECORD_SAMPLE:
             ps = (struct perf_sample *)(ph);
@@ -396,7 +396,7 @@ static void* pebs_scan_thread(void *arg) {
                   break;
                 }
                 assert (it != pages_map.end());
-                
+
                 // Increment access count
                 arms_page_info* page = it->second;
                 page->accesses[type][curr_access_version]++;
@@ -413,12 +413,12 @@ static void* pebs_scan_thread(void *arg) {
             std::cerr << "[ARMS] ERROR: Unknown perf_event type " << ph->type << std::endl;
             break;
         }
-          
+
         header->data_tail += ph->size;
       }
     }
   }
-  
+
   return nullptr;
 }
 
@@ -452,56 +452,56 @@ static void change_sampling_frequency()
 
 static void scan_process_pages() {
   if (pagemap_fd < 0) return;
-  
+
   // Read /proc/self/maps to get VMA ranges
   std::ifstream maps_file("/proc/self/maps");
   if (!maps_file.is_open()) {
     perror("Failed to open /proc/self/maps");
     return;
   }
-  
+
   std::string line;
   while (std::getline(maps_file, line)) {
     uint64_t start_addr, end_addr;
     char perms[5];
-    
+
     // Parse the maps line
     if (sscanf(line.c_str(), "%lx-%lx %4s", &start_addr, &end_addr, perms) != 3) {
       continue;
     }
-    
+
     // Skip non-readable or non-writable regions
     if (perms[0] != 'r' || perms[1] != 'w') continue;
-    
+
     // Skip kernel regions
     if (start_addr >= 0x7fffffffffff) continue;
-    
+
     // Scan this VMA range
     for (uint64_t va = start_addr; va < end_addr; va += PAGE_SIZE) {
       // Align to page size
       va = va & HUGE_PFN_MASK;
       uint64_t pagemap_index = (va / 4096) * sizeof(uint64_t);
       uint64_t pagemap_entry;
-      
+
       ssize_t ret = pread(pagemap_fd, &pagemap_entry, sizeof(pagemap_entry), pagemap_index);
       if (ret != sizeof(pagemap_entry)) continue;
-      
+
       uint64_t pfn = pagemap_entry & 0x7fffffffffffff;
       bool present = (pagemap_entry >> 63) & 1;
-      
+
       if (present && pfn > 0) {
         std::lock_guard<std::mutex> lock(pages_map_lock);
-        
+
         if (pages_map.find(va) == pages_map.end()) {
           arms_page_info* page = new arms_page_info();
           page->va = va;
-          
+
           // Determine which node this page is on
           int status = -1;
           void* addr = (void*)va;
           numa_move_pages(0, 1, &addr, nullptr, &status, 0);
           page->in_dram = (status == FAST_TIER);
-          
+
           pages_map[va] = page;
         }
       }
@@ -509,7 +509,7 @@ static void scan_process_pages() {
   }
 
   std::cout << "[ARMS] Number of process pages tracked: " << pages_map.size() << std::endl;
-  
+
   maps_file.close();
 }
 
@@ -520,11 +520,11 @@ static void scan_process_pages() {
 
 static void detect_hot_change() {
   float cur_dram_bw, cur_nvm_bw;
-  
+
   // Measure current bandwidth
   cur_dram_bw = (float)measure_bw(0) / (1024.0 * 1024.0 * 1024.0); // GB/s
   cur_nvm_bw  = (float)measure_bw(1) / (1024.0 * 1024.0 * 1024.0); // GB/s
-  
+
   // Update EWMA of bandwidth
   dram_bw_ewma = (1 - HCD_EWMA_ALPHA) * dram_bw_ewma + HCD_EWMA_ALPHA * cur_dram_bw;
   nvm_bw_ewma = (1 - HCD_EWMA_ALPHA) * nvm_bw_ewma + HCD_EWMA_ALPHA * cur_nvm_bw;
@@ -564,14 +564,14 @@ static void detect_hot_change() {
 // ============================================================================
 
 static void update_window(arms_page_info* page) {
-  uint32_t accesses = page->accesses[DRAMREAD][prev_access_version] + 
-                      page->accesses[NVMREAD][prev_access_version] + 
+  uint32_t accesses = page->accesses[DRAMREAD][prev_access_version] +
+                      page->accesses[NVMREAD][prev_access_version] +
                       (NVM_WRITES_WEIGHT * page->accesses[WRITE][prev_access_version]);
 
   if (sampling_mode == DEFAULT_SAMPLING) {
     for (uint8_t i = 0; i < WINDOW_SIZE; i++) {
       page->w[i] = (1. - w_ewma_alpha[i]) * page->w[i] +
-          (w_ewma_alpha[i] * ((DEFAULT_SAMPLE_PERIOD/HF_SAMPLE_PERIOD) * accesses)); // We maintain counters in high-fidelity          
+          (w_ewma_alpha[i] * ((DEFAULT_SAMPLE_PERIOD/HF_SAMPLE_PERIOD) * accesses)); // We maintain counters in high-fidelity
     }
   } else if (sampling_mode == HF_SAMPLING) {
     for (uint8_t i = 0; i < WINDOW_SIZE; i++) {
@@ -596,54 +596,54 @@ static int score_compare(const void *a, const void *b) {
 
 static int migrate_pages_to_node(std::vector<uint64_t>& vas, int target_node) {
   if (vas.empty()) return 0;
-  
+
   auto start = std::chrono::high_resolution_clock::now();
-  
+
   size_t num_pages = vas.size();
   std::vector<void*> pages(num_pages);
   std::vector<int> nodes(num_pages, target_node);
   std::vector<int> status(num_pages, -1);
-  
+
   for (size_t i = 0; i < num_pages; i++) {
     pages[i] = (void*)vas[i];
   }
-  
-  int ret = numa_move_pages(0, num_pages, pages.data(), nodes.data(), 
+
+  int ret = numa_move_pages(0, num_pages, pages.data(), nodes.data(),
                            status.data(), MPOL_MF_MOVE_ALL);
-  
+
   auto end = std::chrono::high_resolution_clock::now();
   auto duration_us = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
   float time_per_page_us = (float)duration_us / (float)num_pages;
-  
+
   // Update migration cost estimates
   if (target_node == FAST_TIER) {
     // Promotion
-    promotion_cost_avg = MIGRATION_COST_ALPHA * time_per_page_us + 
+    promotion_cost_avg = MIGRATION_COST_ALPHA * time_per_page_us +
                         (1 - MIGRATION_COST_ALPHA) * promotion_cost_avg;
   } else {
     // Demotion
-    demotion_cost_avg = MIGRATION_COST_ALPHA * time_per_page_us + 
+    demotion_cost_avg = MIGRATION_COST_ALPHA * time_per_page_us +
                        (1 - MIGRATION_COST_ALPHA) * demotion_cost_avg;
   }
-  
+
   if (ret != 0) {
     perror("numa_move_pages");
     return -1;
   }
-  
+
   return num_pages;
 }
 
 static void update_scores_and_migrate() {
   std::vector<score_entry> scores;
-  
+
   {
     std::lock_guard<std::mutex> lock(pages_map_lock);
-    
+
     // Update scores for all pages
     for (auto& kv : pages_map) {
       arms_page_info* page = kv.second;
-      
+
       update_window(page);
       page->prev_score = page->score;
       page->score = compute_score(page);
@@ -651,16 +651,16 @@ static void update_scores_and_migrate() {
       for (int i = 0; i < NPBUFTYPES; i++) {
         page->accesses[i][prev_access_version] = 0;
       }
-      
+
       score_entry entry;
       entry.page = page;
       entry.score = page->score;
       scores.push_back(entry);
     }
   }
-  
+
   if (scores.empty()) return;
-  
+
   // Sort by score (descending)
   qsort(scores.data(), scores.size(), sizeof(score_entry), score_compare);
 
@@ -685,11 +685,11 @@ static void update_scores_and_migrate() {
   std::cout << "[ARMS] Number of tracked pages: " << scores.size()
             << ", Max score: " << scores[0].score
             << ", Min score: " << scores[scores.size() - 1].score << std::endl;
-  
+
   // Identify promotion and demotion candidates
   std::vector<uint64_t> promote_list;
   std::vector<uint64_t> demote_list;
-  
+
   uint64_t promote_idx = 0;
   uint64_t demote_idx = scores.size() - 1;
   size_t migrated_count = 0;
@@ -698,13 +698,40 @@ static void update_scores_and_migrate() {
 
   uint64_t fasttier_free_kb = get_fasttier_free_mem();
   uint64_t fasttier_free_pages = fasttier_free_kb / (PAGE_SIZE / 1024);
-  
+
+  // Calculate current DRAM usage and enforce watermark
+  uint64_t max_dram_pages = dramsize / PAGE_SIZE;
+  uint64_t current_dram_pages = 0;
+  for (const auto& entry : scores) {
+    if (entry.page->in_dram) {
+      current_dram_pages++;
+    }
+  }
+
+  std::cout << "[ARMS] Current DRAM pages: " << current_dram_pages
+            << ", Max DRAM pages: " << max_dram_pages
+            << ", Free DRAM pages: " << fasttier_free_pages << std::endl;
+
+  // Enforce watermark: demote excess pages from the coldest end
+  if (dramsize > 0) {
+    while (current_dram_pages > max_dram_pages && demote_idx > 0) {
+      if (migrated_count >= max_migrations_cur_interval) break;
+
+      if (scores[demote_idx].page->in_dram) {
+        demote_list.push_back(scores[demote_idx].page->va);
+        current_dram_pages--;
+        migrated_count++;
+      }
+      demote_idx--;
+    }
+  }
+
   // Try to promote hot NVM pages, demoting cold DRAM pages if necessary
   while (promote_idx < (dramsize/PAGE_SIZE) && promote_idx < demote_idx) {
     if (migrated_count >= max_migrations_cur_interval) {
       break; // Reached max migrations for this interval
     }
-    
+
     // Find the hottest page that needs promotion
     while (promote_idx < (dramsize/PAGE_SIZE) && scores[promote_idx].page->in_dram) {
       promote_idx++;
@@ -729,7 +756,11 @@ static void update_scores_and_migrate() {
       break;
     }
 
-    if (promote_list.size() < fasttier_free_pages) {
+    // Check if we can promote without demoting
+    bool system_has_space = promote_list.size() < fasttier_free_pages;
+    bool app_has_space = (current_dram_pages + promote_list.size() < max_dram_pages);
+
+    if (system_has_space && app_has_space) {
       // There is enough free space in DRAM - no need to demote
       promote_list.push_back(hot_page->va);
       promote_idx++;
@@ -737,13 +768,13 @@ static void update_scores_and_migrate() {
       continue;
     }
 
-    
+
     // Find next cold page in DRAM
     while (demote_idx > promote_idx && !scores[demote_idx].page->in_dram) {
       demote_idx--;
     }
     if (demote_idx <= promote_idx || demote_idx <= (dramsize/PAGE_SIZE)) break;
-    
+
     arms_page_info* cold_page = scores[demote_idx].page;
 
 
@@ -759,41 +790,41 @@ static void update_scores_and_migrate() {
         cold_page_max_avg = cold_page->w[i];
       }
     }
-    
+
     if (hot_page_min_avg < cold_page_max_avg) {
       // Stop migrations - not worth it anymore
       break;
     }
-    
+
     // 2. Cost-benefit analysis
     cost = CB_MULTIPLIER * (promotion_cost_avg + demotion_cost_avg);
-    benefit = (hot_page->score - cold_page->score) * hot_page->hot_age * 
+    benefit = (hot_page->score - cold_page->score) * hot_page->hot_age *
                     HF_SAMPLE_PERIOD * latency_diff;
-    
+
     if (benefit < cost) {
       // Stop migrations - not profitable
       break;
     }
-    
+
     // Both checks passed - add to migration lists
     promote_list.push_back(hot_page->va);
     demote_list.push_back(cold_page->va);
-    
+
     promote_idx++;
     demote_idx--;
     migrated_count++;
   }
-  
+
   std::cout << "[ARMS] Scores updated. Promote candidates: " << promote_list.size()
             << ", Demote candidates: " << demote_list.size() << std::endl;
-  
+
   // Perform migrations
   if (!demote_list.empty()) {
     int ret = migrate_pages_to_node(demote_list, SLOW_TIER);
     if (ret > 0) {
       migrations_down += ret;
       std::cout << "[ARMS] Demoted " << ret << " pages to NVM" << std::endl;
-      
+
       // Update page state
       std::lock_guard<std::mutex> lock(pages_map_lock);
       for (uint64_t va : demote_list) {
@@ -810,7 +841,7 @@ static void update_scores_and_migrate() {
     if (ret > 0) {
       migrations_up += ret;
       std::cout << "[ARMS] Promoted " << ret << " pages to DRAM" << std::endl;
-      
+
       // Update page state
       std::lock_guard<std::mutex> lock(pages_map_lock);
       for (uint64_t va : promote_list) {
@@ -849,7 +880,7 @@ static void* arms_policy_thread(void *arg) {
 
   struct ptimer loop_timer;
   ptimer_init(&loop_timer, "Policy loop timer");
-  
+
   for(;;) {
     ptimer_start(&loop_timer);
     curr_window_index = global_version % WINDOW_SIZE;
@@ -872,14 +903,14 @@ static void* arms_policy_thread(void *arg) {
       }
       latency_diff = nvm_lat - dram_lat;
     }
-    
+
     // Periodically scan for new pages
     static int scan_counter = 0;
     if (++scan_counter >= 10) {  // Every 5 seconds
       scan_process_pages();
       scan_counter = 0;
     }
-    
+
     update_scores_and_migrate();
 
     // Update sampling frequency if hotset change detected
@@ -904,7 +935,7 @@ static void* arms_policy_thread(void *arg) {
       usleep(policy_thread_interval - elapsed_us);
     }
   }
-  
+
   return nullptr;
 }
 
@@ -914,7 +945,7 @@ static void* arms_policy_thread(void *arg) {
 
 void arms_start_tiering() {
   std::cout << "[ARMS] Initializing ARMS..." << std::endl;
-  
+
   // Open pagemap
   target_pid = getpid();
   char pagemap_path[256];
@@ -924,41 +955,41 @@ void arms_start_tiering() {
     perror("Failed to open pagemap");
     return;
   }
-  
+
   // Check NUMA configuration
   if (numa_available() < 0) {
     fprintf(stderr, "[ARMS] NUMA not available\n");
     close(pagemap_fd);
     return;
   }
-  
+
   std::cout << "[ARMS] NUMA nodes available: " << numa_max_node() + 1 << std::endl;
-  
+
   // Setup PEBS
   setup_perf_events();
 
   // Initialize memory controller BW counters
   setup_imc_bw_counters();
-  
+
   // Start scanning and policy threads
   pthread_create(&scan_thread, nullptr, pebs_scan_thread, nullptr);
   pthread_create(&policy_thread, nullptr, arms_policy_thread, nullptr);
-  
+
   std::cout << "[ARMS] Initialization complete." << std::endl;
 }
 
 void arms_kernel_shutdown() {
   std::cout << "[ARMS] Shutting down..." << std::endl;
-  
+
   pthread_join(scan_thread, nullptr);
   pthread_join(policy_thread, nullptr);
-  
+
   close_perf_events();
-  
+
   if (pagemap_fd >= 0) {
     close(pagemap_fd);
   }
-  
+
   // Clean up page tracking
   {
     std::lock_guard<std::mutex> lock(pages_map_lock);
@@ -967,6 +998,6 @@ void arms_kernel_shutdown() {
     }
     pages_map.clear();
   }
-  
+
   std::cout << "[ARMS] Shutdown complete." << std::endl;
 }
