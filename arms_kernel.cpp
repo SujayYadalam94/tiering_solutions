@@ -721,7 +721,7 @@ static void update_scores_and_migrate() {
 
   // Aggressive demotion if violating
   if (is_violating) {
-      max_migrations_cur_interval *= 00;
+      max_migrations_cur_interval *= 100;
   }
 
   auto now = std::chrono::high_resolution_clock::now();
