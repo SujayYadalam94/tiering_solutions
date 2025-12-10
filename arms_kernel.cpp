@@ -394,11 +394,14 @@ static void* pebs_scan_thread(void *arg) {
                 auto it = pages_map.find(page_va);
                 if (it == pages_map.end()) {
                   // New page discovered
-                  // arms_page_info* page = new arms_page_info();
-                  // page->va = page_va;
-                  // pages_map[page_va] = page;
-                  // it = pages_map.find(page_va);
-                  // std::cout << "[ARMS] Discovered new page: VA = 0x" << std::hex << page_va << std::dec << std::endl;
+                  /*arms_page_info* page = new arms_page_info();
+                  page->va = page_va;
+                  {
+                    std::lock_guard<std::mutex> lock(pages_map_lock);
+                    pages_map[page_va] = page;
+                  }
+                  it = pages_map.find(page_va);*/
+                  //std::cout << "[ARMS] Discovered new page: VA = 0x" << std::hex << page_va << std::dec << std::endl;
                   break;
                 }
                 assert (it != pages_map.end());
@@ -413,7 +416,7 @@ static void* pebs_scan_thread(void *arg) {
 
           case PERF_RECORD_THROTTLE:
           case PERF_RECORD_UNTHROTTLE:
-            // Ignore for now
+            std::cerr << "[ARMS] Warning: " << (ph->type == PERF_RECORD_THROTTLE ? "THROTTLE" : "UNTHROTTLE") << " event received, which is unexpected." << std::endl;
             break;
           default:
             std::cerr << "[ARMS] ERROR: Unknown perf_event type " << ph->type << std::endl;
@@ -460,7 +463,9 @@ static void scan_process_pages() {
   if (pagemap_fd < 0) return;
 
   // Read /proc/self/maps to get VMA ranges
-  std::ifstream maps_file("/proc/self/maps");
+  static std::ifstream maps_file("/proc/self/maps");
+  maps_file.clear(); // Clear any EOF flags
+  maps_file.seekg(0); // Reset to beginning for each scan
   if (!maps_file.is_open()) {
     perror("Failed to open /proc/self/maps");
     return;
@@ -496,8 +501,6 @@ static void scan_process_pages() {
       bool present = (pagemap_entry >> 63) & 1;
 
       if (present && pfn > 0) {
-        std::lock_guard<std::mutex> lock(pages_map_lock);
-
         if (pages_map.find(va) == pages_map.end()) {
           arms_page_info* page = new arms_page_info();
           page->va = va;
@@ -508,7 +511,10 @@ static void scan_process_pages() {
           numa_move_pages(0, 1, &addr, nullptr, &status, 0);
           page->in_dram = (status == FAST_TIER);
 
-          pages_map[va] = page;
+          {
+            std::lock_guard<std::mutex> lock(pages_map_lock);
+            pages_map[va] = page;
+          }
         }
       }
     }
@@ -643,26 +649,22 @@ static int migrate_pages_to_node(std::vector<uint64_t>& vas, int target_node) {
 static void update_scores_and_migrate() {
   std::vector<score_entry> scores;
 
-  {
-    std::lock_guard<std::mutex> lock(pages_map_lock);
+  // Update scores for all pages
+  for (auto& kv : pages_map) {
+    arms_page_info* page = kv.second;
 
-    // Update scores for all pages
-    for (auto& kv : pages_map) {
-      arms_page_info* page = kv.second;
-
-      update_window(page);
-      page->prev_score = page->score;
-      page->score = compute_score(page);
-      // Clear access counts for next interval
-      for (int i = 0; i < NPBUFTYPES; i++) {
-        page->accesses[i][prev_access_version] = 0;
-      }
-
-      score_entry entry;
-      entry.page = page;
-      entry.score = page->score;
-      scores.push_back(entry);
+    update_window(page);
+    page->prev_score = page->score;
+    page->score = compute_score(page);
+    // Clear access counts for next interval
+    for (int i = 0; i < NPBUFTYPES; i++) {
+      page->accesses[i][prev_access_version] = 0;
     }
+
+    score_entry entry;
+    entry.page = page;
+    entry.score = page->score;
+    scores.push_back(entry);
   }
 
   if (scores.empty()) return;
@@ -719,7 +721,7 @@ static void update_scores_and_migrate() {
 
   // Aggressive demotion if violating
   if (is_violating) {
-      max_migrations_cur_interval *= 100;
+      max_migrations_cur_interval *= 00;
   }
 
   auto now = std::chrono::high_resolution_clock::now();
@@ -857,7 +859,6 @@ static void update_scores_and_migrate() {
       std::cout << "[ARMS] Demoted " << ret << " pages to NVM" << std::endl;
 
       // Update page state
-      std::lock_guard<std::mutex> lock(pages_map_lock);
       for (uint64_t va : demote_list) {
         auto it = pages_map.find(va);
         if (it != pages_map.end()) {
@@ -874,7 +875,6 @@ static void update_scores_and_migrate() {
       std::cout << "[ARMS] Promoted " << ret << " pages to DRAM" << std::endl;
 
       // Update page state
-      std::lock_guard<std::mutex> lock(pages_map_lock);
       for (uint64_t va : promote_list) {
         auto it = pages_map.find(va);
         if (it != pages_map.end()) {
