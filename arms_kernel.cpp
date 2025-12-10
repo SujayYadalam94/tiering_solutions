@@ -92,6 +92,12 @@ static float promotion_cost_avg = MIN_PROMOTION_COST;
 static float demotion_cost_avg = MIN_DEMOTION_COST;
 static float latency_diff = UNLOADED_NVM_LAT - UNLOADED_DRAM_LAT;
 
+// Instrumentation for watermark violation
+static std::chrono::time_point<std::chrono::high_resolution_clock> start_time_point;
+static uint64_t total_violation_us = 0;
+static std::chrono::time_point<std::chrono::high_resolution_clock> violation_start_time = std::chrono::time_point<std::chrono::high_resolution_clock>::min();
+static std::vector<uint64_t> violation_durations_us;
+
 // Forward declarations
 static long perf_event_open(struct perf_event_attr *hw_event, pid_t pid,
                            int cpu, int group_fd, unsigned long flags);
@@ -359,7 +365,7 @@ static void* pebs_scan_thread(void *arg) {
   CPU_SET(SCANNING_THREAD_CPU, &cpuset);  // Use a dedicated core
   pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset);
 
-  for (;;) {
+  while (running) {
     for (int cpu = 0; cpu < PEBS_NPROCS; cpu++) {
     #ifdef C220G5
       if (cpu >= 10 && cpu < 20) continue;
@@ -708,6 +714,25 @@ static void update_scores_and_migrate() {
     }
   }
 
+  // Instrumentation: Track violation time
+  bool is_violating = (dramsize > 0 && current_dram_pages > max_dram_pages);
+  auto now = std::chrono::high_resolution_clock::now();
+
+  if (is_violating) {
+    if (violation_start_time == std::chrono::time_point<std::chrono::high_resolution_clock>::min()) {
+      // Started violating
+      violation_start_time = now;
+    }
+  } else {
+    if (violation_start_time != std::chrono::time_point<std::chrono::high_resolution_clock>::min()) {
+      // Stopped violating
+      auto duration = std::chrono::duration_cast<std::chrono::microseconds>(now - violation_start_time).count();
+      violation_durations_us.push_back(duration);
+      total_violation_us += duration;
+      violation_start_time = std::chrono::time_point<std::chrono::high_resolution_clock>::min();
+    }
+  }
+
   std::cout << "[ARMS] Current DRAM pages: " << current_dram_pages
             << ", Max DRAM pages: " << max_dram_pages
             << ", Free DRAM pages: " << fasttier_free_pages << std::endl;
@@ -881,7 +906,7 @@ static void* arms_policy_thread(void *arg) {
   struct ptimer loop_timer;
   ptimer_init(&loop_timer, "Policy loop timer");
 
-  for(;;) {
+  while(running) {
     ptimer_start(&loop_timer);
     curr_window_index = global_version % WINDOW_SIZE;
     global_version++;
@@ -945,6 +970,9 @@ static void* arms_policy_thread(void *arg) {
 
 void arms_start_tiering() {
   std::cout << "[ARMS] Initializing ARMS..." << std::endl;
+  start_time_point = std::chrono::high_resolution_clock::now();
+
+  atexit(arms_kernel_shutdown);
 
   // Open pagemap
   target_pid = getpid();
@@ -981,6 +1009,8 @@ void arms_start_tiering() {
 void arms_kernel_shutdown() {
   std::cout << "[ARMS] Shutting down..." << std::endl;
 
+  running = false;
+
   pthread_join(scan_thread, nullptr);
   pthread_join(policy_thread, nullptr);
 
@@ -998,6 +1028,29 @@ void arms_kernel_shutdown() {
     }
     pages_map.clear();
   }
+
+  // Calculate final stats
+  if (violation_start_time != std::chrono::time_point<std::chrono::high_resolution_clock>::min()) {
+    auto now = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(now - violation_start_time).count();
+    violation_durations_us.push_back(duration);
+    total_violation_us += duration;
+  }
+
+  auto total_runtime = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - start_time_point).count();
+  double violation_pct = (total_runtime > 0) ? (100.0 * total_violation_us / total_runtime) : 0.0;
+
+  double avg_fix_time = 0;
+  if (!violation_durations_us.empty()) {
+    uint64_t sum = 0;
+    for (auto d : violation_durations_us) sum += d;
+    avg_fix_time = (double)sum / violation_durations_us.size();
+  }
+
+  std::cout << "[ARMS] Violation Statistics:" << std::endl;
+  std::cout << "  Total Runtime: " << total_runtime / 1000000.0 << " s" << std::endl;
+  std::cout << "  Time in Violation: " << total_violation_us / 1000000.0 << " s (" << violation_pct << "%)" << std::endl;
+  std::cout << "  Average Time to Fix Violation: " << avg_fix_time / 1000.0 << " ms" << std::endl;
 
   std::cout << "[ARMS] Shutdown complete." << std::endl;
 }
