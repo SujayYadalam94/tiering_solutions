@@ -716,6 +716,12 @@ static void update_scores_and_migrate() {
 
   // Instrumentation: Track violation time
   bool is_violating = (dramsize > 0 && current_dram_pages > max_dram_pages);
+
+  // Aggressive demotion if violating
+  if (is_violating) {
+      max_migrations_cur_interval *= 100;
+  }
+
   auto now = std::chrono::high_resolution_clock::now();
 
   if (is_violating) {
@@ -1046,6 +1052,13 @@ void arms_kernel_shutdown() {
     for (auto d : violation_durations_us) sum += d;
     avg_fix_time = (double)sum / violation_durations_us.size();
   }
+
+  uint64_t total_migrations = migrations_up + migrations_down;
+  uint64_t total_bytes_migrated = total_migrations * PAGE_SIZE;
+
+  std::cout << "[ARMS] Migration Statistics:" << std::endl;
+  std::cout << "  Total Migrations: " << total_migrations << " (Promotions: " << migrations_up << ", Demotions: " << migrations_down << ")" << std::endl;
+  std::cout << "  Total Bytes Migrated: " << total_bytes_migrated / (1024.0 * 1024.0) << " MB" << std::endl;
 
   std::cout << "[ARMS] Violation Statistics:" << std::endl;
   std::cout << "  Total Runtime: " << total_runtime / 1000000.0 << " s" << std::endl;
