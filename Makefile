@@ -20,7 +20,7 @@ FAST_MEMORY_SIZE_GB ?= 8
 TARGET_LIB = libarms_kernel.so
 
 # Source files
-SRCS = arms_kernel.cpp timer.cpp hook/hook.cpp
+SRCS = arms_kernel.cpp timer.cpp hook/hook.cpp groups.cpp page.cpp logging.cpp interpose.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 # System detection
@@ -34,7 +34,7 @@ all: $(TARGET_LIB)
 $(TARGET_LIB): $(HOOK_SRC) arms_kernel.cpp
 	@echo "Building $(TARGET_LIB) with ARMS Kernel integration..."
 	@echo "  FAST_MEMORY_SIZE_GB: $(FAST_MEMORY_SIZE_GB)"
-	$(CXX) -shared -fPIC -g hook/hook.cpp timer.cpp arms_kernel.cpp -o $(TARGET_LIB) -O3 \
+	$(CXX) -shared -fPIC -g $(SRCS) -o $(TARGET_LIB) -O3 \
 	    -ldl -lpthread -lnuma \
 	    -DFAST_MEMORY_SIZE_GB=$(FAST_MEMORY_SIZE_GB) \
 	    $(EXTRA_COMPILE_ARGS)

@@ -1,6 +1,6 @@
 /*
  * ARMS Kernel-based Memory Tiering System
- * 
+ *
  * This is a port of ARMS to use kernel-based page management instead of
  * userspace devdax + userfaultfd. The PEBS-based policy and scoring logic
  * from ARMS is retained, but page management and migration now relies on
@@ -8,37 +8,42 @@
  *
  */
 
-#include <iostream>
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <sys/ioctl.h>
 #include <asm/unistd.h>
-#include <sys/mman.h>
 #include <cassert>
-#include <pthread.h>
 #include <cerrno>
-#include <fstream>
+#include <chrono>
 #include <cstdint>
-#include <string>
-#include <set>
+#include <errno.h>
+#include <fcntl.h>
+#include <fstream>
+#include <iostream>
+#include <math.h>
 #include <numa.h>
 #include <numaif.h>
-#include <errno.h>
-#include <syscall.h>
-#include <chrono>
-#include <thread>
-#include <sys/types.h>
-#include <vector>
-#include <unordered_map>
-#include <fcntl.h>
-#include <sched.h>
-#include <math.h>
+#include <pthread.h>
 #include <regex>
+#include <sched.h>
+#include <set>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <string>
+#include <sys/ioctl.h>
+#include <sys/mman.h>
+#include <sys/types.h>
+#include <syscall.h>
+#include <thread>
+#include <unistd.h>
+#include <unordered_map>
+#include <vector>
 
 #include "arms_kernel.h"
+#include "defs.h"
+#include "groups.h"
+#include "logging.h"
+#include "page.h"
 #include "timer.h"
+#include <atomic>
 
 #ifdef FAST_MEMORY_SIZE_GB
 uint64_t FAST_MEMORY_SIZE = (FAST_MEMORY_SIZE_GB * (1024L * 1024L * 1024L)); // size of fast tier memory in bytes
@@ -46,14 +51,15 @@ uint64_t FAST_MEMORY_SIZE = (FAST_MEMORY_SIZE_GB * (1024L * 1024L * 1024L)); // 
 uint64_t FAST_MEMORY_SIZE = 0;
 #endif
 
-static const float w_ewma_alpha[WINDOW_SIZE] = W_EWMA_ALPHA;
-static const float hist_bias[WINDOW_SIZE] = HIST_BIAS;
-static const float recn_bias[WINDOW_SIZE] = RECN_BIAS;
-
 // Global state
 static uint64_t dramsize = FAST_MEMORY_SIZE;
 
-static std::unordered_map<uint64_t, arms_page_info*> pages_map;
+#define SYSCALL_EVENT_QUEUE_CAPACITY (128 * 1024)
+std::atomic<size_t> syscall_queue_index{0};
+std::atomic<size_t> syscall_queue_size{0};
+std::atomic<struct syscall_event *> syscall_event_queue{nullptr};
+
+static std::unordered_map<uint64_t, page_info *> pages_map;
 static std::mutex pages_map_lock;
 
 static int pagemap_fd = -1;
@@ -72,8 +78,8 @@ static volatile uint8_t curr_access_version = 0;
 static volatile uint8_t prev_access_version = 1;
 static volatile uint8_t curr_window_index = 0;
 
-static const float* active_bias = hist_bias;  // Current bias (hist or recency)
-static uint32_t sampling_mode = DEFAULT_SAMPLING;
+static const float *active_bias = hist_bias; // Current bias (hist or recency)
+static enum sampling_modes sampling_mode = DEFAULT_SAMPLING;
 
 // Statistics
 static uint64_t migrations_up = 0;
@@ -93,21 +99,23 @@ static float demotion_cost_avg = MIN_DEMOTION_COST;
 static float latency_diff = UNLOADED_NVM_LAT - UNLOADED_DRAM_LAT;
 
 // Forward declarations
-static long perf_event_open(struct perf_event_attr *hw_event, pid_t pid,
-                           int cpu, int group_fd, unsigned long flags);
+static long perf_event_open(struct perf_event_attr *hw_event, pid_t pid, int cpu, int group_fd, unsigned long flags);
 static void setup_perf_events();
-static void update_scores_and_migrate();
-static int migrate_pages_to_node(std::vector<uint64_t>& vas, int target_node);
+static void update_scores_and_migrate(size_t timestep);
+static int migrate_pages_to_node(std::vector<uint64_t> &vas, int target_node);
 static void scan_process_pages();
+
+static bool terminated = false;
+struct group_tracker *grp_tracker = NULL;
 
 // ============================================================================
 // PERF Event Setup
 // ============================================================================
 
-static long perf_event_open(struct perf_event_attr *hw_event, pid_t pid,
-                           int cpu, int group_fd, unsigned long flags) {
-  int ret = syscall(__NR_perf_event_open, hw_event, pid, cpu, group_fd, flags);
-  return ret;
+static long perf_event_open(struct perf_event_attr *hw_event, pid_t pid, int cpu, int group_fd, unsigned long flags)
+{
+    int ret = syscall(__NR_perf_event_open, hw_event, pid, cpu, group_fd, flags);
+    return ret;
 }
 
 // ============================================================================
@@ -119,65 +127,85 @@ int mem_fd = -1;
 void *imc_mmio_addr[NUM_IMC];
 uint64_t prev_ctr_val[NUM_TIERS][NUM_IMC][NUM_BW_COUNTERS] = {0};
 
-static uint32_t get_imc_bw_counter_offset(enum imc_bw_counters e) {
-  switch(e) {
-    case DRAM_READS:  return PCM_SERVER_IMC_DRAM_READS;
-    case DRAM_WRITES: return PCM_SERVER_IMC_DRAM_WRITES;
-    case NVM_READS:   return PCM_SERVER_IMC_PMM_READS;
-    case NVM_WRITES:  return PCM_SERVER_IMC_PMM_WRITES;
-    default: assert(!"Unknown IMC counter");
-  }
+static uint32_t get_imc_bw_counter_offset(enum imc_bw_counters e)
+{
+    switch (e)
+    {
+    case DRAM_READS:
+        return PCM_SERVER_IMC_DRAM_READS;
+    case DRAM_WRITES:
+        return PCM_SERVER_IMC_DRAM_WRITES;
+    case NVM_READS:
+        return PCM_SERVER_IMC_PMM_READS;
+    case NVM_WRITES:
+        return PCM_SERVER_IMC_PMM_WRITES;
+    default:
+        assert(!"Unknown IMC counter");
+    }
 }
 
 uint64_t measure_bw(int tier)
 {
-  int i, j;
-  uint64_t cur_ctr_val = 0;
-  uint64_t cur_bw = 0;
+    int i, j;
+    uint64_t cur_ctr_val = 0;
+    uint64_t cur_bw = 0;
 
-  if (tier == 0) { // DRAM
-    for (i=0; i<NUM_IMC; i++) {
-      for (j=0; j<2; j++) {
-        cur_ctr_val = *((uint64_t *)(imc_mmio_addr[i] + get_imc_bw_counter_offset(j)));
-        cur_bw     += cur_ctr_val - prev_ctr_val[0][i][j];
-        prev_ctr_val[tier][i][j] = cur_ctr_val;
-      }
+    if (tier == 0)
+    { // DRAM
+        for (i = 0; i < NUM_IMC; i++)
+        {
+            for (j = 0; j < 2; j++)
+            {
+                cur_ctr_val = *((uint64_t *)(imc_mmio_addr[i] + get_imc_bw_counter_offset(j)));
+                cur_bw += cur_ctr_val - prev_ctr_val[0][i][j];
+                prev_ctr_val[tier][i][j] = cur_ctr_val;
+            }
+        }
     }
-  } else if (tier == 1) { // NVM
-    for (i=0; i<NUM_IMC; i++) {
-      for (j=2; j<4; j++) {
-        cur_ctr_val = *((uint64_t *)(imc_mmio_addr[i] + get_imc_bw_counter_offset(j)));
-        cur_bw     += cur_ctr_val - prev_ctr_val[1][i][j];
-        prev_ctr_val[tier][i][j] = cur_ctr_val;
-      }
+    else if (tier == 1)
+    { // NVM
+        for (i = 0; i < NUM_IMC; i++)
+        {
+            for (j = 2; j < 4; j++)
+            {
+                cur_ctr_val = *((uint64_t *)(imc_mmio_addr[i] + get_imc_bw_counter_offset(j)));
+                cur_bw += cur_ctr_val - prev_ctr_val[1][i][j];
+                prev_ctr_val[tier][i][j] = cur_ctr_val;
+            }
+        }
     }
-  }
 
-  return cur_bw;
+    return cur_bw;
 }
 
-static int setup_imc_bw_counters() {
-  mem_fd = open("/dev/mem", O_RDONLY);
-  if (mem_fd == -1) {
-    perror("open");
-    return -1;
-  }
-
-  for (int i = 0; i < NUM_IMC; i++) {
-    // Base address of each iMC increases by 0x80000
-    imc_mmio_addr[i] = (char *)libc_mmap(NULL, PCM_SERVER_IMC_MMAP_SIZE, PROT_READ, MAP_SHARED, mem_fd, IMC_BASE_ADDR + (0x80000 * i));
-    if (imc_mmio_addr[i] == MAP_FAILED) {
-      perror("mmap");
-      return -1;
+static int setup_imc_bw_counters()
+{
+    mem_fd = open("/dev/mem", O_RDONLY);
+    if (mem_fd == -1)
+    {
+        perror("open");
+        return -1;
     }
-  }
 
-  // Measure the bandwidth once to get the initial values
-  for (int i = 0; i < NUM_TIERS; i++) {
-    measure_nvm_bw(i);
-  }
+    for (int i = 0; i < NUM_IMC; i++)
+    {
+        // Base address of each iMC increases by 0x80000
+        imc_mmio_addr[i] = (char *)libc_mmap(NULL, PCM_SERVER_IMC_MMAP_SIZE, PROT_READ, MAP_SHARED, mem_fd,
+                                             IMC_BASE_ADDR + (0x80000 * i));
+        if (imc_mmio_addr[i] == MAP_FAILED)
+        {
+            perror("mmap");
+            return -1;
+        }
+    }
 
-  return 0;
+    // Measure the bandwidth once to get the initial values
+    for (int i = 0; i < NUM_TIERS; i++)
+    {
+        measure_nvm_bw(i);
+    }
+
+    return 0;
 }
 
 #elif defined C220G5
@@ -187,102 +215,114 @@ uint64_t prev_bw_val[NUM_TIERS][NUM_EVENTS][NUM_IMC] = {0};
 
 uint64_t measure_bw(int tier)
 {
-  uint64_t cur_bw = 0;
-  uint64_t cur_val = 0;
+    uint64_t cur_bw = 0;
+    uint64_t cur_val = 0;
 
-  for (int j = 0; j < NUM_EVENTS; j++) {
-    for (int k = 0; k < NUM_IMC; k++) {
-      if (read(bw_fds[tier][j][k], &cur_val, sizeof(cur_val)) == -1) {
-        std::cerr << "ERROR: Failed to read perf event for BW monitoring" << std::endl;
-        exit(1);
-      }
-      cur_bw                 += cur_val - prev_bw_val[tier][j][k];
-      prev_bw_val[tier][j][k] = cur_val;
+    for (int j = 0; j < NUM_EVENTS; j++)
+    {
+        for (int k = 0; k < NUM_IMC; k++)
+        {
+            if (read(bw_fds[tier][j][k], &cur_val, sizeof(cur_val)) == -1)
+            {
+                std::cerr << "ERROR: Failed to read perf event for BW monitoring" << std::endl;
+                exit(1);
+            }
+            cur_bw += cur_val - prev_bw_val[tier][j][k];
+            prev_bw_val[tier][j][k] = cur_val;
+        }
     }
-  }
 
-  return cur_bw;
+    return cur_bw;
 }
 void open_perf_events()
 {
-  int fd;
-  struct perf_event_attr pe;
+    int fd;
+    struct perf_event_attr pe;
 
-  for (unsigned long i = 0; i < NUM_TIERS; i++) {
-    for (unsigned long j = 0; j < NUM_EVENTS; j++) {
-      for (unsigned long k = 0; k < NUM_IMC; k++) {
-        memset(&pe, 0, sizeof(pe));
-        pe.type = i + 12; // TODO: read type from /sys/devices/uncore_imc_x/type
-        pe.size = sizeof(pe);
-        pe.disabled = 1;
-        pe.inherit = 1;
-        pe.config = (j == 0) ? 0x304:0xC04;
+    for (unsigned long i = 0; i < NUM_TIERS; i++)
+    {
+        for (unsigned long j = 0; j < NUM_EVENTS; j++)
+        {
+            for (unsigned long k = 0; k < NUM_IMC; k++)
+            {
+                memset(&pe, 0, sizeof(pe));
+                pe.type = i + 12; // TODO: read type from /sys/devices/uncore_imc_x/type
+                pe.size = sizeof(pe);
+                pe.disabled = 1;
+                pe.inherit = 1;
+                pe.config = (j == 0) ? 0x304 : 0xC04;
 
-        fd = perf_event_open(&pe, -1, 10, -1, 0);
-        if (fd == -1) {
-          std::cerr << "ERROR: Failed to open perf event for BW monitoring" << std::endl;
-          exit(1);
+                fd = perf_event_open(&pe, -1, 10, -1, 0);
+                if (fd == -1)
+                {
+                    std::cerr << "ERROR: Failed to open perf event for BW monitoring" << std::endl;
+                    exit(1);
+                }
+                bw_fds[i][j][k] = fd;
+            }
         }
-        bw_fds[i][j][k] = fd;
-      }
     }
-  }
 }
 
 static int setup_imc_bw_counters()
 {
-  open_perf_events();
+    open_perf_events();
 
-  // Reset the counters
-  for (int i = 0; i < NUM_TIERS; i++) {
-    for (int j = 0; j < NUM_EVENTS; j++) {
-      for (int k = 0; k < NUM_IMC; k++) {
-        ioctl(bw_fds[i][j][k], PERF_EVENT_IOC_RESET, 0);
-        ioctl(bw_fds[i][j][k], PERF_EVENT_IOC_ENABLE, 0);
-      }
+    // Reset the counters
+    for (int i = 0; i < NUM_TIERS; i++)
+    {
+        for (int j = 0; j < NUM_EVENTS; j++)
+        {
+            for (int k = 0; k < NUM_IMC; k++)
+            {
+                ioctl(bw_fds[i][j][k], PERF_EVENT_IOC_RESET, 0);
+                ioctl(bw_fds[i][j][k], PERF_EVENT_IOC_ENABLE, 0);
+            }
+        }
+        measure_bw(i); // Measure once to get the initial values
     }
-    measure_bw(i); // Measure once to get the initial values
-  }
 
-  return 0;
+    return 0;
 }
 #endif
 
-static struct perf_event_mmap_page* perf_setup(__u64 config, __u64 config1, __u16 cpu, __u16 type)
+static struct perf_event_mmap_page *perf_setup(__u64 config, __u64 config1, __u16 cpu, __u16 type)
 {
-  struct perf_event_attr pe;
-  memset(&pe, 0, sizeof(pe));
+    struct perf_event_attr pe;
+    memset(&pe, 0, sizeof(struct perf_event_attr));
 
-  pe.type = PERF_TYPE_RAW;
-  pe.size = sizeof(pe);
-  pe.config = config;
-  pe.config1 = config1;
-  pe.sample_period = DEFAULT_SAMPLE_PERIOD;
-  pe.sample_type = PERF_SAMPLE_IP | PERF_SAMPLE_TID | PERF_SAMPLE_ADDR;
-  pe.pinned = 1;
-  pe.disabled = 0;
-  pe.exclude_kernel = 1;
-  pe.exclude_hv = 1;
-  pe.exclude_callchain_kernel = 1;
-  pe.exclude_callchain_user = 1;
-  pe.precise_ip = 1;
+    pe.type = PERF_TYPE_RAW;
+    pe.size = sizeof(pe);
+    pe.config = config;
+    pe.config1 = config1;
+    pe.sample_period = DEFAULT_SAMPLE_PERIOD;
+    pe.sample_type = PERF_SAMPLE_IP | PERF_SAMPLE_TID | PERF_SAMPLE_ADDR;
+    pe.pinned = 1;
+    pe.disabled = 0;
+    pe.exclude_kernel = 1;
+    pe.exclude_hv = 1;
+    pe.exclude_callchain_kernel = 1;
+    pe.exclude_callchain_user = 1;
+    pe.precise_ip = 1;
 
-  perf_fd[cpu][type] = perf_event_open(&pe, -1, cpu, -1, 0);
-  if (perf_fd[cpu][type] == -1) {
-    perror("perf_event_open");
-    fprintf(stderr, "Failed to open perf event for CPU %d, type %d\n", cpu, type);
-  }
-  assert(perf_fd[cpu][type] != -1);
+    perf_fd[cpu][type] = perf_event_open(&pe, -1, cpu, -1, 0);
+    if (perf_fd[cpu][type] == -1)
+    {
+        perror("perf_event_open");
+        fprintf(stderr, "Failed to open perf event for CPU %d, type %d\n", cpu, type);
+    }
+    assert(perf_fd[cpu][type] != -1);
 
-  size_t mmap_size = sysconf(_SC_PAGESIZE) * PERF_PAGES;
-  struct perf_event_mmap_page *p = (struct perf_event_mmap_page *)mmap(
-      NULL, mmap_size, PROT_READ | PROT_WRITE, MAP_SHARED, perf_fd[cpu][type], 0);
-  if (p == MAP_FAILED) {
-    perror("mmap");
-  }
-  assert(p != MAP_FAILED);
+    size_t mmap_size = sysconf(_SC_PAGESIZE) * PERF_PAGES;
+    struct perf_event_mmap_page *p =
+        (struct perf_event_mmap_page *)mmap(NULL, mmap_size, PROT_READ | PROT_WRITE, MAP_SHARED, perf_fd[cpu][type], 0);
+    if (p == MAP_FAILED)
+    {
+        perror("mmap");
+    }
+    assert(p != MAP_FAILED);
 
-  return p;
+    return p;
 }
 
 #ifdef SCAILP
@@ -293,680 +333,876 @@ static struct perf_event_mmap_page* perf_setup(__u64 config, __u64 config1, __u1
 #define L3_LOAD_MISS_REMOTE 0x2d3
 #endif
 
-static void setup_perf_events() {
-  std::cout << "[ARMS] Setting up PEBS counters..." << std::endl;
-  
-  for (int i = 0; i < PEBS_NPROCS; i++) {
+static void setup_perf_events()
+{
+    std::cout << "[ARMS] Setting up PEBS counters..." << std::endl;
+
+    for (int i = 0; i < PEBS_NPROCS; i++)
+    {
 #ifdef C220G5
-    // Skip node 1 cores on C220G5 (cores 10-19 are on NUMA node 1)
-    if (i >= 10 && i < 20) continue;
+        // Skip node 1 cores on C220G5 (cores 10-19 are on NUMA node 1)
+        if (i >= 10 && i < 20)
+            continue;
 #endif
-    perf_page[i][DRAMREAD] = perf_setup(L3_LOAD_MISS_LOCAL, 0, i, DRAMREAD);
-    perf_page[i][NVMREAD]  = perf_setup(L3_LOAD_MISS_REMOTE, 0, i, NVMREAD);
-    perf_page[i][WRITE]    = perf_setup(0x82d0, 0, i, WRITE);  // MEM_INST_RETIRED.ALL_STORES
+        perf_page[i][DRAMREAD] = perf_setup(L3_LOAD_MISS_LOCAL, 0, i, DRAMREAD);
+        perf_page[i][NVMREAD] = perf_setup(L3_LOAD_MISS_REMOTE, 0, i, NVMREAD);
+        perf_page[i][WRITE] = perf_setup(0x82d0, 0, i, WRITE); // MEM_INST_RETIRED.ALL_STORES
 
-    if (!perf_page[i][DRAMREAD] || !perf_page[i][NVMREAD]) {
-      fprintf(stderr, "[ARMS] Failed to setup perf events for CPU %d\n", i);
+        if (!perf_page[i][DRAMREAD] || !perf_page[i][NVMREAD])
+        {
+            fprintf(stderr, "[ARMS] Failed to setup perf events for CPU %d\n", i);
+        }
     }
-  }
 
-  std::cout << "[ARMS] PEBS counters setup complete." << std::endl;
+    std::cout << "[ARMS] PEBS counters setup complete." << std::endl;
 }
 
-static void close_perf_events() {
-  std::cout << "[ARMS] Closing PEBS counters..." << std::endl;
-  
-  for (int i = 0; i < PEBS_NPROCS; i++) {
-    for (int j = 0; j < NPBUFTYPES; j++) {
-      if (perf_page[i][j]) {
-        ioctl(perf_fd[i][j], PERF_EVENT_IOC_DISABLE, 0);
-        munmap(perf_page[i][j], sysconf(_SC_PAGESIZE) * PERF_PAGES);
-        close(perf_fd[i][j]);
-        perf_page[i][j] = nullptr;
-      }
+static void close_perf_events()
+{
+    std::cout << "[ARMS] Closing PEBS counters..." << std::endl;
+
+    for (int i = 0; i < PEBS_NPROCS; i++)
+    {
+        for (int j = 0; j < NPBUFTYPES; j++)
+        {
+            if (perf_page[i][j])
+            {
+                ioctl(perf_fd[i][j], PERF_EVENT_IOC_DISABLE, 0);
+                munmap(perf_page[i][j], sysconf(_SC_PAGESIZE) * PERF_PAGES);
+                close(perf_fd[i][j]);
+                perf_page[i][j] = nullptr;
+            }
+        }
     }
-  }
 }
 
 // Returns amount of free memory in node 0 in KB
-uint64_t get_fasttier_free_mem() {
-  std::string path = "/sys/devices/system/node/node0/meminfo";
-  std::ifstream file(path);
-  if (!file) {
-      std::cerr << "Failed to open " << path << std::endl;
-      return -1;
-  }
-  std::string line;
-  std::regex regex(R"(MemFree:\s+(\d+) kB)");
-  while (getline(file, line)) {
-      std::smatch match;
-      if (std::regex_search(line, match, regex)) {
-          return std::stoull(match[1].str());
-      }
-  }
-  return -1;
+uint64_t get_fasttier_free_mem()
+{
+    std::string path = "/sys/devices/system/node/node0/meminfo";
+    std::ifstream file(path);
+    if (!file)
+    {
+        std::cerr << "Failed to open " << path << std::endl;
+        return -1;
+    }
+    std::string line;
+    std::regex regex(R"(MemFree:\s+(\d+) kB)");
+    while (getline(file, line))
+    {
+        std::smatch match;
+        if (std::regex_search(line, match, regex))
+        {
+            return std::stoull(match[1].str());
+        }
+    }
+    return -1;
 }
 
 // ============================================================================
 // PEBS Scanning Thread
 // ============================================================================
 
-static void* pebs_scan_thread(void *arg) {
-  (void)arg;
-  // Set thread affinity if needed
-  cpu_set_t cpuset;
-  CPU_ZERO(&cpuset);
-  CPU_SET(SCANNING_THREAD_CPU, &cpuset);  // Use a dedicated core
-  pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset);
-  
-  for (;;) {
-    for (int cpu = 0; cpu < PEBS_NPROCS; cpu++) {
-    #ifdef C220G5
-      if (cpu >= 10 && cpu < 20) continue;
-    #endif
-      for (int type = 0; type < NPBUFTYPES; type++) {
-        struct perf_event_mmap_page *header = perf_page[cpu][type];
-        char *pbuf = (char *)header + header->data_offset;
-        __sync_synchronize();
+static void *pebs_scan_thread(void *arg)
+{
+    (void)arg;
+    // Set thread affinity if needed
+    cpu_set_t cpuset;
+    CPU_ZERO(&cpuset);
+    CPU_SET(SCANNING_THREAD_CPU, &cpuset); // Use a dedicated core
+    int s = pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset);
 
-        if(header->data_head == header->data_tail) {
-          continue;
-        }
-          
-        struct perf_event_header *ph = (struct perf_event_header *)(pbuf + (header->data_tail % header->data_size));
-        struct perf_sample* ps;
-        
-        switch (ph->type) {
-          case PERF_RECORD_SAMPLE:
-            ps = (struct perf_sample *)(ph);
-            assert(ps != nullptr);
-
-            if (ps->addr != 0) {
-              uint64_t page_va = ps->addr & HUGE_PFN_MASK;  // Align to page
-
-              if (page_va != 0) {
-                auto it = pages_map.find(page_va);
-                if (it == pages_map.end()) {
-                  // New page discovered
-                  /*arms_page_info* page = new arms_page_info();
-                  page->va = page_va;
-                  {
-                    std::lock_guard<std::mutex> lock(pages_map_lock);
-                    pages_map[page_va] = page;
-                  }
-                  it = pages_map.find(page_va);*/
-                  //std::cout << "[ARMS] Discovered new page: VA = 0x" << std::hex << page_va << std::dec << std::endl;
-                  break;
-                }
-                assert (it != pages_map.end());
-                
-                // Increment access count
-                arms_page_info* page = it->second;
-                page->accesses[type][curr_access_version]++;
-                total_samples[type]++;
-              }
-            }
-            break;
-
-          case PERF_RECORD_THROTTLE:
-          case PERF_RECORD_UNTHROTTLE:
-            std::cerr << "[ARMS] Warning: " << (ph->type == PERF_RECORD_THROTTLE ? "THROTTLE" : "UNTHROTTLE") << " event received, which is unexpected." << std::endl;
-            break;
-          default:
-            std::cerr << "[ARMS] ERROR: Unknown perf_event type " << ph->type << std::endl;
-            break;
-        }
-          
-        header->data_tail += ph->size;
-      }
+    if (s != 0)
+    {
+        perror("pthread_setaffinity_np");
+        assert(0);
     }
-  }
-  
-  return nullptr;
+
+    while (!terminated)
+    {
+        for (int cpu = 0; cpu < PEBS_NPROCS; cpu++)
+        {
+#ifdef C220G5
+            if (cpu >= 10 && cpu < 20)
+                continue;
+#endif
+            for (int type = 0; type < NPBUFTYPES; type++)
+            {
+                struct perf_event_mmap_page *header = perf_page[cpu][type];
+                char *pbuf = (char *)header + header->data_offset;
+                __sync_synchronize();
+
+                if (header->data_head == header->data_tail)
+                {
+                    continue;
+                }
+
+                struct perf_event_header *ph =
+                    (struct perf_event_header *)(pbuf + (header->data_tail % header->data_size));
+                struct perf_sample *ps;
+
+                uint64_t page_va = ps->addr & HUGE_PFN_MASK; // Align to page
+                switch (ph->type)
+                {
+                case PERF_RECORD_SAMPLE:
+                    ps = (struct perf_sample *)(ph);
+                    assert(ps != nullptr);
+                    if (page_va != 0)
+                    {
+                        auto it = pages_map.find(page_va);
+                        if (it == pages_map.end())
+                        {
+                            // New page discovered
+                            page_info *page = new page_info();
+                            page->va = page_va;
+                            {
+                                std::lock_guard<std::mutex> lock(pages_map_lock);
+                                pages_map[page_va] = page;
+                            }
+                            it = pages_map.find(page_va);
+                            // std::cout << "[ARMS] Discovered new page: VA = 0x" << std::hex << page_va << std::dec
+                            // << std::endl;
+                            // break;
+                        }
+                        assert(it != pages_map.end());
+
+                        // Increment access count
+                        page_info *page = it->second;
+                        page->accesses[type][curr_access_version]++;
+                        total_samples[type]++;
+                    }
+                    break;
+
+                case PERF_RECORD_THROTTLE:
+                case PERF_RECORD_UNTHROTTLE:
+                    // std::cerr << "[ARMS] Warning: " << (ph->type == PERF_RECORD_THROTTLE ? "THROTTLE" : "UNTHROTTLE")
+                    //           << " event received, which is unexpected." << std::endl;
+                    break;
+                default:
+                    std::cerr << "[ARMS] ERROR: Unknown perf_event type " << ph->type << std::endl;
+                    break;
+                }
+
+                header->data_tail += ph->size;
+            }
+        }
+    }
+
+    return nullptr;
 }
 
 static void change_sampling_frequency()
 {
-  int ret = 0;
-  uint64_t sample_period = DEFAULT_SAMPLE_PERIOD;
+    int ret = 0;
+    uint64_t sample_period = DEFAULT_SAMPLE_PERIOD;
 
-  if (sampling_mode == HF_SAMPLING) {
-    sample_period = HF_SAMPLE_PERIOD;
-  }
-
-  for (int i = 0; i < PEBS_NPROCS; i++) {
-#if defined C220G5
-      if (i >= 10 && i < 20) {
-      continue;
-      }
-#endif
-    for (int j = 0; j < NPBUFTYPES; j++) {
-      ret = ioctl(perf_fd[i][j], PERF_EVENT_IOC_PERIOD, &sample_period);
-      if (ret != 0) {
-        perror("PERF_EVENT_IOC_PERIOD");
-      }
+    if (sampling_mode == HIGH_FIDELITY)
+    {
+        sample_period = HF_SAMPLE_PERIOD;
     }
-  }
+
+    for (int i = 0; i < PEBS_NPROCS; i++)
+    {
+#if defined C220G5
+        if (i >= 10 && i < 20)
+        {
+            continue;
+        }
+#endif
+        for (int j = 0; j < NPBUFTYPES; j++)
+        {
+            ret = ioctl(perf_fd[i][j], PERF_EVENT_IOC_PERIOD, &sample_period);
+            if (ret != 0)
+            {
+                perror("PERF_EVENT_IOC_PERIOD");
+            }
+        }
+    }
 }
 
 // ============================================================================
 // Page Discovery via /proc/self/pagemap
 // ============================================================================
 
-static void scan_process_pages() {
-  if (pagemap_fd < 0) return;
-  
-  // Read /proc/self/maps to get VMA ranges
-  static std::ifstream maps_file("/proc/self/maps");
-  maps_file.clear(); // Clear any EOF flags
-  maps_file.seekg(0); // Reset to beginning for each scan
-  if (!maps_file.is_open()) {
-    perror("Failed to open /proc/self/maps");
-    return;
-  }
-  
-  std::string line;
-  while (std::getline(maps_file, line)) {
-    uint64_t start_addr, end_addr;
-    char perms[5];
-    
-    // Parse the maps line
-    if (sscanf(line.c_str(), "%lx-%lx %4s", &start_addr, &end_addr, perms) != 3) {
-      continue;
+static void scan_process_pages()
+{
+    if (pagemap_fd < 0)
+        return;
+
+    // Read /proc/self/maps to get VMA ranges
+    static std::ifstream maps_file("/proc/self/maps");
+    maps_file.clear();  // Clear any EOF flags
+    maps_file.seekg(0); // Reset to beginning for each scan
+    if (!maps_file.is_open())
+    {
+        perror("Failed to open /proc/self/maps");
+        return;
     }
-    
-    // Skip non-readable or non-writable regions
-    if (perms[0] != 'r' || perms[1] != 'w') continue;
-    
-    // Skip kernel regions
-    if (start_addr >= 0x7fffffffffff) continue;
-    
-    // Scan this VMA range
-    for (uint64_t va = start_addr; va < end_addr; va += PAGE_SIZE) {
-      // Align to page size
-      va = va & HUGE_PFN_MASK;
-      uint64_t pagemap_index = (va / 4096) * sizeof(uint64_t);
-      uint64_t pagemap_entry;
-      
-      ssize_t ret = pread(pagemap_fd, &pagemap_entry, sizeof(pagemap_entry), pagemap_index);
-      if (ret != sizeof(pagemap_entry)) continue;
-      
-      uint64_t pfn = pagemap_entry & 0x7fffffffffffff;
-      bool present = (pagemap_entry >> 63) & 1;
-      
-      if (present && pfn > 0) {        
-        if (pages_map.find(va) == pages_map.end()) {
-          arms_page_info* page = new arms_page_info();
-          page->va = va;
-          
-          // Determine which node this page is on
-          int status = -1;
-          void* addr = (void*)va;
-          numa_move_pages(0, 1, &addr, nullptr, &status, 0);
-          page->in_dram = (status == FAST_TIER);
-          
-          {
-            std::lock_guard<std::mutex> lock(pages_map_lock);
-            pages_map[va] = page;
-          }
+
+    std::string line;
+    while (std::getline(maps_file, line))
+    {
+        uint64_t start_addr, end_addr;
+        char perms[5];
+
+        // Parse the maps line
+        if (sscanf(line.c_str(), "%lx-%lx %4s", &start_addr, &end_addr, perms) != 3)
+        {
+            continue;
         }
-      }
+
+        // Skip non-readable or non-writable regions
+        if (perms[0] != 'r' || perms[1] != 'w')
+            continue;
+
+        // Skip kernel regions
+        if (start_addr >= 0x7fffffffffff)
+            continue;
+
+        // Scan this VMA range
+        for (uint64_t va = start_addr; va < end_addr; va += PAGE_SIZE)
+        {
+            // Align to page size
+            va = va & HUGE_PFN_MASK;
+            uint64_t pagemap_index = (va / 4096) * sizeof(uint64_t);
+            uint64_t pagemap_entry;
+
+            ssize_t ret = pread(pagemap_fd, &pagemap_entry, sizeof(pagemap_entry), pagemap_index);
+            if (ret != sizeof(pagemap_entry))
+                continue;
+
+            uint64_t pfn = pagemap_entry & 0x7fffffffffffff;
+            bool present = (pagemap_entry >> 63) & 1;
+
+            if (present && pfn > 0)
+            {
+                if (pages_map.find(va) == pages_map.end())
+                {
+                    page_info *page = new page_info();
+                    page->va = va;
+
+                    // Determine which node this page is on
+                    int status = -1;
+                    void *addr = (void *)va;
+                    numa_move_pages(0, 1, &addr, nullptr, &status, 0);
+                    page->in_dram = (status == FAST_TIER);
+
+                    {
+                        std::lock_guard<std::mutex> lock(pages_map_lock);
+                        pages_map[va] = page;
+                    }
+                }
+            }
+        }
     }
-  }
 
-  std::cout << "[ARMS] Number of process pages tracked: " << pages_map.size() << std::endl;
-  
-  maps_file.close();
+    std::cout << "[ARMS] Number of process pages tracked: " << pages_map.size() << std::endl;
+
+    maps_file.close();
 }
-
 
 // ============================================================================
 // Hot-Change Detection
 // ============================================================================
 
-static void detect_hot_change() {
-  float cur_dram_bw, cur_nvm_bw;
-  
-  // Measure current bandwidth
-  cur_dram_bw = (float)measure_bw(0) / (1024.0 * 1024.0 * 1024.0); // GB/s
-  cur_nvm_bw  = (float)measure_bw(1) / (1024.0 * 1024.0 * 1024.0); // GB/s
-  
-  // Update EWMA of bandwidth
-  dram_bw_ewma = (1 - HCD_EWMA_ALPHA) * dram_bw_ewma + HCD_EWMA_ALPHA * cur_dram_bw;
-  nvm_bw_ewma = (1 - HCD_EWMA_ALPHA) * nvm_bw_ewma + HCD_EWMA_ALPHA * cur_nvm_bw;
-  nvm_bw_std = (1 - HCD_STD_ALPHA) * nvm_bw_std + HCD_STD_ALPHA * (cur_nvm_bw - nvm_bw_ewma) * (cur_nvm_bw - nvm_bw_ewma);
-  nvm_bw_std = sqrtf(fmaxf(nvm_bw_std, 1e-12f)); // Avoid stddev of 0
+static void detect_hot_change()
+{
+    float cur_dram_bw, cur_nvm_bw;
 
-  // Scale drift and threshold based on stddev
-  // This allows the algorithm to adapt to different levels of noise in the measurements
-  float drift = HCD_PH_DRIFT * nvm_bw_std;
-  float threshold = HCD_PH_THRESHOLD * nvm_bw_std;
+    // Measure current bandwidth
+    cur_dram_bw = (float)measure_bw(0) / (1024.0 * 1024.0 * 1024.0); // GB/s
+    cur_nvm_bw = (float)measure_bw(1) / (1024.0 * 1024.0 * 1024.0);  // GB/s
 
-  // CUSUM (Page-Hinkley test) for phase change detection
-  cusum += ((cur_nvm_bw - nvm_bw_ewma) - drift);
-  cusum = fmaxf(cusum, 0.0f); // Only interested in positive deviations
-  if (cusum > threshold) {
-    // Switch to recency bias if currently using history bias and NVM bandwidth is high
-    if (active_bias == hist_bias && cur_nvm_bw > HCD_RECN_MIN_NVM_BW) {
-      active_bias = recn_bias;
-      time_since_recn = 0;
-      std::cout << "[ARMS-HCD] Phase change detected! Switching to RECENCY bias "
-                << "(NVM BW: " << cur_nvm_bw << " GB/s, CUSUM: " << cusum << ")" << std::endl;
+    // Update EWMA of bandwidth
+    dram_bw_ewma = (1 - HCD_EWMA_ALPHA) * dram_bw_ewma + HCD_EWMA_ALPHA * cur_dram_bw;
+    nvm_bw_ewma = (1 - HCD_EWMA_ALPHA) * nvm_bw_ewma + HCD_EWMA_ALPHA * cur_nvm_bw;
+    nvm_bw_std =
+        (1 - HCD_STD_ALPHA) * nvm_bw_std + HCD_STD_ALPHA * (cur_nvm_bw - nvm_bw_ewma) * (cur_nvm_bw - nvm_bw_ewma);
+    nvm_bw_std = sqrtf(fmaxf(nvm_bw_std, 1e-12f)); // Avoid stddev of 0
+
+    // Scale drift and threshold based on stddev
+    // This allows the algorithm to adapt to different levels of noise in the measurements
+    float drift = HCD_PH_DRIFT * nvm_bw_std;
+    float threshold = HCD_PH_THRESHOLD * nvm_bw_std;
+
+    // CUSUM (Page-Hinkley test) for phase change detection
+    cusum += ((cur_nvm_bw - nvm_bw_ewma) - drift);
+    cusum = fmaxf(cusum, 0.0f); // Only interested in positive deviations
+    if (cusum > threshold)
+    {
+        // Switch to recency bias if currently using history bias and NVM bandwidth is high
+        if (active_bias == hist_bias && cur_nvm_bw > HCD_RECN_MIN_NVM_BW)
+        {
+            active_bias = recn_bias;
+            time_since_recn = 0;
+            std::cout << "[ARMS-HCD] Phase change detected! Switching to RECENCY bias "
+                      << "(NVM BW: " << cur_nvm_bw << " GB/s, CUSUM: " << cusum << ")" << std::endl;
+        }
+        cusum = 0;
     }
-    cusum = 0;
-  } else if (active_bias == recn_bias) {
-    // Check if we should switch back to history bias
-    time_since_recn++;
-    if (time_since_recn >= HCD_RECN_MAX_PERIODS && cusum <= 0) {
-      active_bias = hist_bias;
-      time_since_recn = 0;
-      std::cout << "[ARMS-HCD] Stable phase detected. Switching back to HISTORY bias" << std::endl;
+    else if (active_bias == recn_bias)
+    {
+        // Check if we should switch back to history bias
+        time_since_recn++;
+        if (time_since_recn >= HCD_RECN_MAX_PERIODS && cusum <= 0)
+        {
+            active_bias = hist_bias;
+            time_since_recn = 0;
+            std::cout << "[ARMS-HCD] Stable phase detected. Switching back to HISTORY bias" << std::endl;
+        }
     }
-  }
 }
 
 // ============================================================================
 // Scoring and Migration Policy
 // ============================================================================
 
-static void update_window(arms_page_info* page) {
-  uint32_t accesses = page->accesses[DRAMREAD][prev_access_version] + 
-                      page->accesses[NVMREAD][prev_access_version] + 
-                      (NVM_WRITES_WEIGHT * page->accesses[WRITE][prev_access_version]);
-
-  if (sampling_mode == DEFAULT_SAMPLING) {
-    for (uint8_t i = 0; i < WINDOW_SIZE; i++) {
-      page->w[i] = (1. - w_ewma_alpha[i]) * page->w[i] +
-          (w_ewma_alpha[i] * ((DEFAULT_SAMPLE_PERIOD/HF_SAMPLE_PERIOD) * accesses)); // We maintain counters in high-fidelity          
+static float compute_score(const page_info *page)
+{
+    float score = 0;
+    for (int i = 0; i < WINDOW_SIZE; i++)
+    {
+        score += (active_bias[i] * page->w[i]);
     }
-  } else if (sampling_mode == HF_SAMPLING) {
-    for (uint8_t i = 0; i < WINDOW_SIZE; i++) {
-      page->w[i] = (1. - w_ewma_alpha[i]) * page->w[i] + (w_ewma_alpha[i] * accesses);
-    }
-  }
+    return score;
 }
 
-static float compute_score(const arms_page_info* page) {
-  float score = 0;
-  for (int i = 0; i < WINDOW_SIZE; i++) {
-    score += (active_bias[i] * page->w[i]);
-  }
-  return score;
+static int score_compare(const void *a, const void *b)
+{
+    const score_entry *ea = (const score_entry *)a;
+    const score_entry *eb = (const score_entry *)b;
+    return (ea->score > eb->score) ? -1 : (ea->score < eb->score);
 }
 
-static int score_compare(const void *a, const void *b) {
-  const score_entry *ea = (const score_entry *)a;
-  const score_entry *eb = (const score_entry *)b;
-  return (ea->score > eb->score) ? -1 : (ea->score < eb->score);
+// Sorts in descending order by ewma5
+static int sort_entry_cmp_by_ewma5(const void *a, const void *b)
+{
+    struct score_entry _a = *(const struct score_entry *)a;
+    struct score_entry _b = *(const struct score_entry *)b;
+
+    return (_a.page->w[1] > _b.page->w[1]) ? -1 : (_a.page->w[1] < _b.page->w[1]);
 }
 
-static int migrate_pages_to_node(std::vector<uint64_t>& vas, int target_node) {
-  if (vas.empty()) return 0;
-  
-  auto start = std::chrono::high_resolution_clock::now();
-  
-  size_t num_pages = vas.size();
-  std::vector<void*> pages(num_pages);
-  std::vector<int> nodes(num_pages, target_node);
-  std::vector<int> status(num_pages, -1);
-  
-  for (size_t i = 0; i < num_pages; i++) {
-    pages[i] = (void*)vas[i];
-  }
-  
-  int ret = numa_move_pages(0, num_pages, pages.data(), nodes.data(), 
-                           status.data(), MPOL_MF_MOVE_ALL);
-  
-  auto end = std::chrono::high_resolution_clock::now();
-  auto duration_us = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
-  float time_per_page_us = (float)duration_us / (float)num_pages;
-  
-  // Update migration cost estimates
-  if (target_node == FAST_TIER) {
-    // Promotion
-    promotion_cost_avg = MIGRATION_COST_ALPHA * time_per_page_us + 
-                        (1 - MIGRATION_COST_ALPHA) * promotion_cost_avg;
-  } else {
-    // Demotion
-    demotion_cost_avg = MIGRATION_COST_ALPHA * time_per_page_us + 
-                       (1 - MIGRATION_COST_ALPHA) * demotion_cost_avg;
-  }
-  
-  if (ret != 0) {
-    perror("numa_move_pages");
-    return -1;
-  }
-  
-  return num_pages;
+static int migrate_pages_to_node(std::vector<uint64_t> &vas, int target_node)
+{
+    if (vas.empty())
+        return 0;
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+    size_t num_pages = vas.size();
+    std::vector<void *> pages(num_pages);
+    std::vector<int> nodes(num_pages, target_node);
+    std::vector<int> status(num_pages, -1);
+
+    for (size_t i = 0; i < num_pages; i++)
+    {
+        pages[i] = (void *)vas[i];
+    }
+
+    int ret = numa_move_pages(0, num_pages, pages.data(), nodes.data(), status.data(), MPOL_MF_MOVE_ALL);
+
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration_us = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+    float time_per_page_us = (float)duration_us / (float)num_pages;
+
+    // Update migration cost estimates
+    if (target_node == FAST_TIER)
+    {
+        // Promotion
+        promotion_cost_avg = MIGRATION_COST_ALPHA * time_per_page_us + (1 - MIGRATION_COST_ALPHA) * promotion_cost_avg;
+    }
+    else
+    {
+        // Demotion
+        demotion_cost_avg = MIGRATION_COST_ALPHA * time_per_page_us + (1 - MIGRATION_COST_ALPHA) * demotion_cost_avg;
+    }
+
+    if (ret != 0)
+    {
+        perror("numa_move_pages");
+        return -1;
+    }
+
+    return num_pages;
 }
 
-static void update_scores_and_migrate() {
-  std::vector<score_entry> scores;
-  
-  // Update scores for all pages
-  for (auto& kv : pages_map) {
-    arms_page_info* page = kv.second;
-    
-    update_window(page);
-    page->prev_score = page->score;
-    page->score = compute_score(page);
-    // Clear access counts for next interval
-    for (int i = 0; i < NPBUFTYPES; i++) {
-      page->accesses[i][prev_access_version] = 0;
-    }
-    
-    score_entry entry;
-    entry.page = page;
-    entry.score = page->score;
-    scores.push_back(entry);
-  }
-  
-  if (scores.empty()) return;
-  
-  // Sort by score (descending)
-  qsort(scores.data(), scores.size(), sizeof(score_entry), score_compare);
+static void update_scores_and_migrate(size_t timestep)
+{
+    std::vector<score_entry> scores;
 
-  // Update the hot age of pages
-  uint64_t i;
-  for (i = 0; i < (dramsize/PAGE_SIZE) && i < scores.size(); i++) {
-    arms_page_info* page = scores[i].page;
-    if (page->score != 0) {
-      page->hot_age++;
-      if (page->hot_age > 1 && (page->score >= page->prev_score)) {
-        page->can_promote = true;
-      }
-    }
-  }
-  for (; i < scores.size(); i++) {
-    arms_page_info* page = scores[i].page;
-    page->hot_age = 0;
-    page->can_promote = false;
-  }
+    reset_group_hash(grp_tracker);
 
-  // Print the max and min scores for debugging
-  std::cout << "[ARMS] Number of tracked pages: " << scores.size()
-            << ", Max score: " << scores[0].score
-            << ", Min score: " << scores[scores.size() - 1].score << std::endl;
-  
-  // Identify promotion and demotion candidates
-  std::vector<uint64_t> promote_list;
-  std::vector<uint64_t> demote_list;
-  
-  uint64_t promote_idx = 0;
-  uint64_t demote_idx = scores.size() - 1;
-  size_t migrated_count = 0;
+    // Update scores for all pages
+    size_t accesses_total = 0;
+    for (auto &kv : pages_map)
+    {
+        page_info *page = kv.second;
 
-  uint32_t max_migrations_cur_interval = ((policy_thread_interval) / (promotion_cost_avg + demotion_cost_avg));
+        page->update_window(prev_access_version, sampling_mode);
+        accesses_total += page->count;
 
-  uint64_t fasttier_free_kb = get_fasttier_free_mem();
-  uint64_t fasttier_free_pages = fasttier_free_kb / (PAGE_SIZE / 1024);
-  
-  // Try to promote hot NVM pages, demoting cold DRAM pages if necessary
-  while (promote_idx < (dramsize/PAGE_SIZE) && promote_idx < demote_idx) {
-    if (migrated_count >= max_migrations_cur_interval) {
-      break; // Reached max migrations for this interval
-    }
-    
-    // Find the hottest page that needs promotion
-    while (promote_idx < (dramsize/PAGE_SIZE) && scores[promote_idx].page->in_dram) {
-      promote_idx++;
-    }
-    if (promote_idx >= demote_idx || promote_idx > (dramsize/PAGE_SIZE)) break;
-
-    arms_page_info* hot_page = scores[promote_idx].page;
-    if (!hot_page->can_promote) {
-      promote_idx++;
-      continue;
-    }
-    if (hot_page->score == 0) {
-      // No more hot pages to promote
-      break;
+        page->prev_score = page->score;
+        scores.push_back({page, 0});
     }
 
-    // Perform cost-benefit analysis before promoting
-    float cost = CB_MULTIPLIER * promotion_cost_avg;
-    float benefit = hot_page->score * hot_page->hot_age * HF_SAMPLE_PERIOD * latency_diff;
-    if (benefit < cost) {
-      // Stop promotions - not profitable
-      break;
-    }
+    // Only process events if we have a valid queue (will be NULL on first call)
+    size_t size = atomic_load(&syscall_queue_size);
+    size_t index = atomic_load(&syscall_queue_index);
+    printf("Processing %ld syscall events\n", size - index);
+    for (; index < size; atomic_store(&syscall_queue_index, (++index)))
+    {
+        struct syscall_event item = atomic_load(&syscall_event_queue)[index % SYSCALL_EVENT_QUEUE_CAPACITY];
+        uint64_t round_down = (uint64_t)item.addr & ~(PAGE_SIZE - 1);
+        for (uint64_t off = 0; off < item.len; off += PAGE_SIZE)
+        {
+            if (pages_map.find(round_down + off) == pages_map.end())
+            {
+                break;
+            }
+            struct page_info *page = pages_map[round_down + off];
 
-    if (promote_list.size() < fasttier_free_pages) {
-      // There is enough free space in DRAM - no need to demote
-      promote_list.push_back(hot_page->va);
-      promote_idx++;
-      migrated_count++;
-      continue;
-    }
-
-    
-    // Find next cold page in DRAM
-    while (demote_idx > promote_idx && !scores[demote_idx].page->in_dram) {
-      demote_idx--;
-    }
-    if (demote_idx <= promote_idx || demote_idx <= (dramsize/PAGE_SIZE)) break;
-    
-    arms_page_info* cold_page = scores[demote_idx].page;
-
-
-    // Migration checks
-    // 1. Hot page should have all EWMAs greater than the max EWMA of cold page
-    float hot_page_min_avg = hot_page->w[0];
-    float cold_page_max_avg = cold_page->w[0];
-    for (int i = 1; i < WINDOW_SIZE; i++) {
-      if (hot_page->w[i] < hot_page_min_avg) {
-        hot_page_min_avg = hot_page->w[i];
-      }
-      if (cold_page->w[i] > cold_page_max_avg) {
-        cold_page_max_avg = cold_page->w[i];
-      }
-    }
-    
-    if (hot_page_min_avg < cold_page_max_avg) {
-      // Stop migrations - not worth it anymore
-      break;
-    }
-    
-    // 2. Cost-benefit analysis
-    cost = CB_MULTIPLIER * (promotion_cost_avg + demotion_cost_avg);
-    benefit = (hot_page->score - cold_page->score) * hot_page->hot_age * 
-                    HF_SAMPLE_PERIOD * latency_diff;
-    
-    if (benefit < cost) {
-      // Stop migrations - not profitable
-      break;
-    }
-    
-    // Both checks passed - add to migration lists
-    promote_list.push_back(hot_page->va);
-    demote_list.push_back(cold_page->va);
-    
-    promote_idx++;
-    demote_idx--;
-    migrated_count++;
-  }
-  
-  std::cout << "[ARMS] Scores updated. Promote candidates: " << promote_list.size()
-            << ", Demote candidates: " << demote_list.size() << std::endl;
-  
-  // Perform migrations
-  if (!demote_list.empty()) {
-    int ret = migrate_pages_to_node(demote_list, SLOW_TIER);
-    if (ret > 0) {
-      migrations_down += ret;
-      std::cout << "[ARMS] Demoted " << ret << " pages to NVM" << std::endl;
-      
-      // Update page state
-      for (uint64_t va : demote_list) {
-        auto it = pages_map.find(va);
-        if (it != pages_map.end()) {
-          it->second->in_dram = false;
+            switch (item.type)
+            {
+            case MALLOC_SYSCALL:
+                page->min_malloc_bytes =
+                    (page->min_malloc_bytes == -1)
+                        ? item.len
+                        : ((item.len < page->min_malloc_bytes) ? item.len : page->min_malloc_bytes);
+                page->max_malloc_bytes =
+                    (page->max_malloc_bytes == -1)
+                        ? item.len
+                        : ((item.len > page->max_malloc_bytes) ? item.len : page->max_malloc_bytes);
+                page->sum_malloc_bytes += item.len;
+                page->malloc_call++;
+                break;
+            case READ_SYSCALL:
+                page->read_bytes += item.len;
+                page->read_syscalls++;
+                break;
+            case WRITE_SYSCALL:
+                page->write_bytes += item.len;
+                page->write_syscalls++;
+                break;
+            default:
+                printf("Unknown syscall type %d\n", item.type);
+                break;
+            }
         }
-      }
     }
-  }
 
-  if (!promote_list.empty()) {
-    int ret = migrate_pages_to_node(promote_list, FAST_TIER);
-    if (ret > 0) {
-      migrations_up += ret;
-      std::cout << "[ARMS] Promoted " << ret << " pages to DRAM" << std::endl;
-      
-      // Update page state
-      for (uint64_t va : promote_list) {
-        auto it = pages_map.find(va);
-        if (it != pages_map.end()) {
-          it->second->in_dram = true;
+    qsort(scores.data(), scores.size(), sizeof(score_entry), sort_entry_cmp_by_ewma5);
+
+    double cpu_usage = calc_cpu_usage_pct();
+    for (size_t i = 0; i < scores.size(); i++)
+    {
+        scores[i].page->update_derivative_features(i, scores.size(), accesses_total, dramsize / PAGE_SIZE);
+        update_group_entry(grp_tracker, scores[i].page, accesses_total);
+    }
+
+    for (auto &score_entry : scores)
+    {
+        score_entry.page->arms_score = compute_score(score_entry.page);
+        score_entry.page->model_score = 0; // TODO
+
+        if (USE_MODEL)
+        {
+            score_entry.page->score = score_entry.page->model_score;
         }
-      }
+        else
+        {
+            score_entry.page->score = score_entry.page->arms_score;
+        }
+        score_entry.score = score_entry.page->score;
+        log_row(timestep, score_entry.page, grp_tracker, accesses_total);
     }
-  }
 
-  // If no migrations happened, decay the cost estimates
-  if (promote_list.empty() && demote_list.empty()) {
-    promotion_cost_avg /= MIGRATION_COST_DECAY_RATE;
-    demotion_cost_avg /= MIGRATION_COST_DECAY_RATE;
-    if (promotion_cost_avg < MIN_PROMOTION_COST) {
-      promotion_cost_avg = MIN_PROMOTION_COST;
+    if (scores.empty())
+        return;
+
+    // Sort by score (descending)
+    qsort(scores.data(), scores.size(), sizeof(score_entry), score_compare);
+
+    // Print the max and min scores for debugging
+    std::cout << "[ARMS] Number of tracked pages: " << scores.size() << ", Max score: " << scores[0].score
+              << ", Min score: " << scores[scores.size() - 1].score << std::endl;
+
+    // Identify promotion and demotion candidates
+    std::vector<uint64_t> promote_list;
+    std::vector<uint64_t> demote_list;
+
+    uint64_t promote_idx = 0;
+    uint64_t demote_idx = scores.size() - 1;
+    size_t migrated_count = 0;
+
+    uint32_t max_migrations_cur_interval = ((policy_thread_interval) / (promotion_cost_avg + demotion_cost_avg));
+
+    uint64_t fasttier_free_kb = get_fasttier_free_mem();
+    uint64_t fasttier_free_pages = fasttier_free_kb / (PAGE_SIZE / 1024);
+
+    // Try to promote hot NVM pages, demoting cold DRAM pages if necessary
+    while (promote_idx < (dramsize / PAGE_SIZE) && promote_idx < demote_idx)
+    {
+        if (migrated_count >= max_migrations_cur_interval)
+        {
+            break; // Reached max migrations for this interval
+        }
+
+        // Find the hottest page that needs promotion
+        while (promote_idx < (dramsize / PAGE_SIZE) && scores[promote_idx].page->in_dram)
+        {
+            promote_idx++;
+        }
+        if (promote_idx >= demote_idx || promote_idx > (dramsize / PAGE_SIZE))
+            break;
+
+        page_info *hot_page = scores[promote_idx].page;
+        if (!hot_page->can_promote)
+        {
+            promote_idx++;
+            continue;
+        }
+        if (hot_page->score == 0)
+        {
+            // No more hot pages to promote
+            break;
+        }
+
+        // Perform cost-benefit analysis before promoting
+        float cost = CB_MULTIPLIER * promotion_cost_avg;
+        float benefit = hot_page->score * hot_page->hot_age * HF_SAMPLE_PERIOD * latency_diff;
+        if (benefit < cost)
+        {
+            // Stop promotions - not profitable
+            break;
+        }
+
+        if (promote_list.size() < fasttier_free_pages)
+        {
+            // There is enough free space in DRAM - no need to demote
+            promote_list.push_back(hot_page->va);
+            promote_idx++;
+            migrated_count++;
+            continue;
+        }
+
+        // Find next cold page in DRAM
+        while (demote_idx > promote_idx && !scores[demote_idx].page->in_dram)
+        {
+            demote_idx--;
+        }
+        if (demote_idx <= promote_idx || demote_idx <= (dramsize / PAGE_SIZE))
+            break;
+
+        page_info *cold_page = scores[demote_idx].page;
+
+        // Migration checks
+        // 1. Hot page should have all EWMAs greater than the max EWMA of cold page
+        float hot_page_min_avg = hot_page->w[1];
+        float cold_page_max_avg = cold_page->w[1];
+        for (int i = 1; i < WINDOW_SIZE; i++)
+        {
+            if (hot_page->w[i] < hot_page_min_avg)
+            {
+                hot_page_min_avg = hot_page->w[i];
+            }
+            if (cold_page->w[i] > cold_page_max_avg)
+            {
+                cold_page_max_avg = cold_page->w[i];
+            }
+        }
+
+        if (hot_page_min_avg < cold_page_max_avg)
+        {
+            // Stop migrations - not worth it anymore
+            break;
+        }
+
+        // 2. Cost-benefit analysis
+        cost = CB_MULTIPLIER * (promotion_cost_avg + demotion_cost_avg);
+        benefit = (hot_page->score - cold_page->score) * hot_page->hot_age * HF_SAMPLE_PERIOD * latency_diff;
+
+        if (benefit < cost)
+        {
+            // Stop migrations - not profitable
+            break;
+        }
+
+        // Both checks passed - add to migration lists
+        promote_list.push_back(hot_page->va);
+        demote_list.push_back(cold_page->va);
+
+        promote_idx++;
+        demote_idx--;
+        migrated_count++;
     }
-    if (demotion_cost_avg < MIN_DEMOTION_COST) {
-      demotion_cost_avg = MIN_DEMOTION_COST;
+
+    std::cout << "[ARMS] Scores updated. Promote candidates: " << promote_list.size()
+              << ", Demote candidates: " << demote_list.size() << std::endl;
+
+    // Perform migrations
+    if (!demote_list.empty())
+    {
+        int ret = migrate_pages_to_node(demote_list, SLOW_TIER);
+        if (ret > 0)
+        {
+            migrations_down += ret;
+            std::cout << "[ARMS] Demoted " << ret << " pages to NVM" << std::endl;
+
+            // Update page state
+            for (uint64_t va : demote_list)
+            {
+                auto it = pages_map.find(va);
+                if (it != pages_map.end())
+                {
+                    it->second->in_dram = false;
+                }
+            }
+        }
     }
-  }
+
+    if (!promote_list.empty())
+    {
+        int ret = migrate_pages_to_node(promote_list, FAST_TIER);
+        if (ret > 0)
+        {
+            migrations_up += ret;
+            std::cout << "[ARMS] Promoted " << ret << " pages to DRAM" << std::endl;
+
+            // Update page state
+            for (uint64_t va : promote_list)
+            {
+                auto it = pages_map.find(va);
+                if (it != pages_map.end())
+                {
+                    it->second->in_dram = true;
+                }
+            }
+        }
+    }
+
+    // If no migrations happened, decay the cost estimates
+    if (promote_list.empty() && demote_list.empty())
+    {
+        promotion_cost_avg /= MIGRATION_COST_DECAY_RATE;
+        demotion_cost_avg /= MIGRATION_COST_DECAY_RATE;
+        if (promotion_cost_avg < MIN_PROMOTION_COST)
+        {
+            promotion_cost_avg = MIN_PROMOTION_COST;
+        }
+        if (demotion_cost_avg < MIN_DEMOTION_COST)
+        {
+            demotion_cost_avg = MIN_DEMOTION_COST;
+        }
+    }
 }
 
 // ============================================================================
 // Policy Thread
 // ============================================================================
 
-static void* arms_policy_thread(void *arg) {
-  (void)arg;
-  // Set thread affinity
-  cpu_set_t cpuset;
-  CPU_ZERO(&cpuset);
-  CPU_SET(POLICY_THREAD_CPU, &cpuset);
-  pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset);
+static void *arms_policy_thread(void *arg)
+{
+    (void)arg;
+    // Set thread affinity
+    cpu_set_t cpuset;
+    CPU_ZERO(&cpuset);
+    CPU_SET(POLICY_THREAD_CPU, &cpuset);
+    pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset);
 
-  struct ptimer loop_timer;
-  ptimer_init(&loop_timer, "Policy loop timer");
-  
-  for(;;) {
-    ptimer_start(&loop_timer);
-    curr_window_index = global_version % WINDOW_SIZE;
-    global_version++;
-    prev_access_version = curr_access_version;
-    curr_access_version = 1 - curr_access_version;
-    __sync_synchronize();
+    struct ptimer loop_timer;
+    ptimer_init(&loop_timer, "Policy loop timer");
 
-    if (global_version % (1000000 / policy_thread_interval) == 0) {
-      detect_hot_change();
+    while (!terminated)
+    {
+        ptimer_start(&loop_timer);
+        curr_window_index = global_version % WINDOW_SIZE;
+        global_version++;
+        prev_access_version = curr_access_version;
+        curr_access_version = 1 - curr_access_version;
+        __sync_synchronize();
 
-      // Calculate latency diff between DRAM and NVM
-      float dram_lat = UNLOADED_DRAM_LAT;
-      float nvm_lat = UNLOADED_NVM_LAT;
-      if (dram_bw_ewma > DRAM_BW_KNEE) {
-        dram_lat += (dram_bw_ewma - DRAM_BW_KNEE) * DRAM_BW_SLOPE;
-      }
-      if (nvm_bw_ewma > NVM_RD_BW_KNEE) {
-        nvm_lat += (nvm_bw_ewma - NVM_RD_BW_KNEE) * NVM_BW_SLOPE;
-      }
-      latency_diff = nvm_lat - dram_lat;
+        if (global_version % (1000000 / policy_thread_interval) == 0)
+        {
+            detect_hot_change();
+
+            // Calculate latency diff between DRAM and NVM
+            float dram_lat = UNLOADED_DRAM_LAT;
+            float nvm_lat = UNLOADED_NVM_LAT;
+            if (dram_bw_ewma > DRAM_BW_KNEE)
+            {
+                dram_lat += (dram_bw_ewma - DRAM_BW_KNEE) * DRAM_BW_SLOPE;
+            }
+            if (nvm_bw_ewma > NVM_RD_BW_KNEE)
+            {
+                nvm_lat += (nvm_bw_ewma - NVM_RD_BW_KNEE) * NVM_BW_SLOPE;
+            }
+            latency_diff = nvm_lat - dram_lat;
+        }
+
+        // Periodically scan for new pages
+        static size_t timestep = 0;
+        if (++timestep % 10 == 0)
+        { // Every 2.5 seconds
+            scan_process_pages();
+        }
+
+        update_scores_and_migrate(timestep);
+
+        // Update sampling frequency if hotset change detected
+        if ((active_bias == recn_bias) && sampling_mode != HIGH_FIDELITY)
+        {
+            change_sampling_frequency();
+            sampling_mode = HIGH_FIDELITY;
+        }
+        else if ((active_bias == hist_bias) && sampling_mode != DEFAULT_SAMPLING)
+        {
+            change_sampling_frequency();
+            sampling_mode = DEFAULT_SAMPLING;
+        }
+
+        // Print total samples
+        std::cout << "[ARMS] Total samples - DRAMREAD: " << total_samples[DRAMREAD]
+                  << ", NVMREAD: " << total_samples[NVMREAD] << ", WRITE: " << total_samples[WRITE] << std::endl;
+        total_samples[DRAMREAD] = total_samples[NVMREAD] = total_samples[WRITE] = 0;
+
+        ptimer_stop_and_print(&loop_timer);
+        double elapsed_us = loop_timer.elapsed_us;
+
+        if (elapsed_us < policy_thread_interval)
+        {
+            usleep(policy_thread_interval - elapsed_us);
+        }
     }
-    
-    // Periodically scan for new pages
-    static int scan_counter = 0;
-    if (++scan_counter >= 10) {  // Every 5 seconds
-      scan_process_pages();
-      scan_counter = 0;
-    }
-    
-    update_scores_and_migrate();
 
-    // Update sampling frequency if hotset change detected
-    if ((active_bias == recn_bias) && sampling_mode != HF_SAMPLING) {
-      change_sampling_frequency();
-      sampling_mode = HF_SAMPLING;
-    } else if ((active_bias == hist_bias) && sampling_mode != DEFAULT_SAMPLING) {
-      change_sampling_frequency();
-      sampling_mode = DEFAULT_SAMPLING;
-    }
-
-    // Print total samples
-    std::cout << "[ARMS] Total samples - DRAMREAD: " << total_samples[DRAMREAD]
-              << ", NVMREAD: " << total_samples[NVMREAD]
-              << ", WRITE: " << total_samples[WRITE] << std::endl;
-    total_samples[DRAMREAD] = total_samples[NVMREAD] = total_samples[WRITE] = 0;
-
-    ptimer_stop_and_print(&loop_timer);
-    double elapsed_us = loop_timer.elapsed_us;
-
-    if (elapsed_us < policy_thread_interval) {
-      usleep(policy_thread_interval - elapsed_us);
-    }
-  }
-  
-  return nullptr;
+    return nullptr;
 }
 
 // ============================================================================
 // Public API
 // ============================================================================
 
-void arms_start_tiering() {
-  std::cout << "[ARMS] Initializing ARMS..." << std::endl;
-  
-  // Open pagemap
-  target_pid = getpid();
-  char pagemap_path[256];
-  snprintf(pagemap_path, sizeof(pagemap_path), "/proc/%d/pagemap", target_pid);
-  pagemap_fd = open(pagemap_path, O_RDONLY);
-  if (pagemap_fd < 0) {
-    perror("Failed to open pagemap");
-    return;
-  }
-  
-  // Check NUMA configuration
-  if (numa_available() < 0) {
-    fprintf(stderr, "[ARMS] NUMA not available\n");
-    close(pagemap_fd);
-    return;
-  }
-  
-  std::cout << "[ARMS] NUMA nodes available: " << numa_max_node() + 1 << std::endl;
-  
-  // Setup PEBS
-  setup_perf_events();
+extern struct data_row *scores_log;
 
-  // Initialize memory controller BW counters
-  setup_imc_bw_counters();
-  
-  // Start scanning and policy threads
-  pthread_create(&scan_thread, nullptr, pebs_scan_thread, nullptr);
-  pthread_create(&policy_thread, nullptr, arms_policy_thread, nullptr);
-  
-  std::cout << "[ARMS] Initialization complete." << std::endl;
+struct syscall_event *create_syscall_event_queue()
+{
+    struct syscall_event *queue =
+        (struct syscall_event *)malloc(2 * SYSCALL_EVENT_QUEUE_CAPACITY * sizeof(struct syscall_event));
+    if (queue == NULL)
+    {
+        perror("Failed to allocate memory for syscall event queue\n");
+        exit(EXIT_FAILURE);
+    }
+    return queue;
 }
 
-void arms_kernel_shutdown() {
-  std::cout << "[ARMS] Shutting down..." << std::endl;
-  
-  pthread_join(scan_thread, nullptr);
-  pthread_join(policy_thread, nullptr);
-  
-  close_perf_events();
-  
-  if (pagemap_fd >= 0) {
-    close(pagemap_fd);
-  }
-  
-  // Clean up page tracking
-  {
-    std::lock_guard<std::mutex> lock(pages_map_lock);
-    for (auto& kv : pages_map) {
-      delete kv.second;
+inline void pebs_log_syscall(void *addr, size_t len, enum syscall_type type)
+{
+    size_t end = atomic_load(&syscall_queue_size);
+    size_t start = atomic_load(&syscall_queue_index);
+
+    if (end - start >= SYSCALL_EVENT_QUEUE_CAPACITY)
+    {
+        // queue full, drop event
+        return;
     }
-    pages_map.clear();
-  }
-  
-  std::cout << "[ARMS] Shutdown complete." << std::endl;
+
+    size_t idx = (atomic_fetch_add(&syscall_queue_size, 1)) % SYSCALL_EVENT_QUEUE_CAPACITY;
+    struct syscall_event *queue = atomic_load(&syscall_event_queue);
+    queue[idx] = (struct syscall_event){.type = type, .addr = addr, .len = len};
+}
+
+void pebs_log_read(void *addr, size_t len)
+{
+    pebs_log_syscall(addr, len, READ_SYSCALL);
+}
+void pebs_log_write(void *addr, size_t len)
+{
+    pebs_log_syscall(addr, len, WRITE_SYSCALL);
+}
+void pebs_log_malloc(void *addr, size_t len)
+{
+    pebs_log_syscall(addr, len, MALLOC_SYSCALL);
+}
+
+void arms_start_tiering()
+{
+    std::cout << "[ARMS] Initializing ARMS..." << std::endl;
+    std::cout << std::fflush;
+
+    struct syscall_event *syscall_queue = create_syscall_event_queue();
+    syscall_event_queue.store(syscall_queue, std::memory_order_relaxed);
+
+    grp_tracker = create_group_tracker();
+
+    if (PRINT_TRAINING_DATA)
+    {
+        scores_log = new struct data_row[MAX_LOGGED_SAMPLES];
+        double gigabytes_allocated = (double)(MAX_LOGGED_SAMPLES * sizeof(struct data_row)) / (1024 * 1024 * 1024);
+        printf("Allocated %f GB for scores_log\n", gigabytes_allocated);
+    }
+
+    // Open pagemap
+    target_pid = getpid();
+    char pagemap_path[256];
+    snprintf(pagemap_path, sizeof(pagemap_path), "/proc/%d/pagemap", target_pid);
+    pagemap_fd = open(pagemap_path, O_RDONLY);
+    if (pagemap_fd < 0)
+    {
+        perror("Failed to open pagemap");
+        return;
+    }
+
+    // Check NUMA configuration
+    if (numa_available() < 0)
+    {
+        fprintf(stderr, "[ARMS] NUMA not available\n");
+        close(pagemap_fd);
+        return;
+    }
+
+    std::cout << "[ARMS] NUMA nodes available: " << numa_max_node() + 1 << std::endl;
+
+    // Setup PEBS
+    setup_perf_events();
+
+    // Initialize memory controller BW counters
+    setup_imc_bw_counters();
+
+    // Start scanning and policy threads
+    pthread_create(&scan_thread, nullptr, pebs_scan_thread, nullptr);
+    pthread_create(&policy_thread, nullptr, arms_policy_thread, nullptr);
+
+    std::cout << "[ARMS] Initialization complete." << std::endl;
+}
+
+void arms_kernel_shutdown()
+{
+
+    terminated = true;
+    std::cout << "[ARMS] Shutting down..." << std::endl;
+
+    pthread_join(scan_thread, nullptr);
+    pthread_join(policy_thread, nullptr);
+
+    close_perf_events();
+
+    if (pagemap_fd >= 0)
+    {
+        close(pagemap_fd);
+    }
+
+    pebs_write_log();
+
+    // Clean up page tracking
+    {
+        std::lock_guard<std::mutex> lock(pages_map_lock);
+        for (auto &kv : pages_map)
+        {
+            delete kv.second;
+        }
+        pages_map.clear();
+    }
+
+    std::cout << "[ARMS] Shutdown complete." << std::endl;
 }
