@@ -58,9 +58,10 @@ typedef struct mod_page {
 } mod_page_t;
 static_assert(sizeof(mod_page_t) == 16);
 
-#define MOD_PAGE_DQ_CAPACITY (128 * 1024)
+#define MOD_PAGE_DQ_CAPACITY (128 * 1024 * 1024)
 _Atomic size_t mod_page_dq_index = 0;
-_Atomic size_t mod_page_dq_size = 0;
+_Atomic size_t mod_page_dq_size_pre = 0;
+_Atomic size_t mod_page_dq_size_post = 0;
 _Atomic(struct mod_page *) mod_page_dq_queue;
 
 struct mod_page *create_page_dq(){
@@ -997,37 +998,23 @@ void *pebs_policy_thread()
     ptimer_start(&tree_timer);
     while (true) {
       mod_page_t mp;
-      size_t size = atomic_load(&mod_page_dq_size);
       size_t index = atomic_load(&mod_page_dq_index);
-      if (size == index) {
+      size_t size = atomic_load(&mod_page_dq_size_post);
+      if (size <= index) {
         break;
       }
+
+      pthread_mutex_lock(&pages_lock);
       mod_page_t *dq = atomic_load(&mod_page_dq_queue);
       index = atomic_fetch_add(&mod_page_dq_index, 1);
       mp = dq[index % MOD_PAGE_DQ_CAPACITY];
+      pthread_mutex_unlock(&pages_lock);
 
 
       page = mp.page;
       LOG_DEBUG("Processing page %p [va: %lu]\n", page, page->va);
 
-      #ifdef SPATIAL_SMOOTHING
-      entry.page = page;
-      entry.va = page->va;
-
-      if (mp->free) {
-        kb_del(kPagesTree, pages_tree, entry);
-
-        // Add page to correct free list
-        if (page->in_dram) {
-          enqueue_fifo(&dram_free_list, page);
-        } else {
-          enqueue_fifo(&nvm_free_list, page);
-        }
-        reset_page_access_fields(page);
-      } else {
-        kb_put(kPagesTree, pages_tree, entry);
-      }
-      #else
+      pthread_mutex_lock(&pages_lock);
       khiter_t k = kh_get(kPagesMap, pages_map, page->va);
       if (mp.free) {
         if (k != kh_end(pages_map)) {
@@ -1051,24 +1038,20 @@ void *pebs_policy_thread()
         kh_value(pages_map, k) = page;
         add_group_if_missing(grp_tracker, page);
       }
-
-      #endif
+      pthread_mutex_unlock(&pages_lock);
     }
     ptimer_stop_and_print(&tree_timer);
 
     // Calculate the scores
     ptimer_start(&score_timer);
 
-    #ifdef SPATIAL_SMOOTHING
-    s_pages_cnt = calculate_scores_tree(scores, bias);
-    #else
     s_pages_cnt = calculate_scores_map(scores, bias);
-    #endif
 
     ptimer_stop_and_print(&score_timer);
 
     // Sort the scores (in descending order)
     ptimer_start(&sort_timer);
+    
     qsort(scores, s_pages_cnt, sizeof(struct score_entry), sort_entry_cmp_by_score);
     ptimer_stop_and_print(&sort_timer);
 
@@ -1366,7 +1349,6 @@ void pebs_add_page(struct hemem_page *page)
   if (!absent)
   {
       // Page already exists, this should not happen
-      LOG_ERROR("Page already exists in the hash table error %lx\n", page->va);
       pthread_mutex_unlock(&pages_lock);
       internal_call_depth--;
       return;
@@ -1377,9 +1359,15 @@ void pebs_add_page(struct hemem_page *page)
   
   // Add to the new pages ring
   mod_page_t mp = (mod_page_t){ .page = page, .free = false };
+  pthread_mutex_lock(&pages_lock);
   mod_page_t *dq = atomic_load(&mod_page_dq_queue);
-  size_t size = atomic_fetch_add(&mod_page_dq_size, 1);
+  size_t size = atomic_fetch_add(&mod_page_dq_size_pre, 1);
+  if (size == MOD_PAGE_DQ_CAPACITY) {
+      fprintf(stderr, "mod_page_dq_queue overflow\n");
+  }
   dq[size % MOD_PAGE_DQ_CAPACITY] = mp;
+  atomic_fetch_add(&mod_page_dq_size_post, 1);
+  pthread_mutex_unlock(&pages_lock);
 
   internal_call_depth--;
 }
@@ -1401,10 +1389,11 @@ struct hemem_page* pebs_remove_page(uint64_t va)
 {
   khiter_t key;
   struct hemem_page *page;
-  LOG_INFO("Removing page from the add_pages_ring [va: %lu]\n", page->va);
 
   // Remove page from hash table
   internal_call_depth++;
+  LOG("Removing page from the add_pages_ring [va: %lu]\n", va);
+
   pthread_mutex_lock(&pages_lock);
   key = kh_get(kPagesMap, pages, va);
   page = ((key == kh_end(pages)) ? NULL : kh_value(pages, key));
@@ -1416,10 +1405,16 @@ struct hemem_page* pebs_remove_page(uint64_t va)
   kh_del(kPagesMap, pages, key);
   pthread_mutex_unlock(&pages_lock);
 
+  pthread_mutex_lock(&pages_lock);
   mod_page_t mp = (mod_page_t){.page = page, .free = true};
   mod_page_t *dq = atomic_load(&mod_page_dq_queue);
-  size_t size = atomic_fetch_add(&mod_page_dq_size, 1);
+  size_t size = atomic_fetch_add(&mod_page_dq_size_pre, 1);
+  if (size == MOD_PAGE_DQ_CAPACITY) {
+    fprintf(stderr, "mod_page_dq_queue overflow\n");
+  }
   dq[size % MOD_PAGE_DQ_CAPACITY] = mp;
+  atomic_fetch_add(&mod_page_dq_size_post, 1);
+  pthread_mutex_unlock(&pages_lock);
 
   // We set page->present to false so that
   // the migration thread does not migrate this page
@@ -1570,6 +1565,8 @@ void pebs_shutdown()
   printf("Shutting down PEBS policy\n");
   printf("----------------------------------------\n");
   pebs_write_log();
+
+  return;
 
   for (int i = 0; i < PEBS_NPROCS; i++) {
     for (int j = 0; j < NPBUFTYPES; j++) {

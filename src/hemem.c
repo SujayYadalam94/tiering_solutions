@@ -368,6 +368,8 @@ static void hemem_parallel_memset(void* addr, int c, size_t n)
 
 static void hemem_mmap_populate(void* addr, size_t length)
 {
+
+  
   // Page mising fault case - probably the first touch case
   // allocate in DRAM via LRU
   void* newptr;
@@ -436,6 +438,7 @@ static void hemem_mmap_populate(void* addr, size_t length)
 
     // place in hemem's page tracking list
     mmgr_add(page);
+    
     page_boundry += pagesize;
   }
 
@@ -523,7 +526,7 @@ int hemem_munmap(void* addr, size_t length)
 
   // for each page in region specified...
   for (page_boundry = (uint64_t)addr; page_boundry < (uint64_t)addr + length;) {
-    // find the page in hemem's trackign list
+    // find the page in hemem's tracking list
     page = mmgr_remove(page_boundry);
     if (page != NULL) {
       mem_allocated -= pt_to_pagesize(page->pt);
@@ -902,6 +905,7 @@ void handle_missing_fault(uint64_t page_boundry)
 
   gettimeofday(&start, NULL);
   // let policy algorithm do most of the heavy lifting of finding a free page
+
   page = pagefault();
   assert(page != NULL);
 

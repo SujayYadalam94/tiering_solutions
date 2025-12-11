@@ -2,6 +2,7 @@
 
 #include <pthread.h>
 #include <stdint.h>
+#include <stdbool.h>
 #include <inttypes.h>
 #include <linux/perf_event.h>
 #include <linux/hw_breakpoint.h>

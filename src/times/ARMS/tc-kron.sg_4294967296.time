@@ -1,0 +1,5 @@
+run.sh: line 7: 1605956 Aborted                 numactl -N0 -m0 -- taskset -c 0-9,20-25 sudo LD_PRELOAD=$PWD/libhemem.so DRAMSIZE=${DRAMSIZE} $PROGRAM 2>&1
+
+real	0m44.808s
+user	0m0.040s
+sys	0m0.074s

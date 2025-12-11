@@ -245,8 +245,6 @@ void print_row(FILE *f, struct data_row *row, bool header) {
 
 void pebs_write_log(){
     if (PRINT_TRAINING_DATA){
-        size_t *step_to_count = malloc(sizeof(size_t) * (scores_log[logged_samples - 1].step + 1));
-
         FILE *f = fopen("output.txt", "w");
         if (!f) {
             perror("fopen");
@@ -255,7 +253,6 @@ void pebs_write_log(){
         print_row(f, scores_log, true); // print header
         for (size_t i = 0; (i < logged_samples) && i < MAX_LOGGED_SAMPLES; i++){
             print_row(f, &scores_log[i], false);
-            step_to_count[scores_log[i].step] = scores_log[i].count_total;
         }
         fclose(f);
     }

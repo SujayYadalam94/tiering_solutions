@@ -7,13 +7,13 @@ LIBS = -lm -lpthread
 HEMEM_LIBS = $(LIBS) -ldl -lsyscall_intercept -L../Hoard/src -lhoard
 
 # Generate list of all .so files from models/*.o files
-MODEL_OBJS := $(wildcard models/l2_99_*.o)
-MODEL_TARGETS := $(patsubst models/l2_99_%.o,libhemem-%.so,$(MODEL_OBJS))
+MODEL_OBJS := $(wildcard models/*.o)
+MODEL_TARGETS := $(patsubst models/%.o,libhemem-%.so,$(MODEL_OBJS))
 
 default: $(MODEL_TARGETS)
 
-libhemem-%.so: models/l2_99_%.o defs.o hemem.o pebs.o timer.o interpose.o fifo.o spsc-ring.o groups.o hemem_page.o logging.o model.o
-	$(CC) $(LDFLAGS) -o $@ defs.o hemem.o timer.o interpose.o pebs.o fifo.o spsc-ring.o groups.o hemem_page.o logging.o model.o models/l2_99_$*.o $(HEMEM_LIBS)
+libhemem-%.so: models/%.o defs.o hemem.o pebs.o timer.o interpose.o fifo.o spsc-ring.o groups.o hemem_page.o logging.o model.o
+	$(CC) $(LDFLAGS) -o models/$@ defs.o hemem.o timer.o interpose.o pebs.o fifo.o spsc-ring.o groups.o hemem_page.o logging.o model.o models/$*.o $(HEMEM_LIBS)
 
 hemem.o: hemem.c hemem.h pebs.h interpose.h fifo.h spsc-ring.h defs.h hemem_page.h
 	$(CC) $(CFLAGS) $(INCLUDES) -D ALLOC_HEMEM -c hemem.c -o hemem.o
@@ -61,4 +61,4 @@ spsc-ring.o: spsc-ring.c spsc-ring.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c spsc-ring.c
 
 clean:
-	$(RM) *.o *.so policies/*.o
+	$(RM) *.o *.so policies/*.o models/*.so
