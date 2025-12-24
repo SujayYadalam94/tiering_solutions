@@ -9,9 +9,19 @@
 
 #include <mutex>
 
+extern bool initialized;
+
+#ifndef USE_MODEL
 #define USE_MODEL (true)
-#define PRINT_TRAINING_DATA (true)
+#endif
+
+#ifndef PRINT_TRAINING_DATA
+#define PRINT_TRAINING_DATA (false)
+#endif
+
 #define MAX_LOGGED_SAMPLES (20000000)
+
+#define MALLOC_SAMPLE_RATE (100) // Log 1 out of every N malloc calls
 
 #define C220G5
 
@@ -62,8 +72,14 @@
 
 /// PEBS kswapd thread wakeup interval
 // ==============================================================================
+#if USE_MODEL == false && PRINT_TRAINING_DATA == false
+#define PEBS_KSWAPD_INTERVAL_BIG (500000)   // in us (500ms)
+#define PEBS_KSWAPD_INTERVAL_SMALL (100000) // in us (100ms)
+#else
 #define PEBS_KSWAPD_INTERVAL_BIG (250000)   // in us (250ms)
 #define PEBS_KSWAPD_INTERVAL_SMALL (250000) // in us (250ms)
+#endif
+
 // ==============================================================================
 
 /// Page scoring parameters

@@ -1,6 +1,9 @@
 #pragma once
 
 #include <cstring>
+#include <fstream>
+#include <iosfwd>
+#include <iostream>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -88,6 +91,12 @@ struct data_row
     uint32_t malloc_call;
     uint32_t age;
     uint64_t age_count_total;
+
+    // Reward Componants computed at the end
+    struct data_row *prev;
+    float discounted_reward_90;
+    float discounted_reward_95;
+    float discounted_reward_99;
 };
 
 struct cpu_stat
@@ -110,25 +119,28 @@ struct disk_stat
     long long write_bytes;
 };
 
-/* Global process statistics - declared here, defined in logging.c to avoid
-    multiple-definition linker errors when this header is included by many
-    translation units. Keep only declarations in headers; provide one
-    definition in a single .c file (logging.c). */
-extern struct cpu_stat prev_cpu_stat;
-extern struct cpu_stat curr_cpu_stat;
-extern struct disk_stat prev_disk_stat;
-extern struct disk_stat curr_disk_stat;
+class access_log
+{
+  protected:
+    struct cpu_stat prev_cpu_stat;
+    struct cpu_stat curr_cpu_stat;
+    struct disk_stat prev_disk_stat;
+    struct disk_stat curr_disk_stat;
+    size_t logged_samples;
+    struct data_row *scores_log;
 
-int get_disk_usage(const pid_t pid);
-int get_cpu_usage(const pid_t pid);
-double calc_cpu_usage_pct();
-void update_proc_stats();
+    int get_disk_usage(const pid_t pid);
+    int get_cpu_usage(const pid_t pid);
+    void print_row(std::ostream &os, struct data_row *row, bool header);
+    void finalize_log();
 
-/* Logging buffers/counters - declare as extern here and define once in
-    logging.c. */
-extern size_t logged_samples;
-extern struct data_row *scores_log;
+  public:
+    float get_gb_allocated();
+    access_log();
+    void update_proc_stats();
+    double calc_cpu_usage_pct();
+    void pebs_write_log();
+    void log_row(size_t step, struct page_info *page, struct group_tracker *grp_tracker, size_t count_all_pages);
+};
 
-void print_row(FILE *f, struct data_row *row, bool header);
-void pebs_write_log();
-void log_row(size_t step, struct page_info *page, struct group_tracker *grp_tracker, size_t count_all_pages);
+extern struct access_log *access_log;

@@ -78,6 +78,8 @@ struct page_info
     uint64_t global_count_similar;
     int32_t diff;
 
+    struct data_row *last_logged_row;
+
     page_info() : va(0), in_dram(false), can_promote(true)
     {
         this->reset_page_access_fields();

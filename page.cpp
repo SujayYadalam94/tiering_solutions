@@ -54,6 +54,8 @@ void page_info::reset_page_access_fields()
     this->prev_count = 0;
     this->global_count_similar = 0;
     this->diff = 0;
+
+    this->last_logged_row = NULL;
 }
 
 float ewma(const float yp, const float x, const float alpha)

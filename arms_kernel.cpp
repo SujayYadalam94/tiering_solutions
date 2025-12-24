@@ -54,6 +54,8 @@ uint64_t FAST_MEMORY_SIZE = 0;
 // Global state
 static uint64_t dramsize = FAST_MEMORY_SIZE;
 
+bool initialized = false;
+
 #define SYSCALL_EVENT_QUEUE_CAPACITY (128 * 1024)
 std::atomic<size_t> syscall_queue_index{0};
 std::atomic<size_t> syscall_queue_size{0};
@@ -441,24 +443,23 @@ static void *pebs_scan_thread(void *arg)
                     (struct perf_event_header *)(pbuf + (header->data_tail % header->data_size));
                 struct perf_sample *ps;
 
-                uint64_t page_va = ps->addr & HUGE_PFN_MASK; // Align to page
+                uint64_t page_va;
                 switch (ph->type)
                 {
                 case PERF_RECORD_SAMPLE:
                     ps = (struct perf_sample *)(ph);
                     assert(ps != nullptr);
+                    page_va = ps->addr & HUGE_PFN_MASK; // Align to page
                     if (page_va != 0)
                     {
+                        std::lock_guard<std::mutex> lock(pages_map_lock);
                         auto it = pages_map.find(page_va);
                         if (it == pages_map.end())
                         {
                             // New page discovered
                             page_info *page = new page_info();
                             page->va = page_va;
-                            {
-                                std::lock_guard<std::mutex> lock(pages_map_lock);
-                                pages_map[page_va] = page;
-                            }
+                            pages_map[page_va] = page;
                             it = pages_map.find(page_va);
                             // std::cout << "[ARMS] Discovered new page: VA = 0x" << std::hex << page_va << std::dec
                             // << std::endl;
@@ -488,6 +489,7 @@ static void *pebs_scan_thread(void *arg)
         }
     }
 
+    std::cout << "[ARMS] Scanning thread terminating..." << std::endl;
     return nullptr;
 }
 
@@ -576,7 +578,12 @@ static void scan_process_pages()
 
             if (present && pfn > 0)
             {
-                if (pages_map.find(va) == pages_map.end())
+                bool missing;
+                {
+                    std::lock_guard<std::mutex> lock(pages_map_lock);
+                    missing = (pages_map.find(va) == pages_map.end());
+                }
+                if (missing)
                 {
                     page_info *page = new page_info();
                     page->va = va;
@@ -735,15 +742,18 @@ static void update_scores_and_migrate(size_t timestep)
 
     // Update scores for all pages
     size_t accesses_total = 0;
-    for (auto &kv : pages_map)
     {
-        page_info *page = kv.second;
+        std::lock_guard<std::mutex> lock(pages_map_lock);
+        for (auto &kv : pages_map)
+        {
+            page_info *page = kv.second;
 
-        page->update_window(prev_access_version, sampling_mode);
-        accesses_total += page->count;
+            page->update_window(prev_access_version, sampling_mode);
+            accesses_total += page->count;
 
-        page->prev_score = page->score;
-        scores.push_back({page, 0});
+            page->prev_score = page->score;
+            scores.push_back({page, 0});
+        }
     }
 
     // Only process events if we have a valid queue (will be NULL on first call)
@@ -756,11 +766,15 @@ static void update_scores_and_migrate(size_t timestep)
         uint64_t round_down = (uint64_t)item.addr & ~(PAGE_SIZE - 1);
         for (uint64_t off = 0; off < item.len; off += PAGE_SIZE)
         {
-            if (pages_map.find(round_down + off) == pages_map.end())
+            struct page_info *page;
             {
-                break;
+                std::lock_guard<std::mutex> lock(pages_map_lock);
+                if (pages_map.find(round_down + off) == pages_map.end())
+                {
+                    break;
+                }
+                page = pages_map[round_down + off];
             }
-            struct page_info *page = pages_map[round_down + off];
 
             switch (item.type)
             {
@@ -793,7 +807,7 @@ static void update_scores_and_migrate(size_t timestep)
 
     qsort(scores.data(), scores.size(), sizeof(score_entry), sort_entry_cmp_by_ewma5);
 
-    double cpu_usage = calc_cpu_usage_pct();
+    double cpu_usage = access_log->calc_cpu_usage_pct();
     for (size_t i = 0; i < scores.size(); i++)
     {
         scores[i].page->update_derivative_features(i, scores.size(), accesses_total, dramsize / PAGE_SIZE);
@@ -814,7 +828,7 @@ static void update_scores_and_migrate(size_t timestep)
             score_entry.page->score = score_entry.page->arms_score;
         }
         score_entry.score = score_entry.page->score;
-        log_row(timestep, score_entry.page, grp_tracker, accesses_total);
+        access_log->log_row(timestep, score_entry.page, grp_tracker, accesses_total);
     }
 
     if (scores.empty())
@@ -952,6 +966,7 @@ static void update_scores_and_migrate(size_t timestep)
             // Update page state
             for (uint64_t va : demote_list)
             {
+                std::lock_guard<std::mutex> lock(pages_map_lock);
                 auto it = pages_map.find(va);
                 if (it != pages_map.end())
                 {
@@ -972,6 +987,7 @@ static void update_scores_and_migrate(size_t timestep)
             // Update page state
             for (uint64_t va : promote_list)
             {
+                std::lock_guard<std::mutex> lock(pages_map_lock);
                 auto it = pages_map.find(va);
                 if (it != pages_map.end())
                 {
@@ -1075,14 +1091,13 @@ static void *arms_policy_thread(void *arg)
         }
     }
 
+    std::cout << "[ARMS] Policy thread terminating..." << std::endl;
     return nullptr;
 }
 
 // ============================================================================
 // Public API
 // ============================================================================
-
-extern struct data_row *scores_log;
 
 struct syscall_event *create_syscall_event_queue()
 {
@@ -1128,19 +1143,19 @@ void pebs_log_malloc(void *addr, size_t len)
 void arms_start_tiering()
 {
     std::cout << "[ARMS] Initializing ARMS..." << std::endl;
-    std::cout << std::fflush;
+
+    std::cout << "[ARMS] USE_MODEL = " << (USE_MODEL ? "true" : "false") << std::endl;
+    std::cout << "[ARMS] PRINT_TRAINING_DATA = " << (PRINT_TRAINING_DATA ? "true" : "false") << std::endl;
+    std::cout << "[ARMS] PEBS_KSWAPD_INTERVAL_BIG = " << PEBS_KSWAPD_INTERVAL_BIG << std::endl;
+    std::cout << "[ARMS] PEBS_KSWAPD_INTERVAL_SMALL = " << PEBS_KSWAPD_INTERVAL_SMALL << std::endl;
 
     struct syscall_event *syscall_queue = create_syscall_event_queue();
     syscall_event_queue.store(syscall_queue, std::memory_order_relaxed);
 
     grp_tracker = create_group_tracker();
 
-    if (PRINT_TRAINING_DATA)
-    {
-        scores_log = new struct data_row[MAX_LOGGED_SAMPLES];
-        double gigabytes_allocated = (double)(MAX_LOGGED_SAMPLES * sizeof(struct data_row)) / (1024 * 1024 * 1024);
-        printf("Allocated %f GB for scores_log\n", gigabytes_allocated);
-    }
+    access_log = new class access_log;
+    printf("Allocated %f GB for scores_log\n", access_log->get_gb_allocated());
 
     // Open pagemap
     target_pid = getpid();
@@ -1169,6 +1184,8 @@ void arms_start_tiering()
     // Initialize memory controller BW counters
     setup_imc_bw_counters();
 
+    initialized = true;
+
     // Start scanning and policy threads
     pthread_create(&scan_thread, nullptr, pebs_scan_thread, nullptr);
     pthread_create(&policy_thread, nullptr, arms_policy_thread, nullptr);
@@ -1187,12 +1204,16 @@ void arms_kernel_shutdown()
 
     close_perf_events();
 
+    std::cout << "[ARMS] Closed PEBS counters." << std::endl;
+
     if (pagemap_fd >= 0)
     {
         close(pagemap_fd);
     }
 
-    pebs_write_log();
+    std::cout << "[ARMS] Closed pagemap." << std::endl;
+
+    access_log->pebs_write_log();
 
     // Clean up page tracking
     {
