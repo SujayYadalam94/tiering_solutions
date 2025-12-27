@@ -4,7 +4,7 @@ CXX = g++
 CC = gcc
 
 # Compiler flags
-CXXFLAGS = -std=c++11 -O2 -Wall -Wextra -pthread -g
+CXXFLAGS = -std=c++17 -O2 -Wall -Wextra -pthread -g
 
 # Include paths
 INCLUDES = -I.

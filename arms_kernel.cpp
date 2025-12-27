@@ -60,6 +60,7 @@ bool initialized = false;
 std::atomic<size_t> syscall_queue_index{0};
 std::atomic<size_t> syscall_queue_size{0};
 std::atomic<struct syscall_event *> syscall_event_queue{nullptr};
+static std::atomic<uint64_t> scan_generation{0};
 
 static std::unordered_map<uint64_t, page_info *> pages_map;
 static std::mutex pages_map_lock;
@@ -457,8 +458,10 @@ static void *pebs_scan_thread(void *arg)
                         if (it == pages_map.end())
                         {
                             // New page discovered
+                            // continue;
                             page_info *page = new page_info();
                             page->va = page_va;
+                            page->last_seen_scan = scan_generation.load(std::memory_order_relaxed);
                             pages_map[page_va] = page;
                             it = pages_map.find(page_va);
                             // std::cout << "[ARMS] Discovered new page: VA = 0x" << std::hex << page_va << std::dec
@@ -469,6 +472,7 @@ static void *pebs_scan_thread(void *arg)
 
                         // Increment access count
                         page_info *page = it->second;
+                        page->last_seen_scan = scan_generation.load(std::memory_order_relaxed);
                         page->accesses[type][curr_access_version]++;
                         total_samples[type]++;
                     }
@@ -531,10 +535,14 @@ static void scan_process_pages()
     if (pagemap_fd < 0)
         return;
 
+    static const uint64_t sys_page_size = (uint64_t)sysconf(_SC_PAGESIZE);
+    auto align_down = [](uint64_t val, uint64_t align) { return val & ~(align - 1); };
+    auto align_up = [](uint64_t val, uint64_t align) { return (val + align - 1) & ~(align - 1); };
+
+    uint64_t cur_scan = scan_generation.fetch_add(1, std::memory_order_relaxed) + 1;
+
     // Read /proc/self/maps to get VMA ranges
-    static std::ifstream maps_file("/proc/self/maps");
-    maps_file.clear();  // Clear any EOF flags
-    maps_file.seekg(0); // Reset to beginning for each scan
+    std::ifstream maps_file("/proc/self/maps");
     if (!maps_file.is_open())
     {
         perror("Failed to open /proc/self/maps");
@@ -553,13 +561,41 @@ static void scan_process_pages()
             continue;
         }
 
-        // Skip non-readable or non-writable regions
-        if (perms[0] != 'r' || perms[1] != 'w')
+        // Skip non-readable and non-writable regions
+        if (perms[0] != 'r' && perms[1] != 'w')
             continue;
 
         // Skip kernel regions
         if (start_addr >= 0x7fffffffffff)
             continue;
+
+        const uint64_t advise_start = align_down(start_addr, sys_page_size);
+        const uint64_t advise_end = align_up(end_addr, sys_page_size);
+        if (advise_end > advise_start)
+        {
+            const size_t advise_len = advise_end - advise_start;
+
+            /*if (madvise((void *)advise_start, advise_len, MADV_WILLNEED))
+            {
+                perror("[ARMS] Warning: MADV_WILLNEED failed for VA");
+                std::cerr << "[ARMS] VA Range: 0x" << std::hex << advise_start << " - 0x" << advise_end
+                          << " perms: " << perms << std::dec << std::endl;
+            }
+            if (perms[1] == 'w' && perms[3] != 's' && madvise((void *)advise_start, advise_len, MADV_POPULATE_WRITE))
+            {
+                perror("[ARMS] Warning: MADV_POPULATE_WRITE failed for VA");
+                std::cerr << "[ARMS] VA Range: 0x" << std::hex << advise_start << " - 0x" << advise_end
+                          << " perms: " << perms << std::dec << std::endl;
+            }*/
+
+            // This is not working properlly and needs to maybe go per page. This is also very slow.
+            /*if (madvise((void *)advise_start, advise_len, MADV_COLLAPSE))
+            {
+                perror("[ARMS] Warning: MADV_COLLAPSE  failed for VA");
+                std::cerr << "[ARMS] VA Range: 0x" << std::hex << advise_start << " - 0x" << advise_end
+                          << " perms: " << perms << std::dec << std::endl;
+            }*/
+        }
 
         // Scan this VMA range
         for (uint64_t va = start_addr; va < end_addr; va += PAGE_SIZE)
@@ -571,41 +607,98 @@ static void scan_process_pages()
 
             ssize_t ret = pread(pagemap_fd, &pagemap_entry, sizeof(pagemap_entry), pagemap_index);
             if (ret != sizeof(pagemap_entry))
+            {
+                std::cerr << "[ARMS] Warning: Failed to read pagemap entry for VA 0x" << std::hex << va << std::dec
+                          << std::endl;
                 continue;
+            }
 
             uint64_t pfn = pagemap_entry & 0x7fffffffffffff;
             bool present = (pagemap_entry >> 63) & 1;
 
-            if (present && pfn > 0)
+            if (!present || pfn == 0)
             {
-                bool missing;
-                {
-                    std::lock_guard<std::mutex> lock(pages_map_lock);
-                    missing = (pages_map.find(va) == pages_map.end());
-                }
-                if (missing)
-                {
-                    page_info *page = new page_info();
-                    page->va = va;
+                // std::cerr << "[ARMS] Warning: Page not present for VA 0x" << std::hex << va << std::dec << std::endl;
+            }
 
-                    // Determine which node this page is on
-                    int status = -1;
-                    void *addr = (void *)va;
-                    numa_move_pages(0, 1, &addr, nullptr, &status, 0);
-                    page->in_dram = (status == FAST_TIER);
-
-                    {
-                        std::lock_guard<std::mutex> lock(pages_map_lock);
-                        pages_map[va] = page;
-                    }
+            page_info *page = nullptr;
+            bool missing = false;
+            {
+                std::lock_guard<std::mutex> lock(pages_map_lock);
+                auto it = pages_map.find(va);
+                if (it == pages_map.end())
+                {
+                    missing = true;
                 }
+                else
+                {
+                    page = it->second;
+                    page->last_seen_scan = cur_scan;
+                }
+            }
+
+            if (missing)
+            {
+                page_info *new_page = new page_info();
+                new_page->va = va;
+
+                // Determine which node this page is on
+                void *addr[PAGE_SIZE / 4096];
+                for (size_t i = 0; i < PAGE_SIZE / 4096; i++)
+                {
+                    addr[i] = (void *)(va + i * 4096);
+                }
+
+                numa_move_pages(0, PAGE_SIZE / 4096, addr, nullptr, new_page->page_status, 0);
+                new_page->in_dram = (new_page->page_status[0] == FAST_TIER);
+                new_page->last_seen_scan = cur_scan;
+
+                for (int status : new_page->page_status)
+                {
+                    std::cout << "[ARMS] Page status: " << status << ",";
+                }
+                std::cout << std::endl;
+
+                std::lock_guard<std::mutex> lock(pages_map_lock);
+                auto [it, inserted] = pages_map.emplace(va, new_page);
+                if (!inserted)
+                {
+                    delete new_page;
+                    page = it->second;
+                }
+                else
+                {
+                    page = new_page;
+                }
+            }
+
+            if (page)
+            {
+                page->last_seen_scan = cur_scan;
             }
         }
     }
 
-    std::cout << "[ARMS] Number of process pages tracked: " << pages_map.size() << std::endl;
+    size_t removed_pages = 0;
+    {
+        std::lock_guard<std::mutex> lock(pages_map_lock);
+        for (auto it = pages_map.begin(); it != pages_map.end();)
+        {
+            if (it->second->last_seen_scan < cur_scan)
+            {
+                delete it->second;
+                it = pages_map.erase(it);
+                removed_pages++;
+            }
+            else
+            {
+                ++it;
+            }
+        }
 
-    maps_file.close();
+        std::cout << "[ARMS] Number of process pages tracked: " << pages_map.size()
+                  << ", Removed stale pages: " << removed_pages << std::endl;
+    }
 }
 
 // ============================================================================
@@ -1058,10 +1151,8 @@ static void *arms_policy_thread(void *arg)
 
         // Periodically scan for new pages
         static size_t timestep = 0;
-        if (++timestep % 10 == 0)
-        { // Every 2.5 seconds
-            scan_process_pages();
-        }
+        timestep++;
+        scan_process_pages();
 
         update_scores_and_migrate(timestep);
 

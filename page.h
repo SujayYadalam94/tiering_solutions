@@ -58,6 +58,8 @@ struct page_info
     uint16_t hot_age;
     bool can_promote;
 
+    uint64_t last_seen_scan;
+
     uint32_t age;
     uint64_t age_count_total;
 
@@ -78,9 +80,12 @@ struct page_info
     uint64_t global_count_similar;
     int32_t diff;
 
+    // numa_move_pages status
+    int page_status[PAGE_SIZE / 4096];
+
     struct data_row *last_logged_row;
 
-    page_info() : va(0), in_dram(false), can_promote(true)
+    page_info() : page_status{0}, in_dram(false), can_promote(true), last_seen_scan(0)
     {
         this->reset_page_access_fields();
     }

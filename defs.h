@@ -19,7 +19,9 @@ extern bool initialized;
 #define PRINT_TRAINING_DATA (false)
 #endif
 
-#define MAX_LOGGED_SAMPLES (20000000)
+#define FULL_LOGS (false)
+
+#define MAX_LOGGED_SAMPLES (100000000)
 
 #define MALLOC_SAMPLE_RATE (100) // Log 1 out of every N malloc calls
 
