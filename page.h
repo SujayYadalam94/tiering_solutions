@@ -81,11 +81,13 @@ struct page_info
     int32_t diff;
 
     // numa_move_pages status
-    int page_status[PAGE_SIZE / 4096];
+    int seen_pages;
+    int pages_in_dram;
+    int page_status[BASE_PAGE_PER_HUGEPAGE];
 
     struct data_row *last_logged_row;
 
-    page_info() : page_status{0}, in_dram(false), can_promote(true), last_seen_scan(0)
+    page_info() : page_status{-1}, seen_pages(0), in_dram(false), can_promote(true), last_seen_scan(0)
     {
         this->reset_page_access_fields();
     }

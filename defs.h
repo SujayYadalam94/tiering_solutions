@@ -178,6 +178,8 @@ enum imc_bw_counters
 #define PAGE_SIZE (HUGEPAGE_SIZE)
 #define HUGE_PFN_MASK (HUGEPAGE_MASK ^ UINT64_MAX)
 #define HUGEPAGE_MASK (HUGEPAGE_SIZE - 1)
+#define BASE_PAGE (4096)
+#define BASE_PAGE_PER_HUGEPAGE (HUGEPAGE_SIZE / BASE_PAGE)
 
 static const float w_ewma_alpha[WINDOW_SIZE] = W_EWMA_ALPHA;
 static const float hist_bias[WINDOW_SIZE] = HIST_BIAS;
