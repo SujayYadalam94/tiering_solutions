@@ -30,6 +30,7 @@ struct data_row
     double ewma_100_malloc_calls;
     double global_count_since_top1_percent_ewma5;
     double global_count_since_top50_percent_ewma5;
+    double groups_perc[15];
     double group_ewma5_perc[15];
     uint64_t age_count_total;
 
@@ -78,7 +79,6 @@ struct data_row
     long long syscr;
     long long syscw;
     double groups[15];
-    double groups_perc[15];
     double group_ewma5[15];
     size_t model_selection;
     uint32_t read_syscalls;

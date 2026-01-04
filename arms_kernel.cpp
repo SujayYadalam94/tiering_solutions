@@ -44,6 +44,7 @@
 #include "defs.h"
 #include "groups.h"
 #include "logging.h"
+#include "model.h"
 #include "page.h"
 #include "timer.h"
 #include <atomic>
@@ -1057,7 +1058,7 @@ static void update_scores_and_migrate(size_t timestep)
     for (auto &score_entry : scores)
     {
         score_entry.page->arms_score = compute_score(score_entry.page);
-        score_entry.page->model_score = 0; // TODO
+        score_entry.page->model_score = model_predict(score_entry.page, grp_tracker, accesses_total, cpu_usage); // TODO
 
         if (USE_MODEL)
         {
@@ -1105,6 +1106,7 @@ static void update_scores_and_migrate(size_t timestep)
     double migrated_count = 0;
 
     uint32_t max_migrations_cur_interval = ((policy_thread_interval) / (promotion_cost_avg + demotion_cost_avg));
+    std::cout << "[ARMS] Max migrations allowed this interval: " << max_migrations_cur_interval << std::endl;
 
     uint64_t fasttier_free_kb = get_fasttier_free_mem();
     uint64_t fasttier_free_base_pages = (fasttier_free_kb == (uint64_t)-1) ? 0 : (fasttier_free_kb * 1024) / BASE_PAGE;

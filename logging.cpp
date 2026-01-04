@@ -186,6 +186,9 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
         char group_header[64];
         snprintf(group_header, sizeof(group_header), "group_%d_mean_ewma5_perc", offset);
         print_cell(os, row->group_ewma5_perc[offset + pm_offset], group_header, header);
+
+        snprintf(group_header, sizeof(group_header), "group_%d_mean_perc", offset);
+        print_cell(os, row->groups_perc[offset + pm_offset], group_header, header);
     }
 
     PRINT_CELL_AUTO(age_count_total);
@@ -246,9 +249,6 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
         char group_header[64];
         snprintf(group_header, sizeof(group_header), "group_%d_mean", offset);
         print_cell(os, row->groups[offset + pm_offset], group_header, header);
-
-        snprintf(group_header, sizeof(group_header), "group_%d_mean_perc", offset);
-        print_cell(os, row->groups_perc[offset + pm_offset], group_header, header);
 
         snprintf(group_header, sizeof(group_header), "group_%d_mean_ewma5", offset);
         print_cell(os, row->group_ewma5[offset + pm_offset], group_header, header);
@@ -372,9 +372,9 @@ void access_log::log_row(size_t step, struct page_info *page, struct group_track
         struct page_group *pg = try_get_group(grp_tracker, page->va, i);
 #if FULL_LOGS
         row->groups[i + 7] = pg != NULL ? pg->avg : 0.0;
-        row->groups_perc[i + 7] = pg != NULL ? pg->avg_perc : 0.0;
         row->group_ewma5[i + 7] = pg != NULL ? pg->avg_ewma5 : 0.0;
 #endif
+        row->groups_perc[i + 7] = pg != NULL ? pg->avg_perc : 0.0;
         row->group_ewma5_perc[i + 7] = pg != NULL ? pg->avg_perc_ewma5 : 0.0;
     }
 

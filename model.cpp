@@ -59,8 +59,8 @@ double model_predict(struct page_info *page, struct group_tracker *grp_tracker, 
 #if USE_MODEL == (true)
     if (page == NULL)
     {
-        LOG_ERROR("Null page pointer in model_predict\n");
-        return 0.0;
+        std::cout << "Null page pointer in model_predict" << std::endl;
+        return 0.0;[]
     }
 
     double feature_buffer[MODEL_NUM_FEATURES];
