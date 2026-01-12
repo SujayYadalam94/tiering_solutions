@@ -93,7 +93,8 @@ struct data_row
 
     double model_score;
     double arms_score;
-    bool in_dram;
+    int32_t pages_in_dram;
+    int32_t seen_pages;
     uint32_t age;
 
     // Reward Componants computed at the end

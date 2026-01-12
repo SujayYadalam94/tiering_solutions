@@ -1,0 +1,1 @@
+sudo rmmod memeater.ko

@@ -85,6 +85,8 @@ struct page_info
     int pages_in_dram;
     int page_status[BASE_PAGE_PER_HUGEPAGE];
 
+    int promote_backoff;
+
     struct data_row *last_logged_row;
 
     page_info() : page_status{-1}, seen_pages(0), in_dram(false), can_promote(true), last_seen_scan(0)

@@ -21,14 +21,17 @@ extern bool initialized;
 
 #define FULL_LOGS (false)
 
-#define MAX_LOGGED_SAMPLES (100000000)
+#ifndef MAX_LOGGED_SAMPLES
+#define MAX_LOGGED_SAMPLES (10000000)
+#endif
 
 #define MALLOC_SAMPLE_RATE (100) // Log 1 out of every N malloc calls
+#define BACKOFF_PERIOD (5)       // Number of scanning intervals to backoff after promotion/demotion
 
 #define C220G5
 
-#define FAST_TIER 0
-#define SLOW_TIER 1
+#define FAST_TIER 1
+#define SLOW_TIER 0
 
 // System configuration
 #ifdef SCAILP

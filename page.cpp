@@ -56,6 +56,10 @@ void page_info::reset_page_access_fields()
     this->prev_count = 0;
     this->global_count_similar = 0;
     this->diff = 0;
+    this->seen_pages = 0;
+    this->pages_in_dram = 0;
+
+    this->promote_backoff = 0;
 
     this->last_logged_row = NULL;
 }
@@ -115,6 +119,11 @@ void page_info::update_window(volatile uint8_t prev_access_version, const enum s
         this->w[i] = adjusted_ewma(this->w[i], this->count * scaler, get_adjusted_ewma_denom(i, this->age));
         this->w_r[i] = adjusted_ewma(this->w_r[i], this->reads, get_adjusted_ewma_denom(i, this->age));
         this->w_w[i] = adjusted_ewma(this->w_w[i], this->writes, get_adjusted_ewma_denom(i, this->age));
+    }
+
+    if(this->promote_backoff > 0)
+    {
+        this->promote_backoff--;
     }
 }
 

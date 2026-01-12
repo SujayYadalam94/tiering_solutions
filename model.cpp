@@ -25,7 +25,7 @@ static inline void extract_features(struct page_info *page, struct group_tracker
     features[i++] = (double)page->w_perc[1];
     features[i++] = (double)page->w_perc[2];
     features[i++] = (double)page->w_perc[3];
-    features[i++] = (double)page->global_count_since_top50_percent_ewma5;
+    // features[i++] = (double)page->global_count_since_top50_percent_ewma5;
 
     struct page_group *pg = try_get_group(grp_tracker, page->va, -1);
     features[i++] = pg ? pg->avg_perc : 0.0;
@@ -49,7 +49,7 @@ static inline void extract_features(struct page_info *page, struct group_tracker
 
     features[i++] = (double)page->age_count_total;
     // features[i++] = (double)cpu_usage;
-    // features[i++] = (double)page->malloc_call_ewma[3]; // Long-term malloc call ewma
+    features[i++] = (double)page->malloc_call_ewma[3]; // Long-term malloc call ewma
 
     assert(i == MODEL_NUM_FEATURES);
 }
@@ -60,7 +60,7 @@ double model_predict(struct page_info *page, struct group_tracker *grp_tracker, 
     if (page == NULL)
     {
         std::cout << "Null page pointer in model_predict" << std::endl;
-        return 0.0;[]
+        return 0.0;
     }
 
     double feature_buffer[MODEL_NUM_FEATURES];

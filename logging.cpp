@@ -267,7 +267,8 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
 
     PRINT_CELL_AUTO(model_score);
     PRINT_CELL_AUTO(arms_score);
-    PRINT_CELL_AUTO(in_dram);
+    PRINT_CELL_AUTO(pages_in_dram);
+    PRINT_CELL_AUTO(seen_pages);
 
     PRINT_CELL_AUTO(age);
 
@@ -342,6 +343,8 @@ void access_log::log_row(size_t step, struct page_info *page, struct group_track
     }
     if (logged_samples >= MAX_LOGGED_SAMPLES)
     {
+        pebs_write_log();
+        exit(0);
         return;
     }
 
@@ -444,7 +447,8 @@ void access_log::log_row(size_t step, struct page_info *page, struct group_track
 
     row->model_score = page->model_score;
     row->arms_score = page->arms_score;
-    row->in_dram = page->in_dram;
+    row->pages_in_dram = page->pages_in_dram;
+    row->seen_pages = page->seen_pages;
     row->age = page->age;
 
     row->discounted_reward_90 = 0.0f;
