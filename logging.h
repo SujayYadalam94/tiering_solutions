@@ -26,8 +26,7 @@ struct data_row
     double ewma_5_perc;
     double ewma_20_perc;
     double ewma_100_perc;
-    double ewma_100_malloc_size;
-    double ewma_100_malloc_calls;
+    double ewma_100_malloc_perc;
     double global_count_since_top1_percent_ewma5;
     double global_count_since_top50_percent_ewma5;
     double groups_perc[15];
@@ -64,6 +63,8 @@ struct data_row
     double ewma_100_w;
     double ewma_100_r_perc;
     double ewma_100_w_perc;
+    double ewma_100_malloc_size;
+    double ewma_100_malloc_calls;
     size_t rank;
     double rank_perc;
     double rank_ewma_2;
@@ -145,7 +146,10 @@ class access_log
     void update_proc_stats();
     double calc_cpu_usage_pct();
     void pebs_write_log();
-    void log_row(size_t step, struct page_info *page, struct group_tracker *grp_tracker, size_t count_all_pages);
+    struct data_row extract_row(size_t step, struct page_info *page, struct group_tracker *grp_tracker,
+                                size_t count_all_pages);
+    void log_row(struct page_info *page, struct data_row &row);
+    bool overlaps_with_logging_region(uint64_t addr, uint64_t length) const;
 };
 
 extern struct access_log *access_log;

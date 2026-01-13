@@ -9,7 +9,7 @@
     when multiple .c files include logging.h. */
 struct access_log *access_log;
 
-access_log::access_log() : logged_samples(0)
+access_log::access_log() : logged_samples(0), scores_log(nullptr)
 {
     if (PRINT_TRAINING_DATA)
     {
@@ -141,6 +141,11 @@ namespace
 {
 constexpr std::size_t LOG_BUFFER_BYTES = 100ULL * 1024ULL * 1024ULL;
 
+inline bool ranges_overlap(uint64_t a_start, uint64_t a_end, uint64_t b_start, uint64_t b_end)
+{
+    return a_start < b_end && b_start < a_end;
+}
+
 template <typename T> inline void print_cell(std::ostream &os, const T &value, const char *header, bool print_header)
 {
     if (print_header)
@@ -174,8 +179,7 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
     PRINT_CELL_AUTO(ewma_5_perc);
     PRINT_CELL_AUTO(ewma_20_perc);
     PRINT_CELL_AUTO(ewma_100_perc);
-    PRINT_CELL_AUTO(ewma_100_malloc_size);
-    PRINT_CELL_AUTO(ewma_100_malloc_calls);
+    PRINT_CELL_AUTO(ewma_100_malloc_perc);
     PRINT_CELL_AUTO(global_count_since_top1_percent_ewma5);
     PRINT_CELL_AUTO(global_count_since_top50_percent_ewma5);
 
@@ -227,6 +231,8 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
     PRINT_CELL_AUTO(ewma_100_w);
     PRINT_CELL_AUTO(ewma_100_r_perc);
     PRINT_CELL_AUTO(ewma_100_w_perc);
+    PRINT_CELL_AUTO(ewma_100_malloc_size);
+    PRINT_CELL_AUTO(ewma_100_malloc_calls);
 
     PRINT_CELL_AUTO(rank);
     PRINT_CELL_AUTO(rank_perc);
@@ -335,7 +341,120 @@ void access_log::pebs_write_log()
     }
 }
 
-void access_log::log_row(size_t step, struct page_info *page, struct group_tracker *grp_tracker, size_t count_all_pages)
+struct data_row access_log::extract_row(size_t step, struct page_info *page, struct group_tracker *grp_tracker,
+                                        size_t count_all_pages)
+{
+    struct data_row row{};
+
+#if FULL_LOGS
+    double cpu_usage = calc_cpu_usage_pct();
+#endif
+
+    // Base fields (always present)
+    row.step = step;
+    row.page = page->va;
+    row.read = page->reads;
+    row.write = page->writes;
+    row.count = page->count;
+
+    row.ewma_2_perc = page->w_perc[0];
+    row.ewma_5_perc = page->w_perc[1];
+    row.ewma_20_perc = page->w_perc[2];
+    row.ewma_100_perc = page->w_perc[3];
+    row.ewma_100_malloc_perc = page->malloc_call_perc_ewma[3];
+
+    row.global_count_since_top1_percent_ewma5 = page->global_count_since_top1_percent_ewma5;
+    row.global_count_since_top50_percent_ewma5 = page->global_count_since_top50_percent_ewma5;
+
+    for (int8_t i = -7; i <= 7; ++i)
+    {
+        struct page_group *pg = try_get_group(grp_tracker, page->va, i);
+#if FULL_LOGS
+        row.groups[i + 7] = pg != NULL ? pg->avg : 0.0;
+        row.group_ewma5[i + 7] = pg != NULL ? pg->avg_ewma5 : 0.0;
+#endif
+        row.groups_perc[i + 7] = pg != NULL ? pg->avg_perc : 0.0;
+        row.group_ewma5_perc[i + 7] = pg != NULL ? pg->avg_perc_ewma5 : 0.0;
+    }
+
+    row.age_count_total = page->age_count_total;
+
+#if FULL_LOGS
+    row.malloc_size = 0;
+    row.prot = page->prot;
+    row.flags = page->flags;
+
+    row.ewma_2 = page->w[0];
+    row.ewma_2_r = page->w_r[0];
+    row.ewma_2_w = page->w_w[0];
+    row.ewma_2_r_perc = page->w_r_perc[0];
+    row.ewma_2_w_perc = page->w_w_perc[0];
+    row.ewma_2_malloc_size = page->malloc_size_ewma[0];
+    row.ewma_2_malloc_calls = page->malloc_call_ewma[0];
+
+    row.ewma_5 = page->w[1];
+    row.ewma_5_r = page->w_r[1];
+    row.ewma_5_w = page->w_w[1];
+    row.ewma_5_r_perc = page->w_r_perc[1];
+    row.ewma_5_w_perc = page->w_w_perc[1];
+    row.ewma_5_malloc_size = page->malloc_size_ewma[1];
+    row.ewma_5_malloc_calls = page->malloc_call_ewma[1];
+
+    row.ewma_20 = page->w[2];
+    row.ewma_20_r = page->w_r[2];
+    row.ewma_20_w = page->w_w[2];
+    row.ewma_20_r_perc = page->w_r_perc[2];
+    row.ewma_20_w_perc = page->w_w_perc[2];
+    row.ewma_20_malloc_size = page->malloc_size_ewma[2];
+    row.ewma_20_malloc_calls = page->malloc_call_ewma[2];
+
+    row.ewma_100 = page->w[3];
+    row.ewma_100_r = page->w_r[3];
+    row.ewma_100_w = page->w_w[3];
+    row.ewma_100_r_perc = page->w_r_perc[3];
+    row.ewma_100_w_perc = page->w_w_perc[3];
+    row.ewma_100_malloc_size = page->malloc_size_ewma[3];
+    row.ewma_100_malloc_calls = page->malloc_call_ewma[3];
+
+    row.rank = page->rank;
+    row.rank_perc = page->rank_perc;
+    row.rank_ewma_2 = page->rank_perc_ewma[0];
+    row.rank_ewma_5 = page->rank_perc_ewma[1];
+    row.rank_ewma_20 = page->rank_perc_ewma[2];
+    row.rank_ewma_100 = page->rank_perc_ewma[3];
+
+    row.count_total = count_all_pages;
+    row.global_count_similar = page->global_count_similar;
+    row.diff = page->diff;
+    row.cpu_usage = cpu_usage;
+    row.disk_read_bytes = (curr_disk_stat.read_bytes - prev_disk_stat.read_bytes);
+    row.disk_write_bytes = (curr_disk_stat.write_bytes - prev_disk_stat.write_bytes);
+    row.syscr = (curr_disk_stat.syscr - prev_disk_stat.syscr);
+    row.syscw = (curr_disk_stat.syscw - prev_disk_stat.syscw);
+
+    row.model_selection = page->model_selection;
+    row.read_syscalls = page->read_syscalls;
+    row.write_syscalls = page->write_syscalls;
+    row.read_bytes = page->read_bytes;
+    row.write_bytes = page->write_bytes;
+    row.sum_malloc_bytes = page->sum_malloc_bytes;
+    row.min_malloc_bytes = page->min_malloc_bytes;
+    row.max_malloc_bytes = page->max_malloc_bytes;
+    row.malloc_call = page->malloc_call;
+#endif
+
+    row.pages_in_dram = page->pages_in_dram;
+    row.seen_pages = page->seen_pages;
+    row.age = page->age;
+
+    row.discounted_reward_90 = 0.0f;
+    row.discounted_reward_95 = 0.0f;
+    row.discounted_reward_99 = 0.0f;
+
+    return row;
+}
+
+void access_log::log_row(struct page_info *page, struct data_row &row)
 {
     if (!PRINT_TRAINING_DATA)
     {
@@ -348,115 +467,44 @@ void access_log::log_row(size_t step, struct page_info *page, struct group_track
         return;
     }
 
-#if FULL_LOGS
-    double cpu_usage = calc_cpu_usage_pct();
-#endif
+    scores_log[logged_samples] = row;
+    struct data_row *assigned_row = &(scores_log[logged_samples]);
 
-    struct data_row *row = &scores_log[logged_samples];
-
-    // Base fields (always present)
-    row->step = step;
-    row->page = page->va;
-    row->read = page->reads;
-    row->write = page->writes;
-    row->count = page->count;
-
-    row->ewma_2_perc = page->w_perc[0];
-    row->ewma_5_perc = page->w_perc[1];
-    row->ewma_20_perc = page->w_perc[2];
-    row->ewma_100_perc = page->w_perc[3];
-    row->ewma_100_malloc_size = page->malloc_size_ewma[3];
-    row->ewma_100_malloc_calls = page->malloc_call_ewma[3];
-    row->global_count_since_top1_percent_ewma5 = page->global_count_since_top1_percent_ewma5;
-    row->global_count_since_top50_percent_ewma5 = page->global_count_since_top50_percent_ewma5;
-
-    for (int8_t i = -7; i <= 7; ++i)
-    {
-        struct page_group *pg = try_get_group(grp_tracker, page->va, i);
-#if FULL_LOGS
-        row->groups[i + 7] = pg != NULL ? pg->avg : 0.0;
-        row->group_ewma5[i + 7] = pg != NULL ? pg->avg_ewma5 : 0.0;
-#endif
-        row->groups_perc[i + 7] = pg != NULL ? pg->avg_perc : 0.0;
-        row->group_ewma5_perc[i + 7] = pg != NULL ? pg->avg_perc_ewma5 : 0.0;
-    }
-
-    row->age_count_total = page->age_count_total;
-
-#if FULL_LOGS
-    row->malloc_size = 0;
-    row->prot = page->prot;
-    row->flags = page->flags;
-
-    row->ewma_2 = page->w[0];
-    row->ewma_2_r = page->w_r[0];
-    row->ewma_2_w = page->w_w[0];
-    row->ewma_2_r_perc = page->w_r_perc[0];
-    row->ewma_2_w_perc = page->w_w_perc[0];
-    row->ewma_2_malloc_size = page->malloc_size_ewma[0];
-    row->ewma_2_malloc_calls = page->malloc_call_ewma[0];
-
-    row->ewma_5 = page->w[1];
-    row->ewma_5_r = page->w_r[1];
-    row->ewma_5_w = page->w_w[1];
-    row->ewma_5_r_perc = page->w_r_perc[1];
-    row->ewma_5_w_perc = page->w_w_perc[1];
-    row->ewma_5_malloc_size = page->malloc_size_ewma[1];
-    row->ewma_5_malloc_calls = page->malloc_call_ewma[1];
-
-    row->ewma_20 = page->w[2];
-    row->ewma_20_r = page->w_r[2];
-    row->ewma_20_w = page->w_w[2];
-    row->ewma_20_r_perc = page->w_r_perc[2];
-    row->ewma_20_w_perc = page->w_w_perc[2];
-    row->ewma_20_malloc_size = page->malloc_size_ewma[2];
-    row->ewma_20_malloc_calls = page->malloc_call_ewma[2];
-
-    row->ewma_100 = page->w[3];
-    row->ewma_100_r = page->w_r[3];
-    row->ewma_100_w = page->w_w[3];
-    row->ewma_100_r_perc = page->w_r_perc[3];
-    row->ewma_100_w_perc = page->w_w_perc[3];
-
-    row->rank = page->rank;
-    row->rank_perc = page->rank_perc;
-    row->rank_ewma_2 = page->rank_perc_ewma[0];
-    row->rank_ewma_5 = page->rank_perc_ewma[1];
-    row->rank_ewma_20 = page->rank_perc_ewma[2];
-    row->rank_ewma_100 = page->rank_perc_ewma[3];
-
-    row->count_total = count_all_pages;
-    row->global_count_similar = page->global_count_similar;
-    row->diff = page->diff;
-    row->cpu_usage = cpu_usage;
-    row->disk_read_bytes = (curr_disk_stat.read_bytes - prev_disk_stat.read_bytes);
-    row->disk_write_bytes = (curr_disk_stat.write_bytes - prev_disk_stat.write_bytes);
-    row->syscr = (curr_disk_stat.syscr - prev_disk_stat.syscr);
-    row->syscw = (curr_disk_stat.syscw - prev_disk_stat.syscw);
-
-    row->model_selection = page->model_selection;
-    row->read_syscalls = page->read_syscalls;
-    row->write_syscalls = page->write_syscalls;
-    row->read_bytes = page->read_bytes;
-    row->write_bytes = page->write_bytes;
-    row->sum_malloc_bytes = page->sum_malloc_bytes;
-    row->min_malloc_bytes = page->min_malloc_bytes;
-    row->max_malloc_bytes = page->max_malloc_bytes;
-    row->malloc_call = page->malloc_call;
-#endif
-
-    row->model_score = page->model_score;
-    row->arms_score = page->arms_score;
-    row->pages_in_dram = page->pages_in_dram;
-    row->seen_pages = page->seen_pages;
-    row->age = page->age;
-
-    row->discounted_reward_90 = 0.0f;
-    row->discounted_reward_95 = 0.0f;
-    row->discounted_reward_99 = 0.0f;
-
-    row->prev = page->last_logged_row;
-    page->last_logged_row = row;
+    assigned_row->prev = page->last_logged_row;
+    page->last_logged_row = assigned_row;
 
     logged_samples++;
+}
+
+bool access_log::overlaps_with_logging_region(uint64_t addr, uint64_t length) const
+{
+    if (length == 0)
+    {
+        return false;
+    }
+
+    uint64_t range_end = addr + length;
+    if (range_end < addr)
+    {
+        range_end = UINT64_MAX;
+    }
+
+    const uint64_t log_start = reinterpret_cast<uint64_t>(this);
+    const uint64_t log_end = log_start + sizeof(*this);
+    if (ranges_overlap(addr, range_end, log_start, log_end))
+    {
+        return true;
+    }
+
+    if (scores_log != nullptr)
+    {
+        const uint64_t scores_start = reinterpret_cast<uint64_t>(scores_log);
+        const uint64_t scores_end = scores_start + (sizeof(struct data_row) * MAX_LOGGED_SAMPLES);
+        if (ranges_overlap(addr, range_end, scores_start, scores_end))
+        {
+            return true;
+        }
+    }
+
+    return false;
 }

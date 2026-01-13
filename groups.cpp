@@ -107,7 +107,7 @@ struct page_group *try_get_group(struct group_tracker *gt, const uint64_t va, co
     const uint64_t group_id = page_to_group_id(va);
 
     std::lock_guard<std::mutex> lock(gt->group_lock);
-    auto it = gt->groups_map.find(group_id);
+    auto it = gt->groups_map.find(group_id + offset);
     if (it != gt->groups_map.end())
     {
         return it->second;

@@ -10,64 +10,42 @@
 
 // Number of features - this should match your model's training configuration
 // Set to a placeholder value; adjust based on your actual model
-#define MODEL_NUM_FEATURES 13
+#define MODEL_NUM_FEATURES 12
 
 /**
  * Extract features from page_info into the feature buffer
  * This is where you define which features from the page are used for prediction
  * Adjust the feature extraction based on your model's training configuration
  */
-static inline void extract_features(struct page_info *page, struct group_tracker *grp_tracker, size_t count_total,
-                                    double cpu_usage, double *features)
+static inline void extract_features(struct data_row &row, double *features)
 {
     int8_t i = 0;
-    features[i++] = (double)page->w_perc[0];
-    features[i++] = (double)page->w_perc[1];
-    features[i++] = (double)page->w_perc[2];
-    features[i++] = (double)page->w_perc[3];
+    features[i++] = row.ewma_2_perc;
+    features[i++] = row.ewma_5_perc;
+    features[i++] = row.ewma_20_perc;
+    features[i++] = row.ewma_100_perc;
     // features[i++] = (double)page->global_count_since_top50_percent_ewma5;
 
-    struct page_group *pg = try_get_group(grp_tracker, page->va, -1);
-    features[i++] = pg ? pg->avg_perc : 0.0;
-
-    pg = try_get_group(grp_tracker, page->va, 1);
-    features[i++] = pg ? pg->avg_perc : 0.0;
-
-    pg = try_get_group(grp_tracker, page->va, -2);
-    features[i++] = pg ? pg->avg_perc : 0.0;
-    pg = try_get_group(grp_tracker, page->va, 2);
-    features[i++] = pg ? pg->avg_perc : 0.0;
-
-    pg = try_get_group(grp_tracker, page->va, -3);
-    features[i++] = pg ? pg->avg_perc : 0.0;
-
-    pg = try_get_group(grp_tracker, page->va, 3);
-    features[i++] = pg ? pg->avg_perc : 0.0;
-
-    pg = try_get_group(grp_tracker, page->va, 0);
-    features[i++] = pg ? pg->avg_perc : 0.0;
-
-    features[i++] = (double)page->age_count_total;
-    // features[i++] = (double)cpu_usage;
-    features[i++] = (double)page->malloc_call_ewma[3]; // Long-term malloc call ewma
+    features[i++] = row.groups_perc[-1 + 7]; // -1 offset
+    features[i++] = row.groups_perc[1 + 7];  // 1 offset
+    features[i++] = row.groups_perc[-2 + 7]; // -2 offset
+    features[i++] = row.groups_perc[2 + 7];  // 2 offset
+    features[i++] = row.groups_perc[-3 + 7]; // -3 offset
+    features[i++] = row.groups_perc[3 + 7];  // 3 offset
+    features[i++] = row.groups_perc[0 + 7];  // 0 offset
+    features[i++] = row.ewma_100_malloc_perc;
 
     assert(i == MODEL_NUM_FEATURES);
 }
 
-double model_predict(struct page_info *page, struct group_tracker *grp_tracker, size_t count_total, double cpu_usage)
+double model_predict(struct data_row &row)
 {
 #if USE_MODEL == (true)
-    if (page == NULL)
-    {
-        std::cout << "Null page pointer in model_predict" << std::endl;
-        return 0.0;
-    }
-
     double feature_buffer[MODEL_NUM_FEATURES];
     double out;
 
     // Extract features from the page
-    extract_features(page, grp_tracker, count_total, cpu_usage, feature_buffer);
+    extract_features(row, feature_buffer);
 
     // Perform prediction using lleaves
     // lleaves provides fast inference optimized for LightGBM models
@@ -75,6 +53,8 @@ double model_predict(struct page_info *page, struct group_tracker *grp_tracker, 
     forest_root(feature_buffer, &out, 0, 1);
     if (out < 0.0)
         out = 0.0;
+
+    row.model_score = out;
 
     return out;
 #endif

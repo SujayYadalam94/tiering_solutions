@@ -69,6 +69,11 @@ static std::atomic<uint64_t> scan_generation{0};
 static std::unordered_map<uint64_t, std::shared_ptr<page_info>> pages_map;
 static std::mutex pages_map_lock;
 
+static inline bool is_access_log_page(uint64_t page_base)
+{
+    return access_log != nullptr && access_log->overlaps_with_logging_region(page_base, PAGE_SIZE);
+}
+
 // Migration worker state
 static constexpr size_t MIGRATION_WORKER_COUNT = 8;
 struct migration_task
@@ -496,7 +501,7 @@ static void *pebs_scan_thread(void *arg)
                     ps = (struct perf_sample *)(ph);
                     assert(ps != nullptr);
                     page_va = ps->addr & HUGE_PFN_MASK; // Align to page
-                    if (page_va != 0)
+                    if (page_va != 0 && !is_access_log_page(page_va))
                     {
                         std::lock_guard<std::mutex> lock(pages_map_lock);
                         auto it = pages_map.find(page_va);
@@ -642,6 +647,10 @@ static void scan_process_pages()
         {
             // Align to page size
             va = va & HUGE_PFN_MASK;
+            if (is_access_log_page(va))
+            {
+                continue;
+            }
             uint64_t pagemap_index = (va / BASE_PAGE) * sizeof(uint64_t);
             uint64_t pagemap_entry;
 
@@ -819,13 +828,14 @@ static void detect_hot_change()
 // Scoring and Migration Policy
 // ============================================================================
 
-static float compute_score(const page_info *page)
+static float compute_score(const page_info *page, struct data_row &row)
 {
     float score = 0;
     for (int i = 0; i < WINDOW_SIZE; i++)
     {
         score += (active_bias[i] * page->w[i]);
     }
+    row.arms_score = score;
     return score;
 }
 
@@ -1088,6 +1098,7 @@ static void update_scores_and_migrate(size_t timestep)
     }
 
     // Only process events if we have a valid queue (will be NULL on first call)
+    size_t total_malloc_calls = 0;
     size_t size = atomic_load(&syscall_queue_size);
     size_t index = atomic_load(&syscall_queue_index);
     printf("Processing %ld syscall events\n", size - index);
@@ -1120,6 +1131,7 @@ static void update_scores_and_migrate(size_t timestep)
                         : ((item.len > page->max_malloc_bytes) ? item.len : page->max_malloc_bytes);
                 page->sum_malloc_bytes += item.len;
                 page->malloc_call++;
+                total_malloc_calls++;
                 break;
             case READ_SYSCALL:
                 page->read_bytes += item.len;
@@ -1141,14 +1153,17 @@ static void update_scores_and_migrate(size_t timestep)
     double cpu_usage = access_log->calc_cpu_usage_pct();
     for (size_t i = 0; i < scores.size(); i++)
     {
-        scores[i].page->update_derivative_features(i, scores.size(), accesses_total, dramsize / PAGE_SIZE);
+        scores[i].page->update_derivative_features(i, scores.size(), accesses_total, total_malloc_calls,
+                                                   dramsize / PAGE_SIZE);
         update_group_entry(grp_tracker, scores[i].page, accesses_total);
     }
 
     for (auto &score_entry : scores)
     {
-        score_entry.page->arms_score = compute_score(score_entry.page);
-        score_entry.page->model_score = model_predict(score_entry.page, grp_tracker, accesses_total, cpu_usage); // TODO
+        struct data_row row = access_log->extract_row(timestep, score_entry.page, grp_tracker,
+                                                      accesses_total); // Extract previous row data
+        score_entry.page->arms_score = compute_score(score_entry.page, row);
+        score_entry.page->model_score = model_predict(row); // TODO
 
         if (USE_MODEL)
         {
@@ -1159,7 +1174,7 @@ static void update_scores_and_migrate(size_t timestep)
             score_entry.page->score = score_entry.page->arms_score;
         }
         score_entry.score = score_entry.page->score;
-        access_log->log_row(timestep, score_entry.page, grp_tracker, accesses_total);
+        access_log->log_row(score_entry.page, row);
     }
 
     if (scores.empty())
@@ -1200,7 +1215,8 @@ static void update_scores_and_migrate(size_t timestep)
     uint64_t demote_idx = scores.size() - 1;
     double migrated_count = 0;
 
-    uint32_t max_migrations_cur_interval = ((policy_thread_interval) / (promotion_cost_avg + demotion_cost_avg));
+    uint32_t max_migrations_cur_interval =
+        MIGRATION_WORKER_COUNT * ((policy_thread_interval) / (promotion_cost_avg + demotion_cost_avg));
     std::cout << "[ARMS] Max migrations allowed this interval: " << max_migrations_cur_interval << std::endl;
 
     uint64_t fasttier_free_kb = get_fasttier_free_mem();

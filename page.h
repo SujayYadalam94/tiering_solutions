@@ -48,6 +48,7 @@ struct page_info
     float w_w_perc[WINDOW_SIZE];
 
     float malloc_call_ewma[WINDOW_SIZE];
+    float malloc_call_perc_ewma[WINDOW_SIZE];
     float malloc_size_ewma[WINDOW_SIZE];
 
     double cumsum_reads;
@@ -99,7 +100,8 @@ struct page_info
     float calculate_writes(volatile uint8_t prev_access_version);
     float calculate_accesses(volatile uint8_t prev_access_version);
     void update_window(volatile uint8_t prev_access_version, const enum sampling_modes sampling_mode);
-    void update_derivative_features(size_t rank, size_t num_sorted_pages, size_t count_total, size_t num_dram_pages);
+    void update_derivative_features(size_t rank, size_t num_sorted_pages, size_t count_total, size_t total_malloc,
+                                    size_t num_dram_pages);
     float compute_score(const float *bias);
 };
 

@@ -13,6 +13,7 @@ sudo bash -c 'echo always > /sys/kernel/mm/transparent_hugepage/enabled && echo 
 sudo sysctl -w vm.overcommit_memory=2
 sudo sysctl -w kernel.numa_balancing=0
 sudo wrmsr --processor 39 0x620 0x707
+sudo swapoff -a
 
 popd
 

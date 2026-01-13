@@ -16,7 +16,7 @@ extern bool initialized;
 #endif
 
 #ifndef PRINT_TRAINING_DATA
-#define PRINT_TRAINING_DATA (false)
+#define PRINT_TRAINING_DATA (true)
 #endif
 
 #define FULL_LOGS (false)
@@ -25,8 +25,8 @@ extern bool initialized;
 #define MAX_LOGGED_SAMPLES (10000000)
 #endif
 
-#define MALLOC_SAMPLE_RATE (100) // Log 1 out of every N malloc calls
-#define BACKOFF_PERIOD (5)       // Number of scanning intervals to backoff after promotion/demotion
+#define MALLOC_SAMPLE_RATE (10) // Log 1 out of every N malloc calls
+#define BACKOFF_PERIOD (5)      // Number of scanning intervals to backoff after promotion/demotion
 
 #define C220G5
 
