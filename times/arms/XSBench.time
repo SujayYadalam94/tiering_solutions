@@ -1,5 +1,4 @@
-logging.sh: line 7: 697924 Segmentation fault      numactl -N0 --preferred=0 -- taskset -c 0-9,20-29 sudo LD_PRELOAD=$PWD/libraries/libhemem-${MODEL}.so $PROGRAM 2>&1
 
-real	5m13.716s
-user	0m0.210s
-sys	0m0.508s
+real	15m20.282s
+user	0m0.215s
+sys	0m0.498s
