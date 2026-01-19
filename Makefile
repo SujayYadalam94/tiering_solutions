@@ -23,7 +23,13 @@ LOGGING_TARGET := $(LIB_OUTPUT_DIR)/libhemem-logging.so
 TARGET_LIB = libarms_kernel.so
 
 # Source files
-SRCS = arms_kernel.cpp timer.cpp hook/hook.cpp groups.cpp page.cpp logging.cpp interpose.cpp model.cpp
+SRCS = arms_kernel.cpp \
+	madvise_thread.cpp \
+	pebs_scan_thread.cpp \
+	pagemap_scan_thread.cpp \
+	migration_worker.cpp \
+	policy_thread.cpp \
+	timer.cpp hook/hook.cpp groups.cpp page.cpp logging.cpp interpose.cpp model.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 # System detection

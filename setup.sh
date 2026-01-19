@@ -4,20 +4,54 @@ if [[ -z "${SIZE_MIB}" ]]; then
 	exit 1
 fi
 
-pushd ~/colloid/tpp/memeater
-export local_size="${SIZE_MIB}"
-echo "Setting up memeater module with size ${local_size}MiB"
-sudo insmod memeater.ko sizeMiB=$(numastat -m | grep MemFree | awk -v nidx=0 -v sz=$local_size '{print int($(2+nidx)-sz)}')
-
-sudo bash -c 'echo always > /sys/kernel/mm/transparent_hugepage/enabled && echo always > /sys/kernel/mm/transparent_hugepage/defrag'
-sudo sysctl -w vm.overcommit_memory=2
+sudo sysctl -w vm.overcommit_memory=1
+sudo sysctl -w vm.watermark_scale_factor=1
+sudo sysctl -w vm.watermark_boost_factor=0
+# Shrink kernel reserves so nearly all RAM is usable by memeater and later apps.
+sudo sysctl -w vm.min_free_kbytes=16384
+sudo sysctl -w vm.user_reserve_kbytes=16384
+sudo sysctl -w vm.admin_reserve_kbytes=16384
+#sudo sysctl -w vm.lowmem_reserve_ratio="1 1 1"
+#sudo sysctl -w vm.zone_reclaim_mode=0
+#sudo sysctl -w vm.dirty_background_ratio=1
+#sudo sysctl -w vm.dirty_ratio=20
 sudo sysctl -w kernel.numa_balancing=0
 sudo wrmsr --processor 39 0x620 0x707
 sudo swapoff -a
 
-popd
+#sudo systemctl set-property --runtime system.slice AllowedCPUs=10-19,30-39 AllowedMemoryNodes=1
+#sudo systemctl set-property --runtime user.slice   AllowedCPUs=10-19,30-39 AllowedMemoryNodes=1
+
+# future IRQs default
+#echo "10-19,30-39" | sudo tee /proc/irq/default_smp_affinity_list
+
+# existing IRQs
+for f in /proc/irq/*/smp_affinity_list; do
+  echo "10-19,30-39" | sudo tee "$f" >/dev/null 2>&1 || true
+done
 
 # Migrate memory of all running user processes to NUMA node 1
 for pid in $(ps -e -o pid=); do
 	sudo migratepages $pid 0 1
+	sudo taskset -pc 10-19,30-39 $pid
 done
+
+# Free page cache and reclaimable slab so allocations match the requested headroom.
+sudo sysctl -w vm.vfs_cache_pressure=2000 >/dev/null
+
+bash defrag.sh
+
+pushd ~/colloid/tpp/memeater
+export local_size="${SIZE_MIB}"
+echo "Setting up memeater module with size ${local_size}MiB"
+# Use NUMA node0 MemFree because memeater allocates only on node0.
+node0_free_mib=$(numastat -m | awk '/MemFree/ {printf "%d", $2}')
+alloc_mib=$((node0_free_mib - local_size))
+if (( alloc_mib <= 0 )); then
+	echo "Requested headroom ${local_size}MiB exceeds node0 free ${node0_free_mib}MiB" >&2
+	exit 1
+fi
+sudo insmod memeater.ko sizeMiB=${alloc_mib}
+popd
+
+bash defrag.sh

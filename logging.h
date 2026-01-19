@@ -97,6 +97,8 @@ struct data_row
     int32_t pages_in_dram;
     int32_t seen_pages;
     uint32_t age;
+    int num_demotions;
+    int num_promotions;
 
     // Reward Componants computed at the end
     struct data_row *prev;

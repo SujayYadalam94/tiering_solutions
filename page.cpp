@@ -62,6 +62,9 @@ void page_info::reset_page_access_fields()
 
     this->promote_backoff = 0;
 
+    this->num_demotions = 0;
+    this->num_promotions = 0;
+
     this->last_logged_row = NULL;
 }
 
@@ -171,9 +174,9 @@ void page_info::update_derivative_features(size_t rank, size_t num_sorted_pages,
     {
         this->malloc_call_ewma[i] =
             adjusted_ewma(this->malloc_call_ewma[i], this->malloc_call, get_adjusted_ewma_denom(i, this->age));
-        this->malloc_call_perc_ewma[i] =
-            adjusted_ewma(this->malloc_call_perc_ewma[i], total_malloc ? (float)this->malloc_call / (float)total_malloc : 0.0,
-                          get_adjusted_ewma_denom(i, this->age));
+        this->malloc_call_perc_ewma[i] = adjusted_ewma(
+            this->malloc_call_perc_ewma[i], total_malloc ? (float)this->malloc_call / (float)total_malloc : 0.0,
+            get_adjusted_ewma_denom(i, this->age));
         this->malloc_size_ewma[i] =
             adjusted_ewma(this->malloc_size_ewma[i], this->sum_malloc_bytes, get_adjusted_ewma_denom(i, this->age));
 

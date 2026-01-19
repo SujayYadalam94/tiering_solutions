@@ -40,6 +40,7 @@ static inline void extract_features(struct data_row &row, double *features)
 
 double model_predict(struct data_row &row)
 {
+    (void)row;
 #if USE_MODEL == (true)
     double feature_buffer[MODEL_NUM_FEATURES];
     double out;

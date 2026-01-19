@@ -2,6 +2,7 @@
 #include <atomic>
 #include <fstream>
 #include <iomanip>
+#include <numa.h>
 #include <vector>
 
 /* Define globals declared in logging.h here to provide a single
@@ -9,12 +10,37 @@
     when multiple .c files include logging.h. */
 struct access_log *access_log;
 
+namespace
+{
+constexpr int LOG_NUMA_NODE = 1;
+}
+
 access_log::access_log() : logged_samples(0), scores_log(nullptr)
 {
     if (PRINT_TRAINING_DATA)
     {
-        scores_log = new struct data_row[MAX_LOGGED_SAMPLES];
-        memset(scores_log, 0, sizeof(struct data_row) * MAX_LOGGED_SAMPLES);
+        const size_t log_bytes = sizeof(struct data_row) * MAX_LOGGED_SAMPLES;
+
+        if (numa_available() >= 0)
+        {
+            void *log_mem = numa_alloc_onnode(log_bytes, LOG_NUMA_NODE);
+            if (log_mem != nullptr)
+            {
+                scores_log = static_cast<struct data_row *>(log_mem);
+            }
+        }
+
+        if (scores_log == nullptr)
+        {
+            scores_log = new struct data_row[MAX_LOGGED_SAMPLES];
+        }
+
+        memset(scores_log, 0, log_bytes);
+
+        if (numa_available() >= 0)
+        {
+            numa_tonode_memory(scores_log, log_bytes, LOG_NUMA_NODE);
+        }
     }
 }
 
@@ -278,6 +304,9 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
 
     PRINT_CELL_AUTO(age);
 
+    PRINT_CELL_AUTO(num_demotions);
+    PRINT_CELL_AUTO(num_promotions);
+
     PRINT_CELL_AUTO(discounted_reward_90);
     PRINT_CELL_AUTO(discounted_reward_95);
     PRINT_CELL_AUTO(discounted_reward_99);
@@ -446,6 +475,11 @@ struct data_row access_log::extract_row(size_t step, struct page_info *page, str
     row.pages_in_dram = page->pages_in_dram;
     row.seen_pages = page->seen_pages;
     row.age = page->age;
+
+    row.num_demotions = page->num_demotions;
+    row.num_promotions = page->num_promotions;
+    page->num_demotions = 0;
+    page->num_promotions = 0;
 
     row.discounted_reward_90 = 0.0f;
     row.discounted_reward_95 = 0.0f;

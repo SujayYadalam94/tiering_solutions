@@ -41,6 +41,7 @@
 #include <vector>
 
 #include "arms_kernel.h"
+#include "arms_kernel_threads.h"
 #include "defs.h"
 #include "groups.h"
 #include "logging.h"
@@ -56,7 +57,7 @@ uint64_t FAST_MEMORY_SIZE = 0;
 #endif
 
 // Global state
-static uint64_t dramsize = 0;
+uint64_t dramsize = 0;
 
 bool initialized = false;
 
@@ -64,80 +65,60 @@ bool initialized = false;
 std::atomic<size_t> syscall_queue_index{0};
 std::atomic<size_t> syscall_queue_size{0};
 std::atomic<struct syscall_event *> syscall_event_queue{nullptr};
-static std::atomic<uint64_t> scan_generation{0};
+std::atomic<uint64_t> scan_generation{0};
 
-static std::unordered_map<uint64_t, std::shared_ptr<page_info>> pages_map;
-static std::mutex pages_map_lock;
+std::unordered_map<uint64_t, std::shared_ptr<page_info>> pages_map;
+std::mutex pages_map_lock;
 
-static inline bool is_access_log_page(uint64_t page_base)
+bool is_access_log_page(uint64_t page_base)
 {
     return access_log != nullptr && access_log->overlaps_with_logging_region(page_base, PAGE_SIZE);
 }
 
-// Migration worker state
-static constexpr size_t MIGRATION_WORKER_COUNT = 8;
-struct migration_task
-{
-    std::vector<uint64_t> promote_vas;
-    std::vector<uint64_t> demote_vas;
-};
-static std::deque<migration_task> migration_queue;
-static std::mutex migration_queue_lock;
-static std::condition_variable migration_cv;
-static pthread_t migration_threads[MIGRATION_WORKER_COUNT];
+int pagemap_fd = -1;
+pid_t target_pid = 0;
 
-static int pagemap_fd = -1;
-static pid_t target_pid = 0;
+int perf_fd[PEBS_NPROCS][NPBUFTYPES];
+struct perf_event_mmap_page *perf_page[PEBS_NPROCS][NPBUFTYPES];
 
-static int perf_fd[PEBS_NPROCS][NPBUFTYPES];
-static struct perf_event_mmap_page *perf_page[PEBS_NPROCS][NPBUFTYPES];
+pthread_t scan_thread;
+pthread_t pagemap_scan_thread;
+pthread_t policy_thread;
+pthread_t migration_threads[MIGRATION_WORKER_COUNT];
+pthread_t madvise_thread;
 
-static volatile bool running = true;
-static pthread_t scan_thread;
-static pthread_t pagemap_scan_thread;
-static pthread_t policy_thread;
-static int32_t policy_thread_interval = PEBS_KSWAPD_INTERVAL_BIG;
+int32_t policy_thread_interval = PEBS_KSWAPD_INTERVAL_BIG;
 
-static volatile uint64_t global_version = 0;
-static volatile uint8_t curr_access_version = 0;
-static volatile uint8_t prev_access_version = 1;
-static volatile uint8_t curr_window_index = 0;
+volatile uint64_t global_version = 0;
+volatile uint8_t curr_access_version = 0;
+volatile uint8_t prev_access_version = 1;
+volatile uint8_t curr_window_index = 0;
 
-static const float *active_bias = hist_bias; // Current bias (hist or recency)
-static enum sampling_modes sampling_mode = DEFAULT_SAMPLING;
+const float *active_bias = hist_bias; // Current bias (hist or recency)
+enum sampling_modes sampling_mode = DEFAULT_SAMPLING;
 
-// Statistics
-static std::atomic<uint64_t> migrations_up{0};
-static std::atomic<uint64_t> migrations_down{0};
-static std::atomic<uint64_t> migrations_up_period{0};
-static std::atomic<uint64_t> migrations_down_period{0};
-static uint64_t total_samples[NPBUFTYPES] = {0};
+std::atomic<uint64_t> migrations_up{0};
+std::atomic<uint64_t> migrations_down{0};
+std::atomic<uint64_t> migrations_up_period{0};
+std::atomic<uint64_t> migrations_down_period{0};
+uint64_t total_samples[NPBUFTYPES] = {0};
+std::atomic<uint64_t> max_dram_base_pages_seen{0};
+static constexpr const char *MAX_DRAM_HUGEPAGE_LOG = "max_dram_hugepages.log";
 
-// Hot-Change Detection state
-static float dram_bw_ewma = 0.0;
-static float nvm_bw_ewma = 0.0;
-static float nvm_bw_std = 0.0;
-static float cusum = 0.0;
-static uint32_t time_since_recn = 0;
+float dram_bw_ewma = 0.0;
+float nvm_bw_ewma = 0.0;
+float nvm_bw_std = 0.0;
+float cusum = 0.0;
+uint32_t time_since_recn = 0;
 
-// Migration cost tracking
-static float promotion_cost_avg = MIN_PROMOTION_COST;
-static float demotion_cost_avg = MIN_DEMOTION_COST;
-static float latency_diff = UNLOADED_NVM_LAT - UNLOADED_DRAM_LAT;
+float promotion_cost_avg = MIN_PROMOTION_COST;
+float demotion_cost_avg = MIN_DEMOTION_COST;
+float latency_diff = UNLOADED_NVM_LAT - UNLOADED_DRAM_LAT;
 
-// Forward declarations
-static long perf_event_open(struct perf_event_attr *hw_event, pid_t pid, int cpu, int group_fd, unsigned long flags);
-static void setup_perf_events();
-static void update_scores_and_migrate(size_t timestep);
-static int migrate_pages_to_node(const std::vector<uint64_t> &promote_vas, const std::vector<uint64_t> &demote_vas,
-                                 int &promoted_pages, int &demoted_pages);
-static void scan_process_pages();
-static void *pagemap_scan_thread_fn(void *arg);
-static void *migration_worker(void *arg);
-static void clear_migration_queue();
-
-static bool terminated = false;
+bool terminated = false;
 struct group_tracker *grp_tracker = NULL;
+
+std::atomic<bool> madvise_thread_running{false};
 
 // ============================================================================
 // PERF Event Setup
@@ -408,7 +389,7 @@ static void close_perf_events()
 }
 
 // Returns amount of free memory in node 0 in KB
-uint64_t get_fasttier_free_mem()
+int64_t get_fasttier_free_mem()
 {
     std::string path = "/sys/devices/system/node/node0/meminfo";
     std::ifstream file(path);
@@ -424,7 +405,7 @@ uint64_t get_fasttier_free_mem()
         std::smatch match;
         if (std::regex_search(line, match, regex))
         {
-            return std::stoull(match[1].str());
+            return std::stoll(match[1].str());
         }
     }
     return -1;
@@ -452,97 +433,7 @@ uint64_t get_fasttier_total_mem()
     return -1;
 }
 
-// ============================================================================
-// PEBS Scanning Thread
-// ============================================================================
-
-static void *pebs_scan_thread(void *arg)
-{
-    (void)arg;
-    // Set thread affinity if needed
-    cpu_set_t cpuset;
-    CPU_ZERO(&cpuset);
-    CPU_SET(SCANNING_THREAD_CPU, &cpuset); // Use a dedicated core
-    int s = pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset);
-
-    if (s != 0)
-    {
-        perror("pthread_setaffinity_np");
-        assert(0);
-    }
-
-    while (!terminated)
-    {
-        for (int cpu = 0; cpu < PEBS_NPROCS; cpu++)
-        {
-#ifdef C220G5
-            if (cpu >= 10 && cpu < 20)
-                continue;
-#endif
-            for (int type = 0; type < NPBUFTYPES; type++)
-            {
-                struct perf_event_mmap_page *header = perf_page[cpu][type];
-                char *pbuf = (char *)header + header->data_offset;
-                __sync_synchronize();
-
-                if (header->data_head == header->data_tail)
-                {
-                    continue;
-                }
-
-                struct perf_event_header *ph =
-                    (struct perf_event_header *)(pbuf + (header->data_tail % header->data_size));
-                struct perf_sample *ps;
-
-                uint64_t page_va;
-                switch (ph->type)
-                {
-                case PERF_RECORD_SAMPLE:
-                    ps = (struct perf_sample *)(ph);
-                    assert(ps != nullptr);
-                    page_va = ps->addr & HUGE_PFN_MASK; // Align to page
-                    if (page_va != 0 && !is_access_log_page(page_va))
-                    {
-                        std::lock_guard<std::mutex> lock(pages_map_lock);
-                        auto it = pages_map.find(page_va);
-                        if (it == pages_map.end())
-                        {
-                            // New page discovered
-                            auto page = std::make_shared<page_info>();
-                            page->va = page_va;
-                            page->last_seen_scan = scan_generation.load(std::memory_order_relaxed);
-                            it = pages_map.emplace(page_va, std::move(page)).first;
-                        }
-                        assert(it != pages_map.end());
-
-                        // Increment access count
-                        auto &page = it->second;
-                        page->last_seen_scan = scan_generation.load(std::memory_order_relaxed);
-                        page->accesses[type][curr_access_version]++;
-                        total_samples[type]++;
-                    }
-                    break;
-
-                case PERF_RECORD_THROTTLE:
-                case PERF_RECORD_UNTHROTTLE:
-                    // std::cerr << "[ARMS] Warning: " << (ph->type == PERF_RECORD_THROTTLE ? "THROTTLE" : "UNTHROTTLE")
-                    //           << " event received, which is unexpected." << std::endl;
-                    break;
-                default:
-                    std::cerr << "[ARMS] ERROR: Unknown perf_event type " << ph->type << std::endl;
-                    break;
-                }
-
-                header->data_tail += ph->size;
-            }
-        }
-    }
-
-    std::cout << "[ARMS] Scanning thread terminating..." << std::endl;
-    return nullptr;
-}
-
-static void change_sampling_frequency()
+void change_sampling_frequency()
 {
     int ret = 0;
     uint64_t sample_period = DEFAULT_SAMPLE_PERIOD;
@@ -572,212 +463,10 @@ static void change_sampling_frequency()
 }
 
 // ============================================================================
-// Page Discovery via /proc/self/pagemap
-// ============================================================================
-
-static void scan_process_pages()
-{
-    if (pagemap_fd < 0)
-        return;
-
-    static const uint64_t sys_page_size = (uint64_t)sysconf(_SC_PAGESIZE);
-    auto align_down = [](uint64_t val, uint64_t align) { return val & ~(align - 1); };
-    auto align_up = [](uint64_t val, uint64_t align) { return (val + align - 1) & ~(align - 1); };
-
-    uint64_t cur_scan = scan_generation.fetch_add(1, std::memory_order_relaxed) + 1;
-
-    // Read /proc/self/maps to get VMA ranges
-    std::ifstream maps_file("/proc/self/maps");
-    if (!maps_file.is_open())
-    {
-        perror("Failed to open /proc/self/maps");
-        return;
-    }
-
-    std::string line;
-    while (std::getline(maps_file, line))
-    {
-        uint64_t start_addr, end_addr;
-        char perms[5];
-
-        // Parse the maps line
-        if (sscanf(line.c_str(), "%lx-%lx %4s", &start_addr, &end_addr, perms) != 3)
-        {
-            continue;
-        }
-
-        // Skip non-readable and non-writable regions
-        if (perms[0] != 'r' && perms[1] != 'w')
-            continue;
-
-        // Skip kernel regions
-        if (start_addr >= 0x7fffffffffff)
-            continue;
-
-        const uint64_t advise_start = align_down(start_addr, sys_page_size);
-        const uint64_t advise_end = align_up(end_addr, sys_page_size);
-        if (advise_end > advise_start)
-        {
-            const size_t advise_len = advise_end - advise_start;
-
-            /*if (madvise((void *)advise_start, advise_len, MADV_WILLNEED))
-            {
-                perror("[ARMS] Warning: MADV_WILLNEED failed for VA");
-                std::cerr << "[ARMS] VA Range: 0x" << std::hex << advise_start << " - 0x" << advise_end
-                          << " perms: " << perms << std::dec << std::endl;
-            }
-            if (perms[1] == 'w' && perms[3] != 's' && madvise((void *)advise_start, advise_len, MADV_POPULATE_WRITE))
-            {
-                perror("[ARMS] Warning: MADV_POPULATE_WRITE failed for VA");
-                std::cerr << "[ARMS] VA Range: 0x" << std::hex << advise_start << " - 0x" << advise_end
-                          << " perms: " << perms << std::dec << std::endl;
-            }*/
-
-            // This is not working properlly and needs to maybe go per page. This is also very slow.
-            /*if (madvise((void *)advise_start, advise_len, MADV_COLLAPSE))
-            {
-                perror("[ARMS] Warning: MADV_COLLAPSE  failed for VA");
-                std::cerr << "[ARMS] VA Range: 0x" << std::hex << advise_start << " - 0x" << advise_end
-                          << " perms: " << perms << std::dec << std::endl;
-            }*/
-        }
-
-        // Scan this VMA range
-        for (uint64_t va = start_addr; va < end_addr; va += PAGE_SIZE)
-        {
-            // Align to page size
-            va = va & HUGE_PFN_MASK;
-            if (is_access_log_page(va))
-            {
-                continue;
-            }
-            uint64_t pagemap_index = (va / BASE_PAGE) * sizeof(uint64_t);
-            uint64_t pagemap_entry;
-
-            ssize_t ret = pread(pagemap_fd, &pagemap_entry, sizeof(pagemap_entry), pagemap_index);
-            if (ret != sizeof(pagemap_entry))
-            {
-                // std::cerr << "[ARMS] Warning: Failed to read pagemap entry for VA 0x" << std::hex << va << std::dec
-                //           << std::endl;
-                continue;
-            }
-
-            uint64_t pfn = pagemap_entry & 0x7fffffffffffff;
-            bool present = (pagemap_entry >> 63) & 1;
-
-            if (!present || pfn == 0)
-            {
-                // std::cerr << "[ARMS] Warning: Page not present for VA 0x" << std::hex << va << std::dec << std::endl;
-            }
-
-            std::shared_ptr<page_info> page;
-            bool missing = false;
-            {
-                std::lock_guard<std::mutex> lock(pages_map_lock);
-                auto it = pages_map.find(va);
-                if (it == pages_map.end())
-                {
-                    missing = true;
-                }
-                else
-                {
-                    page = it->second;
-                    page->last_seen_scan = cur_scan;
-                }
-            }
-
-            if (missing)
-            {
-                auto new_page = std::make_shared<page_info>();
-                new_page->va = va;
-
-                new_page->pages_in_dram = 0;
-                new_page->last_seen_scan = cur_scan;
-
-                std::lock_guard<std::mutex> lock(pages_map_lock);
-                auto [it, inserted] = pages_map.emplace(va, new_page);
-                if (!inserted)
-                {
-                    page = it->second;
-                }
-                else
-                {
-                    page = new_page;
-                }
-            }
-
-            if (page)
-            {
-                void *addr[BASE_PAGE_PER_HUGEPAGE];
-                for (size_t i = 0; i < BASE_PAGE_PER_HUGEPAGE; i++)
-                {
-                    addr[i] = (void *)(va + i * BASE_PAGE);
-                }
-                numa_move_pages(0, BASE_PAGE_PER_HUGEPAGE, addr, nullptr, page->page_status, 0);
-
-                // std::lock_guard<std::mutex> lock(page->page_lock);
-                int seen_pages = 0;
-                int pages_in_dram = 0;
-                for (size_t i = 0; i < BASE_PAGE_PER_HUGEPAGE; i++)
-                {
-                    if (page->page_status[i] >= 0)
-                    {
-                        seen_pages++;
-                    }
-                    if (page->page_status[i] == 0)
-                    {
-                        pages_in_dram++;
-                    }
-                }
-                page->pages_in_dram = pages_in_dram;
-                page->seen_pages = seen_pages;
-                page->last_seen_scan = cur_scan;
-            }
-        }
-    }
-
-    size_t removed_pages = 0;
-    {
-        std::lock_guard<std::mutex> lock(pages_map_lock);
-        for (auto it = pages_map.begin(); it != pages_map.end();)
-        {
-            if (it->second->last_seen_scan < cur_scan)
-            {
-                it->second->reset_page_access_fields();
-                it = pages_map.erase(it);
-                removed_pages++;
-            }
-            else
-            {
-                ++it;
-            }
-        }
-
-        std::cout << "[ARMS] Number of process pages tracked: " << pages_map.size()
-                  << ", Removed stale pages: " << removed_pages << std::endl;
-    }
-}
-
-static void *pagemap_scan_thread_fn(void *arg)
-{
-    (void)arg;
-    while (!terminated)
-    {
-        scan_process_pages();
-        usleep(policy_thread_interval);
-    }
-
-    return nullptr;
-}
-
-// ============================================================================
 // Hot-Change Detection
 // ============================================================================
 
-// Measure current bandwidth
-static void enqueue_migration_task(const std::vector<uint64_t> &promote_vas, const std::vector<uint64_t> &demote_vas);
-
-static void detect_hot_change()
+void detect_hot_change()
 {
     float cur_dram_bw, cur_nvm_bw;
 
@@ -855,223 +544,7 @@ static int sort_entry_cmp_by_ewma5(const void *a, const void *b)
     return (_a.page->w[1] > _b.page->w[1]) ? -1 : (_a.page->w[1] < _b.page->w[1]);
 }
 
-static int migrate_pages_to_node(const std::vector<uint64_t> &promote_vas, const std::vector<uint64_t> &demote_vas,
-                                 int &promoted_pages, int &demoted_pages)
-{
-    if (promote_vas.empty() && demote_vas.empty())
-        return 0;
-
-    auto start = std::chrono::high_resolution_clock::now();
-
-    std::vector<void *> pages;
-    pages.reserve((promote_vas.size() + demote_vas.size()) * BASE_PAGE_PER_HUGEPAGE);
-    std::vector<int> nodes;
-    nodes.reserve((promote_vas.size() + demote_vas.size()) * BASE_PAGE_PER_HUGEPAGE);
-
-    for (uint64_t va : promote_vas)
-    {
-        for (size_t i = 0; i < BASE_PAGE_PER_HUGEPAGE; i++)
-        {
-            pages.push_back(reinterpret_cast<void *>(va + i * BASE_PAGE));
-            nodes.push_back(FAST_TIER);
-            promoted_pages++;
-        }
-    }
-
-    for (uint64_t va : demote_vas)
-    {
-        for (size_t i = 0; i < BASE_PAGE_PER_HUGEPAGE; i++)
-        {
-            pages.push_back(reinterpret_cast<void *>(va + i * BASE_PAGE));
-            nodes.push_back(SLOW_TIER);
-            demoted_pages++;
-        }
-    }
-
-    std::vector<int> status(pages.size(), -1);
-
-    int ret = numa_move_pages(0, pages.size(), pages.data(), nodes.data(), status.data(), MPOL_MF_MOVE_ALL);
-
-    int count = 0;
-    for (size_t i = 0; i < status.size(); i++)
-    {
-        if (status[i] == nodes[i])
-        {
-            count++;
-        }
-        else if (status[i] != nodes[i] && status[i] != -EFAULT && status[i] != -ENOENT)
-        {
-            // std::cerr << "[ARMS] Warning: Page migration failed for VA " << pages[i] << ", target node: " << std::dec
-            //           << nodes[i] << ", status: " << status[i] << std::endl;
-        }
-    }
-
-    auto end = std::chrono::high_resolution_clock::now();
-    auto duration_us = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
-    float time_per_page_us = (float)duration_us / (float)pages.size() * BASE_PAGE_PER_HUGEPAGE;
-
-    // Update per-page tracking: page_status[], seen_pages, pages_in_dram
-    // Group updates by hugepage (`page_info`) to recompute counts once per page.
-    {
-        // Map each hugepage to the list of (base-page index, status)
-        std::unordered_map<page_info *, std::vector<std::pair<int, int>>> page_updates;
-        {
-            std::lock_guard<std::mutex> lock(pages_map_lock);
-            for (size_t i = 0; i < pages.size(); i++)
-            {
-                uint64_t base_va = ((uint64_t)pages[i]) & ~(PAGE_SIZE - 1);
-                auto it = pages_map.find(base_va);
-                if (it == pages_map.end())
-                {
-                    continue; // Not tracked; skip
-                }
-                page_info *pi = it->second.get();
-                size_t idx = (((uint64_t)pages[i]) - base_va) / BASE_PAGE;
-                if (idx < BASE_PAGE_PER_HUGEPAGE)
-                {
-                    page_updates[pi].emplace_back(static_cast<int>(idx), status[i]);
-                }
-            }
-        }
-
-        // Apply updates and recompute counts
-        for (auto &kv : page_updates)
-        {
-            page_info *pi = kv.first;
-            {
-                std::lock_guard<std::mutex> plock(pi->page_lock);
-                for (const auto &entry : kv.second)
-                {
-                    int idx = entry.first;
-                    int st = entry.second;
-                    // Record the latest status per base page; negative codes mean unknown/failed
-                    pi->page_status[idx] = st;
-                }
-
-                int seen = 0;
-                int in_dram = 0;
-                for (int j = 0; j < BASE_PAGE_PER_HUGEPAGE; j++)
-                {
-                    int st = pi->page_status[j];
-                    if (st >= 0)
-                    {
-                        seen++;
-                        if (st == FAST_TIER)
-                        {
-                            in_dram++;
-                        }
-                    }
-                }
-                if (pi->pages_in_dram == in_dram)
-                {
-                    pi->promote_backoff = BACKOFF_PERIOD;
-                }
-                pi->seen_pages = seen;
-                pi->pages_in_dram = in_dram;
-            }
-        }
-    }
-
-    // Update migration cost estimates for both directions if present
-    if (promoted_pages > 0)
-    {
-        promotion_cost_avg = std::max((double)MIN_PROMOTION_COST, MIGRATION_COST_ALPHA * time_per_page_us +
-                                                                      (1 - MIGRATION_COST_ALPHA) * promotion_cost_avg);
-    }
-    if (demoted_pages > 0)
-    {
-        demotion_cost_avg = std::max((double)MIN_DEMOTION_COST, MIGRATION_COST_ALPHA * time_per_page_us +
-                                                                    (1 - MIGRATION_COST_ALPHA) * demotion_cost_avg);
-    }
-
-    if (ret != 0)
-    {
-        perror("numa_move_pages");
-        return -1;
-    }
-
-    return pages.size();
-}
-
-static void enqueue_migration_task(const std::vector<uint64_t> &promote_vas, const std::vector<uint64_t> &demote_vas)
-{
-    if (promote_vas.empty() && demote_vas.empty())
-        return;
-
-    constexpr size_t MAX_PAGES_PER_TASK = 50;
-    size_t promote_offset = 0;
-    size_t demote_offset = 0;
-
-    // Pair up promotions and demotions so workers handle both directions together.
-    while (promote_offset < promote_vas.size() || demote_offset < demote_vas.size())
-    {
-        size_t promote_end = std::min(promote_offset + MAX_PAGES_PER_TASK, promote_vas.size());
-        size_t demote_end = std::min(demote_offset + MAX_PAGES_PER_TASK, demote_vas.size());
-
-        std::unique_lock<std::mutex> lock(migration_queue_lock);
-        migration_queue.push_back(
-            {std::vector<uint64_t>(promote_vas.begin() + promote_offset, promote_vas.begin() + promote_end),
-             std::vector<uint64_t>(demote_vas.begin() + demote_offset, demote_vas.begin() + demote_end)});
-
-        promote_offset = promote_end;
-        demote_offset = demote_end;
-    }
-
-    migration_cv.notify_all();
-}
-
-static void clear_migration_queue()
-{
-    // std::lock_guard<std::mutex> lock(migration_queue_lock);
-    // migration_queue.clear();
-}
-
-static void *migration_worker(void *arg)
-{
-    (void)arg;
-    while (true)
-    {
-        migration_task task;
-        {
-            std::unique_lock<std::mutex> lock(migration_queue_lock);
-            // migration_cv.wait(lock, [] { return terminated || !migration_queue.empty(); });
-            if (migration_queue.empty())
-            {
-                if (terminated)
-                {
-                    return nullptr;
-                }
-                else
-                {
-                    continue;
-                }
-            }
-            task = std::move(migration_queue.front());
-            migration_queue.pop_front();
-        }
-
-        int promoted_pages = 0;
-        int demoted_pages = 0;
-        int ret = migrate_pages_to_node(task.promote_vas, task.demote_vas, promoted_pages, demoted_pages);
-        if (ret > 0)
-        {
-            if (promoted_pages > 0)
-            {
-                migrations_up.fetch_add(promoted_pages, std::memory_order_relaxed);
-                migrations_up_period.fetch_add(promoted_pages, std::memory_order_relaxed);
-            }
-            if (demoted_pages > 0)
-            {
-                migrations_down.fetch_add(demoted_pages, std::memory_order_relaxed);
-                migrations_down_period.fetch_add(demoted_pages, std::memory_order_relaxed);
-            }
-        }
-    }
-
-    return nullptr;
-}
-
-static void update_scores_and_migrate(size_t timestep)
+void update_scores_and_migrate(size_t timestep)
 {
     std::cout << "[ARMS] Updating page scores and deciding migrations..." << std::endl;
 
@@ -1216,11 +689,12 @@ static void update_scores_and_migrate(size_t timestep)
     double migrated_count = 0;
 
     uint32_t max_migrations_cur_interval =
-        MIGRATION_WORKER_COUNT * ((policy_thread_interval) / (promotion_cost_avg + demotion_cost_avg));
+        // MIGRATION_WORKER_COUNT *
+        ((policy_thread_interval) / (promotion_cost_avg + demotion_cost_avg));
     std::cout << "[ARMS] Max migrations allowed this interval: " << max_migrations_cur_interval << std::endl;
 
-    uint64_t fasttier_free_kb = get_fasttier_free_mem();
-    uint64_t fasttier_free_base_pages = (fasttier_free_kb == (uint64_t)-1) ? 0 : (fasttier_free_kb * 1024) / BASE_PAGE;
+    int64_t fasttier_free_kb = std::max(get_fasttier_free_mem() - MIN_FREE_MEMORY, (int64_t)0);
+    uint64_t fasttier_free_base_pages = (fasttier_free_kb == (int64_t)-1) ? 0 : (fasttier_free_kb * 1024) / BASE_PAGE;
     uint64_t free_base_pages = fasttier_free_base_pages;
 
     // Try to promote hot NVM pages, demoting cold DRAM pages if necessary
@@ -1261,10 +735,12 @@ static void update_scores_and_migrate(size_t timestep)
         }
 
         // Perform cost-benefit analysis before promoting
-        float cost = CB_MULTIPLIER * (promotion_cost_avg + demotion_cost_avg);
+
 #if USE_MODEL == (true)
+        float cost = CB_MULTIPLIER * (promotion_cost_avg + demotion_cost_avg) * 100;
         float benefit = hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
 #else
+        float cost = CB_MULTIPLIER * (promotion_cost_avg + demotion_cost_avg);
         float benefit = hot_page->score * hot_page->hot_age * HF_SAMPLE_PERIOD * latency_diff;
 #endif
         if (benefit < cost)
@@ -1329,6 +805,11 @@ static void update_scores_and_migrate(size_t timestep)
                 break;
             }
 
+            // std::cout << "[ARMS] Pairing promotion of page " << std::hex << hot_page->va << std::dec << " (need "
+            //           << hot_need_base_pages << " base pages) with demotion of page " << std::hex << cold_page->va
+            //           << std::dec << " (freeing " << cold_free_base_pages << " base pages)" << std::endl;
+
+            cold_page->num_demotions++;
             demote_list.push_back(cold_page->va);
             free_base_pages += cold_free_base_pages;
             demote_idx--;
@@ -1339,6 +820,7 @@ static void update_scores_and_migrate(size_t timestep)
             break;
         }
 
+        hot_page->num_promotions++;
         promote_list.push_back(hot_page->va);
         free_base_pages -= hot_need_base_pages;
         migrated_count += hot_need_base_pages;
@@ -1359,94 +841,6 @@ static void update_scores_and_migrate(size_t timestep)
         promotion_cost_avg = std::max(promotion_cost_avg / MIGRATION_COST_DECAY_RATE, (double)MIN_PROMOTION_COST);
         demotion_cost_avg = std::max(demotion_cost_avg / MIGRATION_COST_DECAY_RATE, (double)MIN_DEMOTION_COST);
     }
-}
-
-// ============================================================================
-// Policy Thread
-// ============================================================================
-
-static void *arms_policy_thread(void *arg)
-{
-    (void)arg;
-    // Set thread affinity
-    cpu_set_t cpuset;
-    CPU_ZERO(&cpuset);
-    CPU_SET(POLICY_THREAD_CPU, &cpuset);
-    pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset);
-
-    struct ptimer loop_timer;
-    ptimer_init(&loop_timer, "Policy loop timer");
-
-    while (!terminated)
-    {
-        ptimer_start(&loop_timer);
-        curr_window_index = global_version % WINDOW_SIZE;
-        global_version++;
-        prev_access_version = curr_access_version;
-        curr_access_version = 1 - curr_access_version;
-        __sync_synchronize();
-
-        // Report migrations from the previous period
-        uint64_t period_promoted = migrations_up_period.exchange(0, std::memory_order_relaxed);
-        uint64_t period_demoted = migrations_down_period.exchange(0, std::memory_order_relaxed);
-        std::cout << "[ARMS] Period migrations - promoted: " << period_promoted << ", demoted: " << period_demoted
-                  << std::endl;
-
-        // Drop stale migration requests at the start of each policy iteration
-        clear_migration_queue();
-
-        if (global_version % (1000000 / policy_thread_interval) == 0)
-        {
-            detect_hot_change();
-
-            // Calculate latency diff between DRAM and NVM
-            float dram_lat = UNLOADED_DRAM_LAT;
-            float nvm_lat = UNLOADED_NVM_LAT;
-            if (dram_bw_ewma > DRAM_BW_KNEE)
-            {
-                dram_lat += (dram_bw_ewma - DRAM_BW_KNEE) * DRAM_BW_SLOPE;
-            }
-            if (nvm_bw_ewma > NVM_RD_BW_KNEE)
-            {
-                nvm_lat += (nvm_bw_ewma - NVM_RD_BW_KNEE) * NVM_BW_SLOPE;
-            }
-            latency_diff = nvm_lat - dram_lat;
-        }
-
-        // Periodically update scores and schedule migrations
-        static size_t timestep = 0;
-        timestep++;
-
-        update_scores_and_migrate(timestep);
-
-        // Update sampling frequency if hotset change detected
-        if ((active_bias == recn_bias) && sampling_mode != HIGH_FIDELITY)
-        {
-            change_sampling_frequency();
-            sampling_mode = HIGH_FIDELITY;
-        }
-        else if ((active_bias == hist_bias) && sampling_mode != DEFAULT_SAMPLING)
-        {
-            change_sampling_frequency();
-            sampling_mode = DEFAULT_SAMPLING;
-        }
-
-        // Print total samples
-        std::cout << "[ARMS] Total samples - DRAMREAD: " << total_samples[DRAMREAD]
-                  << ", NVMREAD: " << total_samples[NVMREAD] << ", WRITE: " << total_samples[WRITE] << std::endl;
-        total_samples[DRAMREAD] = total_samples[NVMREAD] = total_samples[WRITE] = 0;
-
-        ptimer_stop_and_print(&loop_timer);
-        double elapsed_us = loop_timer.elapsed_us;
-
-        if (elapsed_us < policy_thread_interval)
-        {
-            usleep(policy_thread_interval - elapsed_us);
-        }
-    }
-
-    std::cout << "[ARMS] Policy thread terminating..." << std::endl;
-    return nullptr;
 }
 
 // ============================================================================
@@ -1554,6 +948,10 @@ void arms_start_tiering()
 
     initialized = true;
 
+    // Start async madvise worker so scans do not block when faulting new pages
+    // madvise_thread_running.store(true, std::memory_order_relaxed);
+    // pthread_create(&madvise_thread, nullptr, madvise_worker_thread, nullptr);
+
     // Start scanning and policy threads
     pthread_create(&scan_thread, nullptr, pebs_scan_thread, nullptr);
     pthread_create(&pagemap_scan_thread, nullptr, pagemap_scan_thread_fn, nullptr);
@@ -1569,11 +967,32 @@ void arms_start_tiering()
     std::cout << "[ARMS] Initialization complete." << std::endl;
 }
 
+static void write_max_dram_usage_to_file()
+{
+    uint64_t max_base_pages = max_dram_base_pages_seen.load(std::memory_order_relaxed);
+    double max_hugepage_equiv = static_cast<double>(max_base_pages) / BASE_PAGE_PER_HUGEPAGE;
+
+    std::ofstream max_log(MAX_DRAM_HUGEPAGE_LOG, std::ios::out | std::ios::trunc);
+    if (max_log.is_open())
+    {
+        max_log << "max_hugepage_equivalents_in_dram=" << max_hugepage_equiv << "\n";
+        max_log << "max_base_pages_in_dram=" << max_base_pages << "\n";
+        max_log << "hugepage_size_bytes=" << HUGEPAGE_SIZE << "\n";
+    }
+    else
+    {
+        std::cerr << "[ARMS] Failed to write " << MAX_DRAM_HUGEPAGE_LOG << std::endl;
+    }
+}
+
 void arms_kernel_shutdown()
 {
 
     terminated = true;
     std::cout << "[ARMS] Shutting down..." << std::endl;
+
+    // Wake madvise worker so it can exit promptly
+    madvise_cv.notify_all();
 
     // Wake migration workers so they can exit
     // migration_cv.notify_all();
@@ -1598,6 +1017,15 @@ void arms_kernel_shutdown()
     std::cout << "[ARMS] Closed pagemap." << std::endl;
 
     access_log->pebs_write_log();
+
+    write_max_dram_usage_to_file();
+    std::cout << "[ARMS] Wrote peak DRAM usage to " << MAX_DRAM_HUGEPAGE_LOG << std::endl;
+
+    if (madvise_thread_running.load(std::memory_order_relaxed))
+    {
+        pthread_join(madvise_thread, nullptr);
+        madvise_thread_running.store(false, std::memory_order_relaxed);
+    }
 
     // Clean up page tracking
     {

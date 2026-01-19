@@ -88,6 +88,9 @@ struct page_info
 
     int promote_backoff;
 
+    int num_demotions;
+    int num_promotions;
+
     struct data_row *last_logged_row;
 
     page_info() : page_status{-1}, seen_pages(0), in_dram(false), can_promote(true), last_seen_scan(0)

@@ -27,12 +27,14 @@ function run_program {
 
     rm -f "times/${TIME_BASENAME}.time"
     rm -f "logs/${TIME_BASENAME}_model.log"
+    rm -f "times/model/max_dram_hugepages_${TIME_BASENAME}.log"
 
     { time numactl -N0 --preferred=0 -- taskset -c 0-9,20-29 \
         sudo \
         LD_PRELOAD=${MODEL_PATH} \
         $PROGRAM 2>&1 ; } 2> "times/${TIME_BASENAME}.time"
     mv output.log "logs/${TIME_BASENAME}_model.log"
+    mv max_dram_hugepages.log "times/model/max_dram_hugepages_${TIME_BASENAME}.log"
 }
 
 #run_program "/users/zimooo2/duckdb/build/release/benchmark/benchmark_runner benchmark/large/tpch-sf100/.*benchmark --threads=20" model_discounted_reward_99_DuckDB-TPCH-sf100_l2 DuckDB-TPCH-sf100
