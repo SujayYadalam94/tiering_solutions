@@ -38,12 +38,12 @@ static inline void extract_features(struct data_row &row, double *features)
     assert(i == MODEL_NUM_FEATURES);
 }
 
-double model_predict(struct data_row &row)
+double model_predict(struct data_row &row, struct page_info &page)
 {
-    (void)row;
+    double out = 0.0;
+
 #if USE_MODEL == (true)
     double feature_buffer[MODEL_NUM_FEATURES];
-    double out;
 
     // Extract features from the page
     extract_features(row, feature_buffer);
@@ -54,10 +54,10 @@ double model_predict(struct data_row &row)
     forest_root(feature_buffer, &out, 0, 1);
     if (out < 0.0)
         out = 0.0;
+#endif
 
+    page.push_model_score(static_cast<float>(out));
     row.model_score = out;
 
-    return out;
-#endif
-    return 0.0; // If model usage is disabled, return 0.0
+    return out; // If model usage is disabled, out stays at 0.0
 }

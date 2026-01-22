@@ -68,7 +68,9 @@ struct page_info
     uint32_t non_resetting_age;
 
     float accuracy;
-    float model_score;
+    float model_score_history[HISTORY_LENGTH];
+    uint8_t model_score_history_count;
+    uint8_t model_score_history_index;
     float arms_score;
     enum prediction_type model_selection;
 
@@ -93,7 +95,7 @@ struct page_info
 
     struct data_row *last_logged_row;
 
-    page_info() : page_status{-1}, seen_pages(0), in_dram(false), can_promote(true), last_seen_scan(0)
+    page_info() : in_dram(false), can_promote(true), last_seen_scan(0), seen_pages(0), page_status{-1}
     {
         this->reset_page_access_fields();
     }
@@ -106,6 +108,10 @@ struct page_info
     void update_derivative_features(size_t rank, size_t num_sorted_pages, size_t count_total, size_t total_malloc,
                                     size_t num_dram_pages);
     float compute_score(const float *bias);
+    void reset_model_score_history();
+    void push_model_score(float score);
+    float max_model_score_history() const;
+    float min_model_score_history() const;
 };
 
 // Score entry for sorting

@@ -57,6 +57,8 @@ extern std::atomic<uint64_t> migrations_up_period;
 extern std::atomic<uint64_t> migrations_down_period;
 extern uint64_t total_samples[NPBUFTYPES];
 extern std::atomic<uint64_t> max_dram_base_pages_seen;
+extern std::atomic<uint64_t> total_dram_base_pages_accum;
+extern std::atomic<uint64_t> dram_samples;
 
 extern float dram_bw_ewma;
 extern float nvm_bw_ewma;

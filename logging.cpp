@@ -377,6 +377,8 @@ struct data_row access_log::extract_row(size_t step, struct page_info *page, str
 
 #if FULL_LOGS
     double cpu_usage = calc_cpu_usage_pct();
+#else
+    (void)count_all_pages;
 #endif
 
     // Base fields (always present)

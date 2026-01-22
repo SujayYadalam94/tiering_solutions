@@ -17,10 +17,6 @@ static void scan_process_pages()
     if (pagemap_fd < 0)
         return;
 
-    static const uint64_t sys_page_size = (uint64_t)sysconf(_SC_PAGESIZE);
-    auto align_down = [](uint64_t val, uint64_t align) { return val & ~(align - 1); };
-    auto align_up = [](uint64_t val, uint64_t align) { return (val + align - 1) & ~(align - 1); };
-
     uint64_t cur_scan = scan_generation.fetch_add(1, std::memory_order_relaxed) + 1;
 
     // Read /proc/self/maps to get VMA ranges
@@ -51,13 +47,17 @@ static void scan_process_pages()
         if (start_addr >= 0x7fffffffffff)
             continue;
 
+        /*
+        static const uint64_t sys_page_size = (uint64_t)sysconf(_SC_PAGESIZE);q
+        auto align_down = [](uint64_t val, uint64_t align) { return val & ~(align - 1); };
+        auto align_up = [](uint64_t val, uint64_t align) { return (val + align - 1) & ~(align - 1); };
         const uint64_t advise_start = align_down(start_addr, sys_page_size);
         const uint64_t advise_end = align_up(end_addr, sys_page_size);
         if (advise_end > advise_start)
         {
             const size_t advise_len = advise_end - advise_start;
 
-            /*if (madvise((void *)advise_start, advise_len, MADV_WILLNEED))
+            if (madvise((void *)advise_start, advise_len, MADV_WILLNEED))
             {
                 perror("[ARMS] Warning: MADV_WILLNEED failed for VA");
                 std::cerr << "[ARMS] VA Range: 0x" << std::hex << advise_start << " - 0x" << advise_end
@@ -70,14 +70,14 @@ static void scan_process_pages()
                           << " perms: " << perms << std::dec << std::endl;
             }*/
 
-            // This is not working properlly and needs to maybe go per page. This is also very slow.
-            /*if (madvise((void *)advise_start, advise_len, MADV_COLLAPSE))
-            {
-                perror("[ARMS] Warning: MADV_COLLAPSE  failed for VA");
-                std::cerr << "[ARMS] VA Range: 0x" << std::hex << advise_start << " - 0x" << advise_end
-                          << " perms: " << perms << std::dec << std::endl;
-            }*/
+        // This is not working properlly and needs to maybe go per page. This is also very slow.
+        /*if (madvise((void *)advise_start, advise_len, MADV_COLLAPSE))
+        {
+            perror("[ARMS] Warning: MADV_COLLAPSE  failed for VA");
+            std::cerr << "[ARMS] VA Range: 0x" << std::hex << advise_start << " - 0x" << advise_end
+                      << " perms: " << perms << std::dec << std::endl;
         }
+    }*/
 
         // Scan this VMA range
         for (uint64_t va = start_addr; va < end_addr; va += PAGE_SIZE)
@@ -213,6 +213,9 @@ static void scan_process_pages()
         std::cout << "[ARMS] Number of process pages tracked: " << pages_map.size()
                   << ", Removed stale pages: " << removed_pages << std::endl;
     }
+
+    dram_samples.fetch_add(1, std::memory_order_relaxed);
+    total_dram_base_pages_accum.fetch_add(total_base_pages_in_dram, std::memory_order_relaxed);
 
     // Track the peak DRAM residency observed during pagemap scans.
     uint64_t prev_max = max_dram_base_pages_seen.load(std::memory_order_relaxed);

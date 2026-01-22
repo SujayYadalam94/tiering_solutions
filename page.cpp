@@ -44,7 +44,7 @@ void page_info::reset_page_access_fields()
     this->non_resetting_ewma100 = 0;
     this->non_resetting_age = 0;
     this->accuracy = 0;
-    this->model_score = 0;
+    this->reset_model_score_history();
     this->arms_score = 0;
 
     this->rank = 0;
@@ -66,6 +66,64 @@ void page_info::reset_page_access_fields()
     this->num_promotions = 0;
 
     this->last_logged_row = NULL;
+}
+
+void page_info::reset_model_score_history()
+{
+    for (int i = 0; i < HISTORY_LENGTH; i++)
+    {
+        this->model_score_history[i] = 0.0f;
+    }
+    this->model_score_history_count = 0;
+    this->model_score_history_index = 0;
+}
+
+void page_info::push_model_score(float score)
+{
+    this->model_score_history[this->model_score_history_index] = score;
+    this->model_score_history_index = (this->model_score_history_index + 1) % HISTORY_LENGTH;
+    if (this->model_score_history_count < HISTORY_LENGTH)
+    {
+        this->model_score_history_count++;
+    }
+}
+
+float page_info::max_model_score_history() const
+{
+    if (this->model_score_history_count == 0)
+    {
+        return 0.0f;
+    }
+
+    float max_val = this->model_score_history[0];
+    for (uint8_t i = 1; i < this->model_score_history_count; i++)
+    {
+        if (this->model_score_history[i] > max_val)
+        {
+            max_val = this->model_score_history[i];
+        }
+    }
+
+    return max_val;
+}
+
+float page_info::min_model_score_history() const
+{
+    if (this->model_score_history_count == 0)
+    {
+        return 0.0f;
+    }
+
+    float min_val = this->model_score_history[0];
+    for (uint8_t i = 1; i < this->model_score_history_count; i++)
+    {
+        if (this->model_score_history[i] < min_val)
+        {
+            min_val = this->model_score_history[i];
+        }
+    }
+
+    return min_val;
 }
 
 float ewma(const float yp, const float x, const float alpha)
@@ -167,8 +225,8 @@ void page_info::update_derivative_features(size_t rank, size_t num_sorted_pages,
 
     this->age_count_total += count_total;
 
-    size_t top1_percent_index = num_sorted_pages / 100;
-    size_t top50_percent_index = num_sorted_pages / 2;
+    // size_t top1_percent_index = num_sorted_pages / 100;
+    // size_t top50_percent_index = num_sorted_pages / 2;
 
     for (uint8_t i = 0; i < WINDOW_SIZE; i++)
     {

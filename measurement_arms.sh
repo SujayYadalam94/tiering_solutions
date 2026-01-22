@@ -1,8 +1,9 @@
 #!/bin/bash
 
 SIZE_MIB=${1:-}
-if [[ -z "${SIZE_MIB}" ]]; then
-    echo "Usage: $0 <sizeMiB>" >&2
+RUN_ID=${2:-}
+if [[ -z "${SIZE_MIB}" || -z "${RUN_ID}" ]]; then
+    echo "Usage: $0 <sizeMiB> <runNumber>" >&2
     exit 1
 fi
 
@@ -10,18 +11,19 @@ KB=$((1024))
 MB=$((1024*KB))
 GB=$((1024*MB))
 
-mkdir -p times logs
+mkdir -p times logs times/arms
 
 function run_program {
     PROGRAM=$1
     MODEL=$2
     OUTPUT=$3
-    TIME_BASENAME="${OUTPUT}_${SIZE_MIB}MiB"
+    RUN=$4
+    TIME_BASENAME="${OUTPUT}_${SIZE_MIB}MiB_run${RUN}"
 
     MODEL_PATH="$PWD/libraries/libhemem-arms.so"
 
     if [[ ! -f "$MODEL_PATH" ]]; then
-        echo "Skipping ${OUTPUT}: missing ${MODEL_PATH}"
+        echo "Skipping ${OUTPUT} run ${RUN}: missing ${MODEL_PATH}"
         return
     fi
 
@@ -43,10 +45,11 @@ function run_program {
 #programs=("bt.D.x" "cg.D.x" "ep.D.x" "lu.D.x" "mg.D.x" "sp.D.x" "ua.D.x")
 #for prog in "${programs[@]}"; do
 #    echo "Running NPB program: $prog"
-#    run_program /users/zimooo2/NPB3.4.3/NPB3.4-OMP/bin/$prog model_discounted_reward_99_${prog}_l2 $prog
+#    run_program /users/zimooo2/NPB3.4.3/NPB3.4-OMP/bin/$prog model_discounted_reward_99_${prog}_l2 $prog ${RUN_ID}
 #done
 #
-run_program "/users/zimooo2/XSBench/openmp-threading/XSBench -t 20 -g 50000 -p 20000000" model_discounted_reward_99_XSBench_l2 XSBench
+echo "XSBench run ${RUN_ID}"
+run_program "/users/zimooo2/XSBench/openmp-threading/XSBench -t 20 -g 50000 -p 20000000" model_discounted_reward_99_XSBench_l2 XSBench ${RUN_ID}
 #
 ## GAPBS programs for twitter and kron graphs
 #gapbs_programs=("bc" "bfs" "cc_sv" "cc" "pr" "pr_spmv" "sssp")
@@ -54,7 +57,7 @@ run_program "/users/zimooo2/XSBench/openmp-threading/XSBench -t 20 -g 50000 -p 2
 #for graph in "${graphs[@]}"; do
 #    for prog in "${gapbs_programs[@]}"; do
 #        echo "Running GAPBS program: $prog on graph: $graph"
-#        run_program "/users/zimooo2/gapbs/$prog -n 16 -f /users/zimooo2/gapbs/benchmark/graphs/$graph" model_discounted_reward_99_${prog}-${graph}_l2 $prog-$graph
+#        run_program "/users/zimooo2/gapbs/$prog -n 16 -f /users/zimooo2/gapbs/benchmark/graphs/$graph" model_discounted_reward_99_${prog}-${graph}_l2 $prog-$graph ${RUN_ID}
 #    done
 #done
 #
