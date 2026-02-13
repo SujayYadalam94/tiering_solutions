@@ -1,7 +1,7 @@
 #!/bin/bash
 
-SIZES=(1000 1250 1500 1750 2000 2250 2500 2750 3000)
-RUNS=10
+SIZES=(1000 1500 2000 3000 4000 5000)
+RUNS=1
 
 for size in "${SIZES[@]}"; do
     echo "== Running measurements with size ${size}MiB =="
@@ -21,10 +21,10 @@ for size in "${SIZES[@]}"; do
 
         # Run both measurement passes for this size and run number
         bash defrag.sh
-        ./measurement_arms.sh "${size}" "${run}"
+        ./measurement_arms.sh "${size}" "${run}" ""
 
         bash defrag.sh
-        ./measurement_model.sh "${size}" "${run}"
+        ./measurement_model.sh "${size}" "${run}" ""
 
         sudo bash unsetup.sh
     done

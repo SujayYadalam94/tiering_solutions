@@ -33,10 +33,12 @@ void *arms_policy_thread(void *arg)
         uint64_t period_demoted = migrations_down_period.exchange(0, std::memory_order_relaxed);
         std::cout << "[ARMS] Period migrations - promoted: " << period_promoted << ", demoted: " << period_demoted
                   << std::endl;
-
-        // Drop stale migration requests at the start of each policy iteration
-        clear_migration_queue();
-
+        
+        //#if USE_MODEL == (true) || LOGGING_RUN == (true)
+                // Drop stale migration requests at the start of each policy iteration
+                clear_migration_queue();
+        //#endif
+        
         if (global_version % (1000000 / policy_thread_interval) == 0)
         {
             detect_hot_change();

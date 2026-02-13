@@ -33,8 +33,6 @@ extern pid_t target_pid;
 extern int perf_fd[PEBS_NPROCS][NPBUFTYPES];
 extern struct perf_event_mmap_page *perf_page[PEBS_NPROCS][NPBUFTYPES];
 
-inline constexpr size_t MIGRATION_WORKER_COUNT = 8;
-
 extern pthread_t scan_thread;
 extern pthread_t pagemap_scan_thread;
 extern pthread_t policy_thread;
@@ -75,6 +73,7 @@ extern std::atomic<bool> madvise_thread_running;
 extern struct group_tracker *grp_tracker;
 
 extern std::condition_variable madvise_cv;
+extern std::condition_variable migration_cv;
 
 bool is_access_log_page(uint64_t page_base);
 void populate_new_page(uint64_t page_base);

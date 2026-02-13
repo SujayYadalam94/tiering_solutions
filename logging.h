@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iosfwd>
 #include <iostream>
+#include <memory>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -22,65 +23,75 @@ struct data_row
     size_t read;
     size_t write;
     size_t count;
-    double ewma_2_perc;
-    double ewma_5_perc;
-    double ewma_20_perc;
-    double ewma_100_perc;
-    double ewma_100_malloc_perc;
-    double global_count_since_top1_percent_ewma5;
-    double global_count_since_top50_percent_ewma5;
-    double groups_perc[15];
-    double group_ewma5_perc[15];
+    float global_avg_accesses;
+    float global_avg_accesses_perc;
+    float ewma_2_perc;
+    float ewma_2_r_perc;
+    float ewma_2_w_perc;
+    float ewma_5_perc;
+    float ewma_5_r_perc;
+    float ewma_5_w_perc;
+    float ewma_20_perc;
+    float ewma_20_r_perc;
+    float ewma_20_w_perc;
+    float ewma_100_perc;
+    float ewma_100_r_perc;
+    float ewma_100_w_perc;
+    float ewma_var_2;
+    float ewma_var_5;
+    float ewma_var_20;
+    float ewma_var_100;
+    float ewma_100_malloc_perc;
+    float global_count_since_top1_percent_ewma5;
+    float global_count_since_top50_percent_ewma5;
+    float groups_perc[15];
+    float group_ewma5_perc[15];
+    float group_malloc_calls[15];
+    float group_malloc_calls_perc[15];
+    float group_malloc_calls_ewma100_perc[15];
+    float group_ewma5_var;
     uint64_t age_count_total;
 
 #if FULL_LOGS
     size_t malloc_size;
     size_t prot;
     size_t flags;
-    double ewma_2;
-    double ewma_2_r;
-    double ewma_2_w;
-    double ewma_2_r_perc;
-    double ewma_2_w_perc;
-    double ewma_2_malloc_size;
-    double ewma_2_malloc_calls;
-    double ewma_5;
-    double ewma_5_r;
-    double ewma_5_w;
-    double ewma_5_r_perc;
-    double ewma_5_w_perc;
-    double ewma_5_malloc_size;
-    double ewma_5_malloc_calls;
-    double ewma_20;
-    double ewma_20_r;
-    double ewma_20_w;
-    double ewma_20_r_perc;
-    double ewma_20_w_perc;
-    double ewma_20_malloc_size;
-    double ewma_20_malloc_calls;
-    double ewma_100;
-    double ewma_100_r;
-    double ewma_100_w;
-    double ewma_100_r_perc;
-    double ewma_100_w_perc;
-    double ewma_100_malloc_size;
-    double ewma_100_malloc_calls;
+    float ewma_2;
+    float ewma_2_r;
+    float ewma_2_w;
+    float ewma_2_malloc_size;
+    float ewma_2_malloc_calls;
+    float ewma_5;
+    float ewma_5_r;
+    float ewma_5_w;
+    float ewma_5_malloc_size;
+    float ewma_5_malloc_calls;
+    float ewma_20;
+    float ewma_20_r;
+    float ewma_20_w;
+    float ewma_20_malloc_size;
+    float ewma_20_malloc_calls;
+    float ewma_100;
+    float ewma_100_r;
+    float ewma_100_w;
+    float ewma_100_malloc_size;
+    float ewma_100_malloc_calls;
     size_t rank;
-    double rank_perc;
-    double rank_ewma_2;
-    double rank_ewma_5;
-    double rank_ewma_20;
-    double rank_ewma_100;
+    float rank_perc;
+    float rank_ewma_2;
+    float rank_ewma_5;
+    float rank_ewma_20;
+    float rank_ewma_100;
     size_t count_total;
     size_t global_count_similar;
-    double diff;
-    double cpu_usage;
+    float diff;
+    float cpu_usage;
     long long disk_read_bytes;
     long long disk_write_bytes;
     long long syscr;
     long long syscw;
-    double groups[15];
-    double group_ewma5[15];
+    float groups[15];
+    float group_ewma5[15];
     size_t model_selection;
     uint32_t read_syscalls;
     uint32_t write_syscalls;
@@ -92,8 +103,9 @@ struct data_row
     uint32_t malloc_call;
 #endif
 
-    double model_score;
-    double arms_score;
+    float model_score;
+    float arms_score;
+    float score;
     int32_t pages_in_dram;
     int32_t seen_pages;
     uint32_t age;
@@ -146,11 +158,11 @@ class access_log
     float get_gb_allocated();
     access_log();
     void update_proc_stats();
-    double calc_cpu_usage_pct();
+    float calc_cpu_usage_pct();
     void pebs_write_log();
-    struct data_row extract_row(size_t step, struct page_info *page, struct group_tracker *grp_tracker,
+    struct data_row extract_row(size_t step, const std::shared_ptr<page_info> &page, struct group_tracker *grp_tracker,
                                 size_t count_all_pages);
-    void log_row(struct page_info *page, struct data_row &row);
+    void log_row(const std::shared_ptr<page_info> &page, struct data_row &row);
     bool overlaps_with_logging_region(uint64_t addr, uint64_t length) const;
 };
 

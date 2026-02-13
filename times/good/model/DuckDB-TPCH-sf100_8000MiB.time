@@ -1,5 +1,0 @@
-measurement_model.sh: line 15: 248929 Segmentation fault      numactl -N0 --preferred=0 -- taskset -c 0-9,20-29 sudo LD_PRELOAD=${MODEL_PATH} $PROGRAM 2>&1
-
-real	2m39.166s
-user	0m0.047s
-sys	0m0.127s

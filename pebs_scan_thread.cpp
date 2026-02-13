@@ -68,6 +68,7 @@ void *pebs_scan_thread(void *arg)
                                 auto page = std::make_shared<page_info>();
                                 page->va = page_va;
                                 page->last_seen_scan = scan_generation.load(std::memory_order_relaxed);
+                                page->seen_pages = 1;
                                 it = pages_map.emplace(page_va, std::move(page)).first;
                                 added_new_page = true;
                             }

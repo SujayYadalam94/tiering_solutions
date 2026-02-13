@@ -5,6 +5,8 @@
 #include <numa.h>
 #include <vector>
 
+extern bool terminated; // defined in arms_kernel.cpp
+
 /* Define globals declared in logging.h here to provide a single
     definition for the linker. This prevents multiple-definition errors
     when multiple .c files include logging.h. */
@@ -133,12 +135,12 @@ int access_log::get_cpu_usage(const pid_t pid)
     return 0;
 }
 
-double access_log::calc_cpu_usage_pct()
+float access_log::calc_cpu_usage_pct()
 {
     const long unsigned int pid_diff = (curr_cpu_stat.utime_ticks + curr_cpu_stat.stime_ticks) -
                                        (prev_cpu_stat.utime_ticks + prev_cpu_stat.stime_ticks);
 
-    return 1 / (float)1 * pid_diff;
+    return static_cast<float>(pid_diff);
 }
 
 void access_log::update_proc_stats()
@@ -201,10 +203,24 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
     PRINT_CELL_AUTO(read);
     PRINT_CELL_AUTO(write);
     PRINT_CELL_AUTO(count);
+    PRINT_CELL_AUTO(global_avg_accesses);
+    PRINT_CELL_AUTO(global_avg_accesses_perc);
     PRINT_CELL_AUTO(ewma_2_perc);
+    PRINT_CELL_AUTO(ewma_2_r_perc);
+    PRINT_CELL_AUTO(ewma_2_w_perc);
     PRINT_CELL_AUTO(ewma_5_perc);
+    PRINT_CELL_AUTO(ewma_5_r_perc);
+    PRINT_CELL_AUTO(ewma_5_w_perc);
     PRINT_CELL_AUTO(ewma_20_perc);
+    PRINT_CELL_AUTO(ewma_20_r_perc);
+    PRINT_CELL_AUTO(ewma_20_w_perc);
     PRINT_CELL_AUTO(ewma_100_perc);
+    PRINT_CELL_AUTO(ewma_100_r_perc);
+    PRINT_CELL_AUTO(ewma_100_w_perc);
+    PRINT_CELL_AUTO(ewma_var_2);
+    PRINT_CELL_AUTO(ewma_var_5);
+    PRINT_CELL_AUTO(ewma_var_20);
+    PRINT_CELL_AUTO(ewma_var_100);
     PRINT_CELL_AUTO(ewma_100_malloc_perc);
     PRINT_CELL_AUTO(global_count_since_top1_percent_ewma5);
     PRINT_CELL_AUTO(global_count_since_top50_percent_ewma5);
@@ -219,7 +235,18 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
 
         snprintf(group_header, sizeof(group_header), "group_%d_mean_perc", offset);
         print_cell(os, row->groups_perc[offset + pm_offset], group_header, header);
+
+        snprintf(group_header, sizeof(group_header), "group_%d_malloc_calls", offset);
+        print_cell(os, row->group_malloc_calls[offset + pm_offset], group_header, header);
+
+        snprintf(group_header, sizeof(group_header), "group_%d_malloc_calls_perc", offset);
+        print_cell(os, row->group_malloc_calls_perc[offset + pm_offset], group_header, header);
+
+        snprintf(group_header, sizeof(group_header), "group_%d_malloc_calls_ewma100_perc", offset);
+        print_cell(os, row->group_malloc_calls_ewma100_perc[offset + pm_offset], group_header, header);
     }
+
+    PRINT_CELL_AUTO(group_ewma5_var);
 
     PRINT_CELL_AUTO(age_count_total);
 
@@ -231,32 +258,24 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
     PRINT_CELL_AUTO(ewma_2);
     PRINT_CELL_AUTO(ewma_2_r);
     PRINT_CELL_AUTO(ewma_2_w);
-    PRINT_CELL_AUTO(ewma_2_r_perc);
-    PRINT_CELL_AUTO(ewma_2_w_perc);
     PRINT_CELL_AUTO(ewma_2_malloc_size);
     PRINT_CELL_AUTO(ewma_2_malloc_calls);
 
     PRINT_CELL_AUTO(ewma_5);
     PRINT_CELL_AUTO(ewma_5_r);
     PRINT_CELL_AUTO(ewma_5_w);
-    PRINT_CELL_AUTO(ewma_5_r_perc);
-    PRINT_CELL_AUTO(ewma_5_w_perc);
     PRINT_CELL_AUTO(ewma_5_malloc_size);
     PRINT_CELL_AUTO(ewma_5_malloc_calls);
 
     PRINT_CELL_AUTO(ewma_20);
     PRINT_CELL_AUTO(ewma_20_r);
     PRINT_CELL_AUTO(ewma_20_w);
-    PRINT_CELL_AUTO(ewma_20_r_perc);
-    PRINT_CELL_AUTO(ewma_20_w_perc);
     PRINT_CELL_AUTO(ewma_20_malloc_size);
     PRINT_CELL_AUTO(ewma_20_malloc_calls);
 
     PRINT_CELL_AUTO(ewma_100);
     PRINT_CELL_AUTO(ewma_100_r);
     PRINT_CELL_AUTO(ewma_100_w);
-    PRINT_CELL_AUTO(ewma_100_r_perc);
-    PRINT_CELL_AUTO(ewma_100_w_perc);
     PRINT_CELL_AUTO(ewma_100_malloc_size);
     PRINT_CELL_AUTO(ewma_100_malloc_calls);
 
@@ -299,6 +318,7 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
 
     PRINT_CELL_AUTO(model_score);
     PRINT_CELL_AUTO(arms_score);
+    PRINT_CELL_AUTO(score);
     PRINT_CELL_AUTO(pages_in_dram);
     PRINT_CELL_AUTO(seen_pages);
 
@@ -319,7 +339,15 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
 
 void access_log::finalize_log()
 {
-    for (int64_t i = logged_samples; i >= 0; i--)
+    // Clamp to the last valid index to avoid walking past scores_log when
+    // logged_samples == MAX_LOGGED_SAMPLES (or higher due to races).
+    const size_t sample_count = std::min(logged_samples, static_cast<size_t>(MAX_LOGGED_SAMPLES));
+    if (sample_count == 0)
+    {
+        return;
+    }
+
+    for (int64_t i = static_cast<int64_t>(sample_count) - 1; i >= 0; i--)
     {
         struct data_row *current_row = &scores_log[i];
 
@@ -328,6 +356,15 @@ void access_log::finalize_log()
             current_row->prev->discounted_reward_90 = current_row->count + 0.9f * current_row->discounted_reward_90;
             current_row->prev->discounted_reward_95 = current_row->count + 0.95f * current_row->discounted_reward_95;
             current_row->prev->discounted_reward_99 = current_row->count + 0.99f * current_row->discounted_reward_99;
+
+            // penalty for pages that got deallocated and reallocated (this shouldn't really happen often)
+            int age_diff = current_row->age - current_row->prev->age;
+            for (int a = age_diff - 1; a > 0; a--)
+            {
+                current_row->prev->discounted_reward_90 *= 0.9f;
+                current_row->prev->discounted_reward_95 *= 0.95f;
+                current_row->prev->discounted_reward_99 *= 0.99f;
+            }
         }
     }
 }
@@ -340,6 +377,13 @@ void access_log::pebs_write_log()
 {
     if (PRINT_TRAINING_DATA)
     {
+        static bool prev_called = false;
+        if (prev_called)
+        {
+            return;
+        }
+        prev_called = true;
+
         std::cout << "[ARMS] Finalizing training data log..." << std::endl;
         finalize_log();
 
@@ -365,18 +409,17 @@ void access_log::pebs_write_log()
         {
             print_row(os, &scores_log[i], false);
         }
-        ofs.close();
         std::cout << "[ARMS] Training data log written to output.txt." << std::endl;
     }
 }
 
-struct data_row access_log::extract_row(size_t step, struct page_info *page, struct group_tracker *grp_tracker,
-                                        size_t count_all_pages)
+struct data_row access_log::extract_row(size_t step, const std::shared_ptr<page_info> &page,
+                                        struct group_tracker *grp_tracker, size_t count_all_pages)
 {
     struct data_row row{};
 
 #if FULL_LOGS
-    double cpu_usage = calc_cpu_usage_pct();
+    float cpu_usage = calc_cpu_usage_pct();
 #else
     (void)count_all_pages;
 #endif
@@ -387,15 +430,29 @@ struct data_row access_log::extract_row(size_t step, struct page_info *page, str
     row.read = page->reads;
     row.write = page->writes;
     row.count = page->count;
+    row.global_avg_accesses = static_cast<float>(page->global_avg_accesses);
+    row.global_avg_accesses_perc = static_cast<float>(page->global_avg_accesses_perc);
 
     row.ewma_2_perc = page->w_perc[0];
+    row.ewma_2_r_perc = page->w_r_perc[0];
+    row.ewma_2_w_perc = page->w_w_perc[0];
     row.ewma_5_perc = page->w_perc[1];
+    row.ewma_5_r_perc = page->w_r_perc[1];
+    row.ewma_5_w_perc = page->w_w_perc[1];
     row.ewma_20_perc = page->w_perc[2];
+    row.ewma_20_r_perc = page->w_r_perc[2];
+    row.ewma_20_w_perc = page->w_w_perc[2];
     row.ewma_100_perc = page->w_perc[3];
+    row.ewma_100_r_perc = page->w_r_perc[3];
+    row.ewma_100_w_perc = page->w_w_perc[3];
+    row.ewma_var_2 = page->w_var[0];
+    row.ewma_var_5 = page->w_var[1];
+    row.ewma_var_20 = page->w_var[2];
+    row.ewma_var_100 = page->w_var[3];
     row.ewma_100_malloc_perc = page->malloc_call_perc_ewma[3];
 
-    row.global_count_since_top1_percent_ewma5 = page->global_count_since_top1_percent_ewma5;
-    row.global_count_since_top50_percent_ewma5 = page->global_count_since_top50_percent_ewma5;
+    row.global_count_since_top1_percent_ewma5 = static_cast<float>(page->global_count_since_top1_percent_ewma5);
+    row.global_count_since_top50_percent_ewma5 = static_cast<float>(page->global_count_since_top50_percent_ewma5);
 
     for (int8_t i = -7; i <= 7; ++i)
     {
@@ -406,11 +463,18 @@ struct data_row access_log::extract_row(size_t step, struct page_info *page, str
 #endif
         row.groups_perc[i + 7] = pg != NULL ? pg->avg_perc : 0.0;
         row.group_ewma5_perc[i + 7] = pg != NULL ? pg->avg_perc_ewma5 : 0.0;
+        row.group_malloc_calls[i + 7] = pg != NULL ? pg->malloc_calls_avg : 0.0;
+        row.group_malloc_calls_perc[i + 7] = pg != NULL ? pg->malloc_calls_avg_perc : 0.0;
+        row.group_malloc_calls_ewma100_perc[i + 7] = pg != NULL ? pg->malloc_calls_ewma100_perc : 0.0;
+        if (i == 0)
+        {
+            row.group_ewma5_var = pg != NULL ? pg->var_ewma5 : 0.0;
+        }
     }
 
     row.age_count_total = page->age_count_total;
 
-#if FULL_LOGS
+#if FULL_LOGS == (true)
     row.malloc_size = 0;
     row.prot = page->prot;
     row.flags = page->flags;
@@ -418,32 +482,24 @@ struct data_row access_log::extract_row(size_t step, struct page_info *page, str
     row.ewma_2 = page->w[0];
     row.ewma_2_r = page->w_r[0];
     row.ewma_2_w = page->w_w[0];
-    row.ewma_2_r_perc = page->w_r_perc[0];
-    row.ewma_2_w_perc = page->w_w_perc[0];
     row.ewma_2_malloc_size = page->malloc_size_ewma[0];
     row.ewma_2_malloc_calls = page->malloc_call_ewma[0];
 
     row.ewma_5 = page->w[1];
     row.ewma_5_r = page->w_r[1];
     row.ewma_5_w = page->w_w[1];
-    row.ewma_5_r_perc = page->w_r_perc[1];
-    row.ewma_5_w_perc = page->w_w_perc[1];
     row.ewma_5_malloc_size = page->malloc_size_ewma[1];
     row.ewma_5_malloc_calls = page->malloc_call_ewma[1];
 
     row.ewma_20 = page->w[2];
     row.ewma_20_r = page->w_r[2];
     row.ewma_20_w = page->w_w[2];
-    row.ewma_20_r_perc = page->w_r_perc[2];
-    row.ewma_20_w_perc = page->w_w_perc[2];
     row.ewma_20_malloc_size = page->malloc_size_ewma[2];
     row.ewma_20_malloc_calls = page->malloc_call_ewma[2];
 
     row.ewma_100 = page->w[3];
     row.ewma_100_r = page->w_r[3];
     row.ewma_100_w = page->w_w[3];
-    row.ewma_100_r_perc = page->w_r_perc[3];
-    row.ewma_100_w_perc = page->w_w_perc[3];
     row.ewma_100_malloc_size = page->malloc_size_ewma[3];
     row.ewma_100_malloc_calls = page->malloc_call_ewma[3];
 
@@ -490,7 +546,7 @@ struct data_row access_log::extract_row(size_t step, struct page_info *page, str
     return row;
 }
 
-void access_log::log_row(struct page_info *page, struct data_row &row)
+void access_log::log_row(const std::shared_ptr<page_info> &page, struct data_row &row)
 {
     if (!PRINT_TRAINING_DATA)
     {
@@ -498,6 +554,9 @@ void access_log::log_row(struct page_info *page, struct data_row &row)
     }
     if (logged_samples >= MAX_LOGGED_SAMPLES)
     {
+        // Cap to avoid spilling past allocated log buffer.
+        logged_samples = MAX_LOGGED_SAMPLES;
+        terminated = true;
         pebs_write_log();
         exit(0);
         return;

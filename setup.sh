@@ -1,3 +1,4 @@
+
 SIZE_MIB=${1:-}
 if [[ -z "${SIZE_MIB}" ]]; then
 	echo "Usage: $0 <sizeMiB>" >&2
@@ -51,7 +52,7 @@ if (( alloc_mib <= 0 )); then
 	echo "Requested headroom ${local_size}MiB exceeds node0 free ${node0_free_mib}MiB" >&2
 	exit 1
 fi
-sudo insmod memeater.ko sizeMiB=${alloc_mib}
+sudo insmod memeater.ko sizeMiB=${alloc_mib} 
 popd
 
 bash defrag.sh

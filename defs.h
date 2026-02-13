@@ -11,6 +11,10 @@
 
 extern bool initialized;
 
+#ifndef LOGGING_RUN
+#define LOGGING_RUN (false)
+#endif
+
 #ifndef USE_MODEL
 #define USE_MODEL (true)
 #endif
@@ -22,12 +26,17 @@ extern bool initialized;
 #define FULL_LOGS (false)
 
 #ifndef MAX_LOGGED_SAMPLES
-#define MAX_LOGGED_SAMPLES (10000000)
+#define MAX_LOGGED_SAMPLES (5000000)
 #endif
 
+#define MIGRATION_WORKER_COUNT (8)
 #define MALLOC_SAMPLE_RATE (10) // Log 1 out of every N malloc calls
-#define BACKOFF_PERIOD (4)      // Number of scanning intervals to backoff after promotion/demotion
-#define HISTORY_LENGTH (10)
+#define BACKOFF_PERIOD (0)      // Number of scanning intervals to backoff after promotion/demotion
+#define MIN_MAX_HISTORY (true)
+
+#ifndef HISTORY_LENGTH
+#define HISTORY_LENGTH (4)
+#endif
 
 #define MIN_FREE_MEMORY (1024 * 1024) // in KB (ie 1 GB)
 
@@ -81,12 +90,12 @@ extern bool initialized;
 
 /// PEBS kswapd thread wakeup interval
 // ==============================================================================
-#if USE_MODEL == false && PRINT_TRAINING_DATA == false
-#define PEBS_KSWAPD_INTERVAL_BIG (500000)   // in us (500ms)
-#define PEBS_KSWAPD_INTERVAL_SMALL (100000) // in us (100ms)
-#else
+#if USE_MODEL == (true) || LOGGING_RUN == (true)
 #define PEBS_KSWAPD_INTERVAL_BIG (250000)   // in us (250ms)
 #define PEBS_KSWAPD_INTERVAL_SMALL (250000) // in us (250ms)
+#else
+#define PEBS_KSWAPD_INTERVAL_BIG (500000)   // in us (500ms)
+#define PEBS_KSWAPD_INTERVAL_SMALL (100000) // in us (100ms)
 #endif
 
 // ==============================================================================

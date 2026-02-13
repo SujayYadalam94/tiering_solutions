@@ -1,6 +1,7 @@
 #pragma once
 
 #include "defs.h"
+#include <memory>
 
 enum pbuftype
 {
@@ -16,6 +17,9 @@ enum prediction_type
     MODEL = 1,
     NPREDICTIONTYPES
 };
+
+float ewma(const float yp, const float x, const float alpha);
+float adjusted_ewma(const float yp, const float x, const float denom);
 
 struct page_info
 {
@@ -40,6 +44,8 @@ struct page_info
 
     uint32_t prev_count;
     float w[WINDOW_SIZE];
+    float w_sq[WINDOW_SIZE];
+    float w_var[WINDOW_SIZE];
     float w_r[WINDOW_SIZE];
     float w_w[WINDOW_SIZE];
 
@@ -53,6 +59,8 @@ struct page_info
 
     double cumsum_reads;
     double cumsum_writes;
+    double global_avg_accesses;
+    double global_avg_accesses_perc;
 
     float score;
     float prev_score;
@@ -105,18 +113,19 @@ struct page_info
     float calculate_writes(volatile uint8_t prev_access_version);
     float calculate_accesses(volatile uint8_t prev_access_version);
     void update_window(volatile uint8_t prev_access_version, const enum sampling_modes sampling_mode);
-    void update_derivative_features(size_t rank, size_t num_sorted_pages, size_t count_total, size_t total_malloc,
-                                    size_t num_dram_pages);
+    void update_derivative_features(size_t rank, size_t num_sorted_pages, size_t count_total, size_t total_malloc);
+    void update_can_promote(size_t num_dram_pages, size_t rank);
     float compute_score(const float *bias);
     void reset_model_score_history();
     void push_model_score(float score);
     float max_model_score_history() const;
     float min_model_score_history() const;
+    float average_model_score_history() const;
 };
 
 // Score entry for sorting
 struct score_entry
 {
-    page_info *page;
+    std::shared_ptr<page_info> page;
     float score;
 };

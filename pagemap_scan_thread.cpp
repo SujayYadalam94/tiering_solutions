@@ -9,8 +9,10 @@
 #include <numaif.h>
 #include <regex>
 #include <unistd.h>
+#include <vector>
 
 #include "arms_kernel_threads.h"
+#include "timer.h"
 
 static void scan_process_pages()
 {
@@ -28,6 +30,81 @@ static void scan_process_pages()
     }
 
     std::string line;
+
+    constexpr size_t kMovePagesBatchSize =
+        BASE_PAGE_PER_HUGEPAGE * 128; // Number of base pages per batched move_pages call
+    std::vector<void *> addr_batch;
+    addr_batch.reserve(kMovePagesBatchSize);
+
+    struct page_slice
+    {
+        std::shared_ptr<page_info> page;
+        size_t start_index;
+    };
+    std::vector<page_slice> page_slices;
+    std::vector<int> status_batch;
+
+    auto flush_move_pages_batch = [&]() {
+        if (addr_batch.empty())
+        {
+            return;
+        }
+
+        status_batch.resize(addr_batch.size());
+        long ret = numa_move_pages(0, static_cast<unsigned long>(addr_batch.size()), addr_batch.data(), nullptr,
+                                   status_batch.data(), 0);
+        if (ret != 0)
+        {
+            perror("[ARMS] Warning: numa_move_pages batch failed");
+        }
+
+        for (const auto &slice : page_slices)
+        {
+            auto &page = slice.page;
+            bool invalid_status = false;
+            int seen_pages = 0;
+            int pages_in_dram = 0;
+
+            for (size_t i = 0; i < BASE_PAGE_PER_HUGEPAGE; i++)
+            {
+                size_t idx = slice.start_index + i;
+                int status = status_batch[idx];
+                page->page_status[i] = status;
+
+                if (status < 0 && status != -EFAULT && status != -ENOENT)
+                {
+                    std::cout << "[ARMS] Warning: Invalid page status (" << status << ") for VA 0x" << std::hex
+                              << page->va + i * BASE_PAGE << std::dec << std::endl;
+                    invalid_status = true;
+                    break;
+                }
+                if (status >= 0)
+                {
+                    seen_pages++;
+                }
+                if (status == 0)
+                {
+                    pages_in_dram++;
+                }
+            }
+
+            if (!invalid_status)
+            {
+                page->pages_in_dram = pages_in_dram;
+
+                if (seen_pages == 0 && page->seen_pages != 0)
+                {
+                    page->reset_page_access_fields();
+                }
+                page->seen_pages = seen_pages;
+            }
+            page->last_seen_scan = cur_scan;
+        }
+
+        addr_batch.clear();
+        page_slices.clear();
+    };
+
     while (std::getline(maps_file, line))
     {
         uint64_t start_addr, end_addr;
@@ -88,7 +165,7 @@ static void scan_process_pages()
             {
                 continue;
             }
-            uint64_t pagemap_index = (va / BASE_PAGE) * sizeof(uint64_t);
+            /*uint64_t pagemap_index = (va / BASE_PAGE) * sizeof(uint64_t);
             uint64_t pagemap_entry;
 
             ssize_t ret = pread(pagemap_fd, &pagemap_entry, sizeof(pagemap_entry), pagemap_index);
@@ -105,7 +182,7 @@ static void scan_process_pages()
             if (!present || pfn == 0)
             {
                 // std::cerr << "[ARMS] Warning: Page not present for VA 0x" << std::hex << va << std::dec << std::endl;
-            }
+            }*/
 
             std::shared_ptr<page_info> page;
             bool missing = false;
@@ -152,44 +229,23 @@ static void scan_process_pages()
 
             if (page)
             {
-                void *addr[BASE_PAGE_PER_HUGEPAGE];
+                size_t start_index = addr_batch.size();
                 for (size_t i = 0; i < BASE_PAGE_PER_HUGEPAGE; i++)
                 {
-                    addr[i] = (void *)(va + i * BASE_PAGE);
+                    addr_batch.emplace_back((void *)(va + i * BASE_PAGE));
                 }
-                numa_move_pages(0, BASE_PAGE_PER_HUGEPAGE, addr, nullptr, page->page_status, 0);
+                page_slices.push_back({page, start_index});
 
-                // std::lock_guard<std::mutex> lock(page->page_lock);
-                bool invalid_status = false;
-                int seen_pages = 0;
-                int pages_in_dram = 0;
-                for (size_t i = 0; i < BASE_PAGE_PER_HUGEPAGE; i++)
+                if (addr_batch.size() >= kMovePagesBatchSize)
                 {
-                    if (page->page_status[i] < 0 && page->page_status[i] != -EFAULT && page->page_status[i] != -ENOENT)
-                    {
-                        std::cout << "[ARMS] Warning: Invalid page status (" << page->page_status[i] << ") for VA 0x"
-                                  << std::hex << va + i * BASE_PAGE << std::dec << std::endl;
-                        invalid_status = true;
-                        break;
-                    }
-                    if (page->page_status[i] >= 0)
-                    {
-                        seen_pages++;
-                    }
-                    if (page->page_status[i] == 0)
-                    {
-                        pages_in_dram++;
-                    }
+                    flush_move_pages_batch();
                 }
-                if (!invalid_status)
-                {
-                    page->pages_in_dram = pages_in_dram;
-                    page->seen_pages = seen_pages;
-                }
-                page->last_seen_scan = cur_scan;
             }
         }
     }
+
+    // Flush any remaining batched pages.
+    flush_move_pages_batch();
 
     size_t removed_pages = 0;
     uint64_t total_base_pages_in_dram = 0;
@@ -209,10 +265,9 @@ static void scan_process_pages()
                 ++it;
             }
         }
-
-        std::cout << "[ARMS] Number of process pages tracked: " << pages_map.size()
-                  << ", Removed stale pages: " << removed_pages << std::endl;
     }
+    std::cout << "[ARMS] Number of process pages tracked: " << pages_map.size()
+              << ", Removed stale pages: " << removed_pages << std::endl;
 
     dram_samples.fetch_add(1, std::memory_order_relaxed);
     total_dram_base_pages_accum.fetch_add(total_base_pages_in_dram, std::memory_order_relaxed);
@@ -228,10 +283,21 @@ static void scan_process_pages()
 void *pagemap_scan_thread_fn(void *arg)
 {
     (void)arg;
+
+    struct ptimer loop_timer;
+    ptimer_init(&loop_timer, "Page Map Scan Loop");
     while (!terminated)
     {
+        ptimer_start(&loop_timer);
         scan_process_pages();
-        usleep(policy_thread_interval);
+        ptimer_stop_and_print(&loop_timer);
+
+        double elapsed_us = loop_timer.elapsed_us;
+
+        if (elapsed_us < policy_thread_interval)
+        {
+            usleep(policy_thread_interval - elapsed_us);
+        }
     }
 
     return nullptr;
