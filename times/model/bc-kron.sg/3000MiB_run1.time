@@ -1,5 +1,0 @@
-./measurement_model.sh: line 17: 2207252 Aborted                 taskset -c 0-9,20-29 sudo LD_PRELOAD=${MODEL_PATH} $PROGRAM 2>&1
-
-real	9m39.244s
-user	0m0.433s
-sys	0m1.003s

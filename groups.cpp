@@ -6,10 +6,8 @@ void page_group_reset(struct page_group *pg)
     pg->avg = 0;
     pg->max = 0;
     pg->sum_ewma5 = 0;
-    pg->sum_ewma5_sq = 0;
     pg->avg_ewma5 = 0;
     pg->max_ewma5 = 0;
-    pg->var_ewma5 = 0;
     pg->sum_perc = 0;
     pg->avg_perc = 0;
     pg->max_perc = 0;
@@ -42,15 +40,8 @@ void page_group_update(struct page_group *pg, const float count, const float ewm
 
     pg->sum += count;
     pg->sum_ewma5 += ewma5;
-    pg->sum_ewma5_sq += ewma5 * ewma5;
     pg->avg = pg->sum / (float)pg->count;
     pg->avg_ewma5 = pg->sum_ewma5 / (float)pg->count;
-    if (pg->count > 0)
-    {
-        const float mean_sq = pg->avg_ewma5 * pg->avg_ewma5;
-        const float var = (pg->sum_ewma5_sq / (float)pg->count) - mean_sq;
-        pg->var_ewma5 = var > 0.0f ? var : 0.0f;
-    }
 
     if (count > pg->max)
     {
@@ -128,7 +119,6 @@ void add_group_if_missing(struct group_tracker *gt, const std::shared_ptr<page_i
         perror("Failed to allocate memory for page_group");
         exit(EXIT_FAILURE);
     }
-    page_group_reset(pg);
     pg->id = group_id;
     gt->groups_map[group_id] = pg;
 }

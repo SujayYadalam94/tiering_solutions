@@ -32,10 +32,17 @@ extern bool initialized;
 #define MIGRATION_WORKER_COUNT (8)
 #define MALLOC_SAMPLE_RATE (10) // Log 1 out of every N malloc calls
 #define BACKOFF_PERIOD (0)      // Number of scanning intervals to backoff after promotion/demotion
+
+#ifndef MIN_MAX_HISTORY
 #define MIN_MAX_HISTORY (true)
+#endif
 
 #ifndef HISTORY_LENGTH
 #define HISTORY_LENGTH (4)
+#endif
+
+#ifndef SWITCH_SCALER
+#define SWITCH_SCALER (1.0) // Multiplier to adjust the sensitivity of model score-based switching between ARMS and model predictions
 #endif
 
 #define MIN_FREE_MEMORY (1024 * 1024) // in KB (ie 1 GB)

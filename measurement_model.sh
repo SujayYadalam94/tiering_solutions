@@ -19,7 +19,8 @@ function run_program {
     MODEL=$2
     OUTPUT=$3
     RUN=$4
-    TIME_BASENAME="${SIZE_MIB}MiB_run${RUN}"
+    MODEL_TAG="${MODEL}"
+    TIME_BASENAME="${SIZE_MIB}MiB_run${RUN}_${MODEL_TAG}"
     TIME_DIR="$PWD/times/model/${OUTPUT}"
     LOG_DIR="$PWD/logs/${OUTPUT}"
 
@@ -28,7 +29,7 @@ function run_program {
     MODEL_PATH="$PWD/libraries/libhemem-${MODEL}${LIB_SUFFIX}.so"
 
     if [[ ! -f "$MODEL_PATH" ]]; then
-        echo "Skipping ${OUTPUT} run ${RUN}: missing train library ${MODEL_PATH}"
+        echo "Skipping ${OUTPUT} run ${RUN}: missing library ${MODEL_PATH}"
         return
     fi
 
@@ -40,8 +41,12 @@ function run_program {
         sudo \
         LD_PRELOAD=${MODEL_PATH} \
         $PROGRAM 2>&1 ; } 2> "${TIME_DIR}/${TIME_BASENAME}.time"
-    mv output.log "${LOG_DIR}/${TIME_BASENAME}_model.log"
-    mv max_dram_hugepages.log "${TIME_DIR}/max_dram_hugepages_${TIME_BASENAME}.log"
+    if [[ -f output.log ]]; then
+        mv output.log "${LOG_DIR}/${TIME_BASENAME}_model.log"
+    fi
+    if [[ -f max_dram_hugepages.log ]]; then
+        mv max_dram_hugepages.log "${TIME_DIR}/max_dram_hugepages_${TIME_BASENAME}.log"
+    fi
 }
 # Sweep history lengths so outputs don't overwrite
 #run_program "/users/zimooo2/LULESH/build/lulesh2.0 -i 10 -s 400" model_discounted_reward_95_lulesh2.0_s400_l2 lulesh2.0_s400 ${RUN_ID}
@@ -66,21 +71,35 @@ function run_program {
 
 #gapbs_programs=("bc" "bfs" "cc_sv" "cc" "pr" "pr_spmv" "sssp" "tc")
 #gapbs_programs=("bc" "bfs" "pr")
-gapbs_programs=("bc")
-graphs=("twitter.sg")
-for graph in "${graphs[@]}"; do
-    for prog in "${gapbs_programs[@]}"; do
-        echo "Running GAPBS program: $prog on graph: $graph"
-        run_program "OMP_NUM_THREADS=16 /users/zimooo2/gapbs/$prog -n 40 -f /users/zimooo2/gapbs/benchmark/graphs/$graph" model_discounted_reward_95_${prog}-${graph}_l2 $prog-$graph ${RUN_ID}
-    done
-done
+#gapbs_programs=("bc")
+#graphs=("twitter.sg")
+#for graph in "${graphs[@]}"; do
+#    for prog in "${gapbs_programs[@]}"; do
+#        echo "Running GAPBS program: $prog on graph: $graph"
+#        run_program "OMP_NUM_THREADS=16 /users/zimooo2/gapbs/$prog -n 40 -f /users/zimooo2/gapbs/benchmark/graphs/$graph" model_discounted_reward_95_${prog}-${graph}_l2 $prog-$graph ${RUN_ID}
+#    done
+#done
 
-gapbs_programs=("bc")
+gapbs_programs=("pr")
 graphs=("kron.sg")
+pcts=(90 95 99)
+minmax_options=(true false)
+hist_lengths=(4 8)
+penalties=(0.8 0.9)
+
 for graph in "${graphs[@]}"; do
     for prog in "${gapbs_programs[@]}"; do
-        echo "Running GAPBS program: $prog on graph: $graph"
-        run_program "OMP_NUM_THREADS=16 /users/zimooo2/gapbs/$prog -n 20 -f /users/zimooo2/gapbs/benchmark/graphs/$graph" model_discounted_reward_95_${prog}-${graph}_l2 $prog-$graph ${RUN_ID}
+        for pct in "${pcts[@]}"; do
+            for minmax in "${minmax_options[@]}"; do
+                for hist_length in "${hist_lengths[@]}"; do
+                    for penalty in "${penalties[@]}"; do
+                        model_name="model_discounted_reward_${pct}_${prog}-${graph}_l2-${minmax}_${hist_length}_${penalty}"
+                        echo "Running GAPBS program: ${prog} on graph: ${graph} with model: ${model_name}"
+                        run_program "OMP_NUM_THREADS=16 /users/zimooo2/gapbs/$prog -n 20 -f /users/zimooo2/gapbs/benchmark/graphs/$graph" "$model_name" "$prog-$graph" "${RUN_ID}"
+                    done
+                done
+            done
+        done
     done
 done
 

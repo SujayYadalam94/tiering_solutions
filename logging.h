@@ -37,17 +37,24 @@ struct data_row
     float ewma_100_perc;
     float ewma_100_r_perc;
     float ewma_100_w_perc;
+    float ewma_100_malloc_perc;
+    float gap4;
+    float read_write_gap3;
     float ewma_var_2;
     float ewma_var_5;
     float ewma_var_20;
     float ewma_var_100;
-    float ewma_100_malloc_perc;
+
+#if FULL_LOGS
     float global_count_since_top1_percent_ewma5;
     float global_count_since_top50_percent_ewma5;
+#endif
     float groups_perc[15];
     float group_ewma5_perc[15];
+#if FULL_LOGS
     float group_malloc_calls[15];
     float group_malloc_calls_perc[15];
+#endif
     float group_malloc_calls_ewma100_perc[15];
     float group_ewma5_var;
     uint64_t age_count_total;

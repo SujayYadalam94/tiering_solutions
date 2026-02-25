@@ -667,7 +667,7 @@ void update_scores_and_migrate(size_t timestep)
 #else
         float history_model_score = score_entry.page->pages_in_dram > 0
                                         ? score_entry.page->average_model_score_history()
-                                        : 0.9 * (score_entry.page->average_model_score_history());
+                                        : (score_entry.page->average_model_score_history());
 #endif
 
         if (USE_MODEL)
@@ -796,7 +796,7 @@ void update_scores_and_migrate(size_t timestep)
 
 #if USE_MODEL == (true)
         float cost = CB_MULTIPLIER * (promotion_cost_avg + demotion_cost_avg);
-        float benefit = 0.9 * hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
+        float benefit = SWITCH_SCALER * hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
 #else
         float cost = CB_MULTIPLIER * (promotion_cost_avg + demotion_cost_avg);
         float benefit = hot_page->score * hot_page->hot_age * HF_SAMPLE_PERIOD * latency_diff;
@@ -951,6 +951,10 @@ void arms_start_tiering()
     std::cout << "[ARMS] Initializing ARMS..." << std::endl;
 
     std::cout << "[ARMS] USE_MODEL = " << (USE_MODEL ? "true" : "false") << std::endl;
+    std::cout << "[ARMS] LOGGING_RUN = " << (LOGGING_RUN ? "true" : "false") << std::endl;
+    std::cout << "[ARMS] MIN_MAX_HISTORY = " << (MIN_MAX_HISTORY ? "true" : "false") << std::endl;
+    std::cout << "[ARMS] HISTORY_LENGTH = " << HISTORY_LENGTH << std::endl;
+
     std::cout << "[ARMS] PRINT_TRAINING_DATA = " << (PRINT_TRAINING_DATA ? "true" : "false") << std::endl;
     std::cout << "[ARMS] PEBS_KSWAPD_INTERVAL_BIG = " << PEBS_KSWAPD_INTERVAL_BIG << std::endl;
     std::cout << "[ARMS] PEBS_KSWAPD_INTERVAL_SMALL = " << PEBS_KSWAPD_INTERVAL_SMALL << std::endl;

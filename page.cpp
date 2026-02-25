@@ -1,5 +1,6 @@
 #include "page.h"
 
+#include <math.h>
 #include <stdlib.h>
 
 void page_info::reset_page_access_fields()
@@ -12,8 +13,8 @@ void page_info::reset_page_access_fields()
     for (int i = 0; i < WINDOW_SIZE; i++)
     {
         this->w[i] = 0;
-        this->w_sq[i] = 0;
-        this->w_var[i] = 0;
+        this->w_perc_second_moment[i] = 0;
+        this->w_perc_var[i] = 0;
         this->w_r[i] = 0;
         this->w_w[i] = 0;
         this->w_perc[i] = 0;
@@ -42,6 +43,8 @@ void page_info::reset_page_access_fields()
     this->cumsum_writes = 0;
     this->global_avg_accesses = 0;
     this->global_avg_accesses_perc = 0;
+    this->gap4 = 0;
+    this->read_write_gap3 = 0;
 
     this->age = 0;
     this->age_count_total = 0;
@@ -203,11 +206,8 @@ void page_info::update_window(volatile uint8_t prev_access_version, const enum s
         const float denom = get_adjusted_ewma_denom(i, this->age);
         const float scaled_count = this->count * scaler;
         this->w[i] = adjusted_ewma(this->w[i], scaled_count, denom);
-        this->w_sq[i] = adjusted_ewma(this->w_sq[i], scaled_count * scaled_count, denom);
-        const float var = this->w_sq[i] - (this->w[i] * this->w[i]);
-        this->w_var[i] = var > 0.0f ? var : 0.0f;
-        this->w_r[i] = adjusted_ewma(this->w_r[i], this->reads, get_adjusted_ewma_denom(i, this->age));
-        this->w_w[i] = adjusted_ewma(this->w_w[i], this->writes, get_adjusted_ewma_denom(i, this->age));
+        this->w_r[i] = adjusted_ewma(this->w_r[i], this->reads, denom);
+        this->w_w[i] = adjusted_ewma(this->w_w[i], this->writes, denom);
     }
 
     if (this->promote_backoff > 0)
@@ -246,25 +246,29 @@ void page_info::update_derivative_features(size_t rank, size_t num_sorted_pages,
 
     for (uint8_t i = 0; i < WINDOW_SIZE; i++)
     {
-        this->malloc_call_ewma[i] =
-            adjusted_ewma(this->malloc_call_ewma[i], this->malloc_call, get_adjusted_ewma_denom(i, this->age));
+        const float denom = get_adjusted_ewma_denom(i, this->age);
+
+        this->malloc_call_ewma[i] = adjusted_ewma(this->malloc_call_ewma[i], this->malloc_call, denom);
         this->malloc_call_perc_ewma[i] = adjusted_ewma(
-            this->malloc_call_perc_ewma[i], total_malloc ? (float)this->malloc_call / (float)total_malloc : 0.0,
-            get_adjusted_ewma_denom(i, this->age));
-        this->malloc_size_ewma[i] =
-            adjusted_ewma(this->malloc_size_ewma[i], this->sum_malloc_bytes, get_adjusted_ewma_denom(i, this->age));
+            this->malloc_call_perc_ewma[i], total_malloc ? (float)this->malloc_call / (float)total_malloc : 0.0, denom);
+        this->malloc_size_ewma[i] = adjusted_ewma(this->malloc_size_ewma[i], this->sum_malloc_bytes, denom);
 
-        this->rank_perc_ewma[i] =
-            adjusted_ewma(this->rank_perc_ewma[i], this->rank_perc, get_adjusted_ewma_denom(i, this->age));
+        this->rank_perc_ewma[i] = adjusted_ewma(this->rank_perc_ewma[i], this->rank_perc, denom);
 
-        this->w_perc[i] = adjusted_ewma(this->w_perc[i], count_perc, get_adjusted_ewma_denom(i, this->age));
+        this->w_perc[i] = adjusted_ewma(this->w_perc[i], count_perc, denom);
         this->w_r_perc[i] =
-            adjusted_ewma(this->w_r_perc[i], count_total ? (double)(this->reads) / (double)(count_total) : 0.0,
-                          get_adjusted_ewma_denom(i, this->age));
+            adjusted_ewma(this->w_r_perc[i], count_total ? (double)(this->reads) / (double)(count_total) : 0.0, denom);
         this->w_w_perc[i] =
-            adjusted_ewma(this->w_w_perc[i], count_total ? (double)(this->writes) / (double)(count_total) : 0.0,
-                          get_adjusted_ewma_denom(i, this->age));
+            adjusted_ewma(this->w_w_perc[i], count_total ? (double)(this->writes) / (double)(count_total) : 0.0, denom);
+
+        // Percentile-based variance (EWMA) using second moment of w_perc
+        this->w_perc_second_moment[i] = adjusted_ewma(this->w_perc_second_moment[i], count_perc * count_perc, denom);
+        const float var = this->w_perc_second_moment[i] - (this->w_perc[i] * this->w_perc[i]);
+        this->w_perc_var[i] = var > 0.0f ? var : 0.0f;
     }
+
+    this->gap4 = this->w_perc[1] - static_cast<float>(this->global_avg_accesses_perc);
+    this->read_write_gap3 = this->w_r_perc[3] - this->w_w_perc[3];
 
 #if FULL_LOGS == (true)
     if ((this->count > 0.8f * this->prev_count && this->count < 1.2f * this->prev_count) ||

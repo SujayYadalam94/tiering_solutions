@@ -44,44 +44,44 @@ function run_program {
     mv max_dram_hugepages.log "${TIME_DIR}/max_dram_hugepages_${TIME_BASENAME}.log"
 }
 
-#run_program "/users/zimooo2/LULESH/build/lulesh2.0 -i 10 -s 400" model_discounted_reward_99_lulesh2.0_s400_l2 lulesh2.0_s400 ${RUN_ID}
+#run_program "/users/zimooo2/LULESH/build/lulesh2.0 -i 10 -s 400" "" lulesh2.0_s400 ${RUN_ID}
 
-#run_program "/users/zimooo2/duckdb/build/release/benchmark/benchmark_runner benchmark/large/tpch-sf100/.*benchmark --threads=16" model_discounted_reward_99_DuckDB-TPCH-sf100_l2 DuckDB-TPCH-sf100 ${RUN_ID}
-#run_program "/users/zimooo2/duckdb/build/release/benchmark/benchmark_runner benchmark/large/tpcds-sf100/.*benchmark --threads=16" model_discounted_reward_99_DuckDB-TPCDS-sf100_l2 DuckDB-TPCDS-sf100 ${RUN_ID}
+#run_program "/users/zimooo2/duckdb/build/release/benchmark/benchmark_runner benchmark/large/tpch-sf100/.*benchmark --threads=16" "" DuckDB-TPCH-sf100 ${RUN_ID}
+#run_program "/users/zimooo2/duckdb/build/release/benchmark/benchmark_runner benchmark/large/tpcds-sf100/.*benchmark --threads=16" "" DuckDB-TPCDS-sf100 ${RUN_ID}
 #
 ## Call for all D size NPB programs
 #programs=("bt.D.x" "cg.D.x" "ep.D.x" "lu.D.x" "mg.D.x" "sp.D.x" "ua.D.x")
 #programs=("mg.D.x")
 #for prog in "${programs[@]}"; do
 #    echo "Running NPB program: $prog"
-#    run_program /users/zimooo2/NPB3.4.3/NPB3.4-OMP/bin/$prog model_discounted_reward_99_${prog}_l2 $prog ${RUN_ID}
+#    run_program /users/zimooo2/NPB3.4.3/NPB3.4-OMP/bin/$prog "" $prog ${RUN_ID}
 #done
 ##
 #echo "XSBench run ${RUN_ID}"
-#run_program "/users/zimooo2/XSBench/openmp-threading/XSBench -t 20 -g 50000 -p 20000000" model_discounted_reward_99_XSBench_l2 XSBench ${RUN_ID}
+#run_program "/users/zimooo2/XSBench/openmp-threading/XSBench -t 20 -g 50000 -p 20000000" "" XSBench ${RUN_ID}
 #
 ## GAPBS programs for twitter and kron graphs
 #gapbs_programs=("bc" "bfs" "cc_sv" "cc" "pr" "pr_spmv" "sssp")
 #graphs=("twitter.sg" "kron.sg")
 
-gapbs_programs=("bc" "bfs" "cc_sv" "cc" "pr" "pr_spmv" "sssp" "tc")
-gapbs_programs=("bc" "bfs" "pr")
-gapbs_programs=("bc")
-graphs=("twitter.sg")
-for graph in "${graphs[@]}"; do
-    for prog in "${gapbs_programs[@]}"; do
-        echo "Running GAPBS program: $prog on graph: $graph"
-        run_program "OMP_NUM_THREADS=16 /users/zimooo2/gapbs/$prog -n 40 -f /users/zimooo2/gapbs/benchmark/graphs/$graph" model_discounted_reward_95_${prog}-${graph}_l2 $prog-$graph ${RUN_ID}
-    done
-done
+#gapbs_programs=("bc" "bfs" "cc_sv" "cc" "pr" "pr_spmv" "sssp" "tc")
+#gapbs_programs=("bc" "bfs" "pr")
+#gapbs_programs=("bc")
+#graphs=("twitter.sg")
+#for graph in "${graphs[@]}"; do
+#    for prog in "${gapbs_programs[@]}"; do
+#        echo "Running GAPBS program: $prog on graph: $graph"
+#        run_program "OMP_NUM_THREADS=16 /users/zimooo2/gapbs/$prog -n 40 -f /users/zimooo2/gapbs/benchmark/graphs/$graph" "" $prog-$graph ${RUN_ID}
+#    done
+#done
 
 gapbs_programs=("bc" "bfs" "pr")
-gapbs_programs=("bc")
+gapbs_programs=("pr")
 graphs=("kron.sg")
 for graph in "${graphs[@]}"; do
     for prog in "${gapbs_programs[@]}"; do
         echo "Running GAPBS program: $prog on graph: $graph"
-        run_program "OMP_NUM_THREADS=16 /users/zimooo2/gapbs/$prog -n 20 -f /users/zimooo2/gapbs/benchmark/graphs/$graph" model_discounted_reward_95_${prog}-${graph}_l2 $prog-$graph ${RUN_ID}
+        run_program "OMP_NUM_THREADS=16 /users/zimooo2/gapbs/$prog -n 20 -f /users/zimooo2/gapbs/benchmark/graphs/$graph" "" $prog-$graph ${RUN_ID}
     done
 done
 

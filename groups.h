@@ -16,10 +16,8 @@ struct page_group
     float max;
 
     float sum_ewma5;
-    float sum_ewma5_sq;
     float avg_ewma5;
     float max_ewma5;
-    float var_ewma5;
 
     float sum_perc;
     float avg_perc;

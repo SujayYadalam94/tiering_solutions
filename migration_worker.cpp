@@ -10,6 +10,7 @@
 #include <numaif.h>
 #include <sys/mman.h>
 #include <syscall.h>
+#include <thread>
 #include <unistd.h>
 #include <unordered_map>
 #include <vector>
@@ -25,6 +26,24 @@ struct migration_task
 static std::deque<migration_task> migration_queue;
 static std::mutex migration_queue_lock;
 std::condition_variable migration_cv;
+
+static int expected_promoted_pages_for_hugepage(uint64_t va)
+{
+    std::shared_ptr<page_info> page;
+    {
+        std::lock_guard<std::mutex> lock(pages_map_lock);
+        uint64_t base_va = va & ~(PAGE_SIZE - 1);
+        auto it = pages_map.find(base_va);
+        if (it == pages_map.end())
+        {
+            return static_cast<int>(BASE_PAGE_PER_HUGEPAGE);
+        }
+        page = it->second;
+    }
+
+    std::lock_guard<std::mutex> page_lock(page->page_lock);
+    return std::clamp(page->seen_pages, 0, static_cast<int>(BASE_PAGE_PER_HUGEPAGE));
+}
 
 static int migrate_pages_to_node(const std::vector<uint64_t> &promote_vas, const std::vector<uint64_t> &demote_vas,
                                  int &promoted_pages, int &demoted_pages, int &numa_ret)
@@ -256,7 +275,11 @@ void *migration_worker(void *arg)
             int numa_ret;
             int ret = migrate_pages_to_node(task.promote_vas, {}, promoted_pages, demoted_pages_unused, numa_ret);
 
-            const int expected_promotions = static_cast<int>(task.promote_vas.size() * BASE_PAGE_PER_HUGEPAGE);
+            int expected_promotions = 0;
+            for (uint64_t va : task.promote_vas)
+            {
+                expected_promotions += expected_promoted_pages_for_hugepage(va);
+            }
             bool promotions_failed = (ret < 0) || (promoted_pages < expected_promotions);
 
             if (ret > 0 && promoted_pages > 0)
@@ -292,32 +315,67 @@ void *migration_worker(void *arg)
                     std::cout << "[ARMS] Demoted " << demoted_pages << " pages to free up space." << std::endl;
                 }
 
-                // Retry promotions after freeing space, one huge page at a time to reduce retries that fail en masse.
-                const int expected_retry_promotions =
-                    static_cast<int>(task.promote_vas.size() * BASE_PAGE_PER_HUGEPAGE);
-                int total_retry_promoted = 0;
-                bool retry_error = false;
+                // Give allocator/reclaim a short chance to settle after demotions.
+                std::this_thread::sleep_for(std::chrono::milliseconds(2));
+
+                // Retry promotions after freeing space in multiple passes, only for hugepages that still fail.
+                int expected_retry_promotions = 0;
                 for (uint64_t va : task.promote_vas)
                 {
-                    promoted_pages = 0;
-                    demoted_pages_unused = 0;
-                    int retry_ret = migrate_pages_to_node({va}, {}, promoted_pages, demoted_pages_unused, numa_ret);
-                    if (retry_ret > 0 && promoted_pages > 0)
+                    expected_retry_promotions += expected_promoted_pages_for_hugepage(va);
+                }
+                int total_retry_promoted = 0;
+                bool retry_error = false;
+                std::vector<uint64_t> pending_promotions = task.promote_vas;
+                constexpr int MAX_PROMOTION_RETRY_PASSES = 3;
+
+                for (int pass = 0; pass < MAX_PROMOTION_RETRY_PASSES && !pending_promotions.empty(); pass++)
+                {
+                    std::vector<uint64_t> failed_this_pass;
+                    failed_this_pass.reserve(pending_promotions.size());
+
+                    for (uint64_t va : pending_promotions)
                     {
-                        migrations_up.fetch_add(promoted_pages, std::memory_order_relaxed);
-                        migrations_up_period.fetch_add(promoted_pages, std::memory_order_relaxed);
-                        total_retry_promoted += promoted_pages;
+                        const int expected_for_hugepage = expected_promoted_pages_for_hugepage(va);
+                        if (expected_for_hugepage == 0)
+                        {
+                            continue;
+                        }
+
+                        promoted_pages = 0;
+                        demoted_pages_unused = 0;
+                        int retry_ret = migrate_pages_to_node({va}, {}, promoted_pages, demoted_pages_unused, numa_ret);
+                        if (retry_ret > 0 && promoted_pages > 0)
+                        {
+                            migrations_up.fetch_add(promoted_pages, std::memory_order_relaxed);
+                            migrations_up_period.fetch_add(promoted_pages, std::memory_order_relaxed);
+                            total_retry_promoted += promoted_pages;
+                        }
+
+                        const bool hugepage_fully_promoted = (promoted_pages >= expected_for_hugepage);
+                        if (!hugepage_fully_promoted)
+                        {
+                            failed_this_pass.push_back(va);
+                        }
+
+                        if (retry_ret < 0 || numa_ret != 0)
+                        {
+                            // perror("numa_move_pages promote");
+                            retry_error = true;
+                        }
                     }
-                    if (numa_ret != 0)
+
+                    pending_promotions.swap(failed_this_pass);
+
+                    if (!pending_promotions.empty() && (pass + 1) < MAX_PROMOTION_RETRY_PASSES)
                     {
-                        //perror("numa_move_pages promote");
-                        retry_error = true;
+                        std::this_thread::sleep_for(std::chrono::milliseconds(2 * (pass + 1)));
                     }
                 }
                 int retry_failed_pages = std::max(0, expected_retry_promotions - total_retry_promoted);
-                std::cout << "[ARMS] Promoted " << total_retry_promoted << " pages after demotions (per-hugepage retry). "
-                          << retry_failed_pages << " pages failed to promote." << (retry_error ? " (errors seen)" : "")
-                          << std::endl;
+                std::cout << "[ARMS] Promoted " << total_retry_promoted
+                          << " pages after demotions (multi-pass per-hugepage retry). " << retry_failed_pages
+                          << " pages failed to promote." << (retry_error ? " (errors seen)" : "") << std::endl;
             }
         }
     }

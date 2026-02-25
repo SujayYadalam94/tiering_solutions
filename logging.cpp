@@ -140,7 +140,7 @@ float access_log::calc_cpu_usage_pct()
     const long unsigned int pid_diff = (curr_cpu_stat.utime_ticks + curr_cpu_stat.stime_ticks) -
                                        (prev_cpu_stat.utime_ticks + prev_cpu_stat.stime_ticks);
 
-    return static_cast<float>(pid_diff);
+    return 1 / (float)1 * pid_diff;
 }
 
 void access_log::update_proc_stats()
@@ -217,13 +217,18 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
     PRINT_CELL_AUTO(ewma_100_perc);
     PRINT_CELL_AUTO(ewma_100_r_perc);
     PRINT_CELL_AUTO(ewma_100_w_perc);
+    PRINT_CELL_AUTO(ewma_100_malloc_perc);
+    PRINT_CELL_AUTO(gap4);
+    PRINT_CELL_AUTO(read_write_gap3);
     PRINT_CELL_AUTO(ewma_var_2);
     PRINT_CELL_AUTO(ewma_var_5);
     PRINT_CELL_AUTO(ewma_var_20);
     PRINT_CELL_AUTO(ewma_var_100);
-    PRINT_CELL_AUTO(ewma_100_malloc_perc);
+
+#if FULL_LOGS
     PRINT_CELL_AUTO(global_count_since_top1_percent_ewma5);
     PRINT_CELL_AUTO(global_count_since_top50_percent_ewma5);
+#endif
 
     // Group EWMA5 percentages are always present
     int pm_offset = 7;
@@ -236,11 +241,13 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
         snprintf(group_header, sizeof(group_header), "group_%d_mean_perc", offset);
         print_cell(os, row->groups_perc[offset + pm_offset], group_header, header);
 
+#if FULL_LOGS
         snprintf(group_header, sizeof(group_header), "group_%d_malloc_calls", offset);
         print_cell(os, row->group_malloc_calls[offset + pm_offset], group_header, header);
 
         snprintf(group_header, sizeof(group_header), "group_%d_malloc_calls_perc", offset);
         print_cell(os, row->group_malloc_calls_perc[offset + pm_offset], group_header, header);
+#endif
 
         snprintf(group_header, sizeof(group_header), "group_%d_malloc_calls_ewma100_perc", offset);
         print_cell(os, row->group_malloc_calls_ewma100_perc[offset + pm_offset], group_header, header);
@@ -430,8 +437,8 @@ struct data_row access_log::extract_row(size_t step, const std::shared_ptr<page_
     row.read = page->reads;
     row.write = page->writes;
     row.count = page->count;
-    row.global_avg_accesses = static_cast<float>(page->global_avg_accesses);
-    row.global_avg_accesses_perc = static_cast<float>(page->global_avg_accesses_perc);
+    row.global_avg_accesses = page->global_avg_accesses;
+    row.global_avg_accesses_perc = page->global_avg_accesses_perc;
 
     row.ewma_2_perc = page->w_perc[0];
     row.ewma_2_r_perc = page->w_r_perc[0];
@@ -445,14 +452,18 @@ struct data_row access_log::extract_row(size_t step, const std::shared_ptr<page_
     row.ewma_100_perc = page->w_perc[3];
     row.ewma_100_r_perc = page->w_r_perc[3];
     row.ewma_100_w_perc = page->w_w_perc[3];
-    row.ewma_var_2 = page->w_var[0];
-    row.ewma_var_5 = page->w_var[1];
-    row.ewma_var_20 = page->w_var[2];
-    row.ewma_var_100 = page->w_var[3];
     row.ewma_100_malloc_perc = page->malloc_call_perc_ewma[3];
+    row.gap4 = page->gap4;
+    row.read_write_gap3 = page->read_write_gap3;
+    row.ewma_var_2 = page->w_perc_var[0];
+    row.ewma_var_5 = page->w_perc_var[1];
+    row.ewma_var_20 = page->w_perc_var[2];
+    row.ewma_var_100 = page->w_perc_var[3];
 
-    row.global_count_since_top1_percent_ewma5 = static_cast<float>(page->global_count_since_top1_percent_ewma5);
-    row.global_count_since_top50_percent_ewma5 = static_cast<float>(page->global_count_since_top50_percent_ewma5);
+#if FULL_LOGS
+    row.global_count_since_top1_percent_ewma5 = page->global_count_since_top1_percent_ewma5;
+    row.global_count_since_top50_percent_ewma5 = page->global_count_since_top50_percent_ewma5;
+#endif
 
     for (int8_t i = -7; i <= 7; ++i)
     {
@@ -463,13 +474,27 @@ struct data_row access_log::extract_row(size_t step, const std::shared_ptr<page_
 #endif
         row.groups_perc[i + 7] = pg != NULL ? pg->avg_perc : 0.0;
         row.group_ewma5_perc[i + 7] = pg != NULL ? pg->avg_perc_ewma5 : 0.0;
+#if FULL_LOGS
         row.group_malloc_calls[i + 7] = pg != NULL ? pg->malloc_calls_avg : 0.0;
         row.group_malloc_calls_perc[i + 7] = pg != NULL ? pg->malloc_calls_avg_perc : 0.0;
+#endif
         row.group_malloc_calls_ewma100_perc[i + 7] = pg != NULL ? pg->malloc_calls_ewma100_perc : 0.0;
-        if (i == 0)
+    }
+
+    // Variance of group ewma5 percentages across neighbor groups
+    {
+        float sum = 0.0f;
+        float sum_sq = 0.0f;
+        const int count = 15;
+        for (int idx = 0; idx < count; ++idx)
         {
-            row.group_ewma5_var = pg != NULL ? pg->var_ewma5 : 0.0;
+            const float v = row.group_ewma5_perc[idx];
+            sum += v;
+            sum_sq += v * v;
         }
+        const float mean = sum / (float)count;
+        const float var = (sum_sq / (float)count) - (mean * mean);
+        row.group_ewma5_var = var > 0.0f ? var : 0.0f;
     }
 
     row.age_count_total = page->age_count_total;

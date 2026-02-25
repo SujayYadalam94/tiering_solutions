@@ -44,10 +44,11 @@ struct page_info
 
     uint32_t prev_count;
     float w[WINDOW_SIZE];
-    float w_sq[WINDOW_SIZE];
-    float w_var[WINDOW_SIZE];
     float w_r[WINDOW_SIZE];
     float w_w[WINDOW_SIZE];
+
+    float w_perc_second_moment[WINDOW_SIZE];
+    float w_perc_var[WINDOW_SIZE];
 
     float w_perc[WINDOW_SIZE];
     float w_r_perc[WINDOW_SIZE];
@@ -61,6 +62,8 @@ struct page_info
     double cumsum_writes;
     double global_avg_accesses;
     double global_avg_accesses_perc;
+    float gap4;
+    float read_write_gap3;
 
     float score;
     float prev_score;

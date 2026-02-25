@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SIZES=(1000 1500 2000 3000)
+SIZES=(1000 1500)
 RUNS=1
 
 for size in "${SIZES[@]}"; do
@@ -20,7 +20,7 @@ for size in "${SIZES[@]}"; do
         sudo bash setup.sh "${size}"
 
         # Run both measurement passes for this size and run number
-        bash defrag.sh
+        #bash defrag.sh
         ./measurement_arms.sh "${size}" "${run}_train" "_train"
 
         bash defrag.sh
