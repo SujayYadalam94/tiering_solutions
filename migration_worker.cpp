@@ -198,7 +198,6 @@ static int migrate_pages_to_node(const std::vector<uint64_t> &promote_vas, const
 void enqueue_migration_task(const std::vector<uint64_t> &promote_vas, const std::vector<uint64_t> &demote_vas)
 {
 #if USE_MODEL == (true) || LOGGING_RUN == (true)
-    clear_migration_queue();
     numa_set_preferred(0);
 #endif
     if (promote_vas.empty() && demote_vas.empty())
@@ -251,17 +250,10 @@ void *migration_worker(void *arg)
         migration_task task;
         {
             std::unique_lock<std::mutex> lock(migration_queue_lock);
-            // migration_cv.wait(lock, [] { return terminated || !migration_queue.empty(); });
+            migration_cv.wait(lock, [] { return terminated || !migration_queue.empty(); });
             if (migration_queue.empty())
             {
-                if (terminated)
-                {
-                    return nullptr;
-                }
-                else
-                {
-                    continue;
-                }
+                continue;
             }
             task = std::move(migration_queue.front());
             migration_queue.pop_front();
@@ -312,7 +304,10 @@ void *migration_worker(void *arg)
                 }
                 else
                 {
-                    std::cout << "[ARMS] Demoted " << demoted_pages << " pages to free up space." << std::endl;
+                    if (ARMS_VERBOSE)
+                    {
+                        std::cout << "[ARMS] Demoted " << demoted_pages << " pages to free up space." << std::endl;
+                    }
                 }
 
                 // Give allocator/reclaim a short chance to settle after demotions.
@@ -373,9 +368,12 @@ void *migration_worker(void *arg)
                     }
                 }
                 int retry_failed_pages = std::max(0, expected_retry_promotions - total_retry_promoted);
-                std::cout << "[ARMS] Promoted " << total_retry_promoted
-                          << " pages after demotions (multi-pass per-hugepage retry). " << retry_failed_pages
-                          << " pages failed to promote." << (retry_error ? " (errors seen)" : "") << std::endl;
+                if (ARMS_VERBOSE)
+                {
+                    std::cout << "[ARMS] Promoted " << total_retry_promoted
+                              << " pages after demotions (multi-pass per-hugepage retry). " << retry_failed_pages
+                              << " pages failed to promote." << (retry_error ? " (errors seen)" : "") << std::endl;
+                }
             }
         }
     }

@@ -25,13 +25,24 @@ extern bool initialized;
 
 #define FULL_LOGS (false)
 
+#ifndef ARMS_VERBOSE
+#define ARMS_VERBOSE (false)
+#endif
+
+#ifndef ARMS_PARTIAL_RANKING
+#define ARMS_PARTIAL_RANKING (true)
+#endif
+
+#ifndef ARMS_PARTIAL_RANK_MULTIPLIER
+#define ARMS_PARTIAL_RANK_MULTIPLIER (8)
+#endif
+
 #ifndef MAX_LOGGED_SAMPLES
 #define MAX_LOGGED_SAMPLES (5000000)
 #endif
 
-#define MIGRATION_WORKER_COUNT (8)
-#define MALLOC_SAMPLE_RATE (10) // Log 1 out of every N malloc calls
-#define BACKOFF_PERIOD (0)      // Number of scanning intervals to backoff after promotion/demotion
+#define MIGRATION_WORKER_COUNT (1)
+#define BACKOFF_PERIOD (0) // Number of scanning intervals to backoff after promotion/demotion
 
 #ifndef MIN_MAX_HISTORY
 #define MIN_MAX_HISTORY (true)
@@ -42,16 +53,30 @@ extern bool initialized;
 #endif
 
 #ifndef SWITCH_SCALER
-#define SWITCH_SCALER (1.0) // Multiplier to adjust the sensitivity of model score-based switching between ARMS and model predictions
+#define SWITCH_SCALER                                                                                                  \
+    (1.0) // Multiplier to adjust the sensitivity of model score-based switching between ARMS and model predictions
+#endif
+
+#ifndef C220G5
+#ifndef GSL_OPTANE
+#ifndef SCAILP
+#define C220G5
+#endif
+#endif
 #endif
 
 #define MIN_FREE_MEMORY (1024 * 1024) // in KB (ie 1 GB)
 
-#define C220G5
-
 // NUMA node assignment: node0 = fast (near), node1 = slow (far)
+#ifdef C220G5
 #define FAST_TIER 0
 #define SLOW_TIER 1
+#endif
+
+#ifdef GSL_OPTANE
+#define FAST_TIER 0
+#define SLOW_TIER 2
+#endif
 
 // System configuration
 #ifdef SCAILP
@@ -71,6 +96,21 @@ extern bool initialized;
 
 #elif defined C220G5
 #define PEBS_NPROCS 30
+
+// DRAM bandwidth and latency curve parameters (used for latency diff calculations)
+#define UNLOADED_DRAM_LAT (0.1) // us
+#define DRAM_BW_KNEE (25)       // GB/s
+#define DRAM_BW_SLOPE (0.006)   // us per GB/s
+
+// Max expected NVM bandwidth for single thread (for cost calculations)
+#define UNLOADED_NVM_LAT (0.25) // us
+#define NVM_RD_BW_KNEE (15)     // GB/s
+#define NVM_WR_BW_KNEE (15)     // GB/s
+#define NVM_BW_SLOPE (0.09)     // us per GB/s
+#define NVM_WRITES_WEIGHT (1)
+
+#elif defined GSL_OPTANE // TODO this needs to be checked
+#define PEBS_NPROCS 48
 
 // DRAM bandwidth and latency curve parameters (used for latency diff calculations)
 #define UNLOADED_DRAM_LAT (0.1) // us
@@ -152,9 +192,9 @@ extern bool initialized;
     (2. / (double)(MIGRATION_WINDOW_SIZE + 1)) // EWMA alpha for migration cost (20 periods -> 0.0952)
 // ==============================================================================
 
-#define PERF_PAGES (1 + (4 << 8)) // Has to be == 1+2^n, here 4MB
-#define DEFAULT_SAMPLE_PERIOD (5003)
-#define HF_SAMPLE_PERIOD (5003)
+#define PERF_PAGES (1 + (1 << 12)) // Has to be == 1+2^n, here 16MB
+#define DEFAULT_SAMPLE_PERIOD (10007)
+#define HF_SAMPLE_PERIOD (10007)
 
 enum sampling_modes
 {
@@ -190,6 +230,11 @@ enum imc_bw_counters
 };
 
 #elif defined C220G5
+
+#define NUM_IMC (6)
+#define NUM_EVENTS (2) // There are 2 events per IMC: Reads and Writes
+
+#elif defined GSL_OPTANE
 
 #define NUM_IMC (6)
 #define NUM_EVENTS (2) // There are 2 events per IMC: Reads and Writes

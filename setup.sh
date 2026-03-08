@@ -5,6 +5,12 @@ if [[ -z "${SIZE_MIB}" ]]; then
 	exit 1
 fi
 
+write_sysfs_value() {
+	local path=$1
+	local value=$2
+	printf '%s' "${value}" | sudo tee "${path}" >/dev/null
+}
+
 sudo sysctl -w vm.overcommit_memory=1
 sudo sysctl -w vm.watermark_scale_factor=1
 sudo sysctl -w vm.watermark_boost_factor=0
@@ -17,6 +23,11 @@ sudo sysctl -w vm.admin_reserve_kbytes=16384
 #sudo sysctl -w vm.dirty_background_ratio=1
 #sudo sysctl -w vm.dirty_ratio=20
 sudo sysctl -w kernel.numa_balancing=0
+write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0
+write_sysfs_value /proc/sys/kernel/numa_balancing 0
+write_sysfs_value /sys/kernel/mm/numa/demotion_enabled 0
+write_sysfs_value /proc/sys/vm/watermark_scale_factor 10
+write_sysfs_value /sys/kernel/mm/lru_gen/enabled 0x0000
 sudo wrmsr --processor 39 0x620 0x707
 sudo swapoff -a
 

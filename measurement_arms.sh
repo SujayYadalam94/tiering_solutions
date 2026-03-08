@@ -25,7 +25,7 @@ function run_program {
 
     mkdir -p "$TIME_DIR" "$LOG_DIR"
 
-    MODEL_PATH="$PWD/libraries/libhemem-arms${LIB_SUFFIX}.so"
+    MODEL_PATH="$PWD/libraries/C220G5/libhemem-arms${LIB_SUFFIX}.so"
 
     if [[ ! -f "$MODEL_PATH" ]]; then
         echo "Skipping ${OUTPUT} run ${RUN}: missing ${MODEL_PATH}"
@@ -43,6 +43,11 @@ function run_program {
     mv output.log "${LOG_DIR}/${TIME_BASENAME}_arms.log"
     mv max_dram_hugepages.log "${TIME_DIR}/max_dram_hugepages_${TIME_BASENAME}.log"
 }
+
+run_program "/users/zimooo2/big-ann-benchmarks/.venv/bin/python3 /users/zimooo2/big-ann-benchmarks/data/10M_benchmark.py --threads 16 --index-key HNSW,Flat --stress-mode latency --dataset openai" "" faiss_10M ${RUN_ID}
+
+exit
+
 
 #run_program "/users/zimooo2/LULESH/build/lulesh2.0 -i 10 -s 400" "" lulesh2.0_s400 ${RUN_ID}
 

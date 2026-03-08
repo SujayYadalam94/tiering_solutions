@@ -33,14 +33,8 @@ struct page_info
     uint16_t accesses[NPBUFTYPES][2]; // Access counts per version
     std::mutex page_lock;
 
-    uint32_t read_syscalls;
-    uint32_t write_syscalls;
     uint32_t read_bytes;
     uint32_t write_bytes;
-    uint64_t sum_malloc_bytes;
-    int32_t min_malloc_bytes;
-    int32_t max_malloc_bytes;
-    uint32_t malloc_call;
 
     uint32_t prev_count;
     float w[WINDOW_SIZE];
@@ -53,10 +47,6 @@ struct page_info
     float w_perc[WINDOW_SIZE];
     float w_r_perc[WINDOW_SIZE];
     float w_w_perc[WINDOW_SIZE];
-
-    float malloc_call_ewma[WINDOW_SIZE];
-    float malloc_call_perc_ewma[WINDOW_SIZE];
-    float malloc_size_ewma[WINDOW_SIZE];
 
     double cumsum_reads;
     double cumsum_writes;
@@ -116,7 +106,7 @@ struct page_info
     float calculate_writes(volatile uint8_t prev_access_version);
     float calculate_accesses(volatile uint8_t prev_access_version);
     void update_window(volatile uint8_t prev_access_version, const enum sampling_modes sampling_mode);
-    void update_derivative_features(size_t rank, size_t num_sorted_pages, size_t count_total, size_t total_malloc);
+    void update_derivative_features(size_t rank, size_t num_sorted_pages, size_t count_total);
     void update_can_promote(size_t num_dram_pages, size_t rank);
     float compute_score(const float *bias);
     void reset_model_score_history();

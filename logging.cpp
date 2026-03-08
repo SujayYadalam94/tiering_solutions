@@ -217,7 +217,6 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
     PRINT_CELL_AUTO(ewma_100_perc);
     PRINT_CELL_AUTO(ewma_100_r_perc);
     PRINT_CELL_AUTO(ewma_100_w_perc);
-    PRINT_CELL_AUTO(ewma_100_malloc_perc);
     PRINT_CELL_AUTO(gap4);
     PRINT_CELL_AUTO(read_write_gap3);
     PRINT_CELL_AUTO(ewma_var_2);
@@ -240,17 +239,6 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
 
         snprintf(group_header, sizeof(group_header), "group_%d_mean_perc", offset);
         print_cell(os, row->groups_perc[offset + pm_offset], group_header, header);
-
-#if FULL_LOGS
-        snprintf(group_header, sizeof(group_header), "group_%d_malloc_calls", offset);
-        print_cell(os, row->group_malloc_calls[offset + pm_offset], group_header, header);
-
-        snprintf(group_header, sizeof(group_header), "group_%d_malloc_calls_perc", offset);
-        print_cell(os, row->group_malloc_calls_perc[offset + pm_offset], group_header, header);
-#endif
-
-        snprintf(group_header, sizeof(group_header), "group_%d_malloc_calls_ewma100_perc", offset);
-        print_cell(os, row->group_malloc_calls_ewma100_perc[offset + pm_offset], group_header, header);
     }
 
     PRINT_CELL_AUTO(group_ewma5_var);
@@ -258,33 +246,24 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
     PRINT_CELL_AUTO(age_count_total);
 
 #if FULL_LOGS
-    PRINT_CELL_AUTO(malloc_size);
     PRINT_CELL_AUTO(prot);
     PRINT_CELL_AUTO(flags);
 
     PRINT_CELL_AUTO(ewma_2);
     PRINT_CELL_AUTO(ewma_2_r);
     PRINT_CELL_AUTO(ewma_2_w);
-    PRINT_CELL_AUTO(ewma_2_malloc_size);
-    PRINT_CELL_AUTO(ewma_2_malloc_calls);
 
     PRINT_CELL_AUTO(ewma_5);
     PRINT_CELL_AUTO(ewma_5_r);
     PRINT_CELL_AUTO(ewma_5_w);
-    PRINT_CELL_AUTO(ewma_5_malloc_size);
-    PRINT_CELL_AUTO(ewma_5_malloc_calls);
 
     PRINT_CELL_AUTO(ewma_20);
     PRINT_CELL_AUTO(ewma_20_r);
     PRINT_CELL_AUTO(ewma_20_w);
-    PRINT_CELL_AUTO(ewma_20_malloc_size);
-    PRINT_CELL_AUTO(ewma_20_malloc_calls);
 
     PRINT_CELL_AUTO(ewma_100);
     PRINT_CELL_AUTO(ewma_100_r);
     PRINT_CELL_AUTO(ewma_100_w);
-    PRINT_CELL_AUTO(ewma_100_malloc_size);
-    PRINT_CELL_AUTO(ewma_100_malloc_calls);
 
     PRINT_CELL_AUTO(rank);
     PRINT_CELL_AUTO(rank_perc);
@@ -313,14 +292,8 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
     }
 
     PRINT_CELL_AUTO(model_selection);
-    PRINT_CELL_AUTO(read_syscalls);
-    PRINT_CELL_AUTO(write_syscalls);
     PRINT_CELL_AUTO(read_bytes);
     PRINT_CELL_AUTO(write_bytes);
-    PRINT_CELL_AUTO(sum_malloc_bytes);
-    PRINT_CELL_AUTO(min_malloc_bytes);
-    PRINT_CELL_AUTO(max_malloc_bytes);
-    PRINT_CELL_AUTO(malloc_call);
 #endif
 
     PRINT_CELL_AUTO(model_score);
@@ -452,7 +425,6 @@ struct data_row access_log::extract_row(size_t step, const std::shared_ptr<page_
     row.ewma_100_perc = page->w_perc[3];
     row.ewma_100_r_perc = page->w_r_perc[3];
     row.ewma_100_w_perc = page->w_w_perc[3];
-    row.ewma_100_malloc_perc = page->malloc_call_perc_ewma[3];
     row.gap4 = page->gap4;
     row.read_write_gap3 = page->read_write_gap3;
     row.ewma_var_2 = page->w_perc_var[0];
@@ -465,20 +437,17 @@ struct data_row access_log::extract_row(size_t step, const std::shared_ptr<page_
     row.global_count_since_top50_percent_ewma5 = page->global_count_since_top50_percent_ewma5;
 #endif
 
+    struct page_group *group_window[15] = {0};
+    get_group_window(grp_tracker, page->va, group_window);
     for (int8_t i = -7; i <= 7; ++i)
     {
-        struct page_group *pg = try_get_group(grp_tracker, page->va, i);
+        struct page_group *pg = group_window[i + 7];
 #if FULL_LOGS
         row.groups[i + 7] = pg != NULL ? pg->avg : 0.0;
         row.group_ewma5[i + 7] = pg != NULL ? pg->avg_ewma5 : 0.0;
 #endif
         row.groups_perc[i + 7] = pg != NULL ? pg->avg_perc : 0.0;
         row.group_ewma5_perc[i + 7] = pg != NULL ? pg->avg_perc_ewma5 : 0.0;
-#if FULL_LOGS
-        row.group_malloc_calls[i + 7] = pg != NULL ? pg->malloc_calls_avg : 0.0;
-        row.group_malloc_calls_perc[i + 7] = pg != NULL ? pg->malloc_calls_avg_perc : 0.0;
-#endif
-        row.group_malloc_calls_ewma100_perc[i + 7] = pg != NULL ? pg->malloc_calls_ewma100_perc : 0.0;
     }
 
     // Variance of group ewma5 percentages across neighbor groups
@@ -500,33 +469,24 @@ struct data_row access_log::extract_row(size_t step, const std::shared_ptr<page_
     row.age_count_total = page->age_count_total;
 
 #if FULL_LOGS == (true)
-    row.malloc_size = 0;
     row.prot = page->prot;
     row.flags = page->flags;
 
     row.ewma_2 = page->w[0];
     row.ewma_2_r = page->w_r[0];
     row.ewma_2_w = page->w_w[0];
-    row.ewma_2_malloc_size = page->malloc_size_ewma[0];
-    row.ewma_2_malloc_calls = page->malloc_call_ewma[0];
 
     row.ewma_5 = page->w[1];
     row.ewma_5_r = page->w_r[1];
     row.ewma_5_w = page->w_w[1];
-    row.ewma_5_malloc_size = page->malloc_size_ewma[1];
-    row.ewma_5_malloc_calls = page->malloc_call_ewma[1];
 
     row.ewma_20 = page->w[2];
     row.ewma_20_r = page->w_r[2];
     row.ewma_20_w = page->w_w[2];
-    row.ewma_20_malloc_size = page->malloc_size_ewma[2];
-    row.ewma_20_malloc_calls = page->malloc_call_ewma[2];
 
     row.ewma_100 = page->w[3];
     row.ewma_100_r = page->w_r[3];
     row.ewma_100_w = page->w_w[3];
-    row.ewma_100_malloc_size = page->malloc_size_ewma[3];
-    row.ewma_100_malloc_calls = page->malloc_call_ewma[3];
 
     row.rank = page->rank;
     row.rank_perc = page->rank_perc;
@@ -545,14 +505,8 @@ struct data_row access_log::extract_row(size_t step, const std::shared_ptr<page_
     row.syscw = (curr_disk_stat.syscw - prev_disk_stat.syscw);
 
     row.model_selection = page->model_selection;
-    row.read_syscalls = page->read_syscalls;
-    row.write_syscalls = page->write_syscalls;
     row.read_bytes = page->read_bytes;
     row.write_bytes = page->write_bytes;
-    row.sum_malloc_bytes = page->sum_malloc_bytes;
-    row.min_malloc_bytes = page->min_malloc_bytes;
-    row.max_malloc_bytes = page->max_malloc_bytes;
-    row.malloc_call = page->malloc_call;
 #endif
 
     row.pages_in_dram = page->pages_in_dram;

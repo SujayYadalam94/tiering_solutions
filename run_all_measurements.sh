@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SIZES=(1000 1500)
+SIZES=(2000 4000 6000 8000 10000)
 RUNS=1
 
 for size in "${SIZES[@]}"; do
@@ -24,7 +24,16 @@ for size in "${SIZES[@]}"; do
         ./measurement_arms.sh "${size}" "${run}" ""
 
         bash defrag.sh
-        ./measurement_model.sh "${size}" "${run}" ""
+        if [[ -x ./measurement_hybridtier.sh ]]; then
+            sudo -E ./measurement_hybridtier.sh "${size}" "${run}" huge
+        else
+            echo "WARNING: ./measurement_hybridtier.sh not found or not executable; skipping HybridTier"
+        fi
+
+
+
+        #bash defrag.sh
+        #./measurement_model.sh "${size}" "${run}" ""
 
         sudo bash unsetup.sh
     done

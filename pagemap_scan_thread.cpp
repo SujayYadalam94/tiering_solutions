@@ -73,8 +73,11 @@ static void scan_process_pages()
 
                 if (status < 0 && status != -EFAULT && status != -ENOENT)
                 {
-                    std::cout << "[ARMS] Warning: Invalid page status (" << status << ") for VA 0x" << std::hex
-                              << page->va + i * BASE_PAGE << std::dec << std::endl;
+                    if (ARMS_VERBOSE)
+                    {
+                        std::cout << "[ARMS] Warning: Invalid page status (" << status << ") for VA 0x" << std::hex
+                                  << page->va + i * BASE_PAGE << std::dec << std::endl;
+                    }
                     invalid_status = true;
                     break;
                 }
@@ -185,40 +188,24 @@ static void scan_process_pages()
             }*/
 
             std::shared_ptr<page_info> page;
-            bool missing = false;
             bool added_new_page = false;
             {
                 std::lock_guard<std::mutex> lock(pages_map_lock);
                 auto it = pages_map.find(va);
                 if (it == pages_map.end())
                 {
-                    missing = true;
+                    auto new_page = std::make_shared<page_info>();
+                    new_page->va = va;
+                    new_page->pages_in_dram = 0;
+                    new_page->last_seen_scan = cur_scan;
+                    pages_map.emplace(va, new_page);
+                    page = std::move(new_page);
+                    added_new_page = true;
                 }
                 else
                 {
                     page = it->second;
                     page->last_seen_scan = cur_scan;
-                }
-            }
-
-            if (missing)
-            {
-                auto new_page = std::make_shared<page_info>();
-                new_page->va = va;
-
-                new_page->pages_in_dram = 0;
-                new_page->last_seen_scan = cur_scan;
-
-                std::lock_guard<std::mutex> lock(pages_map_lock);
-                auto [it, inserted] = pages_map.emplace(va, new_page);
-                if (!inserted)
-                {
-                    page = it->second;
-                }
-                else
-                {
-                    page = new_page;
-                    added_new_page = true;
                 }
             }
 
@@ -266,8 +253,11 @@ static void scan_process_pages()
             }
         }
     }
-    std::cout << "[ARMS] Number of process pages tracked: " << pages_map.size()
-              << ", Removed stale pages: " << removed_pages << std::endl;
+    if (ARMS_VERBOSE)
+    {
+        std::cout << "[ARMS] Number of process pages tracked: " << pages_map.size()
+                  << ", Removed stale pages: " << removed_pages << std::endl;
+    }
 
     dram_samples.fetch_add(1, std::memory_order_relaxed);
     total_dram_base_pages_accum.fetch_add(total_base_pages_in_dram, std::memory_order_relaxed);
@@ -290,7 +280,11 @@ void *pagemap_scan_thread_fn(void *arg)
     {
         ptimer_start(&loop_timer);
         scan_process_pages();
-        ptimer_stop_and_print(&loop_timer);
+        ptimer_stop(&loop_timer);
+        if (ARMS_VERBOSE)
+        {
+            ptimer_print(&loop_timer);
+        }
 
         double elapsed_us = loop_timer.elapsed_us;
 

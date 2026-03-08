@@ -48,6 +48,9 @@ function run_program {
         mv max_dram_hugepages.log "${TIME_DIR}/max_dram_hugepages_${TIME_BASENAME}.log"
     fi
 }
+
+run_program "/users/zimooo2/big-ann-benchmarks/.venv/bin/python3 /users/zimooo2/big-ann-benchmarks/data/10M_benchmark.py --threads 16 --index-key HNSW,Flat --stress-mode latency --dataset openai" model_discounted_reward_95_faiss_10M_l2 faiss_10M ${RUN_ID}
+
 # Sweep history lengths so outputs don't overwrite
 #run_program "/users/zimooo2/LULESH/build/lulesh2.0 -i 10 -s 400" model_discounted_reward_95_lulesh2.0_s400_l2 lulesh2.0_s400 ${RUN_ID}
 

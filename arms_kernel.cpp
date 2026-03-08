@@ -28,6 +28,7 @@
 #include <regex>
 #include <sched.h>
 #include <set>
+#include <sstream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -62,10 +63,6 @@ uint64_t dramsize = 0;
 
 bool initialized = false;
 
-#define SYSCALL_EVENT_QUEUE_CAPACITY (128 * 1024)
-std::atomic<size_t> syscall_queue_index{0};
-std::atomic<size_t> syscall_queue_size{0};
-std::atomic<struct syscall_event *> syscall_event_queue{nullptr};
 std::atomic<uint64_t> scan_generation{0};
 
 std::unordered_map<uint64_t, std::shared_ptr<page_info>> pages_map;
@@ -224,10 +221,114 @@ static int setup_imc_bw_counters()
     return 0;
 }
 
-#elif defined C220G5
+#elif defined C220G5 || defined GSL_OPTANE
 
 int bw_fds[NUM_TIERS][NUM_EVENTS][NUM_IMC];
 uint64_t prev_bw_val[NUM_TIERS][NUM_EVENTS][NUM_IMC] = {0};
+
+static int read_int_from_file(const std::string &path)
+{
+    std::ifstream file(path);
+    if (!file)
+    {
+        return -1;
+    }
+
+    int value = -1;
+    file >> value;
+    return value;
+}
+
+static int read_first_cpu_from_cpumask(const std::string &path)
+{
+    std::ifstream file(path);
+    if (!file)
+    {
+        return -1;
+    }
+
+    std::string cpumask;
+    std::getline(file, cpumask);
+    if (cpumask.empty())
+    {
+        return -1;
+    }
+
+    std::stringstream ss(cpumask);
+    std::string token;
+    while (std::getline(ss, token, ','))
+    {
+        size_t dash_pos = token.find('-');
+        std::string first_cpu = (dash_pos == std::string::npos) ? token : token.substr(0, dash_pos);
+        try
+        {
+            return std::stoi(first_cpu);
+        }
+        catch (...)
+        {
+            continue;
+        }
+    }
+
+    return -1;
+}
+
+static uint64_t read_imc_event_config(const std::string &path)
+{
+    std::ifstream file(path);
+    if (!file)
+    {
+        return 0;
+    }
+
+    std::string line;
+    std::getline(file, line);
+    if (line.empty())
+    {
+        return 0;
+    }
+
+    int event = -1;
+    int umask = -1;
+
+    std::stringstream ss(line);
+    std::string part;
+    while (std::getline(ss, part, ','))
+    {
+        size_t eq_pos = part.find('=');
+        if (eq_pos == std::string::npos)
+        {
+            continue;
+        }
+
+        std::string key = part.substr(0, eq_pos);
+        std::string value = part.substr(eq_pos + 1);
+
+        try
+        {
+            int parsed = std::stoi(value, nullptr, 0);
+            if (key == "event")
+            {
+                event = parsed;
+            }
+            else if (key == "umask")
+            {
+                umask = parsed;
+            }
+        }
+        catch (...)
+        {
+            continue;
+        }
+    }
+
+    if (event < 0 || umask < 0)
+    {
+        return 0;
+    }
+
+    return ((uint64_t)umask << 8) | (uint64_t)event;
+}
 
 uint64_t measure_bw(int tier)
 {
@@ -255,23 +356,41 @@ void open_perf_events()
     int fd;
     struct perf_event_attr pe;
 
+    std::cout << "[ARMS] Setting up IMC bandwidth monitoring perf events..." << std::endl;
+    std::cout << "[ARMS] NUM_TIERS=" << NUM_TIERS << ", NUM_EVENTS=" << NUM_EVENTS << ", NUM_IMC=" << NUM_IMC
+              << std::endl;
+
     for (unsigned long i = 0; i < NUM_TIERS; i++)
     {
         for (unsigned long j = 0; j < NUM_EVENTS; j++)
         {
             for (unsigned long k = 0; k < NUM_IMC; k++)
             {
+                std::string imc_base = "/sys/bus/event_source/devices/uncore_imc_" + std::to_string(k);
+                int imc_type = read_int_from_file(imc_base + "/type");
+                int imc_cpu = read_first_cpu_from_cpumask(imc_base + "/cpumask");
+                uint64_t event_config = (j == 0) ? read_imc_event_config(imc_base + "/events/cas_count_read")
+                                                 : read_imc_event_config(imc_base + "/events/cas_count_write");
+
+                if (imc_type < 0 || imc_cpu < 0 || event_config == 0)
+                {
+                    std::cerr << "ERROR: Failed to read IMC perf metadata from " << imc_base << " (type=" << imc_type
+                              << ", cpu=" << imc_cpu << ", config=0x" << std::hex << event_config << std::dec << ")"
+                              << std::endl;
+                    exit(1);
+                }
+
                 memset(&pe, 0, sizeof(pe));
-                pe.type = i + 12; // TODO: read type from /sys/devices/uncore_imc_x/type
+                pe.type = (uint32_t)imc_type;
                 pe.size = sizeof(pe);
                 pe.disabled = 1;
                 pe.inherit = 1;
-                pe.config = (j == 0) ? 0x304 : 0xC04;
+                pe.config = event_config;
 
-                fd = perf_event_open(&pe, -1, 10, -1, 0);
+                fd = perf_event_open(&pe, -1, imc_cpu, -1, 0);
                 if (fd == -1)
                 {
-                    std::cerr << "ERROR: Failed to open perf event for BW monitoring" << std::endl;
+                    perror("ERROR: Failed to open perf event for BW monitoring");
                     exit(1);
                 }
                 bw_fds[i][j][k] = fd;
@@ -345,6 +464,11 @@ static struct perf_event_mmap_page *perf_setup(__u64 config, __u64 config1, __u1
 #define L3_LOAD_MISS_LOCAL 0x2d3
 #define L3_LOAD_MISS_REMOTE 0x10d3
 #elif defined C220G5
+#define L3_LOAD_MISS_LOCAL                                                                                             \
+    0x1d3 // https://perfmon-events.intel.com/platforms/skylakex/core-events/core/#event-MEM_LOAD_L3_MISS_RETIRED.LOCAL_DRAM
+#define L3_LOAD_MISS_REMOTE                                                                                            \
+    0x2d3 // https://perfmon-events.intel.com/platforms/skylakex/core-events/core/#event-MEM_LOAD_L3_MISS_RETIRED.REMOTE_DRAM
+#elif defined GSL_OPTANE
 #define L3_LOAD_MISS_LOCAL 0x1d3
 #define L3_LOAD_MISS_REMOTE 0x2d3
 #endif
@@ -360,6 +484,13 @@ static void setup_perf_events()
         if (i >= 10 && i < 20)
             continue;
 #endif
+
+#ifdef GSL_OPTANE
+        // Skip node 1 cores on GSL_OPTANE (cores 10-19 are on NUMA node 1)
+        if (i >= 16 && i < 32)
+            continue;
+#endif
+
         perf_page[i][DRAMREAD] = perf_setup(L3_LOAD_MISS_LOCAL, 0, i, DRAMREAD);
         perf_page[i][NVMREAD] = perf_setup(L3_LOAD_MISS_REMOTE, 0, i, NVMREAD);
         perf_page[i][WRITE] = perf_setup(0x82d0, 0, i, WRITE); // MEM_INST_RETIRED.ALL_STORES
@@ -455,6 +586,14 @@ void change_sampling_frequency()
             continue;
         }
 #endif
+
+#if defined GSL_OPTANE
+        if (i >= 16 && i < 32)
+        {
+            continue;
+        }
+#endif
+
         for (int j = 0; j < NPBUFTYPES; j++)
         {
             ret = ioctl(perf_fd[i][j], PERF_EVENT_IOC_PERIOD, &sample_period);
@@ -552,9 +691,13 @@ static int sort_entry_cmp_by_ewma5(const void *a, const void *b)
 
 void update_scores_and_migrate(size_t timestep)
 {
-    std::cout << "[ARMS] Updating page scores and deciding migrations..." << std::endl;
+    if (ARMS_VERBOSE)
+    {
+        std::cout << "[ARMS] Updating page scores and deciding migrations..." << std::endl;
+    }
 
     std::vector<score_entry> scores;
+    std::vector<std::shared_ptr<page_info>> page_snapshot;
 
     reset_group_hash(grp_tracker);
 
@@ -562,76 +705,24 @@ void update_scores_and_migrate(size_t timestep)
     size_t accesses_total = 0;
     {
         std::lock_guard<std::mutex> lock(pages_map_lock);
+        page_snapshot.reserve(pages_map.size());
         for (auto &kv : pages_map)
         {
-            auto page = kv.second;
-
-            page->update_window(prev_access_version, sampling_mode);
-            accesses_total += page->count;
-
-            page->prev_score = page->score;
-
-            if (page->seen_pages <= 0)
-                continue;
-            scores.push_back({page, 0});
+            page_snapshot.push_back(kv.second);
         }
     }
 
-    // Only process events if we have a valid queue (will be NULL on first call)
-    size_t total_malloc_calls = 0;
-    size_t size = atomic_load(&syscall_queue_size);
-    size_t index = atomic_load(&syscall_queue_index);
-    printf("Processing %ld syscall events\n", size - index);
-    for (; index < size; atomic_store(&syscall_queue_index, (++index)))
+    scores.reserve(page_snapshot.size());
+    for (auto &page : page_snapshot)
     {
-        struct syscall_event item = atomic_load(&syscall_event_queue)[index % SYSCALL_EVENT_QUEUE_CAPACITY];
-        uint64_t round_down = (uint64_t)item.addr & ~(PAGE_SIZE - 1);
-        if (item.len / PAGE_SIZE > 1000) // this would be 2GB
-        {
-            std::cout << "[ARMS] Warning: Skipping syscall event with large length: " << item.len << " bytes"
-                      << std::endl;
-            continue;
-        }
-        for (uint64_t off = 0; off < item.len; off += PAGE_SIZE)
-        {
-            std::shared_ptr<page_info> page;
-            {
-                std::lock_guard<std::mutex> lock(pages_map_lock);
-                if (pages_map.find(round_down + off) == pages_map.end())
-                {
-                    break;
-                }
-                page = pages_map[round_down + off];
-            }
+        page->update_window(prev_access_version, sampling_mode);
+        accesses_total += page->count;
 
-            switch (item.type)
-            {
-            case MALLOC_SYSCALL:
-                page->min_malloc_bytes =
-                    (page->min_malloc_bytes == -1)
-                        ? item.len
-                        : (((int64_t)item.len < page->min_malloc_bytes) ? item.len : page->min_malloc_bytes);
-                page->max_malloc_bytes =
-                    (page->max_malloc_bytes == -1)
-                        ? item.len
-                        : (((int64_t)item.len > page->max_malloc_bytes) ? item.len : page->max_malloc_bytes);
-                page->sum_malloc_bytes += item.len;
-                page->malloc_call++;
-                total_malloc_calls++;
-                break;
-            case READ_SYSCALL:
-                page->read_bytes += item.len;
-                page->read_syscalls++;
-                break;
-            case WRITE_SYSCALL:
-                page->write_bytes += item.len;
-                page->write_syscalls++;
-                break;
-            default:
-                printf("Unknown syscall type %d\n", item.type);
-                break;
-            }
-        }
+        page->prev_score = page->score;
+
+        if (page->seen_pages <= 0)
+            continue;
+        scores.push_back({page, 0});
     }
 
 #if FULL_LOGS == (true)
@@ -641,8 +732,8 @@ void update_scores_and_migrate(size_t timestep)
     // double cpu_usage = access_log->calc_cpu_usage_pct();
     for (size_t i = 0; i < scores.size(); i++)
     {
-        scores[i].page->update_derivative_features(i, scores.size(), accesses_total, total_malloc_calls);
-        update_group_entry(grp_tracker, scores[i].page, accesses_total, total_malloc_calls);
+        scores[i].page->update_derivative_features(i, scores.size(), accesses_total);
+        update_group_entry(grp_tracker, scores[i].page, accesses_total);
     }
 
     for (auto &score_entry : scores)
@@ -686,11 +777,38 @@ void update_scores_and_migrate(size_t timestep)
     if (scores.empty())
         return;
 
-    // Sort by score (descending)
-    std::sort(scores.begin(), scores.end(),
-              [](const score_entry &a, const score_entry &b) { return score_compare(&a, &b) < 0; });
+    uint32_t max_migrations_cur_interval =
+        ((policy_thread_interval) / (promotion_cost_avg + demotion_cost_avg)) * MIGRATION_WORKER_COUNT;
 
-    for (size_t i = 0; i < scores.size(); i++)
+    size_t candidate_window = scores.size();
+    if (ARMS_PARTIAL_RANKING)
+    {
+        const size_t min_window = 64;
+        const size_t scaled_window =
+            static_cast<size_t>(std::max<uint32_t>(1, max_migrations_cur_interval)) * ARMS_PARTIAL_RANK_MULTIPLIER;
+        candidate_window = std::min(scores.size(), std::max(min_window, scaled_window));
+    }
+
+    const bool use_partial_ranking =
+        ARMS_PARTIAL_RANKING && candidate_window < scores.size() && (candidate_window * 2 < scores.size());
+
+    auto score_desc = [](const score_entry &a, const score_entry &b) { return score_compare(&a, &b) < 0; };
+
+    if (use_partial_ranking)
+    {
+        std::nth_element(scores.begin(), scores.begin() + candidate_window, scores.end(), score_desc);
+        std::sort(scores.begin(), scores.begin() + candidate_window, score_desc);
+
+        std::nth_element(scores.begin(), scores.end() - candidate_window, scores.end(), score_desc);
+        std::sort(scores.end() - candidate_window, scores.end(), score_desc);
+    }
+    else
+    {
+        std::sort(scores.begin(), scores.end(), score_desc);
+        candidate_window = scores.size();
+    }
+
+    for (size_t i = 0; i < candidate_window; i++)
     {
         scores[i].page->update_can_promote(dramsize / PAGE_SIZE, i);
     }
@@ -715,22 +833,29 @@ void update_scores_and_migrate(size_t timestep)
     }
 
     // Print the max and min scores for debugging
-    std::cout << "[ARMS] Number of tracked pages: " << scores.size()
-              << " (DRAM: " << dram_pages / BASE_PAGE_PER_HUGEPAGE << ", NVM: " << far_pages / BASE_PAGE_PER_HUGEPAGE
-              << "), Max score: " << scores[0].score << ", Median score: " << scores[scores.size() / 2].score
-              << ", Min score: " << scores[scores.size() - 1].score << std::endl;
+    if (ARMS_VERBOSE)
+    {
+        std::cout << "[ARMS] Number of tracked pages: " << scores.size()
+                  << " (DRAM: " << dram_pages / BASE_PAGE_PER_HUGEPAGE
+                  << ", NVM: " << far_pages / BASE_PAGE_PER_HUGEPAGE << "), Max score: " << scores[0].score
+                  << ", Median score: " << scores[(use_partial_ranking ? candidate_window : scores.size()) / 2].score
+                  << ", Min score: " << scores[scores.size() - 1].score << std::endl;
+    }
 
     // Identify promotion and demotion candidates
     std::vector<uint64_t> promote_list;
     std::vector<uint64_t> demote_list;
 
-    uint64_t promote_idx = 0;
-    uint64_t demote_idx = scores.size() - 1;
+    size_t promote_idx = 0;
+    size_t promote_idx_limit = use_partial_ranking ? candidate_window : scores.size();
+    int64_t demote_idx = static_cast<int64_t>(scores.size()) - 1;
+    int64_t demote_idx_floor = use_partial_ranking ? static_cast<int64_t>(scores.size() - candidate_window) : 0;
     double migrated_count = 0;
 
-    uint32_t max_migrations_cur_interval =
-        ((policy_thread_interval) / (promotion_cost_avg + demotion_cost_avg)) * MIGRATION_WORKER_COUNT;
-    std::cout << "[ARMS] Max migrations allowed this interval: " << max_migrations_cur_interval << std::endl;
+    if (ARMS_VERBOSE)
+    {
+        std::cout << "[ARMS] Max migrations allowed this interval: " << max_migrations_cur_interval << std::endl;
+    }
 
     int64_t fasttier_free_kb = std::max(get_fasttier_free_mem() - MIN_FREE_MEMORY, (int64_t)0);
     int64_t fasttier_free_base_pages = (fasttier_free_kb == (int64_t)-1) ? 0 : (fasttier_free_kb * 1024) / BASE_PAGE;
@@ -738,14 +863,18 @@ void update_scores_and_migrate(size_t timestep)
 
     if (free_base_pages > 0)
     {
-        numa_set_preferred(0);
+        numa_set_preferred(FAST_TIER);
     }
 
     std::shared_ptr<page_info> backup_page;
     // Try to promote hot NVM pages, demoting cold DRAM pages if necessary
-    std::cout << "[ARMS] Fast tier free memory: " << fasttier_free_kb << " KB (" << fasttier_free_base_pages
-              << " base pages)" << std::endl;
-    while (promote_idx < scores.size() && promote_idx < demote_idx)
+    if (ARMS_VERBOSE)
+    {
+        std::cout << "[ARMS] Fast tier free memory: " << fasttier_free_kb << " KB (" << fasttier_free_base_pages
+                  << " base pages)" << std::endl;
+    }
+    while (promote_idx < promote_idx_limit && demote_idx >= demote_idx_floor &&
+           promote_idx < static_cast<size_t>(demote_idx))
     {
         int64_t hot_need_base_pages = 0;
         if ((migrated_count / BASE_PAGE_PER_HUGEPAGE) >= max_migrations_cur_interval)
@@ -808,15 +937,18 @@ void update_scores_and_migrate(size_t timestep)
         }
 
         // Ensure enough free base pages; demote cold pages if necessary
-        while (demote_idx > promote_idx && ((int64_t)free_base_pages) < hot_need_base_pages)
+        while (demote_idx >= demote_idx_floor && demote_idx > static_cast<int64_t>(promote_idx) &&
+               ((int64_t)free_base_pages) < hot_need_base_pages)
         {
-            while (demote_idx > promote_idx && scores[demote_idx].page->pages_in_dram == 0)
+            while (demote_idx >= demote_idx_floor && demote_idx > static_cast<int64_t>(promote_idx) &&
+                   scores[demote_idx].page->pages_in_dram == 0)
             {
                 demote_idx--;
                 continue;
             }
 
-            std::shared_ptr<page_info> cold_page = scores[demote_idx--].page;
+            std::shared_ptr<page_info> cold_page = scores[demote_idx].page;
+            demote_idx--;
 #if USE_MODEL == (true) || LOGGING_RUN == (true)
             if (cold_page->promote_backoff > 0)
             {
@@ -846,7 +978,7 @@ void update_scores_and_migrate(size_t timestep)
             if (benefit < cost)
             {
                 // Stop promotions - not profitable after considering demotion
-                demote_idx = promote_idx;
+                demote_idx = static_cast<int64_t>(promote_idx);
                 break;
             }
 
@@ -854,7 +986,7 @@ void update_scores_and_migrate(size_t timestep)
 
             if ((migrated_count / BASE_PAGE_PER_HUGEPAGE) >= max_migrations_cur_interval)
             {
-                demote_idx = promote_idx;
+                demote_idx = static_cast<int64_t>(promote_idx);
                 break;
             }
 
@@ -884,8 +1016,12 @@ void update_scores_and_migrate(size_t timestep)
 #endif
     }
 
-    std::cout << "[ARMS] Scores updated. Promote candidates: " << promote_list.size()
-              << ", Demote candidates: " << demote_list.size() << " migrated count: " << migrated_count << std::endl;
+    if (ARMS_VERBOSE)
+    {
+        std::cout << "[ARMS] Scores updated. Promote candidates: " << promote_list.size()
+                  << ", Demote candidates: " << demote_list.size() << " migrated count: " << migrated_count
+                  << std::endl;
+    }
 
     // Perform migrations by pairing promotions and demotions in the same tasks
     if (!promote_list.empty() || !demote_list.empty())
@@ -905,47 +1041,6 @@ void update_scores_and_migrate(size_t timestep)
 // Public API
 // ============================================================================
 
-struct syscall_event *create_syscall_event_queue()
-{
-    struct syscall_event *queue =
-        (struct syscall_event *)malloc(2 * SYSCALL_EVENT_QUEUE_CAPACITY * sizeof(struct syscall_event));
-    if (queue == NULL)
-    {
-        perror("Failed to allocate memory for syscall event queue\n");
-        exit(EXIT_FAILURE);
-    }
-    return queue;
-}
-
-inline void pebs_log_syscall(void *addr, size_t len, enum syscall_type type)
-{
-    size_t end = atomic_load(&syscall_queue_size);
-    size_t start = atomic_load(&syscall_queue_index);
-
-    if (end - start >= SYSCALL_EVENT_QUEUE_CAPACITY)
-    {
-        // queue full, drop event
-        return;
-    }
-
-    size_t idx = (atomic_fetch_add(&syscall_queue_size, 1)) % SYSCALL_EVENT_QUEUE_CAPACITY;
-    struct syscall_event *queue = atomic_load(&syscall_event_queue);
-    queue[idx] = (struct syscall_event){.type = type, .addr = addr, .len = len};
-}
-
-void pebs_log_read(void *addr, size_t len)
-{
-    pebs_log_syscall(addr, len, READ_SYSCALL);
-}
-void pebs_log_write(void *addr, size_t len)
-{
-    pebs_log_syscall(addr, len, WRITE_SYSCALL);
-}
-void pebs_log_malloc(void *addr, size_t len)
-{
-    pebs_log_syscall(addr, len, MALLOC_SYSCALL);
-}
-
 void arms_start_tiering()
 {
     std::cout << "[ARMS] Initializing ARMS..." << std::endl;
@@ -959,10 +1054,7 @@ void arms_start_tiering()
     std::cout << "[ARMS] PEBS_KSWAPD_INTERVAL_BIG = " << PEBS_KSWAPD_INTERVAL_BIG << std::endl;
     std::cout << "[ARMS] PEBS_KSWAPD_INTERVAL_SMALL = " << PEBS_KSWAPD_INTERVAL_SMALL << std::endl;
 
-    numa_set_preferred(0);
-
-    struct syscall_event *syscall_queue = create_syscall_event_queue();
-    syscall_event_queue.store(syscall_queue, std::memory_order_relaxed);
+    numa_set_preferred(FAST_TIER);
 
     grp_tracker = create_group_tracker();
 
@@ -1093,6 +1185,8 @@ void arms_kernel_shutdown()
 
     terminated = true;
     printf("[ARMS] Shutting down...\n");
+
+    exit(0); // For now, just exit immediately to avoid long shutdown times. Cleanup can be re-enabled later.
 
     // Wake workers so they can notice termination
     madvise_cv.notify_all();

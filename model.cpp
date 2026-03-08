@@ -10,7 +10,7 @@
 
 // Number of features - this should match your model's training configuration
 // Set to a placeholder value; adjust based on your actual model
-#define MODEL_NUM_FEATURES 17
+#define MODEL_NUM_FEATURES 16
 
 /**
  * Extract features from page_info into the feature buffer
@@ -21,7 +21,7 @@ static inline void extract_features(struct data_row &row, double *features)
 {
 
     // ewma_5_perc ewma_20_perc ewma_100_perc global_avg_accesses_perc group_neg_mean_ewma5_perc
-    // group_pos_mean_ewma5_perc group_0_mean_ewma5_perc ewma_100_malloc_perc
+    // group_pos_mean_ewma5_perc group_0_mean_ewma5_perc
 
     int8_t i = 0;
     /*features[i++] = row.ewma_2_perc;
@@ -37,13 +37,12 @@ static inline void extract_features(struct data_row &row, double *features)
     features[i++] = row.groups_perc[-3 + 7]; // -3 offset
     features[i++] = row.groups_perc[3 + 7];  // 3 offset
     features[i++] = row.groups_perc[0 + 7];  // 0 offset
-    features[i++] = row.age_count_total;
-    features[i++] = row.ewma_100_malloc_perc;*/
+    features[i++] = row.age_count_total;*/
 
     // ewma_2_perc ewma_5_perc ewma_20_perc ewma_100_perc
     // ewma_2_w_perc ewma_5_w_perc ewma_20_w_perc ewma_100_w_perc
     // global_avg_accesses_perc group_neg_mean_perc group_pos_mean_perc group_0_mean_perc
-    // ewma_100_malloc_perc gap4 read_write_gap3 ewma_var_100 group_ewma5_var
+    // gap4 read_write_gap3 ewma_var_100 group_ewma5_var
     // gap4 = ewma_5_perc - global_avg_accesses_perc
     // read_write_gap3 = ewma_100_r_perc - ewma_100_w_perc
 
@@ -59,7 +58,6 @@ static inline void extract_features(struct data_row &row, double *features)
     features[i++] = row.groups_perc[-1 + 7] + row.groups_perc[-2 + 7] + row.groups_perc[-3 + 7];
     features[i++] = row.groups_perc[1 + 7] + row.groups_perc[2 + 7] + row.groups_perc[3 + 7];
     features[i++] = row.groups_perc[0 + 7];
-    features[i++] = row.ewma_100_malloc_perc;
 
     features[i++] = row.gap4;
     features[i++] = row.read_write_gap3;

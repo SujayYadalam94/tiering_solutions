@@ -31,14 +31,12 @@ void *arms_policy_thread(void *arg)
         // Report migrations from the previous period
         uint64_t period_promoted = migrations_up_period.exchange(0, std::memory_order_relaxed);
         uint64_t period_demoted = migrations_down_period.exchange(0, std::memory_order_relaxed);
-        std::cout << "[ARMS] Period migrations - promoted: " << period_promoted << ", demoted: " << period_demoted
-                  << std::endl;
-        
-        //#if USE_MODEL == (true) || LOGGING_RUN == (true)
-                // Drop stale migration requests at the start of each policy iteration
-                clear_migration_queue();
-        //#endif
-        
+        if (ARMS_VERBOSE)
+        {
+            std::cout << "[ARMS] Period migrations - promoted: " << period_promoted << ", demoted: " << period_demoted
+                      << std::endl;
+        }
+
         if (global_version % (1000000 / policy_thread_interval) == 0)
         {
             detect_hot_change();
@@ -76,11 +74,18 @@ void *arms_policy_thread(void *arg)
         }
 
         // Print total samples
-        std::cout << "[ARMS] Total samples - DRAMREAD: " << total_samples[DRAMREAD]
-                  << ", NVMREAD: " << total_samples[NVMREAD] << ", WRITE: " << total_samples[WRITE] << std::endl;
+        if (ARMS_VERBOSE)
+        {
+            std::cout << "[ARMS] Total samples - DRAMREAD: " << total_samples[DRAMREAD]
+                      << ", NVMREAD: " << total_samples[NVMREAD] << ", WRITE: " << total_samples[WRITE] << std::endl;
+        }
         total_samples[DRAMREAD] = total_samples[NVMREAD] = total_samples[WRITE] = 0;
 
-        ptimer_stop_and_print(&loop_timer);
+        ptimer_stop(&loop_timer);
+        if (ARMS_VERBOSE)
+        {
+            ptimer_print(&loop_timer);
+        }
         double elapsed_us = loop_timer.elapsed_us;
 
         if (elapsed_us < policy_thread_interval)
@@ -89,6 +94,9 @@ void *arms_policy_thread(void *arg)
         }
     }
 
-    std::cout << "[ARMS] Policy thread terminating..." << std::endl;
+    if (ARMS_VERBOSE)
+    {
+        std::cout << "[ARMS] Policy thread terminating..." << std::endl;
+    }
     return nullptr;
 }
