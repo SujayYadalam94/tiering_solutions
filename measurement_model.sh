@@ -11,8 +11,20 @@ fi
 KB=$((1024))
 MB=$((1024*KB))
 GB=$((1024*MB))
+BENCH_ROOT=${BENCH_ROOT:-/users/zimooo2}
+NUMA_MEM_NODES=${NUMA_MEM_NODES:-0,1}
 
 mkdir -p times logs times/model
+
+#pcts=(90 95 99)
+#minmax_options=(true false)
+#hist_lengths=(4 8)
+#penalties=(0.8 0.9)
+
+pcts=(95)
+minmax_options=(false)
+hist_lengths=(4)
+penalties=(0.9)
 
 function run_program {
     PROGRAM=$1
@@ -26,7 +38,7 @@ function run_program {
 
     mkdir -p "$TIME_DIR" "$LOG_DIR"
 
-    MODEL_PATH="$PWD/libraries/libhemem-${MODEL}${LIB_SUFFIX}.so"
+    MODEL_PATH="$PWD/libraries/C220G5/libhemem-${MODEL}${LIB_SUFFIX}.so"
 
     if [[ ! -f "$MODEL_PATH" ]]; then
         echo "Skipping ${OUTPUT} run ${RUN}: missing library ${MODEL_PATH}"
@@ -35,71 +47,82 @@ function run_program {
 
     rm -f "${TIME_DIR}/${TIME_BASENAME}.time"
     rm -f "${LOG_DIR}/${TIME_BASENAME}_model.log"
+    for part in $(seq 0 9); do
+        rm -f "${LOG_DIR}/${TIME_BASENAME}_model_${part}.log"
+    done
     rm -f "${TIME_DIR}/max_dram_hugepages_${TIME_BASENAME}.log"
 
-    { time taskset -c 0-9,20-29 \
+    LOG_OUTPUT_PATH="${LOG_DIR}/${TIME_BASENAME}_model.log"
+    { time numactl --membind=${NUMA_MEM_NODES} -- taskset -c 0-9,20-29 \
         sudo \
+        LOG_OUTPUT_PATH="${LOG_OUTPUT_PATH}" \
         LD_PRELOAD=${MODEL_PATH} \
         $PROGRAM 2>&1 ; } 2> "${TIME_DIR}/${TIME_BASENAME}.time"
-    if [[ -f output.log ]]; then
-        mv output.log "${LOG_DIR}/${TIME_BASENAME}_model.log"
-    fi
     if [[ -f max_dram_hugepages.log ]]; then
         mv max_dram_hugepages.log "${TIME_DIR}/max_dram_hugepages_${TIME_BASENAME}.log"
     fi
 }
-# Sweep history lengths so outputs don't overwrite
-#run_program "/users/zimooo2/LULESH/build/lulesh2.0 -i 10 -s 400" model_discounted_reward_95_lulesh2.0_s400_l2 lulesh2.0_s400 ${RUN_ID}
 
-#run_program "/users/zimooo2/duckdb/build/release/benchmark/benchmark_runner benchmark/large/tpch-sf100/.*benchmark --threads=16" model_discounted_reward_95_DuckDB-TPCH-sf100_l2 DuckDB-TPCH-sf100 ${RUN_ID}
-#run_program "/users/zimooo2/duckdb/build/release/benchmark/benchmark_runner benchmark/large/tpcds-sf100/.*benchmark --threads=16" model_discounted_reward_95_DuckDB-TPCDS-sf100_l2 DuckDB-TPCDS-sf100 ${RUN_ID}
-#
+function run_model_sweep {
+    PROGRAM=$1
+    MODEL_BASE=$2
+    OUTPUT=$3
+    RUN=$4
+
+    for pct in "${pcts[@]}"; do
+        for minmax in "${minmax_options[@]}"; do
+            for hist_length in "${hist_lengths[@]}"; do
+                for penalty in "${penalties[@]}"; do
+                    model_name="model_discounted_reward_${pct}_${MODEL_BASE}_l2-${minmax}_${hist_length}_${penalty}"
+                    echo "Running ${OUTPUT} with model: ${model_name}"
+                    run_program "$PROGRAM" "$model_name" "$OUTPUT" "$RUN"
+                done
+            done
+        done
+    done
+}
+
+run_model_sweep "${BENCH_ROOT}/.venv/bin/python3 ${BENCH_ROOT}/big-ann-benchmarks/data/10M_benchmark.py --threads 16 --index-key HNSW,Flat --stress-mode latency --dataset openai" "faiss_10M" "faiss_10M" "${RUN_ID}"
+
+exit
+
+# Sweep history lengths so outputs don't overwrite
+run_model_sweep "OMP_NUM_THREADS=16 ${BENCH_ROOT}/LULESH/build/lulesh2.0 -i 10 -s 400" model_discounted_reward_95_lulesh2.0_s400_l2 lulesh2.0_s400 ${RUN_ID}
+
+run_model_sweep "${BENCH_ROOT}/duckdb/build/release/benchmark/benchmark_runner benchmark/large/tpch-sf100/.*benchmark --threads=16" "DuckDB-TPCH-sf100" "DuckDB-TPCH-sf100" "${RUN_ID}"
+run_model_sweep "${BENCH_ROOT}/duckdb/build/release/benchmark/benchmark_runner benchmark/large/tpcds-sf100/.*benchmark --threads=16" "DuckDB-TPCDS-sf100" "DuckDB-TPCDS-sf100" "${RUN_ID}"
+
+
 ## Call for all D size NPB programs
 #programs=("bt.D.x" "cg.D.x" "ep.D.x" "lu.D.x" "mg.D.x" "sp.D.x" "ua.D.x")
-#programs=("mg.D.x")
-#for prog in "${programs[@]}"; do
-#    echo "Running NPB program: $prog"
-#    run_program /users/zimooo2/NPB3.4.3/NPB3.4-OMP/bin/$prog model_discounted_reward_95_${prog}_l2 $prog ${RUN_ID}
-#done
+programs=("mg.D.x")
+for prog in "${programs[@]}"; do
+    echo "Running NPB program: $prog"
+    run_model_sweep "OMP_NUM_THREADS=16 ${BENCH_ROOT}/NPB3.4.3/NPB3.4-OMP/bin/$prog" "$prog" "$prog" "${RUN_ID}"
+done
 #
 #echo "XSBench run ${RUN_ID}"
-#run_program "/users/zimooo2/XSBench/openmp-threading/XSBench -t 20 -g 50000 -p 20000000" model_discounted_reward_95_XSBench_l2 XSBench ${RUN_ID}
+run_model_sweep "${BENCH_ROOT}/XSBench/openmp-threading/XSBench -t 16 -g 50000 -p 20000000" "XSBench" "XSBench" "${RUN_ID}"
 #
 ## GAPBS programs for twitter and kron graphs
 #gapbs_programs=("bc" "bfs" "cc_sv" "cc" "pr" "pr_spmv" "sssp" "tc")
 #graphs=("twitter.sg" "kron.sg")
 
 #gapbs_programs=("bc" "bfs" "cc_sv" "cc" "pr" "pr_spmv" "sssp" "tc")
-#gapbs_programs=("bc" "bfs" "pr")
-#gapbs_programs=("bc")
-#graphs=("twitter.sg")
-#for graph in "${graphs[@]}"; do
-#    for prog in "${gapbs_programs[@]}"; do
-#        echo "Running GAPBS program: $prog on graph: $graph"
-#        run_program "OMP_NUM_THREADS=16 /users/zimooo2/gapbs/$prog -n 40 -f /users/zimooo2/gapbs/benchmark/graphs/$graph" model_discounted_reward_95_${prog}-${graph}_l2 $prog-$graph ${RUN_ID}
-#    done
-#done
-
-gapbs_programs=("pr")
-graphs=("kron.sg")
-pcts=(90 95 99)
-minmax_options=(true false)
-hist_lengths=(4 8)
-penalties=(0.8 0.9)
-
+gapbs_programs=("bc" "pr")
+graphs=("twitter.sg")
 for graph in "${graphs[@]}"; do
     for prog in "${gapbs_programs[@]}"; do
-        for pct in "${pcts[@]}"; do
-            for minmax in "${minmax_options[@]}"; do
-                for hist_length in "${hist_lengths[@]}"; do
-                    for penalty in "${penalties[@]}"; do
-                        model_name="model_discounted_reward_${pct}_${prog}-${graph}_l2-${minmax}_${hist_length}_${penalty}"
-                        echo "Running GAPBS program: ${prog} on graph: ${graph} with model: ${model_name}"
-                        run_program "OMP_NUM_THREADS=16 /users/zimooo2/gapbs/$prog -n 20 -f /users/zimooo2/gapbs/benchmark/graphs/$graph" "$model_name" "$prog-$graph" "${RUN_ID}"
-                    done
-                done
-            done
-        done
+        echo "Running GAPBS program: $prog on graph: $graph"
+        run_model_sweep "OMP_NUM_THREADS=16 ${BENCH_ROOT}/gapbs/$prog -n 40 -f ${BENCH_ROOT}/gapbs/benchmark/graphs/$graph" "${prog}-${graph}" "${prog}-${graph}" "${RUN_ID}"
+    done
+done
+
+gapbs_programs=("bc" "pr")
+graphs=("kron.sg")
+for graph in "${graphs[@]}"; do
+    for prog in "${gapbs_programs[@]}"; do
+        run_model_sweep "OMP_NUM_THREADS=16 ${BENCH_ROOT}/gapbs/$prog -n 20 -f ${BENCH_ROOT}/gapbs/benchmark/graphs/$graph" "${prog}-${graph}" "${prog}-${graph}" "${RUN_ID}"
     done
 done
 

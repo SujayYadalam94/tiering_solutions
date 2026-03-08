@@ -1,0 +1,5 @@
+./measurement_arms.sh: line 17: 3161010 Segmentation fault      taskset -c 0-9,20-29 sudo LD_PRELOAD=${MODEL_PATH} $PROGRAM 2>&1
+
+real	10m3.765s
+user	0m0.498s
+sys	0m1.169s

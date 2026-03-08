@@ -103,13 +103,13 @@ tmux new-session -d "make -j ; make bench-graphs -j"
 cd
 
 # new repos
-git clone git@github.com:hpcg-benchmark/hpcg.git
-cd hpcg
-mkdir build_Linux
-cd build_Linux
-../configure GCC_OMP
-make -j
-cd
+#git clone git@github.com:hpcg-benchmark/hpcg.git
+#cd hpcg
+#mkdir build_Linux
+#cd build_Linux
+#../configure GCC_OMP
+#make -j
+#cd
 
 git clone git@github.com:llnl/LULESH.git
 cd LULESH
@@ -117,12 +117,12 @@ sudo apt install openmpi-bin openmpi-doc libopenmpi-dev
 mkdir build; cd build; cmake -DCMAKE_BUILD_TYPE=Release -DMPI_CXX_COMPILER=`which mpicxx` .. ; make
 cd
 
-git clone --recurse-submodules git@github.com:UK-MAC/CloverLeaf.git
-cd CloverLeaf/CloverLeaf_OpenMP
-make COMPILER=GNU MPI_COMPILER=gfortran C_MPI_COMPILER=gcc
-cd
-
-git clone git@github.com:facebookresearch/dlrm.git
+#git clone --recurse-submodules git@github.com:UK-MAC/CloverLeaf.git
+#cd CloverLeaf/CloverLeaf_OpenMP
+#make COMPILER=GNU MPI_COMPILER=gfortran C_MPI_COMPILER=gcc
+#cd
+#
+#git clone git@github.com:facebookresearch/dlrm.git
 
 #git clone git@github.com:facebook/CacheLib.git
 #cd CacheLib
@@ -130,31 +130,47 @@ git clone git@github.com:facebookresearch/dlrm.git
 #python3 ./build/fbcode_builder/getdeps.py --allow-system-packages build cachelib
 #cd
 
-git clone git@github.com:ggml-org/llama.cpp.git
-cd llama.cpp
-cmake -B build
-cmake --build build --config Release -j
-./llama-cli -hf ggml-org/gpt-oss-120b-GGUF
-cd
+#git clone git@github.com:ggml-org/llama.cpp.git
+#cd llama.cpp
+#cmake -B build
+#cmake --build build --config Release -j
+#./llama-cli -hf ggml-org/gpt-oss-120b-GGUF
+#cd
 
-git clone git@github.com:pyg-team/pytorch_geometric.git
-# more to do here
+#git clone git@github.com:pyg-team/pytorch_geometric.git
+## more to do here
+#
+#git clone git@github.com:spcl/npbench.git
+#cd npbench
+#pip install -r requirements.txt
+#python -m pip install .
+#pip install -U jax
+#python -m pip install numba
+#python -m pip install dace
 
-git clone git@github.com:spcl/npbench.git
-cd npbench
-pip install -r requirements.txt
-python -m pip install .
-pip install -U jax
-python -m pip install numba
-python -m pip install dace
+#git clone git@github.com:jeffhammond/STREAM.git
+#cd STREAM
+#make
+#cd
 
-git clone git@github.com:jeffhammond/STREAM.git
-cd STREAM
-make
-cd
+#git clone git@github.com:dgriff777/rl_a3c_pytorch.git
+#pip install gym universe
 
-git clone git@github.com:dgriff777/rl_a3c_pytorch.git
-pip install gym universe
+#git clone https://github.com/facebookresearch/faiss.git
+#conda install -c rapidsai -c conda-forge -c nvidia libcuvs=25.10 'cuda-version=12.6'
+#sudo apt-get -y update && sudo apt-get install -y libblas-dev liblapack-dev libopenblas-dev
+#cd faiss
+#cmake -B build -DFAISS_ENABLE_GPU=OFF .
+#make -C build -j faiss_avx512
+#make -C build -j demo_sift1M
+#mkdir -p sift1M
+#cd sift1M
+## there needs to be some filing moving here such that the vecs are in this folder
+#wget ftp://ftp.irisa.fr/local/texmex/corpus/sift.tar.gz
+#tar -xzvf sift.tar.gz
+#cd ..
+#cd
+
 
 # Clone tiering repositories
 git clone git@github.com:jsfreischuetz/tiering_models.git

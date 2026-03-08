@@ -23,17 +23,25 @@ function run_program {
 
     rm -f "${TIME_DIR}/${TIME_BASENAME}.time"
     rm -f "${LOG_DIR}/${TIME_BASENAME}.log"
+    for part in $(seq 0 9); do
+        rm -f "${LOG_DIR}/${TIME_BASENAME}_${part}.log"
+    done
 
-    { time numactl --preferred=0 -- taskset -c 0-9,20-29 \
+    LOG_OUTPUT_PATH="${LOG_DIR}/${TIME_BASENAME}.log"
+    { time numactl --preferred=0 -- taskset -c 0-15,32-47 \
         sudo \
-        LD_PRELOAD=$PWD/libraries/libhemem-${MODEL}.so \
+        LOG_OUTPUT_PATH="${LOG_OUTPUT_PATH}" \
+        LD_PRELOAD=$PWD/libraries/C220G5/libhemem-${MODEL}.so \
         $PROGRAM 2>&1 ; } 2> "${TIME_DIR}/${TIME_BASENAME}.time"
-    mv output.log "${LOG_DIR}/${TIME_BASENAME}.log"
+    echo "${LOG_DIR}/${TIME_BASENAME}.log"
 }
 
 
-
 for run in $(seq "${START_RUN}" "${RUNS}"); do
+
+
+    run_program "/users/zimooo2/.venv/bin/python3 /users/zimooo2/big-ann-benchmarks/data/10M_benchmark.py --threads 16 --index-key HNSW,Flat --stress-mode latency --dataset openai" logging faiss_10M ${run}
+    continue
 
     # Call for all D size NPB programs
     programs=("bt.D.x" "cg.D.x" "ep.D.x" "lu.D.x" "mg.D.x" "sp.D.x" "ua.D.x")

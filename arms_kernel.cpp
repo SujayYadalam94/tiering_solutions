@@ -28,6 +28,7 @@
 #include <regex>
 #include <sched.h>
 #include <set>
+#include <sstream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -224,10 +225,114 @@ static int setup_imc_bw_counters()
     return 0;
 }
 
-#elif defined C220G5
+#elif defined C220G5 || defined GSL_OPTANE
 
 int bw_fds[NUM_TIERS][NUM_EVENTS][NUM_IMC];
 uint64_t prev_bw_val[NUM_TIERS][NUM_EVENTS][NUM_IMC] = {0};
+
+static int read_int_from_file(const std::string &path)
+{
+    std::ifstream file(path);
+    if (!file)
+    {
+        return -1;
+    }
+
+    int value = -1;
+    file >> value;
+    return value;
+}
+
+static int read_first_cpu_from_cpumask(const std::string &path)
+{
+    std::ifstream file(path);
+    if (!file)
+    {
+        return -1;
+    }
+
+    std::string cpumask;
+    std::getline(file, cpumask);
+    if (cpumask.empty())
+    {
+        return -1;
+    }
+
+    std::stringstream ss(cpumask);
+    std::string token;
+    while (std::getline(ss, token, ','))
+    {
+        size_t dash_pos = token.find('-');
+        std::string first_cpu = (dash_pos == std::string::npos) ? token : token.substr(0, dash_pos);
+        try
+        {
+            return std::stoi(first_cpu);
+        }
+        catch (...)
+        {
+            continue;
+        }
+    }
+
+    return -1;
+}
+
+static uint64_t read_imc_event_config(const std::string &path)
+{
+    std::ifstream file(path);
+    if (!file)
+    {
+        return 0;
+    }
+
+    std::string line;
+    std::getline(file, line);
+    if (line.empty())
+    {
+        return 0;
+    }
+
+    int event = -1;
+    int umask = -1;
+
+    std::stringstream ss(line);
+    std::string part;
+    while (std::getline(ss, part, ','))
+    {
+        size_t eq_pos = part.find('=');
+        if (eq_pos == std::string::npos)
+        {
+            continue;
+        }
+
+        std::string key = part.substr(0, eq_pos);
+        std::string value = part.substr(eq_pos + 1);
+
+        try
+        {
+            int parsed = std::stoi(value, nullptr, 0);
+            if (key == "event")
+            {
+                event = parsed;
+            }
+            else if (key == "umask")
+            {
+                umask = parsed;
+            }
+        }
+        catch (...)
+        {
+            continue;
+        }
+    }
+
+    if (event < 0 || umask < 0)
+    {
+        return 0;
+    }
+
+    return ((uint64_t)umask << 8) | (uint64_t)event;
+}
 
 uint64_t measure_bw(int tier)
 {
@@ -255,23 +360,41 @@ void open_perf_events()
     int fd;
     struct perf_event_attr pe;
 
+    std::cout << "[ARMS] Setting up IMC bandwidth monitoring perf events..." << std::endl;
+    std::cout << "[ARMS] NUM_TIERS=" << NUM_TIERS << ", NUM_EVENTS=" << NUM_EVENTS << ", NUM_IMC=" << NUM_IMC
+              << std::endl;
+
     for (unsigned long i = 0; i < NUM_TIERS; i++)
     {
         for (unsigned long j = 0; j < NUM_EVENTS; j++)
         {
             for (unsigned long k = 0; k < NUM_IMC; k++)
             {
+                std::string imc_base = "/sys/bus/event_source/devices/uncore_imc_" + std::to_string(k);
+                int imc_type = read_int_from_file(imc_base + "/type");
+                int imc_cpu = read_first_cpu_from_cpumask(imc_base + "/cpumask");
+                uint64_t event_config = (j == 0) ? read_imc_event_config(imc_base + "/events/cas_count_read")
+                                                 : read_imc_event_config(imc_base + "/events/cas_count_write");
+
+                if (imc_type < 0 || imc_cpu < 0 || event_config == 0)
+                {
+                    std::cerr << "ERROR: Failed to read IMC perf metadata from " << imc_base << " (type=" << imc_type
+                              << ", cpu=" << imc_cpu << ", config=0x" << std::hex << event_config << std::dec << ")"
+                              << std::endl;
+                    exit(1);
+                }
+
                 memset(&pe, 0, sizeof(pe));
-                pe.type = i + 12; // TODO: read type from /sys/devices/uncore_imc_x/type
+                pe.type = (uint32_t)imc_type;
                 pe.size = sizeof(pe);
                 pe.disabled = 1;
                 pe.inherit = 1;
-                pe.config = (j == 0) ? 0x304 : 0xC04;
+                pe.config = event_config;
 
-                fd = perf_event_open(&pe, -1, 10, -1, 0);
+                fd = perf_event_open(&pe, -1, imc_cpu, -1, 0);
                 if (fd == -1)
                 {
-                    std::cerr << "ERROR: Failed to open perf event for BW monitoring" << std::endl;
+                    perror("ERROR: Failed to open perf event for BW monitoring");
                     exit(1);
                 }
                 bw_fds[i][j][k] = fd;
@@ -345,6 +468,11 @@ static struct perf_event_mmap_page *perf_setup(__u64 config, __u64 config1, __u1
 #define L3_LOAD_MISS_LOCAL 0x2d3
 #define L3_LOAD_MISS_REMOTE 0x10d3
 #elif defined C220G5
+#define L3_LOAD_MISS_LOCAL                                                                                             \
+    0x1d3 // https://perfmon-events.intel.com/platforms/skylakex/core-events/core/#event-MEM_LOAD_L3_MISS_RETIRED.LOCAL_DRAM
+#define L3_LOAD_MISS_REMOTE                                                                                            \
+    0x2d3 // https://perfmon-events.intel.com/platforms/skylakex/core-events/core/#event-MEM_LOAD_L3_MISS_RETIRED.REMOTE_DRAM
+#elif defined GSL_OPTANE
 #define L3_LOAD_MISS_LOCAL 0x1d3
 #define L3_LOAD_MISS_REMOTE 0x2d3
 #endif
@@ -360,6 +488,13 @@ static void setup_perf_events()
         if (i >= 10 && i < 20)
             continue;
 #endif
+
+#ifdef GSL_OPTANE
+        // Skip node 1 cores on GSL_OPTANE (cores 10-19 are on NUMA node 1)
+        if (i >= 16 && i < 32)
+            continue;
+#endif
+
         perf_page[i][DRAMREAD] = perf_setup(L3_LOAD_MISS_LOCAL, 0, i, DRAMREAD);
         perf_page[i][NVMREAD] = perf_setup(L3_LOAD_MISS_REMOTE, 0, i, NVMREAD);
         perf_page[i][WRITE] = perf_setup(0x82d0, 0, i, WRITE); // MEM_INST_RETIRED.ALL_STORES
@@ -455,6 +590,14 @@ void change_sampling_frequency()
             continue;
         }
 #endif
+
+#if defined GSL_OPTANE
+        if (i >= 16 && i < 32)
+        {
+            continue;
+        }
+#endif
+
         for (int j = 0; j < NPBUFTYPES; j++)
         {
             ret = ioctl(perf_fd[i][j], PERF_EVENT_IOC_PERIOD, &sample_period);
@@ -738,7 +881,7 @@ void update_scores_and_migrate(size_t timestep)
 
     if (free_base_pages > 0)
     {
-        numa_set_preferred(0);
+        numa_set_preferred(FAST_TIER);
     }
 
     std::shared_ptr<page_info> backup_page;
@@ -959,7 +1102,7 @@ void arms_start_tiering()
     std::cout << "[ARMS] PEBS_KSWAPD_INTERVAL_BIG = " << PEBS_KSWAPD_INTERVAL_BIG << std::endl;
     std::cout << "[ARMS] PEBS_KSWAPD_INTERVAL_SMALL = " << PEBS_KSWAPD_INTERVAL_SMALL << std::endl;
 
-    numa_set_preferred(0);
+    numa_set_preferred(FAST_TIER);
 
     struct syscall_event *syscall_queue = create_syscall_event_queue();
     syscall_event_queue.store(syscall_queue, std::memory_order_relaxed);

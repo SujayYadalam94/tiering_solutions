@@ -1,8 +1,13 @@
 #include "logging.h"
 #include <atomic>
+#include <cstdio>
+#include <cstdlib>
+#include <filesystem>
 #include <fstream>
 #include <iomanip>
 #include <numa.h>
+#include <string>
+#include <thread>
 #include <vector>
 
 extern bool terminated; // defined in arms_kernel.cpp
@@ -168,6 +173,22 @@ void access_log::update_proc_stats()
 namespace
 {
 constexpr std::size_t LOG_BUFFER_BYTES = 100ULL * 1024ULL * 1024ULL;
+constexpr std::size_t LOG_FILE_COUNT = 10;
+constexpr std::size_t LOG_PARTS_PER_FILE = 10;
+constexpr const char *DEFAULT_LOG_OUTPUT_PATH = "/home/freischuetz/memory_tiering/tiering_solutions/output.log";
+
+std::string build_log_output_base_path()
+{
+    const char *env_path = std::getenv("LOG_OUTPUT_PATH");
+    std::string output_path = (env_path != nullptr && env_path[0] != '\0') ? env_path : DEFAULT_LOG_OUTPUT_PATH;
+
+    if (output_path.size() >= 4 && output_path.compare(output_path.size() - 4, 4, ".log") == 0)
+    {
+        output_path.erase(output_path.size() - 4);
+    }
+
+    return output_path;
+}
 
 inline bool ranges_overlap(uint64_t a_start, uint64_t a_end, uint64_t b_start, uint64_t b_end)
 {
@@ -397,26 +418,127 @@ void access_log::pebs_write_log()
         std::cout << "[ARMS] Build Model..." << std::endl;
         build_model();
 
-        std::cout << "[ARMS] Writing training data log to output.txt..." << std::endl;
-        std::vector<char> buffer(LOG_BUFFER_BYTES);
+        std::cout << "[ARMS] Writing training data log into 10 files (10 threaded parts each)..." << std::endl;
 
-        std::ofstream ofs;
-        std::filebuf *file_buf = ofs.rdbuf();
-        file_buf->pubsetbuf(buffer.data(), buffer.size());
-        ofs.open("/users/zimooo2/tiering_solutions/output.log");
-        if (!ofs.is_open())
+        const size_t sample_count = std::min(logged_samples, static_cast<size_t>(MAX_LOGGED_SAMPLES));
+        const std::string output_base = build_log_output_base_path();
+        const std::filesystem::path output_base_path(output_base);
+        const std::filesystem::path output_dir = output_base_path.parent_path();
+        if (!output_dir.empty())
         {
-            perror("open output.log");
+            std::error_code ec;
+            std::filesystem::create_directories(output_dir, ec);
+        }
+
+        const size_t total_parts = LOG_FILE_COUNT * LOG_PARTS_PER_FILE;
+        std::vector<size_t> boundaries(total_parts + 1, 0);
+        for (size_t i = 0; i <= total_parts; ++i)
+        {
+            boundaries[i] = (sample_count * i) / total_parts;
+        }
+
+        auto write_part = [this](const std::string &part_path, size_t begin_idx, size_t end_idx) -> bool {
+            std::vector<char> part_buffer(LOG_BUFFER_BYTES);
+            std::ofstream part_ofs;
+            std::filebuf *part_buf = part_ofs.rdbuf();
+            part_buf->pubsetbuf(part_buffer.data(), part_buffer.size());
+            part_ofs.open(part_path);
+            if (!part_ofs.is_open())
+            {
+                return false;
+            }
+
+            for (size_t i = begin_idx; i < end_idx; ++i)
+            {
+                print_row(part_ofs, &scores_log[i], false);
+            }
+            return true;
+        };
+
+        std::atomic<bool> write_failed{false};
+
+        auto write_file_group = [&](size_t file_idx) {
+            if (write_failed.load())
+            {
+                return;
+            }
+
+            {
+                std::vector<std::thread> threads;
+                std::vector<char> part_ok(LOG_PARTS_PER_FILE, 1);
+                std::vector<std::string> part_paths(LOG_PARTS_PER_FILE);
+                threads.reserve(LOG_PARTS_PER_FILE);
+
+                for (size_t part_idx = 0; part_idx < LOG_PARTS_PER_FILE; ++part_idx)
+                {
+                    const size_t global_part_idx = file_idx * LOG_PARTS_PER_FILE + part_idx;
+                    const size_t begin_idx = boundaries[global_part_idx];
+                    const size_t end_idx = boundaries[global_part_idx + 1];
+                    part_paths[part_idx] = output_base + "_" + std::to_string(file_idx) + "_part_" +
+                                           std::to_string(part_idx) + "_" + std::to_string(getpid()) + ".tmp";
+
+                    threads.emplace_back([&, part_idx, begin_idx, end_idx] {
+                        part_ok[part_idx] = write_part(part_paths[part_idx], begin_idx, end_idx) ? 1 : 0;
+                    });
+                }
+
+                for (auto &th : threads)
+                {
+                    th.join();
+                }
+
+                std::vector<char> final_buffer(LOG_BUFFER_BYTES);
+                const std::string final_path = output_base + "_" + std::to_string(file_idx) + ".log";
+                std::ofstream final_ofs;
+                std::filebuf *final_buf = final_ofs.rdbuf();
+                final_buf->pubsetbuf(final_buffer.data(), final_buffer.size());
+                final_ofs.open(final_path);
+                if (!final_ofs.is_open())
+                {
+                    perror("open final output log");
+                    write_failed.store(true);
+                    return;
+                }
+
+                print_row(final_ofs, scores_log, true);
+                for (size_t part_idx = 0; part_idx < LOG_PARTS_PER_FILE; ++part_idx)
+                {
+                    if (!part_ok[part_idx])
+                    {
+                        continue;
+                    }
+
+                    std::ifstream part_ifs(part_paths[part_idx]);
+                    if (part_ifs.is_open())
+                    {
+                        final_ofs << part_ifs.rdbuf();
+                        part_ifs.close();
+                    }
+                    std::remove(part_paths[part_idx].c_str());
+                }
+            }
+        };
+
+        std::vector<std::thread> file_group_threads;
+        file_group_threads.reserve(LOG_FILE_COUNT);
+        for (size_t file_idx = 0; file_idx < LOG_FILE_COUNT; ++file_idx)
+        {
+            file_group_threads.emplace_back([&, file_idx] { write_file_group(file_idx); });
+        }
+
+        for (auto &th : file_group_threads)
+        {
+            th.join();
+        }
+
+        if (write_failed.load())
+        {
+            std::cout << "[ARMS] Failed writing one or more output log files." << std::endl;
             return;
         }
-        std::ostream &os = ofs;
 
-        print_row(os, scores_log, true); // print header
-        for (size_t i = 0; (i < logged_samples) && i < MAX_LOGGED_SAMPLES; i++)
-        {
-            print_row(os, &scores_log[i], false);
-        }
-        std::cout << "[ARMS] Training data log written to output.txt." << std::endl;
+        std::cout << "[ARMS] Training data log written to " << output_base << "_0.log ... " << output_base << "_9.log."
+                  << std::endl;
     }
 }
 

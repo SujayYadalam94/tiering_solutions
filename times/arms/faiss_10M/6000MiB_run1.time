@@ -1,0 +1,5 @@
+./measurement_arms.sh: line 19: 743541 Segmentation fault      numactl --membind=${NUMA_MEM_NODES} -- taskset -c 0-9,20-29 sudo LOG_OUTPUT_PATH="${LOG_OUTPUT_PATH}" LD_PRELOAD=${MODEL_PATH} $PROGRAM 2>&1
+
+real	10m14.787s
+user	0m0.355s
+sys	0m0.801s

@@ -11,6 +11,8 @@ fi
 KB=$((1024))
 MB=$((1024*KB))
 GB=$((1024*MB))
+BENCH_ROOT=${BENCH_ROOT:-/users/zimooo2}
+NUMA_MEM_NODES=${NUMA_MEM_NODES:-0,1}
 
 mkdir -p times logs times/arms
 
@@ -25,7 +27,7 @@ function run_program {
 
     mkdir -p "$TIME_DIR" "$LOG_DIR"
 
-    MODEL_PATH="$PWD/libraries/libhemem-arms${LIB_SUFFIX}.so"
+    MODEL_PATH="$PWD/libraries/C220G5/libhemem-arms${LIB_SUFFIX}.so"
 
     if [[ ! -f "$MODEL_PATH" ]]; then
         echo "Skipping ${OUTPUT} run ${RUN}: missing ${MODEL_PATH}"
@@ -34,54 +36,56 @@ function run_program {
 
     rm -f "${TIME_DIR}/${TIME_BASENAME}.time"
     rm -f "${LOG_DIR}/${TIME_BASENAME}_arms.log"
+    for part in $(seq 0 9); do
+        rm -f "${LOG_DIR}/${TIME_BASENAME}_arms_${part}.log"
+    done
     rm -f "${TIME_DIR}/max_dram_hugepages_${TIME_BASENAME}.log"
 
-    { time taskset -c 0-9,20-29 \
+    LOG_OUTPUT_PATH="${LOG_DIR}/${TIME_BASENAME}_arms.log"
+    { time numactl --membind=${NUMA_MEM_NODES} -- taskset -c 0-9,20-29 \
         sudo \
+        LOG_OUTPUT_PATH="${LOG_OUTPUT_PATH}" \
         LD_PRELOAD=${MODEL_PATH} \
         $PROGRAM 2>&1 ; } 2> "${TIME_DIR}/${TIME_BASENAME}.time"
-    mv output.log "${LOG_DIR}/${TIME_BASENAME}_arms.log"
-    mv max_dram_hugepages.log "${TIME_DIR}/max_dram_hugepages_${TIME_BASENAME}.log"
+    if [[ -f max_dram_hugepages.log ]]; then
+        mv max_dram_hugepages.log "${TIME_DIR}/max_dram_hugepages_${TIME_BASENAME}.log"
+    fi
 }
 
-#run_program "/users/zimooo2/LULESH/build/lulesh2.0 -i 10 -s 400" "" lulesh2.0_s400 ${RUN_ID}
+run_program "${BENCH_ROOT}/.venv/bin/python3 ${BENCH_ROOT}/big-ann-benchmarks/data/10M_benchmark.py --threads 16 --index-key HNSW,Flat --stress-mode latency --dataset openai" "" faiss_10M "${RUN_ID}"
 
-#run_program "/users/zimooo2/duckdb/build/release/benchmark/benchmark_runner benchmark/large/tpch-sf100/.*benchmark --threads=16" "" DuckDB-TPCH-sf100 ${RUN_ID}
-#run_program "/users/zimooo2/duckdb/build/release/benchmark/benchmark_runner benchmark/large/tpcds-sf100/.*benchmark --threads=16" "" DuckDB-TPCDS-sf100 ${RUN_ID}
-#
+exit
+
+run_program "OMP_NUM_THREADS=16 ${BENCH_ROOT}/LULESH/build/lulesh2.0 -i 10 -s 400" "" lulesh2.0_s400 ${RUN_ID}
+
+run_program "${BENCH_ROOT}/duckdb/build/release/benchmark/benchmark_runner benchmark/large/tpch-sf100/.*benchmark --threads=16" "" DuckDB-TPCH-sf100 ${RUN_ID}
+run_program "${BENCH_ROOT}/duckdb/build/release/benchmark/benchmark_runner benchmark/large/tpcds-sf100/.*benchmark --threads=16" "" DuckDB-TPCDS-sf100 ${RUN_ID}
+
+
 ## Call for all D size NPB programs
 #programs=("bt.D.x" "cg.D.x" "ep.D.x" "lu.D.x" "mg.D.x" "sp.D.x" "ua.D.x")
-#programs=("mg.D.x")
-#for prog in "${programs[@]}"; do
-#    echo "Running NPB program: $prog"
-#    run_program /users/zimooo2/NPB3.4.3/NPB3.4-OMP/bin/$prog "" $prog ${RUN_ID}
-#done
-##
-#echo "XSBench run ${RUN_ID}"
-#run_program "/users/zimooo2/XSBench/openmp-threading/XSBench -t 20 -g 50000 -p 20000000" "" XSBench ${RUN_ID}
-#
-## GAPBS programs for twitter and kron graphs
-#gapbs_programs=("bc" "bfs" "cc_sv" "cc" "pr" "pr_spmv" "sssp")
-#graphs=("twitter.sg" "kron.sg")
+programs=("mg.D.x")
+for prog in "${programs[@]}"; do
+    echo "Running NPB program: $prog"
+    run_program "OMP_NUM_THREADS=16 ${BENCH_ROOT}/NPB3.4.3/NPB3.4-OMP/bin/$prog" "" "$prog" "${RUN_ID}"
+done
 
-#gapbs_programs=("bc" "bfs" "cc_sv" "cc" "pr" "pr_spmv" "sssp" "tc")
-#gapbs_programs=("bc" "bfs" "pr")
-#gapbs_programs=("bc")
-#graphs=("twitter.sg")
-#for graph in "${graphs[@]}"; do
-#    for prog in "${gapbs_programs[@]}"; do
-#        echo "Running GAPBS program: $prog on graph: $graph"
-#        run_program "OMP_NUM_THREADS=16 /users/zimooo2/gapbs/$prog -n 40 -f /users/zimooo2/gapbs/benchmark/graphs/$graph" "" $prog-$graph ${RUN_ID}
-#    done
-#done
+run_program "${BENCH_ROOT}/XSBench/openmp-threading/XSBench -t 16 -g 50000 -p 20000000" "" XSBench ${RUN_ID}
 
-gapbs_programs=("bc" "bfs" "pr")
-gapbs_programs=("pr")
-graphs=("kron.sg")
+gapbs_programs=("bc" "pr")
+graphs=("twitter.sg")
 for graph in "${graphs[@]}"; do
     for prog in "${gapbs_programs[@]}"; do
         echo "Running GAPBS program: $prog on graph: $graph"
-        run_program "OMP_NUM_THREADS=16 /users/zimooo2/gapbs/$prog -n 20 -f /users/zimooo2/gapbs/benchmark/graphs/$graph" "" $prog-$graph ${RUN_ID}
+        run_program "OMP_NUM_THREADS=16 ${BENCH_ROOT}/gapbs/$prog -n 40 -f ${BENCH_ROOT}/gapbs/benchmark/graphs/$graph" "" "$prog-$graph" "${RUN_ID}"
+    done
+done
+
+gapbs_programs=("bc" "pr")
+graphs=("kron.sg")
+for graph in "${graphs[@]}"; do
+    for prog in "${gapbs_programs[@]}"; do
+        run_program "OMP_NUM_THREADS=16 ${BENCH_ROOT}/gapbs/$prog -n 20 -f ${BENCH_ROOT}/gapbs/benchmark/graphs/$graph" "" "$prog-$graph" "${RUN_ID}"
     done
 done
 

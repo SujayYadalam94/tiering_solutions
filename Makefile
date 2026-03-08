@@ -15,6 +15,8 @@ LIBS = -lnuma -lpthread -ldl
 # Build directories for reusable objects
 BUILD_DIR := build
 OBJ_DIR := $(BUILD_DIR)/obj
+PLATFORMS := C220G5 GSL_OPTANE
+DEFAULT_PLATFORM ?= C220G5
 
 # Compile-time configuration matrix
 MIN_MAX_HISTORY_VALUES := true false
@@ -25,11 +27,13 @@ COMBOS := $(foreach mmh,$(MIN_MAX_HISTORY_VALUES),$(foreach hlen,$(HISTORY_LENGT
 # Models and outputs
 MODELS := $(wildcard models/*.o)
 LIB_OUTPUT_DIR := libraries
-LIB_TARGETS := $(foreach combo,$(COMBOS),$(patsubst models/%.o,$(LIB_OUTPUT_DIR)/libhemem-%-$(combo).so,$(MODELS)))
-TRAIN_LIB_TARGETS := $(foreach combo,$(COMBOS),$(patsubst models/%.o,$(LIB_OUTPUT_DIR)/libhemem-%_$(combo)_train.so,$(MODELS)))
-ARMS_TARGET := $(LIB_OUTPUT_DIR)/libhemem-arms.so
-LOGGING_TARGET := $(LIB_OUTPUT_DIR)/libhemem-logging.so
-ARMS_TRAIN_TARGET := $(LIB_OUTPUT_DIR)/libhemem-arms_train.so
+PLATFORM_LIB_DIRS := $(addprefix $(LIB_OUTPUT_DIR)/,$(PLATFORMS))
+LIB_TARGETS := $(foreach platform,$(PLATFORMS),$(foreach combo,$(COMBOS),$(patsubst models/%.o,$(LIB_OUTPUT_DIR)/$(platform)/libhemem-%-$(combo).so,$(MODELS))))
+TRAIN_LIB_TARGETS := $(foreach platform,$(PLATFORMS),$(foreach combo,$(COMBOS),$(patsubst models/%.o,$(LIB_OUTPUT_DIR)/$(platform)/libhemem-%_$(combo)_train.so,$(MODELS))))
+ARMS_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms.so)
+LOGGING_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-logging.so)
+ARMS_TRAIN_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_train.so)
+ARMS_TARGET_DEFAULT := $(LIB_OUTPUT_DIR)/$(DEFAULT_PLATFORM)/libhemem-arms.so
 
 # Target
 TARGET_LIB = libarms_kernel.so
@@ -43,9 +47,6 @@ SRCS = arms_kernel.cpp \
 	policy_thread.cpp \
 	timer.cpp hook/hook.cpp groups.cpp page.cpp logging.cpp interpose.cpp model.cpp
 OBJ_NAMES = $(SRCS:.cpp=.o)
-NOMODEL_OBJS := $(addprefix $(OBJ_DIR)/nomodel/,$(OBJ_NAMES))
-LOGGING_OBJS := $(addprefix $(OBJ_DIR)/logging/,$(OBJ_NAMES))
-ARMS_TRAIN_OBJS := $(addprefix $(OBJ_DIR)/arms_train/,$(OBJ_NAMES))
 
 BASE_DEFINES_model := -DUSE_MODEL=true
 BASE_DEFINES_train := -DUSE_MODEL=true -DPRINT_TRAINING_DATA=true
@@ -57,6 +58,7 @@ combo_mmh = $(word 1,$(subst _, ,$1))
 combo_hlen = $(word 2,$(subst _, ,$1))
 combo_scaler = $(word 3,$(subst _, ,$1))
 combo_defs = -DMIN_MAX_HISTORY=$(call combo_mmh,$1) -DHISTORY_LENGTH=$(call combo_hlen,$1) -DSWITCH_SCALER=$(call combo_scaler,$1)
+platform_defs = -D$(1)
 
 # System detection
 UNAME_M := $(shell uname -m)
@@ -64,74 +66,85 @@ HOSTNAME := $(shell hostname)
 
 .PHONY: all clean
 
-all: $(LIB_TARGETS) $(TRAIN_LIB_TARGETS) $(ARMS_TARGET) $(LOGGING_TARGET) $(ARMS_TRAIN_TARGET)
+all: $(LIB_TARGETS) $(TRAIN_LIB_TARGETS) $(ARMS_TARGETS) $(LOGGING_TARGETS) $(ARMS_TRAIN_TARGETS)
 
-$(TARGET_LIB): $(ARMS_TARGET) | $(LIB_OUTPUT_DIR)
+$(TARGET_LIB): $(ARMS_TARGET_DEFAULT) | $(LIB_OUTPUT_DIR)
 	cp -f $< $@
 
-define MAKE_COMBO_RULES
-MODEL_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/model/$(1)/,$$(OBJ_NAMES))
-TRAIN_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/train/$(1)/,$$(OBJ_NAMES))
+define MAKE_PLATFORM_COMBO_RULES
+MODEL_OBJS_$(1)_$(2) := $$(addprefix $$(OBJ_DIR)/model/$(1)/$(2)/,$$(OBJ_NAMES))
+TRAIN_OBJS_$(1)_$(2) := $$(addprefix $$(OBJ_DIR)/train/$(1)/$(2)/,$$(OBJ_NAMES))
 
 # Build one ARMS library per model object under models/ and config combo
 # Example: models/foo.o -> libraries/libhemem-foo-true_2_1.0.so
-$$(LIB_OUTPUT_DIR)/libhemem-%-$(1).so: $$(MODEL_OBJS_$(1)) models/%.o | $$(LIB_OUTPUT_DIR)
+$$(LIB_OUTPUT_DIR)/$(1)/libhemem-%-$(2).so: $$(MODEL_OBJS_$(1)_$(2)) models/%.o | $$(LIB_OUTPUT_DIR)/$(1)
 	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) -shared -fPIC -g $$^ -o $$@ -O3 \
 		$$(LIBS) \
 		$$(EXTRA_COMPILE_ARGS)
 
 # Build one ARMS library per model object under models with training data enabled
 # Example: models/foo.o -> libraries/libhemem-foo_train-true_2_1.0.so
-$$(LIB_OUTPUT_DIR)/libhemem-%_$(1)_train.so: $$(TRAIN_OBJS_$(1)) models/%.o | $$(LIB_OUTPUT_DIR)
+$$(LIB_OUTPUT_DIR)/$(1)/libhemem-%_$(2)_train.so: $$(TRAIN_OBJS_$(1)_$(2)) models/%.o | $$(LIB_OUTPUT_DIR)/$(1)
 	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) -shared -fPIC -g $$^ -o $$@ -O3 \
 		$$(LIBS) \
 		$$(EXTRA_COMPILE_ARGS)
 
 # Compile C++ sources for USE_MODEL=true variants and config combo
-$$(OBJ_DIR)/model/$(1)/%.o: %.cpp | $$(OBJ_DIR)
+$$(OBJ_DIR)/model/$(1)/$(2)/%.o: %.cpp | $$(OBJ_DIR)
 	mkdir -p $$(dir $$@)
-	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) -fPIC $$(BASE_DEFINES_model) $$(call combo_defs,$(1)) -c $$< -o $$@
+	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) -fPIC $$(BASE_DEFINES_model) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)) -c $$< -o $$@
 
-$$(OBJ_DIR)/train/$(1)/%.o: %.cpp | $$(OBJ_DIR)
+$$(OBJ_DIR)/train/$(1)/$(2)/%.o: %.cpp | $$(OBJ_DIR)
 	mkdir -p $$(dir $$@)
-	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) -fPIC $$(BASE_DEFINES_train) $$(call combo_defs,$(1)) -c $$< -o $$@
+	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) -fPIC $$(BASE_DEFINES_train) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)) -c $$< -o $$@
 endef
 
-$(foreach combo,$(COMBOS),$(eval $(call MAKE_COMBO_RULES,$(combo))))
+$(foreach platform,$(PLATFORMS),$(foreach combo,$(COMBOS),$(eval $(call MAKE_PLATFORM_COMBO_RULES,$(platform),$(combo)))))
+
+define MAKE_PLATFORM_BASE_RULES
+NOMODEL_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/nomodel/$(1)/,$$(OBJ_NAMES))
+LOGGING_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/logging/$(1)/,$$(OBJ_NAMES))
+ARMS_TRAIN_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_train/$(1)/,$$(OBJ_NAMES))
 
 # Build without linking a model; force USE_MODEL=false
-$(ARMS_TARGET): $(NOMODEL_OBJS) | $(LIB_OUTPUT_DIR)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -shared -fPIC -g $^ -o $@ -O3 \
-	    $(LIBS) \
-	    $(EXTRA_COMPILE_ARGS)
+$$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms.so: $$(NOMODEL_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
+	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) -shared -fPIC -g $$^ -o $$@ -O3 \
+	    $$(LIBS) \
+	    $$(EXTRA_COMPILE_ARGS)
 
 # Build without linking a model; force USE_MODEL=false and PRINT_TRAINING_DATA=true
-$(LOGGING_TARGET): $(LOGGING_OBJS) | $(LIB_OUTPUT_DIR)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -shared -fPIC -g $^ -o $@ -O3 \
-	    $(LIBS) \
-	    $(EXTRA_COMPILE_ARGS)
+$$(LIB_OUTPUT_DIR)/$(1)/libhemem-logging.so: $$(LOGGING_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
+	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) -shared -fPIC -g $$^ -o $$@ -O3 \
+	    $$(LIBS) \
+	    $$(EXTRA_COMPILE_ARGS)
 
 # Build ARMS with training data logging enabled (no model linked)
-$(ARMS_TRAIN_TARGET): $(ARMS_TRAIN_OBJS) | $(LIB_OUTPUT_DIR)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -shared -fPIC -g $^ -o $@ -O3 \
-	    $(LIBS) \
-	    $(EXTRA_COMPILE_ARGS)
+$$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_train.so: $$(ARMS_TRAIN_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
+	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) -shared -fPIC -g $$^ -o $$@ -O3 \
+	    $$(LIBS) \
+	    $$(EXTRA_COMPILE_ARGS)
 
-# Compile C++ sources for USE_MODEL=false variants (no combo specialization)
-$(OBJ_DIR)/nomodel/%.o: %.cpp | $(OBJ_DIR)
-	mkdir -p $(dir $@)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -fPIC $(BASE_DEFINES_nomodel) -c $< -o $@
+# Compile C++ sources for USE_MODEL=false variants (platform specialization)
+$$(OBJ_DIR)/nomodel/$(1)/%.o: %.cpp | $$(OBJ_DIR)
+	mkdir -p $$(dir $$@)
+	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) -fPIC $$(BASE_DEFINES_nomodel) $$(call platform_defs,$(1)) -c $$< -o $$@
 
-$(OBJ_DIR)/logging/%.o: %.cpp | $(OBJ_DIR)
-	mkdir -p $(dir $@)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -fPIC $(BASE_DEFINES_logging) -c $< -o $@
+$$(OBJ_DIR)/logging/$(1)/%.o: %.cpp | $$(OBJ_DIR)
+	mkdir -p $$(dir $$@)
+	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) -fPIC $$(BASE_DEFINES_logging) $$(call platform_defs,$(1)) -c $$< -o $$@
 
-$(OBJ_DIR)/arms_train/%.o: %.cpp | $(OBJ_DIR)
-	mkdir -p $(dir $@)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -fPIC $(BASE_DEFINES_arms_train) -c $< -o $@
+$$(OBJ_DIR)/arms_train/$(1)/%.o: %.cpp | $$(OBJ_DIR)
+	mkdir -p $$(dir $$@)
+	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) -fPIC $$(BASE_DEFINES_arms_train) $$(call platform_defs,$(1)) -c $$< -o $$@
+endef
+
+$(foreach platform,$(PLATFORMS),$(eval $(call MAKE_PLATFORM_BASE_RULES,$(platform))))
 
 $(LIB_OUTPUT_DIR):
 	mkdir -p $(LIB_OUTPUT_DIR)
+
+$(PLATFORM_LIB_DIRS):
+	mkdir -p $@
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
