@@ -20,9 +20,6 @@ void page_info::reset_page_access_fields()
         this->w_perc[i] = 0;
         this->w_r_perc[i] = 0;
         this->w_w_perc[i] = 0;
-        this->malloc_call_ewma[i] = 0;
-        this->malloc_call_perc_ewma[i] = 0;
-        this->malloc_size_ewma[i] = 0;
         this->rank_perc_ewma[i] = 0;
     }
 
@@ -31,14 +28,8 @@ void page_info::reset_page_access_fields()
     this->count = 0;
     this->reads = 0;
     this->writes = 0;
-    this->read_syscalls = 0;
-    this->write_syscalls = 0;
     this->read_bytes = 0;
     this->write_bytes = 0;
-    this->sum_malloc_bytes = 0;
-    this->min_malloc_bytes = -1;
-    this->max_malloc_bytes = -1;
-    this->malloc_call = 0;
     this->cumsum_reads = 0;
     this->cumsum_writes = 0;
     this->global_avg_accesses = 0;
@@ -180,10 +171,6 @@ void page_info::update_window(volatile uint8_t prev_access_version, const enum s
 {
     this->read_bytes = 0;
     this->write_bytes = 0;
-    this->read_syscalls = 0;
-    this->write_syscalls = 0;
-    this->sum_malloc_bytes = 0;
-    this->malloc_call = 0;
 
     this->age++;
     this->count = this->calculate_accesses(prev_access_version);
@@ -216,8 +203,7 @@ void page_info::update_window(volatile uint8_t prev_access_version, const enum s
     }
 }
 
-void page_info::update_derivative_features(size_t rank, size_t num_sorted_pages, size_t count_total,
-                                           size_t total_malloc)
+void page_info::update_derivative_features(size_t rank, size_t num_sorted_pages, size_t count_total)
 {
     (void)rank;
     (void)num_sorted_pages;
@@ -247,11 +233,6 @@ void page_info::update_derivative_features(size_t rank, size_t num_sorted_pages,
     for (uint8_t i = 0; i < WINDOW_SIZE; i++)
     {
         const float denom = get_adjusted_ewma_denom(i, this->age);
-
-        this->malloc_call_ewma[i] = adjusted_ewma(this->malloc_call_ewma[i], this->malloc_call, denom);
-        this->malloc_call_perc_ewma[i] = adjusted_ewma(
-            this->malloc_call_perc_ewma[i], total_malloc ? (float)this->malloc_call / (float)total_malloc : 0.0, denom);
-        this->malloc_size_ewma[i] = adjusted_ewma(this->malloc_size_ewma[i], this->sum_malloc_bytes, denom);
 
         this->rank_perc_ewma[i] = adjusted_ewma(this->rank_perc_ewma[i], this->rank_perc, denom);
 

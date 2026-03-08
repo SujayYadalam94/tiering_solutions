@@ -45,7 +45,7 @@ SRCS = arms_kernel.cpp \
 	pagemap_scan_thread.cpp \
 	migration_worker.cpp \
 	policy_thread.cpp \
-	timer.cpp hook/hook.cpp groups.cpp page.cpp logging.cpp interpose.cpp model.cpp
+	timer.cpp hook/hook.cpp groups.cpp page.cpp logging.cpp model.cpp
 OBJ_NAMES = $(SRCS:.cpp=.o)
 
 BASE_DEFINES_model := -DUSE_MODEL=true

@@ -25,13 +25,24 @@ extern bool initialized;
 
 #define FULL_LOGS (false)
 
+#ifndef ARMS_VERBOSE
+#define ARMS_VERBOSE (false)
+#endif
+
+#ifndef ARMS_PARTIAL_RANKING
+#define ARMS_PARTIAL_RANKING (true)
+#endif
+
+#ifndef ARMS_PARTIAL_RANK_MULTIPLIER
+#define ARMS_PARTIAL_RANK_MULTIPLIER (8)
+#endif
+
 #ifndef MAX_LOGGED_SAMPLES
 #define MAX_LOGGED_SAMPLES (5000000)
 #endif
 
-#define MIGRATION_WORKER_COUNT (8)
-#define MALLOC_SAMPLE_RATE (10) // Log 1 out of every N malloc calls
-#define BACKOFF_PERIOD (0)      // Number of scanning intervals to backoff after promotion/demotion
+#define MIGRATION_WORKER_COUNT (1)
+#define BACKOFF_PERIOD (0) // Number of scanning intervals to backoff after promotion/demotion
 
 #ifndef MIN_MAX_HISTORY
 #define MIN_MAX_HISTORY (true)

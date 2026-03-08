@@ -43,6 +43,8 @@ for run in $(seq "${START_RUN}" "${RUNS}"); do
     run_program "/users/zimooo2/.venv/bin/python3 /users/zimooo2/big-ann-benchmarks/data/10M_benchmark.py --threads 16 --index-key HNSW,Flat --stress-mode latency --dataset openai" logging faiss_10M ${run}
     continue
 
+    run_program "/users/zimooo2/big-ann-benchmarks/.venv/bin/python3 /users/zimooo2/big-ann-benchmarks/data/10M_benchmark.py --threads 16 --index-key HNSW,Flat --stress-mode latency --dataset openai" logging faiss_10M ${run}
+    
     # Call for all D size NPB programs
     programs=("bt.D.x" "cg.D.x" "ep.D.x" "lu.D.x" "mg.D.x" "sp.D.x" "ua.D.x")
     programs=("mg.D.x")

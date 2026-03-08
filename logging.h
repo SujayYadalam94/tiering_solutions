@@ -37,7 +37,6 @@ struct data_row
     float ewma_100_perc;
     float ewma_100_r_perc;
     float ewma_100_w_perc;
-    float ewma_100_malloc_perc;
     float gap4;
     float read_write_gap3;
     float ewma_var_2;
@@ -51,38 +50,24 @@ struct data_row
 #endif
     float groups_perc[15];
     float group_ewma5_perc[15];
-#if FULL_LOGS
-    float group_malloc_calls[15];
-    float group_malloc_calls_perc[15];
-#endif
-    float group_malloc_calls_ewma100_perc[15];
     float group_ewma5_var;
     uint64_t age_count_total;
 
 #if FULL_LOGS
-    size_t malloc_size;
     size_t prot;
     size_t flags;
     float ewma_2;
     float ewma_2_r;
     float ewma_2_w;
-    float ewma_2_malloc_size;
-    float ewma_2_malloc_calls;
     float ewma_5;
     float ewma_5_r;
     float ewma_5_w;
-    float ewma_5_malloc_size;
-    float ewma_5_malloc_calls;
     float ewma_20;
     float ewma_20_r;
     float ewma_20_w;
-    float ewma_20_malloc_size;
-    float ewma_20_malloc_calls;
     float ewma_100;
     float ewma_100_r;
     float ewma_100_w;
-    float ewma_100_malloc_size;
-    float ewma_100_malloc_calls;
     size_t rank;
     float rank_perc;
     float rank_ewma_2;
@@ -100,14 +85,8 @@ struct data_row
     float groups[15];
     float group_ewma5[15];
     size_t model_selection;
-    uint32_t read_syscalls;
-    uint32_t write_syscalls;
     uint32_t read_bytes;
     uint32_t write_bytes;
-    uint32_t sum_malloc_bytes;
-    int32_t min_malloc_bytes;
-    int32_t max_malloc_bytes;
-    uint32_t malloc_call;
 #endif
 
     float model_score;

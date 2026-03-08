@@ -19,9 +19,6 @@ struct perf_event_mmap_page;
 
 // Shared global state accessed across thread translation units.
 extern uint64_t dramsize;
-extern std::atomic<size_t> syscall_queue_index;
-extern std::atomic<size_t> syscall_queue_size;
-extern std::atomic<struct syscall_event *> syscall_event_queue;
 extern std::atomic<uint64_t> scan_generation;
 
 extern std::unordered_map<uint64_t, std::shared_ptr<page_info>> pages_map;
