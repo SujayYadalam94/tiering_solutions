@@ -155,7 +155,7 @@ static void update_dram_residency_stats(uint64_t total_hugepages_in_dram)
 
     uint64_t prev_max = max_dram_base_pages_seen.load(std::memory_order_relaxed);
     while (total_hugepages_in_dram > prev_max && !max_dram_base_pages_seen.compare_exchange_weak(
-                                                    prev_max, total_hugepages_in_dram, std::memory_order_relaxed))
+                                                     prev_max, total_hugepages_in_dram, std::memory_order_relaxed))
     {
     }
 }

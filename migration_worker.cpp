@@ -286,8 +286,7 @@ void *migration_worker(void *arg)
                 {
                     if (ARMS_VERBOSE)
                     {
-                        std::cout << "[ARMS] Demoted " << demoted_pages << " hugepages to free up space."
-                                  << std::endl;
+                        std::cout << "[ARMS] Demoted " << demoted_pages << " hugepages to free up space." << std::endl;
                     }
                 }
 
@@ -354,8 +353,7 @@ void *migration_worker(void *arg)
                 {
                     std::cout << "[ARMS] Promoted " << total_retry_promoted
                               << " hugepages after demotions (multi-pass per-hugepage retry). " << retry_failed_pages
-                              << " hugepages failed to promote." << (retry_error ? " (errors seen)" : "")
-                              << std::endl;
+                              << " hugepages failed to promote." << (retry_error ? " (errors seen)" : "") << std::endl;
                 }
             }
         }

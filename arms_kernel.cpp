@@ -1006,7 +1006,7 @@ static migration_decision select_migration_candidates(const std::vector<score_en
         }
 
         while (demote_idx >= demote_idx_floor && demote_idx > static_cast<int64_t>(promote_idx) &&
-             free_hugepages < hot_need_hugepages)
+               free_hugepages < hot_need_hugepages)
         {
             while (demote_idx >= demote_idx_floor && demote_idx > static_cast<int64_t>(promote_idx) &&
                    scores[demote_idx].page->pages_in_dram == 0)
@@ -1060,7 +1060,8 @@ static migration_decision select_migration_candidates(const std::vector<score_en
             decision.migrated_count += cold_free_hugepages;
         }
 
-        if (free_hugepages < hot_need_hugepages || (decision.migrated_count + hot_need_hugepages) > plan.max_migrations_cur_interval)
+        if (free_hugepages < hot_need_hugepages ||
+            (decision.migrated_count + hot_need_hugepages) > plan.max_migrations_cur_interval)
         {
             break;
         }
@@ -1117,10 +1118,8 @@ void update_scores_and_migrate(size_t timestep)
     // Print the max and min scores for debugging
     if (ARMS_VERBOSE)
     {
-        std::cout << "[ARMS] Number of tracked pages: " << scores.size()
-                  << " (DRAM: " << distribution.dram_pages << ", NVM: " << distribution.far_pages
-                  << "), Max score: " << scores[0].score
-                  << ", Median score: "
+        std::cout << "[ARMS] Number of tracked pages: " << scores.size() << " (DRAM: " << distribution.dram_pages
+                  << ", NVM: " << distribution.far_pages << "), Max score: " << scores[0].score << ", Median score: "
                   << scores[(plan.use_partial_ranking ? plan.candidate_window : scores.size()) / 2].score
                   << ", Min score: " << scores[scores.size() - 1].score << std::endl;
     }

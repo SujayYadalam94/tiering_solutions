@@ -33,8 +33,8 @@ void *arms_policy_thread(void *arg)
         uint64_t period_demoted = migrations_down_period.exchange(0, std::memory_order_relaxed);
         if (ARMS_VERBOSE)
         {
-            std::cout << "[ARMS] Period migrations - promoted: " << period_promoted << " hugepages, demoted: "
-                      << period_demoted << " hugepages" << std::endl;
+            std::cout << "[ARMS] Period migrations - promoted: " << period_promoted
+                      << " hugepages, demoted: " << period_demoted << " hugepages" << std::endl;
         }
 
         if (global_version % (1000000 / policy_thread_interval) == 0)
