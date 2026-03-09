@@ -14,38 +14,45 @@
 #include "arms_kernel_threads.h"
 #include "timer.h"
 
-static void scan_process_pages()
+namespace
 {
-    if (pagemap_fd < 0)
-        return;
+constexpr size_t kMovePagesBatchSize = BASE_PAGE_PER_HUGEPAGE * PAGEMAP_BATCH_HUGEPAGES;
 
-    uint64_t cur_scan = scan_generation.fetch_add(1, std::memory_order_relaxed) + 1;
+inline bool shutdown_requested()
+{
+    return terminated.load(std::memory_order_relaxed);
+}
 
-    // Read /proc/self/maps to get VMA ranges
-    std::ifstream maps_file("/proc/self/maps");
-    if (!maps_file.is_open())
+struct stale_page_cleanup_result
+{
+    size_t removed_pages = 0;
+    uint64_t total_hugepages_in_dram = 0;
+    size_t tracked_pages = 0;
+};
+
+struct page_slice
+{
+    std::shared_ptr<page_info> page;
+    size_t start_index;
+};
+
+static void refresh_page_residency(uint64_t cur_scan, const std::vector<std::shared_ptr<page_info>> &pages_to_refresh)
+{
+    if (pages_to_refresh.empty() || shutdown_requested())
     {
-        perror("Failed to open /proc/self/maps");
         return;
     }
 
-    std::string line;
-
-    constexpr size_t kMovePagesBatchSize =
-        BASE_PAGE_PER_HUGEPAGE * 128; // Number of base pages per batched move_pages call
     std::vector<void *> addr_batch;
     addr_batch.reserve(kMovePagesBatchSize);
 
-    struct page_slice
-    {
-        std::shared_ptr<page_info> page;
-        size_t start_index;
-    };
     std::vector<page_slice> page_slices;
+    page_slices.reserve(std::min(pages_to_refresh.size(), static_cast<size_t>(PAGEMAP_BATCH_HUGEPAGES)));
+
     std::vector<int> status_batch;
 
     auto flush_move_pages_batch = [&]() {
-        if (addr_batch.empty())
+        if (addr_batch.empty() || shutdown_requested())
         {
             return;
         }
@@ -60,6 +67,11 @@ static void scan_process_pages()
 
         for (const auto &slice : page_slices)
         {
+            if (shutdown_requested())
+            {
+                break;
+            }
+
             auto &page = slice.page;
             bool invalid_status = false;
             int seen_pages = 0;
@@ -85,7 +97,7 @@ static void scan_process_pages()
                 {
                     seen_pages++;
                 }
-                if (status == 0)
+                if (status == FAST_TIER)
                 {
                     pages_in_dram++;
                 }
@@ -108,8 +120,125 @@ static void scan_process_pages()
         page_slices.clear();
     };
 
+    for (const auto &page : pages_to_refresh)
+    {
+        if (shutdown_requested())
+        {
+            break;
+        }
+
+        if (!page)
+        {
+            continue;
+        }
+
+        size_t start_index = addr_batch.size();
+        for (size_t i = 0; i < BASE_PAGE_PER_HUGEPAGE; i++)
+        {
+            addr_batch.emplace_back(reinterpret_cast<void *>(page->va + i * BASE_PAGE));
+        }
+        page_slices.push_back({page, start_index});
+
+        if (addr_batch.size() >= kMovePagesBatchSize)
+        {
+            flush_move_pages_batch();
+        }
+    }
+
+    flush_move_pages_batch();
+}
+
+static void update_dram_residency_stats(uint64_t total_hugepages_in_dram)
+{
+    dram_samples.fetch_add(1, std::memory_order_relaxed);
+    total_dram_base_pages_accum.fetch_add(total_hugepages_in_dram, std::memory_order_relaxed);
+
+    uint64_t prev_max = max_dram_base_pages_seen.load(std::memory_order_relaxed);
+    while (total_hugepages_in_dram > prev_max && !max_dram_base_pages_seen.compare_exchange_weak(
+                                                    prev_max, total_hugepages_in_dram, std::memory_order_relaxed))
+    {
+    }
+}
+
+static bool should_refresh_page_partial(const std::shared_ptr<page_info> &page, uint64_t cur_scan)
+{
+    const uint64_t generations_since_access =
+        (cur_scan > page->last_access_generation) ? (cur_scan - page->last_access_generation) : 0;
+    const bool recently_accessed =
+        page->last_access_generation != 0 && generations_since_access <= PAGEMAP_RECENT_ACCESS_WINDOW;
+    const bool partially_resident = page->seen_pages > 0 && page->pages_in_dram != page->seen_pages;
+
+    return recently_accessed || partially_resident;
+}
+
+static void populate_new_pages(const std::vector<uint64_t> &new_pages_to_populate)
+{
+    for (uint64_t new_page_va : new_pages_to_populate)
+    {
+        if (shutdown_requested())
+        {
+            break;
+        }
+
+        populate_new_page(new_page_va);
+    }
+}
+
+static stale_page_cleanup_result cleanup_stale_pages(uint64_t cur_scan)
+{
+    stale_page_cleanup_result result;
+
+    std::unique_lock<std::shared_mutex> lock(pages_map_lock);
+    for (auto it = pages_map.begin(); it != pages_map.end();)
+    {
+        if (shutdown_requested())
+        {
+            break;
+        }
+
+        if (it->second->last_seen_scan < cur_scan)
+        {
+            it->second->reset_page_access_fields();
+            it = pages_map.erase(it);
+            result.removed_pages++;
+        }
+        else
+        {
+            result.total_hugepages_in_dram += (it->second->pages_in_dram > 0 ? 1 : 0);
+            ++it;
+        }
+    }
+    result.tracked_pages = pages_map.size();
+
+    return result;
+}
+
+static void scan_process_pages_full()
+{
+    if (pagemap_fd < 0 || shutdown_requested())
+        return;
+
+    uint64_t cur_scan = scan_generation.fetch_add(1, std::memory_order_relaxed) + 1;
+
+    // Read /proc/self/maps to get VMA ranges
+    std::ifstream maps_file("/proc/self/maps");
+    if (!maps_file.is_open())
+    {
+        perror("Failed to open /proc/self/maps");
+        return;
+    }
+
+    std::string line;
+    std::vector<std::shared_ptr<page_info>> pages_to_refresh;
+    std::vector<uint64_t> new_pages_to_populate;
+
     while (std::getline(maps_file, line))
     {
+        if (shutdown_requested())
+        {
+            break;
+        }
+
         uint64_t start_addr, end_addr;
         char perms[5];
 
@@ -119,8 +248,9 @@ static void scan_process_pages()
             continue;
         }
 
-        // Skip non-readable and non-writable regions
-        if (perms[0] != 'r' && perms[1] != 'w')
+        // Track only writable mappings. Python-heavy processes have many read-only
+        // interpreter / shared-library VMAs that drastically inflate full-scan time.
+        if (perms[1] != 'w')
             continue;
 
         // Skip kernel regions
@@ -160,10 +290,14 @@ static void scan_process_pages()
     }*/
 
         // Scan this VMA range
-        for (uint64_t va = start_addr; va < end_addr; va += PAGE_SIZE)
+        uint64_t va = start_addr & HUGE_PFN_MASK;
+        for (; va < end_addr; va += PAGE_SIZE)
         {
-            // Align to page size
-            va = va & HUGE_PFN_MASK;
+            if (shutdown_requested())
+            {
+                break;
+            }
+
             if (is_access_log_page(va))
             {
                 continue;
@@ -187,88 +321,92 @@ static void scan_process_pages()
                 // std::cerr << "[ARMS] Warning: Page not present for VA 0x" << std::hex << va << std::dec << std::endl;
             }*/
 
-            std::shared_ptr<page_info> page;
             bool added_new_page = false;
+            std::shared_ptr<page_info> page = get_or_create_tracked_page(va, cur_scan, 0, 0, 0, &added_new_page);
+
+            if (page)
             {
-                std::lock_guard<std::mutex> lock(pages_map_lock);
-                auto it = pages_map.find(va);
-                if (it == pages_map.end())
-                {
-                    auto new_page = std::make_shared<page_info>();
-                    new_page->va = va;
-                    new_page->pages_in_dram = 0;
-                    new_page->last_seen_scan = cur_scan;
-                    pages_map.emplace(va, new_page);
-                    page = std::move(new_page);
-                    added_new_page = true;
-                }
-                else
-                {
-                    page = it->second;
-                    page->last_seen_scan = cur_scan;
-                }
+                std::lock_guard<std::mutex> page_lock(page->page_lock);
+                page->last_seen_scan = cur_scan;
             }
 
             if (added_new_page)
             {
-                populate_new_page(va);
+                new_pages_to_populate.push_back(va);
             }
 
             if (page)
             {
-                size_t start_index = addr_batch.size();
-                for (size_t i = 0; i < BASE_PAGE_PER_HUGEPAGE; i++)
-                {
-                    addr_batch.emplace_back((void *)(va + i * BASE_PAGE));
-                }
-                page_slices.push_back({page, start_index});
-
-                if (addr_batch.size() >= kMovePagesBatchSize)
-                {
-                    flush_move_pages_batch();
-                }
+                pages_to_refresh.push_back(page);
             }
         }
     }
 
-    // Flush any remaining batched pages.
-    flush_move_pages_batch();
+    populate_new_pages(new_pages_to_populate);
 
-    size_t removed_pages = 0;
-    uint64_t total_base_pages_in_dram = 0;
-    {
-        std::lock_guard<std::mutex> lock(pages_map_lock);
-        for (auto it = pages_map.begin(); it != pages_map.end();)
-        {
-            if (it->second->last_seen_scan < cur_scan)
-            {
-                it->second->reset_page_access_fields();
-                it = pages_map.erase(it);
-                removed_pages++;
-            }
-            else
-            {
-                total_base_pages_in_dram += it->second->pages_in_dram;
-                ++it;
-            }
-        }
-    }
+    refresh_page_residency(cur_scan, pages_to_refresh);
+
+    stale_page_cleanup_result cleanup = cleanup_stale_pages(cur_scan);
     if (ARMS_VERBOSE)
     {
-        std::cout << "[ARMS] Number of process pages tracked: " << pages_map.size()
-                  << ", Removed stale pages: " << removed_pages << std::endl;
+        std::cout << "[ARMS] Number of process pages tracked: " << cleanup.tracked_pages
+                  << ", Refreshed pages: " << pages_to_refresh.size()
+                  << ", Removed stale pages: " << cleanup.removed_pages << std::endl;
     }
 
-    dram_samples.fetch_add(1, std::memory_order_relaxed);
-    total_dram_base_pages_accum.fetch_add(total_base_pages_in_dram, std::memory_order_relaxed);
+    update_dram_residency_stats(cleanup.total_hugepages_in_dram);
+}
 
-    // Track the peak DRAM residency observed during pagemap scans.
-    uint64_t prev_max = max_dram_base_pages_seen.load(std::memory_order_relaxed);
-    while (total_base_pages_in_dram > prev_max && !max_dram_base_pages_seen.compare_exchange_weak(
-                                                      prev_max, total_base_pages_in_dram, std::memory_order_relaxed))
+static void scan_process_pages_partial()
+{
+    if (shutdown_requested())
     {
+        return;
+    }
+
+    uint64_t cur_scan = scan_generation.fetch_add(1, std::memory_order_relaxed) + 1;
+    std::vector<std::shared_ptr<page_info>> pages_to_refresh;
+
+    {
+        std::shared_lock<std::shared_mutex> lock(pages_map_lock);
+        pages_to_refresh.reserve(pages_map.size());
+        for (auto &kv : pages_map)
+        {
+            if (shutdown_requested())
+            {
+                break;
+            }
+
+            const auto &page = kv.second;
+            if (should_refresh_page_partial(page, cur_scan))
+            {
+                pages_to_refresh.push_back(page);
+            }
+        }
+    }
+
+    refresh_page_residency(cur_scan, pages_to_refresh);
+
+    if (ARMS_VERBOSE)
+    {
+        std::cout << "[ARMS] Partial pagemap refresh selected " << pages_to_refresh.size() << " tracked pages."
+                  << std::endl;
     }
 }
+
+static void scan_process_pages(uint64_t iteration)
+{
+    const uint64_t full_scan_period = std::max<uint64_t>(1, PAGEMAP_FULL_SCAN_INTERVALS);
+    if (iteration % full_scan_period == 0)
+    {
+        scan_process_pages_full();
+    }
+    else
+    {
+        scan_process_pages_partial();
+    }
+}
+} // namespace
 
 void *pagemap_scan_thread_fn(void *arg)
 {
@@ -276,10 +414,11 @@ void *pagemap_scan_thread_fn(void *arg)
 
     struct ptimer loop_timer;
     ptimer_init(&loop_timer, "Page Map Scan Loop");
-    while (!terminated)
+    uint64_t iteration = 0;
+    while (!shutdown_requested())
     {
         ptimer_start(&loop_timer);
-        scan_process_pages();
+        scan_process_pages(iteration++);
         ptimer_stop(&loop_timer);
         if (ARMS_VERBOSE)
         {
@@ -288,7 +427,7 @@ void *pagemap_scan_thread_fn(void *arg)
 
         double elapsed_us = loop_timer.elapsed_us;
 
-        if (elapsed_us < policy_thread_interval)
+        if (!shutdown_requested() && elapsed_us < policy_thread_interval)
         {
             usleep(policy_thread_interval - elapsed_us);
         }

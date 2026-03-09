@@ -4,7 +4,13 @@ CXX = g++
 CC = gcc
 
 # Compiler flags
-CXXFLAGS = -std=c++17 -O2 -Wall -Wextra -pthread -g
+BASE_CXXFLAGS := -std=c++17 -Wall -Wextra -pthread
+
+ifeq ($(DEBUG),1)
+CXXFLAGS ?= $(BASE_CXXFLAGS) -O0 -g
+else
+CXXFLAGS ?= $(BASE_CXXFLAGS) -O3 -DNDEBUG
+endif
 
 # Include paths
 INCLUDES = -I.
@@ -60,6 +66,17 @@ combo_scaler = $(word 3,$(subst _, ,$1))
 combo_defs = -DMIN_MAX_HISTORY=$(call combo_mmh,$1) -DHISTORY_LENGTH=$(call combo_hlen,$1) -DSWITCH_SCALER=$(call combo_scaler,$1)
 platform_defs = -D$(1)
 
+define LINK_SHARED_RECIPE
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -shared -fPIC -g $^ -o $@ -O3 \
+		$(LIBS) \
+		$(EXTRA_COMPILE_ARGS)
+endef
+
+define COMPILE_OBJECT_RECIPE
+	mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -fPIC $(1) -c $< -o $@
+endef
+
 # System detection
 UNAME_M := $(shell uname -m)
 HOSTNAME := $(shell hostname)
@@ -78,25 +95,19 @@ TRAIN_OBJS_$(1)_$(2) := $$(addprefix $$(OBJ_DIR)/train/$(1)/$(2)/,$$(OBJ_NAMES))
 # Build one ARMS library per model object under models/ and config combo
 # Example: models/foo.o -> libraries/libhemem-foo-true_2_1.0.so
 $$(LIB_OUTPUT_DIR)/$(1)/libhemem-%-$(2).so: $$(MODEL_OBJS_$(1)_$(2)) models/%.o | $$(LIB_OUTPUT_DIR)/$(1)
-	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) -shared -fPIC -g $$^ -o $$@ -O3 \
-		$$(LIBS) \
-		$$(EXTRA_COMPILE_ARGS)
+	$$(LINK_SHARED_RECIPE)
 
 # Build one ARMS library per model object under models with training data enabled
 # Example: models/foo.o -> libraries/libhemem-foo_train-true_2_1.0.so
 $$(LIB_OUTPUT_DIR)/$(1)/libhemem-%_$(2)_train.so: $$(TRAIN_OBJS_$(1)_$(2)) models/%.o | $$(LIB_OUTPUT_DIR)/$(1)
-	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) -shared -fPIC -g $$^ -o $$@ -O3 \
-		$$(LIBS) \
-		$$(EXTRA_COMPILE_ARGS)
+	$$(LINK_SHARED_RECIPE)
 
 # Compile C++ sources for USE_MODEL=true variants and config combo
 $$(OBJ_DIR)/model/$(1)/$(2)/%.o: %.cpp | $$(OBJ_DIR)
-	mkdir -p $$(dir $$@)
-	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) -fPIC $$(BASE_DEFINES_model) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)) -c $$< -o $$@
+	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_model) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)))
 
 $$(OBJ_DIR)/train/$(1)/$(2)/%.o: %.cpp | $$(OBJ_DIR)
-	mkdir -p $$(dir $$@)
-	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) -fPIC $$(BASE_DEFINES_train) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)) -c $$< -o $$@
+	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_train) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)))
 endef
 
 $(foreach platform,$(PLATFORMS),$(foreach combo,$(COMBOS),$(eval $(call MAKE_PLATFORM_COMBO_RULES,$(platform),$(combo)))))
@@ -108,34 +119,25 @@ ARMS_TRAIN_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_train/$(1)/,$$(OBJ_NAMES))
 
 # Build without linking a model; force USE_MODEL=false
 $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms.so: $$(NOMODEL_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
-	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) -shared -fPIC -g $$^ -o $$@ -O3 \
-	    $$(LIBS) \
-	    $$(EXTRA_COMPILE_ARGS)
+	$$(LINK_SHARED_RECIPE)
 
 # Build without linking a model; force USE_MODEL=false and PRINT_TRAINING_DATA=true
 $$(LIB_OUTPUT_DIR)/$(1)/libhemem-logging.so: $$(LOGGING_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
-	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) -shared -fPIC -g $$^ -o $$@ -O3 \
-	    $$(LIBS) \
-	    $$(EXTRA_COMPILE_ARGS)
+	$$(LINK_SHARED_RECIPE)
 
 # Build ARMS with training data logging enabled (no model linked)
 $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_train.so: $$(ARMS_TRAIN_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
-	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) -shared -fPIC -g $$^ -o $$@ -O3 \
-	    $$(LIBS) \
-	    $$(EXTRA_COMPILE_ARGS)
+	$$(LINK_SHARED_RECIPE)
 
 # Compile C++ sources for USE_MODEL=false variants (platform specialization)
 $$(OBJ_DIR)/nomodel/$(1)/%.o: %.cpp | $$(OBJ_DIR)
-	mkdir -p $$(dir $$@)
-	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) -fPIC $$(BASE_DEFINES_nomodel) $$(call platform_defs,$(1)) -c $$< -o $$@
+	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_nomodel) $$(call platform_defs,$(1)))
 
 $$(OBJ_DIR)/logging/$(1)/%.o: %.cpp | $$(OBJ_DIR)
-	mkdir -p $$(dir $$@)
-	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) -fPIC $$(BASE_DEFINES_logging) $$(call platform_defs,$(1)) -c $$< -o $$@
+	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_logging) $$(call platform_defs,$(1)))
 
 $$(OBJ_DIR)/arms_train/$(1)/%.o: %.cpp | $$(OBJ_DIR)
-	mkdir -p $$(dir $$@)
-	$$(CXX) $$(CXXFLAGS) $$(INCLUDES) -fPIC $$(BASE_DEFINES_arms_train) $$(call platform_defs,$(1)) -c $$< -o $$@
+	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_train) $$(call platform_defs,$(1)))
 endef
 
 $(foreach platform,$(PLATFORMS),$(eval $(call MAKE_PLATFORM_BASE_RULES,$(platform))))

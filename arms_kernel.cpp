@@ -29,7 +29,6 @@
 #include <sched.h>
 #include <set>
 #include <sstream>
-#include <sstream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -67,11 +66,52 @@ bool initialized = false;
 std::atomic<uint64_t> scan_generation{0};
 
 std::unordered_map<uint64_t, std::shared_ptr<page_info>> pages_map;
-std::mutex pages_map_lock;
+std::shared_mutex pages_map_lock;
 
 bool is_access_log_page(uint64_t page_base)
 {
     return access_log != nullptr && access_log->overlaps_with_logging_region(page_base, PAGE_SIZE);
+}
+
+std::shared_ptr<page_info> get_or_create_tracked_page(uint64_t page_va, uint64_t last_seen_scan,
+                                                      uint64_t last_access_generation, int seen_pages,
+                                                      int pages_in_dram, bool *added_new_page)
+{
+    if (added_new_page != nullptr)
+    {
+        *added_new_page = false;
+    }
+
+    {
+        std::shared_lock<std::shared_mutex> lock(pages_map_lock);
+        auto it = pages_map.find(page_va);
+        if (it != pages_map.end())
+        {
+            return it->second;
+        }
+    }
+
+    std::unique_lock<std::shared_mutex> lock(pages_map_lock);
+    auto it = pages_map.find(page_va);
+    if (it != pages_map.end())
+    {
+        return it->second;
+    }
+
+    auto page = std::make_shared<page_info>();
+    page->va = page_va;
+    page->last_seen_scan = last_seen_scan;
+    page->last_access_generation = last_access_generation;
+    page->seen_pages = seen_pages;
+    page->pages_in_dram = pages_in_dram;
+    pages_map.emplace(page_va, page);
+
+    if (added_new_page != nullptr)
+    {
+        *added_new_page = true;
+    }
+
+    return page;
 }
 
 int pagemap_fd = -1;
@@ -117,7 +157,7 @@ float promotion_cost_avg = MIN_PROMOTION_COST;
 float demotion_cost_avg = MIN_DEMOTION_COST;
 float latency_diff = UNLOADED_NVM_LAT - UNLOADED_DRAM_LAT;
 
-bool terminated = false;
+std::atomic<bool> terminated{false};
 struct group_tracker *grp_tracker = NULL;
 
 std::atomic<bool> madvise_thread_running{false};
@@ -661,14 +701,13 @@ void detect_hot_change()
 // Scoring and Migration Policy
 // ============================================================================
 
-static float compute_score(const std::shared_ptr<page_info> &page, struct data_row &row)
+static float compute_score(const std::shared_ptr<page_info> &page)
 {
     float score = 0;
     for (int i = 0; i < WINDOW_SIZE; i++)
     {
         score += (active_bias[i] * page->w[i]);
     }
-    row.arms_score = score;
     return score;
 }
 
@@ -680,38 +719,61 @@ static int score_compare(const void *a, const void *b)
 }
 
 #if FULL_LOGS == (true)
-// Sorts in descending order by ewma5
-static int sort_entry_cmp_by_ewma5(const void *a, const void *b)
-{
-    struct score_entry _a = *(const struct score_entry *)a;
-    struct score_entry _b = *(const struct score_entry *)b;
-
-    return (_a.page->w[1] > _b.page->w[1]) ? -1 : (_a.page->w[1] < _b.page->w[1]);
-}
+static int sort_entry_cmp_by_ewma5(const void *a, const void *b);
 #endif
 
-void update_scores_and_migrate(size_t timestep)
+struct ranking_plan
 {
-    if (ARMS_VERBOSE)
-    {
-        std::cout << "[ARMS] Updating page scores and deciding migrations..." << std::endl;
-    }
+    uint32_t max_migrations_cur_interval;
+    size_t candidate_window;
+    bool use_partial_ranking;
+};
 
-    std::vector<score_entry> scores;
+struct page_distribution
+{
+    double dram_pages = 0;
+    double far_pages = 0;
+};
+
+struct migration_decision
+{
+    std::vector<uint64_t> promote_list;
+    std::vector<uint64_t> demote_list;
+    double migrated_count = 0;
+};
+
+static inline int hugepage_seen_count(const std::shared_ptr<page_info> &page)
+{
+    return page->seen_pages > 0 ? 1 : 0;
+}
+
+static inline int hugepage_dram_count(const std::shared_ptr<page_info> &page)
+{
+    return page->pages_in_dram > 0 ? 1 : 0;
+}
+
+static std::vector<std::shared_ptr<page_info>> snapshot_tracked_pages()
+{
     std::vector<std::shared_ptr<page_info>> page_snapshot;
 
-    reset_group_hash(grp_tracker);
-
-    // Update scores for all pages
-    size_t accesses_total = 0;
+    std::shared_lock<std::shared_mutex> lock(pages_map_lock);
+    page_snapshot.reserve(pages_map.size());
+    for (auto &kv : pages_map)
     {
-        std::lock_guard<std::mutex> lock(pages_map_lock);
-        page_snapshot.reserve(pages_map.size());
-        for (auto &kv : pages_map)
-        {
-            page_snapshot.push_back(kv.second);
-        }
+        page_snapshot.push_back(kv.second);
     }
+
+    return page_snapshot;
+}
+
+static size_t update_page_scores(const std::vector<std::shared_ptr<page_info>> &page_snapshot,
+                                 std::vector<score_entry> &scores)
+{
+    size_t accesses_total = 0;
+
+#if USE_MODEL == (true) || PRINT_TRAINING_DATA == (true) || LOGGING_RUN == (true)
+    reset_group_hash(grp_tracker);
+#endif
 
     scores.reserve(page_snapshot.size());
     for (auto &page : page_snapshot)
@@ -722,15 +784,29 @@ void update_scores_and_migrate(size_t timestep)
         page->prev_score = page->score;
 
         if (page->seen_pages <= 0)
+        {
             continue;
+        }
+
+#if USE_MODEL == (false) && PRINT_TRAINING_DATA == (false) && LOGGING_RUN == (false)
+        page->arms_score = compute_score(page);
+        page->score = page->arms_score;
+        scores.push_back({page, page->score});
+#else
         scores.push_back({page, 0});
+#endif
     }
 
+    return accesses_total;
+}
+
+static void update_model_scores_and_log(std::vector<score_entry> &scores, size_t timestep, size_t accesses_total)
+{
+#if USE_MODEL == (true) || PRINT_TRAINING_DATA == (true) || LOGGING_RUN == (true)
 #if FULL_LOGS == (true)
     std::sort(scores.begin(), scores.end(),
               [](const score_entry &a, const score_entry &b) { return sort_entry_cmp_by_ewma5(&a, &b) < 0; });
 #endif
-    // double cpu_usage = access_log->calc_cpu_usage_pct();
     for (size_t i = 0; i < scores.size(); i++)
     {
         scores[i].page->update_derivative_features(i, scores.size(), accesses_total);
@@ -741,11 +817,11 @@ void update_scores_and_migrate(size_t timestep)
     {
         struct data_row row = access_log->extract_row(timestep, score_entry.page, grp_tracker,
                                                       accesses_total); // Extract previous row data
-        score_entry.page->arms_score = compute_score(score_entry.page, row);
+        row.arms_score = compute_score(score_entry.page);
+        score_entry.page->arms_score = row.arms_score;
 
         if (score_entry.page->seen_pages <= 0)
         {
-            // do not log row, and do no waste time on inference
             score_entry.page->score = score_entry.page->arms_score;
             score_entry.score = score_entry.page->score;
             continue;
@@ -774,52 +850,60 @@ void update_scores_and_migrate(size_t timestep)
         row.score = score_entry.score;
         access_log->log_row(score_entry.page, row);
     }
+#else
+    (void)scores;
+    (void)timestep;
+    (void)accesses_total;
+#endif
+}
 
-    if (scores.empty())
-        return;
+static ranking_plan rank_scores_for_migration(std::vector<score_entry> &scores)
+{
+    ranking_plan plan = {static_cast<uint32_t>(((policy_thread_interval) / (promotion_cost_avg + demotion_cost_avg)) *
+                                               MIGRATION_WORKER_COUNT),
+                         scores.size(), false};
 
-    uint32_t max_migrations_cur_interval =
-        ((policy_thread_interval) / (promotion_cost_avg + demotion_cost_avg)) * MIGRATION_WORKER_COUNT;
-
-    size_t candidate_window = scores.size();
     if (ARMS_PARTIAL_RANKING)
     {
         const size_t min_window = 64;
         const size_t scaled_window =
-            static_cast<size_t>(std::max<uint32_t>(1, max_migrations_cur_interval)) * ARMS_PARTIAL_RANK_MULTIPLIER;
-        candidate_window = std::min(scores.size(), std::max(min_window, scaled_window));
+            static_cast<size_t>(std::max<uint32_t>(1, plan.max_migrations_cur_interval)) * ARMS_PARTIAL_RANK_MULTIPLIER;
+        plan.candidate_window = std::min(scores.size(), std::max(min_window, scaled_window));
     }
 
-    const bool use_partial_ranking =
-        ARMS_PARTIAL_RANKING && candidate_window < scores.size() && (candidate_window * 2 < scores.size());
+    plan.use_partial_ranking =
+        ARMS_PARTIAL_RANKING && plan.candidate_window < scores.size() && (plan.candidate_window * 2 < scores.size());
 
     auto score_desc = [](const score_entry &a, const score_entry &b) { return score_compare(&a, &b) < 0; };
 
-    if (use_partial_ranking)
+    if (plan.use_partial_ranking)
     {
-        std::nth_element(scores.begin(), scores.begin() + candidate_window, scores.end(), score_desc);
-        std::sort(scores.begin(), scores.begin() + candidate_window, score_desc);
+        std::nth_element(scores.begin(), scores.begin() + plan.candidate_window, scores.end(), score_desc);
+        std::sort(scores.begin(), scores.begin() + plan.candidate_window, score_desc);
 
-        std::nth_element(scores.begin(), scores.end() - candidate_window, scores.end(), score_desc);
-        std::sort(scores.end() - candidate_window, scores.end(), score_desc);
+        std::nth_element(scores.begin(), scores.end() - plan.candidate_window, scores.end(), score_desc);
+        std::sort(scores.end() - plan.candidate_window, scores.end(), score_desc);
     }
     else
     {
         std::sort(scores.begin(), scores.end(), score_desc);
-        candidate_window = scores.size();
+        plan.candidate_window = scores.size();
     }
 
-    for (size_t i = 0; i < candidate_window; i++)
+    for (size_t i = 0; i < plan.candidate_window; i++)
     {
         scores[i].page->update_can_promote(dramsize / PAGE_SIZE, i);
     }
 
-    double dram_pages = 0;
-    double far_pages = 0;
+    return plan;
+}
+
+static page_distribution summarize_page_distribution(const std::vector<score_entry> &scores)
+{
+    page_distribution distribution;
+
     for (const auto &entry : scores)
     {
-        // std::lock_guard<std::mutex> lock(entry.page->page_lock);
-
         if (false)
         {
             if (entry.page->pages_in_dram != entry.page->seen_pages)
@@ -829,70 +913,59 @@ void update_scores_and_migrate(size_t timestep)
             else if (entry.page->pages_in_dram < 0 || entry.page->seen_pages < 0)
                 std::cout << entry.page->pages_in_dram << "/" << entry.page->seen_pages << std::endl;
         }
-        dram_pages += entry.page->pages_in_dram;
-        far_pages += (entry.page->seen_pages - entry.page->pages_in_dram);
+        distribution.dram_pages += hugepage_dram_count(entry.page);
+        distribution.far_pages += std::max(0, hugepage_seen_count(entry.page) - hugepage_dram_count(entry.page));
     }
 
-    // Print the max and min scores for debugging
-    if (ARMS_VERBOSE)
-    {
-        std::cout << "[ARMS] Number of tracked pages: " << scores.size()
-                  << " (DRAM: " << dram_pages / BASE_PAGE_PER_HUGEPAGE
-                  << ", NVM: " << far_pages / BASE_PAGE_PER_HUGEPAGE << "), Max score: " << scores[0].score
-                  << ", Median score: " << scores[(use_partial_ranking ? candidate_window : scores.size()) / 2].score
-                  << ", Min score: " << scores[scores.size() - 1].score << std::endl;
-    }
+    return distribution;
+}
 
-    // Identify promotion and demotion candidates
-    std::vector<uint64_t> promote_list;
-    std::vector<uint64_t> demote_list;
-
+static migration_decision select_migration_candidates(const std::vector<score_entry> &scores, const ranking_plan &plan)
+{
+    migration_decision decision;
+    const size_t promote_idx_limit = plan.use_partial_ranking ? plan.candidate_window : scores.size();
     size_t promote_idx = 0;
-    size_t promote_idx_limit = use_partial_ranking ? candidate_window : scores.size();
     int64_t demote_idx = static_cast<int64_t>(scores.size()) - 1;
-    int64_t demote_idx_floor = use_partial_ranking ? static_cast<int64_t>(scores.size() - candidate_window) : 0;
-    double migrated_count = 0;
+    const int64_t demote_idx_floor =
+        plan.use_partial_ranking ? static_cast<int64_t>(scores.size() - plan.candidate_window) : 0;
 
     if (ARMS_VERBOSE)
     {
-        std::cout << "[ARMS] Max migrations allowed this interval: " << max_migrations_cur_interval << std::endl;
+        std::cout << "[ARMS] Max migrations allowed this interval: " << plan.max_migrations_cur_interval << std::endl;
     }
 
     int64_t fasttier_free_kb = std::max(get_fasttier_free_mem() - MIN_FREE_MEMORY, (int64_t)0);
-    int64_t fasttier_free_base_pages = (fasttier_free_kb == (int64_t)-1) ? 0 : (fasttier_free_kb * 1024) / BASE_PAGE;
-    int64_t free_base_pages = fasttier_free_base_pages;
+    int64_t fasttier_free_hugepages = (fasttier_free_kb == (int64_t)-1) ? 0 : (fasttier_free_kb * 1024) / PAGE_SIZE;
+    int64_t free_hugepages = fasttier_free_hugepages;
 
-    if (free_base_pages > 0)
+    if (free_hugepages > 0)
     {
         numa_set_preferred(FAST_TIER);
     }
 
     std::shared_ptr<page_info> backup_page;
-    // Try to promote hot NVM pages, demoting cold DRAM pages if necessary
     if (ARMS_VERBOSE)
     {
-        std::cout << "[ARMS] Fast tier free memory: " << fasttier_free_kb << " KB (" << fasttier_free_base_pages
-                  << " base pages)" << std::endl;
+        std::cout << "[ARMS] Fast tier free memory: " << fasttier_free_kb << " KB (" << fasttier_free_hugepages
+                  << " hugepages)" << std::endl;
     }
+
     while (promote_idx < promote_idx_limit && demote_idx >= demote_idx_floor &&
            promote_idx < static_cast<size_t>(demote_idx))
     {
-        int64_t hot_need_base_pages = 0;
-        if ((migrated_count / BASE_PAGE_PER_HUGEPAGE) >= max_migrations_cur_interval)
+        int64_t hot_need_hugepages = 0;
+        if (decision.migrated_count >= plan.max_migrations_cur_interval)
         {
-            break; // Reached max migrations for this interval
+            break;
         }
 
         std::shared_ptr<page_info> hot_page = scores[promote_idx++].page;
 
         if (hot_page->pages_in_dram > 0)
         {
-            // std::lock_guard<std::mutex> lock(hot_page->page_lock);
             if (hot_page->pages_in_dram < hot_page->seen_pages)
             {
-                // push back pages that got missed during migration
-                hot_need_base_pages = hot_page->seen_pages - hot_page->pages_in_dram;
-                migrated_count += hot_need_base_pages;
+                hot_need_hugepages = 1;
             }
             else
             {
@@ -906,7 +979,6 @@ void update_scores_and_migrate(size_t timestep)
                 backup_page = hot_page;
             }
 #if USE_MODEL == (true) || LOGGING_RUN == (true)
-            // only backoff if there are no pages already in dram
             if (hot_page->promote_backoff > 0)
             {
                 continue;
@@ -918,11 +990,8 @@ void update_scores_and_migrate(size_t timestep)
             }
 #endif
 
-            hot_need_base_pages = hot_page->seen_pages - hot_page->pages_in_dram;
-            migrated_count += hot_need_base_pages;
+            hot_need_hugepages = hugepage_seen_count(hot_page);
         }
-
-        // Perform cost-benefit analysis before promoting
 
 #if USE_MODEL == (true)
         float cost = CB_MULTIPLIER * (promotion_cost_avg + demotion_cost_avg);
@@ -933,13 +1002,11 @@ void update_scores_and_migrate(size_t timestep)
 #endif
         if (benefit < cost)
         {
-            // Stop promotions - not profitable
             break;
         }
 
-        // Ensure enough free base pages; demote cold pages if necessary
         while (demote_idx >= demote_idx_floor && demote_idx > static_cast<int64_t>(promote_idx) &&
-               ((int64_t)free_base_pages) < hot_need_base_pages)
+             free_hugepages < hot_need_hugepages)
         {
             while (demote_idx >= demote_idx_floor && demote_idx > static_cast<int64_t>(promote_idx) &&
                    scores[demote_idx].page->pages_in_dram == 0)
@@ -956,16 +1023,15 @@ void update_scores_and_migrate(size_t timestep)
                 continue;
             }
 #endif
-            int64_t cold_free_base_pages = cold_page->pages_in_dram;
+            int64_t cold_free_hugepages = hugepage_dram_count(cold_page);
 
-            // Migration checks for cold page suitability
 #if USE_MODEL == (false)
             float hot_page_min_avg = std::min(hot_page->w[0], hot_page->w[2]);
             float cold_page_max_avg = std::max(cold_page->w[0], cold_page->w[2]);
 
             if (hot_page_min_avg < cold_page_max_avg)
             {
-                demote_idx--; // Skip this cold page and try the next candidate
+                demote_idx--;
                 continue;
             }
 #endif
@@ -978,60 +1044,104 @@ void update_scores_and_migrate(size_t timestep)
 
             if (benefit < cost)
             {
-                // Stop promotions - not profitable after considering demotion
                 demote_idx = static_cast<int64_t>(promote_idx);
                 break;
             }
 
-            migrated_count += cold_free_base_pages;
-
-            if ((migrated_count / BASE_PAGE_PER_HUGEPAGE) >= max_migrations_cur_interval)
+            if ((decision.migrated_count + cold_free_hugepages) > plan.max_migrations_cur_interval)
             {
                 demote_idx = static_cast<int64_t>(promote_idx);
                 break;
             }
 
-            // std::cout << "[ARMS] Pairing promotion of page " << std::hex << hot_page->va << std::dec << " (need "
-            //           << hot_need_base_pages << " base pages) with demotion of page " << std::hex << cold_page->va
-            //           << std::dec << " (freeing " << cold_free_base_pages << " base pages)" << std::endl;
-
             cold_page->num_demotions++;
-            demote_list.push_back(cold_page->va);
-            free_base_pages += cold_free_base_pages;
+            decision.demote_list.push_back(cold_page->va);
+            free_hugepages += cold_free_hugepages;
+            decision.migrated_count += cold_free_hugepages;
         }
 
-        if (free_base_pages < hot_need_base_pages)
+        if (free_hugepages < hot_need_hugepages || (decision.migrated_count + hot_need_hugepages) > plan.max_migrations_cur_interval)
         {
             break;
         }
 
         hot_page->num_promotions++;
-        promote_list.push_back(hot_page->va);
-        free_base_pages -= hot_need_base_pages;
-        migrated_count += hot_need_base_pages;
+        decision.promote_list.push_back(hot_page->va);
+        free_hugepages -= hot_need_hugepages;
+        decision.migrated_count += hot_need_hugepages;
     }
-    if (promote_list.empty() && backup_page)
+
+    if (decision.promote_list.empty() && backup_page)
     {
 #if USE_MODEL == (true) || LOGGING_RUN == (true)
-        promote_list.push_back(backup_page->va);
+        decision.promote_list.push_back(backup_page->va);
 #endif
     }
 
+    return decision;
+}
+
+#if FULL_LOGS == (true)
+// Sorts in descending order by ewma5
+static int sort_entry_cmp_by_ewma5(const void *a, const void *b)
+{
+    struct score_entry _a = *(const struct score_entry *)a;
+    struct score_entry _b = *(const struct score_entry *)b;
+
+    return (_a.page->w[1] > _b.page->w[1]) ? -1 : (_a.page->w[1] < _b.page->w[1]);
+}
+#endif
+
+void update_scores_and_migrate(size_t timestep)
+{
+#if USE_MODEL == (false) && PRINT_TRAINING_DATA == (false) && LOGGING_RUN == (false)
+    (void)timestep;
+#endif
+
     if (ARMS_VERBOSE)
     {
-        std::cout << "[ARMS] Scores updated. Promote candidates: " << promote_list.size()
-                  << ", Demote candidates: " << demote_list.size() << " migrated count: " << migrated_count
-                  << std::endl;
+        std::cout << "[ARMS] Updating page scores and deciding migrations..." << std::endl;
+    }
+
+    std::vector<score_entry> scores;
+    std::vector<std::shared_ptr<page_info>> page_snapshot = snapshot_tracked_pages();
+    size_t accesses_total = update_page_scores(page_snapshot, scores);
+    update_model_scores_and_log(scores, timestep, accesses_total);
+
+    if (scores.empty())
+        return;
+
+    ranking_plan plan = rank_scores_for_migration(scores);
+    page_distribution distribution = summarize_page_distribution(scores);
+
+    // Print the max and min scores for debugging
+    if (ARMS_VERBOSE)
+    {
+        std::cout << "[ARMS] Number of tracked pages: " << scores.size()
+                  << " (DRAM: " << distribution.dram_pages << ", NVM: " << distribution.far_pages
+                  << "), Max score: " << scores[0].score
+                  << ", Median score: "
+                  << scores[(plan.use_partial_ranking ? plan.candidate_window : scores.size()) / 2].score
+                  << ", Min score: " << scores[scores.size() - 1].score << std::endl;
+    }
+
+    migration_decision decision = select_migration_candidates(scores, plan);
+
+    if (ARMS_VERBOSE)
+    {
+        std::cout << "[ARMS] Scores updated. Promote candidates: " << decision.promote_list.size()
+                  << ", Demote candidates: " << decision.demote_list.size()
+                  << " migrated count: " << decision.migrated_count << " hugepages" << std::endl;
     }
 
     // Perform migrations by pairing promotions and demotions in the same tasks
-    if (!promote_list.empty() || !demote_list.empty())
+    if (!decision.promote_list.empty() || !decision.demote_list.empty())
     {
-        enqueue_migration_task(promote_list, demote_list);
+        enqueue_migration_task(decision.promote_list, decision.demote_list);
     }
 
     // If no migrations happened, decay the cost estimates
-    if (promote_list.empty() && demote_list.empty())
+    if (decision.promote_list.empty() && decision.demote_list.empty())
     {
         promotion_cost_avg = std::max(promotion_cost_avg / MIGRATION_COST_DECAY_RATE, (double)MIN_PROMOTION_COST);
         demotion_cost_avg = std::max(demotion_cost_avg / MIGRATION_COST_DECAY_RATE, (double)MIN_DEMOTION_COST);
@@ -1057,10 +1167,15 @@ void arms_start_tiering()
 
     numa_set_preferred(FAST_TIER);
 
+#if USE_MODEL == (true) || PRINT_TRAINING_DATA == (true) || LOGGING_RUN == (true)
     grp_tracker = create_group_tracker();
 
     access_log = new class access_log;
     printf("Allocated %f GB for scores_log\n", access_log->get_gb_allocated());
+#else
+    grp_tracker = nullptr;
+    access_log = nullptr;
+#endif
 
     // Open pagemap
     target_pid = getpid();
@@ -1133,17 +1248,15 @@ static void write_max_dram_usage_to_file()
         return;
     }
 
-    uint64_t max_base_pages = max_dram_base_pages_seen.load(std::memory_order_relaxed);
-    double max_hugepage_equiv = static_cast<double>(max_base_pages) / BASE_PAGE_PER_HUGEPAGE;
+    uint64_t max_hugepages = max_dram_base_pages_seen.load(std::memory_order_relaxed);
 
     uint64_t samples = dram_samples.load(std::memory_order_relaxed);
-    double avg_base_pages = 0.0;
+    double avg_hugepages = 0.0;
     if (samples > 0)
     {
-        avg_base_pages = static_cast<double>(total_dram_base_pages_accum.load(std::memory_order_relaxed)) /
-                         static_cast<double>(samples);
+        avg_hugepages = static_cast<double>(total_dram_base_pages_accum.load(std::memory_order_relaxed)) /
+                        static_cast<double>(samples);
     }
-    double avg_hugepage_equiv = avg_base_pages / BASE_PAGE_PER_HUGEPAGE;
 
     int fd = open(MAX_DRAM_HUGEPAGE_LOG, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (fd == -1)
@@ -1152,10 +1265,8 @@ static void write_max_dram_usage_to_file()
         return;
     }
 
-    if (dprintf(fd, "max_hugepage_equivalents_in_dram=%f\n", max_hugepage_equiv) < 0 ||
-        dprintf(fd, "max_base_pages_in_dram=%llu\n", static_cast<unsigned long long>(max_base_pages)) < 0 ||
-        dprintf(fd, "avg_hugepage_equivalents_in_dram=%f\n", avg_hugepage_equiv) < 0 ||
-        dprintf(fd, "avg_base_pages_in_dram=%f\n", avg_base_pages) < 0 ||
+    if (dprintf(fd, "max_hugepages_in_dram=%llu\n", static_cast<unsigned long long>(max_hugepages)) < 0 ||
+        dprintf(fd, "avg_hugepages_in_dram=%f\n", avg_hugepages) < 0 ||
         dprintf(fd, "samples=%llu\n", static_cast<unsigned long long>(samples)) < 0 ||
         dprintf(fd, "hugepage_size_bytes=%llu\n", static_cast<unsigned long long>(HUGEPAGE_SIZE)) < 0)
     {
@@ -1167,11 +1278,6 @@ static void write_max_dram_usage_to_file()
 
 void arms_kernel_shutdown()
 {
-    if (!PRINT_TRAINING_DATA)
-    {
-        exit(0);
-    }
-
     bool expected = false;
     if (!shutdown_started.compare_exchange_strong(expected, true, std::memory_order_acq_rel))
     {
@@ -1184,10 +1290,8 @@ void arms_kernel_shutdown()
         return;
     }
 
-    terminated = true;
+    terminated.store(true, std::memory_order_relaxed);
     printf("[ARMS] Shutting down...\n");
-
-    exit(0); // For now, just exit immediately to avoid long shutdown times. Cleanup can be re-enabled later.
 
     // Wake workers so they can notice termination
     madvise_cv.notify_all();

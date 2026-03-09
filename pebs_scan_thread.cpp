@@ -26,7 +26,7 @@ void *pebs_scan_thread(void *arg)
         assert(0);
     }
 
-    while (!terminated)
+    while (!terminated.load(std::memory_order_relaxed))
     {
         for (int cpu = 0; cpu < PEBS_NPROCS; cpu++)
         {
@@ -59,27 +59,18 @@ void *pebs_scan_thread(void *arg)
                     if (page_va != 0 && !is_access_log_page(page_va))
                     {
                         bool added_new_page = false;
-                        {
-                            std::lock_guard<std::mutex> lock(pages_map_lock);
-                            auto it = pages_map.find(page_va);
-                            if (it == pages_map.end())
-                            {
-                                // New page discovered
-                                auto page = std::make_shared<page_info>();
-                                page->va = page_va;
-                                page->last_seen_scan = scan_generation.load(std::memory_order_relaxed);
-                                page->seen_pages = 1;
-                                it = pages_map.emplace(page_va, std::move(page)).first;
-                                added_new_page = true;
-                            }
-                            assert(it != pages_map.end());
+                        const uint64_t cur_generation = scan_generation.load(std::memory_order_relaxed);
+                        std::shared_ptr<page_info> page =
+                            get_or_create_tracked_page(page_va, cur_generation, cur_generation, 1, 0, &added_new_page);
 
-                            // Increment access count
-                            auto &page = it->second;
-                            page->last_seen_scan = scan_generation.load(std::memory_order_relaxed);
+                        assert(page != nullptr);
+                        {
+                            std::lock_guard<std::mutex> page_lock(page->page_lock);
+                            page->last_seen_scan = cur_generation;
+                            page->last_access_generation = cur_generation;
                             page->accesses[type][curr_access_version]++;
-                            total_samples[type]++;
                         }
+                        total_samples[type]++;
 
                         if (added_new_page)
                         {

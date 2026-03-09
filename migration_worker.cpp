@@ -19,61 +19,88 @@
 
 struct migration_task
 {
-    std::vector<uint64_t> promote_vas;
-    std::vector<uint64_t> demote_vas;
+    struct page_ref
+    {
+        uint64_t va;
+        std::shared_ptr<page_info> page;
+        int expected_hugepages;
+    };
+
+    std::vector<page_ref> promote_pages;
+    std::vector<page_ref> demote_pages;
 };
 
 static std::deque<migration_task> migration_queue;
 static std::mutex migration_queue_lock;
 std::condition_variable migration_cv;
 
-static int expected_promoted_pages_for_hugepage(uint64_t va)
+static migration_task::page_ref make_page_ref(uint64_t va)
 {
-    std::shared_ptr<page_info> page;
+    migration_task::page_ref ref{va & ~(PAGE_SIZE - 1), nullptr, 1};
+
     {
-        std::lock_guard<std::mutex> lock(pages_map_lock);
-        uint64_t base_va = va & ~(PAGE_SIZE - 1);
-        auto it = pages_map.find(base_va);
-        if (it == pages_map.end())
+        std::shared_lock<std::shared_mutex> lock(pages_map_lock);
+        auto it = pages_map.find(ref.va);
+        if (it != pages_map.end())
         {
-            return static_cast<int>(BASE_PAGE_PER_HUGEPAGE);
+            ref.page = it->second;
         }
-        page = it->second;
     }
 
-    std::lock_guard<std::mutex> page_lock(page->page_lock);
-    return std::clamp(page->seen_pages, 0, static_cast<int>(BASE_PAGE_PER_HUGEPAGE));
+    if (ref.page)
+    {
+        std::lock_guard<std::mutex> page_lock(ref.page->page_lock);
+        ref.expected_hugepages = ref.page->seen_pages > 0 ? 1 : 0;
+    }
+
+    return ref;
 }
 
-static int migrate_pages_to_node(const std::vector<uint64_t> &promote_vas, const std::vector<uint64_t> &demote_vas,
-                                 int &promoted_pages, int &demoted_pages, int &numa_ret)
+static void apply_hugepage_state_update(const migration_task::page_ref &ref, int target_node, int status)
 {
-    if (promote_vas.empty() && demote_vas.empty())
+    if (!ref.page || status != target_node)
+    {
+        return;
+    }
+
+    std::lock_guard<std::mutex> plock(ref.page->page_lock);
+
+    ref.page->seen_pages = BASE_PAGE_PER_HUGEPAGE;
+    ref.page->pages_in_dram = (target_node == FAST_TIER) ? BASE_PAGE_PER_HUGEPAGE : 0;
+    for (size_t j = 0; j < BASE_PAGE_PER_HUGEPAGE; j++)
+    {
+        ref.page->page_status[j] = target_node;
+    }
+
+#if USE_MODEL == (true) || LOGGING_RUN == (true)
+    ref.page->promote_backoff = BACKOFF_PERIOD;
+#endif
+}
+
+static int migrate_pages_to_node(const std::vector<migration_task::page_ref> &promote_pages,
+                                 const std::vector<migration_task::page_ref> &demote_pages, int &promoted_pages,
+                                 int &demoted_pages, int &numa_ret)
+{
+    if (promote_pages.empty() && demote_pages.empty())
         return 0;
 
     auto start = std::chrono::high_resolution_clock::now();
 
     std::vector<void *> pages;
-    pages.reserve((promote_vas.size() + demote_vas.size()) * BASE_PAGE_PER_HUGEPAGE);
+    pages.reserve(promote_pages.size() + demote_pages.size());
     std::vector<int> nodes;
-    nodes.reserve((promote_vas.size() + demote_vas.size()) * BASE_PAGE_PER_HUGEPAGE);
+    nodes.reserve(promote_pages.size() + demote_pages.size());
 
-    for (uint64_t va : promote_vas)
+    for (const auto &ref : promote_pages)
     {
-        for (size_t i = 0; i < BASE_PAGE_PER_HUGEPAGE; i++)
-        {
-            pages.push_back(reinterpret_cast<void *>(va + i * BASE_PAGE));
-            nodes.push_back(FAST_TIER);
-        }
+        pages.push_back(reinterpret_cast<void *>(ref.va));
+        nodes.push_back(FAST_TIER);
     }
 
-    for (uint64_t va : demote_vas)
+    for (const auto &ref : demote_pages)
     {
-        for (size_t i = 0; i < BASE_PAGE_PER_HUGEPAGE; i++)
-        {
-            pages.push_back(reinterpret_cast<void *>(va + i * BASE_PAGE));
-            nodes.push_back(SLOW_TIER);
-        }
+        pages.push_back(reinterpret_cast<void *>(ref.va));
+        nodes.push_back(SLOW_TIER);
     }
 
     std::vector<int> status(pages.size(), -1);
@@ -107,76 +134,17 @@ static int migrate_pages_to_node(const std::vector<uint64_t> &promote_vas, const
 
     auto end = std::chrono::high_resolution_clock::now();
     auto duration_us = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
-    float time_per_page_us = (float)duration_us / (float)pages.size() * BASE_PAGE_PER_HUGEPAGE;
+    float time_per_page_us = pages.empty() ? 0.0f : static_cast<float>(duration_us) / static_cast<float>(pages.size());
 
-    // Update per-page tracking: page_status[], seen_pages, pages_in_dram
-    // Group updates by hugepage (`page_info`) to recompute counts once per page.
     {
-        // Map each hugepage to the list of (base-page index, status)
-        using page_info_ptr = std::shared_ptr<page_info>;
-        std::unordered_map<page_info_ptr, std::vector<std::pair<int, int>>> page_updates;
+        size_t status_offset = 0;
+        for (const auto &ref : promote_pages)
         {
-            for (size_t i = 0; i < pages.size(); i++)
-            {
-                std::lock_guard<std::mutex> lock(pages_map_lock);
-                uint64_t base_va = ((uint64_t)pages[i]) & ~(PAGE_SIZE - 1);
-                auto it = pages_map.find(base_va);
-                if (it == pages_map.end())
-                {
-                    continue; // Not tracked; skip
-                }
-                page_info_ptr pi = it->second; // keep alive past pages_map_lock
-                size_t idx = (((uint64_t)pages[i]) - base_va) / BASE_PAGE;
-                if (idx < BASE_PAGE_PER_HUGEPAGE)
-                {
-                    page_updates[pi].emplace_back(static_cast<int>(idx), status[i]);
-                }
-            }
+            apply_hugepage_state_update(ref, FAST_TIER, status[status_offset++]);
         }
-
-        // Apply updates and recompute counts
-        for (auto &kv : page_updates)
+        for (const auto &ref : demote_pages)
         {
-            page_info_ptr pi = kv.first;
-            {
-                std::lock_guard<std::mutex> plock(pi->page_lock);
-                for (const auto &entry : kv.second)
-                {
-                    int idx = entry.first;
-                    int st = entry.second;
-                    // Record the latest status per base page; negative codes mean unknown/failed
-                    pi->page_status[idx] = st;
-                }
-
-                bool invalid_status = false;
-                int seen = 0;
-                int in_dram = 0;
-                for (size_t j = 0; j < BASE_PAGE_PER_HUGEPAGE; j++)
-                {
-                    int st = pi->page_status[j];
-                    if (st < 0 && st != -EFAULT && st != -ENOENT)
-                    {
-                        invalid_status = true;
-                        break;
-                    }
-                    if (st >= 0)
-                    {
-                        seen++;
-                        if (st == FAST_TIER)
-                        {
-                            in_dram++;
-                        }
-                    }
-                }
-                if (!invalid_status)
-                {
-                    pi->seen_pages = seen;
-                    pi->pages_in_dram = in_dram;
-                }
-#if USE_MODEL == (true) || LOGGING_RUN == (true)
-                pi->promote_backoff = BACKOFF_PERIOD;
-#endif
-            }
+            apply_hugepage_state_update(ref, SLOW_TIER, status[status_offset++]);
         }
     }
 
@@ -192,13 +160,13 @@ static int migrate_pages_to_node(const std::vector<uint64_t> &promote_vas, const
                                                                     (1 - MIGRATION_COST_ALPHA) * demotion_cost_avg);
     }
 
-    return pages.size();
+    return static_cast<int>(pages.size());
 }
 
 void enqueue_migration_task(const std::vector<uint64_t> &promote_vas, const std::vector<uint64_t> &demote_vas)
 {
 #if USE_MODEL == (true) || LOGGING_RUN == (true)
-    numa_set_preferred(0);
+    numa_set_preferred(FAST_TIER);
 #endif
     if (promote_vas.empty() && demote_vas.empty())
         return;
@@ -218,9 +186,20 @@ void enqueue_migration_task(const std::vector<uint64_t> &promote_vas, const std:
 
         if (promote_begin < promote_end || demote_begin < demote_end)
         {
-            tasks.push_back(
-                {std::vector<uint64_t>(promote_vas.begin() + promote_begin, promote_vas.begin() + promote_end),
-                 std::vector<uint64_t>(demote_vas.begin() + demote_begin, demote_vas.begin() + demote_end)});
+            migration_task task;
+            task.promote_pages.reserve(promote_end - promote_begin);
+            task.demote_pages.reserve(demote_end - demote_begin);
+
+            for (size_t idx = promote_begin; idx < promote_end; ++idx)
+            {
+                task.promote_pages.push_back(make_page_ref(promote_vas[idx]));
+            }
+            for (size_t idx = demote_begin; idx < demote_end; ++idx)
+            {
+                task.demote_pages.push_back(make_page_ref(demote_vas[idx]));
+            }
+
+            tasks.push_back(std::move(task));
         }
     }
 
@@ -245,12 +224,13 @@ void clear_migration_queue()
 void *migration_worker(void *arg)
 {
     (void)arg;
-    while (!terminated)
+    while (!terminated.load(std::memory_order_relaxed))
     {
         migration_task task;
         {
             std::unique_lock<std::mutex> lock(migration_queue_lock);
-            migration_cv.wait(lock, [] { return terminated || !migration_queue.empty(); });
+            migration_cv.wait(lock,
+                              [] { return terminated.load(std::memory_order_relaxed) || !migration_queue.empty(); });
             if (migration_queue.empty())
             {
                 continue;
@@ -260,17 +240,17 @@ void *migration_worker(void *arg)
         }
 
         // Try promotions first without freeing space via demotions.
-        if (!task.promote_vas.empty())
+        if (!task.promote_pages.empty())
         {
             int promoted_pages = 0;
             int demoted_pages_unused = 0;
             int numa_ret;
-            int ret = migrate_pages_to_node(task.promote_vas, {}, promoted_pages, demoted_pages_unused, numa_ret);
+            int ret = migrate_pages_to_node(task.promote_pages, {}, promoted_pages, demoted_pages_unused, numa_ret);
 
             int expected_promotions = 0;
-            for (uint64_t va : task.promote_vas)
+            for (const auto &page : task.promote_pages)
             {
-                expected_promotions += expected_promoted_pages_for_hugepage(va);
+                expected_promotions += page.expected_hugepages;
             }
             bool promotions_failed = (ret < 0) || (promoted_pages < expected_promotions);
 
@@ -282,17 +262,17 @@ void *migration_worker(void *arg)
 
             if (promotions_failed)
             {
-                numa_set_preferred(1);
+                numa_set_preferred(SLOW_TIER);
                 // std::cout << "[ARMS] changing preferred node to SLOW_TIER to assist demotions" << std::endl;
             }
 
             // If promotions failed, try demotions to free space, then retry promotions.
-            if (promotions_failed && !task.demote_vas.empty())
+            if (promotions_failed && !task.demote_pages.empty())
             {
                 int promoted_pages_unused = 0;
                 int demoted_pages = 0;
                 int demote_ret =
-                    migrate_pages_to_node({}, task.demote_vas, promoted_pages_unused, demoted_pages, numa_ret);
+                    migrate_pages_to_node({}, task.demote_pages, promoted_pages_unused, demoted_pages, numa_ret);
                 if (demote_ret > 0 && demoted_pages > 0)
                 {
                     migrations_down.fetch_add(demoted_pages, std::memory_order_relaxed);
@@ -306,32 +286,33 @@ void *migration_worker(void *arg)
                 {
                     if (ARMS_VERBOSE)
                     {
-                        std::cout << "[ARMS] Demoted " << demoted_pages << " pages to free up space." << std::endl;
+                        std::cout << "[ARMS] Demoted " << demoted_pages << " hugepages to free up space."
+                                  << std::endl;
                     }
                 }
 
                 // Give allocator/reclaim a short chance to settle after demotions.
-                std::this_thread::sleep_for(std::chrono::milliseconds(2));
+                std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
                 // Retry promotions after freeing space in multiple passes, only for hugepages that still fail.
                 int expected_retry_promotions = 0;
-                for (uint64_t va : task.promote_vas)
+                for (const auto &page : task.promote_pages)
                 {
-                    expected_retry_promotions += expected_promoted_pages_for_hugepage(va);
+                    expected_retry_promotions += page.expected_hugepages;
                 }
                 int total_retry_promoted = 0;
                 bool retry_error = false;
-                std::vector<uint64_t> pending_promotions = task.promote_vas;
-                constexpr int MAX_PROMOTION_RETRY_PASSES = 3;
+                std::vector<migration_task::page_ref> pending_promotions = task.promote_pages;
+                constexpr int MAX_PROMOTION_RETRY_PASSES = 1;
 
                 for (int pass = 0; pass < MAX_PROMOTION_RETRY_PASSES && !pending_promotions.empty(); pass++)
                 {
-                    std::vector<uint64_t> failed_this_pass;
+                    std::vector<migration_task::page_ref> failed_this_pass;
                     failed_this_pass.reserve(pending_promotions.size());
 
-                    for (uint64_t va : pending_promotions)
+                    for (const auto &page : pending_promotions)
                     {
-                        const int expected_for_hugepage = expected_promoted_pages_for_hugepage(va);
+                        const int expected_for_hugepage = page.expected_hugepages;
                         if (expected_for_hugepage == 0)
                         {
                             continue;
@@ -339,7 +320,8 @@ void *migration_worker(void *arg)
 
                         promoted_pages = 0;
                         demoted_pages_unused = 0;
-                        int retry_ret = migrate_pages_to_node({va}, {}, promoted_pages, demoted_pages_unused, numa_ret);
+                        int retry_ret =
+                            migrate_pages_to_node({page}, {}, promoted_pages, demoted_pages_unused, numa_ret);
                         if (retry_ret > 0 && promoted_pages > 0)
                         {
                             migrations_up.fetch_add(promoted_pages, std::memory_order_relaxed);
@@ -350,7 +332,7 @@ void *migration_worker(void *arg)
                         const bool hugepage_fully_promoted = (promoted_pages >= expected_for_hugepage);
                         if (!hugepage_fully_promoted)
                         {
-                            failed_this_pass.push_back(va);
+                            failed_this_pass.push_back(page);
                         }
 
                         if (retry_ret < 0 || numa_ret != 0)
@@ -371,8 +353,9 @@ void *migration_worker(void *arg)
                 if (ARMS_VERBOSE)
                 {
                     std::cout << "[ARMS] Promoted " << total_retry_promoted
-                              << " pages after demotions (multi-pass per-hugepage retry). " << retry_failed_pages
-                              << " pages failed to promote." << (retry_error ? " (errors seen)" : "") << std::endl;
+                              << " hugepages after demotions (multi-pass per-hugepage retry). " << retry_failed_pages
+                              << " hugepages failed to promote." << (retry_error ? " (errors seen)" : "")
+                              << std::endl;
                 }
             }
         }

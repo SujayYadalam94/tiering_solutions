@@ -41,7 +41,19 @@ extern bool initialized;
 #define MAX_LOGGED_SAMPLES (5000000)
 #endif
 
-#define MIGRATION_WORKER_COUNT (1)
+#ifndef PAGEMAP_FULL_SCAN_INTERVALS
+#define PAGEMAP_FULL_SCAN_INTERVALS (4)
+#endif
+
+#ifndef PAGEMAP_RECENT_ACCESS_WINDOW
+#define PAGEMAP_RECENT_ACCESS_WINDOW (1)
+#endif
+
+#ifndef PAGEMAP_BATCH_HUGEPAGES
+#define PAGEMAP_BATCH_HUGEPAGES (128)
+#endif
+
+#define MIGRATION_WORKER_COUNT (8)
 #define BACKOFF_PERIOD (0) // Number of scanning intervals to backoff after promotion/demotion
 
 #ifndef MIN_MAX_HISTORY

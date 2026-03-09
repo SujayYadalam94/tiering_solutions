@@ -51,6 +51,7 @@ void page_info::reset_page_access_fields()
     this->prev_score = 0;
 
     this->last_seen_scan = 0;
+    this->last_access_generation = 0;
 
     this->prev_count = 0;
     this->global_count_similar = 0;

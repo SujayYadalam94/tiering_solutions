@@ -61,6 +61,7 @@ struct page_info
     bool can_promote;
 
     uint64_t last_seen_scan;
+    uint64_t last_access_generation;
 
     uint32_t age;
     uint64_t age_count_total;

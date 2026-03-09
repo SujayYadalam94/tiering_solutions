@@ -61,13 +61,13 @@ void populate_new_page(uint64_t page_base)
 void *madvise_worker_thread(void *arg)
 {
     (void)arg;
-    while (!terminated)
+    while (!terminated.load(std::memory_order_relaxed))
     {
         std::vector<uint64_t> batch;
         {
             std::unique_lock<std::mutex> lock(madvise_queue_lock);
-            madvise_cv.wait(lock, [] { return terminated || !madvise_queue.empty(); });
-            if (terminated && madvise_queue.empty())
+            madvise_cv.wait(lock, [] { return terminated.load(std::memory_order_relaxed) || !madvise_queue.empty(); });
+            if (terminated.load(std::memory_order_relaxed) && madvise_queue.empty())
             {
                 break;
             }

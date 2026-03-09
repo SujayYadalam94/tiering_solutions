@@ -1,5 +1,35 @@
 #include "groups.h"
 
+namespace
+{
+page_group *allocate_group(uint64_t group_id)
+{
+    page_group *group = new page_group();
+    if (!group)
+    {
+        perror("Failed to allocate memory for page_group");
+        exit(EXIT_FAILURE);
+    }
+
+    page_group_reset(group);
+    group->id = group_id;
+    return group;
+}
+
+page_group *get_or_create_group_locked(struct group_tracker *gt, uint64_t group_id)
+{
+    auto it = gt->groups_map.find(group_id);
+    if (it != gt->groups_map.end())
+    {
+        return it->second;
+    }
+
+    page_group *group = allocate_group(group_id);
+    gt->groups_map[group_id] = group;
+    return group;
+}
+} // namespace
+
 void page_group_reset(struct page_group *pg)
 {
     pg->sum = 0;
@@ -79,20 +109,7 @@ void add_group_if_missing(struct group_tracker *gt, const std::shared_ptr<page_i
 {
     std::lock_guard<std::mutex> lock(gt->group_lock);
     const uint64_t group_id = page_to_group_id(page->va);
-
-    if (gt->groups_map.find(group_id) != gt->groups_map.end())
-    {
-        return;
-    }
-
-    struct page_group *pg = new page_group();
-    if (!pg)
-    {
-        perror("Failed to allocate memory for page_group");
-        exit(EXIT_FAILURE);
-    }
-    pg->id = group_id;
-    gt->groups_map[group_id] = pg;
+    (void)get_or_create_group_locked(gt, group_id);
 }
 
 void reset_group_hash(struct group_tracker *gt)
@@ -108,23 +125,7 @@ void update_group_entry(struct group_tracker *gt, const std::shared_ptr<page_inf
 {
     const uint64_t group_id = page_to_group_id(page->va);
     std::lock_guard<std::mutex> lock(gt->group_lock);
-    struct page_group *group = nullptr;
-    auto it = gt->groups_map.find(group_id);
-    if (it == gt->groups_map.end())
-    {
-        group = new page_group();
-        if (!group)
-        {
-            perror("Failed to allocate memory for page_group");
-            exit(EXIT_FAILURE);
-        }
-        group->id = group_id;
-        gt->groups_map[group_id] = group;
-    }
-    else
-    {
-        group = it->second;
-    }
+    struct page_group *group = get_or_create_group_locked(gt, group_id);
 
     page_group_update(group, page->count, page->w[1], total_access, page->age);
 }

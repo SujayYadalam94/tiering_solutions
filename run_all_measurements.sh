@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SIZES=(2000 4000 6000 8000 10000)
+SIZES=(4000)
 RUNS=1
 
 for size in "${SIZES[@]}"; do

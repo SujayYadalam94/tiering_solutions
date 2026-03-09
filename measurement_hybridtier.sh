@@ -1,6 +1,10 @@
 #!/bin/bash
 set -euo pipefail
 
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+# shellcheck source=measurement_common.sh
+source "${SCRIPT_DIR}/measurement_common.sh"
+
 SIZE_MIB=${1:-}
 RUN_ID=${2:-}
 PAGE_TYPE=${3:-huge} # regular | huge
@@ -21,8 +25,13 @@ if [[ ${EUID} -ne 0 ]]; then
     exit 1
 fi
 
-SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 WORKSPACE_ROOT=$(cd -- "${SCRIPT_DIR}/.." && pwd)
+BENCH_ROOT=${BENCH_ROOT:-/users/zimooo2}
+TASKSET_CPUS=${TASKSET_CPUS:-0-9,20-29}
+NUMA_CPU_NODE=${NUMA_CPU_NODE:-0}
+STRICT_FAILURES=${STRICT_FAILURES:-0}
+
+declare -a FAILED_RUNS=()
 
 # Convert MiB -> GiB (ceil), because HybridTier runtime takes FAST_MEMORY_SIZE_GB.
 FAST_TIER_SIZE_GB=$(( (SIZE_MIB + 1023) / 1024 ))
@@ -39,6 +48,26 @@ mkdir -p "${time_root}" "${log_root}" "${time_root}/hybridtier"
 HYBRIDTIER_ROOT=${HYBRIDTIER_ROOT:-"${WORKSPACE_ROOT}/hybridtier-asplos25-artifact"}
 HOOK_DIR="${HYBRIDTIER_ROOT}/hook"
 HOOK_SO="${HOOK_DIR}/hook.so"
+
+cleanup_run_outputs() {
+    local time_file=$1
+    local log_file=$2
+    local max_dram_file=$3
+
+    cleanup_measurement_outputs "${time_file}" "${log_file}" "${max_dram_file}"
+}
+
+extract_leading_env_assignments() {
+    local rest=$1
+    local env_kv=""
+
+    while [[ "${rest}" =~ ^([A-Za-z_][A-Za-z0-9_]*)=([^[:space:]]+)[[:space:]]+(.+)$ ]]; do
+        env_kv+=" ${BASH_REMATCH[1]}=${BASH_REMATCH[2]}"
+        rest="${BASH_REMATCH[3]}"
+    done
+
+    printf '%s\n%s\n' "${env_kv}" "${rest}"
+}
 
 build_hook() {
     local exe_name=$1
@@ -93,8 +122,9 @@ run_program() {
 
     local time_file="${time_dir}/${time_basename}.time"
     local log_file="${log_dir}/${time_basename}_hybridtier.log"
+    local max_dram_file="${time_dir}/max_dram_hugepages_${time_basename}.log"
 
-    rm -f "${time_file}" "${log_file}"
+    cleanup_run_outputs "${time_file}" "${log_file}" "${max_dram_file}"
 
     maybe_drop_caches
     build_hook "${exe_name}"
@@ -102,51 +132,61 @@ run_program() {
     echo "Running ${output} (exe=${exe_name}) run ${run}"
 
     # Keep compute placement/pinning similar to existing ARM measurements.
-    local pin="taskset -c 0-9,20-29"
-    local numa="/usr/bin/numactl --cpunodebind=0"
+    local pin="taskset -c ${TASKSET_CPUS}"
+    local numa="/usr/bin/numactl --cpunodebind=${NUMA_CPU_NODE}"
 
     # Extract leading environment assignments (e.g., "OMP_NUM_THREADS=16 ") so we can
     # apply them without wrapping the workload in an extra shell process.
-    local rest="${program_str}"
-    local env_kv=""
-    while [[ "${rest}" =~ ^([A-Za-z_][A-Za-z0-9_]*)=([^[:space:]]+)[[:space:]]+(.+)$ ]]; do
-        env_kv+=" ${BASH_REMATCH[1]}=${BASH_REMATCH[2]}"
-        rest="${BASH_REMATCH[3]}"
-    done
+    local env_parse_output
+    env_parse_output=$(extract_leading_env_assignments "${program_str}")
+    local env_kv
+    env_kv=$(printf '%s' "${env_parse_output}" | sed -n '1p')
+    local rest
+    rest=$(printf '%s' "${env_parse_output}" | sed -n '2p')
 
     # Disable glob expansion so args like ".*benchmark" are passed literally.
 
     echo "${pin} ${numa} env LD_PRELOAD=\"${HOOK_SO}\"${env_kv} ${rest}"
 
+    local status=0
+    set +e
     set -f
     {
         time eval "${pin} ${numa} env LD_PRELOAD=\"${HOOK_SO}\"${env_kv} ${rest}" &>> "${log_file}"
     } 2> "${time_file}"
+    status=$?
     set +f
+    set -e
 
-    echo "test"
+    if [[ ${status} -ne 0 ]]; then
+        echo "WARNING: ${output} run ${run} failed with status ${status}. See ${log_file}" >&2
+        FAILED_RUNS+=("${output}:run${run}:status${status}")
+        if [[ "${STRICT_FAILURES}" == "1" ]]; then
+            exit ${status}
+        fi
+    fi
+
+    move_max_dram_log_if_present "${max_dram_file}"
 }
 
 # ---------------- Workloads (mirrors measurement_arms.sh) ----------------
 
-run_program "/users/zimooo2/big-ann-benchmarks/.venv/bin/python3 /users/zimooo2/big-ann-benchmarks/data/10M_benchmark.py --threads 16 --index-key HNSW,Flat --stress-mode latency --dataset openai" "python3" faiss_10M "${RUN_ID}"
+run_program "${BENCH_ROOT}/big-ann-benchmarks/.venv/bin/python3 ${BENCH_ROOT}/big-ann-benchmarks/data/10M_benchmark.py --threads 16 --index-key HNSW,Flat --stress-mode latency --dataset openai" "python3" faiss_10M "${RUN_ID}"
 
-exit
+run_program "OMP_NUM_THREADS=16 ${BENCH_ROOT}/LULESH/build/lulesh2.0 -i 10 -s 400" "lulesh2.0" lulesh2.0_s400 "${RUN_ID}"
 
-run_program "OMP_NUM_THREADS=16 /users/zimooo2/LULESH/build/lulesh2.0 -i 10 -s 400" "lulesh2.0" lulesh2.0_s400 "${RUN_ID}"
-
-run_program "OMP_NUM_THREADS=16 /users/zimooo2/duckdb/build/release/benchmark/benchmark_runner benchmark/large/tpch-sf100/.*benchmark --threads=16" "benchmark_runner" DuckDB-TPCH-sf100 "${RUN_ID}"
-run_program "OMP_NUM_THREADS=16 /users/zimooo2/duckdb/build/release/benchmark/benchmark_runner benchmark/large/tpcds-sf100/.*benchmark --threads=16" "benchmark_runner" DuckDB-TPCDS-sf100 "${RUN_ID}"
+run_program "OMP_NUM_THREADS=16 ${BENCH_ROOT}/duckdb/build/release/benchmark/benchmark_runner benchmark/large/tpch-sf100/.*benchmark --threads=16" "benchmark_runner" DuckDB-TPCH-sf100 "${RUN_ID}"
+run_program "OMP_NUM_THREADS=16 ${BENCH_ROOT}/duckdb/build/release/benchmark/benchmark_runner benchmark/large/tpcds-sf100/.*benchmark --threads=16" "benchmark_runner" DuckDB-TPCDS-sf100 "${RUN_ID}"
 
 ## Call for all D size NPB programs
 programs=("mg.D.x")
 for prog in "${programs[@]}"; do
     echo "Running NPB program: $prog"
-    run_program "OMP_NUM_THREADS=16 /users/zimooo2/NPB3.4.3/NPB3.4-OMP/bin/$prog" "$prog" "$prog" "${RUN_ID}"
+    run_program "OMP_NUM_THREADS=16 ${BENCH_ROOT}/NPB3.4.3/NPB3.4-OMP/bin/$prog" "$prog" "$prog" "${RUN_ID}"
 done
 
 #echo "XSBench run ${RUN_ID}"
-run_program "OMP_NUM_THREADS=16 /users/zimooo2/XSBench/openmp-threading/XSBench -t 16 -g 50000 -p 20000000" "XSBench" XSBench "${RUN_ID}"
+run_program "OMP_NUM_THREADS=16 ${BENCH_ROOT}/XSBench/openmp-threading/XSBench -t 16 -g 50000 -p 20000000" "XSBench" XSBench "${RUN_ID}"
 
 ## GAPBS programs for twitter and kron graphs
 #gapbs_programs=("bc" "bfs" "cc_sv" "cc" "pr" "pr_spmv" "sssp" "tc")
@@ -157,7 +197,7 @@ graphs=("twitter.sg")
 for graph in "${graphs[@]}"; do
     for prog in "${gapbs_programs[@]}"; do
         echo "Running GAPBS program: $prog on graph: $graph"
-        run_program "OMP_NUM_THREADS=16 /users/zimooo2/gapbs/$prog -n 40 -f /users/zimooo2/gapbs/benchmark/graphs/$graph" "$prog" "$prog-$graph" "${RUN_ID}"
+        run_program "OMP_NUM_THREADS=16 ${BENCH_ROOT}/gapbs/$prog -n 40 -f ${BENCH_ROOT}/gapbs/benchmark/graphs/$graph" "$prog" "$prog-$graph" "${RUN_ID}"
     done
 done
 
@@ -166,6 +206,18 @@ graphs=("kron.sg")
 for graph in "${graphs[@]}"; do
     for prog in "${gapbs_programs[@]}"; do
         echo "Running GAPBS program: $prog on graph: $graph"
-        run_program "OMP_NUM_THREADS=16 /users/zimooo2/gapbs/$prog -n 20 -f /users/zimooo2/gapbs/benchmark/graphs/$graph" "$prog" "$prog-$graph" "${RUN_ID}"
+        run_program "OMP_NUM_THREADS=16 ${BENCH_ROOT}/gapbs/$prog -n 20 -f ${BENCH_ROOT}/gapbs/benchmark/graphs/$graph" "$prog" "$prog-$graph" "${RUN_ID}"
     done
 done
+
+if [[ ${#FAILED_RUNS[@]} -gt 0 ]]; then
+    echo ""
+    echo "Completed with failures (${#FAILED_RUNS[@]}):" >&2
+    for item in "${FAILED_RUNS[@]}"; do
+        echo "  - ${item}" >&2
+    done
+    echo "Set STRICT_FAILURES=1 to stop immediately on first failure." >&2
+else
+    echo ""
+    echo "All workloads completed successfully."
+fi

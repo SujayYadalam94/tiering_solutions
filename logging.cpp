@@ -10,7 +10,7 @@
 #include <thread>
 #include <vector>
 
-extern bool terminated; // defined in arms_kernel.cpp
+extern std::atomic<bool> terminated; // defined in arms_kernel.cpp
 
 /* Define globals declared in logging.h here to provide a single
     definition for the linker. This prevents multiple-definition errors
@@ -175,6 +175,8 @@ namespace
 constexpr std::size_t LOG_BUFFER_BYTES = 100ULL * 1024ULL * 1024ULL;
 constexpr std::size_t LOG_FILE_COUNT = 10;
 constexpr std::size_t LOG_PARTS_PER_FILE = 10;
+constexpr int GROUP_WINDOW_RADIUS = 7;
+constexpr int GROUP_WINDOW_SIZE = GROUP_WINDOW_RADIUS * 2 + 1;
 constexpr const char *DEFAULT_LOG_OUTPUT_PATH = "/home/freischuetz/memory_tiering/tiering_solutions/output.log";
 
 std::string build_log_output_base_path()
@@ -206,6 +208,78 @@ template <typename T> inline void print_cell(std::ostream &os, const T &value, c
         os << value;
     }
     os << ',';
+}
+
+template <typename T>
+void print_group_window(std::ostream &os, const T (&values)[GROUP_WINDOW_SIZE], const char *suffix, bool print_header)
+{
+    for (int offset = -GROUP_WINDOW_RADIUS; offset <= GROUP_WINDOW_RADIUS; offset++)
+    {
+        char group_header[64];
+        snprintf(group_header, sizeof(group_header), "group_%d_%s", offset, suffix);
+        print_cell(os, values[offset + GROUP_WINDOW_RADIUS], group_header, print_header);
+    }
+}
+
+inline void propagate_discounted_rewards(data_row *previous_row, const data_row *current_row)
+{
+    previous_row->discounted_reward_90 = current_row->count + 0.9f * current_row->discounted_reward_90;
+    previous_row->discounted_reward_95 = current_row->count + 0.95f * current_row->discounted_reward_95;
+    previous_row->discounted_reward_99 = current_row->count + 0.99f * current_row->discounted_reward_99;
+}
+
+inline void apply_age_gap_penalty(data_row *row, int age_diff)
+{
+    for (int a = age_diff - 1; a > 0; a--)
+    {
+        row->discounted_reward_90 *= 0.9f;
+        row->discounted_reward_95 *= 0.95f;
+        row->discounted_reward_99 *= 0.99f;
+    }
+}
+
+std::vector<size_t> build_part_boundaries(size_t sample_count)
+{
+    const size_t total_parts = LOG_FILE_COUNT * LOG_PARTS_PER_FILE;
+    std::vector<size_t> boundaries(total_parts + 1, 0);
+    for (size_t i = 0; i <= total_parts; ++i)
+    {
+        boundaries[i] = (sample_count * i) / total_parts;
+    }
+    return boundaries;
+}
+
+void ensure_log_output_directory(const std::string &output_base)
+{
+    const std::filesystem::path output_base_path(output_base);
+    const std::filesystem::path output_dir = output_base_path.parent_path();
+    if (!output_dir.empty())
+    {
+        std::error_code ec;
+        std::filesystem::create_directories(output_dir, ec);
+    }
+}
+
+std::string build_part_path(const std::string &output_base, size_t file_idx, size_t part_idx)
+{
+    return output_base + "_" + std::to_string(file_idx) + "_part_" + std::to_string(part_idx) + "_" +
+           std::to_string(getpid()) + ".tmp";
+}
+
+std::string build_final_log_path(const std::string &output_base, size_t file_idx)
+{
+    return output_base + "_" + std::to_string(file_idx) + ".log";
+}
+
+void append_part_file(std::ofstream &final_ofs, const std::string &part_path)
+{
+    std::ifstream part_ifs(part_path);
+    if (part_ifs.is_open())
+    {
+        final_ofs << part_ifs.rdbuf();
+        part_ifs.close();
+    }
+    std::remove(part_path.c_str());
 }
 } // namespace
 
@@ -251,16 +325,8 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
 #endif
 
     // Group EWMA5 percentages are always present
-    int pm_offset = 7;
-    for (int offset = -pm_offset; offset <= pm_offset; offset++)
-    {
-        char group_header[64];
-        snprintf(group_header, sizeof(group_header), "group_%d_mean_ewma5_perc", offset);
-        print_cell(os, row->group_ewma5_perc[offset + pm_offset], group_header, header);
-
-        snprintf(group_header, sizeof(group_header), "group_%d_mean_perc", offset);
-        print_cell(os, row->groups_perc[offset + pm_offset], group_header, header);
-    }
+    print_group_window(os, row->group_ewma5_perc, "mean_ewma5_perc", header);
+    print_group_window(os, row->groups_perc, "mean_perc", header);
 
     PRINT_CELL_AUTO(group_ewma5_var);
 
@@ -302,15 +368,8 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
     PRINT_CELL_AUTO(syscr);
     PRINT_CELL_AUTO(syscw);
 
-    for (int offset = -pm_offset; offset <= pm_offset; offset++)
-    {
-        char group_header[64];
-        snprintf(group_header, sizeof(group_header), "group_%d_mean", offset);
-        print_cell(os, row->groups[offset + pm_offset], group_header, header);
-
-        snprintf(group_header, sizeof(group_header), "group_%d_mean_ewma5", offset);
-        print_cell(os, row->group_ewma5[offset + pm_offset], group_header, header);
-    }
+    print_group_window(os, row->groups, "mean", header);
+    print_group_window(os, row->group_ewma5, "mean_ewma5", header);
 
     PRINT_CELL_AUTO(model_selection);
     PRINT_CELL_AUTO(read_bytes);
@@ -354,18 +413,11 @@ void access_log::finalize_log()
 
         if (current_row->prev != nullptr)
         {
-            current_row->prev->discounted_reward_90 = current_row->count + 0.9f * current_row->discounted_reward_90;
-            current_row->prev->discounted_reward_95 = current_row->count + 0.95f * current_row->discounted_reward_95;
-            current_row->prev->discounted_reward_99 = current_row->count + 0.99f * current_row->discounted_reward_99;
+            propagate_discounted_rewards(current_row->prev, current_row);
 
             // penalty for pages that got deallocated and reallocated (this shouldn't really happen often)
             int age_diff = current_row->age - current_row->prev->age;
-            for (int a = age_diff - 1; a > 0; a--)
-            {
-                current_row->prev->discounted_reward_90 *= 0.9f;
-                current_row->prev->discounted_reward_95 *= 0.95f;
-                current_row->prev->discounted_reward_99 *= 0.99f;
-            }
+            apply_age_gap_penalty(current_row->prev, age_diff);
         }
     }
 }
@@ -395,20 +447,8 @@ void access_log::pebs_write_log()
 
         const size_t sample_count = std::min(logged_samples, static_cast<size_t>(MAX_LOGGED_SAMPLES));
         const std::string output_base = build_log_output_base_path();
-        const std::filesystem::path output_base_path(output_base);
-        const std::filesystem::path output_dir = output_base_path.parent_path();
-        if (!output_dir.empty())
-        {
-            std::error_code ec;
-            std::filesystem::create_directories(output_dir, ec);
-        }
-
-        const size_t total_parts = LOG_FILE_COUNT * LOG_PARTS_PER_FILE;
-        std::vector<size_t> boundaries(total_parts + 1, 0);
-        for (size_t i = 0; i <= total_parts; ++i)
-        {
-            boundaries[i] = (sample_count * i) / total_parts;
-        }
+        ensure_log_output_directory(output_base);
+        std::vector<size_t> boundaries = build_part_boundaries(sample_count);
 
         auto write_part = [this](const std::string &part_path, size_t begin_idx, size_t end_idx) -> bool {
             std::vector<char> part_buffer(LOG_BUFFER_BYTES);
@@ -447,8 +487,7 @@ void access_log::pebs_write_log()
                     const size_t global_part_idx = file_idx * LOG_PARTS_PER_FILE + part_idx;
                     const size_t begin_idx = boundaries[global_part_idx];
                     const size_t end_idx = boundaries[global_part_idx + 1];
-                    part_paths[part_idx] = output_base + "_" + std::to_string(file_idx) + "_part_" +
-                                           std::to_string(part_idx) + "_" + std::to_string(getpid()) + ".tmp";
+                    part_paths[part_idx] = build_part_path(output_base, file_idx, part_idx);
 
                     threads.emplace_back([&, part_idx, begin_idx, end_idx] {
                         part_ok[part_idx] = write_part(part_paths[part_idx], begin_idx, end_idx) ? 1 : 0;
@@ -461,7 +500,7 @@ void access_log::pebs_write_log()
                 }
 
                 std::vector<char> final_buffer(LOG_BUFFER_BYTES);
-                const std::string final_path = output_base + "_" + std::to_string(file_idx) + ".log";
+                const std::string final_path = build_final_log_path(output_base, file_idx);
                 std::ofstream final_ofs;
                 std::filebuf *final_buf = final_ofs.rdbuf();
                 final_buf->pubsetbuf(final_buffer.data(), final_buffer.size());
@@ -481,13 +520,7 @@ void access_log::pebs_write_log()
                         continue;
                     }
 
-                    std::ifstream part_ifs(part_paths[part_idx]);
-                    if (part_ifs.is_open())
-                    {
-                        final_ofs << part_ifs.rdbuf();
-                        part_ifs.close();
-                    }
-                    std::remove(part_paths[part_idx].c_str());
+                    append_part_file(final_ofs, part_paths[part_idx]);
                 }
             }
         };
@@ -631,8 +664,8 @@ struct data_row access_log::extract_row(size_t step, const std::shared_ptr<page_
     row.write_bytes = page->write_bytes;
 #endif
 
-    row.pages_in_dram = page->pages_in_dram;
-    row.seen_pages = page->seen_pages;
+    row.pages_in_dram = page->pages_in_dram > 0 ? 1 : 0;
+    row.seen_pages = page->seen_pages > 0 ? 1 : 0;
     row.age = page->age;
 
     row.num_demotions = page->num_demotions;
@@ -657,7 +690,7 @@ void access_log::log_row(const std::shared_ptr<page_info> &page, struct data_row
     {
         // Cap to avoid spilling past allocated log buffer.
         logged_samples = MAX_LOGGED_SAMPLES;
-        terminated = true;
+        terminated.store(true, std::memory_order_relaxed);
         pebs_write_log();
         exit(0);
         return;

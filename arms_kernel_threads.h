@@ -7,6 +7,7 @@
 #include <memory>
 #include <mutex>
 #include <pthread.h>
+#include <shared_mutex>
 #include <unordered_map>
 #include <vector>
 
@@ -22,7 +23,7 @@ extern uint64_t dramsize;
 extern std::atomic<uint64_t> scan_generation;
 
 extern std::unordered_map<uint64_t, std::shared_ptr<page_info>> pages_map;
-extern std::mutex pages_map_lock;
+extern std::shared_mutex pages_map_lock;
 
 extern int pagemap_fd;
 extern pid_t target_pid;
@@ -65,7 +66,7 @@ extern float promotion_cost_avg;
 extern float demotion_cost_avg;
 extern float latency_diff;
 
-extern bool terminated;
+extern std::atomic<bool> terminated;
 extern std::atomic<bool> madvise_thread_running;
 extern struct group_tracker *grp_tracker;
 
@@ -74,6 +75,9 @@ extern std::condition_variable migration_cv;
 
 bool is_access_log_page(uint64_t page_base);
 void populate_new_page(uint64_t page_base);
+std::shared_ptr<page_info> get_or_create_tracked_page(uint64_t page_va, uint64_t last_seen_scan,
+                                                      uint64_t last_access_generation, int seen_pages,
+                                                      int pages_in_dram, bool *added_new_page = nullptr);
 
 void enqueue_migration_task(const std::vector<uint64_t> &promote_vas, const std::vector<uint64_t> &demote_vas);
 void clear_migration_queue();
