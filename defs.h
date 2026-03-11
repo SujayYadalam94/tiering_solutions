@@ -26,11 +26,11 @@ extern bool initialized;
 #define FULL_LOGS (false)
 
 #ifndef ARMS_VERBOSE
-#define ARMS_VERBOSE (false)
+#define ARMS_VERBOSE (true)
 #endif
 
 #ifndef ARMS_PARTIAL_RANKING
-#define ARMS_PARTIAL_RANKING (true)
+#define ARMS_PARTIAL_RANKING (false)
 #endif
 
 #ifndef ARMS_PARTIAL_RANK_MULTIPLIER
@@ -205,8 +205,14 @@ extern bool initialized;
 // ==============================================================================
 
 #define PERF_PAGES (1 + (1 << 12)) // Has to be == 1+2^n, here 16MB
+
+#if USE_MODEL == (true) || LOGGING_RUN == (true)
 #define DEFAULT_SAMPLE_PERIOD (5003)
 #define HF_SAMPLE_PERIOD (5003)
+#else
+#define DEFAULT_SAMPLE_PERIOD (10007)
+#define HF_SAMPLE_PERIOD (5003)
+#endif
 
 enum sampling_modes
 {

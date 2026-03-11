@@ -379,8 +379,7 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
     PRINT_CELL_AUTO(model_score);
     PRINT_CELL_AUTO(arms_score);
     PRINT_CELL_AUTO(score);
-    PRINT_CELL_AUTO(pages_in_dram);
-    PRINT_CELL_AUTO(seen_pages);
+    PRINT_CELL_AUTO(in_dram);
 
     PRINT_CELL_AUTO(age);
 
@@ -664,8 +663,7 @@ struct data_row access_log::extract_row(size_t step, const std::shared_ptr<page_
     row.write_bytes = page->write_bytes;
 #endif
 
-    row.pages_in_dram = page->pages_in_dram > 0 ? 1 : 0;
-    row.seen_pages = page->seen_pages > 0 ? 1 : 0;
+    row.in_dram = page->in_dram;
     row.age = page->age;
 
     row.num_demotions = page->num_demotions;

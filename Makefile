@@ -46,7 +46,6 @@ TARGET_LIB = libarms_kernel.so
 
 # Source files
 SRCS = arms_kernel.cpp \
-	madvise_thread.cpp \
 	pebs_scan_thread.cpp \
 	pagemap_scan_thread.cpp \
 	migration_worker.cpp \

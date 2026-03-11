@@ -52,8 +52,8 @@ extern std::atomic<uint64_t> migrations_down;
 extern std::atomic<uint64_t> migrations_up_period;
 extern std::atomic<uint64_t> migrations_down_period;
 extern uint64_t total_samples[NPBUFTYPES];
-extern std::atomic<uint64_t> max_dram_base_pages_seen;
-extern std::atomic<uint64_t> total_dram_base_pages_accum;
+extern std::atomic<uint64_t> max_dram_hugepages_seen;
+extern std::atomic<uint64_t> total_dram_hugepages_accum;
 extern std::atomic<uint64_t> dram_samples;
 
 extern float dram_bw_ewma;
@@ -69,6 +69,7 @@ extern float latency_diff;
 extern std::atomic<bool> terminated;
 extern std::atomic<bool> madvise_thread_running;
 extern struct group_tracker *grp_tracker;
+extern std::mutex numa_move_pages_lock;
 
 extern std::condition_variable madvise_cv;
 extern std::condition_variable migration_cv;
@@ -76,8 +77,8 @@ extern std::condition_variable migration_cv;
 bool is_access_log_page(uint64_t page_base);
 void populate_new_page(uint64_t page_base);
 std::shared_ptr<page_info> get_or_create_tracked_page(uint64_t page_va, uint64_t last_seen_scan,
-                                                      uint64_t last_access_generation, int seen_pages,
-                                                      int pages_in_dram, bool *added_new_page = nullptr);
+                                                      uint64_t last_access_generation, bool in_dram,
+                                                      bool *added_new_page = nullptr);
 
 void enqueue_migration_task(const std::vector<uint64_t> &promote_vas, const std::vector<uint64_t> &demote_vas);
 void clear_migration_queue();

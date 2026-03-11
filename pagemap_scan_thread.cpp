@@ -16,7 +16,7 @@
 
 namespace
 {
-constexpr size_t kMovePagesBatchSize = BASE_PAGE_PER_HUGEPAGE * PAGEMAP_BATCH_HUGEPAGES;
+constexpr size_t kMovePagesBatchSize = PAGEMAP_BATCH_HUGEPAGES;
 
 inline bool shutdown_requested()
 {
@@ -58,8 +58,11 @@ static void refresh_page_residency(uint64_t cur_scan, const std::vector<std::sha
         }
 
         status_batch.resize(addr_batch.size());
-        long ret = numa_move_pages(0, static_cast<unsigned long>(addr_batch.size()), addr_batch.data(), nullptr,
-                                   status_batch.data(), 0);
+        long ret;
+        {
+            ret = numa_move_pages(0, static_cast<unsigned long>(addr_batch.size()), addr_batch.data(), nullptr,
+                                  status_batch.data(), 0);
+        }
         if (ret != 0)
         {
             perror("[ARMS] Warning: numa_move_pages batch failed");
@@ -73,45 +76,27 @@ static void refresh_page_residency(uint64_t cur_scan, const std::vector<std::sha
             }
 
             auto &page = slice.page;
-            bool invalid_status = false;
-            int seen_pages = 0;
-            int pages_in_dram = 0;
-
-            for (size_t i = 0; i < BASE_PAGE_PER_HUGEPAGE; i++)
+            const size_t idx = slice.start_index;
+            const int status = status_batch[idx];
+            if (status < 0)
             {
-                size_t idx = slice.start_index + i;
-                int status = status_batch[idx];
-                page->page_status[i] = status;
-
-                if (status < 0 && status != -EFAULT && status != -ENOENT)
+                if (status != -EFAULT && status != -ENOENT)
                 {
                     if (ARMS_VERBOSE)
                     {
-                        std::cout << "[ARMS] Warning: Invalid page status (" << status << ") for VA 0x" << std::hex
-                                  << page->va + i * BASE_PAGE << std::dec << std::endl;
+                        std::cout << "[ARMS] Warning: Invalid hugepage status (" << status << ") for VA 0x" << std::hex
+                                  << page->va << std::dec << std::endl;
                     }
-                    invalid_status = true;
-                    break;
                 }
-                if (status >= 0)
-                {
-                    seen_pages++;
-                }
-                if (status == FAST_TIER)
-                {
-                    pages_in_dram++;
-                }
-            }
-
-            if (!invalid_status)
-            {
-                page->pages_in_dram = pages_in_dram;
-
-                if (seen_pages == 0 && page->seen_pages != 0)
+                else
                 {
                     page->reset_page_access_fields();
                 }
-                page->seen_pages = seen_pages;
+                page->in_dram = false;
+            }
+            else
+            {
+                page->in_dram = (status == FAST_TIER);
             }
             page->last_seen_scan = cur_scan;
         }
@@ -133,10 +118,7 @@ static void refresh_page_residency(uint64_t cur_scan, const std::vector<std::sha
         }
 
         size_t start_index = addr_batch.size();
-        for (size_t i = 0; i < BASE_PAGE_PER_HUGEPAGE; i++)
-        {
-            addr_batch.emplace_back(reinterpret_cast<void *>(page->va + i * BASE_PAGE));
-        }
+        addr_batch.emplace_back(reinterpret_cast<void *>(page->va));
         page_slices.push_back({page, start_index});
 
         if (addr_batch.size() >= kMovePagesBatchSize)
@@ -151,11 +133,11 @@ static void refresh_page_residency(uint64_t cur_scan, const std::vector<std::sha
 static void update_dram_residency_stats(uint64_t total_hugepages_in_dram)
 {
     dram_samples.fetch_add(1, std::memory_order_relaxed);
-    total_dram_base_pages_accum.fetch_add(total_hugepages_in_dram, std::memory_order_relaxed);
+    total_dram_hugepages_accum.fetch_add(total_hugepages_in_dram, std::memory_order_relaxed);
 
-    uint64_t prev_max = max_dram_base_pages_seen.load(std::memory_order_relaxed);
-    while (total_hugepages_in_dram > prev_max && !max_dram_base_pages_seen.compare_exchange_weak(
-                                                     prev_max, total_hugepages_in_dram, std::memory_order_relaxed))
+    uint64_t prev_max = max_dram_hugepages_seen.load(std::memory_order_relaxed);
+    while (total_hugepages_in_dram > prev_max &&
+           !max_dram_hugepages_seen.compare_exchange_weak(prev_max, total_hugepages_in_dram, std::memory_order_relaxed))
     {
     }
 }
@@ -164,24 +146,7 @@ static bool should_refresh_page_partial(const std::shared_ptr<page_info> &page, 
 {
     const uint64_t generations_since_access =
         (cur_scan > page->last_access_generation) ? (cur_scan - page->last_access_generation) : 0;
-    const bool recently_accessed =
-        page->last_access_generation != 0 && generations_since_access <= PAGEMAP_RECENT_ACCESS_WINDOW;
-    const bool partially_resident = page->seen_pages > 0 && page->pages_in_dram != page->seen_pages;
-
-    return recently_accessed || partially_resident;
-}
-
-static void populate_new_pages(const std::vector<uint64_t> &new_pages_to_populate)
-{
-    for (uint64_t new_page_va : new_pages_to_populate)
-    {
-        if (shutdown_requested())
-        {
-            break;
-        }
-
-        populate_new_page(new_page_va);
-    }
+    return page->last_access_generation != 0 && generations_since_access <= PAGEMAP_RECENT_ACCESS_WINDOW;
 }
 
 static stale_page_cleanup_result cleanup_stale_pages(uint64_t cur_scan)
@@ -204,7 +169,7 @@ static stale_page_cleanup_result cleanup_stale_pages(uint64_t cur_scan)
         }
         else
         {
-            result.total_hugepages_in_dram += (it->second->pages_in_dram > 0 ? 1 : 0);
+            result.total_hugepages_in_dram += (it->second->in_dram ? 1 : 0);
             ++it;
         }
     }
@@ -302,47 +267,18 @@ static void scan_process_pages_full()
             {
                 continue;
             }
-            /*uint64_t pagemap_index = (va / BASE_PAGE) * sizeof(uint64_t);
-            uint64_t pagemap_entry;
-
-            ssize_t ret = pread(pagemap_fd, &pagemap_entry, sizeof(pagemap_entry), pagemap_index);
-            if (ret != sizeof(pagemap_entry))
-            {
-                // std::cerr << "[ARMS] Warning: Failed to read pagemap entry for VA 0x" << std::hex << va << std::dec
-                //           << std::endl;
-                continue;
-            }
-
-            uint64_t pfn = pagemap_entry & 0x7fffffffffffff;
-            bool present = (pagemap_entry >> 63) & 1;
-
-            if (!present || pfn == 0)
-            {
-                // std::cerr << "[ARMS] Warning: Page not present for VA 0x" << std::hex << va << std::dec << std::endl;
-            }*/
 
             bool added_new_page = false;
-            std::shared_ptr<page_info> page = get_or_create_tracked_page(va, cur_scan, 0, 0, 0, &added_new_page);
+            std::shared_ptr<page_info> page = get_or_create_tracked_page(va, cur_scan, 0, false, &added_new_page);
 
             if (page)
             {
                 std::lock_guard<std::mutex> page_lock(page->page_lock);
                 page->last_seen_scan = cur_scan;
-            }
-
-            if (added_new_page)
-            {
-                new_pages_to_populate.push_back(va);
-            }
-
-            if (page)
-            {
                 pages_to_refresh.push_back(page);
             }
         }
     }
-
-    populate_new_pages(new_pages_to_populate);
 
     refresh_page_residency(cur_scan, pages_to_refresh);
 
@@ -396,6 +332,9 @@ static void scan_process_pages_partial()
 
 static void scan_process_pages(uint64_t iteration)
 {
+
+    scan_process_pages_full();
+    return;
     const uint64_t full_scan_period = std::max<uint64_t>(1, PAGEMAP_FULL_SCAN_INTERVALS);
     if (iteration % full_scan_period == 0)
     {
@@ -429,7 +368,7 @@ void *pagemap_scan_thread_fn(void *arg)
 
         if (!shutdown_requested() && elapsed_us < policy_thread_interval)
         {
-            usleep(policy_thread_interval - elapsed_us);
+            usleep(policy_thread_interval * 10 - elapsed_us);
         }
     }
 

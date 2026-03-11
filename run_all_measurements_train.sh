@@ -1,7 +1,15 @@
 #!/bin/bash
 
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+# shellcheck source=measurement_common.sh
+source "${SCRIPT_DIR}/measurement_common.sh"
+# shellcheck source=measurement_workloads.sh
+source "${SCRIPT_DIR}/measurement_workloads.sh"
+
 SIZES=(1000 1500)
 RUNS=1
+
+mapfile -t WORKLOAD_IDS < <(measurement_list_default_workloads)
 
 for size in "${SIZES[@]}"; do
     echo "== Running measurements with size ${size}MiB =="
@@ -9,23 +17,15 @@ for size in "${SIZES[@]}"; do
     for run in $(seq 1 ${RUNS}); do
         echo "-- Run ${run}/${RUNS} for size ${size}MiB --"
 
-        # Clean up any existing module state before reloading
-        sudo bash unsetup.sh
-        sudo bash setup.sh "${size}"
+        for workload_id in "${WORKLOAD_IDS[@]}"; do
+            echo "---- Workload ${workload_id}: ARMS train then model train ----"
 
-        bash defrag.sh
+            run_measurement_setup "${size}"
 
-        # Reload the module to ensure clean state
-        sudo bash unsetup.sh
-        sudo bash setup.sh "${size}"
+            "${SCRIPT_DIR}/measurement_arms.sh" "${size}" "${run}_train" "_train" "${workload_id}"
+            "${SCRIPT_DIR}/measurement_model.sh" "${size}" "${run}_train" "_train" "${workload_id}"
 
-        # Run both measurement passes for this size and run number
-        #bash defrag.sh
-        ./measurement_arms.sh "${size}" "${run}_train" "_train"
-
-        bash defrag.sh
-        ./measurement_model.sh "${size}" "${run}_train" "_train"
-
-        sudo bash unsetup.sh
+            run_measurement_teardown
+        done
     done
 done

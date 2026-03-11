@@ -85,11 +85,6 @@ struct page_info
     uint64_t global_count_similar;
     int32_t diff;
 
-    // numa_move_pages status
-    int seen_pages;
-    int pages_in_dram;
-    int page_status[BASE_PAGE_PER_HUGEPAGE];
-
     int promote_backoff;
 
     int num_demotions;
@@ -97,7 +92,7 @@ struct page_info
 
     struct data_row *last_logged_row;
 
-    page_info() : in_dram(false), can_promote(true), last_seen_scan(0), seen_pages(0), page_status{-1}
+    page_info() : in_dram(false), can_promote(true), last_seen_scan(0)
     {
         this->reset_page_access_fields();
     }

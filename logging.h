@@ -92,8 +92,7 @@ struct data_row
     float model_score;
     float arms_score;
     float score;
-    int32_t pages_in_dram;
-    int32_t seen_pages;
+    bool in_dram;
     uint32_t age;
     int num_demotions;
     int num_promotions;

@@ -56,8 +56,7 @@ void page_info::reset_page_access_fields()
     this->prev_count = 0;
     this->global_count_similar = 0;
     this->diff = 0;
-    this->seen_pages = 0;
-    this->pages_in_dram = 0;
+    this->in_dram = false;
 
     this->promote_backoff = 0;
 

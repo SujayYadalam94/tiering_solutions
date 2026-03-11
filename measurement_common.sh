@@ -1,5 +1,7 @@
 #!/bin/bash
 
+MEASUREMENT_COMMON_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+
 MEASUREMENT_LOG_PARTS=${MEASUREMENT_LOG_PARTS:-10}
 
 cleanup_split_log_files() {
@@ -44,4 +46,16 @@ move_max_dram_log_if_present() {
     if [[ -f max_dram_hugepages.log ]]; then
         mv max_dram_hugepages.log "${destination}"
     fi
+}
+
+run_measurement_setup() {
+    local size_mib=$1
+
+    sudo bash "${MEASUREMENT_COMMON_DIR}/unsetup.sh" || true
+    sudo bash "${MEASUREMENT_COMMON_DIR}/setup.sh" "${size_mib}"
+    bash "${MEASUREMENT_COMMON_DIR}/defrag.sh"
+}
+
+run_measurement_teardown() {
+    sudo bash "${MEASUREMENT_COMMON_DIR}/unsetup.sh" || true
 }

@@ -5,6 +5,8 @@
 #include <linux/perf_event.h>
 #include <memory>
 #include <mutex>
+#include <numa.h>
+#include <numaif.h>
 #include <pthread.h>
 #include <sched.h>
 
@@ -37,6 +39,16 @@ void *pebs_scan_thread(void *arg)
             for (int type = 0; type < NPBUFTYPES; type++)
             {
                 struct perf_event_mmap_page *header = perf_page[cpu][type];
+                if (header == nullptr)
+                {
+                    continue;
+                }
+
+                if (header->data_size == 0)
+                {
+                    continue;
+                }
+
                 char *pbuf = (char *)header + header->data_offset;
                 __sync_synchronize();
 
@@ -47,6 +59,12 @@ void *pebs_scan_thread(void *arg)
 
                 struct perf_event_header *ph =
                     (struct perf_event_header *)(pbuf + (header->data_tail % header->data_size));
+                if (ph->size == 0)
+                {
+                    header->data_tail = header->data_head;
+                    continue;
+                }
+
                 struct perf_sample *ps;
 
                 uint64_t page_va;
@@ -61,31 +79,21 @@ void *pebs_scan_thread(void *arg)
                         bool added_new_page = false;
                         const uint64_t cur_generation = scan_generation.load(std::memory_order_relaxed);
                         std::shared_ptr<page_info> page =
-                            get_or_create_tracked_page(page_va, cur_generation, cur_generation, 1, 0, &added_new_page);
+                            get_or_create_tracked_page(page_va, cur_generation, cur_generation, false, &added_new_page);
 
                         assert(page != nullptr);
-                        {
-                            std::lock_guard<std::mutex> page_lock(page->page_lock);
-                            page->last_seen_scan = cur_generation;
-                            page->last_access_generation = cur_generation;
-                            page->accesses[type][curr_access_version]++;
-                        }
+                        page->accesses[type][curr_access_version]++;
                         total_samples[type]++;
-
-                        if (added_new_page)
-                        {
-                            populate_new_page(page_va);
-                        }
                     }
                     break;
 
                 case PERF_RECORD_THROTTLE:
                 case PERF_RECORD_UNTHROTTLE:
-                    // std::cerr << "[ARMS] Warning: " << (ph->type == PERF_RECORD_THROTTLE ? "THROTTLE" : "UNTHROTTLE")
-                    //           << " event received, which is unexpected." << std::endl;
+                    std::cout << "[ARMS] Warning: " << (ph->type == PERF_RECORD_THROTTLE ? "THROTTLE" : "UNTHROTTLE")
+                              << " event received, which is unexpected." << std::endl;
                     break;
                 default:
-                    std::cerr << "[ARMS] ERROR: Unknown perf_event type " << ph->type << std::endl;
+                    std::cout << "[ARMS] ERROR: Unknown perf_event type " << ph->type << std::endl;
                     break;
                 }
 

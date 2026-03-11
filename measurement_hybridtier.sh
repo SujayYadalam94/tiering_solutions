@@ -4,6 +4,8 @@ set -euo pipefail
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 # shellcheck source=measurement_common.sh
 source "${SCRIPT_DIR}/measurement_common.sh"
+# shellcheck source=measurement_workloads.sh
+source "${SCRIPT_DIR}/measurement_workloads.sh"
 
 SIZE_MIB=${1:-}
 RUN_ID=${2:-}
@@ -30,6 +32,9 @@ BENCH_ROOT=${BENCH_ROOT:-/users/zimooo2}
 TASKSET_CPUS=${TASKSET_CPUS:-0-9,20-29}
 NUMA_CPU_NODE=${NUMA_CPU_NODE:-0}
 STRICT_FAILURES=${STRICT_FAILURES:-0}
+
+WORKLOAD_ARGS=("${@:4}")
+mapfile -t WORKLOAD_IDS < <(measurement_expand_workloads "${WORKLOAD_ARGS[@]}")
 
 declare -a FAILED_RUNS=()
 
@@ -99,15 +104,6 @@ build_hook() {
     fi
 }
 
-maybe_drop_caches() {
-    # Default: clear page cache unless CLEAR_CACHES=0.
-    local clear=${CLEAR_CACHES:-1}
-    if [[ "${clear}" == "1" ]]; then
-        sync
-        echo 3 > /proc/sys/vm/drop_caches || true
-    fi
-}
-
 run_program() {
     local program_str=$1
     local exe_name=$2
@@ -126,7 +122,6 @@ run_program() {
 
     cleanup_run_outputs "${time_file}" "${log_file}" "${max_dram_file}"
 
-    maybe_drop_caches
     build_hook "${exe_name}"
 
     echo "Running ${output} (exe=${exe_name}) run ${run}"
@@ -171,43 +166,15 @@ run_program() {
 
 # ---------------- Workloads (mirrors measurement_arms.sh) ----------------
 
-run_program "${BENCH_ROOT}/big-ann-benchmarks/.venv/bin/python3 ${BENCH_ROOT}/big-ann-benchmarks/data/10M_benchmark.py --threads 16 --index-key HNSW,Flat --stress-mode latency --dataset openai" "python3" faiss_10M "${RUN_ID}"
+for workload_id in "${WORKLOAD_IDS[@]}"; do
+    measurement_load_workload "${workload_id}" || exit 1
+    if ! measurement_workload_supports_system hybridtier; then
+        echo "Skipping ${workload_id}: not supported by HybridTier"
+        continue
+    fi
 
-run_program "OMP_NUM_THREADS=16 ${BENCH_ROOT}/LULESH/build/lulesh2.0 -i 10 -s 400" "lulesh2.0" lulesh2.0_s400 "${RUN_ID}"
-
-run_program "OMP_NUM_THREADS=16 ${BENCH_ROOT}/duckdb/build/release/benchmark/benchmark_runner benchmark/large/tpch-sf100/.*benchmark --threads=16" "benchmark_runner" DuckDB-TPCH-sf100 "${RUN_ID}"
-run_program "OMP_NUM_THREADS=16 ${BENCH_ROOT}/duckdb/build/release/benchmark/benchmark_runner benchmark/large/tpcds-sf100/.*benchmark --threads=16" "benchmark_runner" DuckDB-TPCDS-sf100 "${RUN_ID}"
-
-## Call for all D size NPB programs
-programs=("mg.D.x")
-for prog in "${programs[@]}"; do
-    echo "Running NPB program: $prog"
-    run_program "OMP_NUM_THREADS=16 ${BENCH_ROOT}/NPB3.4.3/NPB3.4-OMP/bin/$prog" "$prog" "$prog" "${RUN_ID}"
-done
-
-#echo "XSBench run ${RUN_ID}"
-run_program "OMP_NUM_THREADS=16 ${BENCH_ROOT}/XSBench/openmp-threading/XSBench -t 16 -g 50000 -p 20000000" "XSBench" XSBench "${RUN_ID}"
-
-## GAPBS programs for twitter and kron graphs
-#gapbs_programs=("bc" "bfs" "cc_sv" "cc" "pr" "pr_spmv" "sssp" "tc")
-#graphs=("twitter.sg" "kron.sg")
-
-gapbs_programs=("bc" "bfs" "pr")
-graphs=("twitter.sg")
-for graph in "${graphs[@]}"; do
-    for prog in "${gapbs_programs[@]}"; do
-        echo "Running GAPBS program: $prog on graph: $graph"
-        run_program "OMP_NUM_THREADS=16 ${BENCH_ROOT}/gapbs/$prog -n 40 -f ${BENCH_ROOT}/gapbs/benchmark/graphs/$graph" "$prog" "$prog-$graph" "${RUN_ID}"
-    done
-done
-
-gapbs_programs=("bc" "bfs" "pr")
-graphs=("kron.sg")
-for graph in "${graphs[@]}"; do
-    for prog in "${gapbs_programs[@]}"; do
-        echo "Running GAPBS program: $prog on graph: $graph"
-        run_program "OMP_NUM_THREADS=16 ${BENCH_ROOT}/gapbs/$prog -n 20 -f ${BENCH_ROOT}/gapbs/benchmark/graphs/$graph" "$prog" "$prog-$graph" "${RUN_ID}"
-    done
+    echo "Running workload: ${WORKLOAD_ID}"
+    run_program "${WORKLOAD_COMMAND}" "${WORKLOAD_EXE_NAME}" "${WORKLOAD_OUTPUT}" "${RUN_ID}"
 done
 
 if [[ ${#FAILED_RUNS[@]} -gt 0 ]]; then
