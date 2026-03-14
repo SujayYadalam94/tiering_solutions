@@ -21,6 +21,8 @@ void *arms_policy_thread(void *arg)
 
     while (!terminated.load(std::memory_order_relaxed))
     {
+        clear_migration_queue();
+
         ptimer_start(&loop_timer);
         curr_window_index = global_version % WINDOW_SIZE;
         global_version++;

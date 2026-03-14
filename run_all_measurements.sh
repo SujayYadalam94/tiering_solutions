@@ -24,6 +24,8 @@ for size in "${SIZES[@]}"; do
 
             "${SCRIPT_DIR}/measurement_arms.sh" "${size}" "${run}" "" "${workload_id}"
 
+            run_measurement_setup "${size}"
+
             if [[ -x "${SCRIPT_DIR}/measurement_hybridtier.sh" ]]; then
                 sudo -E "${SCRIPT_DIR}/measurement_hybridtier.sh" "${size}" "${run}" huge "${workload_id}"
             else

@@ -74,16 +74,23 @@ void *pebs_scan_thread(void *arg)
                     ps = (struct perf_sample *)(ph);
                     assert(ps != nullptr);
                     page_va = ps->addr & HUGE_PFN_MASK; // Align to page
-                    if (page_va != 0 && !is_access_log_page(page_va))
+                    if (page_va != 0 && !is_access_log_page(page_va) && !is_kernel_page(page_va))
+
                     {
                         bool added_new_page = false;
                         const uint64_t cur_generation = scan_generation.load(std::memory_order_relaxed);
-                        std::shared_ptr<page_info> page =
-                            get_or_create_tracked_page(page_va, cur_generation, cur_generation, false, &added_new_page);
+                        std::shared_ptr<page_info> page = // get_tracked_page(ps->addr);
+                            get_or_create_tracked_page(ps->addr, cur_generation, cur_generation, false,
+                                                       &added_new_page);
 
-                        assert(page != nullptr);
-                        page->accesses[type][curr_access_version]++;
-                        total_samples[type]++;
+                        if (page != nullptr)
+                        {
+                            assert(page != nullptr);
+                            page->in_dram = false; // We will verify/update this in the next pagemap scan thread
+                            // iteration
+                            page->accesses[type][curr_access_version]++;
+                            total_samples[type]++;
+                        }
                     }
                     break;
 

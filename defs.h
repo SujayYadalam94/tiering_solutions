@@ -29,10 +29,6 @@ extern bool initialized;
 #define ARMS_VERBOSE (true)
 #endif
 
-#ifndef ARMS_PARTIAL_RANKING
-#define ARMS_PARTIAL_RANKING (false)
-#endif
-
 #ifndef ARMS_PARTIAL_RANK_MULTIPLIER
 #define ARMS_PARTIAL_RANK_MULTIPLIER (8)
 #endif
@@ -54,7 +50,7 @@ extern bool initialized;
 #endif
 
 #define MIGRATION_WORKER_COUNT (8)
-#define BACKOFF_PERIOD (0) // Number of scanning intervals to backoff after promotion/demotion
+#define BACKOFF_PERIOD (4) // Number of scanning intervals to backoff after promotion/demotion
 
 #ifndef MIN_MAX_HISTORY
 #define MIN_MAX_HISTORY (true)
@@ -76,8 +72,6 @@ extern bool initialized;
 #endif
 #endif
 #endif
-
-#define MIN_FREE_MEMORY (1024 * 1024) // in KB (ie 1 GB)
 
 // NUMA node assignment: node0 = fast (near), node1 = slow (far)
 #ifdef C220G5
@@ -265,6 +259,8 @@ enum imc_bw_counters
 #define HUGE_PFN_MASK (HUGEPAGE_MASK ^ UINT64_MAX)
 #define HUGEPAGE_MASK (HUGEPAGE_SIZE - 1)
 #define BASE_PAGE (4096)
+#define BASE_PFN_MASK (BASEPAGE_MASK ^ UINT64_MAX)
+#define BASEPAGE_MASK (BASE_PAGE - 1)
 #define BASE_PAGE_PER_HUGEPAGE (HUGEPAGE_SIZE / BASE_PAGE)
 
 static const float w_ewma_alpha[WINDOW_SIZE] = W_EWMA_ALPHA;

@@ -1,7 +1,11 @@
 #include <dlfcn.h>
+#include <errno.h>
 #include <fstream>
 #include <iostream>
 #include <pthread.h>
+#include <signal.h>
+#include <stdio.h>
+#include <string.h>
 #include <string>
 #include <unistd.h>
 
@@ -16,9 +20,8 @@ extern "C" int __libc_start_main(int (*main)(int, char **, char **), int argc, c
                                  void *stack_end)
 {
     std::cout << "!!!!!!!!!!!!!!!!!!!!Overridden __libc_start_main called!" << std::endl;
-
     atexit(arms_kernel_shutdown);
-
+    
     // Read the current process's name
     std::ifstream cmdline("/proc/self/cmdline");
     std::string proc_name;

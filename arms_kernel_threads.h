@@ -75,7 +75,9 @@ extern std::condition_variable madvise_cv;
 extern std::condition_variable migration_cv;
 
 bool is_access_log_page(uint64_t page_base);
+bool is_kernel_page(uint64_t page_va);
 void populate_new_page(uint64_t page_base);
+std::shared_ptr<page_info> get_tracked_page(uint64_t page_va);
 std::shared_ptr<page_info> get_or_create_tracked_page(uint64_t page_va, uint64_t last_seen_scan,
                                                       uint64_t last_access_generation, bool in_dram,
                                                       bool *added_new_page = nullptr);

@@ -34,13 +34,13 @@ migrate_all_processes_to_slow_tier() {
 }
 
 write_sysctl_value vm.overcommit_memory 1
-write_sysctl_value vm.watermark_scale_factor 1
-write_sysctl_value vm.watermark_boost_factor 0
+write_sysctl_value vm.watermark_scale_factor 10
+write_sysctl_value vm.watermark_boost_factor 10000
 # Shrink kernel reserves so nearly all RAM is usable by memeater and later apps.
-write_sysctl_value vm.min_free_kbytes 16384
+write_sysctl_value vm.min_free_kbytes 1048576
 write_sysctl_value vm.user_reserve_kbytes 16384
 write_sysctl_value vm.admin_reserve_kbytes 16384
-#sudo sysctl -w vm.lowmem_reserve_ratio="1 1 1"
+sudo sysctl -w vm.lowmem_reserve_ratio="256 256 32"
 #sudo sysctl -w vm.zone_reclaim_mode=0
 #sudo sysctl -w vm.dirty_background_ratio=1
 #sudo sysctl -w vm.dirty_ratio=20
@@ -48,13 +48,22 @@ write_sysctl_value kernel.numa_balancing 0
 write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0
 write_sysfs_value /proc/sys/kernel/numa_balancing 0
 write_sysfs_value /sys/kernel/mm/numa/demotion_enabled 0
-write_sysfs_value /proc/sys/vm/watermark_scale_factor 10
 write_sysfs_value /sys/kernel/mm/lru_gen/enabled 0x0000
 echo "Turning huge page ON"
 write_sysfs_value /sys/kernel/mm/transparent_hugepage/enabled always
 write_sysfs_value /sys/kernel/mm/transparent_hugepage/defrag always
+write_sysfs_value /sys/kernel/mm/transparent_hugepage/shmem_enabled force
 write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/defrag 1
-write_sysfs_value /proc/sys/vm/compaction_proactiveness 20
+write_sysfs_value /proc/sys/vm/compaction_proactiveness 80
+echo 8192 | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan
+echo 0    | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs
+echo 1    | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs
+
+write_sysfs_value /sys/kernel/mm/ksm/run 0
+
+for cpu in $(seq 10 19) $(seq 30 39); do
+	sudo wrmsr --processor "$cpu" 0x620 0x707
+done
 sudo wrmsr --processor 39 0x620 0x707
 sudo swapoff -a
 
@@ -73,19 +82,19 @@ migrate_all_processes_to_slow_tier
 # Free page cache and reclaimable slab so allocations match the requested headroom.
 write_sysctl_value vm.vfs_cache_pressure 2000 >/dev/null
 
-bash defrag.sh
+#bash defrag.sh
 
-pushd ~/colloid/tpp/memeater
-export local_size="${SIZE_MIB}"
-echo "Setting up memeater module with size ${local_size}MiB"
+#pushd ~/colloid/tpp/memeater
+#export local_size="${SIZE_MIB}"
+#echo "Setting up memeater module with size ${local_size}MiB"
 # Use NUMA node0 MemFree because memeater allocates only on node0.
-node0_free_mib=$(numastat -m | awk '/MemFree/ {printf "%d", $2}')
-alloc_mib=$((node0_free_mib - local_size))
-if (( alloc_mib <= 0 )); then
-	echo "Requested headroom ${local_size}MiB exceeds node0 free ${node0_free_mib}MiB" >&2
-	exit 1
-fi
+#node0_free_mib=$(numastat -m | awk '/MemFree/ {printf "%d", $2}')
+#alloc_mib=$((node0_free_mib - local_size))
+#if (( alloc_mib <= 0 )); then
+#	echo "Requested headroom ${local_size}MiB exceeds node0 free ${node0_free_mib}MiB" >&2
+#	exit 1
+#fi
 #sudo insmod memeater.ko sizeMiB=${alloc_mib} 
-popd
+#popd
 
 bash defrag.sh
