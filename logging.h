@@ -145,9 +145,9 @@ class access_log
     void update_proc_stats();
     float calc_cpu_usage_pct();
     void pebs_write_log();
-    struct data_row extract_row(size_t step, const std::shared_ptr<page_info> &page, struct group_tracker *grp_tracker,
+    struct data_row extract_row(size_t step, const page_ptr &page, struct group_tracker *grp_tracker,
                                 size_t count_all_pages);
-    void log_row(const std::shared_ptr<page_info> &page, struct data_row &row);
+    void log_row(const page_ptr &page, struct data_row &row);
     bool overlaps_with_logging_region(uint64_t addr, uint64_t length) const;
 };
 

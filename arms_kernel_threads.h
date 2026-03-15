@@ -22,7 +22,7 @@ struct perf_event_mmap_page;
 extern uint64_t dramsize;
 extern std::atomic<uint64_t> scan_generation;
 
-extern std::unordered_map<uint64_t, std::shared_ptr<page_info>> pages_map;
+extern std::unordered_map<uint64_t, page_ptr> pages_map;
 extern std::shared_mutex pages_map_lock;
 
 extern int pagemap_fd;
@@ -77,12 +77,11 @@ extern std::condition_variable migration_cv;
 bool is_access_log_page(uint64_t page_base);
 bool is_kernel_page(uint64_t page_va);
 void populate_new_page(uint64_t page_base);
-std::shared_ptr<page_info> get_tracked_page(uint64_t page_va);
-std::shared_ptr<page_info> get_or_create_tracked_page(uint64_t page_va, uint64_t last_seen_scan,
-                                                      uint64_t last_access_generation, bool in_dram,
-                                                      bool *added_new_page = nullptr);
+page_ptr get_tracked_page(uint64_t page_va);
+page_ptr get_or_create_tracked_page(uint64_t page_va, uint64_t last_seen_scan, uint64_t last_access_generation,
+                                    bool in_dram, bool *added_new_page = nullptr);
 
-void enqueue_migration_task(const std::vector<uint64_t> &promote_vas, const std::vector<uint64_t> &demote_vas);
+void enqueue_migration_task(const std::vector<page_ptr> &promote_vas, const std::vector<page_ptr> &demote_vas);
 void clear_migration_queue();
 
 void change_sampling_frequency();

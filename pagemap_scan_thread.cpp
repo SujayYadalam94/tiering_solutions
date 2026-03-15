@@ -81,11 +81,11 @@ struct stale_page_cleanup_result
 
 struct page_slice
 {
-    std::shared_ptr<page_info> page;
+    page_ptr page;
     size_t start_index;
 };
 
-static void refresh_page_residency(uint64_t cur_scan, const std::vector<std::shared_ptr<page_info>> &pages_to_refresh)
+static void refresh_page_residency(uint64_t cur_scan, const std::vector<page_ptr> &pages_to_refresh)
 {
     if (pages_to_refresh.empty() || shutdown_requested())
     {
@@ -225,12 +225,16 @@ static stale_page_cleanup_result cleanup_stale_pages(uint64_t cur_scan)
 }
 
 static void process_batch(std::vector<void *> &addr_batch, std::vector<int> &status_batch,
-                          std::vector<std::shared_ptr<page_info>> &to_add_near,
-                          std::vector<std::shared_ptr<page_info>> &to_add_far, std::vector<uint64_t> &to_remove,
-                          int &total_dram, int &total_cxl, uint64_t cur_scan)
+                          std::vector<page_ptr> &to_add_near, std::vector<page_ptr> &to_add_far,
+                          std::vector<uint64_t> &to_remove, int &total_dram, int &total_cxl, uint64_t cur_scan)
 {
     long ret = numa_move_pages(0, static_cast<unsigned long>(addr_batch.size()), addr_batch.data(), nullptr,
                                status_batch.data(), 0);
+    if (ret != 0)
+    {
+        perror("[ARMS] Warning: numa_move_pages batch failed");
+        return;
+    }
 
     int fast = 0;
     int slow = 0;
@@ -247,19 +251,17 @@ static void process_batch(std::vector<void *> &addr_batch, std::vector<int> &sta
             fast++;
             total_dram++;
             auto page = get_tracked_page(va);
-            if (page != nullptr)
+            if (page == nullptr)
             {
-                page->in_dram = true;
-            }
-            else
-            {
-                auto page = std::make_shared<page_info>();
+                page = std::make_shared<page_info>();
                 page->va = va;
-                page->in_dram = true;
+                page->found_in_pebs = false;
                 page->last_seen_scan = cur_scan;
                 page->last_access_generation = cur_scan;
                 to_add_near.push_back(page);
             }
+            page->in_dram = true;
+            page->fragmented = false;
         }
         else if (status == SLOW_TIER)
         {
@@ -267,19 +269,18 @@ static void process_batch(std::vector<void *> &addr_batch, std::vector<int> &sta
             total_cxl++;
 
             auto page = get_tracked_page(va);
-            if (page != nullptr)
+            if (page == nullptr)
             {
-                page->in_dram = false;
-            }
-            else
-            {
-                auto page = std::make_shared<page_info>();
+                page = std::make_shared<page_info>();
                 page->va = va;
-                page->in_dram = false;
+
+                page->found_in_pebs = false;
                 page->last_seen_scan = cur_scan;
                 page->last_access_generation = cur_scan;
                 to_add_far.push_back(page);
             }
+            page->in_dram = false;
+            page->fragmented = false;
         }
         else if (status == -EFAULT || status == -ENOENT)
         {
@@ -287,7 +288,15 @@ static void process_batch(std::vector<void *> &addr_batch, std::vector<int> &sta
             auto page = get_tracked_page(va);
             if (page != nullptr)
             {
-                to_remove.push_back(va);
+                if (page->found_in_pebs)
+                {
+                    page->found_in_pebs = false;
+                    page->fragmented = true;
+                }
+                else if (!page->fragmented)
+                {
+                    to_remove.push_back(va);
+                }
             }
         }
         else if (status < 0)
@@ -314,7 +323,7 @@ static void scan_process_pages_full()
     }
 
     std::string line;
-    std::vector<std::shared_ptr<page_info>> pages_to_refresh;
+    std::vector<page_ptr> pages_to_refresh;
     std::vector<uint64_t> new_pages_to_populate;
     std::vector<int> status_batch;
     status_batch.resize(PAGEMAP_BATCH_HUGEPAGES);
@@ -322,8 +331,8 @@ static void scan_process_pages_full()
     int total_dram = 0;
     int total_cxl = 0;
 
-    std::vector<std::shared_ptr<page_info>> to_add_near;
-    std::vector<std::shared_ptr<page_info>> to_add_far;
+    std::vector<page_ptr> to_add_near;
+    std::vector<page_ptr> to_add_far;
     std::vector<uint64_t> to_remove;
     while (std::getline(maps_file, line))
     {
@@ -372,6 +381,7 @@ static void scan_process_pages_full()
             {
                 process_batch(addr_batch, status_batch, to_add_near, to_add_far, to_remove, total_dram, total_cxl,
                               cur_scan);
+                addr_batch.clear();
             }
         }
         process_batch(addr_batch, status_batch, to_add_near, to_add_far, to_remove, total_dram, total_cxl, cur_scan);

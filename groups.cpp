@@ -105,7 +105,7 @@ uint64_t page_to_group_id(const uint64_t va)
     return (va / HUGEPAGE_SIZE) / 8UL;
 }
 
-void add_group_if_missing(struct group_tracker *gt, const std::shared_ptr<page_info> &page)
+void add_group_if_missing(struct group_tracker *gt, const page_ptr &page)
 {
     std::lock_guard<std::mutex> lock(gt->group_lock);
     const uint64_t group_id = page_to_group_id(page->va);
@@ -121,7 +121,7 @@ void reset_group_hash(struct group_tracker *gt)
     }
 }
 
-void update_group_entry(struct group_tracker *gt, const std::shared_ptr<page_info> &page, const float total_access)
+void update_group_entry(struct group_tracker *gt, const page_ptr &page, const float total_access)
 {
     const uint64_t group_id = page_to_group_id(page->va);
     std::lock_guard<std::mutex> lock(gt->group_lock);

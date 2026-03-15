@@ -79,7 +79,7 @@ void *pebs_scan_thread(void *arg)
                     {
                         bool added_new_page = false;
                         const uint64_t cur_generation = scan_generation.load(std::memory_order_relaxed);
-                        std::shared_ptr<page_info> page = // get_tracked_page(ps->addr);
+                        page_ptr page = // get_tracked_page(ps->addr);
                             get_or_create_tracked_page(ps->addr, cur_generation, cur_generation, false,
                                                        &added_new_page);
 

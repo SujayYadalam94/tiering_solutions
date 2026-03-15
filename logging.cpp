@@ -547,7 +547,7 @@ void access_log::pebs_write_log()
     }
 }
 
-struct data_row access_log::extract_row(size_t step, const std::shared_ptr<page_info> &page,
+struct data_row access_log::extract_row(size_t step, const page_ptr &page,
                                         struct group_tracker *grp_tracker, size_t count_all_pages)
 {
     struct data_row row{};
@@ -678,7 +678,7 @@ struct data_row access_log::extract_row(size_t step, const std::shared_ptr<page_
     return row;
 }
 
-void access_log::log_row(const std::shared_ptr<page_info> &page, struct data_row &row)
+void access_log::log_row(const page_ptr &page, struct data_row &row)
 {
     if (!PRINT_TRAINING_DATA)
     {

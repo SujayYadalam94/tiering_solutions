@@ -76,7 +76,7 @@ bool initialized = false;
 
 std::atomic<uint64_t> scan_generation{0};
 
-std::unordered_map<uint64_t, std::shared_ptr<page_info>> pages_map;
+std::unordered_map<uint64_t, page_ptr> pages_map;
 std::shared_mutex pages_map_lock;
 
 bool is_access_log_page(uint64_t page_base)
@@ -89,7 +89,7 @@ bool is_kernel_page(uint64_t page_base)
     return page_base >= 0x7fffffffffff;
 }
 
-std::shared_ptr<page_info> get_tracked_page(uint64_t page_va)
+page_ptr get_tracked_page(uint64_t page_va)
 {
     std::shared_lock<std::shared_mutex> lock(pages_map_lock);
     auto it = pages_map.find(page_va & HUGE_PFN_MASK);
@@ -100,11 +100,10 @@ std::shared_ptr<page_info> get_tracked_page(uint64_t page_va)
     return nullptr;
 }
 
-std::shared_ptr<page_info> get_or_create_tracked_page(uint64_t page_va, uint64_t last_seen_scan,
-                                                      uint64_t last_access_generation, bool in_dram,
-                                                      bool *added_new_page)
+page_ptr get_or_create_tracked_page(uint64_t page_va, uint64_t last_seen_scan, uint64_t last_access_generation,
+                                    bool in_dram, bool *added_new_page)
 {
-    std::shared_ptr<page_info> page = get_tracked_page(page_va);
+    page_ptr page = get_tracked_page(page_va);
     if (page != nullptr)
     {
         return page;
@@ -114,6 +113,7 @@ std::shared_ptr<page_info> get_or_create_tracked_page(uint64_t page_va, uint64_t
     page->va = page_va & HUGE_PFN_MASK;
     page->last_seen_scan = last_seen_scan;
     page->last_access_generation = last_access_generation;
+    page->found_in_pebs = true;
 
     // void *page_addrs[2] = {(void *)((uintptr_t)page_va & HUGE_PFN_MASK), (void *)((uintptr_t)page_va &
     // BASE_PFN_MASK)}; int status[2]; numa_move_pages(0, 2, page_addrs, nullptr, status, 0); std::cout << "[ARMS]
@@ -715,7 +715,7 @@ void detect_hot_change()
 // Scoring and Migration Policy
 // ============================================================================
 
-static float compute_score(const std::shared_ptr<page_info> &page)
+static float compute_score(const page_ptr &page)
 {
     float score = 0;
     for (int i = 0; i < WINDOW_SIZE; i++)
@@ -751,19 +751,19 @@ struct page_distribution
 
 struct migration_decision
 {
-    std::vector<uint64_t> promote_list;
-    std::vector<uint64_t> demote_list;
+    std::vector<page_ptr> promote_list;
+    std::vector<page_ptr> demote_list;
     double migrated_count = 0;
 };
 
-static inline int hugepage_dram_count(const std::shared_ptr<page_info> &page)
+static inline int hugepage_dram_count(const page_ptr &page)
 {
     return page->in_dram ? 1 : 0;
 }
 
-static std::vector<std::shared_ptr<page_info>> snapshot_tracked_pages()
+static std::vector<page_ptr> snapshot_tracked_pages()
 {
-    std::vector<std::shared_ptr<page_info>> page_snapshot;
+    std::vector<page_ptr> page_snapshot;
 
     std::shared_lock<std::shared_mutex> lock(pages_map_lock);
     page_snapshot.reserve(pages_map.size());
@@ -775,8 +775,7 @@ static std::vector<std::shared_ptr<page_info>> snapshot_tracked_pages()
     return page_snapshot;
 }
 
-static size_t update_page_scores(const std::vector<std::shared_ptr<page_info>> &page_snapshot,
-                                 std::vector<score_entry> &scores)
+static size_t update_page_scores(const std::vector<page_ptr> &page_snapshot, std::vector<score_entry> &scores)
 {
     size_t accesses_total = 0;
 
@@ -926,7 +925,7 @@ static migration_decision select_migration_candidates(const std::vector<score_en
 
     int64_t free_hugepages = calculate_free_hugepages();
 
-    std::vector<std::shared_ptr<page_info>> backup_pages;
+    std::vector<page_ptr> backup_pages;
     if (ARMS_VERBOSE)
     {
         std::cout << "[ARMS] Fast tier free memory: " << fasttier_free_kb() << " KB (" << free_hugepages
@@ -940,7 +939,7 @@ static migration_decision select_migration_candidates(const std::vector<score_en
             break;
         }
 
-        std::shared_ptr<page_info> hot_page = scores[promote_idx++].page;
+        page_ptr hot_page = scores[promote_idx++].page;
 
         if (hot_page->in_dram)
         {
@@ -963,17 +962,18 @@ static migration_decision select_migration_candidates(const std::vector<score_en
 #else
         float benefit = hot_page->score * hot_page->hot_age * HF_SAMPLE_PERIOD * latency_diff;
 #endif
+
         if (benefit < cost)
         {
             break;
         }
 
-        std::shared_ptr<page_info> selected_cold_page = nullptr;
+        page_ptr selected_cold_page = nullptr;
         if (free_hugepages <= 0)
         {
             while (demote_idx >= 0 && demote_idx > static_cast<int64_t>(promote_idx))
             {
-                std::shared_ptr<page_info> cold_page = scores[demote_idx--].page;
+                page_ptr cold_page = scores[demote_idx--].page;
                 if (cold_page->promote_backoff > 0)
                 {
                     continue;
@@ -1003,18 +1003,26 @@ static migration_decision select_migration_candidates(const std::vector<score_en
             }
         }
 
+        // We only want to migrate very hot fragmented pages
+        hot_page->would_migrate_fragmented = (benefit > (20 * cost));
+        if (hot_page->fragmented && !hot_page->would_migrate_fragmented)
+        {
+            continue;
+        }
+
         if (benefit > cost)
         {
             if (selected_cold_page)
             {
+                selected_cold_page->would_migrate_fragmented = hot_page->would_migrate_fragmented;
                 selected_cold_page->num_demotions++;
-                decision.demote_list.push_back(selected_cold_page->va);
+                decision.demote_list.push_back(selected_cold_page);
                 selected_cold_page->promote_backoff = BACKOFF_PERIOD;
                 free_hugepages++;
                 decision.migrated_count++;
             }
             hot_page->num_promotions++;
-            decision.promote_list.push_back(hot_page->va);
+            decision.promote_list.push_back(hot_page);
             hot_page->promote_backoff = BACKOFF_PERIOD;
             free_hugepages--;
             decision.migrated_count++;
@@ -1052,7 +1060,7 @@ void update_scores_and_migrate(size_t timestep)
     }
 
     std::vector<score_entry> scores;
-    std::vector<std::shared_ptr<page_info>> page_snapshot = snapshot_tracked_pages();
+    std::vector<page_ptr> page_snapshot = snapshot_tracked_pages();
     size_t accesses_total = update_page_scores(page_snapshot, scores);
     update_model_scores_and_log(scores, timestep, accesses_total);
 

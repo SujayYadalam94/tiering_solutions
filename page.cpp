@@ -57,6 +57,9 @@ void page_info::reset_page_access_fields()
     this->global_count_similar = 0;
     this->diff = 0;
     this->in_dram = false;
+    this->found_in_pebs = false;
+    this->fragmented = false;
+    this->would_migrate_fragmented = false;
 
     this->promote_backoff = 0;
 

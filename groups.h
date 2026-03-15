@@ -42,8 +42,8 @@ struct group_tracker
 
 struct group_tracker *create_group_tracker();
 uint64_t page_to_group_id(const uint64_t va);
-void add_group_if_missing(struct group_tracker *gt, const std::shared_ptr<page_info> &page);
+void add_group_if_missing(struct group_tracker *gt, const page_ptr &page);
 void reset_group_hash(struct group_tracker *gt);
-void update_group_entry(struct group_tracker *gt, const std::shared_ptr<page_info> &page, const float total_access);
+void update_group_entry(struct group_tracker *gt, const page_ptr &page, const float total_access);
 struct page_group *try_get_group(struct group_tracker *, const uint64_t, const int8_t);
 void get_group_window(struct group_tracker *gt, const uint64_t va, struct page_group *out_groups[15]);

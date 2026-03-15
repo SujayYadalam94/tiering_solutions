@@ -27,6 +27,13 @@ struct page_info
     int prot;
     int flags;
     bool in_dram;
+
+    // if it is in pebs we need to check if it is fragmented or not before removing it
+    bool found_in_pebs;
+    // if it is fragmented, we can't remove it
+    bool fragmented;
+    bool would_migrate_fragmented;
+
     uint32_t reads;
     uint32_t writes;
     uint32_t count;
@@ -112,9 +119,11 @@ struct page_info
     float average_model_score_history() const;
 };
 
+typedef std::shared_ptr<page_info> page_ptr;
+
 // Score entry for sorting
 struct score_entry
 {
-    std::shared_ptr<page_info> page;
+    page_ptr page;
     float score;
 };
