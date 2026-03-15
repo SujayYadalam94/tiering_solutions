@@ -7,7 +7,7 @@ source "${SCRIPT_DIR}/measurement_common.sh"
 source "${SCRIPT_DIR}/measurement_workloads.sh"
 
 SIZES=(4000)
-RUNS=1
+RUNS=5
 
 mapfile -t WORKLOAD_IDS < <(measurement_list_default_workloads)
 

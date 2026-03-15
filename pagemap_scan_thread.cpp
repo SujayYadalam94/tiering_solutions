@@ -403,10 +403,13 @@ static void scan_process_pages_full()
         }
     }
 
-    std::cout << "[ARMS] Full scan added " << to_add_near.size() << " hugepages in DRAM and " << to_add_far.size()
-              << " hugepages in CXL, and removed " << to_remove.size()
-              << " pages from tracking. Total DRAM hugepages: " << total_dram << ", Total CXL hugepages: " << total_cxl
-              << std::endl;
+    if (ARMS_VERBOSE)
+    {
+        std::cout << "[ARMS] Full scan added " << to_add_near.size() << " hugepages in DRAM and " << to_add_far.size()
+                  << " hugepages in CXL, and removed " << to_remove.size()
+                  << " pages from tracking. Total DRAM hugepages: " << total_dram
+                  << ", Total CXL hugepages: " << total_cxl << std::endl;
+    }
 }
 
 } // namespace

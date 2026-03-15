@@ -26,7 +26,7 @@ extern bool initialized;
 #define FULL_LOGS (false)
 
 #ifndef ARMS_VERBOSE
-#define ARMS_VERBOSE (true)
+#define ARMS_VERBOSE (false)
 #endif
 
 #ifndef ARMS_PARTIAL_RANK_MULTIPLIER
@@ -49,7 +49,7 @@ extern bool initialized;
 #define PAGEMAP_BATCH_HUGEPAGES (128)
 #endif
 
-#define MIGRATION_WORKER_COUNT (8)
+#define MIGRATION_WORKER_COUNT (10)
 #define BACKOFF_PERIOD (4) // Number of scanning intervals to backoff after promotion/demotion
 
 #ifndef MIN_MAX_HISTORY

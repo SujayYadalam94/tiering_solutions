@@ -865,7 +865,10 @@ static ranking_plan rank_scores_for_migration(size_t dram_pages, size_t free_hug
         policy_time -= (static_cast<int32_t>(free_hugepages * promotion_cost_avg));
         max_migrations = free_hugepages + (policy_time / (promotion_cost_avg + demotion_cost_avg));
     }
-    std::cout << "free_hugepages: " << free_hugepages << ", max_migrations: " << max_migrations << std::endl;
+    if (ARMS_VERBOSE)
+    {
+        std::cout << "[ARMS] free_hugepages: " << free_hugepages << ", max_migrations: " << max_migrations << std::endl;
+    }
     ranking_plan plan = {max_migrations * MIGRATION_WORKER_COUNT, scores.size(), false};
 
     auto score_desc = [](const score_entry &a, const score_entry &b) { return score_compare(&a, &b) < 0; };
@@ -1004,7 +1007,7 @@ static migration_decision select_migration_candidates(const std::vector<score_en
         }
 
         // We only want to migrate very hot fragmented pages
-        hot_page->would_migrate_fragmented = (benefit > (20 * cost));
+        hot_page->would_migrate_fragmented = (benefit > (1 * cost));
         if (hot_page->fragmented && !hot_page->would_migrate_fragmented)
         {
             continue;

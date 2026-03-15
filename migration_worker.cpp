@@ -129,16 +129,19 @@ static int count_status_migrations(std::vector<int> status, int status_target, b
     return count;
 }
 
-static int log_move_base_page(page_ptr &page, int target_node)
+static int log_move_base_pages(std::vector<page_ptr> pages, int target_node)
 {
     std::vector<void *> vas;
     std::vector<int> nodes;
     std::vector<int> status;
-    for (size_t offset = 0; offset < PAGE_SIZE; offset += BASE_PAGE_SIZE)
+    for (const auto &page : pages)
     {
-        vas.push_back(reinterpret_cast<void *>(page->va + offset));
-        status.push_back(-100);
-        nodes.push_back(target_node);
+        for (size_t offset = 0; offset < PAGE_SIZE; offset += BASE_PAGE_SIZE)
+        {
+            vas.push_back(reinterpret_cast<void *>(page->va + offset));
+            status.push_back(-100);
+            nodes.push_back(target_node);
+        }
     }
 
     long ret = numa_move_pages(0, vas.size(), vas.data(), nodes.data(), status.data(), MPOL_MF_MOVE_ALL);
@@ -150,29 +153,46 @@ static int log_move_base_page(page_ptr &page, int target_node)
         return 1;
     }
 
-    int failed_migrations = 0;
-    bool is_fragmented = false;
-    for (auto s : status)
+    int total_failed_migrations = 0;
+    for (int p = 0; p < pages.size(); p++)
     {
-        if (s != target_node && s != -ENOENT && s != -EFAULT)
+        int failed_migrations = 0;
+        bool is_fragmented = false;
+        for (int offset = 0; offset < PAGE_SIZE; offset += BASE_PAGE_SIZE)
         {
-            failed_migrations++;
+            int idx = p * (PAGE_SIZE / BASE_PAGE_SIZE) + (offset / BASE_PAGE_SIZE);
+            if (status[idx] != target_node)
+            {
+                failed_migrations++;
+            }
+            if (status[idx] != target_node && status[idx] != -ENOENT && status[idx] != -EFAULT)
+            {
+                is_fragmented = true;
+            }
         }
-        if (s != target_node)
+
+        pages[p]->fragmented = is_fragmented;
+        pages[p]->found_in_pebs = false;
+
+        if (failed_migrations > 0)
         {
-            is_fragmented = true;
+            total_failed_migrations++;
+        }
+        else
+        {
+            pages[p]->in_dram = (target_node == FAST_TIER);
         }
     }
-    page->fragmented = is_fragmented;
-    page->found_in_pebs = false;
 
-    std::cout << "[ARMS] Migration retry for fragmented page at VA " << std::hex << page->va << std::dec << " to node "
-              << target_node << " had " << failed_migrations << " failed base page migrations out of "
-              << (PAGE_SIZE / BASE_PAGE_SIZE) << std::endl;
-
-    if (failed_migrations == 0)
+    if (ARMS_VERBOSE)
     {
-        page->in_dram = (target_node == FAST_TIER);
+        std::cout << "[ARMS] Migration retry for fragmented page at VA " << std::dec << " to node " << target_node
+                  << " had " << total_failed_migrations << " failed base page migrations out of "
+                  << (BASE_PAGE_PER_HUGEPAGE * pages.size()) << " total base pages." << std::endl;
+    }
+
+    if (total_failed_migrations == 0)
+    {
         return 0;
     }
     return 1;
@@ -229,6 +249,7 @@ static int log_move_page(std::vector<page_ptr> &pages, int target_node, int retr
         }
         else if (status[i] == -EBUSY)
         {
+
             busy_migrations.push_back(page);
         }
         else if (status[i] == -EFAULT || status[i] == -ENOENT)
@@ -257,7 +278,10 @@ static int log_move_page(std::vector<page_ptr> &pages, int target_node, int retr
     }
 
     // for missing migrations, try to migrate fragmented pages
-    int framented_errors = fragmented_migrations.size();
+    int fragmented_errors = fragmented_migrations.size();
+
+    int wont_fix_fragmented = 0;
+    std::vector<page_ptr> retry_fragmented;
     for (auto &page : fragmented_migrations)
     {
         if (page->found_in_pebs)
@@ -266,22 +290,18 @@ static int log_move_page(std::vector<page_ptr> &pages, int target_node, int retr
             page->found_in_pebs = false;
         }
 
-        if (!page->would_migrate_fragmented)
+        if (page->fragmented && page->would_migrate_fragmented)
         {
-            continue;
+            retry_fragmented.push_back(page);
         }
-
-        if (page->fragmented)
+        else
         {
-            int failed = log_move_base_page(page, target_node);
-            if (failed == 0)
-            {
-                framented_errors--;
-            }
+            wont_fix_fragmented++;
         }
     }
+    int retry_fragmented_failed = log_move_base_pages(retry_fragmented, target_node);
 
-    return eperm_count + framented_errors + other_errors;
+    return eperm_count + wont_fix_fragmented + retry_fragmented_failed + other_errors;
 }
 
 void *migration_worker(void *arg)
@@ -336,31 +356,20 @@ void *migration_worker(void *arg)
                 std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
                 start = std::chrono::high_resolution_clock::now();
-
                 failed_promotions = log_move_page(task.promote_pages, FAST_TIER, 3);
+                end = std::chrono::high_resolution_clock::now();
+                promotion_time += std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+
                 if (failed_promotions > 0 && errno == ENOMEM)
                 {
                     // If we failed due to ENOMEM, do the migration in smaller batches to avoid OOM in the fast tier.
-                    for (auto prom_page : task.promote_pages)
-                    {
-                        if (prom_page->in_dram)
-                        {
-                            continue;
-                        }
-                        std::vector<page_ptr> single_prom_page = {prom_page};
-                        std::vector<int> single_prom_status = {-100};
-                        if (log_move_page(single_prom_page, FAST_TIER, 1) == 0)
-                        {
-                            failed_promotions--;
-                        }
-                    }
+                    std::vector<page_ptr> prom_pages(task.promote_pages.begin(),
+                                                     task.promote_pages.begin() + task.promote_pages.size() / 2);
+                    failed_promotions -= (prom_pages.size() - log_move_page(prom_pages, FAST_TIER, 1));
                 }
-
-                end = std::chrono::high_resolution_clock::now();
-                promotion_time += std::chrono::duration_cast<std::chrono::microseconds>(end - start);
             }
 
-            if (failed_promotions != 0 || failed_demotions != 0)
+            if ((failed_promotions != 0 || failed_demotions != 0) && ARMS_VERBOSE)
             {
                 std::cout << "[ARMS] Migration worker fails - Initial promotions: " << initial_failed_promotions << "/"
                           << task.promote_pages.size() << ", Initial demotions: " << failed_demotions << "/"
