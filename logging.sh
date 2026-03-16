@@ -9,8 +9,8 @@ source "${SCRIPT_DIR}/measurement_workloads.sh"
 RUNS=${1:-5}
 START_RUN=${START_RUN:-1}
 BENCH_ROOT=${BENCH_ROOT:-/users/zimooo2}
-TASKSET_CPUS=${TASKSET_CPUS:-0-15,32-47}
-NUMA_MEM_NODES=${NUMA_MEM_NODES:-0}
+NUMA_MEM_NODES=${NUMA_MEM_NODES:-0,1}
+TASKSET_CPUS=${TASKSET_CPUS:-0-9,20-29}
 WORKLOAD_ARGS=("${@:2}")
 mapfile -t WORKLOAD_IDS < <(measurement_expand_workloads "${WORKLOAD_ARGS[@]}")
 

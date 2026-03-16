@@ -198,11 +198,11 @@ extern bool initialized;
     (2. / (double)(MIGRATION_WINDOW_SIZE + 1)) // EWMA alpha for migration cost (20 periods -> 0.0952)
 // ==============================================================================
 
-#define PERF_PAGES (1 + (1 << 12)) // Has to be == 1+2^n, here 16MB
+#define PERF_PAGES (1 + (1 << 15)) // Has to be == 1+2^n, here 16MB
 
 #if USE_MODEL == (true) || LOGGING_RUN == (true)
-#define DEFAULT_SAMPLE_PERIOD (5003)
-#define HF_SAMPLE_PERIOD (5003)
+#define DEFAULT_SAMPLE_PERIOD (10007)
+#define HF_SAMPLE_PERIOD (10007)
 #else
 #define DEFAULT_SAMPLE_PERIOD (10007)
 #define HF_SAMPLE_PERIOD (5003)

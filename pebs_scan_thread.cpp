@@ -33,22 +33,17 @@ void *pebs_scan_thread(void *arg)
         for (int cpu = 0; cpu < PEBS_NPROCS; cpu++)
         {
 #ifdef C220G5
+            // Skip node 1 cores on C220G5 (cores 10-19 are on NUMA node 1)
             if (cpu >= 10 && cpu < 20)
+                continue;
+#elif GSL_OPTANE
+            // Skip node 1 cores on GSL_OPTANE (cores 10-19 are on NUMA node 1)
+            if (cpu >= 16 && cpu < 32)
                 continue;
 #endif
             for (int type = 0; type < NPBUFTYPES; type++)
             {
                 struct perf_event_mmap_page *header = perf_page[cpu][type];
-                if (header == nullptr)
-                {
-                    continue;
-                }
-
-                if (header->data_size == 0)
-                {
-                    continue;
-                }
-
                 char *pbuf = (char *)header + header->data_offset;
                 __sync_synchronize();
 
@@ -59,12 +54,6 @@ void *pebs_scan_thread(void *arg)
 
                 struct perf_event_header *ph =
                     (struct perf_event_header *)(pbuf + (header->data_tail % header->data_size));
-                if (ph->size == 0)
-                {
-                    header->data_tail = header->data_head;
-                    continue;
-                }
-
                 struct perf_sample *ps;
 
                 uint64_t page_va;
@@ -97,10 +86,10 @@ void *pebs_scan_thread(void *arg)
                 case PERF_RECORD_THROTTLE:
                 case PERF_RECORD_UNTHROTTLE:
                     std::cout << "[ARMS] Warning: " << (ph->type == PERF_RECORD_THROTTLE ? "THROTTLE" : "UNTHROTTLE")
-                              << " event received, which is unexpected." << std::endl;
+                              << " event received, which is unexpected on cpu " << cpu << "." << std::endl;
                     break;
                 default:
-                    std::cout << "[ARMS] ERROR: Unknown perf_event type " << ph->type << std::endl;
+                    std::cout << "[ARMS] ERROR: Unknown perf_event type " << ph->type << " on cpu " << cpu << "." << std::endl;
                     break;
                 }
 

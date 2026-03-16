@@ -240,7 +240,6 @@ static void process_batch(std::vector<void *> &addr_batch, std::vector<int> &sta
     int slow = 0;
     int error = 0;
 
-    std::shared_lock<std::shared_mutex> lock(pages_map_lock);
     for (int i = 0; i < status_batch.size(); i++)
     {
         int status = status_batch[i];
@@ -387,20 +386,20 @@ static void scan_process_pages_full()
         process_batch(addr_batch, status_batch, to_add_near, to_add_far, to_remove, total_dram, total_cxl, cur_scan);
     }
 
+    for (const auto &page : to_add_near)
     {
         std::unique_lock<std::shared_mutex> lock(pages_map_lock);
-        for (const auto &page : to_add_near)
-        {
-            pages_map.emplace(page->va, page);
-        }
-        for (const auto &page : to_add_far)
-        {
-            pages_map.emplace(page->va, page);
-        }
-        for (const auto &va : to_remove)
-        {
-            pages_map.erase(va);
-        }
+        pages_map.emplace(page->va, page);
+    }
+    for (const auto &page : to_add_far)
+    {
+        std::unique_lock<std::shared_mutex> lock(pages_map_lock);
+        pages_map.emplace(page->va, page);
+    }
+    for (const auto &va : to_remove)
+    {
+        std::unique_lock<std::shared_mutex> lock(pages_map_lock);
+        pages_map.erase(va);
     }
 
     if (ARMS_VERBOSE)
