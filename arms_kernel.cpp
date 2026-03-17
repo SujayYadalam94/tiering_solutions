@@ -1140,6 +1140,7 @@ void arms_start_tiering()
         }
         else
         {
+            std::cout << "[ARMS] Running in LOGGING_RUN mode - binding to SLOW_TIER only" << std::endl;
             numa_bitmask_setbit(slow_tier_nodemask, SLOW_TIER);
         }
         numa_set_membind(slow_tier_nodemask);
@@ -1192,7 +1193,14 @@ void arms_start_tiering()
 
     std::cout << "[ARMS] NUMA nodes available: " << numa_max_node() + 1 << std::endl;
 
+    // Setup PEBS
+    setup_perf_events();
+    // Initialize memory controller BW counters
+    setup_imc_bw_counters();
+
     initialized = true;
+
+    pthread_create(&scan_thread, nullptr, pebs_scan_thread, nullptr);
 
     // Start scanning and policy threads
     pthread_create(&pagemap_scan_thread, nullptr, pagemap_scan_thread_fn, nullptr);
@@ -1204,12 +1212,6 @@ void arms_start_tiering()
     }
 
     pthread_create(&policy_thread, nullptr, arms_policy_thread, nullptr);
-
-    // Setup PEBS
-    setup_perf_events();
-    // Initialize memory controller BW counters
-    setup_imc_bw_counters();
-    pthread_create(&scan_thread, nullptr, pebs_scan_thread, nullptr);
 
     std::cout << "[ARMS] Initialization complete." << std::endl;
 }

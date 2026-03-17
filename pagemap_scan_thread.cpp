@@ -386,19 +386,17 @@ static void scan_process_pages_full()
         process_batch(addr_batch, status_batch, to_add_near, to_add_far, to_remove, total_dram, total_cxl, cur_scan);
     }
 
+    std::unique_lock<std::shared_mutex> lock(pages_map_lock);
     for (const auto &page : to_add_near)
     {
-        std::unique_lock<std::shared_mutex> lock(pages_map_lock);
         pages_map.emplace(page->va, page);
     }
     for (const auto &page : to_add_far)
     {
-        std::unique_lock<std::shared_mutex> lock(pages_map_lock);
         pages_map.emplace(page->va, page);
     }
     for (const auto &va : to_remove)
     {
-        std::unique_lock<std::shared_mutex> lock(pages_map_lock);
         pages_map.erase(va);
     }
 

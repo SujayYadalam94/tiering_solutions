@@ -56,8 +56,8 @@ write_sysfs_value /sys/kernel/mm/transparent_hugepage/shmem_enabled force
 write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/defrag 1
 write_sysfs_value /proc/sys/vm/compaction_proactiveness 80
 echo 8192 | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan
-echo 10    | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs
-echo 10    | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs
+echo 0    | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs
+echo 1    | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs
 echo 1000000 | sudo tee /proc/sys/kernel/perf_event_max_sample_rate
 echo 0 | sudo tee /proc/sys/kernel/perf_cpu_time_max_percent
 

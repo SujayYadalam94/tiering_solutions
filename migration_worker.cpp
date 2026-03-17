@@ -163,11 +163,11 @@ static int log_move_base_pages(std::vector<page_ptr> pages, int target_node)
             int idx = p * (PAGE_SIZE / BASE_PAGE_SIZE) + (offset / BASE_PAGE_SIZE);
             if (status[idx] != target_node)
             {
-                failed_migrations++;
+                is_fragmented = true;
             }
             if (status[idx] != target_node && status[idx] != -ENOENT && status[idx] != -EFAULT)
             {
-                is_fragmented = true;
+                failed_migrations++;
             }
         }
 
@@ -186,16 +186,12 @@ static int log_move_base_pages(std::vector<page_ptr> pages, int target_node)
 
     if (ARMS_VERBOSE)
     {
-        std::cout << "[ARMS] Migration retry for fragmented page at VA " << std::dec << " to node " << target_node
-                  << " had " << total_failed_migrations << " failed base page migrations out of "
+        std::cout << "[ARMS] Migration retry for fragmented page" << std::dec << " to node " << target_node << " had "
+                  << total_failed_migrations << " failed base page migrations out of "
                   << (BASE_PAGE_PER_HUGEPAGE * pages.size()) << " total base pages." << std::endl;
     }
 
-    if (total_failed_migrations == 0)
-    {
-        return 0;
-    }
-    return 1;
+    return total_failed_migrations;
 }
 
 static int log_move_page(std::vector<page_ptr> &pages, int target_node, int retry)
