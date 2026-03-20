@@ -3,6 +3,8 @@
 MEASUREMENT_COMMON_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 
 MEASUREMENT_LOG_PARTS=${MEASUREMENT_LOG_PARTS:-10}
+MEASUREMENT_TIMEOUT_SECONDS=${MEASUREMENT_TIMEOUT_SECONDS:-2700}
+MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS=${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS:-30}
 
 cleanup_split_log_files() {
     local log_output_path=$1
@@ -33,11 +35,41 @@ run_preloaded_measurement() {
     local numa_mem_nodes=$5
     local taskset_cpus=$6
 
-    { time numactl --membind="${numa_mem_nodes}" -- taskset -c "${taskset_cpus}" \
-        sudo \
-        LOG_OUTPUT_PATH="${log_output_path}" \
-        LD_PRELOAD="${library_path}" \
-        ${program} 2>&1 ; } 2> "${time_file}"
+    local status=0
+    local timed_out=0
+    local had_errexit=0
+
+    if [[ $- == *e* ]]; then
+        had_errexit=1
+    fi
+
+    set +e
+    {
+        time timeout --foreground --signal=TERM \
+            --kill-after="${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS}s" \
+            "${MEASUREMENT_TIMEOUT_SECONDS}s" \
+            numactl --membind="${numa_mem_nodes}" -- taskset -c "${taskset_cpus}" \
+            sudo \
+            LOG_OUTPUT_PATH="${log_output_path}" \
+            LD_PRELOAD="${library_path}" \
+            ${program} 2>&1
+    } 2> "${time_file}"
+    status=$?
+    if [[ ${had_errexit} -eq 1 ]]; then
+        set -e
+    fi
+
+    if [[ ${status} -eq 124 || ${status} -eq 137 ]]; then
+        timed_out=1
+    fi
+
+    {
+        echo "exit_status=${status}"
+        echo "timed_out=${timed_out}"
+        echo "timeout_seconds=${MEASUREMENT_TIMEOUT_SECONDS}"
+    } >> "${time_file}"
+
+    return ${status}
 }
 
 move_max_dram_log_if_present() {

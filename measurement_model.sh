@@ -44,22 +44,15 @@ build_model_name() {
         "${pct}" "${model_base}" "${minmax}" "${hist_length}" "${penalty}"
 }
 
-build_model_combo() {
-    local minmax=$1
-    local hist_length=$2
-    local penalty=$3
-
-    printf '%s_%s_%s' "${minmax}" "${hist_length}" "${penalty}"
-}
-
 build_model_library_path() {
-    local model_base=$1
-    local combo=$2
+    local model_name=$1
+    local model_name_train
 
     if [[ "${LIB_SUFFIX}" == "_train" ]]; then
-        printf '%s/libraries/C220G5/libhemem-%s_%s_train.so\n' "${SCRIPT_DIR}" "${model_base}" "${combo}"
+        model_name_train=${model_name/l2-/l2_}
+        printf '%s/libraries/C220G5/libhemem-%s_train.so\n' "${SCRIPT_DIR}" "${model_name_train}"
     else
-        printf '%s/libraries/C220G5/libhemem-%s-%s%s.so\n' "${SCRIPT_DIR}" "${model_base}" "${combo}" "${LIB_SUFFIX}"
+        printf '%s/libraries/C220G5/libhemem-%s%s.so\n' "${SCRIPT_DIR}" "${model_name}" "${LIB_SUFFIX}"
     fi
 }
 
@@ -86,6 +79,12 @@ function run_program {
     cleanup_measurement_outputs "${time_file}" "${log_output_path}" "${max_dram_file}"
     run_preloaded_measurement "${program}" "${model_path}" "${log_output_path}" "${time_file}" \
         "${NUMA_MEM_NODES}" "${TASKSET_CPUS}"
+    local status=$?
+    if [[ ${status} -eq 124 || ${status} -eq 137 ]]; then
+        echo "WARNING: ${output} run ${run} timed out after ${MEASUREMENT_TIMEOUT_SECONDS}s"
+    elif [[ ${status} -ne 0 ]]; then
+        echo "WARNING: ${output} run ${run} failed with status ${status}"
+    fi
     move_max_dram_log_if_present "${max_dram_file}"
 }
 
@@ -99,7 +98,6 @@ function run_model_sweep {
     local hist_length
     local penalty
     local model_name
-    local model_combo
     local model_path
 
     for pct in "${pcts[@]}"; do
@@ -107,8 +105,7 @@ function run_model_sweep {
             for hist_length in "${hist_lengths[@]}"; do
                 for penalty in "${penalties[@]}"; do
                     model_name=$(build_model_name "${pct}" "${model_base}" "${minmax}" "${hist_length}" "${penalty}")
-                    model_combo=$(build_model_combo "${minmax}" "${hist_length}" "${penalty}")
-                    model_path=$(build_model_library_path "${model_base}" "${model_combo}")
+                    model_path=$(build_model_library_path "${model_name}")
                     echo "Running ${output} with model: ${model_name}"
                     run_program "${program}" "${model_name}" "${output}" "${run}" "${model_path}"
                 done

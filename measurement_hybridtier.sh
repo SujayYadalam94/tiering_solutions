@@ -140,23 +140,61 @@ run_program() {
     local rest
     rest=$(printf '%s' "${env_parse_output}" | sed -n '2p')
 
+    local -a env_assignments=()
+    if [[ -n "${env_kv// }" ]]; then
+        # shellcheck disable=SC2206
+        env_assignments=(${env_kv})
+    fi
+
+    eval "set -- ${rest}"
+    local -a cmd_argv=("$@")
+
+    if [[ ${#cmd_argv[@]} -eq 0 ]]; then
+        echo "ERROR: workload command is empty for ${output}" >&2
+        FAILED_RUNS+=("${output}:run${run}:empty_command")
+        if [[ "${STRICT_FAILURES}" == "1" ]]; then
+            exit 2
+        fi
+        return
+    fi
+
     # Disable glob expansion so args like ".*benchmark" are passed literally.
 
     echo "${pin} ${numa} env LD_PRELOAD=\"${HOOK_SO}\"${env_kv} ${rest}"
 
     local status=0
+    local timed_out=0
     set +e
     set -f
     {
-        time eval "${pin} ${numa} env LD_PRELOAD=\"${HOOK_SO}\"${env_kv} ${rest}" &>> "${log_file}"
+        time timeout --foreground --signal=TERM \
+            --kill-after="${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS}s" \
+            "${MEASUREMENT_TIMEOUT_SECONDS}s" \
+            ${pin} ${numa} env LD_PRELOAD="${HOOK_SO}" "${env_assignments[@]}" "${cmd_argv[@]}" \
+            &>> "${log_file}"
     } 2> "${time_file}"
     status=$?
     set +f
     set -e
 
+    if [[ ${status} -eq 124 || ${status} -eq 137 ]]; then
+        timed_out=1
+    fi
+
+    {
+        echo "exit_status=${status}"
+        echo "timed_out=${timed_out}"
+        echo "timeout_seconds=${MEASUREMENT_TIMEOUT_SECONDS}"
+    } >> "${time_file}"
+
     if [[ ${status} -ne 0 ]]; then
-        echo "WARNING: ${output} run ${run} failed with status ${status}. See ${log_file}" >&2
-        FAILED_RUNS+=("${output}:run${run}:status${status}")
+        if [[ ${timed_out} -eq 1 ]]; then
+            echo "WARNING: ${output} run ${run} timed out after ${MEASUREMENT_TIMEOUT_SECONDS}s. See ${log_file}" >&2
+            FAILED_RUNS+=("${output}:run${run}:timeout${MEASUREMENT_TIMEOUT_SECONDS}s")
+        else
+            echo "WARNING: ${output} run ${run} failed with status ${status}. See ${log_file}" >&2
+            FAILED_RUNS+=("${output}:run${run}:status${status}")
+        fi
         if [[ "${STRICT_FAILURES}" == "1" ]]; then
             exit ${status}
         fi

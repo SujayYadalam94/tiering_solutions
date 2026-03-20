@@ -1,5 +1,0 @@
-/users/zimooo2/tiering_solutions/measurement_common.sh: line 28: 190031 Killed                  numactl --membind="${numa_mem_nodes}" -- taskset -c "${taskset_cpus}" sudo LOG_OUTPUT_PATH="${log_output_path}" LD_PRELOAD="${library_path}" ${program} 2>&1
-
-real	0m7.385s
-user	0m0.024s
-sys	0m0.036s

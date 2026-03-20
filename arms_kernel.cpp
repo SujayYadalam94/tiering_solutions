@@ -114,6 +114,7 @@ page_ptr get_or_create_tracked_page(uint64_t page_va, uint64_t last_seen_scan, u
     page->last_seen_scan = last_seen_scan;
     page->last_access_generation = last_access_generation;
     page->found_in_pebs = true;
+    page->in_dram = false;
 
     // void *page_addrs[2] = {(void *)((uintptr_t)page_va & HUGE_PFN_MASK), (void *)((uintptr_t)page_va &
     // BASE_PFN_MASK)}; int status[2]; numa_move_pages(0, 2, page_addrs, nullptr, status, 0); std::cout << "[ARMS]

@@ -43,6 +43,12 @@ function run_workload {
     cleanup_measurement_outputs "${time_file}" "${log_output_path}" "${max_dram_file}"
     run_preloaded_measurement "${WORKLOAD_COMMAND}" "${model_path}" "${log_output_path}" "${time_file}" \
         "${NUMA_MEM_NODES}" "${TASKSET_CPUS}"
+    local status=$?
+    if [[ ${status} -eq 124 || ${status} -eq 137 ]]; then
+        echo "WARNING: ${WORKLOAD_OUTPUT} run ${run} timed out after ${MEASUREMENT_TIMEOUT_SECONDS}s"
+    elif [[ ${status} -ne 0 ]]; then
+        echo "WARNING: ${WORKLOAD_OUTPUT} run ${run} failed with status ${status}"
+    fi
     move_max_dram_log_if_present "${max_dram_file}"
 }
 

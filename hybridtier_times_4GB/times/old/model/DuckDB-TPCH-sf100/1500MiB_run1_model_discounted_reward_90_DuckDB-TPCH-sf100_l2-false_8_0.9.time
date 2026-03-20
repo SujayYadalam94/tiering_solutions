@@ -1,5 +1,0 @@
-./measurement_model.sh: line 22: 3218099 Segmentation fault      taskset -c 0-9,20-29 sudo LD_PRELOAD=${MODEL_PATH} $PROGRAM 2>&1
-
-real	9m22.085s
-user	0m0.876s
-sys	0m2.155s
