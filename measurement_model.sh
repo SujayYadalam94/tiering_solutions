@@ -28,10 +28,19 @@ mkdir -p times logs times/model
 #hist_lengths=(4 8)
 #penalties=(0.8 0.9)
 
-pcts=(95)
-minmax_options=(false)
+pcts=(99)
+minmax_options=(true)
 hist_lengths=(4)
-penalties=(0.9)
+penalties=(0.8 0.9 1.0)
+
+MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
+    "bc-twitter.sg"
+)
+
+#pcts=(95)
+#minmax_options=(true)
+#hist_lengths=(8)
+#penalties=(0.9)
 
 build_model_name() {
     local pct=$1
@@ -106,7 +115,10 @@ function run_model_sweep {
                 for penalty in "${penalties[@]}"; do
                     model_name=$(build_model_name "${pct}" "${model_base}" "${minmax}" "${hist_length}" "${penalty}")
                     model_path=$(build_model_library_path "${model_name}")
-                    echo "Running ${output} with model: ${model_name}"
+
+                    echo "Running ${output} with model: ${model_name} ${model_path}"
+
+                    run_measurement_setup "0"
                     run_program "${program}" "${model_name}" "${output}" "${run}" "${model_path}"
                 done
             done

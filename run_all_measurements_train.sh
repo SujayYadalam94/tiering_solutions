@@ -6,7 +6,7 @@ source "${SCRIPT_DIR}/measurement_common.sh"
 # shellcheck source=measurement_workloads.sh
 source "${SCRIPT_DIR}/measurement_workloads.sh"
 
-SIZES=(1000 1500)
+SIZES=(4000)
 RUNS=1
 
 mapfile -t WORKLOAD_IDS < <(measurement_list_default_workloads)

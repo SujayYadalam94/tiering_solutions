@@ -27,7 +27,7 @@ DEFAULT_PLATFORM ?= C220G5
 # Compile-time configuration matrix
 MIN_MAX_HISTORY_VALUES := true false
 HISTORY_LENGTH_VALUES := 4 8
-SWITCH_SCALER_VALUES := 0.9 0.8
+SWITCH_SCALER_VALUES := 1.0 0.9 0.8
 COMBOS := $(foreach mmh,$(MIN_MAX_HISTORY_VALUES),$(foreach hlen,$(HISTORY_LENGTH_VALUES),$(foreach scaler,$(SWITCH_SCALER_VALUES),$(mmh)_$(hlen)_$(scaler))))
 
 # Models and outputs

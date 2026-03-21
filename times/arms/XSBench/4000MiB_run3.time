@@ -1,4 +1,7 @@
 
-real	3m28.455s
+real	3m9.903s
 user	0m0.011s
-sys	0m0.022s
+sys	0m0.021s
+exit_status=0
+timed_out=0
+timeout_seconds=2700

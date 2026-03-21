@@ -34,7 +34,7 @@ extern bool initialized;
 #endif
 
 #ifndef MAX_LOGGED_SAMPLES
-#define MAX_LOGGED_SAMPLES (5000000)
+#define MAX_LOGGED_SAMPLES (3000000)
 #endif
 
 #ifndef PAGEMAP_FULL_SCAN_INTERVALS
@@ -50,7 +50,12 @@ extern bool initialized;
 #endif
 
 #define MIGRATION_WORKER_COUNT (10)
+
+#if USE_MODEL == (false)
 #define BACKOFF_PERIOD (4) // Number of scanning intervals to backoff after promotion/demotion
+#else
+#define BACKOFF_PERIOD (0)
+#endif
 
 #ifndef MIN_MAX_HISTORY
 #define MIN_MAX_HISTORY (true)
