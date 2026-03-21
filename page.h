@@ -93,6 +93,7 @@ struct page_info
     int32_t diff;
 
     int promote_backoff;
+    uint8_t model_infer_bucket;
 
     int num_demotions;
     int num_promotions;

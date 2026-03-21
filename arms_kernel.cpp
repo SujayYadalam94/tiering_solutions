@@ -111,6 +111,7 @@ page_ptr get_or_create_tracked_page(uint64_t page_va, uint64_t last_seen_scan, u
 
     page = std::make_shared<page_info>();
     page->va = page_va & HUGE_PFN_MASK;
+    page->model_infer_bucket = static_cast<uint8_t>((page->va / HUGEPAGE_SIZE) & 0x7);
     page->last_seen_scan = last_seen_scan;
     page->last_access_generation = last_access_generation;
     page->found_in_pebs = true;
@@ -819,17 +820,50 @@ static void update_model_scores_and_log(std::vector<score_entry> &scores, size_t
     for (size_t i = 0; i < scores.size(); i++)
     {
         scores[i].page->update_derivative_features(i, scores.size(), accesses_total);
-        update_group_entry(grp_tracker, scores[i].page, accesses_total);
     }
+
+    update_group_entries_bulk(grp_tracker, scores, accesses_total);
+    struct group_snapshot group_snapshot;
+    snapshot_group_tracker(grp_tracker, group_snapshot);
 
     for (auto &score_entry : scores)
     {
-        struct data_row row = access_log->extract_row(timestep, score_entry.page, grp_tracker,
-                                                      accesses_total); // Extract previous row data
-        row.arms_score = compute_score(score_entry.page);
-        score_entry.page->arms_score = row.arms_score;
+        const bool should_log = PRINT_TRAINING_DATA;
+        struct data_row row{};
+        if (should_log)
+        {
+            row = access_log->extract_row(timestep, score_entry.page, grp_tracker,
+                                          accesses_total); // Extract previous row data
+        }
 
-        row.model_score = model_predict(row, *score_entry.page);
+        if (should_log || !USE_MODEL)
+        {
+            const float arms_score = compute_score(score_entry.page);
+            score_entry.page->arms_score = arms_score;
+            if (should_log)
+            {
+                row.arms_score = arms_score;
+            }
+        }
+
+        const bool should_infer_model = USE_MODEL &&
+                                        (score_entry.page->count > 0 || score_entry.page->in_dram ||
+                                         score_entry.page->w[1] > 0.0f ||
+                                         (((score_entry.page->model_infer_bucket + timestep) & 0x7) == 0));
+
+        if (should_infer_model)
+        {
+            if (should_log)
+            {
+                row.model_score = model_predict(row, *score_entry.page);
+            }
+            else
+            {
+                double feature_buffer[MODEL_NUM_FEATURES];
+                access_log->extract_model_feature_buffer(score_entry.page, group_snapshot, feature_buffer);
+                model_predict_from_buffer(feature_buffer, *score_entry.page);
+            }
+        }
 
 #if MIN_MAX_HISTORY == (true)
         float history_model_score = score_entry.page->in_dram ? score_entry.page->max_model_score_history()
@@ -847,8 +881,11 @@ static void update_model_scores_and_log(std::vector<score_entry> &scores, size_t
             score_entry.page->score = score_entry.page->arms_score;
         }
         score_entry.score = score_entry.page->score;
-        row.score = score_entry.score;
-        access_log->log_row(score_entry.page, row);
+        if (should_log)
+        {
+            row.score = score_entry.score;
+            access_log->log_row(score_entry.page, row);
+        }
     }
 }
 
@@ -1133,7 +1170,7 @@ void arms_start_tiering()
     else
     {
         numa_bitmask_clearall(slow_tier_nodemask);
-        if (LOGGING_RUN)
+        if (LOGGING_RUN && !ALL_CXL)
         {
             std::cout << "[ARMS] Running in LOGGING_RUN mode - binding to FAST_TIER only" << std::endl;
             numa_bitmask_setbit(slow_tier_nodemask, FAST_TIER);
@@ -1205,6 +1242,8 @@ void arms_start_tiering()
     // Start scanning and policy threads
     pthread_create(&pagemap_scan_thread, nullptr, pagemap_scan_thread_fn, nullptr);
 
+#if ALL_CXL == false
+
     // Start migration worker threads
     for (size_t i = 0; i < MIGRATION_WORKER_COUNT; i++)
     {
@@ -1212,6 +1251,8 @@ void arms_start_tiering()
     }
 
     pthread_create(&policy_thread, nullptr, arms_policy_thread, nullptr);
+
+#endif
 
     std::cout << "[ARMS] Initialization complete." << std::endl;
 }

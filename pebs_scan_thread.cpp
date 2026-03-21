@@ -45,16 +45,6 @@ void *pebs_scan_thread(void *arg)
             {
                 struct perf_event_mmap_page *header = perf_page[cpu][type];
 
-                if (header == nullptr)
-                {
-                    continue;
-                }
-
-                if (header->data_size == 0)
-                {
-                    continue;
-                }
-
                 char *pbuf = (char *)header + header->data_offset;
                 __sync_synchronize();
 
@@ -65,10 +55,6 @@ void *pebs_scan_thread(void *arg)
 
                 struct perf_event_header *ph =
                     (struct perf_event_header *)(pbuf + (header->data_tail % header->data_size));
-                if (header == nullptr)
-                {
-                    continue;
-                }
 
                 struct perf_sample *ps;
 

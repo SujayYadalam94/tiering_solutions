@@ -678,6 +678,100 @@ struct data_row access_log::extract_row(size_t step, const page_ptr &page,
     return row;
 }
 
+struct model_features access_log::extract_model_features(const page_ptr &page, struct group_tracker *grp_tracker)
+{
+    struct model_features features{};
+
+    features.ewma_2_perc = page->w_perc[0];
+    features.ewma_5_perc = page->w_perc[1];
+    features.ewma_20_perc = page->w_perc[2];
+    features.ewma_100_perc = page->w_perc[3];
+    features.ewma_2_w_perc = page->w_w_perc[0];
+    features.ewma_5_w_perc = page->w_w_perc[1];
+    features.ewma_20_w_perc = page->w_w_perc[2];
+    features.ewma_100_w_perc = page->w_w_perc[3];
+    features.global_avg_accesses_perc = page->global_avg_accesses_perc;
+    features.gap4 = page->gap4;
+    features.read_write_gap3 = page->read_write_gap3;
+    features.ewma_var_100 = page->w_perc_var[3];
+
+    struct page_group *group_window[15] = {0};
+    get_group_window(grp_tracker, page->va, group_window);
+
+    const float g_m3 = group_window[4] != NULL ? group_window[4]->avg_perc : 0.0f;
+    const float g_m2 = group_window[5] != NULL ? group_window[5]->avg_perc : 0.0f;
+    const float g_m1 = group_window[6] != NULL ? group_window[6]->avg_perc : 0.0f;
+    const float g_0 = group_window[7] != NULL ? group_window[7]->avg_perc : 0.0f;
+    const float g_p1 = group_window[8] != NULL ? group_window[8]->avg_perc : 0.0f;
+    const float g_p2 = group_window[9] != NULL ? group_window[9]->avg_perc : 0.0f;
+    const float g_p3 = group_window[10] != NULL ? group_window[10]->avg_perc : 0.0f;
+
+    features.groups_perc_neg_sum = g_m1 + g_m2 + g_m3;
+    features.groups_perc_pos_sum = g_p1 + g_p2 + g_p3;
+    features.groups_perc_center = g_0;
+
+    float sum = 0.0f;
+    float sum_sq = 0.0f;
+    for (int idx = 0; idx < 15; ++idx)
+    {
+        const float v = group_window[idx] != NULL ? group_window[idx]->avg_perc_ewma5 : 0.0f;
+        sum += v;
+        sum_sq += v * v;
+    }
+    const float mean = sum / 15.0f;
+    const float var = (sum_sq / 15.0f) - (mean * mean);
+    features.group_ewma5_var = var > 0.0f ? var : 0.0f;
+
+    return features;
+}
+
+void access_log::extract_model_feature_buffer(const page_ptr &page, const struct group_snapshot &snapshot,
+                                              double *feature_buffer)
+{
+    int i = 0;
+
+    feature_buffer[i++] = page->w_perc[0];
+    feature_buffer[i++] = page->w_perc[1];
+    feature_buffer[i++] = page->w_perc[2];
+    feature_buffer[i++] = page->w_perc[3];
+    feature_buffer[i++] = page->w_w_perc[0];
+    feature_buffer[i++] = page->w_w_perc[1];
+    feature_buffer[i++] = page->w_w_perc[2];
+    feature_buffer[i++] = page->w_w_perc[3];
+    feature_buffer[i++] = page->global_avg_accesses_perc;
+
+    struct page_group *group_window[15] = {0};
+    get_group_window_from_snapshot(snapshot, page->va, group_window);
+
+    const double neg_sum = (group_window[4] != NULL ? group_window[4]->avg_perc : 0.0f) +
+                           (group_window[5] != NULL ? group_window[5]->avg_perc : 0.0f) +
+                           (group_window[6] != NULL ? group_window[6]->avg_perc : 0.0f);
+    const double pos_sum = (group_window[8] != NULL ? group_window[8]->avg_perc : 0.0f) +
+                           (group_window[9] != NULL ? group_window[9]->avg_perc : 0.0f) +
+                           (group_window[10] != NULL ? group_window[10]->avg_perc : 0.0f);
+    const double center = group_window[7] != NULL ? group_window[7]->avg_perc : 0.0f;
+
+    feature_buffer[i++] = neg_sum;
+    feature_buffer[i++] = pos_sum;
+    feature_buffer[i++] = center;
+
+    feature_buffer[i++] = page->gap4;
+    feature_buffer[i++] = page->read_write_gap3;
+    feature_buffer[i++] = page->w_perc_var[3];
+
+    double sum = 0.0;
+    double sum_sq = 0.0;
+    for (int idx = 0; idx < 15; ++idx)
+    {
+        const double v = group_window[idx] != NULL ? group_window[idx]->avg_perc_ewma5 : 0.0f;
+        sum += v;
+        sum_sq += v * v;
+    }
+    const double mean = sum / 15.0;
+    const double var = (sum_sq / 15.0) - (mean * mean);
+    feature_buffer[i++] = var > 0.0 ? var : 0.0;
+}
+
 void access_log::log_row(const page_ptr &page, struct data_row &row)
 {
     if (!PRINT_TRAINING_DATA)

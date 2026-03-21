@@ -104,6 +104,26 @@ struct data_row
     float discounted_reward_99;
 };
 
+struct model_features
+{
+    float ewma_2_perc;
+    float ewma_5_perc;
+    float ewma_20_perc;
+    float ewma_100_perc;
+    float ewma_2_w_perc;
+    float ewma_5_w_perc;
+    float ewma_20_w_perc;
+    float ewma_100_w_perc;
+    float global_avg_accesses_perc;
+    float groups_perc_neg_sum;
+    float groups_perc_pos_sum;
+    float groups_perc_center;
+    float gap4;
+    float read_write_gap3;
+    float ewma_var_100;
+    float group_ewma5_var;
+};
+
 struct cpu_stat
 {
     long unsigned int utime_ticks;
@@ -145,6 +165,9 @@ class access_log
     void update_proc_stats();
     float calc_cpu_usage_pct();
     void pebs_write_log();
+    void extract_model_feature_buffer(const page_ptr &page, const struct group_snapshot &snapshot,
+                                      double *feature_buffer);
+    struct model_features extract_model_features(const page_ptr &page, struct group_tracker *grp_tracker);
     struct data_row extract_row(size_t step, const page_ptr &page, struct group_tracker *grp_tracker,
                                 size_t count_all_pages);
     void log_row(const page_ptr &page, struct data_row &row);

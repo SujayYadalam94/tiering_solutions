@@ -8,10 +8,6 @@
 #include "model.h"
 #include "page.h"
 
-// Number of features - this should match your model's training configuration
-// Set to a placeholder value; adjust based on your actual model
-#define MODEL_NUM_FEATURES 16
-
 /**
  * Extract features from page_info into the feature buffer
  * This is where you define which features from the page are used for prediction
@@ -68,6 +64,55 @@ static inline void extract_features(struct data_row &row, double *features)
     assert(i == MODEL_NUM_FEATURES);
 }
 
+static inline void extract_features_from_model_features(const struct model_features &row, double *features)
+{
+    int8_t i = 0;
+
+    features[i++] = row.ewma_2_perc;
+    features[i++] = row.ewma_5_perc;
+    features[i++] = row.ewma_20_perc;
+    features[i++] = row.ewma_100_perc;
+    features[i++] = row.ewma_2_w_perc;
+    features[i++] = row.ewma_5_w_perc;
+    features[i++] = row.ewma_20_w_perc;
+    features[i++] = row.ewma_100_w_perc;
+    features[i++] = row.global_avg_accesses_perc;
+    features[i++] = row.groups_perc_neg_sum;
+    features[i++] = row.groups_perc_pos_sum;
+    features[i++] = row.groups_perc_center;
+    features[i++] = row.gap4;
+    features[i++] = row.read_write_gap3;
+    features[i++] = row.ewma_var_100;
+    features[i++] = row.group_ewma5_var;
+
+    assert(i == MODEL_NUM_FEATURES);
+}
+
+static inline double infer_forest(double *feature_buffer)
+{
+    double out = 0.0;
+    forest_root(feature_buffer, &out, 0, 1);
+    if (out < 0.0)
+    {
+        out = 0.0;
+    }
+    return out;
+}
+
+double model_predict_from_buffer(double *feature_buffer, struct page_info &page)
+{
+    double out = 0.0;
+
+#if USE_MODEL == (true)
+    out = infer_forest(feature_buffer);
+#else
+    (void)feature_buffer;
+#endif
+
+    page.push_model_score(static_cast<float>(out));
+    return out;
+}
+
 double model_predict(struct data_row &row, struct page_info &page)
 {
     double out = 0.0;
@@ -80,14 +125,28 @@ double model_predict(struct data_row &row, struct page_info &page)
 
     // Perform prediction using lleaves
     // lleaves provides fast inference optimized for LightGBM models
-
-    forest_root(feature_buffer, &out, 0, 1);
-    if (out < 0.0)
-        out = 0.0;
+    out = model_predict_from_buffer(feature_buffer, page);
+#else
+    (void)page;
 #endif
 
-    page.push_model_score(static_cast<float>(out));
     row.model_score = out;
 
     return out; // If model usage is disabled, out stays at 0.0
+}
+
+double model_predict(const struct model_features &features, struct page_info &page)
+{
+    double out = 0.0;
+
+#if USE_MODEL == (true)
+    double feature_buffer[MODEL_NUM_FEATURES];
+    extract_features_from_model_features(features, feature_buffer);
+    out = model_predict_from_buffer(feature_buffer, page);
+#else
+    (void)features;
+    (void)page;
+#endif
+
+    return out;
 }

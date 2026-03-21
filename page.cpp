@@ -62,6 +62,7 @@ void page_info::reset_page_access_fields()
     this->would_migrate_fragmented = false;
 
     this->promote_backoff = 0;
+    this->model_infer_bucket = 0;
 
     this->num_demotions = 0;
     this->num_promotions = 0;

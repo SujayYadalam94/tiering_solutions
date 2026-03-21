@@ -25,6 +25,10 @@ extern bool initialized;
 
 #define FULL_LOGS (false)
 
+#ifndef ALL_CXL
+#define ALL_CXL (false)
+#endif
+
 #ifndef ARMS_VERBOSE
 #define ARMS_VERBOSE (false)
 #endif

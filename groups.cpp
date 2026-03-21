@@ -91,7 +91,6 @@ void page_group_update(struct page_group *pg, const float count, const float ewm
     }
 
     pg->max_age = std::max(pg->max_age, page_age);
-    pg->count = count;
 }
 
 struct group_tracker *create_group_tracker()
@@ -130,6 +129,17 @@ void update_group_entry(struct group_tracker *gt, const page_ptr &page, const fl
     page_group_update(group, page->count, page->w[1], total_access, page->age);
 }
 
+void update_group_entries_bulk(struct group_tracker *gt, const std::vector<score_entry> &scores, const float total_access)
+{
+    std::lock_guard<std::mutex> lock(gt->group_lock);
+    for (const auto &entry : scores)
+    {
+        const uint64_t group_id = page_to_group_id(entry.page->va);
+        struct page_group *group = get_or_create_group_locked(gt, group_id);
+        page_group_update(group, entry.page->count, entry.page->w[1], total_access, entry.page->age);
+    }
+}
+
 struct page_group *try_get_group(struct group_tracker *gt, const uint64_t va, const int8_t offset)
 {
     const uint64_t group_id = page_to_group_id(va);
@@ -152,5 +162,22 @@ void get_group_window(struct group_tracker *gt, const uint64_t va, struct page_g
     {
         auto it = gt->groups_map.find(group_id + offset);
         out_groups[offset + 7] = (it != gt->groups_map.end()) ? it->second : NULL;
+    }
+}
+
+void snapshot_group_tracker(struct group_tracker *gt, struct group_snapshot &snapshot)
+{
+    std::lock_guard<std::mutex> lock(gt->group_lock);
+    snapshot.groups_map = gt->groups_map;
+}
+
+void get_group_window_from_snapshot(const struct group_snapshot &snapshot, const uint64_t va,
+                                    struct page_group *out_groups[15])
+{
+    const uint64_t group_id = page_to_group_id(va);
+    for (int offset = -7; offset <= 7; ++offset)
+    {
+        auto it = snapshot.groups_map.find(group_id + offset);
+        out_groups[offset + 7] = (it != snapshot.groups_map.end()) ? it->second : NULL;
     }
 }

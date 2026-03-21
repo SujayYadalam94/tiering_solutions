@@ -39,6 +39,7 @@ TRAIN_LIB_TARGETS := $(foreach platform,$(PLATFORMS),$(foreach combo,$(COMBOS),$
 ARMS_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms.so)
 LOGGING_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-logging.so)
 ARMS_TRAIN_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_train.so)
+ALL_CXL_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_all_cxl.so)
 ARMS_TARGET_DEFAULT := $(LIB_OUTPUT_DIR)/$(DEFAULT_PLATFORM)/libhemem-arms.so
 
 # Target
@@ -58,6 +59,7 @@ BASE_DEFINES_train := -DUSE_MODEL=true -DPRINT_TRAINING_DATA=true
 BASE_DEFINES_nomodel := -DUSE_MODEL=false
 BASE_DEFINES_logging := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=true -DMAX_LOGGED_SAMPLES=100000000 -DLOGGING_RUN=true
 BASE_DEFINES_arms_train := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=true
+BASE_DEFINES_all_cxl := -DUSE_MODEL=false -DALL_CXL=true
 
 combo_mmh = $(word 1,$(subst _, ,$1))
 combo_hlen = $(word 2,$(subst _, ,$1))
@@ -82,7 +84,7 @@ HOSTNAME := $(shell hostname)
 
 .PHONY: all clean
 
-all: $(LIB_TARGETS) $(TRAIN_LIB_TARGETS) $(ARMS_TARGETS) $(LOGGING_TARGETS) $(ARMS_TRAIN_TARGETS)
+all: $(LIB_TARGETS) $(TRAIN_LIB_TARGETS) $(ARMS_TARGETS) $(LOGGING_TARGETS) $(ARMS_TRAIN_TARGETS) $(ALL_CXL_TARGETS)
 
 $(TARGET_LIB): $(ARMS_TARGET_DEFAULT) | $(LIB_OUTPUT_DIR)
 	cp -f $< $@
@@ -115,6 +117,7 @@ define MAKE_PLATFORM_BASE_RULES
 NOMODEL_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/nomodel/$(1)/,$$(OBJ_NAMES))
 LOGGING_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/logging/$(1)/,$$(OBJ_NAMES))
 ARMS_TRAIN_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_train/$(1)/,$$(OBJ_NAMES))
+ALL_CXL_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/all_cxl/$(1)/,$$(OBJ_NAMES))
 
 # Build without linking a model; force USE_MODEL=false
 $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms.so: $$(NOMODEL_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
@@ -128,6 +131,10 @@ $$(LIB_OUTPUT_DIR)/$(1)/libhemem-logging.so: $$(LOGGING_OBJS_$(1)) | $$(LIB_OUTP
 $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_train.so: $$(ARMS_TRAIN_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
 	$$(LINK_SHARED_RECIPE)
 
+# Build ARMS with all allocations directed to CXL tier
+$$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_all_cxl.so: $$(ALL_CXL_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
+	$$(LINK_SHARED_RECIPE)
+
 # Compile C++ sources for USE_MODEL=false variants (platform specialization)
 $$(OBJ_DIR)/nomodel/$(1)/%.o: %.cpp | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_nomodel) $$(call platform_defs,$(1)))
@@ -137,6 +144,9 @@ $$(OBJ_DIR)/logging/$(1)/%.o: %.cpp | $$(OBJ_DIR)
 
 $$(OBJ_DIR)/arms_train/$(1)/%.o: %.cpp | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_train) $$(call platform_defs,$(1)))
+
+$$(OBJ_DIR)/all_cxl/$(1)/%.o: %.cpp | $$(OBJ_DIR)
+	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_all_cxl) $$(call platform_defs,$(1)))
 endef
 
 $(foreach platform,$(PLATFORMS),$(eval $(call MAKE_PLATFORM_BASE_RULES,$(platform))))
