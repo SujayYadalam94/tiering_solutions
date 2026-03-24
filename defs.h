@@ -34,7 +34,7 @@ extern bool initialized;
 #endif
 
 #ifndef MAX_LOGGED_SAMPLES
-#define MAX_LOGGED_SAMPLES (3000000)
+#define MAX_LOGGED_SAMPLES (2000000)
 #endif
 
 #ifndef PAGEMAP_FULL_SCAN_INTERVALS

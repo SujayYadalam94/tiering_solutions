@@ -28,10 +28,10 @@ mkdir -p times logs times/model
 #hist_lengths=(4 8)
 #penalties=(0.8 0.9)
 
-pcts=(99)
+pcts=(95)
 minmax_options=(true)
 hist_lengths=(4)
-penalties=(0.8 0.9 1.0)
+penalties=(0.9)
 
 MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
     "bc-twitter.sg"

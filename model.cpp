@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <cmath>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,10 +8,15 @@
 #include "logging.h"
 #include "model.h"
 #include "page.h"
+#include <vector>
 
 // Number of features - this should match your model's training configuration
-// Set to a placeholder value; adjust based on your actual model
-#define MODEL_NUM_FEATURES 17
+#define MODEL_NUM_FEATURES 16
+
+static inline double round_to_6(double value)
+{
+    return std::round(value * 1000000.0) / 1000000.0;
+}
 
 /**
  * Extract features from page_info into the feature buffer
@@ -20,55 +26,68 @@
 static inline void extract_features(struct data_row &row, double *features)
 {
 
-    // ewma_2_perc ewma_5_perc ewma_20_perc ewma_100_perc ewma_2_w_perc ewma_5_w_perc ewma_20_w_perc ewma_100_w_perc
-    // global_avg_accesses_perc group_neg_mean_perc group_pos_mean_perc group_0_mean_perc gap4 read_write_gap3
-    // ewma_var_100 group_ewma5_var
+    // ewma_2_perc ewma_5_perc ewma_20_perc ewma_100_perc
+    // ewma_2_w_perc ewma_5_w_perc ewma_20_w_perc ewma_100_w_perc
+    // global_avg_accesses_perc group_neg_mean_perc group_pos_mean_perc group_0_mean_perc
+    // gap4 read_write_gap3 ewma_var_100 group_ewma5_var
 
     int8_t i = 0;
 
-    features[i++] = row.ewma_2_perc;
-    features[i++] = row.ewma_5_perc;
-    features[i++] = row.ewma_20_perc;
-    features[i++] = row.ewma_100_perc;
-    features[i++] = row.ewma_2_w_perc;
-    features[i++] = row.ewma_5_w_perc;
-    features[i++] = row.ewma_20_w_perc;
-    features[i++] = row.ewma_100_w_perc;
-    features[i++] = row.global_avg_accesses_perc;
-    features[i++] = row.groups_perc[-1 + 7] + row.groups_perc[-2 + 7] + row.groups_perc[-3 + 7];
-    features[i++] = row.groups_perc[1 + 7] + row.groups_perc[2 + 7] + row.groups_perc[3 + 7];
-    features[i++] = row.groups_perc[0 + 7];
+    features[i++] = round_to_6(row.ewma_2_perc);
+    features[i++] = round_to_6(row.ewma_5_perc);
+    features[i++] = round_to_6(row.ewma_20_perc);
+    features[i++] = round_to_6(row.ewma_100_perc);
+    features[i++] = round_to_6(row.ewma_2_w_perc);
+    features[i++] = round_to_6(row.ewma_5_w_perc);
+    features[i++] = round_to_6(row.ewma_20_w_perc);
+    features[i++] = round_to_6(row.ewma_100_w_perc);
+    features[i++] = round_to_6(row.global_avg_accesses_perc);
+    features[i++] = round_to_6(round_to_6(row.groups_perc[-1 + 7]) + round_to_6(row.groups_perc[-2 + 7]) +
+                               round_to_6(row.groups_perc[-3 + 7]));
+    features[i++] = round_to_6(round_to_6(row.groups_perc[1 + 7]) + round_to_6(row.groups_perc[2 + 7]) +
+                               round_to_6(row.groups_perc[3 + 7]));
+    features[i++] = round_to_6(row.groups_perc[0 + 7]);
 
-    features[i++] = row.gap4;
-    features[i++] = row.read_write_gap3;
+    features[i++] = round_to_6(row.gap4);
+    features[i++] = round_to_6(row.read_write_gap3);
 
-    features[i++] = row.ewma_var_100;
-    features[i++] = row.group_ewma5_var;
-    features[i++] = row.age_count_total;
+    features[i++] = round_to_6(row.ewma_var_100);
+    features[i++] = round_to_6(row.group_ewma5_var);
 
     assert(i == MODEL_NUM_FEATURES);
 }
 
-double model_predict(struct data_row &row, struct page_info &page)
+void model_predict_batch(std::vector<struct data_row> &rows, const std::vector<struct page_info *> &pages)
 {
-    double out = 0.0;
+    assert(rows.size() == pages.size());
+
+    std::vector<double> outputs(rows.size(), 0.0);
 
 #if USE_MODEL == (true)
-    double feature_buffer[MODEL_NUM_FEATURES];
-
-    // Extract features from the page
-    extract_features(row, feature_buffer);
-
-    // Perform prediction using lleaves
-    // lleaves provides fast inference optimized for LightGBM models
-
-    forest_root(feature_buffer, &out, 0, 1);
-    if (out < 0.0)
-        out = 0.0;
+    for (size_t i = 0; i < rows.size(); ++i)
+    {
+        double features[MODEL_NUM_FEATURES] = {0.0};
+        extract_features(rows[i], features);
+        forest_root(features, &outputs[i], 0, 1);
+    }
 #endif
 
-    page.push_model_score(static_cast<float>(out));
-    row.model_score = out;
+    for (size_t i = 0; i < rows.size(); ++i)
+    {
+        if (outputs[i] < 0.0)
+        {
+            outputs[i] = 0.0;
+        }
+        pages[i]->push_model_score(static_cast<float>(outputs[i]));
+        rows[i].model_score = outputs[i];
+    }
+}
 
-    return out; // If model usage is disabled, out stays at 0.0
+double model_predict(struct data_row &row, struct page_info &page)
+{
+    std::vector<struct data_row> rows = {row};
+    std::vector<struct page_info *> pages = {&page};
+    model_predict_batch(rows, pages);
+    row.model_score = rows[0].model_score;
+    return row.model_score;
 }

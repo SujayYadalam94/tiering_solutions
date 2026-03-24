@@ -6,7 +6,7 @@ source "${SCRIPT_DIR}/measurement_common.sh"
 # shellcheck source=measurement_workloads.sh
 source "${SCRIPT_DIR}/measurement_workloads.sh"
 
-SIZES=(4000)
+SIZES=(2000)
 RUNS=1
 
 mapfile -t WORKLOAD_IDS < <(measurement_list_default_workloads)
@@ -22,7 +22,7 @@ for size in "${SIZES[@]}"; do
 
             run_measurement_setup "${size}"
 
-            "${SCRIPT_DIR}/measurement_arms.sh" "${size}" "${run}_train" "_train" "${workload_id}"
+            #"${SCRIPT_DIR}/measurement_arms.sh" "${size}" "${run}_train" "_train" "${workload_id}"
             "${SCRIPT_DIR}/measurement_model.sh" "${size}" "${run}_train" "_train" "${workload_id}"
 
             run_measurement_teardown

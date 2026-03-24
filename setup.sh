@@ -5,6 +5,8 @@ if [[ -z "${SIZE_MIB}" ]]; then
 	exit 1
 fi
 
+MEASUREMENT_SYSTEM=${2:-default}
+
 IRQ_AFFINITY=${IRQ_AFFINITY:-10-19,30-39}
 PROCESS_CPUSET=${PROCESS_CPUSET:-10-19,30-39}
 
@@ -68,6 +70,14 @@ for cpu in $(seq 10 19) $(seq 30 39); do
 done
 sudo wrmsr --processor 39 0x620 0x707
 sudo swapoff -a
+
+if [[ "${MEASUREMENT_SYSTEM}" == "nomad" ]]; then
+	echo "Applying NOMAD memory-tiering settings"
+	write_sysfs_value /sys/kernel/mm/numa/demotion_enabled 1
+	write_sysfs_value /proc/sys/kernel/numa_balancing 2
+	write_sysctl_value vm.demote_scale_factor 1000
+	sudo swapoff -a
+fi
 
 #sudo systemctl set-property --runtime system.slice AllowedCPUs=10-19,30-39 AllowedMemoryNodes=1
 #sudo systemctl set-property --runtime user.slice   AllowedCPUs=10-19,30-39 AllowedMemoryNodes=1

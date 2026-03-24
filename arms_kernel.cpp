@@ -823,14 +823,30 @@ static void update_model_scores_and_log(std::vector<score_entry> &scores, size_t
         update_group_entry(grp_tracker, scores[i].page, accesses_total);
     }
 
+    std::vector<struct data_row> rows;
+    std::vector<struct page_info *> model_pages;
+    rows.reserve(scores.size());
+    model_pages.reserve(scores.size());
+
     for (auto &score_entry : scores)
     {
         struct data_row row = access_log->extract_row(timestep, score_entry.page, grp_tracker,
                                                       accesses_total); // Extract previous row data
-        row.arms_score = compute_score(score_entry.page);
-        score_entry.page->arms_score = row.arms_score;
+        #if USE_MODEL == (false)
+            row.arms_score = compute_score(score_entry.page);
+            score_entry.page->arms_score = row.arms_score;
+        #endif
 
-        row.model_score = model_predict(row, *score_entry.page);
+        rows.push_back(row);
+        model_pages.push_back(score_entry.page.get());
+    }
+
+    model_predict_batch(rows, model_pages);
+
+    for (size_t i = 0; i < scores.size(); ++i)
+    {
+        auto &score_entry = scores[i];
+        auto &row = rows[i];
 
 #if MIN_MAX_HISTORY == (true)
         float history_model_score = score_entry.page->in_dram ? score_entry.page->max_model_score_history()
