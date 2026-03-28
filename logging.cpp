@@ -19,10 +19,10 @@ struct access_log *access_log;
 
 namespace
 {
-constexpr int LOG_NUMA_NODE = 1;
+constexpr int LOG_NUMA_NODE = SLOW_TIER;
 }
 
-access_log::access_log() : logged_samples(0), scores_log(nullptr)
+access_log::access_log() : logged_samples(-SKIP_UNTIL_SAMPLE), scores_log(nullptr)
 {
     if (PRINT_TRAINING_DATA)
     {
@@ -400,7 +400,7 @@ void access_log::finalize_log()
 {
     // Clamp to the last valid index to avoid walking past scores_log when
     // logged_samples == MAX_LOGGED_SAMPLES (or higher due to races).
-    const size_t sample_count = std::min(logged_samples, static_cast<size_t>(MAX_LOGGED_SAMPLES));
+    const size_t sample_count = std::min(std::max(logged_samples, 0l), static_cast<int64_t>(MAX_LOGGED_SAMPLES));
     if (sample_count == 0)
     {
         return;
@@ -444,7 +444,7 @@ void access_log::pebs_write_log()
 
         std::cout << "[ARMS] Writing training data log into 10 files (10 threaded parts each)..." << std::endl;
 
-        const size_t sample_count = std::min(logged_samples, static_cast<size_t>(MAX_LOGGED_SAMPLES));
+        const size_t sample_count = std::min(std::max(logged_samples, 0l), static_cast<int64_t>(MAX_LOGGED_SAMPLES));
         const std::string output_base = build_log_output_base_path();
         ensure_log_output_directory(output_base);
         std::vector<size_t> boundaries = build_part_boundaries(sample_count);
@@ -547,8 +547,8 @@ void access_log::pebs_write_log()
     }
 }
 
-struct data_row access_log::extract_row(size_t step, const page_ptr &page,
-                                        struct group_tracker *grp_tracker, size_t count_all_pages)
+struct data_row access_log::extract_row(size_t step, const page_ptr &page, struct group_tracker *grp_tracker,
+                                        size_t count_all_pages)
 {
     struct data_row row{};
 
@@ -682,6 +682,11 @@ void access_log::log_row(const page_ptr &page, struct data_row &row)
 {
     if (!PRINT_TRAINING_DATA)
     {
+        return;
+    }
+    if (logged_samples < 0)
+    {
+        logged_samples++;
         return;
     }
     if (logged_samples >= MAX_LOGGED_SAMPLES)

@@ -87,6 +87,12 @@ measurement_apply_nomad_settings() {
     sudo swapoff -a
 }
 
+measurement_apply_tpp_settings() {
+    echo 1 | sudo tee /sys/kernel/mm/numa/demotion_enabled >/dev/null
+    echo 3 | sudo tee /proc/sys/kernel/numa_balancing >/dev/null
+    sudo sysctl -w vm.demote_scale_factor=200 >/dev/null
+}
+
 run_measurement_setup() {
     local size_mib=$1
     local measurement_system=${2:-default}
@@ -95,6 +101,8 @@ run_measurement_setup() {
     sudo bash "${MEASUREMENT_COMMON_DIR}/setup.sh" "${size_mib}" "${measurement_system}"
     if [[ "${measurement_system}" == "nomad" ]]; then
         measurement_apply_nomad_settings
+    elif [[ "${measurement_system}" == "tpp" ]]; then
+        measurement_apply_tpp_settings
     fi
     bash "${MEASUREMENT_COMMON_DIR}/defrag.sh"
 }

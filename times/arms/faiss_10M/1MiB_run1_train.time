@@ -1,0 +1,8 @@
+/users/zimooo2/tiering_solutions/measurement_common.sh: line 30: 168044 Killed                  timeout --foreground --signal=TERM --kill-after="${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS}s" "${MEASUREMENT_TIMEOUT_SECONDS}s" numactl --membind="${numa_mem_nodes}" -- taskset -c "${taskset_cpus}" sudo LOG_OUTPUT_PATH="${log_output_path}" LD_PRELOAD="${library_path}" ${program} 2>&1
+
+real	0m59.193s
+user	0m0.017s
+sys	0m0.031s
+exit_status=137
+timed_out=1
+timeout_seconds=2700

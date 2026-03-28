@@ -8,12 +8,13 @@ declare -ar MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
     "XSBench"
     "DuckDB-TPCH-sf100"
     "lulesh2.0_s400"
-    #"DuckDB-TPCDS-sf100"
     "mg.D.x"
     "bc-twitter.sg"
     "pr-twitter.sg"
     "bc-kron.sg"
     "pr-kron.sg"
+
+    #"DuckDB-TPCDS-sf100"
 )
 
 measurement_list_default_workloads() {

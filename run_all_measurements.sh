@@ -52,7 +52,7 @@ EOF
     fi
 }
 
-SIZES=(6000)
+SIZES=(10000)
 RUNS=3
 
 mapfile -t WORKLOAD_IDS < <(measurement_list_default_workloads)
@@ -64,14 +64,21 @@ for size in "${SIZES[@]}"; do
         echo "-- Run ${run}/${RUNS} for size ${size}MiB --"
 
         for workload_id in "${WORKLOAD_IDS[@]}"; do
-            echo "---- Workload ${workload_id}: ARMS then Model then HybridTier ----"
+            echo "---- Workload ${workload_id}: TPP then NOMAD then Model ----"
 
             # ARMS
             #run_measurement_setup "${size}"
             #"${SCRIPT_DIR}/measurement_arms.sh" "${size}" "${run}" "" "${workload_id}"
 
+            # TPP
+            if [[ -x "${SCRIPT_DIR}/measurement_tpp.sh" ]]; then
+                run_measurement_setup "${size}" tpp
+                "${SCRIPT_DIR}/measurement_tpp.sh" "${size}" "${run}" "${workload_id}"
+            else
+                echo "WARNING: ./measurement_tpp.sh not found or not executable; skipping TPP"
+            fi
+
             # NOMAD
-            
             #if [[ -x "${SCRIPT_DIR}/measurement_nomad.sh" ]]; then
             #    measurement_ensure_nomad_ready || exit 1
             #    run_measurement_setup "${size}" nomad
@@ -81,11 +88,11 @@ for size in "${SIZES[@]}"; do
             #fi
 
             # Model
-            if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
-                "${SCRIPT_DIR}/measurement_model.sh" "${size}" "${run}" "" "${workload_id}"
-            else
-                echo "WARNING: ./measurement_model.sh not found or not executable; skipping model"
-            fi
+            #if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
+            #    "${SCRIPT_DIR}/measurement_model.sh" "${size}" "${run}" "" "${workload_id}"
+            #else
+            #    echo "WARNING: ./measurement_model.sh not found or not executable; skipping model"
+            #fi
 
             # HybridTier
             #run_measurement_setup "${size}"
