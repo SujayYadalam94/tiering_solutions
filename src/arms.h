@@ -176,12 +176,12 @@ struct arms_page {
   enum pagetypes pt;
   volatile bool migrating;
   bool present;
-  uint16_t accesses[NPBUFTYPES][2];
+  uint16_t accesses[2];
   pthread_mutex_t page_lock;
 
   // Our system
 #ifdef SPATIAL_SMOOTHING
-  float s_accesses[NPBUFTYPES];
+  float s_accesses;
 #endif
 
   float w[WINDOW_SIZE];
@@ -193,7 +193,7 @@ struct arms_page {
   struct arms_page *next, *prev;
   struct fifo_list *list;
 };
-static_assert(sizeof(struct arms_page) == 128);
+static_assert(sizeof(struct arms_page) == 120);
 
 struct migration_req {
   struct arms_page *dram_page;
