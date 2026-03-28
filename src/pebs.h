@@ -103,7 +103,7 @@
 #endif
 
 #ifdef HISTORY_ACCESSES
-#define WINDOW_SIZE   (20)
+#define WINDOW_SIZE   (2)
 #endif
 
 // Bias values for history and recency
