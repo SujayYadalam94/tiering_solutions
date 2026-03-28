@@ -886,6 +886,7 @@ static size_t calculate_scores_map_and_sort(struct score_entry *scores_out, cons
 
   int s_idx = 0;
   pebs_vulcan_get_all_ranks(scores_out, &s_idx, pages_cnt);
+  for(int i = 0; i < s_idx; i++)  scores_out[i].page->score = scores_out[i].score;
 
   // 3. Update hot age and can_promote fields
   for (int k = 0; k < dramsize/PAGE_SIZE && k < s_idx; k++) {

@@ -1,8 +1,7 @@
 #pragma once
 
 #include <stdint.h>
-
-struct score_entry;
+#include "hemem.h"
 
 #ifdef __cplusplus
 extern "C" {
