@@ -28,6 +28,8 @@
 #include "kdq.h"
 #include "kbtree.h"
 
+#include "vulcan.h"
+
 // Hash table for ARMS-handled pages
 KHASH_MAP_INIT_INT64(kPagesMap, struct arms_page*)
 khash_t(kPagesMap) *pages;
@@ -1400,6 +1402,8 @@ void pebs_add_page(struct arms_page *page)
   key = kh_put(kPagesMap, pages, page->va, &absent);
   assert(absent);
   kh_value(pages, key) = page;
+  // Add to libVulcan's page tracking
+  pebs_vulcan_add_page(page->va);
   pthread_mutex_unlock(&pages_lock);
 
   // Add to the new pages ring
@@ -1431,6 +1435,8 @@ void pebs_remove_page(struct arms_page *page)
   key = kh_get(kPagesMap, pages, page->va);
   assert(key != kh_end(pages));
   kh_del(kPagesMap, pages, key);
+  // Remove page from libVulcan's page tracking
+  pebs_vulcan_remove_page(page->va);
   pthread_mutex_unlock(&pages_lock);
 
   pthread_mutex_lock(&mod_page_dq_lock);
@@ -1562,6 +1568,10 @@ void pebs_init(void)
   } else {
     policy_thread_period = PEBS_KSWAPD_INTERVAL_BIG;
   }
+
+  // Initialize Vulcan
+  pebs_vulcan_init();
+  pebs_vulcan_setup_LLM_heuristic();
 
   LOG_INFO("Memory management policy is PEBS\n");
   LOG_INFO("pebs_init: finished\n");
