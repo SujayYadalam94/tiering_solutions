@@ -1,6 +1,8 @@
 CC = gcc
+CXX = g++
 CFLAGS = -g -Wall -O3 -fPIC
 #CFLAGS = -g3 -Wall -O0 -fPIC
+CXXFLAGS = -g -Wall -O3 -fPIC -std=c++20 -I./libvulcan/include
 LDFLAGS = -shared
 INCLUDES = -I../linux/usr/include/
 LIBS = -lm -lpthread
@@ -12,8 +14,11 @@ all: arms-libs
 
 arms-libs: libarms-lru.so libarms-simple.so libarms-lru-swap.so libarms.so
 
-libarms.so: arms.o pebs.o timer.o interpose.o fifo.o spsc-ring.o
-	$(CC) $(LDFLAGS) -o libarms.so arms.o timer.o interpose.o pebs.o fifo.o spsc-ring.o $(ARMS_LIBS)
+LIBVULCAN_SRCS = libvulcan/src/vulcan.cpp libvulcan/src/feature_registry.cpp libvulcan/src/feature_store.cpp
+LIBVULCAN_OBJS = $(LIBVULCAN_SRCS:.cpp=.o)
+
+libarms.so: arms.o pebs.o vulcan.o timer.o interpose.o fifo.o spsc-ring.o $(LIBVULCAN_OBJS)
+	$(CC) $(LDFLAGS) -o libarms.so arms.o vulcan.o timer.o interpose.o pebs.o fifo.o spsc-ring.o $(LIBVULCAN_OBJS) $(ARMS_LIBS)
 
 libarms-lru.so: policies/arms-lru.o policies/lru.o timer.o interpose.o policies/paging.o fifo.o spsc-ring.o
 	$(CC) $(LDFLAGS) -o libarms-lru.so policies/arms-lru.o timer.o policies/lru.o interpose.o policies/paging.o fifo.o spsc-ring.o $(ARMS_LIBS)
