@@ -1184,11 +1184,10 @@ void *pebs_policy_thread()
       nvm_bw_std = sqrtf(fmaxf(nvm_bw_std, 1e-12f)); // avoid stddev of 0
 
       // Update global stats
-      g_stats->dram_bw_ewma = dram_bw_ewma;
-      g_stats->nvm_bw_ewma = nvm_bw_ewma;
-      g_stats->nvm_bw_std = nvm_bw_std;
       g_stats->cur_dram_bw = cur_dram_bw;
       g_stats->cur_nvm_bw = cur_nvm_bw;
+
+      pebs_vulcan_update_bw(cur_dram_bw, cur_nvm_bw);
 
       // Scale drift and threshold based on stddev
       // This allows the algorithm to adapt to different levels of noise in the measurements
@@ -1579,6 +1578,9 @@ void pebs_init(void)
   // Initialize the global stats struct.
   g_stats = (struct global_stats*)malloc(sizeof(struct global_stats));
   memset(g_stats, 0, sizeof(struct global_stats));
+
+  pebs_vulcan_init();
+  pebs_vulcan_setup_LLM_heuristic();
 
   // Initialize the free/add ring buffers
   mod_page_dq = kdq_init(mod_page_t);
