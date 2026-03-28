@@ -218,14 +218,6 @@ struct score_entry {
   float score;
 };
 
-struct global_stats {
-  double dram_bw_ewma;
-  double nvm_bw_ewma;
-  double nvm_bw_std;
-  float cur_dram_bw;
-  float cur_nvm_bw;
-};
-
 void reset_page_access_fields(struct hemem_page *page);
 
 void *pebs_kswapd();

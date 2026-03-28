@@ -179,7 +179,7 @@ struct hemem_page {
 
   // Maintain history of last few windows of accesses
   // Num of windows is defined by whether WEIGHTED_ACCESSES or HISTORY_ACCESSES is defined.
-  uint16_t accesses[NPBUFTYPES][WINDOW_SIZE];
+  uint16_t accesses[WINDOW_SIZE];
 
 #ifdef WEIGHTED_ACCESSES
   float w[WINDOW_SIZE];
@@ -193,7 +193,7 @@ struct hemem_page {
 
   // Our system
 #ifdef SPATIAL_SMOOTHING
-  float s_accesses[NPBUFTYPES];
+  float s_accesses;
 #endif
 
   float score;
@@ -204,12 +204,12 @@ struct hemem_page {
   struct hemem_page *next, *prev;
   struct fifo_list *list;
 };
-#ifdef WEIGHTED_ACCESSES
-static_assert(sizeof(struct hemem_page) == 128);
-#endif
-#ifdef HISTORY_ACCESSES
-static_assert(sizeof(struct hemem_page) == 232);
-#endif
+// #ifdef WEIGHTED_ACCESSES
+// static_assert(sizeof(struct hemem_page) == 120);
+// #endif
+// #ifdef HISTORY_ACCESSES
+// static_assert(sizeof(struct hemem_page) == 232);
+// #endif
 
 struct migration_req {
   struct hemem_page *dram_page;

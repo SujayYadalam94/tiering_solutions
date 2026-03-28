@@ -1,10 +1,12 @@
 CC = gcc
+CXX = g++
 CFLAGS = -g -Wall -O3 -fPIC
 #CFLAGS = -g3 -Wall -O0 -fPIC
+CXXFLAGS = -g -Wall -O3 -fPIC -std=c++20 -I./libvulcan/include
 LDFLAGS = -shared
 INCLUDES = -I../linux/usr/include/
 LIBS = -lm -lpthread
-HEMEM_LIBS = $(LIBS) -ldl -lsyscall_intercept -L../Hoard/src -lhoard
+HEMEM_LIBS = $(LIBS) -ldl -lsyscall_intercept -L../Hoard/src -lhoard -lstdc++
 
 default: libhemem.so
 
@@ -15,8 +17,11 @@ hemem-libs: libhemem-lru.so libhemem-simple.so libhemem-lru-swap.so libhemem.so
 libllmcode.so: llmcode_shlib.o
 	$(CC) $(LDFLAGS) -o libllmcode.so llmcode_shlib.o $(LIBS)
 
-libhemem.so: hemem.o pebs.o timer.o interpose.o fifo.o spsc-ring.o
-	$(CC) $(LDFLAGS) -o libhemem.so hemem.o timer.o interpose.o pebs.o fifo.o spsc-ring.o $(HEMEM_LIBS)
+LIBVULCAN_SRCS = libvulcan/src/vulcan.cpp libvulcan/src/feature_registry.cpp libvulcan/src/feature_store.cpp
+LIBVULCAN_OBJS = $(LIBVULCAN_SRCS:.cpp=.o)
+
+libhemem.so: hemem.o pebs.o pebs_vulcan.o timer.o interpose.o fifo.o spsc-ring.o $(LIBVULCAN_OBJS)
+	$(CC) $(LDFLAGS) -o libhemem.so hemem.o timer.o interpose.o pebs.o pebs_vulcan.o fifo.o spsc-ring.o $(LIBVULCAN_OBJS) $(HEMEM_LIBS)
 
 libhemem-lru.so: policies/hemem-lru.o policies/lru.o timer.o interpose.o policies/paging.o fifo.o spsc-ring.o
 	$(CC) $(LDFLAGS) -o libhemem-lru.so policies/hemem-lru.o timer.o policies/lru.o interpose.o policies/paging.o fifo.o spsc-ring.o $(HEMEM_LIBS)
@@ -66,8 +71,14 @@ fifo.o: fifo.c fifo.h hemem.h
 spsc-ring.o: spsc-ring.c spsc-ring.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c spsc-ring.c
 
+pebs_vulcan.o: pebs_vulcan.cpp pebs_vulcan.h
+	$(CXX) $(CXXFLAGS) -c pebs_vulcan.cpp -o pebs_vulcan.o
+
+libvulcan/src/%.o: libvulcan/src/%.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
 llmcode_shlib.o: llmcode_shlib.c hemem.h pebs.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c llmcode_shlib.c
 
 clean:
-	$(RM) *.o *.so policies/*.o
+	$(RM) *.o *.so policies/*.o libvulcan/src/*.o pebs_vulcan.o
