@@ -69,4 +69,4 @@ spsc-ring.o: spsc-ring.c spsc-ring.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c spsc-ring.c
 
 clean:
-	$(RM) *.o *.so policies/*.o
+	$(RM) *.o *.so policies/*.o $(LIBVULCAN_OBJS)
