@@ -452,7 +452,7 @@ void *pebs_scan_thread()
               page = pebs_find_page(pfn);
               if (page != NULL) {
                 if (page->va != 0) {
-                  page->accesses[j][curr_access_version]++;
+                  page->accesses[curr_access_version]++;
                 }
                 arms_pages_cnt++;
               } else {
@@ -536,10 +536,10 @@ int sort_entry_cmp(const void *a, const void *b) {
 static void reset_page_access_fields(struct arms_page *page)
 {
   for (int i = 0; i < NPBUFTYPES; i++) {
-    page->accesses[i][0] = 0;
-    page->accesses[i][1] = 0;
+    page->accesses[0] = 0;
+    page->accesses[1] = 0;
     #ifdef SPATIAL_SMOOTHING
-    page->s_accesses[i] = 0;
+    page->s_accesses = 0;
     #endif
   }
   for (int i = 0; i < WINDOW_SIZE; i++) {
@@ -551,9 +551,9 @@ static void reset_page_access_fields(struct arms_page *page)
 
 static inline void update_window(struct arms_page* page) {
 #ifdef SPATIAL_SMOOTHING
-  float accesses = page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD] + (NVM_WRITES_WEIGHT * page->s_accesses[WRITE]);
+  float accesses = page->s_accesses;
 #else
-  uint32_t accesses = page->accesses[DRAMREAD][prev_access_version] + page->accesses[NVMREAD][prev_access_version] + (NVM_WRITES_WEIGHT * page->accesses[WRITE][prev_access_version]);
+  uint32_t accesses = page->accesses[prev_access_version];
 #endif
 
   if (sampling_mode == DEFAULT_SAMPLING) {
@@ -581,9 +581,7 @@ static inline float _moving_avg_add(float avg, float new_val, uint32_t count) {
   return ((count * avg) + new_val) / (count + 1);
 }
 static inline void moving_avg_add(float* avg, struct arms_page* page, uint32_t* count) {
-  avg[DRAMREAD] = _moving_avg_add(avg[DRAMREAD], page->accesses[DRAMREAD][prev_access_version], *count);
-  avg[NVMREAD] = _moving_avg_add(avg[NVMREAD], page->accesses[NVMREAD][prev_access_version], *count);
-  avg[WRITE] = _moving_avg_add(avg[WRITE], page->accesses[WRITE][prev_access_version], *count);
+  *avg = _moving_avg_add(*avg, page->accesses[prev_access_version], *count);
   (*count)++;
 }
 
@@ -595,9 +593,7 @@ static inline float _moving_avg_sub(float avg, float old_val, uint32_t count) {
   return ((count * avg) - old_val) / (count - 1);
 }
 static inline void moving_avg_sub(float* avg, struct arms_page* page, uint32_t* count) {
-  avg[DRAMREAD] = _moving_avg_sub(avg[DRAMREAD], page->accesses[DRAMREAD][prev_access_version], *count);
-  avg[NVMREAD] = _moving_avg_sub(avg[NVMREAD], page->accesses[NVMREAD][prev_access_version], *count);
-  avg[WRITE] = _moving_avg_sub(avg[WRITE], page->accesses[WRITE][prev_access_version], *count);
+  *avg = _moving_avg_sub(*avg, page->accesses[prev_access_version], *count);
   (*count)--;
 }
 
@@ -698,9 +694,7 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
     moving_avg_add(smooth_avg_v, page, &smooth_avg_cnt);
 
     // Calculate smoothed access count
-    page->s_accesses[DRAMREAD] = smooth_avg_v[DRAMREAD];
-    page->s_accesses[NVMREAD] = smooth_avg_v[NVMREAD];
-    page->s_accesses[WRITE] = smooth_avg_v[WRITE];
+    page->s_accesses = smooth_avg_v;
 
     ptimer_stop(&spatial_smooth_timer);
     LOG_DEBUG("After smoothing\n");
@@ -739,7 +733,7 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
       continue;
     }
     for (int i = 0; i < NPBUFTYPES; i++) {
-      page->accesses[i][prev_access_version] = 0;
+      page->accesses[prev_access_version] = 0;
     }
   }
   ptimer_print(&spatial_smooth_timer);
@@ -773,16 +767,14 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
     }
 
     #ifdef SPATIAL_SMOOTHING
-    LOG_DEBUG("%lu,%f|", page->va, page->s_accesses[DRAMREAD] + page->s_accesses[NVMREAD]); //+ page->s_accesses[WRITE]);
+    LOG_DEBUG("%lu,%f|", page->va, page->s_accesses;
     #endif
 
     // Update the window values
     update_window(page);
 
     // Reset the access counts
-    page->accesses[DRAMREAD][prev_access_version] = 0;
-    page->accesses[NVMREAD][prev_access_version] = 0;
-    page->accesses[WRITE][prev_access_version] = 0;
+    page->accesses[prev_access_version] = 0;
 
     // Calculate the hotness score
     page->prev_score = page->score;
@@ -995,9 +987,9 @@ void *pebs_policy_thread()
     ptimer_start(&loop_timer);
     ptimer_start(&remaining_timer);
 
-    LOG_REPORT("\n========================================\n");
-    LOG_REPORT("Starting new interval\n");
-    LOG_REPORT("========================================\n");
+    LOG_INFO("\n========================================\n");
+    LOG_INFO("Starting new interval\n");
+    LOG_INFO("========================================\n");
 
     // Update the window index (circular buffer)
     curr_window_index = global_version % WINDOW_SIZE;
@@ -1280,8 +1272,8 @@ void *pebs_policy_thread()
       }
       ptimer_stop(&id_timer);
 
-      LOG_REPORT("Demoting at %ld: 0x%lx score: %f (%f %f)\n", demote_idx, cp->va, cp->score, cp->w[0], cp->w[1]);
-      LOG_REPORT("Promoting at %ld: 0x%lx score: %f (%f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1]);
+      LOG_INFO("Demoting at %ld: 0x%lx score: %f (%f %f)\n", demote_idx, cp->va, cp->score, cp->w[0], cp->w[1]);
+      LOG_INFO("Promoting at %ld: 0x%lx score: %f (%f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1]);
 
       // move the cold DRAM page to NVM
       m_req = malloc(sizeof(struct migration_req));

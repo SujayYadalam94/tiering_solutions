@@ -40,10 +40,15 @@ void ptimer_stop(struct ptimer *t)
   t->elapsed_us += elapsed(&t->start, &t->end) * 1000000;
 }
 
+#ifdef ARMS_DEBUG
 void ptimer_print(struct ptimer *t)
 {
   fprintf(stderr, "[%s] elapsed: %.2lf ms\n", t->prefix, t->elapsed_us / 1000);
 }
+#else
+void ptimer_print(struct ptimer *t)
+{}
+#endif
 
 void ptimer_stop_and_print(struct ptimer *t)
 {
