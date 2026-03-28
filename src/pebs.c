@@ -24,8 +24,12 @@
 #include "timer.h"
 #include "spsc-ring.h"
 
-// LLM-generated code.
+// #define USE_VULCAN
+#ifdef USE_VULCAN
+#include "pebs_vulcan.h"
+#else
 #include "LLMCode.h"
+#endif
 
 #include "khash.h"
 #include "kdq.h"
@@ -836,19 +840,25 @@ static size_t calculate_scores_tree(struct score_entry *scores_out, const float 
 #endif
 
 // Function to change for PolicySmith to calculate scores differently
-static size_t calculate_scores_map_and_sort(struct score_entry *scores_out, const float *bias)
+static size_t calculate_scores_map_and_sort(const float *bias)
 {
   struct ptimer window_timer;
   ptimer_init(&window_timer, "Scores (window)");
 
   struct hemem_page *page;
   khiter_t key;
-  size_t s_idx = 0;
 
   size_t pages_cnt = kh_size(pages_map);
   if (pages_cnt == 0) {
     return 0; // no pages to process
   }
+
+  #ifdef USE_VULCAN
+  void* all_pages[pages_cnt]; // ptrs to pages
+  uint64_t all_vas[pages_cnt];
+  #endif
+
+  size_t s_idx = 0;
 
   // Iterate over the pages
   for (key = kh_begin(pages_map); key != kh_end(pages_map); ++key) {
@@ -872,21 +882,33 @@ static size_t calculate_scores_map_and_sort(struct score_entry *scores_out, cons
     // 1. Calculate score for each page
     page->prev_score = page->score;
 
-    // For computing score, send the prev_access_version to avoid race conditions.
+    #ifdef USE_VULCAN
+    pebs_vulcan_update_accesses(page->va, page->accesses[prev_access_version]);
+    #else
     page->score = compute_score(page, prev_access_version, bias);
+    scores[s_idx] = (struct score_entry){ page, page->score };
+    #endif
 
-    // Reset the access counts of the next window that the PEBS sampler will update.
-    uint8_t next_access_version = (curr_access_version + 1) % WINDOW_SIZE;
-    page->accesses[next_access_version] = 0;
+    
 
-
-    scores_out[s_idx++] = (struct score_entry){ page, page->score };
-
+    page->accesses[prev_access_version] = 0;
+    #ifdef USE_VULCAN
+    all_pages[s_idx] = page;
+    all_vas[s_idx++] = page->va;
+    #endif
   }
   ptimer_print(&window_timer);
 
-  // 2. Sort pages by score in descending order
-  qsort(scores_out, s_idx, sizeof(struct score_entry), sort_entry_cmp);
+  #ifdef USE_VULCAN
+  // =============== OPTION 1: Use Vulcan to get the top pages by score ===============
+  int v_cnt = 0;
+  pebs_vulcan_get_all_ranks(all_pages, all_vas, s_idx, scores, &v_cnt);
+  assert(s_idx == v_cnt && "Mismatch in number of pages scored and number of pages returned by Vulcan");
+  printf("Vulcan returned %d results\n", v_cnt);
+  #else
+  // =============== OPTION 2: Sort pages by score in descending order =============== 
+  qsort(scores, s_idx, sizeof(struct score_entry), sort_entry_cmp);
+  #endif 
 
   // 3. Update hot age and can_promote fields
   for (int k = 0; k < dramsize/PAGE_SIZE && k < s_idx; k++) {
@@ -1187,7 +1209,9 @@ void *pebs_policy_thread()
       g_stats->cur_dram_bw = cur_dram_bw;
       g_stats->cur_nvm_bw = cur_nvm_bw;
 
+      #ifdef USE_VULCAN
       pebs_vulcan_update_bw(cur_dram_bw, cur_nvm_bw);
+      #endif
 
       // Scale drift and threshold based on stddev
       // This allows the algorithm to adapt to different levels of noise in the measurements
@@ -1301,7 +1325,7 @@ void *pebs_policy_thread()
     #ifdef SPATIAL_SMOOTHING
     s_pages_cnt = calculate_scores_tree(scores, bias);
     #else
-    s_pages_cnt = calculate_scores_map_and_sort(scores, bias);
+    s_pages_cnt = calculate_scores_map_and_sort(bias);
     #endif
 
     ptimer_stop_and_print(&score_timer);
@@ -1448,9 +1472,14 @@ void pebs_add_page(struct hemem_page *page)
   assert(page != NULL);
   LOG_INFO("Adding page %lu to the add_pages_ring [va: %lu]\n", (uint64_t)page, page->va);
 
+  #ifdef USE_VULCAN
+  pebs_vulcan_add_page(page->va);
+  #endif
+
   // Add to the hash table
   pthread_mutex_lock(&pages_lock);
   key = kh_put(kPagesMap, pages, page->va, &absent);
+  if(!absent) printf("Double present page with VA: 0x%lx\n", (unsigned long)page->va);
   assert(absent);
   kh_value(pages, key) = page;
   pthread_mutex_unlock(&pages_lock);
@@ -1478,6 +1507,11 @@ void pebs_remove_page(struct hemem_page *page)
   khiter_t key;
   assert(page != NULL);
   LOG_INFO("Removing page %lu from the add_pages_ring [va: %lu]\n", (uint64_t)page, page->va);
+
+  
+  #ifdef USE_VULCAN
+  pebs_vulcan_remove_page(page->va);
+  #endif
 
   // Remove page from hash table
   pthread_mutex_lock(&pages_lock);
@@ -1579,8 +1613,11 @@ void pebs_init(void)
   g_stats = (struct global_stats*)malloc(sizeof(struct global_stats));
   memset(g_stats, 0, sizeof(struct global_stats));
 
+  #ifdef USE_VULCAN
+  printf("======================== USING VULCAN ========================\n");
   pebs_vulcan_init();
   pebs_vulcan_setup_LLM_heuristic();
+  #endif
 
   // Initialize the free/add ring buffers
   mod_page_dq = kdq_init(mod_page_t);

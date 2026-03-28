@@ -1,8 +1,7 @@
 #include "pebs_vulcan.h"
 #include "pebs.h"
 #include "libvulcan/include/vulcan.h"
-
-extern "C" struct hemem_page *pebs_find_page(uint64_t va);
+#include <unordered_map>
 
 // All C++ objects live here, heap-allocated in pebs_vulcan_init() to avoid SIOF:
 // the __attribute__((constructor)) in interpose.c fires before C++ static constructors.
@@ -25,18 +24,17 @@ extern "C" void pebs_vulcan_init(void)
 
     state->h_dram_bw = state->registry.global.declare_f64("h_dram_bw", "DRAM bandwidth in GB/s");
     state->h_nvm_bw  = state->registry.global.declare_f64("h_nvm_bw",  "NVM bandwidth in GB/s");
-    // state->h_accesses = state->registry.object.declare_f64("h_accesses", "Avg accesses (ms)");
+    state->h_accesses = state->registry.object.declare_f64("h_accesses", "Avg accesses (ms)");
 }
 
 
 extern "C" void pebs_vulcan_setup_LLM_heuristic(){
     state->config.add_listeners(state->h_dram_bw, {vulcan::listeners::global::RollingWindow(1)});
     state->config.add_listeners(state->h_nvm_bw,  {vulcan::listeners::global::RollingWindow(1)});
-    // state->config.add_listeners(state->h_accesses, {vulcan::listeners::object::EWMA(0.6667) });
+    state->config.add_listeners(state->h_accesses, {vulcan::listeners::object::EWMA(0.6667) });
 
-    auto h = state->h_nvm_bw;
-    auto scoring_fn = [h](const vulcan::feature_store& fs, int64_t obj_id) -> double {
-        return fs.get_latest(h, obj_id) + rand() / (double)RAND_MAX;
+    auto scoring_fn = [](const vulcan::feature_store& fs, int64_t obj_id) -> double {
+        return fs.get_latest(state->h_nvm_bw) + fs.get_ewma(state->h_accesses, obj_id) + rand() / (double)RAND_MAX; 
     };
 
     state->config.set_sorting_function(vulcan::rank::FullSort);
@@ -51,40 +49,51 @@ extern "C" void pebs_vulcan_setup_LLM_heuristic(){
 
 extern "C" void pebs_vulcan_add_page(uint64_t va)
 {
-    if (!state || !state->tiering_policy) return;
+    if (!state || !state->tiering_policy) assert(0 && "Vulcan Error: pebs_vulcan_add_page called before initialization");
     state->tiering_policy->add_object(va);
 }
 
 extern "C" void pebs_vulcan_remove_page(uint64_t va)
 {
-    if (!state || !state->tiering_policy) return;
+    if (!state || !state->tiering_policy) assert(0 && "Vulcan Error: pebs_vulcan_remove_page called before initialization");
     state->tiering_policy->remove_object(va);
 }
 
 extern "C" void pebs_vulcan_update_bw(double dram_bw, double nvm_bw)
 {
-    if (!state || !state->store) return;
+    if (!state || !state->store) assert(0 && "Vulcan Error: pebs_vulcan_update_bw called before initialization");
     state->store->update(state->h_dram_bw, dram_bw);
     state->store->update(state->h_nvm_bw,  nvm_bw);
 }
 
 extern "C" void pebs_vulcan_update_accesses(uint64_t va, double new_accesses)
 {
-    if (!state || !state->store) return;
+    if (!state || !state->store) assert(0 && "Vulcan Error: pebs_vulcan_update_accesses called before initialization");
     state->store->update(state->h_accesses, va, new_accesses);
 }
 
-extern "C" void pebs_vulcan_get_all_ranks(struct score_entry *scores_out, int *num_pages_copied, const int max_pages_allowed)
+extern "C" void pebs_vulcan_get_all_ranks(void **all_pages, uint64_t *all_vas, const int pages_cnt, struct score_entry *scores_out, int *num_results)
 {
-    *num_pages_copied = 0;
-    if (!state || !state->tiering_policy) return;
+    *num_results = 0;
+    if (!state || !state->tiering_policy) assert(0 && "Vulcan Error: pebs_vulcan_get_all_ranks called before initialization");
+
+    std::unordered_map<uint64_t, struct hemem_page*> va_to_page;
+    va_to_page.reserve(pages_cnt);
+    for (int i = 0; i < pages_cnt; i++) {
+        va_to_page[all_vas[i]] = (struct hemem_page*)all_pages[i];
+    }
 
     auto ranked = state->tiering_policy->rank_candidates();
     for (auto& [va, score] : ranked) {
-        if (*num_pages_copied >= max_pages_allowed) break;
-        struct hemem_page *page = pebs_find_page((uint64_t)va);
-        if (!page) continue;
-        scores_out[(*num_pages_copied)++] = { page, (float)score };
+        if (*num_results >= pages_cnt) break;
+        auto it = va_to_page.find((uint64_t)va);
+        if (it == va_to_page.end()) {
+            printf("Vulcan Error: VA %lx not found\n", va);
+            continue;
+        }
+        struct hemem_page *page = it->second;
         page->score = (float)score;
+        scores_out[(*num_results)] = { page, (float)score };
+        (*num_results)++;
     }
 }

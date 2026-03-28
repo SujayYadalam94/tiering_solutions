@@ -218,6 +218,11 @@ struct score_entry {
   float score;
 };
 
+struct vulcan_results {
+  uint64_t va;
+  float score;
+};
+
 struct global_stats {
   double dram_bw_ewma;
   double nvm_bw_ewma;
