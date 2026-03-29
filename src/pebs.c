@@ -718,22 +718,15 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
       continue;
     }
 
-    #ifdef SPATIAL_SMOOTHING
-    LOG_DEBUG("%lu,%f|", page->va, page->s_accesses;
-    #endif
-
-    // Update the window values
-    update_window(page);
-
+    // Update Vulcan features
+    pebs_vulcan_update_accesses(page->va, page->accesses[prev_access_version]);
     // Reset the access counts
     page->accesses[prev_access_version] = 0;
-
-    // Calculate the hotness score
-    page->prev_score = page->score;
-    page->score = compute_score(page, bias);
-    scores_out[s_idx++] = (struct score_entry){ page, page->score };
-
   }
+
+  s_idx = pebs_vulcan_get_page_ranks(scores_out);
+  assert(s_idx !=0);
+  assert(s_idx <= pages_cnt);
   ptimer_print(&window_timer);
 
   return s_idx;
@@ -956,6 +949,9 @@ void *pebs_policy_thread()
       cur_dram_bw = ((float)(measure_bw(0)) * (CACHELINE_SIZE)) / (1024ULL * 1024ULL * 1024ULL);
       cur_nvm_bw = ((float)(measure_bw(1)) * (CACHELINE_SIZE)) / (1024ULL * 1024ULL * 1024ULL);
 
+      // Update Vulcan
+      pebs_vulcan_update_bw(cur_dram_bw, cur_nvm_bw);
+
       // update the BW
       dram_bw_ewma = (1 - HCD_EWMA_ALPHA) * dram_bw_ewma + HCD_EWMA_ALPHA * cur_dram_bw;
       nvm_bw_ewma = (1 - HCD_EWMA_ALPHA) * nvm_bw_ewma + HCD_EWMA_ALPHA * cur_nvm_bw;
@@ -1045,6 +1041,7 @@ void *pebs_policy_thread()
       if (mp->free) {
         if (k != kh_end(pages_map)) {
           kh_del(kPagesMap, pages_map, k);
+          pebs_vulcan_remove_page(page->va);
 
           // Add page to correct free list
           if (page->in_dram) {
@@ -1062,6 +1059,7 @@ void *pebs_policy_thread()
         k = kh_put(kPagesMap, pages_map, page->va, &absent);
         assert(absent);
         kh_value(pages_map, k) = page;
+        pebs_vulcan_add_page(page->va);
       }
 
       #endif
@@ -1080,9 +1078,9 @@ void *pebs_policy_thread()
     ptimer_stop_and_print(&score_timer);
 
     // Sort the scores (in descending order)
-    ptimer_start(&sort_timer);
-    qsort(scores, s_pages_cnt, sizeof(struct score_entry), sort_entry_cmp);
-    ptimer_stop_and_print(&sort_timer);
+    // ptimer_start(&sort_timer);
+    // qsort(scores, s_pages_cnt, sizeof(struct score_entry), sort_entry_cmp);
+    // ptimer_stop_and_print(&sort_timer);
 
     // Set the top_since_iter for the top pages
     for (int k = 0; k < dramsize/PAGE_SIZE && k < s_pages_cnt; k++) {
@@ -1349,8 +1347,6 @@ void pebs_add_page(struct arms_page *page)
   key = kh_put(kPagesMap, pages, page->va, &absent);
   assert(absent);
   kh_value(pages, key) = page;
-  // Add to libVulcan's page tracking
-  pebs_vulcan_add_page(page->va);
   pthread_mutex_unlock(&pages_lock);
 
   // Add to the new pages ring
@@ -1371,6 +1367,15 @@ struct arms_page* pebs_find_page(uint64_t va)
   return page;
 }
 
+struct arms_page* pebs_find_page_maps(uint64_t va)
+{
+  khiter_t key;
+  struct arms_page *page;
+  key = kh_get(kPagesMap, pages_map, va);
+  page = key == kh_end(pages_map) ? NULL : kh_value(pages_map, key);
+  return page;
+}
+
 void pebs_remove_page(struct arms_page *page)
 {
   khiter_t key;
@@ -1382,8 +1387,6 @@ void pebs_remove_page(struct arms_page *page)
   key = kh_get(kPagesMap, pages, page->va);
   assert(key != kh_end(pages));
   kh_del(kPagesMap, pages, key);
-  // Remove page from libVulcan's page tracking
-  pebs_vulcan_remove_page(page->va);
   pthread_mutex_unlock(&pages_lock);
 
   pthread_mutex_lock(&mod_page_dq_lock);
