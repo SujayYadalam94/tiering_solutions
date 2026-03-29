@@ -196,7 +196,7 @@ enum pbuftype {
 
 struct score_entry {
   struct arms_page* page;
-  float score;
+  double score;
 };
 
 void *pebs_kswapd();
@@ -206,6 +206,7 @@ void pebs_init(void);
 
 void pebs_add_page(struct arms_page *page);
 struct arms_page* pebs_find_page(uint64_t va);
+struct arms_page* pebs_find_page_maps(uint64_t va);
 void pebs_remove_page(struct arms_page *page);
 
 void pebs_stats();

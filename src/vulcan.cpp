@@ -7,9 +7,9 @@
 struct PebsVulcanState {
     vulcan::feature_registry registry;
     vulcan::rank_config config;
-    vulcan::feature_handle<double> h_dram_bw;
-    vulcan::feature_handle<double> h_nvm_bw;
-    vulcan::feature_handle<double> h_accesses;
+    vulcan::feature_handle<double> dram_bw;
+    vulcan::feature_handle<double> nvm_bw;
+    vulcan::feature_handle<double> accesses;
     vulcan::rank_policy* tiering_policy = nullptr;
     vulcan::feature_store* store = nullptr;
 };
@@ -21,25 +21,25 @@ extern "C" void pebs_vulcan_init(void)
 {
     state = new PebsVulcanState();
 
-    state->h_dram_bw = state->registry.global.declare_f64("h_dram_bw", "DRAM bandwidth in GB/s");
-    state->h_nvm_bw  = state->registry.global.declare_f64("h_nvm_bw",  "NVM bandwidth in GB/s");
-    state->h_accesses = state->registry.object.declare_f64("h_accesses", "Avg accesses (ms)");
+    state->dram_bw = state->registry.global.declare_f64("dram_bw", "DRAM bandwidth in GB/s");
+    state->nvm_bw  = state->registry.global.declare_f64("nvm_bw",  "NVM bandwidth in GB/s");
+    state->accesses = state->registry.object.declare_f64("accesses", "Avg accesses (ms)");
 }
 
 
 extern "C" void pebs_vulcan_setup_LLM_heuristic(){
-    state->config.add_listeners(state->h_dram_bw, {vulcan::listeners::global::RollingWindow(1)});
-    state->config.add_listeners(state->h_nvm_bw,  {vulcan::listeners::global::RollingWindow(1)});
-    state->config.add_listeners(state->h_accesses, {vulcan::listeners::object::EWMA(0.6667) });
+    state->config.add_listeners(state->dram_bw, {vulcan::listeners::global::RollingWindow(1)});
+    state->config.add_listeners(state->nvm_bw,  {vulcan::listeners::global::RollingWindow(1)});
+    state->config.add_listeners(state->accesses, {vulcan::listeners::object::EWMA(0.6667) });
 
-    auto h = state->h_accesses;
+    auto h = state->accesses;
     auto scoring_fn = [h](const vulcan::feature_store& fs, int64_t obj_id) -> double {
         return fs.get_ewma(h, obj_id);
     };
 
     state->config.set_sorting_function(vulcan::rank::FullSort);
     state->config.set_scoring_fn(scoring_fn);
-    state->config.set_comparator(vulcan::min);
+    state->config.set_comparator(vulcan::max);
 
     // Create policy only after config is fully configured — it takes a copy.
     state->tiering_policy = new vulcan::rank_policy(state->registry, state->config);
@@ -62,6 +62,31 @@ extern "C" void pebs_vulcan_remove_page(uint64_t va)
 extern "C" void pebs_vulcan_update_bw(double dram_bw, double nvm_bw)
 {
     if (!state || !state->store) return;
-    state->store->update(state->h_dram_bw, dram_bw);
-    state->store->update(state->h_nvm_bw,  nvm_bw);
+    state->store->update(state->dram_bw, dram_bw);
+    state->store->update(state->nvm_bw,  nvm_bw);
+}
+
+extern "C" void pebs_vulcan_update_accesses(uint64_t va, double new_accesses)
+{
+    if (!state || !state->store) return;
+    state->store->update(state->accesses, va, new_accesses);
+}
+
+extern "C" size_t pebs_vulcan_get_page_ranks(struct score_entry *scores_out)
+{
+    size_t num_pages = 0;
+    if (!state || !state->tiering_policy) return 0;
+    auto ranked = state->tiering_policy->rank_candidates();
+    for (auto& [va, score] : ranked) {
+        struct arms_page* page = pebs_find_page_maps(va);
+        if (!page) {
+            fprintf(stderr, "Vulcan Error: Ranked page with VA %lu not found in ARMS page tracking\n", va);
+            continue;
+        }
+        scores_out[num_pages++] = (struct score_entry){ .page = page, .score = score };
+        page->prev_score = page->score;
+        page->score = score;
+    }
+
+    return num_pages;
 }
