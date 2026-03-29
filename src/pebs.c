@@ -1106,7 +1106,9 @@ void *pebs_policy_thread()
       }
       else {
         int absent;
+        internal_call = true;
         k = kh_put(kPagesMap, pages_map, page->va, &absent);
+        internal_call = false;
         assert(absent);
         kh_value(pages_map, k) = page;
         pebs_vulcan_add_page(page->va);
@@ -1397,7 +1399,9 @@ void pebs_add_page(struct arms_page *page)
 
   // Add to the hash table
   pthread_mutex_lock(&pages_lock);
+  internal_call = true;
   key = kh_put(kPagesMap, pages, page->va, &absent);
+  internal_call = false;
   assert(absent);
   kh_value(pages, key) = page;
   pthread_mutex_unlock(&pages_lock);
