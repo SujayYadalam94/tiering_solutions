@@ -185,15 +185,15 @@ struct arms_page {
 #endif
 
   float w[WINDOW_SIZE];
-  float score;
-  float prev_score;
+  double score;
+  double prev_score;
   uint16_t hot_age;
   bool can_promote;
 
   struct arms_page *next, *prev;
   struct fifo_list *list;
 };
-static_assert(sizeof(struct arms_page) == 120);
+static_assert(sizeof(struct arms_page) == 128);
 
 struct migration_req {
   struct arms_page *dram_page;
