@@ -52,7 +52,7 @@ EOF
     fi
 }
 
-SIZES=(10000)
+SIZES=(6000)
 RUNS=3
 
 mapfile -t WORKLOAD_IDS < <(measurement_list_default_workloads)
@@ -64,11 +64,19 @@ for size in "${SIZES[@]}"; do
         echo "-- Run ${run}/${RUNS} for size ${size}MiB --"
 
         for workload_id in "${WORKLOAD_IDS[@]}"; do
-            echo "---- Workload ${workload_id}: TPP then NOMAD then Model ----"
+            echo "---- Workload ${workload_id}: Baseline then TPP then NOMAD then Model ----"
 
             # ARMS
             #run_measurement_setup "${size}"
             #"${SCRIPT_DIR}/measurement_arms.sh" "${size}" "${run}" "" "${workload_id}"
+
+            # Baseline
+            #if [[ -x "${SCRIPT_DIR}/measurement_baseline.sh" ]]; then
+            #    run_measurement_setup_baseline_default "${size}"
+            #    "${SCRIPT_DIR}/measurement_baseline.sh" "${size}" "${run}" "${workload_id}"
+            #else
+            #    echo "WARNING: ./measurement_baseline.sh not found or not executable; skipping baseline"
+            #fi
 
             # TPP
             if [[ -x "${SCRIPT_DIR}/measurement_tpp.sh" ]]; then

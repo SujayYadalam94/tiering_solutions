@@ -1,0 +1,8 @@
+measurement_baseline.sh: line 25: 30901 Killed                  timeout --foreground --signal=TERM --kill-after="${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS}s" "${MEASUREMENT_TIMEOUT_SECONDS}s" numactl --membind="${NUMA_MEM_NODES}" -- taskset -c "${TASKSET_CPUS}" sudo LOG_OUTPUT_PATH="${log_output_path}" ${WORKLOAD_COMMAND} 2>&1
+
+real	0m13.859s
+user	0m0.023s
+sys	0m0.030s
+exit_status=137
+timed_out=1
+timeout_seconds=2700
