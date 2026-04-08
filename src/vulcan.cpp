@@ -28,14 +28,7 @@ extern "C" void pebs_vulcan_init(void)
 
 
 extern "C" void pebs_vulcan_setup_LLM_heuristic(){
-    state->config.add_listeners(state->dram_bw, {vulcan::listeners::global::RollingWindow(1)});
-    state->config.add_listeners(state->nvm_bw,  {vulcan::listeners::global::RollingWindow(1)});
-    state->config.add_listeners(state->accesses, {vulcan::listeners::object::EWMA(0.6667) });
-
-    auto h = state->accesses;
-    auto scoring_fn = [h](const vulcan::feature_store& fs, int64_t obj_id) -> double {
-        return fs.get_ewma(h, obj_id);
-    };
+    #include "LLMCode.h"
 
     state->config.set_sorting_function(vulcan::rank::FullSort);
     state->config.set_scoring_fn(scoring_fn);
@@ -61,14 +54,14 @@ extern "C" void pebs_vulcan_remove_page(uint64_t va)
 
 extern "C" void pebs_vulcan_update_bw(double dram_bw, double nvm_bw)
 {
-    if (!state || !state->store) return;
+    assert (state && state->store && "[update_bw] state or state->store not set!");
     state->store->update(state->dram_bw, dram_bw);
     state->store->update(state->nvm_bw,  nvm_bw);
 }
 
 extern "C" void pebs_vulcan_update_accesses(uint64_t va, double new_accesses)
 {
-    if (!state || !state->store) return;
+    assert (state && state->store && "[update_accesses] state or state->store not set!");
     state->store->update(state->accesses, va, new_accesses);
 }
 
