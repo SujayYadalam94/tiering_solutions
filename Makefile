@@ -32,6 +32,7 @@ COMBOS := $(foreach mmh,$(MIN_MAX_HISTORY_VALUES),$(foreach hlen,$(HISTORY_LENGT
 
 # Models and outputs
 MODELS := $(wildcard models/*.o)
+LOGGING_MODEL_OBJ ?= $(firstword $(MODELS))
 LIB_OUTPUT_DIR := libraries
 PLATFORM_LIB_DIRS := $(addprefix $(LIB_OUTPUT_DIR)/,$(PLATFORMS))
 LIB_TARGETS := $(foreach platform,$(PLATFORMS),$(foreach combo,$(COMBOS),$(patsubst models/%.o,$(LIB_OUTPUT_DIR)/$(platform)/libhemem-%-$(combo).so,$(MODELS))))
@@ -56,7 +57,7 @@ OBJ_NAMES = $(SRCS:.cpp=.o)
 BASE_DEFINES_model := -DUSE_MODEL=true
 BASE_DEFINES_train := -DUSE_MODEL=true -DPRINT_TRAINING_DATA=true
 BASE_DEFINES_nomodel := -DUSE_MODEL=false
-BASE_DEFINES_logging := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=true -DMAX_LOGGED_SAMPLES=100000000 -DLOGGING_RUN=true
+BASE_DEFINES_logging := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=true -DLOGGING_RUN=true
 BASE_DEFINES_arms_train := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=true
 
 combo_mmh = $(word 1,$(subst _, ,$1))

@@ -23,6 +23,7 @@ extern uint64_t dramsize;
 extern std::atomic<uint64_t> scan_generation;
 
 extern std::unordered_map<uint64_t, page_ptr> pages_map;
+extern std::unordered_map<uint64_t, page_ptr> detached_logging_pages;
 extern std::shared_mutex pages_map_lock;
 
 extern int pagemap_fd;
@@ -55,6 +56,9 @@ extern uint64_t total_samples[NPBUFTYPES];
 extern std::atomic<uint64_t> max_dram_hugepages_seen;
 extern std::atomic<uint64_t> total_dram_hugepages_accum;
 extern std::atomic<uint64_t> dram_samples;
+extern std::atomic<uint64_t> virtual_sample_total;
+extern std::atomic<uint64_t> virtual_step;
+extern std::shared_mutex virtual_features_lock;
 
 extern float dram_bw_ewma;
 extern float nvm_bw_ewma;
@@ -69,6 +73,7 @@ extern float latency_diff;
 extern std::atomic<bool> terminated;
 extern std::atomic<bool> madvise_thread_running;
 extern struct group_tracker *grp_tracker;
+extern struct group_tracker *virtual_grp_tracker;
 extern std::mutex numa_move_pages_lock;
 
 extern std::condition_variable madvise_cv;
@@ -83,6 +88,7 @@ page_ptr get_or_create_tracked_page(uint64_t page_va, uint64_t last_seen_scan, u
 
 void enqueue_migration_task(const std::vector<page_ptr> &promote_vas, const std::vector<page_ptr> &demote_vas);
 void clear_migration_queue();
+bool is_migration_worker_tid(pid_t tid);
 
 void change_sampling_frequency();
 void detect_hot_change();

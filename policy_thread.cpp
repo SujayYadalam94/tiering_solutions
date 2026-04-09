@@ -78,10 +78,10 @@ void *arms_policy_thread(void *arg)
         // Print total samples
         if (ARMS_VERBOSE)
         {
-            std::cout << "[ARMS] Total samples - DRAMREAD: " << total_samples[DRAMREAD]
-                      << ", NVMREAD: " << total_samples[NVMREAD] << ", WRITE: " << total_samples[WRITE] << std::endl;
+            std::cout << "[ARMS] Total samples - READ: " << total_samples[READ] << ", WRITE: " << total_samples[WRITE]
+                      << std::endl;
         }
-        total_samples[DRAMREAD] = total_samples[NVMREAD] = total_samples[WRITE] = 0;
+        total_samples[READ] = total_samples[WRITE] = 0;
 
         ptimer_stop(&loop_timer);
         if (ARMS_VERBOSE)

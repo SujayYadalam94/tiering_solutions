@@ -24,38 +24,7 @@ struct data_row
     size_t write;
     size_t count;
     float global_avg_accesses;
-    float global_avg_accesses_perc;
-    float ewma_2_perc;
-    float ewma_2_r_perc;
-    float ewma_2_w_perc;
-    float ewma_5_perc;
-    float ewma_5_r_perc;
-    float ewma_5_w_perc;
-    float ewma_20_perc;
-    float ewma_20_r_perc;
-    float ewma_20_w_perc;
-    float ewma_100_perc;
-    float ewma_100_r_perc;
-    float ewma_100_w_perc;
-    float gap4;
-    float read_write_gap3;
-    float ewma_var_2;
-    float ewma_var_5;
-    float ewma_var_20;
-    float ewma_var_100;
-
-#if FULL_LOGS
-    float global_count_since_top1_percent_ewma5;
-    float global_count_since_top50_percent_ewma5;
-#endif
-    float groups_perc[15];
-    float group_ewma5_perc[15];
-    float group_ewma5_var;
-    uint64_t age_count_total;
-
-#if FULL_LOGS
-    size_t prot;
-    size_t flags;
+    float global_avg_accesses_model;
     float ewma_2;
     float ewma_2_r;
     float ewma_2_w;
@@ -68,6 +37,37 @@ struct data_row
     float ewma_100;
     float ewma_100_r;
     float ewma_100_w;
+    float gap4;
+    float read_write_gap3;
+    float ewma_var_2;
+    float ewma_var_5;
+    float ewma_var_20;
+    float ewma_var_100;
+
+#if FULL_LOGS
+    float global_count_since_top1_percent_ewma5;
+    float global_count_since_top50_percent_ewma5;
+#endif
+    float groups[15];
+    float group_ewma5[15];
+    float group_ewma5_var;
+    uint64_t age_count_total;
+
+#if FULL_LOGS
+    size_t prot;
+    size_t flags;
+    float ewma_2_abs;
+    float ewma_2_r_abs;
+    float ewma_2_w_abs;
+    float ewma_5_abs;
+    float ewma_5_r_abs;
+    float ewma_5_w_abs;
+    float ewma_20_abs;
+    float ewma_20_r_abs;
+    float ewma_20_w_abs;
+    float ewma_100_abs;
+    float ewma_100_r_abs;
+    float ewma_100_w_abs;
     size_t rank;
     float rank_perc;
     float rank_ewma_2;
@@ -82,8 +82,8 @@ struct data_row
     long long disk_write_bytes;
     long long syscr;
     long long syscw;
-    float groups[15];
-    float group_ewma5[15];
+    float groups_abs[15];
+    float group_ewma5_abs[15];
     size_t model_selection;
     uint32_t read_bytes;
     uint32_t write_bytes;

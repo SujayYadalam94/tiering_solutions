@@ -1,14 +1,37 @@
 
 SIZE_MIB=${1:-}
 if [[ -z "${SIZE_MIB}" ]]; then
-	echo "Usage: $0 <sizeMiB>" >&2
+	echo "Usage: $0 <sizeMiB> [measurementSystem] [platform]" >&2
 	exit 1
 fi
 
 MEASUREMENT_SYSTEM=${2:-default}
+MEASUREMENT_PLATFORM=${3:-c220g5}
 
-IRQ_AFFINITY=${IRQ_AFFINITY:-10-19,30-39}
-PROCESS_CPUSET=${PROCESS_CPUSET:-10-19,30-39}
+case "${MEASUREMENT_PLATFORM}" in
+	c220g5)
+		DEFAULT_IRQ_AFFINITY="10-19,30-39"
+		DEFAULT_PROCESS_CPUSET="10-19,30-39"
+		DEFAULT_MIGRATE_FROM_NODES="0"
+		DEFAULT_CPU_SLOWDOWN_CPUS="10-19,30-39"
+		;;
+	gsl_optane)
+		DEFAULT_IRQ_AFFINITY="16-31,48-63"
+		DEFAULT_PROCESS_CPUSET="16-31,48-63"
+		DEFAULT_MIGRATE_FROM_NODES="0"
+		DEFAULT_CPU_SLOWDOWN_CPUS=""
+		;;
+	*)
+		echo "ERROR: unsupported platform '${MEASUREMENT_PLATFORM}' (expected c220g5|gsl_optane)" >&2
+		exit 1
+		;;
+esac
+
+IRQ_AFFINITY=${IRQ_AFFINITY:-${DEFAULT_IRQ_AFFINITY}}
+PROCESS_CPUSET=${PROCESS_CPUSET:-${DEFAULT_PROCESS_CPUSET}}
+MIGRATE_FROM_NODES=${MIGRATE_FROM_NODES:-${DEFAULT_MIGRATE_FROM_NODES}}
+MIGRATE_TO_NODE=${MIGRATE_TO_NODE:-1}
+CPU_SLOWDOWN_CPUS=${CPU_SLOWDOWN_CPUS:-${DEFAULT_CPU_SLOWDOWN_CPUS}}
 
 write_sysfs_value() {
 	local path=$1
@@ -30,8 +53,28 @@ set_irq_affinity() {
 
 migrate_all_processes_to_slow_tier() {
 	for pid in $(ps -e -o pid=); do
-		sudo migratepages "$pid" 0 1
+		sudo migratepages "$pid" "${MIGRATE_FROM_NODES}" "${MIGRATE_TO_NODE}" || true
 		sudo taskset -pc "${PROCESS_CPUSET}" "$pid"
+	done
+}
+
+apply_cpu_slowdown_if_needed() {
+	if [[ "${MEASUREMENT_PLATFORM}" != "c220g5" ]]; then
+		echo "Skipping CPU slowdown for platform ${MEASUREMENT_PLATFORM}"
+		return
+	fi
+
+	local cpu
+	for cpu in ${CPU_SLOWDOWN_CPUS//,/ }; do
+		if [[ "${cpu}" == *-* ]]; then
+			local start=${cpu%-*}
+			local end=${cpu#*-}
+			for ((i = start; i <= end; i++)); do
+				sudo wrmsr --processor "$i" 0x620 0x707
+			done
+		else
+			sudo wrmsr --processor "$cpu" 0x620 0x707
+		fi
 	done
 }
 
@@ -65,10 +108,7 @@ echo 0 | sudo tee /proc/sys/kernel/perf_cpu_time_max_percent
 
 write_sysfs_value /sys/kernel/mm/ksm/run 0
 
-for cpu in $(seq 10 19) $(seq 30 39); do
-	sudo wrmsr --processor "$cpu" 0x620 0x707
-done
-sudo wrmsr --processor 39 0x620 0x707
+apply_cpu_slowdown_if_needed
 sudo swapoff -a
 
 if [[ "${MEASUREMENT_SYSTEM}" == "nomad" ]]; then

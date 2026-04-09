@@ -1,4 +1,5 @@
 #include "logging.h"
+#include "arms_kernel_threads.h"
 #include <atomic>
 #include <cstdio>
 #include <cstdlib>
@@ -223,9 +224,15 @@ void print_group_window(std::ostream &os, const T (&values)[GROUP_WINDOW_SIZE], 
 
 inline void propagate_discounted_rewards(data_row *previous_row, const data_row *current_row)
 {
-    previous_row->discounted_reward_90 = current_row->count + 0.9f * current_row->discounted_reward_90;
-    previous_row->discounted_reward_95 = current_row->count + 0.95f * current_row->discounted_reward_95;
-    previous_row->discounted_reward_99 = current_row->count + 0.99f * current_row->discounted_reward_99;
+    float immediate_reward = static_cast<float>(current_row->count);
+    if (VIRTUAL_FEATURES_ENABLED && previous_row->step == current_row->step)
+    {
+        immediate_reward = 0.0f;
+    }
+
+    previous_row->discounted_reward_90 = immediate_reward + 0.9f * current_row->discounted_reward_90;
+    previous_row->discounted_reward_95 = immediate_reward + 0.95f * current_row->discounted_reward_95;
+    previous_row->discounted_reward_99 = immediate_reward + 0.99f * current_row->discounted_reward_99;
 }
 
 inline void apply_age_gap_penalty(data_row *row, int age_diff)
@@ -299,19 +306,19 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
     PRINT_CELL_AUTO(write);
     PRINT_CELL_AUTO(count);
     PRINT_CELL_AUTO(global_avg_accesses);
-    PRINT_CELL_AUTO(global_avg_accesses_perc);
-    PRINT_CELL_AUTO(ewma_2_perc);
-    PRINT_CELL_AUTO(ewma_2_r_perc);
-    PRINT_CELL_AUTO(ewma_2_w_perc);
-    PRINT_CELL_AUTO(ewma_5_perc);
-    PRINT_CELL_AUTO(ewma_5_r_perc);
-    PRINT_CELL_AUTO(ewma_5_w_perc);
-    PRINT_CELL_AUTO(ewma_20_perc);
-    PRINT_CELL_AUTO(ewma_20_r_perc);
-    PRINT_CELL_AUTO(ewma_20_w_perc);
-    PRINT_CELL_AUTO(ewma_100_perc);
-    PRINT_CELL_AUTO(ewma_100_r_perc);
-    PRINT_CELL_AUTO(ewma_100_w_perc);
+    PRINT_CELL_AUTO(global_avg_accesses_model);
+    PRINT_CELL_AUTO(ewma_2);
+    PRINT_CELL_AUTO(ewma_2_r);
+    PRINT_CELL_AUTO(ewma_2_w);
+    PRINT_CELL_AUTO(ewma_5);
+    PRINT_CELL_AUTO(ewma_5_r);
+    PRINT_CELL_AUTO(ewma_5_w);
+    PRINT_CELL_AUTO(ewma_20);
+    PRINT_CELL_AUTO(ewma_20_r);
+    PRINT_CELL_AUTO(ewma_20_w);
+    PRINT_CELL_AUTO(ewma_100);
+    PRINT_CELL_AUTO(ewma_100_r);
+    PRINT_CELL_AUTO(ewma_100_w);
     PRINT_CELL_AUTO(gap4);
     PRINT_CELL_AUTO(read_write_gap3);
     PRINT_CELL_AUTO(ewma_var_2);
@@ -325,8 +332,8 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
 #endif
 
     // Group EWMA5 percentages are always present
-    print_group_window(os, row->group_ewma5_perc, "mean_ewma5_perc", header);
-    print_group_window(os, row->groups_perc, "mean_perc", header);
+    print_group_window(os, row->group_ewma5, "mean_ewma5", header);
+    print_group_window(os, row->groups, "mean", header);
 
     PRINT_CELL_AUTO(group_ewma5_var);
 
@@ -336,21 +343,21 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
     PRINT_CELL_AUTO(prot);
     PRINT_CELL_AUTO(flags);
 
-    PRINT_CELL_AUTO(ewma_2);
-    PRINT_CELL_AUTO(ewma_2_r);
-    PRINT_CELL_AUTO(ewma_2_w);
+    PRINT_CELL_AUTO(ewma_2_abs);
+    PRINT_CELL_AUTO(ewma_2_r_abs);
+    PRINT_CELL_AUTO(ewma_2_w_abs);
 
-    PRINT_CELL_AUTO(ewma_5);
-    PRINT_CELL_AUTO(ewma_5_r);
-    PRINT_CELL_AUTO(ewma_5_w);
+    PRINT_CELL_AUTO(ewma_5_abs);
+    PRINT_CELL_AUTO(ewma_5_r_abs);
+    PRINT_CELL_AUTO(ewma_5_w_abs);
 
-    PRINT_CELL_AUTO(ewma_20);
-    PRINT_CELL_AUTO(ewma_20_r);
-    PRINT_CELL_AUTO(ewma_20_w);
+    PRINT_CELL_AUTO(ewma_20_abs);
+    PRINT_CELL_AUTO(ewma_20_r_abs);
+    PRINT_CELL_AUTO(ewma_20_w_abs);
 
-    PRINT_CELL_AUTO(ewma_100);
-    PRINT_CELL_AUTO(ewma_100_r);
-    PRINT_CELL_AUTO(ewma_100_w);
+    PRINT_CELL_AUTO(ewma_100_abs);
+    PRINT_CELL_AUTO(ewma_100_r_abs);
+    PRINT_CELL_AUTO(ewma_100_w_abs);
 
     PRINT_CELL_AUTO(rank);
     PRINT_CELL_AUTO(rank_perc);
@@ -368,8 +375,8 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
     PRINT_CELL_AUTO(syscr);
     PRINT_CELL_AUTO(syscw);
 
-    print_group_window(os, row->groups, "mean", header);
-    print_group_window(os, row->group_ewma5, "mean_ewma5", header);
+    print_group_window(os, row->groups_abs, "mean_abs", header);
+    print_group_window(os, row->group_ewma5_abs, "mean_ewma5_abs", header);
 
     PRINT_CELL_AUTO(model_selection);
     PRINT_CELL_AUTO(read_bytes);
@@ -547,8 +554,8 @@ void access_log::pebs_write_log()
     }
 }
 
-struct data_row access_log::extract_row(size_t step, const page_ptr &page,
-                                        struct group_tracker *grp_tracker, size_t count_all_pages)
+struct data_row access_log::extract_row(size_t step, const page_ptr &page, struct group_tracker *grp_tracker,
+                                        size_t count_all_pages)
 {
     struct data_row row{};
 
@@ -561,86 +568,131 @@ struct data_row access_log::extract_row(size_t step, const page_ptr &page,
     // Base fields (always present)
     row.step = step;
     row.page = page->va;
-    row.read = page->reads;
-    row.write = page->writes;
-    row.count = page->count;
-    row.global_avg_accesses = page->global_avg_accesses;
-    row.global_avg_accesses_perc = page->global_avg_accesses_perc;
+    if (VIRTUAL_FEATURES_ENABLED)
+    {
+        std::shared_lock<std::shared_mutex> lock(virtual_features_lock);
+        row.step = page->virtual_step;
+        row.read = page->virtual_reads;
+        row.write = page->virtual_writes;
+        row.count = page->virtual_count;
+        row.global_avg_accesses = page->virtual_global_avg_accesses;
+        row.global_avg_accesses_model = page->virtual_global_avg_accesses;
 
-    row.ewma_2_perc = page->w_perc[0];
-    row.ewma_2_r_perc = page->w_r_perc[0];
-    row.ewma_2_w_perc = page->w_w_perc[0];
-    row.ewma_5_perc = page->w_perc[1];
-    row.ewma_5_r_perc = page->w_r_perc[1];
-    row.ewma_5_w_perc = page->w_w_perc[1];
-    row.ewma_20_perc = page->w_perc[2];
-    row.ewma_20_r_perc = page->w_r_perc[2];
-    row.ewma_20_w_perc = page->w_w_perc[2];
-    row.ewma_100_perc = page->w_perc[3];
-    row.ewma_100_r_perc = page->w_r_perc[3];
-    row.ewma_100_w_perc = page->w_w_perc[3];
-    row.gap4 = page->gap4;
-    row.read_write_gap3 = page->read_write_gap3;
-    row.ewma_var_2 = page->w_perc_var[0];
-    row.ewma_var_5 = page->w_perc_var[1];
-    row.ewma_var_20 = page->w_perc_var[2];
-    row.ewma_var_100 = page->w_perc_var[3];
+        row.ewma_2 = page->virtual_w[0];
+        row.ewma_2_r = page->virtual_w_r[0];
+        row.ewma_2_w = page->virtual_w_w[0];
+        row.ewma_5 = page->virtual_w[1];
+        row.ewma_5_r = page->virtual_w_r[1];
+        row.ewma_5_w = page->virtual_w_w[1];
+        row.ewma_20 = page->virtual_w[2];
+        row.ewma_20_r = page->virtual_w_r[2];
+        row.ewma_20_w = page->virtual_w_w[2];
+        row.ewma_100 = page->virtual_w[3];
+        row.ewma_100_r = page->virtual_w_r[3];
+        row.ewma_100_w = page->virtual_w_w[3];
+        row.gap4 = page->virtual_gap4;
+        row.read_write_gap3 = page->virtual_read_write_gap3;
+        row.ewma_var_2 = page->virtual_w_perc_var[0];
+        row.ewma_var_5 = page->virtual_w_perc_var[1];
+        row.ewma_var_20 = page->virtual_w_perc_var[2];
+        row.ewma_var_100 = page->virtual_w_perc_var[3];
+
+        for (int8_t i = -7; i <= 7; ++i)
+        {
+            row.groups[i + 7] = page->virtual_groups_perc[i + 7];
+            row.group_ewma5[i + 7] = page->virtual_group_ewma5_perc[i + 7];
+        }
+        row.group_ewma5_var = page->virtual_group_ewma5_var;
+        row.age_count_total = page->virtual_age_count_total;
+        row.age = page->virtual_age;
+    }
+    else
+    {
+        row.read = page->reads;
+        row.write = page->writes;
+        row.count = page->count;
+        row.global_avg_accesses = page->global_avg_accesses;
+        row.global_avg_accesses_model = page->global_avg_accesses_perc;
+
+        row.ewma_2 = page->w_perc[0];
+        row.ewma_2_r = page->w_r_perc[0];
+        row.ewma_2_w = page->w_w_perc[0];
+        row.ewma_5 = page->w_perc[1];
+        row.ewma_5_r = page->w_r_perc[1];
+        row.ewma_5_w = page->w_w_perc[1];
+        row.ewma_20 = page->w_perc[2];
+        row.ewma_20_r = page->w_r_perc[2];
+        row.ewma_20_w = page->w_w_perc[2];
+        row.ewma_100 = page->w_perc[3];
+        row.ewma_100_r = page->w_r_perc[3];
+        row.ewma_100_w = page->w_w_perc[3];
+        row.gap4 = page->gap4;
+        row.read_write_gap3 = page->read_write_gap3;
+        row.ewma_var_2 = page->w_perc_var[0];
+        row.ewma_var_5 = page->w_perc_var[1];
+        row.ewma_var_20 = page->w_perc_var[2];
+        row.ewma_var_100 = page->w_perc_var[3];
+        row.age = page->age;
+    }
 
 #if FULL_LOGS
     row.global_count_since_top1_percent_ewma5 = page->global_count_since_top1_percent_ewma5;
     row.global_count_since_top50_percent_ewma5 = page->global_count_since_top50_percent_ewma5;
 #endif
 
-    struct page_group *group_window[15] = {0};
-    get_group_window(grp_tracker, page->va, group_window);
-    for (int8_t i = -7; i <= 7; ++i)
+    if (!VIRTUAL_FEATURES_ENABLED)
     {
-        struct page_group *pg = group_window[i + 7];
-#if FULL_LOGS
-        row.groups[i + 7] = pg != NULL ? pg->avg : 0.0;
-        row.group_ewma5[i + 7] = pg != NULL ? pg->avg_ewma5 : 0.0;
-#endif
-        row.groups_perc[i + 7] = pg != NULL ? pg->avg_perc : 0.0;
-        row.group_ewma5_perc[i + 7] = pg != NULL ? pg->avg_perc_ewma5 : 0.0;
-    }
-
-    // Variance of group ewma5 percentages across neighbor groups
-    {
-        float sum = 0.0f;
-        float sum_sq = 0.0f;
-        const int count = 15;
-        for (int idx = 0; idx < count; ++idx)
+        struct page_group *group_window[15] = {0};
+        get_group_window(grp_tracker, page->va, group_window);
+        for (int8_t i = -7; i <= 7; ++i)
         {
-            const float v = row.group_ewma5_perc[idx];
-            sum += v;
-            sum_sq += v * v;
+            struct page_group *pg = group_window[i + 7];
+#if FULL_LOGS
+            row.groups_abs[i + 7] = pg != NULL ? pg->avg : 0.0;
+            row.group_ewma5_abs[i + 7] = pg != NULL ? pg->avg_ewma5 : 0.0;
+#endif
+            row.groups[i + 7] = pg != NULL ? pg->avg_perc : 0.0;
+            row.group_ewma5[i + 7] = pg != NULL ? pg->avg_perc_ewma5 : 0.0;
         }
-        const float mean = sum / (float)count;
-        const float var = (sum_sq / (float)count) - (mean * mean);
-        row.group_ewma5_var = var > 0.0f ? var : 0.0f;
-    }
 
-    row.age_count_total = page->age_count_total;
+        // Variance of group ewma5 percentages across neighbor groups
+        {
+            float sum = 0.0f;
+            float sum_sq = 0.0f;
+            const int count = 15;
+            for (int idx = 0; idx < count; ++idx)
+            {
+                const float v = row.group_ewma5[idx];
+                sum += v;
+                sum_sq += v * v;
+            }
+            const float mean = sum / (float)count;
+            const float var = (sum_sq / (float)count) - (mean * mean);
+            row.group_ewma5_var = var > 0.0f ? var : 0.0f;
+        }
+
+        row.age_count_total = page->age_count_total;
+    }
 
 #if FULL_LOGS == (true)
     row.prot = page->prot;
     row.flags = page->flags;
 
-    row.ewma_2 = page->w[0];
-    row.ewma_2_r = page->w_r[0];
-    row.ewma_2_w = page->w_w[0];
+    row.ewma_2_abs = page->w[0];
+    row.ewma_2_r_abs = page->w_r[0];
+    row.ewma_2_w_abs = page->w_w[0];
 
-    row.ewma_5 = page->w[1];
-    row.ewma_5_r = page->w_r[1];
-    row.ewma_5_w = page->w_w[1];
+    row.ewma_5_abs = page->w[1];
+    row.ewma_5_r_abs = page->w_r[1];
+    row.ewma_5_w_abs = page->w_w[1];
 
-    row.ewma_20 = page->w[2];
-    row.ewma_20_r = page->w_r[2];
-    row.ewma_20_w = page->w_w[2];
+    row.ewma_20_abs = page->w[2];
+    row.ewma_20_r_abs = page->w_r[2];
+    row.ewma_20_w_abs = page->w_w[2];
 
-    row.ewma_100 = page->w[3];
-    row.ewma_100_r = page->w_r[3];
-    row.ewma_100_w = page->w_w[3];
+    row.ewma_100_abs = page->w[3];
+    row.ewma_100_r_abs = page->w_r[3];
+    row.ewma_100_w_abs = page->w_w[3];
 
     row.rank = page->rank;
     row.rank_perc = page->rank_perc;
@@ -664,7 +716,6 @@ struct data_row access_log::extract_row(size_t step, const page_ptr &page,
 #endif
 
     row.in_dram = page->in_dram;
-    row.age = page->age;
 
     row.num_demotions = page->num_demotions;
     row.num_promotions = page->num_promotions;
@@ -690,7 +741,7 @@ void access_log::log_row(const page_ptr &page, struct data_row &row)
         logged_samples = MAX_LOGGED_SAMPLES;
         terminated.store(true, std::memory_order_relaxed);
         pebs_write_log();
-        exit(0);
+        _exit(0);
         return;
     }
 

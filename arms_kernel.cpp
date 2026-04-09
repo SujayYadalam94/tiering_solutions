@@ -77,6 +77,7 @@ bool initialized = false;
 std::atomic<uint64_t> scan_generation{0};
 
 std::unordered_map<uint64_t, page_ptr> pages_map;
+std::unordered_map<uint64_t, page_ptr> detached_logging_pages;
 std::shared_mutex pages_map_lock;
 
 bool is_access_log_page(uint64_t page_base)
@@ -103,18 +104,20 @@ page_ptr get_tracked_page(uint64_t page_va)
 page_ptr get_or_create_tracked_page(uint64_t page_va, uint64_t last_seen_scan, uint64_t last_access_generation,
                                     bool in_dram, bool *added_new_page)
 {
-    page_ptr page = get_tracked_page(page_va);
+    const uint64_t page_key = page_va & HUGE_PFN_MASK;
+
+    page_ptr page = get_tracked_page(page_key);
     if (page != nullptr)
     {
         return page;
     }
 
     page = std::make_shared<page_info>();
-    page->va = page_va & HUGE_PFN_MASK;
+    page->va = page_key;
     page->last_seen_scan = last_seen_scan;
     page->last_access_generation = last_access_generation;
     page->found_in_pebs = true;
-    page->in_dram = false;
+    page->in_dram = in_dram;
 
     // void *page_addrs[2] = {(void *)((uintptr_t)page_va & HUGE_PFN_MASK), (void *)((uintptr_t)page_va &
     // BASE_PFN_MASK)}; int status[2]; numa_move_pages(0, 2, page_addrs, nullptr, status, 0); std::cout << "[ARMS]
@@ -122,15 +125,43 @@ page_ptr get_or_create_tracked_page(uint64_t page_va, uint64_t last_seen_scan, u
 
     {
         std::unique_lock<std::shared_mutex> lock(pages_map_lock);
-        pages_map.emplace(page_va & HUGE_PFN_MASK, page);
-    }
 
-    if (added_new_page != nullptr)
-    {
-        *added_new_page = true;
-    }
+        // If this page was temporarily detached for logging-only retention,
+        // revive it into the active map when it is sampled again.
+        auto detached_it = detached_logging_pages.find(page_key);
+        if (detached_it != detached_logging_pages.end())
+        {
+            page_ptr revived = detached_it->second;
+            detached_logging_pages.erase(detached_it);
+            revived->last_seen_scan = last_seen_scan;
+            revived->last_access_generation = last_access_generation;
+            revived->found_in_pebs = true;
+            revived->in_dram = in_dram;
+            pages_map[page_key] = revived;
+            if (added_new_page != nullptr)
+            {
+                *added_new_page = false;
+            }
+            return revived;
+        }
 
-    return page;
+        auto [it, inserted] = pages_map.emplace(page_key, page);
+        if (inserted)
+        {
+            if (added_new_page != nullptr)
+            {
+                *added_new_page = true;
+            }
+            return page;
+        }
+
+        // Another thread inserted this page concurrently; always use canonical entry.
+        if (added_new_page != nullptr)
+        {
+            *added_new_page = false;
+        }
+        return it->second;
+    }
 }
 
 int pagemap_fd = -1;
@@ -161,6 +192,9 @@ uint64_t total_samples[NPBUFTYPES] = {0};
 std::atomic<uint64_t> max_dram_hugepages_seen{0};
 std::atomic<uint64_t> total_dram_hugepages_accum{0};
 std::atomic<uint64_t> dram_samples{0};
+std::atomic<uint64_t> virtual_sample_total{0};
+std::atomic<uint64_t> virtual_step{0};
+std::shared_mutex virtual_features_lock;
 std::atomic<bool> shutdown_started{false};
 static constexpr const char *MAX_DRAM_HUGEPAGE_LOG = "max_dram_hugepages.log";
 
@@ -176,6 +210,7 @@ float latency_diff = UNLOADED_NVM_LAT - UNLOADED_DRAM_LAT;
 
 std::atomic<bool> terminated{false};
 struct group_tracker *grp_tracker = NULL;
+struct group_tracker *virtual_grp_tracker = NULL;
 
 // ============================================================================
 // PERF Event Setup
@@ -517,22 +552,14 @@ static struct perf_event_mmap_page *perf_setup(__u64 config, __u64 config1, __u1
     return p;
 }
 
-#ifdef SCAILP
-#define L3_LOAD_MISS_LOCAL 0x2d3
-#define L3_LOAD_MISS_REMOTE 0x10d3
-#elif defined C220G5
-#define L3_LOAD_MISS_LOCAL                                                                                             \
-    0x1d3 // https://perfmon-events.intel.com/platforms/skylakex/core-events/core/#event-MEM_LOAD_L3_MISS_RETIRED.LOCAL_DRAM
-#define L3_LOAD_MISS_REMOTE                                                                                            \
-    0x2d3 // https://perfmon-events.intel.com/platforms/skylakex/core-events/core/#event-MEM_LOAD_L3_MISS_RETIRED.REMOTE_DRAM
-#elif defined GSL_OPTANE
-#define L3_LOAD_MISS_LOCAL 0x1d3
-#define L3_LOAD_MISS_REMOTE 0x2d3
-#endif
+#define MEM_INST_RETIRED_ALL_LOADS_PS 0x81d0
+#define MEM_INST_RETIRED_ALL_STORES 0x82d0
 
 static void setup_perf_events()
 {
     std::cout << "[ARMS] Setting up PEBS counters..." << std::endl;
+    std::cout << "[ARMS] READ_EVENT=0x" << std::hex << MEM_INST_RETIRED_ALL_LOADS_PS << std::dec << ", WRITE_EVENT=0x"
+              << std::hex << MEM_INST_RETIRED_ALL_STORES << std::dec << std::endl;
 
     for (int i = 0; i < PEBS_NPROCS; i++)
     {
@@ -548,11 +575,10 @@ static void setup_perf_events()
             continue;
 #endif
 
-        perf_page[i][DRAMREAD] = perf_setup(L3_LOAD_MISS_LOCAL, 0, i, DRAMREAD);
-        perf_page[i][NVMREAD] = perf_setup(L3_LOAD_MISS_REMOTE, 0, i, NVMREAD);
-        perf_page[i][WRITE] = perf_setup(0x82d0, 0, i, WRITE); // MEM_INST_RETIRED.ALL_STORES
+        perf_page[i][READ] = perf_setup(MEM_INST_RETIRED_ALL_LOADS_PS, 0, i, READ);
+        perf_page[i][WRITE] = perf_setup(MEM_INST_RETIRED_ALL_STORES, 0, i, WRITE);
 
-        if (!perf_page[i][DRAMREAD] || !perf_page[i][NVMREAD])
+        if (!perf_page[i][READ])
         {
             fprintf(stderr, "[ARMS] Failed to setup perf events for CPU %d\n", i);
         }
@@ -824,7 +850,7 @@ static void update_model_scores_and_log(std::vector<score_entry> &scores, size_t
     }
 
     std::vector<struct data_row> rows;
-    std::vector<struct page_info *> model_pages;
+    std::vector<struct std::shared_ptr<page_info>> model_pages;
     rows.reserve(scores.size());
     model_pages.reserve(scores.size());
 
@@ -832,13 +858,13 @@ static void update_model_scores_and_log(std::vector<score_entry> &scores, size_t
     {
         struct data_row row = access_log->extract_row(timestep, score_entry.page, grp_tracker,
                                                       accesses_total); // Extract previous row data
-        #if USE_MODEL == (false)
-            row.arms_score = compute_score(score_entry.page);
-            score_entry.page->arms_score = row.arms_score;
-        #endif
+#if USE_MODEL == (false)
+        row.arms_score = compute_score(score_entry.page);
+        score_entry.page->arms_score = row.arms_score;
+#endif
 
         rows.push_back(row);
-        model_pages.push_back(score_entry.page.get());
+        model_pages.push_back(score_entry.page);
     }
 
     model_predict_batch(rows, model_pages);
@@ -865,7 +891,10 @@ static void update_model_scores_and_log(std::vector<score_entry> &scores, size_t
         }
         score_entry.score = score_entry.page->score;
         row.score = score_entry.score;
-        access_log->log_row(score_entry.page, row);
+        if (!VIRTUAL_FEATURES_ENABLED)
+        {
+            access_log->log_row(score_entry.page, row);
+        }
     }
 }
 
@@ -1139,6 +1168,8 @@ void arms_start_tiering()
     std::cout << "[ARMS] HISTORY_LENGTH = " << HISTORY_LENGTH << std::endl;
 
     std::cout << "[ARMS] PRINT_TRAINING_DATA = " << (PRINT_TRAINING_DATA ? "true" : "false") << std::endl;
+    std::cout << "[ARMS] VIRTUAL_FEATURES_ENABLED = " << (VIRTUAL_FEATURES_ENABLED ? "true" : "false") << std::endl;
+    std::cout << "[ARMS] VIRTUAL_STEP_SAMPLES = " << VIRTUAL_STEP_SAMPLES << std::endl;
     std::cout << "[ARMS] PEBS_KSWAPD_INTERVAL_BIG = " << PEBS_KSWAPD_INTERVAL_BIG << std::endl;
     std::cout << "[ARMS] PEBS_KSWAPD_INTERVAL_SMALL = " << PEBS_KSWAPD_INTERVAL_SMALL << std::endl;
 
@@ -1150,7 +1181,7 @@ void arms_start_tiering()
     else
     {
         numa_bitmask_clearall(slow_tier_nodemask);
-        if (LOGGING_RUN)
+        if (false)
         {
             std::cout << "[ARMS] Running in LOGGING_RUN mode - binding to FAST_TIER only" << std::endl;
             numa_bitmask_setbit(slow_tier_nodemask, FAST_TIER);
@@ -1166,11 +1197,15 @@ void arms_start_tiering()
 
 #if USE_MODEL == (true) || PRINT_TRAINING_DATA == (true) || LOGGING_RUN == (true)
     grp_tracker = create_group_tracker();
+    virtual_grp_tracker = create_group_tracker();
+    virtual_sample_total.store(0, std::memory_order_relaxed);
+    virtual_step.store(0, std::memory_order_relaxed);
 
     access_log = new class access_log;
     printf("Allocated %f GB for scores_log\n", access_log->get_gb_allocated());
 #else
     grp_tracker = nullptr;
+    virtual_grp_tracker = nullptr;
     access_log = nullptr;
 #endif
 

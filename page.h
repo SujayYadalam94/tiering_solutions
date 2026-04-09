@@ -5,9 +5,8 @@
 
 enum pbuftype
 {
-    DRAMREAD = 0,
-    NVMREAD = 1,
-    WRITE = 2,
+    READ = 0,
+    WRITE = 1,
     NPBUFTYPES
 };
 
@@ -37,7 +36,7 @@ struct page_info
     uint32_t reads;
     uint32_t writes;
     uint32_t count;
-    uint16_t accesses[NPBUFTYPES][2]; // Access counts per version
+    uint32_t accesses[NPBUFTYPES][2]; // Access counts per version
     std::mutex page_lock;
 
     uint32_t read_bytes;
@@ -80,8 +79,36 @@ struct page_info
     float model_score_history[HISTORY_LENGTH];
     uint8_t model_score_history_count;
     uint8_t model_score_history_index;
+    uint64_t last_model_score_step;
     float arms_score;
     enum prediction_type model_selection;
+
+    // Virtual windows can accumulate up to VIRTUAL_STEP_SAMPLES accesses; use 32-bit
+    // counters so hot pages do not wrap within a step.
+    uint32_t virtual_accesses[NPBUFTYPES];
+    uint64_t virtual_step;
+    uint32_t virtual_age;
+    uint32_t virtual_reads;
+    uint32_t virtual_writes;
+    uint32_t virtual_count;
+    double virtual_cumsum_reads;
+    double virtual_cumsum_writes;
+    double virtual_global_avg_accesses;
+    double virtual_global_avg_accesses_perc;
+    float virtual_w[WINDOW_SIZE];
+    float virtual_w_r[WINDOW_SIZE];
+    float virtual_w_w[WINDOW_SIZE];
+    float virtual_w_perc_second_moment[WINDOW_SIZE];
+    float virtual_w_perc_var[WINDOW_SIZE];
+    float virtual_w_perc[WINDOW_SIZE];
+    float virtual_w_r_perc[WINDOW_SIZE];
+    float virtual_w_w_perc[WINDOW_SIZE];
+    float virtual_gap4;
+    float virtual_read_write_gap3;
+    float virtual_groups_perc[15];
+    float virtual_group_ewma5_perc[15];
+    float virtual_group_ewma5_var;
+    uint64_t virtual_age_count_total;
 
     int64_t global_count_since_top1_percent_ewma5;
     int64_t global_count_since_top50_percent_ewma5;
@@ -109,6 +136,7 @@ struct page_info
     float calculate_writes(volatile uint8_t prev_access_version);
     float calculate_accesses(volatile uint8_t prev_access_version);
     void update_window(volatile uint8_t prev_access_version, const enum sampling_modes sampling_mode);
+    void update_virtual_window(size_t count_total, uint64_t step_id);
     void update_derivative_features(size_t rank, size_t num_sorted_pages, size_t count_total);
     void update_can_promote(size_t num_dram_pages, size_t rank);
     float compute_score(const float *bias);

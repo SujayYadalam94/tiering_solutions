@@ -6,6 +6,72 @@ MEASUREMENT_LOG_PARTS=${MEASUREMENT_LOG_PARTS:-10}
 MEASUREMENT_TIMEOUT_SECONDS=${MEASUREMENT_TIMEOUT_SECONDS:-2700}
 MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS=${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS:-30}
 
+measurement_validate_platform() {
+    local platform=$1
+
+    case "${platform}" in
+        c220g5|gsl_optane)
+            return 0
+            ;;
+        *)
+            echo "ERROR: unsupported platform '${platform}' (expected c220g5|gsl_optane)" >&2
+            return 1
+            ;;
+    esac
+}
+
+measurement_apply_platform_defaults() {
+    local platform=$1
+
+    case "${platform}" in
+        c220g5)
+            BENCH_ROOT=${BENCH_ROOT:-/users/zimooo2}
+            NUMA_MEM_NODES=${NUMA_MEM_NODES:-0,1}
+            TASKSET_CPUS=${TASKSET_CPUS:-0-9,20-29}
+            MEASUREMENT_LIBRARY_PROFILE_DIR=${MEASUREMENT_LIBRARY_PROFILE_DIR:-C220G5}
+            ;;
+        gsl_optane)
+            BENCH_ROOT=${BENCH_ROOT:-/home/freischuetz}
+            NUMA_MEM_NODES=${NUMA_MEM_NODES:-0,2}
+            TASKSET_CPUS=${TASKSET_CPUS:-0-15,32-47}
+            MEASUREMENT_LIBRARY_PROFILE_DIR=${MEASUREMENT_LIBRARY_PROFILE_DIR:-GSL_OPTANE}
+            ;;
+    esac
+}
+
+measurement_init_platform_from_args() {
+    MEASUREMENT_PLATFORM=${MEASUREMENT_PLATFORM:-c220g5}
+    MEASUREMENT_REMAINING_ARGS=()
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --platform)
+                if [[ $# -lt 2 ]]; then
+                    echo "ERROR: --platform requires a value (c220g5|gsl_optane)" >&2
+                    return 1
+                fi
+                MEASUREMENT_PLATFORM=$2
+                shift 2
+                ;;
+            --platform=*)
+                MEASUREMENT_PLATFORM=${1#*=}
+                shift
+                ;;
+            --help|-h)
+                MEASUREMENT_REMAINING_ARGS+=("$1")
+                shift
+                ;;
+            *)
+                MEASUREMENT_REMAINING_ARGS+=("$1")
+                shift
+                ;;
+        esac
+    done
+
+    measurement_validate_platform "${MEASUREMENT_PLATFORM}" || return 1
+    measurement_apply_platform_defaults "${MEASUREMENT_PLATFORM}"
+}
+
 cleanup_split_log_files() {
     local log_output_path=$1
     local log_stem=${log_output_path%.log}
@@ -90,9 +156,10 @@ measurement_apply_nomad_settings() {
 run_measurement_setup() {
     local size_mib=$1
     local measurement_system=${2:-default}
+    local measurement_platform=${MEASUREMENT_PLATFORM:-c220g5}
 
     sudo bash "${MEASUREMENT_COMMON_DIR}/unsetup.sh" || true
-    sudo bash "${MEASUREMENT_COMMON_DIR}/setup.sh" "${size_mib}" "${measurement_system}"
+    sudo bash "${MEASUREMENT_COMMON_DIR}/setup.sh" "${size_mib}" "${measurement_system}" "${measurement_platform}"
     if [[ "${measurement_system}" == "nomad" ]]; then
         measurement_apply_nomad_settings
     fi

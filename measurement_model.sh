@@ -6,29 +6,28 @@ source "${SCRIPT_DIR}/measurement_common.sh"
 # shellcheck source=measurement_workloads.sh
 source "${SCRIPT_DIR}/measurement_workloads.sh"
 
-SIZE_MIB=${1:-}
-RUN_ID=${2:-}
-LIB_SUFFIX=${3:-}
+measurement_init_platform_from_args "$@" || exit 1
+ARGS=("${MEASUREMENT_REMAINING_ARGS[@]}")
+
+SIZE_MIB=${ARGS[0]:-}
+RUN_ID=${ARGS[1]:-}
+LIB_SUFFIX=${ARGS[2]:-}
 if [[ -z "${SIZE_MIB}" || -z "${RUN_ID}" ]]; then
-    echo "Usage: $0 <sizeMiB> <runNumber> [libSuffix]" >&2
+    echo "Usage: $0 [--platform c220g5|gsl_optane] <sizeMiB> <runNumber> [libSuffix] [workloadId ...]" >&2
     exit 1
 fi
 
-BENCH_ROOT=${BENCH_ROOT:-/users/zimooo2}
-NUMA_MEM_NODES=${NUMA_MEM_NODES:-0,1}
-TASKSET_CPUS=${TASKSET_CPUS:-0-9,20-29}
-
-WORKLOAD_ARGS=("${@:4}")
+WORKLOAD_ARGS=("${ARGS[@]:3}")
 mapfile -t WORKLOAD_IDS < <(measurement_expand_workloads "${WORKLOAD_ARGS[@]}")
 
-mkdir -p times logs times/model
+mkdir -p "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}" logs "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}/model"
+echo "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}"
 
 #pcts=(90 95 99)
 #minmax_options=(true false)
 #hist_lengths=(4 8)
-#penalties=(0.8 0.9)
-
-pcts=(95)
+#penalties=(0
+pcts=(90)
 minmax_options=(true)
 hist_lengths=(4)
 penalties=(0.9)
@@ -59,9 +58,9 @@ build_model_library_path() {
 
     if [[ "${LIB_SUFFIX}" == "_train" ]]; then
         model_name_train=${model_name/l2-/l2_}
-        printf '%s/libraries/C220G5/libhemem-%s_train.so\n' "${SCRIPT_DIR}" "${model_name_train}"
+        printf '%s/libraries/%s/libhemem-%s_train.so\n' "${SCRIPT_DIR}" "${MEASUREMENT_LIBRARY_PROFILE_DIR}" "${model_name_train}"
     else
-        printf '%s/libraries/C220G5/libhemem-%s%s.so\n' "${SCRIPT_DIR}" "${model_name}" "${LIB_SUFFIX}"
+        printf '%s/libraries/%s/libhemem-%s%s.so\n' "${SCRIPT_DIR}" "${MEASUREMENT_LIBRARY_PROFILE_DIR}" "${model_name}" "${LIB_SUFFIX}"
     fi
 }
 
@@ -71,7 +70,7 @@ function run_program {
     local output=$3
     local run=$4
     local time_basename="${SIZE_MIB}MiB_run${run}_${model_tag}"
-    local time_dir="${SCRIPT_DIR}/times/model/${output}"
+    local time_dir="${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}/model/${output}"
     local log_dir="${SCRIPT_DIR}/logs/${output}"
     local time_file="${time_dir}/${time_basename}.time"
     local log_output_path="${log_dir}/${time_basename}_model.log"
@@ -118,7 +117,9 @@ function run_model_sweep {
 
                     echo "Running ${output} with model: ${model_name} ${model_path}"
 
-                    run_measurement_setup "0"
+                    if [[ "${LIB_SUFFIX}" != "_train" ]]; then
+                        run_measurement_setup "0"
+                    fi
                     run_program "${program}" "${model_name}" "${output}" "${run}" "${model_path}"
                 done
             done
@@ -137,4 +138,4 @@ for workload_id in "${WORKLOAD_IDS[@]}"; do
     run_model_sweep "${WORKLOAD_COMMAND}" "${WORKLOAD_MODEL_BASE}" "${WORKLOAD_OUTPUT}" "${RUN_ID}"
 done
 
-mkdir -p times/model
+mkdir -p "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}/model"

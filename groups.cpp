@@ -51,7 +51,7 @@ void page_group_reset(struct page_group *pg)
 void page_group_update(struct page_group *pg, const float count, const float ewma5, const float total_access,
                        const uint32_t page_age)
 {
-    pg->count++;
+    const uint32_t page_entries = ++pg->count;
 
     if (page_age > pg->max_age)
     {
@@ -60,8 +60,8 @@ void page_group_update(struct page_group *pg, const float count, const float ewm
 
     pg->sum += count;
     pg->sum_ewma5 += ewma5;
-    pg->avg = pg->sum / (float)pg->count;
-    pg->avg_ewma5 = pg->sum_ewma5 / (float)pg->count;
+    pg->avg = pg->sum / static_cast<float>(page_entries);
+    pg->avg_ewma5 = pg->sum_ewma5 / static_cast<float>(page_entries);
 
     if (count > pg->max)
     {
@@ -77,9 +77,9 @@ void page_group_update(struct page_group *pg, const float count, const float ewm
         float perc = (count / total_access);
         float perc_ewma5 = (ewma5 / total_access);
         pg->sum_perc += perc;
-        pg->avg_perc = pg->sum_perc / (float)pg->count;
+        pg->avg_perc = pg->sum_perc / static_cast<float>(page_entries);
         pg->sum_perc_ewma5 += perc_ewma5;
-        pg->avg_perc_ewma5 = pg->sum_perc_ewma5 / (float)pg->count;
+        pg->avg_perc_ewma5 = pg->sum_perc_ewma5 / static_cast<float>(page_entries);
         if (perc > pg->max_perc)
         {
             pg->max_perc = perc;
@@ -91,7 +91,6 @@ void page_group_update(struct page_group *pg, const float count, const float ewm
     }
 
     pg->max_age = std::max(pg->max_age, page_age);
-    pg->count = count;
 }
 
 struct group_tracker *create_group_tracker()
@@ -130,6 +129,15 @@ void update_group_entry(struct group_tracker *gt, const page_ptr &page, const fl
     page_group_update(group, page->count, page->w[1], total_access, page->age);
 }
 
+void update_group_entry_values(struct group_tracker *gt, uint64_t va, float count, float ewma5, float total_access,
+                               uint32_t page_age)
+{
+    const uint64_t group_id = page_to_group_id(va);
+    std::lock_guard<std::mutex> lock(gt->group_lock);
+    struct page_group *group = get_or_create_group_locked(gt, group_id);
+    page_group_update(group, count, ewma5, total_access, page_age);
+}
+
 struct page_group *try_get_group(struct group_tracker *gt, const uint64_t va, const int8_t offset)
 {
     const uint64_t group_id = page_to_group_id(va);
@@ -152,5 +160,31 @@ void get_group_window(struct group_tracker *gt, const uint64_t va, struct page_g
     {
         auto it = gt->groups_map.find(group_id + offset);
         out_groups[offset + 7] = (it != gt->groups_map.end()) ? it->second : NULL;
+    }
+}
+
+void get_group_window_values(struct group_tracker *gt, const uint64_t va, float out_avg[15], float out_avg_ewma5[15],
+                             float out_avg_perc[15], float out_avg_perc_ewma5[15])
+{
+    const uint64_t group_id = page_to_group_id(va);
+
+    std::lock_guard<std::mutex> lock(gt->group_lock);
+    for (int offset = -7; offset <= 7; ++offset)
+    {
+        auto it = gt->groups_map.find(group_id + offset);
+        if (it == gt->groups_map.end())
+        {
+            out_avg[offset + 7] = 0.0f;
+            out_avg_ewma5[offset + 7] = 0.0f;
+            out_avg_perc[offset + 7] = 0.0f;
+            out_avg_perc_ewma5[offset + 7] = 0.0f;
+            continue;
+        }
+
+        const struct page_group *group = it->second;
+        out_avg[offset + 7] = group->avg;
+        out_avg_ewma5[offset + 7] = group->avg_ewma5;
+        out_avg_perc[offset + 7] = group->avg_perc;
+        out_avg_perc_ewma5[offset + 7] = group->avg_perc_ewma5;
     }
 }

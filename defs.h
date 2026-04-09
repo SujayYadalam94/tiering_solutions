@@ -23,6 +23,12 @@ extern bool initialized;
 #define PRINT_TRAINING_DATA (false)
 #endif
 
+#define VIRTUAL_FEATURES_ENABLED ((USE_MODEL == (true)) || (LOGGING_RUN == (true)))
+
+#ifndef VIRTUAL_STEP_SAMPLES
+#define VIRTUAL_STEP_SAMPLES (100000)
+#endif
+
 #define FULL_LOGS (false)
 
 #ifndef ARMS_VERBOSE
@@ -34,7 +40,7 @@ extern bool initialized;
 #endif
 
 #ifndef MAX_LOGGED_SAMPLES
-#define MAX_LOGGED_SAMPLES (2000000)
+#define MAX_LOGGED_SAMPLES (5000000)
 #endif
 
 #ifndef PAGEMAP_FULL_SCAN_INTERVALS
@@ -129,7 +135,7 @@ extern bool initialized;
 #define DRAM_BW_SLOPE (0.006)   // us per GB/s
 
 // Max expected NVM bandwidth for single thread (for cost calculations)
-#define UNLOADED_NVM_LAT (0.25) // us
+#define UNLOADED_NVM_LAT (25)   // us
 #define NVM_RD_BW_KNEE (15)     // GB/s
 #define NVM_WR_BW_KNEE (15)     // GB/s
 #define NVM_BW_SLOPE (0.09)     // us per GB/s
@@ -148,7 +154,7 @@ extern bool initialized;
 
 /// PEBS kswapd thread wakeup interval
 // ==============================================================================
-#if USE_MODEL == (true) || LOGGING_RUN == (true)
+#if VIRTUAL_FEATURES_ENABLED
 #define PEBS_KSWAPD_INTERVAL_BIG (250000)   // in us (250ms)
 #define PEBS_KSWAPD_INTERVAL_SMALL (250000) // in us (250ms)
 #else
@@ -205,7 +211,7 @@ extern bool initialized;
 
 #define PERF_PAGES (1 + (1 << 10)) // Has to be == 1+2^n, here 16MB
 
-#if USE_MODEL == (true) || LOGGING_RUN == (true)
+#if VIRTUAL_FEATURES_ENABLED
 #define DEFAULT_SAMPLE_PERIOD (10007)
 #define HF_SAMPLE_PERIOD (10007)
 #else

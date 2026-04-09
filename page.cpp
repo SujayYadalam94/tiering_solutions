@@ -43,7 +43,42 @@ void page_info::reset_page_access_fields()
     this->non_resetting_age = 0;
     this->accuracy = 0;
     this->reset_model_score_history();
+    this->last_model_score_step = 0;
     this->arms_score = 0;
+
+    this->virtual_step = 0;
+    this->virtual_age = 0;
+    this->virtual_reads = 0;
+    this->virtual_writes = 0;
+    this->virtual_count = 0;
+    this->virtual_cumsum_reads = 0;
+    this->virtual_cumsum_writes = 0;
+    this->virtual_global_avg_accesses = 0;
+    this->virtual_global_avg_accesses_perc = 0;
+    this->virtual_gap4 = 0;
+    this->virtual_read_write_gap3 = 0;
+    this->virtual_group_ewma5_var = 0;
+    this->virtual_age_count_total = 0;
+    for (int i = 0; i < NPBUFTYPES; i++)
+    {
+        this->virtual_accesses[i] = 0;
+    }
+    for (int i = 0; i < WINDOW_SIZE; i++)
+    {
+        this->virtual_w[i] = 0;
+        this->virtual_w_perc_second_moment[i] = 0;
+        this->virtual_w_perc_var[i] = 0;
+        this->virtual_w_r[i] = 0;
+        this->virtual_w_w[i] = 0;
+        this->virtual_w_perc[i] = 0;
+        this->virtual_w_r_perc[i] = 0;
+        this->virtual_w_w_perc[i] = 0;
+    }
+    for (int i = 0; i < 15; i++)
+    {
+        this->virtual_groups_perc[i] = 0;
+        this->virtual_group_ewma5_perc[i] = 0;
+    }
 
     this->rank = 0;
     this->rank_perc = 0;
@@ -157,7 +192,7 @@ float adjusted_ewma(const float yp, const float x, const float denom)
 
 float page_info::calculate_reads(volatile uint8_t prev_access_version)
 {
-    return (this->accesses[DRAMREAD][prev_access_version] + this->accesses[NVMREAD][prev_access_version]);
+    return this->accesses[READ][prev_access_version];
 }
 
 float page_info::calculate_writes(volatile uint8_t prev_access_version)
@@ -180,8 +215,7 @@ void page_info::update_window(volatile uint8_t prev_access_version, const enum s
     this->reads = this->calculate_reads(prev_access_version);
     this->writes = this->calculate_writes(prev_access_version);
 
-    this->accesses[DRAMREAD][prev_access_version] = 0;
-    this->accesses[NVMREAD][prev_access_version] = 0;
+    this->accesses[READ][prev_access_version] = 0;
     this->accesses[WRITE][prev_access_version] = 0;
 
     this->cumsum_reads += this->reads;
@@ -204,6 +238,66 @@ void page_info::update_window(volatile uint8_t prev_access_version, const enum s
     {
         this->promote_backoff--;
     }
+}
+
+void page_info::update_virtual_window(size_t count_total, uint64_t step_id)
+{
+    this->virtual_age++;
+    this->virtual_step = step_id;
+
+    this->virtual_reads = this->virtual_accesses[READ];
+    this->virtual_writes = this->virtual_accesses[WRITE];
+    // Virtual-step accounting tracks raw PEBS samples (1 read/store sample == 1 count).
+    this->virtual_count = this->virtual_reads + this->virtual_writes;
+
+    this->virtual_accesses[READ] = 0;
+    this->virtual_accesses[WRITE] = 0;
+
+    this->virtual_cumsum_reads += this->virtual_reads;
+    this->virtual_cumsum_writes += this->virtual_writes;
+
+    this->virtual_age_count_total += count_total;
+
+    const double total_accesses = this->virtual_cumsum_reads + this->virtual_cumsum_writes;
+    if (this->virtual_age > 0)
+    {
+        this->virtual_global_avg_accesses = total_accesses / static_cast<double>(this->virtual_age);
+    }
+    else
+    {
+        this->virtual_global_avg_accesses = 0.0;
+    }
+
+    if (this->virtual_age_count_total > 0)
+    {
+        this->virtual_global_avg_accesses_perc = this->virtual_global_avg_accesses;
+    }
+    else
+    {
+        this->virtual_global_avg_accesses_perc = 0.0;
+    }
+
+    (void)count_total;
+    for (uint8_t i = 0; i < WINDOW_SIZE; i++)
+    {
+        const float denom = get_adjusted_ewma_denom(i, this->virtual_age);
+        this->virtual_w[i] = adjusted_ewma(this->virtual_w[i], this->virtual_count, denom);
+        this->virtual_w_r[i] = adjusted_ewma(this->virtual_w_r[i], this->virtual_reads, denom);
+        this->virtual_w_w[i] = adjusted_ewma(this->virtual_w_w[i], this->virtual_writes, denom);
+
+        // Keep legacy *_perc fields as model carriers, but store absolute virtual EWMAs.
+        this->virtual_w_perc[i] = this->virtual_w[i];
+        this->virtual_w_r_perc[i] = this->virtual_w_r[i];
+        this->virtual_w_w_perc[i] = this->virtual_w_w[i];
+
+        this->virtual_w_perc_second_moment[i] =
+            adjusted_ewma(this->virtual_w_perc_second_moment[i], this->virtual_count * this->virtual_count, denom);
+        const float var = this->virtual_w_perc_second_moment[i] - (this->virtual_w_perc[i] * this->virtual_w_perc[i]);
+        this->virtual_w_perc_var[i] = var > 0.0f ? var : 0.0f;
+    }
+
+    this->virtual_gap4 = this->virtual_w_perc[1] - static_cast<float>(this->virtual_global_avg_accesses);
+    this->virtual_read_write_gap3 = this->virtual_w_r_perc[3] - this->virtual_w_w_perc[3];
 }
 
 void page_info::update_derivative_features(size_t rank, size_t num_sorted_pages, size_t count_total)

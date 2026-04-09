@@ -15,6 +15,8 @@
 #include <syscall.h>
 #include <thread>
 #include <unistd.h>
+#include <shared_mutex>
+#include <unordered_set>
 #include <unordered_map>
 #include <vector>
 
@@ -29,6 +31,14 @@ struct migration_task
 static std::deque<migration_task> migration_queue;
 static std::mutex migration_queue_lock;
 std::condition_variable migration_cv;
+static std::unordered_set<pid_t> migration_worker_tids;
+static std::shared_mutex migration_worker_tids_lock;
+
+bool is_migration_worker_tid(pid_t tid)
+{
+    std::shared_lock<std::shared_mutex> lock(migration_worker_tids_lock);
+    return migration_worker_tids.find(tid) != migration_worker_tids.end();
+}
 
 static bool contains_aligned_va(const std::vector<uint64_t> &vas, uint64_t aligned_va)
 {
@@ -245,7 +255,6 @@ static int log_move_page(std::vector<page_ptr> &pages, int target_node, int retr
         }
         else if (status[i] == -EBUSY)
         {
-
             busy_migrations.push_back(page);
         }
         else if (status[i] == -EFAULT || status[i] == -ENOENT)
@@ -303,6 +312,11 @@ static int log_move_page(std::vector<page_ptr> &pages, int target_node, int retr
 void *migration_worker(void *arg)
 {
     (void)arg;
+    {
+        std::unique_lock<std::shared_mutex> lock(migration_worker_tids_lock);
+        migration_worker_tids.insert(static_cast<pid_t>(syscall(SYS_gettid)));
+    }
+
     constexpr int MAX_DEMOTION_RETRY_PASSES = 2;
     constexpr int MAX_PROMOTION_RETRY_PASSES = 2;
 

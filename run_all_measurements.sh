@@ -6,7 +6,11 @@ source "${SCRIPT_DIR}/measurement_common.sh"
 # shellcheck source=measurement_workloads.sh
 source "${SCRIPT_DIR}/measurement_workloads.sh"
 
+measurement_init_platform_from_args "$@" || exit 1
+PLATFORM_ARGS=(--platform "${MEASUREMENT_PLATFORM}")
+
 START_EPOCH=$(date +%s)
+echo "Using measurement platform: ${MEASUREMENT_PLATFORM}"
 
 format_duration_hms() {
     local total_seconds=$1
@@ -52,7 +56,7 @@ EOF
     fi
 }
 
-SIZES=(6000)
+SIZES=(8000)
 RUNS=3
 
 mapfile -t WORKLOAD_IDS < <(measurement_list_default_workloads)
@@ -68,21 +72,21 @@ for size in "${SIZES[@]}"; do
 
             # ARMS
             #run_measurement_setup "${size}"
-            #"${SCRIPT_DIR}/measurement_arms.sh" "${size}" "${run}" "" "${workload_id}"
+            #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
 
             # NOMAD
             
             #if [[ -x "${SCRIPT_DIR}/measurement_nomad.sh" ]]; then
             #    measurement_ensure_nomad_ready || exit 1
             #    run_measurement_setup "${size}" nomad
-            #    "${SCRIPT_DIR}/measurement_nomad.sh" "${size}" "${run}" "${workload_id}"
+            #    "${SCRIPT_DIR}/measurement_nomad.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
             #else
             #    echo "WARNING: ./measurement_nomad.sh not found or not executable; skipping NOMAD"
             #fi
 
             # Model
             if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
-                "${SCRIPT_DIR}/measurement_model.sh" "${size}" "${run}" "" "${workload_id}"
+                "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
             else
                 echo "WARNING: ./measurement_model.sh not found or not executable; skipping model"
             fi
@@ -90,7 +94,7 @@ for size in "${SIZES[@]}"; do
             # HybridTier
             #run_measurement_setup "${size}"
             #if [[ -x "${SCRIPT_DIR}/measurement_hybridtier.sh" ]]; then
-            #    sudo -E "${SCRIPT_DIR}/measurement_hybridtier.sh" "${size}" "${run}" huge "${workload_id}"
+            #    sudo -E "${SCRIPT_DIR}/measurement_hybridtier.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" huge "${workload_id}"
             #else
             #    echo "WARNING: ./measurement_hybridtier.sh not found or not executable; skipping HybridTier"
             #fi

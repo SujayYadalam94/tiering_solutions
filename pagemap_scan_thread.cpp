@@ -85,6 +85,16 @@ struct page_slice
     size_t start_index;
 };
 
+static inline bool has_pending_virtual_accesses(const page_ptr &page)
+{
+    if (!VIRTUAL_FEATURES_ENABLED || page == nullptr)
+    {
+        return false;
+    }
+
+    return (page->virtual_accesses[READ] != 0) || (page->virtual_accesses[WRITE] != 0);
+}
+
 static void refresh_page_residency(uint64_t cur_scan, const std::vector<page_ptr> &pages_to_refresh)
 {
     if (pages_to_refresh.empty() || shutdown_requested())
@@ -210,6 +220,10 @@ static stale_page_cleanup_result cleanup_stale_pages(uint64_t cur_scan)
         if (it->second->last_seen_scan < cur_scan)
         {
             it->second->reset_page_access_fields();
+            if (PRINT_TRAINING_DATA == (true))
+            {
+                detached_logging_pages[it->first] = it->second;
+            }
             it = pages_map.erase(it);
             result.removed_pages++;
         }
@@ -294,7 +308,17 @@ static void process_batch(std::vector<void *> &addr_batch, std::vector<int> &sta
                 }
                 else if (!page->fragmented)
                 {
-                    to_remove.push_back(va);
+                    bool keep_for_virtual_flush = false;
+                    if (VIRTUAL_FEATURES_ENABLED)
+                    {
+                        std::shared_lock<std::shared_mutex> virtual_lock(virtual_features_lock);
+                        keep_for_virtual_flush = has_pending_virtual_accesses(page);
+                    }
+
+                    if (!keep_for_virtual_flush)
+                    {
+                        to_remove.push_back(va);
+                    }
                 }
             }
         }
@@ -351,7 +375,7 @@ static void scan_process_pages_full()
 
         // Track only writable mappings. Python-heavy processes have many read-only
         // interpreter / shared-library VMAs that drastically inflate full-scan time.
-        if (perms[0] != 'r')
+        if (perms[1] != 'w')
             continue;
 
         // Skip kernel regions
@@ -399,7 +423,27 @@ static void scan_process_pages_full()
     for (const auto &va : to_remove)
     {
         std::unique_lock<std::shared_mutex> lock(pages_map_lock);
-        pages_map.erase(va);
+        auto it = pages_map.find(va);
+        if (it == pages_map.end())
+        {
+            continue;
+        }
+
+        bool can_remove = true;
+        if (VIRTUAL_FEATURES_ENABLED)
+        {
+            std::shared_lock<std::shared_mutex> virtual_lock(virtual_features_lock);
+            can_remove = !has_pending_virtual_accesses(it->second);
+        }
+
+        if (can_remove)
+        {
+            if (PRINT_TRAINING_DATA == (true))
+            {
+                detached_logging_pages[va] = it->second;
+            }
+            pages_map.erase(it);
+        }
     }
 
     if (ARMS_VERBOSE)

@@ -7,12 +7,15 @@ source "${SCRIPT_DIR}/measurement_common.sh"
 # shellcheck source=measurement_workloads.sh
 source "${SCRIPT_DIR}/measurement_workloads.sh"
 
-SIZE_MIB=${1:-}
-RUN_ID=${2:-}
-PAGE_TYPE=${3:-huge} # regular | huge
+measurement_init_platform_from_args "$@" || exit 1
+ARGS=("${MEASUREMENT_REMAINING_ARGS[@]}")
+
+SIZE_MIB=${ARGS[0]:-}
+RUN_ID=${ARGS[1]:-}
+PAGE_TYPE=${ARGS[2]:-huge} # regular | huge
 
 if [[ -z "${SIZE_MIB}" || -z "${RUN_ID}" ]]; then
-    echo "Usage: $0 <fastTierMiB> <runNumber> [pageType]" >&2
+    echo "Usage: $0 [--platform c220g5|gsl_optane] <fastTierMiB> <runNumber> [pageType] [workloadId ...]" >&2
     echo "  pageType: regular (default) | huge" >&2
     exit 1
 fi
@@ -28,13 +31,10 @@ if [[ ${EUID} -ne 0 ]]; then
 fi
 
 WORKSPACE_ROOT=$(cd -- "${SCRIPT_DIR}/.." && pwd)
-BENCH_ROOT=${BENCH_ROOT:-/users/zimooo2}
-NUMA_MEM_NODES=${NUMA_MEM_NODES:-0,1}
-TASKSET_CPUS=${TASKSET_CPUS:-0-9,20-29}
 NUMA_CPU_NODE=${NUMA_CPU_NODE:-0}
 STRICT_FAILURES=${STRICT_FAILURES:-0}
 
-WORKLOAD_ARGS=("${@:4}")
+WORKLOAD_ARGS=("${ARGS[@]:3}")
 mapfile -t WORKLOAD_IDS < <(measurement_expand_workloads "${WORKLOAD_ARGS[@]}")
 
 declare -a FAILED_RUNS=()
@@ -47,7 +47,7 @@ fi
 
 echo "Fast tier size: ${SIZE_MIB} MiB (compiling as ${FAST_TIER_SIZE_GB} GB)"
 
-time_root="${SCRIPT_DIR}/times"
+time_root="${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}"
 log_root="${SCRIPT_DIR}/logs"
 mkdir -p "${time_root}" "${log_root}" "${time_root}/hybridtier"
 

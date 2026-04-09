@@ -6,32 +6,31 @@ source "${SCRIPT_DIR}/measurement_common.sh"
 # shellcheck source=measurement_workloads.sh
 source "${SCRIPT_DIR}/measurement_workloads.sh"
 
-SIZE_MIB=${1:-}
-RUN_ID=${2:-}
-LIB_SUFFIX=${3:-}
+measurement_init_platform_from_args "$@" || exit 1
+ARGS=("${MEASUREMENT_REMAINING_ARGS[@]}")
+
+SIZE_MIB=${ARGS[0]:-}
+RUN_ID=${ARGS[1]:-}
+LIB_SUFFIX=${ARGS[2]:-}
 if [[ -z "${SIZE_MIB}" || -z "${RUN_ID}" ]]; then
-    echo "Usage: $0 <sizeMiB> <runNumber> [libSuffix]" >&2
+    echo "Usage: $0 [--platform c220g5|gsl_optane] <sizeMiB> <runNumber> [libSuffix] [workloadId ...]" >&2
     exit 1
 fi
 
-BENCH_ROOT=${BENCH_ROOT:-/users/zimooo2}
-NUMA_MEM_NODES=${NUMA_MEM_NODES:-0,1}
-TASKSET_CPUS=${TASKSET_CPUS:-0-9,20-29}
-
-WORKLOAD_ARGS=("${@:4}")
+WORKLOAD_ARGS=("${ARGS[@]:3}")
 mapfile -t WORKLOAD_IDS < <(measurement_expand_workloads "${WORKLOAD_ARGS[@]}")
 
-mkdir -p times logs times/arms
+mkdir -p "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}" logs "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}/arms"
 
 function run_workload {
     local run=$1
     local time_basename="${SIZE_MIB}MiB_run${run}"
-    local time_dir="${SCRIPT_DIR}/times/arms/${WORKLOAD_OUTPUT}"
+    local time_dir="${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}/arms/${WORKLOAD_OUTPUT}"
     local log_dir="${SCRIPT_DIR}/logs/${WORKLOAD_OUTPUT}"
     local time_file="${time_dir}/${time_basename}.time"
     local log_output_path="${log_dir}/${time_basename}_arms.log"
     local max_dram_file="${time_dir}/max_dram_hugepages_${time_basename}.log"
-    local model_path="${SCRIPT_DIR}/libraries/C220G5/libhemem-arms${LIB_SUFFIX}.so"
+    local model_path="${SCRIPT_DIR}/libraries/${MEASUREMENT_LIBRARY_PROFILE_DIR}/libhemem-arms${LIB_SUFFIX}.so"
 
     mkdir -p "${time_dir}" "${log_dir}"
 
@@ -64,4 +63,4 @@ for workload_id in "${WORKLOAD_IDS[@]}"; do
 done
 
 #
-mkdir -p times/arms
+mkdir -p "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}/arms"
