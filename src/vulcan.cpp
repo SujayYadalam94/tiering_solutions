@@ -33,6 +33,14 @@ extern "C" void pebs_vulcan_setup_LLM_heuristic(){
     state->config.set_sorting_function(vulcan::rank::FullSort);
     state->config.set_scoring_fn(scoring_fn);
     state->config.set_comparator(vulcan::max);
+    state->config.set_information(
+        "You are an expert systems researcher specializing in memory tiering policies. "
+        "Your task is to design a scoring function for a page: higher the score, the "
+        "more important the page is, and the likelier it is to get promoted to the fast "
+        "tier; similarly, lower score = likelier to be demoted to a slower tier. "
+        "You are encouraged to be creative when defining this scoring function -- we "
+        "will be using this scoring function within a real system and testing out how well it works."
+    );
 
     // Create policy only after config is fully configured — it takes a copy.
     state->tiering_policy = new vulcan::rank_policy(state->registry, state->config);
