@@ -86,11 +86,14 @@ struct page_info
     // Virtual windows can accumulate up to VIRTUAL_STEP_SAMPLES accesses; use 32-bit
     // counters so hot pages do not wrap within a step.
     uint32_t virtual_accesses[NPBUFTYPES];
+    uint32_t virtual_missed_accesses;
     uint64_t virtual_step;
     uint32_t virtual_age;
     uint32_t virtual_reads;
     uint32_t virtual_writes;
     uint32_t virtual_count;
+    uint32_t virtual_missed_count;
+    float virtual_missed_ewma100;
     double virtual_cumsum_reads;
     double virtual_cumsum_writes;
     double virtual_global_avg_accesses;

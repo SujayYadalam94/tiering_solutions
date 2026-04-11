@@ -9,7 +9,7 @@ source "${SCRIPT_DIR}/measurement_workloads.sh"
 measurement_init_platform_from_args "$@" || exit 1
 ARGS=("${MEASUREMENT_REMAINING_ARGS[@]}")
 
-RUNS=${ARGS[0]:-1}
+RUNS=${ARGS[0]:-5}
 START_RUN=${START_RUN:-1}
 WORKLOAD_ARGS=("${ARGS[@]:1}")
 mapfile -t WORKLOAD_IDS < <(measurement_expand_workloads "${WORKLOAD_ARGS[@]}")

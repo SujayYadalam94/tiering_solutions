@@ -272,6 +272,28 @@ void *pebs_scan_thread(void *arg)
                             break;
                         }
 
+                        if (VIRTUAL_FEATURES_ENABLED && is_preload_library_ip(ps->ip))
+                        {
+                            note_preload_library_sample_filtered();
+
+                            const uint64_t page_va = ps->addr & HUGE_PFN_MASK;
+                            const bool eligible_for_page_accounting =
+                                (page_va != 0) && !is_access_log_page(page_va) && !is_kernel_page(page_va);
+                            if (eligible_for_page_accounting)
+                            {
+                                bool added_new_page = false;
+                                const uint64_t cur_generation = scan_generation.load(std::memory_order_relaxed);
+                                page_ptr page = get_or_create_tracked_page(ps->addr, cur_generation, cur_generation,
+                                                                           false, &added_new_page);
+                                if (page != nullptr)
+                                {
+                                    std::shared_lock<std::shared_mutex> lock(virtual_features_lock);
+                                    page->virtual_missed_accesses++;
+                                }
+                            }
+                            break;
+                        }
+
                         if (type == WRITE && ps->addr == 0)
                         {
                             break;

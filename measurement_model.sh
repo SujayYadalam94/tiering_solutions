@@ -27,7 +27,7 @@ echo "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}"
 #minmax_options=(true false)
 #hist_lengths=(4 8)
 #penalties=(0
-pcts=(90)
+pcts=(90 95 99)
 minmax_options=(true)
 hist_lengths=(4)
 penalties=(0.9)
@@ -88,7 +88,13 @@ function run_program {
     run_preloaded_measurement "${program}" "${model_path}" "${log_output_path}" "${time_file}" \
         "${NUMA_MEM_NODES}" "${TASKSET_CPUS}"
     local status=$?
-    if [[ ${status} -eq 124 || ${status} -eq 137 ]]; then
+
+    local timed_out=0
+    if [[ -f "${time_file}" ]]; then
+        timed_out=$(awk -F= '/^timed_out=/{print $2}' "${time_file}" | tail -n1)
+    fi
+
+    if [[ "${timed_out}" == "1" ]]; then
         echo "WARNING: ${output} run ${run} timed out after ${MEASUREMENT_TIMEOUT_SECONDS}s"
     elif [[ ${status} -ne 0 ]]; then
         echo "WARNING: ${output} run ${run} failed with status ${status}"

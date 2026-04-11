@@ -104,12 +104,16 @@ run_preloaded_measurement() {
     local status=0
     local timed_out=0
     local had_errexit=0
+    local start_epoch_s=0
+    local end_epoch_s=0
+    local elapsed_seconds=0
 
     if [[ $- == *e* ]]; then
         had_errexit=1
     fi
 
     set +e
+    start_epoch_s=$(date +%s)
     {
         time timeout --foreground --signal=TERM \
             --kill-after="${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS}s" \
@@ -121,18 +125,25 @@ run_preloaded_measurement() {
             ${program} 2>&1
     } 2> "${time_file}"
     status=$?
+    end_epoch_s=$(date +%s)
     if [[ ${had_errexit} -eq 1 ]]; then
         set -e
     fi
 
-    if [[ ${status} -eq 124 || ${status} -eq 137 ]]; then
+    elapsed_seconds=$((end_epoch_s - start_epoch_s))
+
+    # Distinguish true timeout from command exits that also use status 124/137.
+    # A true timeout should run for approximately the configured timeout window.
+    if [[ (${status} -eq 124 || ${status} -eq 137) && ${elapsed_seconds} -ge ${MEASUREMENT_TIMEOUT_SECONDS} ]]; then
         timed_out=1
     fi
 
     {
         echo "exit_status=${status}"
         echo "timed_out=${timed_out}"
+        echo "elapsed_seconds=${elapsed_seconds}"
         echo "timeout_seconds=${MEASUREMENT_TIMEOUT_SECONDS}"
+        echo "kill_after_seconds=${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS}"
     } >> "${time_file}"
 
     return ${status}

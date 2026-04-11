@@ -76,6 +76,17 @@ extern bool initialized;
     (1.0) // Multiplier to adjust the sensitivity of model score-based switching between ARMS and model predictions
 #endif
 
+#ifndef MODEL_DISCOUNT_PERCENT
+#define MODEL_DISCOUNT_PERCENT (0)
+#endif
+
+// OFFCORE DEMAND_RFO L3-miss sampling may not expose a reliable data-linear
+// address on all systems. Keep it opt-in; default preserves stable PEBS store
+// sampling with DataLinearAddress.
+#ifndef USE_OFFCORE_L3_MISS_STORE_EVENT
+#define USE_OFFCORE_L3_MISS_STORE_EVENT (true)
+#endif
+
 #ifndef C220G5
 #ifndef GSL_OPTANE
 #ifndef SCAILP

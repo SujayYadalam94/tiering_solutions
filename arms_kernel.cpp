@@ -80,6 +80,115 @@ std::unordered_map<uint64_t, page_ptr> pages_map;
 std::unordered_map<uint64_t, page_ptr> detached_logging_pages;
 std::shared_mutex pages_map_lock;
 
+namespace
+{
+std::vector<ip_range> preload_ip_ranges;
+std::string preload_library_path;
+std::shared_mutex preload_ip_ranges_lock;
+std::atomic<uint64_t> preload_library_filtered_samples{0};
+} // namespace
+
+void set_preload_ip_ranges(const char *library_path, const struct ip_range *ranges, size_t range_count)
+{
+    std::vector<ip_range> new_ranges;
+    new_ranges.reserve(range_count);
+
+    for (size_t i = 0; i < range_count; ++i)
+    {
+        if (ranges[i].end > ranges[i].start)
+        {
+            new_ranges.push_back(ranges[i]);
+        }
+    }
+
+    std::sort(new_ranges.begin(), new_ranges.end(),
+              [](const ip_range &lhs, const ip_range &rhs) { return lhs.start < rhs.start; });
+
+    {
+        std::unique_lock<std::shared_mutex> lock(preload_ip_ranges_lock);
+        preload_library_path = (library_path != nullptr) ? library_path : "";
+        preload_ip_ranges = std::move(new_ranges);
+    }
+
+    preload_library_filtered_samples.store(0, std::memory_order_relaxed);
+}
+
+bool is_preload_library_ip(uint64_t ip)
+{
+    if (ip == 0)
+    {
+        return false;
+    }
+
+    std::shared_lock<std::shared_mutex> lock(preload_ip_ranges_lock);
+    if (preload_ip_ranges.empty())
+    {
+        return false;
+    }
+
+    auto it = std::upper_bound(preload_ip_ranges.begin(), preload_ip_ranges.end(), ip,
+                               [](uint64_t value, const ip_range &range) { return value < range.start; });
+    if (it == preload_ip_ranges.begin())
+    {
+        return false;
+    }
+
+    --it;
+    return ip >= it->start && ip < it->end;
+}
+
+void note_preload_library_sample_filtered()
+{
+    preload_library_filtered_samples.fetch_add(1, std::memory_order_relaxed);
+}
+
+uint64_t get_preload_library_filtered_samples()
+{
+    return preload_library_filtered_samples.load(std::memory_order_relaxed);
+}
+
+void set_application_thread_far_memory_default()
+{
+    if (numa_available() < 0)
+    {
+        std::cerr << "[ARMS] NUMA not available; cannot apply thread memory policy." << std::endl;
+        return;
+    }
+
+    struct bitmask *slow_tier_nodemask = numa_allocate_nodemask();
+    if (slow_tier_nodemask == nullptr)
+    {
+        perror("[ARMS] numa_allocate_nodemask failed");
+        return;
+    }
+
+    numa_bitmask_clearall(slow_tier_nodemask);
+    numa_bitmask_setbit(slow_tier_nodemask, SLOW_TIER);
+    numa_set_membind(slow_tier_nodemask);
+    numa_bitmask_free(slow_tier_nodemask);
+}
+
+void set_application_thread_near_memory_default()
+{
+    if (numa_available() < 0)
+    {
+        std::cerr << "[ARMS] NUMA not available; cannot apply thread memory policy." << std::endl;
+        return;
+    }
+
+    struct bitmask *fast_tier_nodemask = numa_allocate_nodemask();
+    if (fast_tier_nodemask == nullptr)
+    {
+        perror("[ARMS] numa_allocate_nodemask failed");
+        return;
+    }
+
+    numa_bitmask_clearall(fast_tier_nodemask);
+    numa_bitmask_setbit(fast_tier_nodemask, FAST_TIER);
+    numa_set_membind(fast_tier_nodemask);
+    numa_bitmask_free(fast_tier_nodemask);
+}
+
 bool is_access_log_page(uint64_t page_base)
 {
     return access_log != nullptr && access_log->overlaps_with_logging_region(page_base, PAGE_SIZE);
@@ -552,14 +661,14 @@ static struct perf_event_mmap_page *perf_setup(__u64 config, __u64 config1, __u1
     return p;
 }
 
-#define MEM_INST_RETIRED_ALL_LOADS_PS 0x81d0
-#define MEM_INST_RETIRED_ALL_STORES 0x82d0
+#define MEM_LOAD_RETIRED_L3_MISS_PS 0x20d1
+#define MEM_INST_RETIRED_ALL_STORES_PS 0x82d0
 
 static void setup_perf_events()
 {
     std::cout << "[ARMS] Setting up PEBS counters..." << std::endl;
-    std::cout << "[ARMS] READ_EVENT=0x" << std::hex << MEM_INST_RETIRED_ALL_LOADS_PS << std::dec << ", WRITE_EVENT=0x"
-              << std::hex << MEM_INST_RETIRED_ALL_STORES << std::dec << std::endl;
+    std::cout << "[ARMS] READ_EVENT=0x" << std::hex << MEM_LOAD_RETIRED_L3_MISS_PS << std::dec << ", WRITE_EVENT=0x"
+              << std::hex << MEM_INST_RETIRED_ALL_STORES_PS << std::dec << std::endl;
 
     for (int i = 0; i < PEBS_NPROCS; i++)
     {
@@ -575,8 +684,8 @@ static void setup_perf_events()
             continue;
 #endif
 
-        perf_page[i][READ] = perf_setup(MEM_INST_RETIRED_ALL_LOADS_PS, 0, i, READ);
-        perf_page[i][WRITE] = perf_setup(MEM_INST_RETIRED_ALL_STORES, 0, i, WRITE);
+        perf_page[i][READ] = perf_setup(MEM_LOAD_RETIRED_L3_MISS_PS, 0, i, READ);
+        perf_page[i][WRITE] = perf_setup(MEM_INST_RETIRED_ALL_STORES_PS, 0, i, WRITE);
 
         if (!perf_page[i][READ])
         {
@@ -819,8 +928,9 @@ static size_t update_page_scores(const std::vector<page_ptr> &page_snapshot, std
 
         page->prev_score = page->score;
 
-#if USE_MODEL == (false)
         page->arms_score = compute_score(page);
+
+#if USE_MODEL == (false)
         page->score = page->arms_score;
         scores.push_back({page, page->score});
 #else
@@ -858,11 +968,8 @@ static void update_model_scores_and_log(std::vector<score_entry> &scores, size_t
     {
         struct data_row row = access_log->extract_row(timestep, score_entry.page, grp_tracker,
                                                       accesses_total); // Extract previous row data
-#if USE_MODEL == (false)
         row.arms_score = compute_score(score_entry.page);
         score_entry.page->arms_score = row.arms_score;
-#endif
-
         rows.push_back(row);
         model_pages.push_back(score_entry.page);
     }
@@ -999,7 +1106,7 @@ static migration_decision select_migration_candidates(const std::vector<score_en
         {
             continue;
         }
-#if USE_MODEL == (false)
+#if USE_MODEL == (false) && LOGGING_RUN == (false)
         if (!hot_page->can_promote)
         {
             continue;
@@ -1029,7 +1136,7 @@ static migration_decision select_migration_candidates(const std::vector<score_en
                     continue;
                 }
 
-#if USE_MODEL == (false)
+#if USE_MODEL == (false) && LOGGING_RUN == (false)
                 float hot_page_min_avg = std::min(hot_page->w[0], hot_page->w[2]);
                 float cold_page_max_avg = std::max(cold_page->w[0], cold_page->w[2]);
 
@@ -1173,26 +1280,26 @@ void arms_start_tiering()
     std::cout << "[ARMS] PEBS_KSWAPD_INTERVAL_BIG = " << PEBS_KSWAPD_INTERVAL_BIG << std::endl;
     std::cout << "[ARMS] PEBS_KSWAPD_INTERVAL_SMALL = " << PEBS_KSWAPD_INTERVAL_SMALL << std::endl;
 
-    struct bitmask *slow_tier_nodemask = numa_allocate_nodemask();
-    if (slow_tier_nodemask == nullptr)
+    struct bitmask *default_nodemask = numa_allocate_nodemask();
+    if (default_nodemask == nullptr)
     {
         perror("[ARMS] numa_allocate_nodemask failed");
     }
     else
     {
-        numa_bitmask_clearall(slow_tier_nodemask);
-        if (false)
+        numa_bitmask_clearall(default_nodemask);
+        if (LOGGING_RUN)
         {
             std::cout << "[ARMS] Running in LOGGING_RUN mode - binding to FAST_TIER only" << std::endl;
-            numa_bitmask_setbit(slow_tier_nodemask, FAST_TIER);
+            numa_bitmask_setbit(default_nodemask, FAST_TIER);
         }
         else
         {
-            std::cout << "[ARMS] Running in LOGGING_RUN mode - binding to SLOW_TIER only" << std::endl;
-            numa_bitmask_setbit(slow_tier_nodemask, SLOW_TIER);
+            std::cout << "[ARMS] Running in tiering mode - binding to SLOW_TIER only" << std::endl;
+            numa_bitmask_setbit(default_nodemask, SLOW_TIER);
         }
-        numa_set_membind(slow_tier_nodemask);
-        numa_bitmask_free(slow_tier_nodemask);
+        numa_set_membind(default_nodemask);
+        numa_bitmask_free(default_nodemask);
     }
 
 #if USE_MODEL == (true) || PRINT_TRAINING_DATA == (true) || LOGGING_RUN == (true)

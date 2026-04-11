@@ -32,7 +32,8 @@ COMBOS := $(foreach mmh,$(MIN_MAX_HISTORY_VALUES),$(foreach hlen,$(HISTORY_LENGT
 
 # Models and outputs
 MODELS := $(wildcard models/*.o)
-LOGGING_MODEL_OBJ ?= $(firstword $(MODELS))
+# Logging path model object (user-provided dummy model expected here)
+LOGGING_MODEL_OBJ ?= models/dummy_14_feature_model.o
 LIB_OUTPUT_DIR := libraries
 PLATFORM_LIB_DIRS := $(addprefix $(LIB_OUTPUT_DIR)/,$(PLATFORMS))
 LIB_TARGETS := $(foreach platform,$(PLATFORMS),$(foreach combo,$(COMBOS),$(patsubst models/%.o,$(LIB_OUTPUT_DIR)/$(platform)/libhemem-%-$(combo).so,$(MODELS))))
@@ -53,6 +54,8 @@ SRCS = arms_kernel.cpp \
 	policy_thread.cpp \
 	timer.cpp hook/hook.cpp groups.cpp page.cpp logging.cpp model.cpp
 OBJ_NAMES = $(SRCS:.cpp=.o)
+NON_MODEL_SRCS := $(filter-out model.cpp,$(SRCS))
+NON_MODEL_OBJ_NAMES := $(NON_MODEL_SRCS:.cpp=.o)
 
 BASE_DEFINES_model := -DUSE_MODEL=true
 BASE_DEFINES_train := -DUSE_MODEL=true -DPRINT_TRAINING_DATA=true
@@ -65,6 +68,14 @@ combo_hlen = $(word 2,$(subst _, ,$1))
 combo_scaler = $(word 3,$(subst _, ,$1))
 combo_defs = -DMIN_MAX_HISTORY=$(call combo_mmh,$1) -DHISTORY_LENGTH=$(call combo_hlen,$1) -DSWITCH_SCALER=$(call combo_scaler,$1)
 platform_defs = -D$(1)
+
+model_name_from_obj = $(basename $(notdir $1))
+model_discount_percent = $(if $(filter model_discounted_reward_%,$1),$(word 1,$(subst _, ,$(patsubst model_discounted_reward_%,%,$1))),0)
+model_discount_define = -DMODEL_DISCOUNT_PERCENT=$(call model_discount_percent,$1)
+
+LOGGING_MODEL_NAME := $(call model_name_from_obj,$(LOGGING_MODEL_OBJ))
+LOGGING_MODEL_DISCOUNT_PERCENT := $(call model_discount_percent,$(LOGGING_MODEL_NAME))
+LOGGING_MAX_LOGGED_SAMPLES ?= 20000000
 
 define LINK_SHARED_RECIPE
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -shared -fPIC -g $^ -o $@ -O3 \
@@ -89,25 +100,31 @@ $(TARGET_LIB): $(ARMS_TARGET_DEFAULT) | $(LIB_OUTPUT_DIR)
 	cp -f $< $@
 
 define MAKE_PLATFORM_COMBO_RULES
-MODEL_OBJS_$(1)_$(2) := $$(addprefix $$(OBJ_DIR)/model/$(1)/$(2)/,$$(OBJ_NAMES))
-TRAIN_OBJS_$(1)_$(2) := $$(addprefix $$(OBJ_DIR)/train/$(1)/$(2)/,$$(OBJ_NAMES))
+MODEL_COMMON_OBJS_$(1)_$(2) := $$(addprefix $$(OBJ_DIR)/model/$(1)/$(2)/common/,$$(NON_MODEL_OBJ_NAMES))
+TRAIN_COMMON_OBJS_$(1)_$(2) := $$(addprefix $$(OBJ_DIR)/train/$(1)/$(2)/common/,$$(NON_MODEL_OBJ_NAMES))
 
 # Build one ARMS library per model object under models/ and config combo
 # Example: models/foo.o -> libraries/libhemem-foo-true_2_1.0.so
-$$(LIB_OUTPUT_DIR)/$(1)/libhemem-%-$(2).so: $$(MODEL_OBJS_$(1)_$(2)) models/%.o | $$(LIB_OUTPUT_DIR)/$(1)
+$$(LIB_OUTPUT_DIR)/$(1)/libhemem-%-$(2).so: $$(MODEL_COMMON_OBJS_$(1)_$(2)) $$(OBJ_DIR)/model/$(1)/$(2)/%/model.o models/%.o | $$(LIB_OUTPUT_DIR)/$(1)
 	$$(LINK_SHARED_RECIPE)
 
 # Build one ARMS library per model object under models with training data enabled
 # Example: models/foo.o -> libraries/libhemem-foo_train-true_2_1.0.so
-$$(LIB_OUTPUT_DIR)/$(1)/libhemem-%_$(2)_train.so: $$(TRAIN_OBJS_$(1)_$(2)) models/%.o | $$(LIB_OUTPUT_DIR)/$(1)
+$$(LIB_OUTPUT_DIR)/$(1)/libhemem-%_$(2)_train.so: $$(TRAIN_COMMON_OBJS_$(1)_$(2)) $$(OBJ_DIR)/train/$(1)/$(2)/%/model.o models/%.o | $$(LIB_OUTPUT_DIR)/$(1)
 	$$(LINK_SHARED_RECIPE)
 
 # Compile C++ sources for USE_MODEL=true variants and config combo
-$$(OBJ_DIR)/model/$(1)/$(2)/%.o: %.cpp | $$(OBJ_DIR)
+$$(OBJ_DIR)/model/$(1)/$(2)/common/%.o: %.cpp | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_model) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)))
 
-$$(OBJ_DIR)/train/$(1)/$(2)/%.o: %.cpp | $$(OBJ_DIR)
+$$(OBJ_DIR)/train/$(1)/$(2)/common/%.o: %.cpp | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_train) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)))
+
+$$(OBJ_DIR)/model/$(1)/$(2)/%/model.o: model.cpp | $$(OBJ_DIR)
+	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_model) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)) $$(call model_discount_define,$$*))
+
+$$(OBJ_DIR)/train/$(1)/$(2)/%/model.o: model.cpp | $$(OBJ_DIR)
+	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_train) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)) $$(call model_discount_define,$$*))
 endef
 
 $(foreach platform,$(PLATFORMS),$(foreach combo,$(COMBOS),$(eval $(call MAKE_PLATFORM_COMBO_RULES,$(platform),$(combo)))))
@@ -121,8 +138,8 @@ ARMS_TRAIN_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_train/$(1)/,$$(OBJ_NAMES))
 $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms.so: $$(NOMODEL_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
 	$$(LINK_SHARED_RECIPE)
 
-# Build without linking a model; force USE_MODEL=false and PRINT_TRAINING_DATA=true
-$$(LIB_OUTPUT_DIR)/$(1)/libhemem-logging.so: $$(LOGGING_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
+# Build logging path with model inference enabled and a user-provided model object
+$$(LIB_OUTPUT_DIR)/$(1)/libhemem-logging.so: $$(LOGGING_OBJS_$(1)) $$(LOGGING_MODEL_OBJ) | $$(LIB_OUTPUT_DIR)/$(1)
 	$$(LINK_SHARED_RECIPE)
 
 # Build ARMS with training data logging enabled (no model linked)
@@ -134,7 +151,7 @@ $$(OBJ_DIR)/nomodel/$(1)/%.o: %.cpp | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_nomodel) $$(call platform_defs,$(1)))
 
 $$(OBJ_DIR)/logging/$(1)/%.o: %.cpp | $$(OBJ_DIR)
-	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_logging) $$(call platform_defs,$(1)))
+	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_logging) $$(call platform_defs,$(1)) -DMODEL_DISCOUNT_PERCENT=$$(LOGGING_MODEL_DISCOUNT_PERCENT) -DMAX_LOGGED_SAMPLES=$$(LOGGING_MAX_LOGGED_SAMPLES))
 
 $$(OBJ_DIR)/arms_train/$(1)/%.o: %.cpp | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_train) $$(call platform_defs,$(1)))

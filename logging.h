@@ -37,6 +37,7 @@ struct data_row
     float ewma_100;
     float ewma_100_r;
     float ewma_100_w;
+    float virtual_missed_ewma_100;
     float gap4;
     float read_write_gap3;
     float ewma_var_2;

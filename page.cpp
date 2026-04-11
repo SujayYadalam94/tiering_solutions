@@ -51,6 +51,9 @@ void page_info::reset_page_access_fields()
     this->virtual_reads = 0;
     this->virtual_writes = 0;
     this->virtual_count = 0;
+    this->virtual_missed_accesses = 0;
+    this->virtual_missed_count = 0;
+    this->virtual_missed_ewma100 = 0;
     this->virtual_cumsum_reads = 0;
     this->virtual_cumsum_writes = 0;
     this->virtual_global_avg_accesses = 0;
@@ -249,9 +252,11 @@ void page_info::update_virtual_window(size_t count_total, uint64_t step_id)
     this->virtual_writes = this->virtual_accesses[WRITE];
     // Virtual-step accounting tracks raw PEBS samples (1 read/store sample == 1 count).
     this->virtual_count = this->virtual_reads + this->virtual_writes;
+    this->virtual_missed_count = this->virtual_missed_accesses;
 
     this->virtual_accesses[READ] = 0;
     this->virtual_accesses[WRITE] = 0;
+    this->virtual_missed_accesses = 0;
 
     this->virtual_cumsum_reads += this->virtual_reads;
     this->virtual_cumsum_writes += this->virtual_writes;
@@ -295,6 +300,9 @@ void page_info::update_virtual_window(size_t count_total, uint64_t step_id)
         const float var = this->virtual_w_perc_second_moment[i] - (this->virtual_w_perc[i] * this->virtual_w_perc[i]);
         this->virtual_w_perc_var[i] = var > 0.0f ? var : 0.0f;
     }
+
+    this->virtual_missed_ewma100 = adjusted_ewma(this->virtual_missed_ewma100, this->virtual_missed_count,
+                                                 get_adjusted_ewma_denom(3, this->virtual_age));
 
     this->virtual_gap4 = this->virtual_w_perc[1] - static_cast<float>(this->virtual_global_avg_accesses);
     this->virtual_read_write_gap3 = this->virtual_w_r_perc[3] - this->virtual_w_w_perc[3];

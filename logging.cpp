@@ -319,6 +319,7 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
     PRINT_CELL_AUTO(ewma_100);
     PRINT_CELL_AUTO(ewma_100_r);
     PRINT_CELL_AUTO(ewma_100_w);
+    PRINT_CELL_AUTO(virtual_missed_ewma_100);
     PRINT_CELL_AUTO(gap4);
     PRINT_CELL_AUTO(read_write_gap3);
     PRINT_CELL_AUTO(ewma_var_2);
@@ -590,6 +591,7 @@ struct data_row access_log::extract_row(size_t step, const page_ptr &page, struc
         row.ewma_100 = page->virtual_w[3];
         row.ewma_100_r = page->virtual_w_r[3];
         row.ewma_100_w = page->virtual_w_w[3];
+        row.virtual_missed_ewma_100 = page->virtual_missed_ewma100;
         row.gap4 = page->virtual_gap4;
         row.read_write_gap3 = page->virtual_read_write_gap3;
         row.ewma_var_2 = page->virtual_w_perc_var[0];
@@ -626,6 +628,7 @@ struct data_row access_log::extract_row(size_t step, const page_ptr &page, struc
         row.ewma_100 = page->w_perc[3];
         row.ewma_100_r = page->w_r_perc[3];
         row.ewma_100_w = page->w_w_perc[3];
+        row.virtual_missed_ewma_100 = 0.0f;
         row.gap4 = page->gap4;
         row.read_write_gap3 = page->read_write_gap3;
         row.ewma_var_2 = page->w_perc_var[0];

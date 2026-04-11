@@ -27,8 +27,8 @@ for size in "${SIZES[@]}"; do
 
             "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}_train" "_train" "${workload_id}"
             
-            #run_measurement_setup "${size}"
-            #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}_train" "_train" "${workload_id}"
+            run_measurement_setup "${size}"
+            "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}_train" "_train" "${workload_id}"
 
             run_measurement_teardown
         done

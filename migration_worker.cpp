@@ -9,15 +9,15 @@
 #include <mutex>
 #include <numa.h>
 #include <numaif.h>
+#include <shared_mutex>
 #include <sstream>
 #include <string>
 #include <sys/mman.h>
 #include <syscall.h>
 #include <thread>
 #include <unistd.h>
-#include <shared_mutex>
-#include <unordered_set>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 #include "arms_kernel_threads.h"

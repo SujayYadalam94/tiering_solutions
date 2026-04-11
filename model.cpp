@@ -14,13 +14,21 @@
 // Number of features - must match model file feature_names count.
 #define MODEL_NUM_FEATURES 14
 
+static inline double model_discount_scale()
+{
+#if MODEL_DISCOUNT_PERCENT <= 0
+    return 0.0;
+#elif MODEL_DISCOUNT_PERCENT >= 100
+    return 0.0;
+#else
+    return 1.0 / (1.0 - (static_cast<double>(MODEL_DISCOUNT_PERCENT) / 100.0));
+#endif
+}
+
 static inline double round_to_6(double value)
 {
     return std::round(value * 1000000.0) / 1000000.0;
 }
-
-// Keep inference work observable in non-model virtual-feature builds.
-static volatile double inference_work_sink = 0.0;
 
 /**
  * Extract features from page_info into the feature buffer
@@ -71,6 +79,7 @@ void model_predict_batch(std::vector<struct data_row> &rows,
     assert(rows.size() == pages.size());
 
     std::vector<double> outputs(rows.size(), 0.0);
+    const double discount_scale = model_discount_scale();
 
 #if VIRTUAL_FEATURES_ENABLED
     for (size_t i = 0; i < rows.size(); ++i)
@@ -79,14 +88,8 @@ void model_predict_batch(std::vector<struct data_row> &rows,
         extract_features(rows[i], features);
 #if USE_MODEL == (true)
         forest_root(features, &outputs[i], 0, 1);
+        outputs[i] += discount_scale * static_cast<double>(rows[i].virtual_missed_ewma_100);
 #else
-        // Keep non-model builds doing feature work without linking any model object.
-        double feature_work = 0.0;
-        for (int j = 0; j < MODEL_NUM_FEATURES; ++j)
-        {
-            feature_work += features[j];
-        }
-        inference_work_sink += feature_work;
         outputs[i] = 0.0;
 #endif
     }
