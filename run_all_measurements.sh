@@ -52,7 +52,7 @@ EOF
     fi
 }
 
-SIZES=(6000)
+SIZES=(100000)
 RUNS=3
 
 mapfile -t WORKLOAD_IDS < <(measurement_list_default_workloads)
@@ -64,7 +64,7 @@ for size in "${SIZES[@]}"; do
         echo "-- Run ${run}/${RUNS} for size ${size}MiB --"
 
         for workload_id in "${WORKLOAD_IDS[@]}"; do
-            echo "---- Workload ${workload_id}: Baseline then TPP then NOMAD then Model ----"
+            echo "---- Workload ${workload_id} ----"
 
             # ARMS
             #run_measurement_setup "${size}"
@@ -79,11 +79,27 @@ for size in "${SIZES[@]}"; do
             #fi
 
             # TPP
-            if [[ -x "${SCRIPT_DIR}/measurement_tpp.sh" ]]; then
-                run_measurement_setup "${size}" tpp
-                "${SCRIPT_DIR}/measurement_tpp.sh" "${size}" "${run}" "${workload_id}"
+            #if [[ -x "${SCRIPT_DIR}/measurement_tpp.sh" ]]; then
+            #    run_measurement_setup "${size}" tpp
+            #    "${SCRIPT_DIR}/measurement_tpp.sh" "${size}" "${run}" "${workload_id}"
+            #else
+            #    echo "WARNING: ./measurement_tpp.sh not found or not executable; skipping TPP"
+            #fi
+
+            # CXL_ONLY
+            if [[ -x "${SCRIPT_DIR}/measurement_cxl_only.sh" ]]; then
+                run_measurement_setup_baseline_default "${size}"
+                "${SCRIPT_DIR}/measurement_cxl_only.sh" "${size}" "${run}" "${workload_id}"
             else
-                echo "WARNING: ./measurement_tpp.sh not found or not executable; skipping TPP"
+                echo "WARNING: ./measurement_cxl_only.sh not found or not executable; skipping CXL Only"
+            fi
+
+            # DRAM_ONLY
+            if [[ -x "${SCRIPT_DIR}/measurement_dram_only.sh" ]]; then
+                run_measurement_setup_baseline_default "${size}"
+                "${SCRIPT_DIR}/measurement_dram_only.sh" "${size}" "${run}" "${workload_id}"
+            else
+                echo "WARNING: ./measurement_dram_only.sh not found or not executable; skipping DRAM Only"
             fi
 
             # NOMAD
