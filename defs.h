@@ -39,8 +39,12 @@ extern bool initialized;
 #define ARMS_PARTIAL_RANK_MULTIPLIER (8)
 #endif
 
+#ifndef SKIP_UNTIL_SAMPLE
+#define SKIP_UNTIL_SAMPLE (5000000)
+#endif
+
 #ifndef MAX_LOGGED_SAMPLES
-#define MAX_LOGGED_SAMPLES (5000000)
+#define MAX_LOGGED_SAMPLES (20000000)
 #endif
 
 #ifndef PAGEMAP_FULL_SCAN_INTERVALS

@@ -132,7 +132,7 @@ class access_log
     struct cpu_stat curr_cpu_stat;
     struct disk_stat prev_disk_stat;
     struct disk_stat curr_disk_stat;
-    size_t logged_samples;
+    int64_t logged_samples;
     struct data_row *scores_log;
 
     int get_disk_usage(const pid_t pid);

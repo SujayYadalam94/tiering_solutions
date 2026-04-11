@@ -68,14 +68,13 @@ for size in "${SIZES[@]}"; do
         echo "-- Run ${run}/${RUNS} for size ${size}MiB --"
 
         for workload_id in "${WORKLOAD_IDS[@]}"; do
-            echo "---- Workload ${workload_id}: ARMS then Model then HybridTier ----"
+            echo "---- Workload ${workload_id} ----"
 
             # ARMS
             run_measurement_setup "${size}"
             "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
 
             # NOMAD
-            
             #if [[ -x "${SCRIPT_DIR}/measurement_nomad.sh" ]]; then
             #    measurement_ensure_nomad_ready || exit 1
             #    run_measurement_setup "${size}" nomad

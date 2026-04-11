@@ -164,6 +164,18 @@ measurement_apply_nomad_settings() {
     sudo swapoff -a
 }
 
+measurement_apply_tpp_settings() {
+    echo 1 | sudo tee /sys/kernel/mm/numa/demotion_enabled >/dev/null
+    echo 3 | sudo tee /proc/sys/kernel/numa_balancing >/dev/null
+    sudo sysctl -w vm.demote_scale_factor=200 >/dev/null
+}
+
+measurement_apply_baseline_default_migration_settings() {
+    echo 1 | sudo tee /proc/sys/kernel/numa_balancing >/dev/null
+    echo 0 | sudo tee /proc/sys/vm/zone_reclaim_mode >/dev/null
+    echo false | sudo tee /sys/kernel/mm/numa/demotion_enabled >/dev/null
+}
+
 run_measurement_setup() {
     local size_mib=$1
     local measurement_system=${2:-default}
@@ -173,8 +185,18 @@ run_measurement_setup() {
     sudo bash "${MEASUREMENT_COMMON_DIR}/setup.sh" "${size_mib}" "${measurement_system}" "${measurement_platform}"
     if [[ "${measurement_system}" == "nomad" ]]; then
         measurement_apply_nomad_settings
+    elif [[ "${measurement_system}" == "tpp" ]]; then
+        measurement_apply_tpp_settings
     fi
     bash "${MEASUREMENT_COMMON_DIR}/defrag.sh"
+}
+
+run_measurement_setup_baseline_default() {
+    local size_mib=$1
+
+    sudo bash "${MEASUREMENT_COMMON_DIR}/unsetup.sh" || true
+    sudo bash "${MEASUREMENT_COMMON_DIR}/setup.sh" "${size_mib}" default
+    measurement_apply_baseline_default_migration_settings || return 1
 }
 
 run_measurement_teardown() {
