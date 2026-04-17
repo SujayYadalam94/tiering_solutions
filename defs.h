@@ -26,7 +26,7 @@ extern bool initialized;
 #define VIRTUAL_FEATURES_ENABLED ((USE_MODEL == (true)) || (LOGGING_RUN == (true)))
 
 #ifndef VIRTUAL_STEP_SAMPLES
-#define VIRTUAL_STEP_SAMPLES (100000)
+#define VIRTUAL_STEP_SAMPLES (10000)
 #endif
 
 #define FULL_LOGS (false)
@@ -40,11 +40,11 @@ extern bool initialized;
 #endif
 
 #ifndef SKIP_UNTIL_SAMPLE
-#define SKIP_UNTIL_SAMPLE (5000000)
+#define SKIP_UNTIL_SAMPLE (0)
 #endif
 
 #ifndef MAX_LOGGED_SAMPLES
-#define MAX_LOGGED_SAMPLES (20000000)
+#define MAX_LOGGED_SAMPLES (10000000)
 #endif
 
 #ifndef PAGEMAP_FULL_SCAN_INTERVALS
@@ -145,15 +145,15 @@ extern bool initialized;
 #define PEBS_NPROCS 48
 
 // DRAM bandwidth and latency curve parameters (used for latency diff calculations)
-#define UNLOADED_DRAM_LAT (0.1) // us
-#define DRAM_BW_KNEE (25)       // GB/s
-#define DRAM_BW_SLOPE (0.006)   // us per GB/s
+#define UNLOADED_DRAM_LAT (0.1)  // us
+#define DRAM_BW_KNEE (25)        // GB/s
+#define DRAM_BW_SLOPE (0.006)    // us per GB/s
 
 // Max expected NVM bandwidth for single thread (for cost calculations)
-#define UNLOADED_NVM_LAT (25)   // us
-#define NVM_RD_BW_KNEE (15)     // GB/s
-#define NVM_WR_BW_KNEE (15)     // GB/s
-#define NVM_BW_SLOPE (0.09)     // us per GB/s
+#define UNLOADED_NVM_LAT (0.422) // us
+#define NVM_RD_BW_KNEE (15)      // GB/s
+#define NVM_WR_BW_KNEE (15)      // GB/s
+#define NVM_BW_SLOPE (0.09)      // us per GB/s
 #define NVM_WRITES_WEIGHT (1)
 
 #else
@@ -224,7 +224,7 @@ extern bool initialized;
     (2. / (double)(MIGRATION_WINDOW_SIZE + 1)) // EWMA alpha for migration cost (20 periods -> 0.0952)
 // ==============================================================================
 
-#define PERF_PAGES (1 + (1 << 10)) // Has to be == 1+2^n, here 16MB
+#define PERF_PAGES (1 + (1 << 10)) // Has to be == 1+2^n, here 64MB
 
 #if VIRTUAL_FEATURES_ENABLED
 #define DEFAULT_SAMPLE_PERIOD (10007)

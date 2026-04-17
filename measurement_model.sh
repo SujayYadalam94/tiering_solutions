@@ -28,9 +28,9 @@ echo "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}"
 #hist_lengths=(4 8)
 #penalties=(0
 pcts=(90 95 99)
-minmax_options=(true)
+minmax_options=(false)
 hist_lengths=(4)
-penalties=(0.9)
+penalties=(0.7 0.9)
 
 MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
     "bc-twitter.sg"

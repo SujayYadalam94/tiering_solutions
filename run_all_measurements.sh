@@ -71,8 +71,15 @@ for size in "${SIZES[@]}"; do
             echo "---- Workload ${workload_id} ----"
 
             # ARMS
-            run_measurement_setup "${size}"
-            "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+            #run_measurement_setup "${size}"
+            #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+
+            # Model
+            if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
+                "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+            else
+                echo "WARNING: ./measurement_model.sh not found or not executable; skipping model"
+            fi
 
             # NOMAD
             #if [[ -x "${SCRIPT_DIR}/measurement_nomad.sh" ]]; then
@@ -82,13 +89,6 @@ for size in "${SIZES[@]}"; do
             #else
             #    echo "WARNING: ./measurement_nomad.sh not found or not executable; skipping NOMAD"
             #fi
-
-            # Model
-            if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
-                "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
-            else
-                echo "WARNING: ./measurement_model.sh not found or not executable; skipping model"
-            fi
 
             # HybridTier
             #run_measurement_setup "${size}"

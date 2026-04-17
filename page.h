@@ -79,6 +79,8 @@ struct page_info
     float model_score_history[HISTORY_LENGTH];
     uint8_t model_score_history_count;
     uint8_t model_score_history_index;
+    // Tracks the last smoothing step used to update model_score_history.
+    // In model/logging mode this is a virtual step id.
     uint64_t last_model_score_step;
     float arms_score;
     enum prediction_type model_selection;

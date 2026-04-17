@@ -650,6 +650,7 @@ static struct perf_event_mmap_page *perf_setup(__u64 config, __u64 config1, __u1
     assert(perf_fd[cpu][type] != -1);
 
     size_t mmap_size = sysconf(_SC_PAGESIZE) * PERF_PAGES;
+    std::cout << "[ARMS] PERF mmap size: " << (mmap_size / (1024.0 * 1024.0)) << " MB" << std::endl;
     struct perf_event_mmap_page *p =
         (struct perf_event_mmap_page *)mmap(NULL, mmap_size, PROT_READ | PROT_WRITE, MAP_SHARED, perf_fd[cpu][type], 0);
     if (p == MAP_FAILED)
@@ -968,6 +969,23 @@ static void update_model_scores_and_log(std::vector<score_entry> &scores, size_t
     {
         struct data_row row = access_log->extract_row(timestep, score_entry.page, grp_tracker,
                                                       accesses_total); // Extract previous row data
+
+        // Keep policy-time inference in sync with synthetic virtual-step logging for
+        // freshly allocated pages that have not yet completed a virtual step.
+        if (VIRTUAL_FEATURES_ENABLED && row.step == 0 && row.age == 0)
+        {
+            const uint64_t current_virtual_step = virtual_step.load(std::memory_order_relaxed);
+            if (current_virtual_step > 0)
+            {
+                row.step = static_cast<size_t>(current_virtual_step - 1);
+            }
+
+            zero_cold_start_virtual_row_fields(row);
+            fill_virtual_neighbor_group_features(virtual_grp_tracker, score_entry.page, row);
+            row.num_demotions = 0;
+            row.num_promotions = 0;
+        }
+
         row.arms_score = compute_score(score_entry.page);
         score_entry.page->arms_score = row.arms_score;
         rows.push_back(row);

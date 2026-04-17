@@ -4,15 +4,17 @@ MEASUREMENT_WORKLOADS_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 MEASUREMENT_WORKLOADS_PATH="${MEASUREMENT_WORKLOADS_DIR}/workloads"
 
 declare -ar MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
-    "faiss_10M"
-    "XSBench"
-    "DuckDB-TPCH-sf100"
-    "lulesh2.0_s400"
-    "mg.D.x"
+    #"lulesh2.0_s400"
+    #"mg.D.x"
+    #"DuckDB-TPCH-sf100"
+    #"faiss_10M"
+    #"XSBench"
     "bc-twitter.sg"
-    "pr-twitter.sg"
-    "bc-kron.sg"
-    "pr-kron.sg"
+    #"pr-twitter.sg"
+    #"bc-kron.sg"
+    #"pr-kron.sg"
+
+
 
     #"DuckDB-TPCDS-sf100"
 )

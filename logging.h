@@ -38,6 +38,7 @@ struct data_row
     float ewma_100_r;
     float ewma_100_w;
     float virtual_missed_ewma_100;
+    float virtual_missed_accesses;
     float gap4;
     float read_write_gap3;
     float ewma_var_2;
@@ -104,6 +105,75 @@ struct data_row
     float discounted_reward_95;
     float discounted_reward_99;
 };
+
+static inline void zero_cold_start_virtual_row_fields(struct data_row &row)
+{
+    row.read = 0;
+    row.write = 0;
+    row.count = 0;
+
+    row.global_avg_accesses = 0.0f;
+    row.global_avg_accesses_model = 0.0f;
+
+    row.ewma_2 = 0.0f;
+    row.ewma_2_r = 0.0f;
+    row.ewma_2_w = 0.0f;
+    row.ewma_5 = 0.0f;
+    row.ewma_5_r = 0.0f;
+    row.ewma_5_w = 0.0f;
+    row.ewma_20 = 0.0f;
+    row.ewma_20_r = 0.0f;
+    row.ewma_20_w = 0.0f;
+    row.ewma_100 = 0.0f;
+    row.ewma_100_r = 0.0f;
+    row.ewma_100_w = 0.0f;
+
+    row.virtual_missed_ewma_100 = 0.0f;
+    row.gap4 = 0.0f;
+    row.read_write_gap3 = 0.0f;
+    row.ewma_var_2 = 0.0f;
+    row.ewma_var_5 = 0.0f;
+    row.ewma_var_20 = 0.0f;
+    row.ewma_var_100 = 0.0f;
+
+    row.age_count_total = 0;
+    row.age = 0;
+}
+
+static inline void fill_virtual_neighbor_group_features(struct group_tracker *tracker, const page_ptr &page,
+                                                        struct data_row &row)
+{
+    if (tracker == nullptr)
+    {
+        for (size_t i = 0; i < 15; ++i)
+        {
+            row.groups[i] = 0.0f;
+            row.group_ewma5[i] = 0.0f;
+        }
+        row.group_ewma5_var = 0.0f;
+        return;
+    }
+
+    float group_avg[15] = {0.0f};
+    float group_avg_ewma5[15] = {0.0f};
+    float group_avg_perc[15] = {0.0f};
+    float group_avg_perc_ewma5[15] = {0.0f};
+    get_group_window_values(tracker, page->va, group_avg, group_avg_ewma5, group_avg_perc, group_avg_perc_ewma5);
+
+    float sum = 0.0f;
+    float sum_sq = 0.0f;
+    for (size_t i = 0; i < 15; ++i)
+    {
+        row.groups[i] = group_avg[i];
+        row.group_ewma5[i] = group_avg_ewma5[i];
+        sum += row.group_ewma5[i];
+        sum_sq += row.group_ewma5[i] * row.group_ewma5[i];
+    }
+
+    const float mean = sum / 15.0f;
+    const float var = (sum_sq / 15.0f) - (mean * mean);
+    row.group_ewma5_var = var > 0.0f ? var : 0.0f;
+}
 
 struct cpu_stat
 {

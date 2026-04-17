@@ -25,10 +25,10 @@ for size in "${SIZES[@]}"; do
         for workload_id in "${WORKLOAD_IDS[@]}"; do
             echo "---- Workload ${workload_id}: ARMS train then model train ----"
 
-            "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}_train" "_train" "${workload_id}"
-            
             run_measurement_setup "${size}"
             "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}_train" "_train" "${workload_id}"
+
+            "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}_train" "_train" "${workload_id}"
 
             run_measurement_teardown
         done

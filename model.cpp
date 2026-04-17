@@ -12,7 +12,7 @@
 #include <vector>
 
 // Number of features - must match model file feature_names count.
-#define MODEL_NUM_FEATURES 14
+#define MODEL_NUM_FEATURES 16
 
 static inline double model_discount_scale()
 {
@@ -37,9 +37,10 @@ static inline double round_to_6(double value)
  */
 static inline void extract_features(struct data_row &row, double *features)
 {
-    // Exact order from models/model_discounted_reward_90_XSBench_l2.txt:
+    // Exact order from models/model_discounted_reward_*_bc-twitter.sg_l2.txt:
     // ewma_2 ewma_5 ewma_20 ewma_100 ewma_2_w ewma_5_w ewma_20_w ewma_100_w
     // global_avg_accesses_model group_neg_mean group_pos_mean group_0_mean gap4 read_write_gap3
+    // group_ewma5_var age
 
     int8_t i = 0;
 
@@ -69,6 +70,8 @@ static inline void extract_features(struct data_row &row, double *features)
 
     features[i++] = round_to_6(row.gap4);
     features[i++] = round_to_6(row.read_write_gap3);
+    features[i++] = round_to_6(row.group_ewma5_var);
+    features[i++] = static_cast<double>(row.age);
 
     assert(i == MODEL_NUM_FEATURES);
 }
@@ -88,7 +91,8 @@ void model_predict_batch(std::vector<struct data_row> &rows,
         extract_features(rows[i], features);
 #if USE_MODEL == (true)
         forest_root(features, &outputs[i], 0, 1);
-        outputs[i] += discount_scale * static_cast<double>(rows[i].virtual_missed_ewma_100);
+        outputs[i] += discount_scale *
+                      static_cast<double>(std::max(rows[i].virtual_missed_ewma_100, rows[i].virtual_missed_accesses));
 #else
         outputs[i] = 0.0;
 #endif
@@ -103,10 +107,12 @@ void model_predict_batch(std::vector<struct data_row> &rows,
         }
         {
             std::lock_guard<std::mutex> guard(pages[i]->page_lock);
-            if (!VIRTUAL_FEATURES_ENABLED || pages[i]->last_model_score_step != rows[i].step)
+            // In model/logging mode, extract_row rewrites row.step to page->virtual_step.
+            const uint64_t smoothing_step = static_cast<uint64_t>(rows[i].step);
+            if (!VIRTUAL_FEATURES_ENABLED || pages[i]->last_model_score_step != smoothing_step)
             {
                 pages[i]->push_model_score(static_cast<float>(outputs[i]));
-                pages[i]->last_model_score_step = rows[i].step;
+                pages[i]->last_model_score_step = smoothing_step;
             }
         }
         rows[i].model_score = outputs[i];

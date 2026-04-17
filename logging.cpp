@@ -592,6 +592,7 @@ struct data_row access_log::extract_row(size_t step, const page_ptr &page, struc
         row.ewma_100_r = page->virtual_w_r[3];
         row.ewma_100_w = page->virtual_w_w[3];
         row.virtual_missed_ewma_100 = page->virtual_missed_ewma100;
+        row.virtual_missed_accesses = page->virtual_missed_accesses;
         row.gap4 = page->virtual_gap4;
         row.read_write_gap3 = page->virtual_read_write_gap3;
         row.ewma_var_2 = page->virtual_w_perc_var[0];
@@ -722,8 +723,6 @@ struct data_row access_log::extract_row(size_t step, const page_ptr &page, struc
 
     row.num_demotions = page->num_demotions;
     row.num_promotions = page->num_promotions;
-    page->num_demotions = 0;
-    page->num_promotions = 0;
 
     row.discounted_reward_90 = 0.0f;
     row.discounted_reward_95 = 0.0f;

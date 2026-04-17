@@ -23,6 +23,13 @@ struct perf_sample
     __u64 addr; // Virtual address
 };
 
+struct perf_sample_lost
+{
+    struct perf_event_header header;
+    __u64 id;
+    __u64 lost;
+};
+
 void arms_start_tiering();
 void arms_kernel_shutdown();
 void arms_kernel_print_stats();

@@ -15,6 +15,8 @@ WORKLOAD_ARGS=("${ARGS[@]:1}")
 mapfile -t WORKLOAD_IDS < <(measurement_expand_workloads "${WORKLOAD_ARGS[@]}")
 
 mkdir -p "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}" logs
+LOG_CONVERTER_SCRIPT="${SCRIPT_DIR}/../tiering_models/process_data/data/filter_v3_split_runs.py"
+LOG_CONVERTER_VENV_PYTHON="${SCRIPT_DIR}/../tiering_models/process_data/data/.venv/bin/python"
 
 function run_program {
     local output=$1
@@ -36,6 +38,24 @@ function run_program {
 }
 
 
+function convert_logs_to_parquet {
+    local output=$1
+    local log_dir="${SCRIPT_DIR}/logs/${output}"
+    local python_cmd=python3
+
+    if [[ ! -f "${LOG_CONVERTER_SCRIPT}" ]]; then
+        echo "ERROR: converter script not found at ${LOG_CONVERTER_SCRIPT}" >&2
+        return 1
+    fi
+
+    if [[ -x "${LOG_CONVERTER_VENV_PYTHON}" ]]; then
+        python_cmd="${LOG_CONVERTER_VENV_PYTHON}"
+    fi
+
+    "${python_cmd}" "${LOG_CONVERTER_SCRIPT}" "${log_dir}"
+}
+
+
 for run in $(seq "${START_RUN}" "${RUNS}"); do
     for workload_id in "${WORKLOAD_IDS[@]}"; do
         measurement_load_workload "${workload_id}" || exit 1
@@ -46,6 +66,7 @@ for run in $(seq "${START_RUN}" "${RUNS}"); do
 
         echo "Run ${run}: workload ${WORKLOAD_ID}"
         run_program "${WORKLOAD_OUTPUT}" "${run}"
+        convert_logs_to_parquet "${WORKLOAD_OUTPUT}" || exit 1
     done
 done
 

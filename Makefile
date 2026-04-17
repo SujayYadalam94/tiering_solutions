@@ -25,9 +25,9 @@ PLATFORMS := C220G5 GSL_OPTANE
 DEFAULT_PLATFORM ?= C220G5
 
 # Compile-time configuration matrix
-MIN_MAX_HISTORY_VALUES := true false
-HISTORY_LENGTH_VALUES := 4 8
-SWITCH_SCALER_VALUES := 1.0 0.9 0.8
+MIN_MAX_HISTORY_VALUES := false true
+HISTORY_LENGTH_VALUES := 4 
+SWITCH_SCALER_VALUES := 0.7 0.9
 COMBOS := $(foreach mmh,$(MIN_MAX_HISTORY_VALUES),$(foreach hlen,$(HISTORY_LENGTH_VALUES),$(foreach scaler,$(SWITCH_SCALER_VALUES),$(mmh)_$(hlen)_$(scaler))))
 
 # Models and outputs
@@ -75,7 +75,7 @@ model_discount_define = -DMODEL_DISCOUNT_PERCENT=$(call model_discount_percent,$
 
 LOGGING_MODEL_NAME := $(call model_name_from_obj,$(LOGGING_MODEL_OBJ))
 LOGGING_MODEL_DISCOUNT_PERCENT := $(call model_discount_percent,$(LOGGING_MODEL_NAME))
-LOGGING_MAX_LOGGED_SAMPLES ?= 20000000
+LOGGING_MAX_LOGGED_SAMPLES ?= 100000000
 
 define LINK_SHARED_RECIPE
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -shared -fPIC -g $^ -o $@ -O3 \

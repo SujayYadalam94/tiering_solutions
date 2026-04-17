@@ -20,6 +20,69 @@
 namespace
 {
 
+static void log_new_pages_for_previous_virtual_step(const std::vector<page_ptr> &pages, uint64_t current_step)
+{
+#if PRINT_TRAINING_DATA == (false)
+    (void)pages;
+    (void)current_step;
+    return;
+#else
+    if (!VIRTUAL_FEATURES_ENABLED || access_log == nullptr || pages.empty() || current_step == 0)
+    {
+        return;
+    }
+
+    const size_t previous_step = static_cast<size_t>(current_step - 1);
+
+    size_t total_virtual_accesses = 0;
+    for (const auto &page : pages)
+    {
+        total_virtual_accesses += static_cast<size_t>(page->virtual_count);
+    }
+
+    std::vector<struct data_row> rows;
+    std::vector<std::shared_ptr<struct page_info>> new_pages;
+    rows.reserve(pages.size());
+    new_pages.reserve(pages.size());
+
+    for (const auto &page : pages)
+    {
+        if (page == nullptr || page->last_logged_row != nullptr)
+        {
+            continue;
+        }
+
+        const int saved_demotions = page->num_demotions;
+        const int saved_promotions = page->num_promotions;
+        struct data_row row = access_log->extract_row(previous_step, page, virtual_grp_tracker, total_virtual_accesses);
+        page->num_demotions = saved_demotions;
+        page->num_promotions = saved_promotions;
+
+        row.step = previous_step;
+        zero_cold_start_virtual_row_fields(row);
+        fill_virtual_neighbor_group_features(virtual_grp_tracker, page, row);
+        row.num_demotions = 0;
+        row.num_promotions = 0;
+
+        rows.push_back(row);
+        new_pages.push_back(page);
+    }
+
+    if (rows.empty())
+    {
+        return;
+    }
+
+    model_predict_batch(rows, new_pages);
+
+    for (size_t i = 0; i < new_pages.size(); ++i)
+    {
+        rows[i].score = new_pages[i]->score;
+        access_log->log_row(new_pages[i], rows[i]);
+    }
+#endif
+}
+
 static void log_virtual_step_rows(const std::vector<page_ptr> &pages)
 {
 #if PRINT_TRAINING_DATA == (false)
@@ -136,7 +199,7 @@ static void maybe_advance_virtual_step()
                   << " after " << current_samples << " virtual samples." << std::endl;
     }
 
-    virtual_step.fetch_add(1, std::memory_order_relaxed);
+    const uint64_t current_virtual_step = virtual_step.fetch_add(1, std::memory_order_relaxed) + 1;
 
     std::vector<page_ptr> page_snapshot;
     {
@@ -156,6 +219,10 @@ static void maybe_advance_virtual_step()
     {
         return;
     }
+
+    // Backfill the previous virtual step for pages first seen after that step,
+    // before virtual windows/ages are advanced for the current step.
+    log_new_pages_for_previous_virtual_step(page_snapshot, current_virtual_step);
 
     {
         std::unique_lock<std::shared_mutex> lock(virtual_features_lock);
