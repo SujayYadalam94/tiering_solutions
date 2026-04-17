@@ -42,9 +42,9 @@ echo 'CONFIG_NVDIMM_PFN=y' >> .config
 echo 'CONFIG_NVDIMM_DAX=y' >> .config
 echo 'CONFIG_FS_DAX=y' >> .config
 echo 'CONFIG_DAX=y' >> .config
-echo 'CONFIG_DEV_DAX=m' >> .config
-echo 'CONFIG_DEV_DAX_PMEM=m' >> .config
-echo 'CONFIG_DEV_DAX_KMEM=m' >> .config
+echo 'CONFIG_DEV_DAX=y' >> .config
+echo 'CONFIG_DEV_DAX_PMEM=y' >> .config
+echo 'CONFIG_DEV_DAX_KMEM=y' >> .config
 echo 'CONFIG_X86_MSR=y' >> .config
 ```
 
