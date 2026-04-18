@@ -55,7 +55,7 @@
 
 #elif defined C220G5
 #define NUM_MIGRATION_THREADS (8)
-#define PEBS_NPROCS           (30)        // C220g5 has 20 cores on NUMA node 0 (0-9,20-29)
+#define PEBS_NPROCS           (30)        // C220g5 has 30 cores on NUMA node 0 (0-9,20-29)
 
 // DRAM bandwidth and latency curve parameters (used for latency diff calculations)
 #define UNLOADED_DRAM_LAT     (0.1)    // us
@@ -173,9 +173,10 @@ enum imc_bw_counters {
 
 #elif defined C220G5
 
-#define NUM_IMC        (6)
-#define NUM_EVENTS     (2) // There are 2 events per IMC: Reads and Writes
-
+#define NUM_IMC        (4)
+#define NUM_EVENTS     (4) // There are 4 events per IMC: Reads on 2 subchannels, Writes on 2 subchannels
+#define NUM_CXLCM      (6)
+#define NUM_CXL_EVENTS (2) // CXL reads (0x2043) and writes (0x1043)
 #endif
 
 struct perf_sample {

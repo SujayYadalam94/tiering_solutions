@@ -217,8 +217,10 @@ static int setup_imc_bw_counters() {
 
 #elif defined C220G5
 
-int bw_fds[NUM_TIERS][NUM_EVENTS][NUM_IMC];
-uint64_t prev_bw_val[NUM_TIERS][NUM_EVENTS][NUM_IMC] = {0};
+int bw_fds[NUM_EVENTS][NUM_IMC];
+uint64_t prev_bw_val[NUM_EVENTS][NUM_IMC] = {0};
+int cxl_fds[NUM_CXL_EVENTS][NUM_CXLCM];
+uint64_t prev_cxl_val[NUM_CXL_EVENTS][NUM_CXLCM] = {0};
 
 static uint64_t read_imc_event_config(const char *event_name) {
   char path[128];
@@ -275,41 +277,100 @@ uint64_t measure_bw(int tier)
   uint64_t cur_bw = 0;
   uint64_t cur_val = 0;
 
-  for (int j = 0; j < NUM_EVENTS; j++) {
-    for (int k = 0; k < NUM_IMC; k++) {
-      if (read(bw_fds[tier][j][k], &cur_val, sizeof(cur_val)) == -1) {
-        LOG_ERROR("ERROR: Failed to read perf event for BW monitoring\n");
-        exit(1);
+  if (tier == 0) {
+    for (int j = 0; j < NUM_EVENTS; j++) {
+      for (int k = 0; k < NUM_IMC; k++) {
+        if (read(bw_fds[j][k], &cur_val, sizeof(cur_val)) == -1) {
+          LOG_ERROR("ERROR: Failed to read perf event for BW monitoring\n");
+          exit(1);
+        }
+        cur_bw            += cur_val - prev_bw_val[j][k];
+        prev_bw_val[j][k]  = cur_val;
       }
-      cur_bw                 += cur_val - prev_bw_val[tier][j][k];
-      prev_bw_val[tier][j][k] = cur_val;
+    }
+  } else {
+    for (int j = 0; j < NUM_CXL_EVENTS; j++) {
+      for (int k = 0; k < NUM_CXLCM; k++) {
+        if (read(cxl_fds[j][k], &cur_val, sizeof(cur_val)) == -1) {
+          LOG_ERROR("ERROR: Failed to read perf event for CXL BW monitoring\n");
+          exit(1);
+        }
+        cur_bw            += cur_val - prev_cxl_val[j][k];
+        prev_cxl_val[j][k] = cur_val;
+      }
     }
   }
 
   return cur_bw;
 }
+
+static uint32_t read_cxlcm_type(int cxlcm_id) {
+  char path[64];
+  char buf[16];
+  int fd, n;
+
+  snprintf(path, sizeof(path), "/sys/devices/uncore_cxlcm_%d/type", cxlcm_id);
+  fd = open(path, O_RDONLY);
+  if (fd == -1) {
+    LOG_ERROR("ERROR: Failed to open %s\n", path);
+    exit(1);
+  }
+  n = read(fd, buf, sizeof(buf) - 1);
+  close(fd);
+  if (n <= 0) {
+    LOG_ERROR("ERROR: Failed to read %s\n", path);
+    exit(1);
+  }
+  buf[n] = '\0';
+  return (uint32_t)strtoul(buf, NULL, 10);
+}
+
 void open_perf_events()
 {
   int fd;
   struct perf_event_attr pe;
+  static const char *imc_event_names[NUM_EVENTS] = {
+    "cas_count_read_sch0", "cas_count_read_sch1",
+    "cas_count_write_sch0", "cas_count_write_sch1"
+  };
+  static const int cxlcm_ids[NUM_CXLCM] = {2, 4, 6, 8, 16, 18};
+  static const uint64_t cxl_event_configs[NUM_CXL_EVENTS] = {0x2043, 0x1043};
 
-  for (unsigned long i = 0; i < NUM_TIERS; i++) {
-    for (unsigned long j = 0; j < NUM_EVENTS; j++) {
-      for (unsigned long k = 0; k < NUM_IMC; k++) {
-        memset(&pe, 0, sizeof(pe));
-        pe.type = read_imc_type(k);
-        pe.size = sizeof(pe);
-        pe.disabled = 1;
-        pe.inherit = 1;
-        pe.config = read_imc_event_config((j == 0) ? "cas_count_read" : "cas_count_write");
+  // DRAM IMC events (tier 0)
+  for (unsigned long j = 0; j < NUM_EVENTS; j++) {
+    for (unsigned long k = 0; k < NUM_IMC; k++) {
+      memset(&pe, 0, sizeof(pe));
+      pe.type    = read_imc_type(k*2);
+      pe.size    = sizeof(pe);
+      pe.disabled = 1;
+      pe.inherit  = 1;
+      pe.config  = read_imc_event_config(imc_event_names[j]);
 
-        fd = perf_event_open(&pe, -1, (i == 0) ? 0 : 10, -1, 0); // CPU0 on node0, CPU10 on node1
-        if (fd == -1) {
-          LOG_ERROR("ERROR: Failed to open perf event for BW monitoring\n");
-          exit(1);
-        }
-        bw_fds[i][j][k] = fd;
+      fd = perf_event_open(&pe, -1, 0, -1, 0);
+      if (fd == -1) {
+        LOG_ERROR("ERROR: Failed to open perf event for BW monitoring\n");
+        exit(1);
       }
+      bw_fds[j][k] = fd;
+    }
+  }
+
+  // CXL events (tier 1)
+  for (unsigned long j = 0; j < NUM_CXL_EVENTS; j++) {
+    for (unsigned long k = 0; k < NUM_CXLCM; k++) {
+      memset(&pe, 0, sizeof(pe));
+      pe.type    = read_cxlcm_type(cxlcm_ids[k]);
+      pe.size    = sizeof(pe);
+      pe.disabled = 1;
+      pe.inherit  = 1;
+      pe.config  = cxl_event_configs[j];
+
+      fd = perf_event_open(&pe, -1, 0, -1, 0);
+      if (fd == -1) {
+        LOG_ERROR("ERROR: Failed to open perf event for CXL BW monitoring\n");
+        exit(1);
+      }
+      cxl_fds[j][k] = fd;
     }
   }
 }
@@ -318,16 +379,21 @@ static int setup_imc_bw_counters()
 {
   open_perf_events();
 
-  // Reset the counters
-  for (int i = 0; i < NUM_TIERS; i++) {
-    for (int j = 0; j < NUM_EVENTS; j++) {
-      for (int k = 0; k < NUM_IMC; k++) {
-        ioctl(bw_fds[i][j][k], PERF_EVENT_IOC_RESET, 0);
-        ioctl(bw_fds[i][j][k], PERF_EVENT_IOC_ENABLE, 0);
-      }
+  for (int j = 0; j < NUM_EVENTS; j++) {
+    for (int k = 0; k < NUM_IMC; k++) {
+      ioctl(bw_fds[j][k], PERF_EVENT_IOC_RESET, 0);
+      ioctl(bw_fds[j][k], PERF_EVENT_IOC_ENABLE, 0);
     }
-    measure_bw(i); // Measure once to get the initial values
   }
+  measure_bw(0);
+
+  for (int j = 0; j < NUM_CXL_EVENTS; j++) {
+    for (int k = 0; k < NUM_CXLCM; k++) {
+      ioctl(cxl_fds[j][k], PERF_EVENT_IOC_RESET, 0);
+      ioctl(cxl_fds[j][k], PERF_EVENT_IOC_ENABLE, 0);
+    }
+  }
+  measure_bw(1);
 
   return 0;
 }
@@ -388,10 +454,6 @@ static void update_sampling_frequency()
       if (i >= 8 && i < 16) {
         continue;
       }
-#elif defined C220G5
-      if (i >= 10 && i < 20) {
-      continue;
-      }
 #endif
     for (int j = 0; j < NPBUFTYPES; j++) {
       ret = ioctl(pfd[i][j], PERF_EVENT_IOC_PERIOD, &sample_period);
@@ -426,10 +488,6 @@ void *pebs_scan_thread()
       if (i >= 8 && i < 16) {
         continue;
       }
-#elif defined C220G5
-	  if (i >= 10 && i < 20) {
-		continue;
-	  }
 #endif
       for(int j = 0; j < NPBUFTYPES; j++) {
         struct perf_event_mmap_page *p = perf_page[i][j];
@@ -1465,7 +1523,7 @@ void pebs_remove_page(struct arms_page *page)
 #define L3_LOAD_MISS_LOCAL 0x1d3
 #define L3_LOAD_MISS_REMOTE 0x80d1
 #elif defined C220G5
-#define L3_LOAD_MISS_LOCAL 0x1d3
+#define L3_LOAD_MISS_LOCAL 0xffd3 // On Saphire rapids, ffd3 counts all L3 misses (DRAM+CXL)
 #define L3_LOAD_MISS_REMOTE 0x2d3
 #endif
 
@@ -1482,10 +1540,6 @@ void pebs_init(void)
   for (int i = 0; i < PEBS_NPROCS; i++) {
 #ifdef JOSEPM
     if (i >= 8 && i < 16) {
-      continue;
-    }
-#elif defined C220G5
-    if (i >= 10 && i < 20) {
       continue;
     }
 #endif
