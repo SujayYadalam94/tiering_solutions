@@ -295,7 +295,7 @@ void open_perf_events()
     for (unsigned long j = 0; j < NUM_EVENTS; j++) {
       for (unsigned long k = 0; k < NUM_IMC; k++) {
         memset(&pe, 0, sizeof(pe));
-        pe.type = read_imc_type(NUM_IMC + k);
+        pe.type = read_imc_type(k);
         pe.size = sizeof(pe);
         pe.disabled = 1;
         pe.inherit = 1;
