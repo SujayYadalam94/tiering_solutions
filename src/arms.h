@@ -54,7 +54,7 @@ extern "C" {
 //#define ARMS_DEBUG
 #define STATS_THREAD
 
-#define USE_DMA
+//#define USE_DMA
 #define NUM_CHANNS 2
 #define SIZE_PER_DMA_REQUEST (1024*1024)
 

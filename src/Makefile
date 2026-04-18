@@ -6,7 +6,7 @@ CXXFLAGS = -g -Wall -O3 -fPIC -std=c++20 -I./libvulcan/include
 LDFLAGS = -shared
 INCLUDES = -I../linux/usr/include/
 LIBS = -lm -lpthread
-ARMS_LIBS = $(LIBS) -ldl -lsyscall_intercept -L../Hoard/src -lhoard
+ARMS_LIBS = $(LIBS) -ldl -lsyscall_intercept
 
 default: libarms.so
 
