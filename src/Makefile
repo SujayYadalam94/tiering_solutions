@@ -18,7 +18,7 @@ LIBVULCAN_SRCS = libvulcan/src/vulcan.cpp libvulcan/src/feature_registry.cpp lib
 LIBVULCAN_OBJS = $(LIBVULCAN_SRCS:.cpp=.o)
 
 libarms.so: arms.o pebs.o vulcan.o timer.o interpose.o fifo.o spsc-ring.o $(LIBVULCAN_OBJS)
-	$(CC) $(LDFLAGS) -o libarms.so arms.o vulcan.o timer.o interpose.o pebs.o fifo.o spsc-ring.o $(LIBVULCAN_OBJS) $(ARMS_LIBS)
+	$(CXX) $(LDFLAGS) -o libarms.so arms.o vulcan.o timer.o interpose.o pebs.o fifo.o spsc-ring.o $(LIBVULCAN_OBJS) $(ARMS_LIBS)
 
 libarms-lru.so: policies/arms-lru.o policies/lru.o timer.o interpose.o policies/paging.o fifo.o spsc-ring.o
 	$(CC) $(LDFLAGS) -o libarms-lru.so policies/arms-lru.o timer.o policies/lru.o interpose.o policies/paging.o fifo.o spsc-ring.o $(ARMS_LIBS)
