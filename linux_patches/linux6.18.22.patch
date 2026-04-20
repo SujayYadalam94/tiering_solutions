@@ -184,7 +184,7 @@
  	return ret;
  }
 --- a/mm/userfaultfd.c	2026-04-11 07:26:52.000000000 -0500
-+++ b/mm/userfaultfd.c	2026-04-16 10:33:33.233583396 -0500
++++ b/mm/userfaultfd.c	2026-04-19 00:14:49.577083881 -0500
 @@ -17,6 +17,11 @@
  #include <linux/shmem_fs.h>
  #include <asm/tlbflush.h>
@@ -197,7 +197,7 @@
  #include "internal.h"
  #include "swap.h"
  
-@@ -2153,3 +2158,266 @@
+@@ -2153,3 +2158,274 @@
  	mmap_write_unlock(mm);
  	mmput(mm);
  }
@@ -308,6 +308,14 @@
 +
 +	if (!uffdio_dma_channs)
 +		return -EINVAL;
++
++	/* Release any channels left over from a previous process that crashed
++	 * without calling UFFDIO_DMA_RELEASE_CHANNS. */
++	if (arms_num_chans > 0) {
++		pr_info("arms: releasing %d stale DMA channel(s) from previous run\n",
++			arms_num_chans);
++		dma_release_channs();
++	}
 +
 +	arms_size_per_dma_request = uffdio_dma_channs->size_per_dma_request;
 +	if (arms_size_per_dma_request > ARMS_MAX_SIZE_PER_DMA_REQUEST)
@@ -465,8 +473,22 @@
 +
 +/* ---- end ARMS DMA infrastructure ---- */
 --- a/mm/memory.c	2026-04-11 07:26:52.000000000 -0500
-+++ b/mm/memory.c	2026-04-16 10:54:53.588906171 -0500
-@@ -6082,6 +6082,19 @@
++++ b/mm/memory.c	2026-04-19 00:06:33.259842962 -0500
+@@ -6059,6 +6059,13 @@
+ 	struct vm_area_struct *vma = vmf->vma;
+ 	if (vma_is_anonymous(vma))
+ 		return do_huge_pmd_anonymous_page(vmf);
++	/*
++	 * Deliver missing faults for devdax/shared VMAs to userfaultfd
++	 * before handing off to the driver.  The driver (e.g. dev_dax)
++	 * would otherwise map the page immediately, bypassing ARMS tracking.
++	 */
++	if (userfaultfd_missing(vma))
++		return handle_userfault(vmf, VM_UFFD_MISSING);
+ 	if (vma->vm_ops->huge_fault)
+ 		return vma->vm_ops->huge_fault(vmf, PMD_ORDER);
+ 	return VM_FAULT_FALLBACK;
+@@ -6082,6 +6089,19 @@
  	}
  
  	if (vma->vm_flags & (VM_SHARED | VM_MAYSHARE)) {
