@@ -1234,7 +1234,7 @@ void *pebs_policy_thread()
 
         LOG_DEBUG("Promoting freely at %lu: 0x%lx score: %f (%f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1]);
 
-        m_req = malloc(sizeof(struct migration_req));
+        m_req = arms_malloc(sizeof(struct migration_req));
         memset(m_req, 0, sizeof(struct migration_req));
         m_req->nvm_page      = p;
         m_req->free_page     = np;
@@ -1284,7 +1284,7 @@ void *pebs_policy_thread()
       LOG_REPORT("Promoting at %ld: 0x%lx score: %f (%f %f)\n", promote_idx, p->va, p->score, p->w[0], p->w[1]);
 
       // move the cold DRAM page to NVM
-      m_req = malloc(sizeof(struct migration_req));
+      m_req = arms_malloc(sizeof(struct migration_req));
       memset(m_req, 0, sizeof(struct migration_req));
       m_req->dram_page     = cp;
       m_req->nvm_page      = p;
@@ -1524,17 +1524,17 @@ void pebs_init(void)
   pages_map = kh_init(kPagesMap);
   #endif
 
-  scores = (struct score_entry*)malloc((MAX_NVME_PAGES + MAX_DRAM_PAGES) * sizeof(struct score_entry));
+  scores = (struct score_entry*)arms_malloc((MAX_NVME_PAGES + MAX_DRAM_PAGES) * sizeof(struct score_entry));
 
   // Initialize the free/add ring buffers
   mod_page_dq = kdq_init(mod_page_t);
 
   // Initialize the neighbour ring buffers
 #ifdef SPATIAL_SMOOTHING
-  buffer = (uint64_t**)malloc(sizeof(uint64_t*) * (NUM_NEIGHBOURS + 2));
+  buffer = (uint64_t**)arms_malloc(sizeof(uint64_t*) * (NUM_NEIGHBOURS + 2));
   assert(buffer);
   l_neighbours = ring_buf_init(buffer, NUM_NEIGHBOURS + 2);
-  buffer = (uint64_t**)malloc(sizeof(uint64_t*) * (NUM_NEIGHBOURS + 2));
+  buffer = (uint64_t**)arms_malloc(sizeof(uint64_t*) * (NUM_NEIGHBOURS + 2));
   assert(buffer);
   r_neighbours = ring_buf_init(buffer, NUM_NEIGHBOURS + 2);
 #endif
