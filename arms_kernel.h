@@ -9,6 +9,8 @@
 
 #include <mutex>
 
+#define DRAMSIZE_DEFAULT (8ULL * 1024 * 1024 * 1024) // Default to 8GB DRAM size if not defined
+
 #define C220G5
 
 #define FAST_TIER 0

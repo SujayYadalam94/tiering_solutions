@@ -40,18 +40,12 @@
 #include "arms_kernel.h"
 #include "timer.h"
 
-#ifdef FAST_MEMORY_SIZE_GB
-uint64_t FAST_MEMORY_SIZE = (FAST_MEMORY_SIZE_GB * (1024L * 1024L * 1024L)); // size of fast tier memory in bytes
-#else
-uint64_t FAST_MEMORY_SIZE = 0;
-#endif
-
 static const float w_ewma_alpha[WINDOW_SIZE] = W_EWMA_ALPHA;
 static const float hist_bias[WINDOW_SIZE] = HIST_BIAS;
 static const float recn_bias[WINDOW_SIZE] = RECN_BIAS;
 
 // Global state
-static uint64_t dramsize = FAST_MEMORY_SIZE;
+static uint64_t dramsize = DRAMSIZE_DEFAULT;
 
 static std::unordered_map<uint64_t, arms_page_info*> pages_map;
 static std::mutex pages_map_lock;
@@ -979,6 +973,14 @@ void arms_start_tiering() {
   start_time_point = std::chrono::high_resolution_clock::now();
 
   atexit(arms_kernel_shutdown);
+
+  // Read DRAMsize from environment variable
+  const char* dramsize_env = std::getenv("DRAMSIZE");
+  if (dramsize_env) {
+    dramsize = std::stoull(dramsize_env);
+    // Round it to the upper multiple of PAGE_SIZE
+    dramsize = ((dramsize + PAGE_SIZE - 1) / PAGE_SIZE) * PAGE_SIZE;
+  }
 
   // Open pagemap
   target_pid = getpid();

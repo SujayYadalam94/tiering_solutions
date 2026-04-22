@@ -13,9 +13,6 @@ INCLUDES = -I.
 # Libraries
 LIBS = -lnuma -lpthread
 
-# ARMS-specific flags (can be overridden via command line)
-FAST_MEMORY_SIZE_GB ?= 8
-
 # Target
 TARGET_LIB = libarms_kernel.so
 
@@ -33,10 +30,8 @@ all: $(TARGET_LIB)
 
 $(TARGET_LIB): $(HOOK_SRC) arms_kernel.cpp
 	@echo "Building $(TARGET_LIB) with ARMS Kernel integration..."
-	@echo "  FAST_MEMORY_SIZE_GB: $(FAST_MEMORY_SIZE_GB)"
 	$(CXX) -shared -fPIC -g hook/hook.cpp timer.cpp arms_kernel.cpp -o $(TARGET_LIB) -O3 \
 	    -ldl -lpthread -lnuma \
-	    -DFAST_MEMORY_SIZE_GB=$(FAST_MEMORY_SIZE_GB) \
 	    $(EXTRA_COMPILE_ARGS)
 	@echo "Hook library built successfully: $(TARGET_LIB)"
 	@echo "Usage: LD_PRELOAD=./$(TARGET_LIB) ./your_application"
@@ -59,14 +54,12 @@ help:
 	@echo "  install      - Install libraries and headers to /usr/local"
 	@echo ""
 	@echo "Hook target options (set via environment or make arguments):"
-	@echo "  FAST_MEMORY_SIZE_GB  - Size of fast tier in GB (default: 8)"
 	@echo "  TARGET_EXE_NAME      - Name of target executable (default: test_app)"
 	@echo "  EXTRA_COMPILE_ARGS   - Additional compiler flags"
 	@echo ""
 	@echo "Usage examples:"
 	@echo "  make                                    # Build libraries"
 	@echo "  make test                               # Build test program"
-	@echo "  make hook FAST_MEMORY_SIZE_GB=16        # Build hook with 16GB fast tier"
 	@echo "  make hook TARGET_EXE_NAME=\"myapp\"       # Build hook for specific app"
 	@echo "  make clean all                          # Clean and rebuild"
 	@echo ""
