@@ -33,11 +33,20 @@ struct perf_sample_lost
 void arms_start_tiering();
 void arms_kernel_shutdown();
 void arms_kernel_print_stats();
+uint64_t get_virtual_step_samples();
 void set_application_thread_near_memory_default();
 void set_application_thread_far_memory_default();
 
 void set_preload_ip_ranges(const char *library_path, const struct ip_range *ranges, size_t range_count);
 bool is_preload_library_ip(uint64_t ip);
 void note_preload_library_sample_filtered();
-uint64_t get_preload_library_filtered_samples();
+uint64_t take_preload_library_filtered_samples();
+void set_helper_library_ip_ranges(const struct ip_range *ranges, size_t range_count);
+bool is_helper_library_ip(uint64_t ip);
+void note_helper_library_sample_filtered();
+uint64_t take_helper_library_filtered_samples();
+void note_tiering_runtime_tid_sample_filtered();
+uint64_t take_tiering_runtime_tid_filtered_samples();
+void note_other_pid_sample_filtered();
+uint64_t take_other_pid_filtered_samples();
 #endif /* ARMS_KERNEL_H */

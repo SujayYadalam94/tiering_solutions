@@ -88,6 +88,8 @@ page_ptr get_or_create_tracked_page(uint64_t page_va, uint64_t last_seen_scan, u
 
 void enqueue_migration_task(const std::vector<page_ptr> &promote_vas, const std::vector<page_ptr> &demote_vas);
 void clear_migration_queue();
+void register_tiering_runtime_tid();
+bool is_tiering_runtime_tid(pid_t tid);
 bool is_migration_worker_tid(pid_t tid);
 
 void change_sampling_frequency();

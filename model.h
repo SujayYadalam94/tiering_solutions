@@ -13,3 +13,5 @@ struct page_info;
 double model_predict(struct data_row &row, struct page_info &page);
 void model_predict_batch(std::vector<struct data_row> &rows,
                          const std::vector<std::shared_ptr<struct page_info>> &pages);
+void model_predict_batch_observe(std::vector<struct data_row> &rows,
+                                 const std::vector<std::shared_ptr<struct page_info>> &pages);

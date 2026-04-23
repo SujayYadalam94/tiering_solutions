@@ -27,42 +27,15 @@ echo "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}"
 #minmax_options=(true false)
 #hist_lengths=(4 8)
 #penalties=(0
-pcts=(90 95 99)
-minmax_options=(false)
+pcts=(99 95 90)
+minmax_options=(true false)
 hist_lengths=(4)
-penalties=(0.7 0.9)
-
-MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
-    "bc-twitter.sg"
-)
+penalties=(0.9)
 
 #pcts=(95)
 #minmax_options=(true)
 #hist_lengths=(8)
 #penalties=(0.9)
-
-build_model_name() {
-    local pct=$1
-    local model_base=$2
-    local minmax=$3
-    local hist_length=$4
-    local penalty=$5
-
-    printf 'model_discounted_reward_%s_%s_l2-%s_%s_%s' \
-        "${pct}" "${model_base}" "${minmax}" "${hist_length}" "${penalty}"
-}
-
-build_model_library_path() {
-    local model_name=$1
-    local model_name_train
-
-    if [[ "${LIB_SUFFIX}" == "_train" ]]; then
-        model_name_train=${model_name/l2-/l2_}
-        printf '%s/libraries/%s/libhemem-%s_train.so\n' "${SCRIPT_DIR}" "${MEASUREMENT_LIBRARY_PROFILE_DIR}" "${model_name_train}"
-    else
-        printf '%s/libraries/%s/libhemem-%s%s.so\n' "${SCRIPT_DIR}" "${MEASUREMENT_LIBRARY_PROFILE_DIR}" "${model_name}" "${LIB_SUFFIX}"
-    fi
-}
 
 function run_program {
     local program=$1
@@ -118,14 +91,12 @@ function run_model_sweep {
         for minmax in "${minmax_options[@]}"; do
             for hist_length in "${hist_lengths[@]}"; do
                 for penalty in "${penalties[@]}"; do
-                    model_name=$(build_model_name "${pct}" "${model_base}" "${minmax}" "${hist_length}" "${penalty}")
-                    model_path=$(build_model_library_path "${model_name}")
+                    model_name=$(measurement_build_model_name "${pct}" "${model_base}" "${minmax}" "${hist_length}" "${penalty}")
+                    model_path=$(measurement_build_model_library_path "${SCRIPT_DIR}" "${model_name}" "${LIB_SUFFIX}")
 
                     echo "Running ${output} with model: ${model_name} ${model_path}"
 
-                    if [[ "${LIB_SUFFIX}" != "_train" ]]; then
-                        run_measurement_setup "0"
-                    fi
+                    run_measurement_setup "${SIZE_MIB}"
                     run_program "${program}" "${model_name}" "${output}" "${run}" "${model_path}"
                 done
             done

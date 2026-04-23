@@ -31,13 +31,34 @@ struct migration_task
 static std::deque<migration_task> migration_queue;
 static std::mutex migration_queue_lock;
 std::condition_variable migration_cv;
-static std::unordered_set<pid_t> migration_worker_tids;
-static std::shared_mutex migration_worker_tids_lock;
+static std::unordered_set<pid_t> tiering_runtime_tids;
+static std::shared_mutex tiering_runtime_tids_lock;
+
+void register_tiering_runtime_tid()
+{
+    const pid_t current_tid = static_cast<pid_t>(syscall(SYS_gettid));
+
+    // The initial thread becomes the application's main thread after our
+    // __libc_start_main override returns into the real runtime. Never treat
+    // that thread as ARMS runtime, even if this helper is called from it.
+    if (target_pid != 0 && current_tid == target_pid)
+    {
+        return;
+    }
+
+    std::unique_lock<std::shared_mutex> lock(tiering_runtime_tids_lock);
+    tiering_runtime_tids.insert(current_tid);
+}
+
+bool is_tiering_runtime_tid(pid_t tid)
+{
+    std::shared_lock<std::shared_mutex> lock(tiering_runtime_tids_lock);
+    return tiering_runtime_tids.find(tid) != tiering_runtime_tids.end();
+}
 
 bool is_migration_worker_tid(pid_t tid)
 {
-    std::shared_lock<std::shared_mutex> lock(migration_worker_tids_lock);
-    return migration_worker_tids.find(tid) != migration_worker_tids.end();
+    return is_tiering_runtime_tid(tid);
 }
 
 static bool contains_aligned_va(const std::vector<uint64_t> &vas, uint64_t aligned_va)
@@ -312,10 +333,7 @@ static int log_move_page(std::vector<page_ptr> &pages, int target_node, int retr
 void *migration_worker(void *arg)
 {
     (void)arg;
-    {
-        std::unique_lock<std::shared_mutex> lock(migration_worker_tids_lock);
-        migration_worker_tids.insert(static_cast<pid_t>(syscall(SYS_gettid)));
-    }
+    register_tiering_runtime_tid();
 
     constexpr int MAX_DEMOTION_RETRY_PASSES = 2;
     constexpr int MAX_PROMOTION_RETRY_PASSES = 2;

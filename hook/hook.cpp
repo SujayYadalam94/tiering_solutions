@@ -19,6 +19,18 @@ typedef int (*original_libc_start_main_t)(int (*)(int, char **, char **), int, c
 namespace
 {
 
+constexpr const char *kHelperLibraryPrefixes[] = {
+    "libc.so",
+    "libstdc++.so",
+    "libpthread.so",
+    "libnuma.so",
+    "libgomp.so",
+    "libomp.so",
+    "libgcc_s.so",
+    "ld-linux",
+    "ld-musl",
+};
+
 static std::string normalize_maps_path(const char *raw_path)
 {
     if (raw_path == nullptr)
@@ -43,6 +55,12 @@ static std::string normalize_maps_path(const char *raw_path)
     }
 
     return path;
+}
+
+static std::string path_basename(const std::string &path)
+{
+    const size_t last_slash = path.find_last_of('/');
+    return (last_slash == std::string::npos) ? path : path.substr(last_slash + 1);
 }
 
 static bool path_matches_target(const std::string &normalized_path, const std::string &target_path,
@@ -129,6 +147,69 @@ static std::vector<struct ip_range> collect_preload_text_ranges(const std::strin
     return ranges;
 }
 
+static bool is_helper_library_path(const std::string &normalized_path, const std::string &preload_library_path)
+{
+    if (normalized_path.empty() || normalized_path == preload_library_path)
+    {
+        return false;
+    }
+
+    const std::string basename = path_basename(normalized_path);
+    for (const char *prefix : kHelperLibraryPrefixes)
+    {
+        const size_t prefix_len = strlen(prefix);
+        if (basename.size() >= prefix_len && basename.compare(0, prefix_len, prefix) == 0)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+static std::vector<struct ip_range> collect_helper_library_text_ranges(const std::string &preload_library_path)
+{
+    std::vector<struct ip_range> ranges;
+
+    std::ifstream maps_file("/proc/self/maps");
+    if (!maps_file.is_open())
+    {
+        return ranges;
+    }
+
+    std::string line;
+    while (std::getline(maps_file, line))
+    {
+        unsigned long long start = 0;
+        unsigned long long end = 0;
+        unsigned long long offset = 0;
+        char perms[5] = {0};
+        char dev[16] = {0};
+        unsigned long inode = 0;
+        char mapped_path[4096] = {0};
+
+        const int fields = sscanf(line.c_str(), "%llx-%llx %4s %llx %15s %lu %4095[^\n]", &start, &end, perms,
+                                  &offset, dev, &inode, mapped_path);
+        if (fields < 7 || strchr(perms, 'x') == nullptr)
+        {
+            continue;
+        }
+
+        const std::string normalized_path = normalize_maps_path(mapped_path);
+        if (!is_helper_library_path(normalized_path, preload_library_path))
+        {
+            continue;
+        }
+
+        if (end > start)
+        {
+            ranges.push_back({static_cast<uint64_t>(start), static_cast<uint64_t>(end)});
+        }
+    }
+
+    return ranges;
+}
+
 static void configure_preload_ip_filter()
 {
     Dl_info info{};
@@ -137,18 +218,27 @@ static void configure_preload_ip_filter()
         std::cerr << "[ARMS] Warning: unable to resolve preload library path; preload IP filtering disabled."
                   << std::endl;
         set_preload_ip_ranges(nullptr, nullptr, 0);
+        set_helper_library_ip_ranges(nullptr, 0);
         return;
     }
 
     const std::string preload_library_path(info.dli_fname);
     std::vector<struct ip_range> ranges = collect_preload_text_ranges(preload_library_path);
+    std::vector<struct ip_range> helper_ranges = collect_helper_library_text_ranges(preload_library_path);
 
     set_preload_ip_ranges(preload_library_path.c_str(), ranges.data(), ranges.size());
+    set_helper_library_ip_ranges(helper_ranges.data(), helper_ranges.size());
 
     if (ranges.empty())
     {
         std::cerr << "[ARMS] Warning: found no executable mappings for preload library '" << preload_library_path
                   << "'; preload IP filtering disabled." << std::endl;
+    }
+
+    if (helper_ranges.empty())
+    {
+        std::cerr << "[ARMS] Warning: found no executable mappings for helper libraries; helper IP filtering disabled."
+                  << std::endl;
     }
 }
 

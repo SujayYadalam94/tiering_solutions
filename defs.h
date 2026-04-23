@@ -23,10 +23,17 @@ extern bool initialized;
 #define PRINT_TRAINING_DATA (false)
 #endif
 
+#ifndef MIGRATION_WORKERS_ENABLED
+#define MIGRATION_WORKERS_ENABLED (true)
+#endif
+
 #define VIRTUAL_FEATURES_ENABLED ((USE_MODEL == (true)) || (LOGGING_RUN == (true)))
 
 #ifndef VIRTUAL_STEP_SAMPLES
-#define VIRTUAL_STEP_SAMPLES (10000)
+#define VIRTUAL_STEP_SAMPLES (3162)
+// #define VIRTUAL_STEP_SAMPLES (10000)
+// #define VIRTUAL_STEP_SAMPLES (31623)
+// #define VIRTUAL_STEP_SAMPLES (100000)
 #endif
 
 #define FULL_LOGS (false)

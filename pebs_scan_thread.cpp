@@ -20,6 +20,31 @@
 namespace
 {
 
+static void account_tiering_related_skipped_sample(const struct perf_sample *ps)
+{
+    if (!VIRTUAL_FEATURES_ENABLED || ps == nullptr)
+    {
+        return;
+    }
+
+    const uint64_t page_va = ps->addr & HUGE_PFN_MASK;
+    const bool eligible_for_page_accounting =
+        (page_va != 0) && !is_access_log_page(page_va) && !is_kernel_page(page_va);
+    if (!eligible_for_page_accounting)
+    {
+        return;
+    }
+
+    bool added_new_page = false;
+    const uint64_t cur_generation = scan_generation.load(std::memory_order_relaxed);
+    page_ptr page = get_or_create_tracked_page(ps->addr, cur_generation, cur_generation, false, &added_new_page);
+    if (page != nullptr)
+    {
+        std::shared_lock<std::shared_mutex> lock(virtual_features_lock);
+        page->virtual_missed_accesses++;
+    }
+}
+
 static void log_new_pages_for_previous_virtual_step(const std::vector<page_ptr> &pages, uint64_t current_step)
 {
 #if PRINT_TRAINING_DATA == (false)
@@ -73,7 +98,7 @@ static void log_new_pages_for_previous_virtual_step(const std::vector<page_ptr> 
         return;
     }
 
-    model_predict_batch(rows, new_pages);
+    model_predict_batch_observe(rows, new_pages);
 
     for (size_t i = 0; i < new_pages.size(); ++i)
     {
@@ -115,7 +140,7 @@ static void log_virtual_step_rows(const std::vector<page_ptr> &pages)
         model_pages.push_back(page);
     }
 
-    model_predict_batch(rows, model_pages);
+    model_predict_batch_observe(rows, model_pages);
 
     for (size_t i = 0; i < pages.size(); ++i)
     {
@@ -186,9 +211,10 @@ static void maybe_advance_virtual_step()
         return;
     }
 
+    const uint64_t virtual_step_samples = get_virtual_step_samples();
     const uint64_t previous_samples = virtual_sample_total.fetch_add(1, std::memory_order_relaxed);
     const uint64_t current_samples = previous_samples + 1;
-    if ((current_samples % VIRTUAL_STEP_SAMPLES) != 0)
+    if ((current_samples % virtual_step_samples) != 0)
     {
         return;
     }
@@ -253,6 +279,7 @@ static void maybe_advance_virtual_step()
 void *pebs_scan_thread(void *arg)
 {
     (void)arg;
+    register_tiering_runtime_tid();
     cpu_set_t cpuset;
     CPU_ZERO(&cpuset);
     CPU_SET(SCANNING_THREAD_CPU, &cpuset);
@@ -334,30 +361,34 @@ void *pebs_scan_thread(void *arg)
                         ps = reinterpret_cast<const struct perf_sample *>(record_ptr);
                         assert(ps != nullptr);
 
-                        if (is_migration_worker_tid(static_cast<pid_t>(ps->tid)))
+                        const bool apply_filters = (!MIGRATION_WORKERS_ENABLED || VIRTUAL_FEATURES_ENABLED);
+
+                        if (apply_filters && static_cast<pid_t>(ps->pid) != target_pid)
                         {
+                            note_other_pid_sample_filtered();
                             break;
                         }
 
-                        if (VIRTUAL_FEATURES_ENABLED && is_preload_library_ip(ps->ip))
+                        if (apply_filters && is_tiering_runtime_tid(static_cast<pid_t>(ps->tid)))
+                        {
+                            note_tiering_runtime_tid_sample_filtered();
+                            account_tiering_related_skipped_sample(ps);
+                            break;
+                        }
+
+                        if (apply_filters && is_preload_library_ip(ps->ip))
                         {
                             note_preload_library_sample_filtered();
+                            account_tiering_related_skipped_sample(ps);
+                            break;
+                        }
 
-                            const uint64_t page_va = ps->addr & HUGE_PFN_MASK;
-                            const bool eligible_for_page_accounting =
-                                (page_va != 0) && !is_access_log_page(page_va) && !is_kernel_page(page_va);
-                            if (eligible_for_page_accounting)
-                            {
-                                bool added_new_page = false;
-                                const uint64_t cur_generation = scan_generation.load(std::memory_order_relaxed);
-                                page_ptr page = get_or_create_tracked_page(ps->addr, cur_generation, cur_generation,
-                                                                           false, &added_new_page);
-                                if (page != nullptr)
-                                {
-                                    std::shared_lock<std::shared_mutex> lock(virtual_features_lock);
-                                    page->virtual_missed_accesses++;
-                                }
-                            }
+                        // Filter common same-pid runtime/helper libraries so their
+                        // read-heavy bookkeeping does not stretch virtual steps.
+                        if (apply_filters && is_helper_library_ip(ps->ip))
+                        {
+                            note_helper_library_sample_filtered();
+                            account_tiering_related_skipped_sample(ps);
                             break;
                         }
 

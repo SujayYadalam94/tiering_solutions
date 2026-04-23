@@ -220,7 +220,7 @@ static stale_page_cleanup_result cleanup_stale_pages(uint64_t cur_scan)
         if (it->second->last_seen_scan < cur_scan)
         {
             it->second->reset_page_access_fields();
-            if (PRINT_TRAINING_DATA == (true))
+            if (VIRTUAL_FEATURES_ENABLED)
             {
                 detached_logging_pages[it->first] = it->second;
             }
@@ -438,7 +438,7 @@ static void scan_process_pages_full()
 
         if (can_remove)
         {
-            if (PRINT_TRAINING_DATA == (true))
+            if (VIRTUAL_FEATURES_ENABLED)
             {
                 detached_logging_pages[va] = it->second;
             }
@@ -460,6 +460,7 @@ static void scan_process_pages_full()
 void *pagemap_scan_thread_fn(void *arg)
 {
     (void)arg;
+    register_tiering_runtime_tid();
 
     struct ptimer loop_timer;
     ptimer_init(&loop_timer, "Page Map Scan Loop");

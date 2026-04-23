@@ -85,8 +85,8 @@ struct page_info
     float arms_score;
     enum prediction_type model_selection;
 
-    // Virtual windows can accumulate up to VIRTUAL_STEP_SAMPLES accesses; use 32-bit
-    // counters so hot pages do not wrap within a step.
+    // Virtual windows can accumulate up to the configured VIRTUAL_STEP_SAMPLES
+    // accesses; use 32-bit counters so hot pages do not wrap within a step.
     uint32_t virtual_accesses[NPBUFTYPES];
     uint32_t virtual_missed_accesses;
     uint64_t virtual_step;

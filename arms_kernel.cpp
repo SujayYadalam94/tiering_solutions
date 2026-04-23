@@ -86,7 +86,74 @@ std::vector<ip_range> preload_ip_ranges;
 std::string preload_library_path;
 std::shared_mutex preload_ip_ranges_lock;
 std::atomic<uint64_t> preload_library_filtered_samples{0};
+std::vector<ip_range> helper_library_ip_ranges;
+std::shared_mutex helper_library_ip_ranges_lock;
+std::atomic<uint64_t> helper_library_filtered_samples{0};
+std::atomic<uint64_t> tiering_runtime_tid_filtered_samples{0};
+std::atomic<uint64_t> other_pid_filtered_samples{0};
+
+static bool ip_in_sorted_ranges(const std::vector<ip_range> &ranges, uint64_t ip)
+{
+    if (ip == 0 || ranges.empty())
+    {
+        return false;
+    }
+
+    auto it = std::upper_bound(ranges.begin(), ranges.end(), ip,
+                               [](uint64_t value, const ip_range &range) { return value < range.start; });
+    if (it == ranges.begin())
+    {
+        return false;
+    }
+
+    --it;
+    return ip >= it->start && ip < it->end;
+}
+
+static uint64_t parse_virtual_step_samples_env()
+{
+    const char *raw_value = std::getenv("VIRTUAL_STEP_SAMPLES");
+    if (raw_value == nullptr || raw_value[0] == '\0')
+    {
+        return static_cast<uint64_t>(VIRTUAL_STEP_SAMPLES);
+    }
+
+    std::string normalized;
+    normalized.reserve(std::strlen(raw_value));
+    for (const char *cursor = raw_value; *cursor != '\0'; ++cursor)
+    {
+        if (*cursor != '_')
+        {
+            normalized.push_back(*cursor);
+        }
+    }
+
+    if (normalized.empty())
+    {
+        std::cerr << "[ARMS] Warning: empty VIRTUAL_STEP_SAMPLES override; using default " << VIRTUAL_STEP_SAMPLES
+                  << std::endl;
+        return static_cast<uint64_t>(VIRTUAL_STEP_SAMPLES);
+    }
+
+    errno = 0;
+    char *end = nullptr;
+    const unsigned long long parsed = std::strtoull(normalized.c_str(), &end, 10);
+    if (errno != 0 || end == normalized.c_str() || *end != '\0' || parsed == 0)
+    {
+        std::cerr << "[ARMS] Warning: invalid VIRTUAL_STEP_SAMPLES='" << raw_value << "'; using default "
+                  << VIRTUAL_STEP_SAMPLES << std::endl;
+        return static_cast<uint64_t>(VIRTUAL_STEP_SAMPLES);
+    }
+
+    return static_cast<uint64_t>(parsed);
+}
 } // namespace
+
+uint64_t get_virtual_step_samples()
+{
+    static const uint64_t virtual_step_samples = parse_virtual_step_samples_env();
+    return virtual_step_samples;
+}
 
 void set_preload_ip_ranges(const char *library_path, const struct ip_range *ranges, size_t range_count)
 {
@@ -111,30 +178,39 @@ void set_preload_ip_ranges(const char *library_path, const struct ip_range *rang
     }
 
     preload_library_filtered_samples.store(0, std::memory_order_relaxed);
+    helper_library_filtered_samples.store(0, std::memory_order_relaxed);
+    tiering_runtime_tid_filtered_samples.store(0, std::memory_order_relaxed);
+    other_pid_filtered_samples.store(0, std::memory_order_relaxed);
+}
+
+void set_helper_library_ip_ranges(const struct ip_range *ranges, size_t range_count)
+{
+    std::vector<ip_range> new_ranges;
+    new_ranges.reserve(range_count);
+
+    for (size_t i = 0; i < range_count; ++i)
+    {
+        if (ranges[i].end > ranges[i].start)
+        {
+            new_ranges.push_back(ranges[i]);
+        }
+    }
+
+    std::sort(new_ranges.begin(), new_ranges.end(),
+              [](const ip_range &lhs, const ip_range &rhs) { return lhs.start < rhs.start; });
+
+    {
+        std::unique_lock<std::shared_mutex> lock(helper_library_ip_ranges_lock);
+        helper_library_ip_ranges = std::move(new_ranges);
+    }
+
+    helper_library_filtered_samples.store(0, std::memory_order_relaxed);
 }
 
 bool is_preload_library_ip(uint64_t ip)
 {
-    if (ip == 0)
-    {
-        return false;
-    }
-
     std::shared_lock<std::shared_mutex> lock(preload_ip_ranges_lock);
-    if (preload_ip_ranges.empty())
-    {
-        return false;
-    }
-
-    auto it = std::upper_bound(preload_ip_ranges.begin(), preload_ip_ranges.end(), ip,
-                               [](uint64_t value, const ip_range &range) { return value < range.start; });
-    if (it == preload_ip_ranges.begin())
-    {
-        return false;
-    }
-
-    --it;
-    return ip >= it->start && ip < it->end;
+    return ip_in_sorted_ranges(preload_ip_ranges, ip);
 }
 
 void note_preload_library_sample_filtered()
@@ -142,9 +218,45 @@ void note_preload_library_sample_filtered()
     preload_library_filtered_samples.fetch_add(1, std::memory_order_relaxed);
 }
 
-uint64_t get_preload_library_filtered_samples()
+uint64_t take_preload_library_filtered_samples()
 {
-    return preload_library_filtered_samples.load(std::memory_order_relaxed);
+    return preload_library_filtered_samples.exchange(0, std::memory_order_relaxed);
+}
+
+bool is_helper_library_ip(uint64_t ip)
+{
+    std::shared_lock<std::shared_mutex> lock(helper_library_ip_ranges_lock);
+    return ip_in_sorted_ranges(helper_library_ip_ranges, ip);
+}
+
+void note_helper_library_sample_filtered()
+{
+    helper_library_filtered_samples.fetch_add(1, std::memory_order_relaxed);
+}
+
+uint64_t take_helper_library_filtered_samples()
+{
+    return helper_library_filtered_samples.exchange(0, std::memory_order_relaxed);
+}
+
+void note_tiering_runtime_tid_sample_filtered()
+{
+    tiering_runtime_tid_filtered_samples.fetch_add(1, std::memory_order_relaxed);
+}
+
+uint64_t take_tiering_runtime_tid_filtered_samples()
+{
+    return tiering_runtime_tid_filtered_samples.exchange(0, std::memory_order_relaxed);
+}
+
+void note_other_pid_sample_filtered()
+{
+    other_pid_filtered_samples.fetch_add(1, std::memory_order_relaxed);
+}
+
+uint64_t take_other_pid_filtered_samples()
+{
+    return other_pid_filtered_samples.exchange(0, std::memory_order_relaxed);
 }
 
 void set_application_thread_far_memory_default()
@@ -235,7 +347,7 @@ page_ptr get_or_create_tracked_page(uint64_t page_va, uint64_t last_seen_scan, u
     {
         std::unique_lock<std::shared_mutex> lock(pages_map_lock);
 
-        // If this page was temporarily detached for logging-only retention,
+        // If this page was temporarily detached for virtual-step retention,
         // revive it into the active map when it is sampled again.
         auto detached_it = detached_logging_pages.find(page_key);
         if (detached_it != detached_logging_pages.end())
@@ -663,13 +775,21 @@ static struct perf_event_mmap_page *perf_setup(__u64 config, __u64 config1, __u1
 }
 
 #define MEM_LOAD_RETIRED_L3_MISS_PS 0x20d1
+#define MEM_INST_RETIRED_ALL_LOADS_PS 0x81d0
 #define MEM_INST_RETIRED_ALL_STORES_PS 0x82d0
+
+static constexpr __u64 read_perf_event_config()
+{
+    return MEM_LOAD_RETIRED_L3_MISS_PS;
+}
 
 static void setup_perf_events()
 {
+    const __u64 read_event = read_perf_event_config();
+
     std::cout << "[ARMS] Setting up PEBS counters..." << std::endl;
-    std::cout << "[ARMS] READ_EVENT=0x" << std::hex << MEM_LOAD_RETIRED_L3_MISS_PS << std::dec << ", WRITE_EVENT=0x"
-              << std::hex << MEM_INST_RETIRED_ALL_STORES_PS << std::dec << std::endl;
+    std::cout << "[ARMS] READ_EVENT=0x" << std::hex << read_event << std::dec << ", WRITE_EVENT=0x" << std::hex
+              << MEM_INST_RETIRED_ALL_STORES_PS << std::dec << std::endl;
 
     for (int i = 0; i < PEBS_NPROCS; i++)
     {
@@ -685,7 +805,7 @@ static void setup_perf_events()
             continue;
 #endif
 
-        perf_page[i][READ] = perf_setup(MEM_LOAD_RETIRED_L3_MISS_PS, 0, i, READ);
+        perf_page[i][READ] = perf_setup(read_event, 0, i, READ);
         perf_page[i][WRITE] = perf_setup(MEM_INST_RETIRED_ALL_STORES_PS, 0, i, WRITE);
 
         if (!perf_page[i][READ])
@@ -1026,22 +1146,26 @@ static void update_model_scores_and_log(std::vector<score_entry> &scores, size_t
 static ranking_plan rank_scores_for_migration(size_t dram_pages, size_t free_hugepages,
                                               std::vector<score_entry> &scores)
 {
-    uint32_t max_migrations;
-    int32_t policy_time = policy_thread_interval;
-    if (free_hugepages * promotion_cost_avg >= policy_thread_interval)
+    uint32_t max_migrations = 0;
+    if (MIGRATION_WORKERS_ENABLED)
     {
-        max_migrations = policy_thread_interval / promotion_cost_avg;
-    }
-    else
-    {
-        policy_time -= (static_cast<int32_t>(free_hugepages * promotion_cost_avg));
-        max_migrations = free_hugepages + (policy_time / (promotion_cost_avg + demotion_cost_avg));
+        int32_t policy_time = policy_thread_interval;
+        if (free_hugepages * promotion_cost_avg >= policy_thread_interval)
+        {
+            max_migrations = policy_thread_interval / promotion_cost_avg;
+        }
+        else
+        {
+            policy_time -= (static_cast<int32_t>(free_hugepages * promotion_cost_avg));
+            max_migrations = free_hugepages + (policy_time / (promotion_cost_avg + demotion_cost_avg));
+        }
     }
     if (ARMS_VERBOSE)
     {
         std::cout << "[ARMS] free_hugepages: " << free_hugepages << ", max_migrations: " << max_migrations << std::endl;
     }
-    ranking_plan plan = {max_migrations * MIGRATION_WORKER_COUNT, scores.size(), false};
+    ranking_plan plan = {MIGRATION_WORKERS_ENABLED ? max_migrations * MIGRATION_WORKER_COUNT : 0U, scores.size(),
+                         false};
 
     auto score_desc = [](const score_entry &a, const score_entry &b) { return score_compare(&a, &b) < 0; };
 
@@ -1293,8 +1417,9 @@ void arms_start_tiering()
     std::cout << "[ARMS] HISTORY_LENGTH = " << HISTORY_LENGTH << std::endl;
 
     std::cout << "[ARMS] PRINT_TRAINING_DATA = " << (PRINT_TRAINING_DATA ? "true" : "false") << std::endl;
+    std::cout << "[ARMS] MIGRATION_WORKERS_ENABLED = " << (MIGRATION_WORKERS_ENABLED ? "true" : "false") << std::endl;
     std::cout << "[ARMS] VIRTUAL_FEATURES_ENABLED = " << (VIRTUAL_FEATURES_ENABLED ? "true" : "false") << std::endl;
-    std::cout << "[ARMS] VIRTUAL_STEP_SAMPLES = " << VIRTUAL_STEP_SAMPLES << std::endl;
+    std::cout << "[ARMS] VIRTUAL_STEP_SAMPLES = " << get_virtual_step_samples() << std::endl;
     std::cout << "[ARMS] PEBS_KSWAPD_INTERVAL_BIG = " << PEBS_KSWAPD_INTERVAL_BIG << std::endl;
     std::cout << "[ARMS] PEBS_KSWAPD_INTERVAL_SMALL = " << PEBS_KSWAPD_INTERVAL_SMALL << std::endl;
 
@@ -1306,6 +1431,7 @@ void arms_start_tiering()
     else
     {
         numa_bitmask_clearall(default_nodemask);
+
         if (LOGGING_RUN)
         {
             std::cout << "[ARMS] Running in LOGGING_RUN mode - binding to FAST_TIER only" << std::endl;
@@ -1316,6 +1442,7 @@ void arms_start_tiering()
             std::cout << "[ARMS] Running in tiering mode - binding to SLOW_TIER only" << std::endl;
             numa_bitmask_setbit(default_nodemask, SLOW_TIER);
         }
+
         numa_set_membind(default_nodemask);
         numa_bitmask_free(default_nodemask);
     }
@@ -1383,9 +1510,16 @@ void arms_start_tiering()
     pthread_create(&pagemap_scan_thread, nullptr, pagemap_scan_thread_fn, nullptr);
 
     // Start migration worker threads
-    for (size_t i = 0; i < MIGRATION_WORKER_COUNT; i++)
+    if (MIGRATION_WORKERS_ENABLED)
     {
-        pthread_create(&migration_threads[i], nullptr, migration_worker, nullptr);
+        for (size_t i = 0; i < MIGRATION_WORKER_COUNT; i++)
+        {
+            pthread_create(&migration_threads[i], nullptr, migration_worker, nullptr);
+        }
+    }
+    else
+    {
+        std::cout << "[ARMS] Migration workers disabled; no page migrations will be executed." << std::endl;
     }
 
     pthread_create(&policy_thread, nullptr, arms_policy_thread, nullptr);
@@ -1461,9 +1595,12 @@ void arms_kernel_shutdown()
     pthread_join(scan_thread, nullptr);
     pthread_join(pagemap_scan_thread, nullptr);
     pthread_join(policy_thread, nullptr);
-    for (size_t i = 0; i < MIGRATION_WORKER_COUNT; i++)
+    if (MIGRATION_WORKERS_ENABLED)
     {
-        pthread_join(migration_threads[i], nullptr);
+        for (size_t i = 0; i < MIGRATION_WORKER_COUNT; i++)
+        {
+            pthread_join(migration_threads[i], nullptr);
+        }
     }
     close_perf_events();
 

@@ -158,6 +158,15 @@ run_program() {
         return
     fi
 
+    if ! measurement_prepare_workload_runtime; then
+        echo "ERROR: failed to prepare runtime files for ${output}" >&2
+        FAILED_RUNS+=("${output}:run${run}:runtime_prepare_failed")
+        if [[ "${STRICT_FAILURES}" == "1" ]]; then
+            exit 2
+        fi
+        return
+    fi
+
     # Disable glob expansion so args like ".*benchmark" are passed literally.
 
     echo "${pin} ${numa} env LD_PRELOAD=\"${HOOK_SO}\"${env_kv} ${rest}"
@@ -170,10 +179,11 @@ run_program() {
         time timeout --foreground --signal=TERM \
             --kill-after="${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS}s" \
             "${MEASUREMENT_TIMEOUT_SECONDS}s" \
-            ${pin} ${numa} env LD_PRELOAD="${HOOK_SO}" "${env_assignments[@]}" "${cmd_argv[@]}" \
+            ${pin} ${numa} env ${WORKLOAD_RUNTIME_CHDIR_ARG:+${WORKLOAD_RUNTIME_CHDIR_ARG}} LD_PRELOAD="${HOOK_SO}" "${env_assignments[@]}" "${cmd_argv[@]}" \
             &>> "${log_file}"
     } 2> "${time_file}"
     status=$?
+    measurement_cleanup_workload_runtime
     set +f
     set -e
 

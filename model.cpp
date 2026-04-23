@@ -12,7 +12,7 @@
 #include <vector>
 
 // Number of features - must match model file feature_names count.
-#define MODEL_NUM_FEATURES 16
+#define MODEL_NUM_FEATURES 12
 
 static inline double model_discount_scale()
 {
@@ -30,6 +30,25 @@ static inline double round_to_6(double value)
     return std::round(value * 1000000.0) / 1000000.0;
 }
 
+static inline double build_ratio_feature(double numerator, double denominator)
+{
+    if (denominator <= 1e-9)
+    {
+        return 0.0;
+    }
+
+    const double ratio = numerator / denominator;
+    if (ratio <= 0.0)
+    {
+        return 0.0;
+    }
+    if (ratio >= 1.0)
+    {
+        return 1.0;
+    }
+    return ratio;
+}
+
 /**
  * Extract features from page_info into the feature buffer
  * This is where you define which features from the page are used for prediction
@@ -37,10 +56,9 @@ static inline double round_to_6(double value)
  */
 static inline void extract_features(struct data_row &row, double *features)
 {
-    // Exact order from models/model_discounted_reward_*_bc-twitter.sg_l2.txt:
-    // ewma_2 ewma_5 ewma_20 ewma_100 ewma_2_w ewma_5_w ewma_20_w ewma_100_w
-    // global_avg_accesses_model group_neg_mean group_pos_mean group_0_mean gap4 read_write_gap3
-    // group_ewma5_var age
+    // Exact order from models/model_discounted_reward_*_*.txt:
+    // ewma_2 ewma_5 ewma_20 ewma_100 global_avg_accesses_model group_neg_mean
+    // group_pos_mean group_0_mean age r_ratio_20 r_ratio_100 group_ewma5_var
 
     int8_t i = 0;
 
@@ -54,30 +72,27 @@ static inline void extract_features(struct data_row &row, double *features)
     const double group_neg_mean = group_m1 + group_m2 + group_m3;
     const double group_pos_mean = group_p1 + group_p2 + group_p3;
     const double group_0_mean = round_to_6(row.groups[0 + 7]);
+    const double r_ratio_20 = round_to_6(build_ratio_feature(row.ewma_20_r, row.ewma_20));
+    const double r_ratio_100 = round_to_6(build_ratio_feature(row.ewma_100_r, row.ewma_100));
 
     features[i++] = round_to_6(row.ewma_2);
     features[i++] = round_to_6(row.ewma_5);
     features[i++] = round_to_6(row.ewma_20);
     features[i++] = round_to_6(row.ewma_100);
-    features[i++] = round_to_6(row.ewma_2_w);
-    features[i++] = round_to_6(row.ewma_5_w);
-    features[i++] = round_to_6(row.ewma_20_w);
-    features[i++] = round_to_6(row.ewma_100_w);
     features[i++] = round_to_6(row.global_avg_accesses_model);
     features[i++] = group_neg_mean;
     features[i++] = group_pos_mean;
     features[i++] = group_0_mean;
-
-    features[i++] = round_to_6(row.gap4);
-    features[i++] = round_to_6(row.read_write_gap3);
-    features[i++] = round_to_6(row.group_ewma5_var);
     features[i++] = static_cast<double>(row.age);
+    features[i++] = r_ratio_20;
+    features[i++] = r_ratio_100;
+    features[i++] = round_to_6(row.group_ewma5_var);
 
     assert(i == MODEL_NUM_FEATURES);
 }
 
-void model_predict_batch(std::vector<struct data_row> &rows,
-                         const std::vector<std::shared_ptr<struct page_info>> &pages)
+static void model_predict_batch_impl(std::vector<struct data_row> &rows,
+                                     const std::vector<std::shared_ptr<struct page_info>> &pages, bool update_history)
 {
     assert(rows.size() == pages.size());
 
@@ -105,6 +120,7 @@ void model_predict_batch(std::vector<struct data_row> &rows,
         {
             outputs[i] = 0.0;
         }
+        if (update_history)
         {
             std::lock_guard<std::mutex> guard(pages[i]->page_lock);
             // In model/logging mode, extract_row rewrites row.step to page->virtual_step.
@@ -117,6 +133,18 @@ void model_predict_batch(std::vector<struct data_row> &rows,
         }
         rows[i].model_score = outputs[i];
     }
+}
+
+void model_predict_batch(std::vector<struct data_row> &rows,
+                         const std::vector<std::shared_ptr<struct page_info>> &pages)
+{
+    model_predict_batch_impl(rows, pages, true);
+}
+
+void model_predict_batch_observe(std::vector<struct data_row> &rows,
+                                 const std::vector<std::shared_ptr<struct page_info>> &pages)
+{
+    model_predict_batch_impl(rows, pages, false);
 }
 
 double model_predict(struct data_row &row, struct page_info &page)

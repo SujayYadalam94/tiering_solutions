@@ -10,6 +10,7 @@
 void *arms_policy_thread(void *arg)
 {
     (void)arg;
+    register_tiering_runtime_tid();
     // Set thread affinity
     cpu_set_t cpuset;
     CPU_ZERO(&cpuset);
@@ -75,11 +76,19 @@ void *arms_policy_thread(void *arg)
             sampling_mode = DEFAULT_SAMPLING;
         }
 
+        const uint64_t filtered_preload_ip = take_preload_library_filtered_samples();
+        const uint64_t filtered_helper_ip = take_helper_library_filtered_samples();
+        const uint64_t filtered_runtime_tid = take_tiering_runtime_tid_filtered_samples();
+        const uint64_t filtered_other_pid = take_other_pid_filtered_samples();
+
         // Print total samples
         if (ARMS_VERBOSE)
         {
             std::cout << "[ARMS] Total samples - READ: " << total_samples[READ] << ", WRITE: " << total_samples[WRITE]
-                      << std::endl;
+                      << ", filtered_preload_ip: " << filtered_preload_ip
+                      << ", filtered_helper_ip: " << filtered_helper_ip
+                      << ", filtered_runtime_tid: " << filtered_runtime_tid
+                      << ", filtered_other_pid: " << filtered_other_pid << std::endl;
         }
         total_samples[READ] = total_samples[WRITE] = 0;
 

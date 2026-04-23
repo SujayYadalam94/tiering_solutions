@@ -56,7 +56,7 @@ EOF
     fi
 }
 
-SIZES=(8000)
+SIZES=(6000)
 RUNS=3
 
 mapfile -t WORKLOAD_IDS < <(measurement_list_default_workloads)
@@ -70,16 +70,16 @@ for size in "${SIZES[@]}"; do
         for workload_id in "${WORKLOAD_IDS[@]}"; do
             echo "---- Workload ${workload_id} ----"
 
-            # ARMS
-            #run_measurement_setup "${size}"
-            #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
-
             # Model
             if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
                 "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
             else
                 echo "WARNING: ./measurement_model.sh not found or not executable; skipping model"
             fi
+
+            # ARMS
+            run_measurement_setup "${size}"
+            "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
 
             # NOMAD
             #if [[ -x "${SCRIPT_DIR}/measurement_nomad.sh" ]]; then

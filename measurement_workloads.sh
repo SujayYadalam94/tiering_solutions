@@ -4,16 +4,20 @@ MEASUREMENT_WORKLOADS_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 MEASUREMENT_WORKLOADS_PATH="${MEASUREMENT_WORKLOADS_DIR}/workloads"
 
 declare -ar MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
-    #"lulesh2.0_s400"
+
     #"mg.D.x"
     #"DuckDB-TPCH-sf100"
     #"faiss_10M"
     #"XSBench"
-    "bc-twitter.sg"
-    #"pr-twitter.sg"
-    #"bc-kron.sg"
-    #"pr-kron.sg"
 
+    "bc-kron.sg"
+    "pr-kron.sg"
+
+    "bc-twitter.sg"
+    "pr-twitter.sg"
+
+    #"lulesh2.0_s400"
+    
 
 
     #"DuckDB-TPCDS-sf100"
@@ -49,6 +53,9 @@ measurement_reset_workload_vars() {
     unset WORKLOAD_COMMAND
     unset WORKLOAD_EXE_NAME
     unset WORKLOAD_MODEL_BASE
+    unset WORKLOAD_RUNTIME_INPUT_SOURCE
+    unset WORKLOAD_RUNTIME_INPUT_TARGET
+    unset WORKLOAD_VIRTUAL_STEP_SAMPLES
     unset WORKLOAD_SYSTEMS
 }
 
@@ -65,6 +72,10 @@ measurement_load_workload() {
     measurement_reset_workload_vars
     # shellcheck disable=SC1090
     source "${workload_file}"
+
+    if [[ -z "${WORKLOAD_VIRTUAL_STEP_SAMPLES:-}" ]]; then
+        WORKLOAD_VIRTUAL_STEP_SAMPLES=3162
+    fi
 
     if [[ -z "${WORKLOAD_ID:-}" || -z "${WORKLOAD_OUTPUT:-}" || -z "${WORKLOAD_COMMAND:-}" ||
           -z "${WORKLOAD_EXE_NAME:-}" || -z "${WORKLOAD_MODEL_BASE:-}" ]]; then

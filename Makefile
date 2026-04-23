@@ -27,7 +27,7 @@ DEFAULT_PLATFORM ?= C220G5
 # Compile-time configuration matrix
 MIN_MAX_HISTORY_VALUES := false true
 HISTORY_LENGTH_VALUES := 4 
-SWITCH_SCALER_VALUES := 0.7 0.9
+SWITCH_SCALER_VALUES := 0.9
 COMBOS := $(foreach mmh,$(MIN_MAX_HISTORY_VALUES),$(foreach hlen,$(HISTORY_LENGTH_VALUES),$(foreach scaler,$(SWITCH_SCALER_VALUES),$(mmh)_$(hlen)_$(scaler))))
 
 # Models and outputs
@@ -39,6 +39,7 @@ PLATFORM_LIB_DIRS := $(addprefix $(LIB_OUTPUT_DIR)/,$(PLATFORMS))
 LIB_TARGETS := $(foreach platform,$(PLATFORMS),$(foreach combo,$(COMBOS),$(patsubst models/%.o,$(LIB_OUTPUT_DIR)/$(platform)/libhemem-%-$(combo).so,$(MODELS))))
 TRAIN_LIB_TARGETS := $(foreach platform,$(PLATFORMS),$(foreach combo,$(COMBOS),$(patsubst models/%.o,$(LIB_OUTPUT_DIR)/$(platform)/libhemem-%_$(combo)_train.so,$(MODELS))))
 ARMS_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms.so)
+ARMS_NOMIGRATION_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_nomigrations.so)
 LOGGING_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-logging.so)
 ARMS_TRAIN_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_train.so)
 ARMS_TARGET_DEFAULT := $(LIB_OUTPUT_DIR)/$(DEFAULT_PLATFORM)/libhemem-arms.so
@@ -60,7 +61,8 @@ NON_MODEL_OBJ_NAMES := $(NON_MODEL_SRCS:.cpp=.o)
 BASE_DEFINES_model := -DUSE_MODEL=true
 BASE_DEFINES_train := -DUSE_MODEL=true -DPRINT_TRAINING_DATA=true
 BASE_DEFINES_nomodel := -DUSE_MODEL=false
-BASE_DEFINES_logging := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=true -DLOGGING_RUN=true
+BASE_DEFINES_nomodel_nomigrations := -DUSE_MODEL=false -DMIGRATION_WORKERS_ENABLED=false
+BASE_DEFINES_logging := -DUSE_MODEL=true -DPRINT_TRAINING_DATA=true -DLOGGING_RUN=true
 BASE_DEFINES_arms_train := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=true
 
 combo_mmh = $(word 1,$(subst _, ,$1))
@@ -94,7 +96,7 @@ HOSTNAME := $(shell hostname)
 
 .PHONY: all clean
 
-all: $(LIB_TARGETS) $(TRAIN_LIB_TARGETS) $(ARMS_TARGETS) $(LOGGING_TARGETS) $(ARMS_TRAIN_TARGETS)
+all: $(LIB_TARGETS) $(TRAIN_LIB_TARGETS) $(ARMS_TARGETS) $(ARMS_NOMIGRATION_TARGETS) $(LOGGING_TARGETS) $(ARMS_TRAIN_TARGETS)
 
 $(TARGET_LIB): $(ARMS_TARGET_DEFAULT) | $(LIB_OUTPUT_DIR)
 	cp -f $< $@
@@ -131,11 +133,16 @@ $(foreach platform,$(PLATFORMS),$(foreach combo,$(COMBOS),$(eval $(call MAKE_PLA
 
 define MAKE_PLATFORM_BASE_RULES
 NOMODEL_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/nomodel/$(1)/,$$(OBJ_NAMES))
+NOMODEL_NOMIGRATION_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/nomodel_nomigrations/$(1)/,$$(OBJ_NAMES))
 LOGGING_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/logging/$(1)/,$$(OBJ_NAMES))
 ARMS_TRAIN_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_train/$(1)/,$$(OBJ_NAMES))
 
 # Build without linking a model; force USE_MODEL=false
 $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms.so: $$(NOMODEL_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
+	$$(LINK_SHARED_RECIPE)
+
+# Build without linking a model or starting migration workers.
+$$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_nomigrations.so: $$(NOMODEL_NOMIGRATION_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
 	$$(LINK_SHARED_RECIPE)
 
 # Build logging path with model inference enabled and a user-provided model object
@@ -149,6 +156,9 @@ $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_train.so: $$(ARMS_TRAIN_OBJS_$(1)) | $$(LI
 # Compile C++ sources for USE_MODEL=false variants (platform specialization)
 $$(OBJ_DIR)/nomodel/$(1)/%.o: %.cpp | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_nomodel) $$(call platform_defs,$(1)))
+
+$$(OBJ_DIR)/nomodel_nomigrations/$(1)/%.o: %.cpp | $$(OBJ_DIR)
+	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_nomodel_nomigrations) $$(call platform_defs,$(1)))
 
 $$(OBJ_DIR)/logging/$(1)/%.o: %.cpp | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_logging) $$(call platform_defs,$(1)) -DMODEL_DISCOUNT_PERCENT=$$(LOGGING_MODEL_DISCOUNT_PERCENT) -DMAX_LOGGED_SAMPLES=$$(LOGGING_MAX_LOGGED_SAMPLES))

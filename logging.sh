@@ -9,8 +9,14 @@ source "${SCRIPT_DIR}/measurement_workloads.sh"
 measurement_init_platform_from_args "$@" || exit 1
 ARGS=("${MEASUREMENT_REMAINING_ARGS[@]}")
 
-RUNS=${ARGS[0]:-5}
+RUNS=${ARGS[0]:-10}
 START_RUN=${START_RUN:-1}
+LOGGING_SIZE_MIB=${LOGGING_SIZE_MIB:-0}
+LOGGING_MODEL_PCT=${LOGGING_MODEL_PCT:-95}
+LOGGING_MODEL_MINMAX=${LOGGING_MODEL_MINMAX:-false}
+LOGGING_MODEL_HISTORY_LENGTH=${LOGGING_MODEL_HISTORY_LENGTH:-4}
+LOGGING_MODEL_PENALTY=${LOGGING_MODEL_PENALTY:-0.9}
+LOGGING_LIB_SUFFIX=${LOGGING_LIB_SUFFIX:-_train}
 WORKLOAD_ARGS=("${ARGS[@]:1}")
 mapfile -t WORKLOAD_IDS < <(measurement_expand_workloads "${WORKLOAD_ARGS[@]}")
 
@@ -18,18 +24,26 @@ mkdir -p "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}" logs
 LOG_CONVERTER_SCRIPT="${SCRIPT_DIR}/../tiering_models/process_data/data/filter_v3_split_runs.py"
 LOG_CONVERTER_VENV_PYTHON="${SCRIPT_DIR}/../tiering_models/process_data/data/.venv/bin/python"
 
+run_measurement_setup "${LOGGING_SIZE_MIB}" || exit 1
+trap 'run_measurement_teardown' EXIT
+
 function run_program {
     local output=$1
     local run=$2
+    local model_path=$3
 
     local time_dir="${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}/${output}"
     local log_dir="${SCRIPT_DIR}/logs/${output}"
     local time_basename="run${run}"
     local time_file="${time_dir}/${time_basename}.time"
     local log_output_path="${log_dir}/${time_basename}.log"
-    local model_path="${SCRIPT_DIR}/libraries/${MEASUREMENT_LIBRARY_PROFILE_DIR}/libhemem-logging.so"
 
     mkdir -p "${time_dir}" "${log_dir}"
+
+    if [[ ! -f "${model_path}" ]]; then
+        echo "Skipping ${output} run ${run}: missing library ${model_path}"
+        return 1
+    fi
 
     cleanup_measurement_outputs "${time_file}" "${log_output_path}" /dev/null
     run_preloaded_measurement "${WORKLOAD_COMMAND}" "${model_path}" \
@@ -64,9 +78,15 @@ for run in $(seq "${START_RUN}" "${RUNS}"); do
             continue
         fi
 
-        echo "Run ${run}: workload ${WORKLOAD_ID}"
-        run_program "${WORKLOAD_OUTPUT}" "${run}"
-        convert_logs_to_parquet "${WORKLOAD_OUTPUT}" || exit 1
+        model_path=$(measurement_build_logging_library_path "${SCRIPT_DIR}")
+
+        echo "Run ${run}: workload ${WORKLOAD_ID} library ${model_path}"
+        if ! run_program "${WORKLOAD_OUTPUT}" "${run}" "${model_path}"; then
+            exit 1
+        fi
+        if ! convert_logs_to_parquet "${WORKLOAD_OUTPUT}"; then
+            exit 1
+        fi
     done
 done
 
