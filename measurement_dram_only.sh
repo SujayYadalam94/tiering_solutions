@@ -6,34 +6,47 @@ source "${SCRIPT_DIR}/measurement_common.sh"
 # shellcheck source=measurement_workloads.sh
 source "${SCRIPT_DIR}/measurement_workloads.sh"
 
-SIZE_MIB=${1:-}
-RUN_ID=${2:-}
+measurement_init_platform_from_args "$@" || exit 1
+ARGS=("${MEASUREMENT_REMAINING_ARGS[@]}")
+
+SIZE_MIB=${ARGS[0]:-}
+RUN_ID=${ARGS[1]:-}
 if [[ -z "${SIZE_MIB}" || -z "${RUN_ID}" ]]; then
-    echo "Usage: $0 <sizeMiB> <runNumber> [workloadId ...]" >&2
+    echo "Usage: $0 [--platform c220g5|gsl_optane] <sizeMiB> <runNumber> [workloadId ...]" >&2
     exit 1
 fi
 
-BENCH_ROOT=${BENCH_ROOT:-/users/zimooo2}
-NUMA_MEM_NODE=${NUMA_MEM_NODE:-0}
-TASKSET_CPUS=${TASKSET_CPUS:-0-9,20-29}
+case "${MEASUREMENT_PLATFORM}" in
+    c220g5)
+        DEFAULT_NUMA_MEM_NODE=0
+        ;;
+    gsl_optane)
+        DEFAULT_NUMA_MEM_NODE=0
+        ;;
+esac
 
-WORKLOAD_ARGS=("${@:3}")
+NUMA_MEM_NODE=${NUMA_MEM_NODE:-${DEFAULT_NUMA_MEM_NODE}}
+
+WORKLOAD_ARGS=("${ARGS[@]:2}")
 mapfile -t WORKLOAD_IDS < <(measurement_expand_workloads "${WORKLOAD_ARGS[@]}")
 
-mkdir -p times logs times/dram_only
+mkdir -p "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}" logs "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}/dram_only"
 
 function run_workload {
     local run=$1
     local time_basename="${SIZE_MIB}MiB_run${run}"
-    local time_dir="${SCRIPT_DIR}/times/dram_only/${WORKLOAD_OUTPUT}"
+    local time_dir="${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}/dram_only/${WORKLOAD_OUTPUT}"
     local log_dir="${SCRIPT_DIR}/logs/${WORKLOAD_OUTPUT}"
     local time_file="${time_dir}/${time_basename}.time"
     local log_output_path="${log_dir}/${time_basename}_dram_only.log"
+    local offcore_metrics_file="${log_dir}/${time_basename}_dram_only_offcore_write_l3_metrics.log"
     local max_dram_file="${time_dir}/max_dram_hugepages_${time_basename}.log"
 
     mkdir -p "${time_dir}" "${log_dir}"
 
     cleanup_measurement_outputs "${time_file}" "${log_output_path}" "${max_dram_file}"
+    rm -f "${offcore_metrics_file}"
+    cleanup_offcore_write_l3_metrics_log
     local status=0
     local timed_out=0
     local had_errexit=0
@@ -72,6 +85,7 @@ function run_workload {
         echo "WARNING: ${WORKLOAD_OUTPUT} run ${run} failed with status ${status}"
     fi
     move_max_dram_log_if_present "${max_dram_file}"
+    copy_offcore_write_l3_metrics_log_if_present "${offcore_metrics_file}"
 }
 
 for workload_id in "${WORKLOAD_IDS[@]}"; do
@@ -85,4 +99,4 @@ for workload_id in "${WORKLOAD_IDS[@]}"; do
     run_workload "${RUN_ID}"
 done
 
-mkdir -p times/dram_only
+mkdir -p "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}/dram_only"

@@ -32,16 +32,19 @@ COMBOS := $(foreach mmh,$(MIN_MAX_HISTORY_VALUES),$(foreach hlen,$(HISTORY_LENGT
 
 # Models and outputs
 MODELS := $(wildcard models/*.o)
-# Logging path model object (user-provided dummy model expected here)
-LOGGING_MODEL_OBJ ?= models/dummy_14_feature_model.o
+# Logging path model object (override with LOGGING_MODEL_OBJ if needed)
+LOGGING_MODEL_OBJ ?= $(firstword $(MODELS))
 LIB_OUTPUT_DIR := libraries
 PLATFORM_LIB_DIRS := $(addprefix $(LIB_OUTPUT_DIR)/,$(PLATFORMS))
 LIB_TARGETS := $(foreach platform,$(PLATFORMS),$(foreach combo,$(COMBOS),$(patsubst models/%.o,$(LIB_OUTPUT_DIR)/$(platform)/libhemem-%-$(combo).so,$(MODELS))))
 TRAIN_LIB_TARGETS := $(foreach platform,$(PLATFORMS),$(foreach combo,$(COMBOS),$(patsubst models/%.o,$(LIB_OUTPUT_DIR)/$(platform)/libhemem-%_$(combo)_train.so,$(MODELS))))
 ARMS_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms.so)
 ARMS_NOMIGRATION_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_nomigrations.so)
+ARMS_PLAIN_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_plain.so)
 LOGGING_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-logging.so)
 ARMS_TRAIN_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_train.so)
+ARMS_NEAR_TRAIN_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_near_train.so)
+ARMS_CXL_TRAIN_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_cxl_train.so)
 ARMS_TARGET_DEFAULT := $(LIB_OUTPUT_DIR)/$(DEFAULT_PLATFORM)/libhemem-arms.so
 
 # Target
@@ -63,7 +66,10 @@ BASE_DEFINES_train := -DUSE_MODEL=true -DPRINT_TRAINING_DATA=true
 BASE_DEFINES_nomodel := -DUSE_MODEL=false
 BASE_DEFINES_nomodel_nomigrations := -DUSE_MODEL=false -DMIGRATION_WORKERS_ENABLED=false
 BASE_DEFINES_logging := -DUSE_MODEL=true -DPRINT_TRAINING_DATA=true -DLOGGING_RUN=true
+BASE_DEFINES_arms_plain := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=false -DLOGGING_RUN=false -DNEAR_MEM_TRACING_RUN=true
 BASE_DEFINES_arms_train := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=true
+BASE_DEFINES_arms_near_train := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=true -DNEAR_MEM_TRACING_RUN=true
+BASE_DEFINES_arms_cxl_train := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=true -DNEAR_MEM_TRACING_RUN=true -DFORCE_FAR_MEMORY_DEFAULT=true -DENABLE_MIGRATION_WORKERS=false
 
 combo_mmh = $(word 1,$(subst _, ,$1))
 combo_hlen = $(word 2,$(subst _, ,$1))
@@ -96,7 +102,7 @@ HOSTNAME := $(shell hostname)
 
 .PHONY: all clean
 
-all: $(LIB_TARGETS) $(TRAIN_LIB_TARGETS) $(ARMS_TARGETS) $(ARMS_NOMIGRATION_TARGETS) $(LOGGING_TARGETS) $(ARMS_TRAIN_TARGETS)
+all: $(LIB_TARGETS) $(TRAIN_LIB_TARGETS) $(ARMS_TARGETS) $(ARMS_NOMIGRATION_TARGETS) $(ARMS_PLAIN_TARGETS) $(LOGGING_TARGETS) $(ARMS_TRAIN_TARGETS) $(ARMS_NEAR_TRAIN_TARGETS) $(ARMS_CXL_TRAIN_TARGETS)
 
 $(TARGET_LIB): $(ARMS_TARGET_DEFAULT) | $(LIB_OUTPUT_DIR)
 	cp -f $< $@
@@ -134,8 +140,11 @@ $(foreach platform,$(PLATFORMS),$(foreach combo,$(COMBOS),$(eval $(call MAKE_PLA
 define MAKE_PLATFORM_BASE_RULES
 NOMODEL_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/nomodel/$(1)/,$$(OBJ_NAMES))
 NOMODEL_NOMIGRATION_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/nomodel_nomigrations/$(1)/,$$(OBJ_NAMES))
+ARMS_PLAIN_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_plain/$(1)/,$$(OBJ_NAMES))
 LOGGING_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/logging/$(1)/,$$(OBJ_NAMES))
 ARMS_TRAIN_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_train/$(1)/,$$(OBJ_NAMES))
+ARMS_NEAR_TRAIN_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_near_train/$(1)/,$$(OBJ_NAMES))
+ARMS_CXL_TRAIN_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_cxl_train/$(1)/,$$(OBJ_NAMES))
 
 # Build without linking a model; force USE_MODEL=false
 $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms.so: $$(NOMODEL_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
@@ -143,6 +152,9 @@ $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms.so: $$(NOMODEL_OBJS_$(1)) | $$(LIB_OUTPUT_
 
 # Build without linking a model or starting migration workers.
 $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_nomigrations.so: $$(NOMODEL_NOMIGRATION_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
+
+# Build explicit non-logging, non-training ARMS variant
+$$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_plain.so: $$(ARMS_PLAIN_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
 	$$(LINK_SHARED_RECIPE)
 
 # Build logging path with model inference enabled and a user-provided model object
@@ -153,6 +165,14 @@ $$(LIB_OUTPUT_DIR)/$(1)/libhemem-logging.so: $$(LOGGING_OBJS_$(1)) $$(LOGGING_MO
 $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_train.so: $$(ARMS_TRAIN_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
 	$$(LINK_SHARED_RECIPE)
 
+# Build ARMS with training data logging + near-memory default + 250ms interval (no model linked)
+$$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_near_train.so: $$(ARMS_NEAR_TRAIN_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
+	$$(LINK_SHARED_RECIPE)
+
+# Build ARMS with the same non-virtual timestep path as near-train, but keep far-memory default and disable migration workers.
+$$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_cxl_train.so: $$(ARMS_CXL_TRAIN_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
+	$$(LINK_SHARED_RECIPE)
+
 # Compile C++ sources for USE_MODEL=false variants (platform specialization)
 $$(OBJ_DIR)/nomodel/$(1)/%.o: %.cpp | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_nomodel) $$(call platform_defs,$(1)))
@@ -160,11 +180,20 @@ $$(OBJ_DIR)/nomodel/$(1)/%.o: %.cpp | $$(OBJ_DIR)
 $$(OBJ_DIR)/nomodel_nomigrations/$(1)/%.o: %.cpp | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_nomodel_nomigrations) $$(call platform_defs,$(1)))
 
+$$(OBJ_DIR)/arms_plain/$(1)/%.o: %.cpp | $$(OBJ_DIR)
+	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_plain) $$(call platform_defs,$(1)))
+
 $$(OBJ_DIR)/logging/$(1)/%.o: %.cpp | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_logging) $$(call platform_defs,$(1)) -DMODEL_DISCOUNT_PERCENT=$$(LOGGING_MODEL_DISCOUNT_PERCENT) -DMAX_LOGGED_SAMPLES=$$(LOGGING_MAX_LOGGED_SAMPLES))
 
 $$(OBJ_DIR)/arms_train/$(1)/%.o: %.cpp | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_train) $$(call platform_defs,$(1)))
+
+$$(OBJ_DIR)/arms_near_train/$(1)/%.o: %.cpp | $$(OBJ_DIR)
+	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_near_train) $$(call platform_defs,$(1)))
+
+$$(OBJ_DIR)/arms_cxl_train/$(1)/%.o: %.cpp | $$(OBJ_DIR)
+	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_cxl_train) $$(call platform_defs,$(1)))
 endef
 
 $(foreach platform,$(PLATFORMS),$(eval $(call MAKE_PLATFORM_BASE_RULES,$(platform))))

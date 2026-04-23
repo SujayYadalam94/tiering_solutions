@@ -35,6 +35,7 @@ void arms_kernel_shutdown();
 void arms_kernel_print_stats();
 uint64_t get_virtual_step_samples();
 void set_application_thread_near_memory_default();
+void set_application_thread_near_memory_preferred();
 void set_application_thread_far_memory_default();
 
 void set_preload_ip_ranges(const char *library_path, const struct ip_range *ranges, size_t range_count);

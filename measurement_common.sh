@@ -144,47 +144,6 @@ cleanup_measurement_outputs() {
     rm -f "${max_dram_file}"
 }
 
-measurement_prepare_workload_runtime() {
-    WORKLOAD_RUNTIME_DIR=
-    WORKLOAD_RUNTIME_CHDIR_ARG=
-
-    if [[ -z "${WORKLOAD_RUNTIME_INPUT_SOURCE:-}" ]]; then
-        return 0
-    fi
-
-    if [[ ! -f "${WORKLOAD_RUNTIME_INPUT_SOURCE}" ]]; then
-        echo "ERROR: workload runtime input not found: ${WORKLOAD_RUNTIME_INPUT_SOURCE}" >&2
-        return 1
-    fi
-
-    WORKLOAD_RUNTIME_DIR=$(mktemp -d)
-    local target_name=${WORKLOAD_RUNTIME_INPUT_TARGET:-$(basename "${WORKLOAD_RUNTIME_INPUT_SOURCE}")}
-
-    if ! cp "${WORKLOAD_RUNTIME_INPUT_SOURCE}" "${WORKLOAD_RUNTIME_DIR}/${target_name}"; then
-        rm -rf "${WORKLOAD_RUNTIME_DIR}"
-        WORKLOAD_RUNTIME_DIR=
-        return 1
-    fi
-
-    if [[ -f timer.flag ]] && ! cp timer.flag "${WORKLOAD_RUNTIME_DIR}/timer.flag"; then
-        rm -rf "${WORKLOAD_RUNTIME_DIR}"
-        WORKLOAD_RUNTIME_DIR=
-        return 1
-    fi
-
-    WORKLOAD_RUNTIME_CHDIR_ARG="--chdir=${WORKLOAD_RUNTIME_DIR}"
-}
-
-measurement_cleanup_workload_runtime() {
-    local runtime_dir=${WORKLOAD_RUNTIME_DIR:-}
-    WORKLOAD_RUNTIME_DIR=
-    WORKLOAD_RUNTIME_CHDIR_ARG=
-
-    if [[ -n "${runtime_dir}" ]]; then
-        rm -rf "${runtime_dir}"
-    fi
-}
-
 run_preloaded_measurement() {
     local program=$1
     local library_path=$2
@@ -255,6 +214,18 @@ move_max_dram_log_if_present() {
     fi
 }
 
+cleanup_offcore_write_l3_metrics_log() {
+    rm -f offcore_write_l3_metrics.log
+}
+
+copy_offcore_write_l3_metrics_log_if_present() {
+    local destination=$1
+
+    if [[ -f offcore_write_l3_metrics.log ]]; then
+        cp -f offcore_write_l3_metrics.log "${destination}"
+    fi
+}
+
 measurement_apply_nomad_settings() {
     echo 1 | sudo tee /sys/kernel/mm/numa/demotion_enabled >/dev/null
     echo 2 | sudo tee /proc/sys/kernel/numa_balancing >/dev/null
@@ -291,9 +262,10 @@ run_measurement_setup() {
 
 run_measurement_setup_baseline_default() {
     local size_mib=$1
+    local measurement_platform=${MEASUREMENT_PLATFORM:-c220g5}
 
     sudo bash "${MEASUREMENT_COMMON_DIR}/unsetup.sh" || true
-    sudo bash "${MEASUREMENT_COMMON_DIR}/setup.sh" "${size_mib}" default
+    sudo bash "${MEASUREMENT_COMMON_DIR}/setup.sh" "${size_mib}" default "${measurement_platform}"
     measurement_apply_baseline_default_migration_settings || return 1
 }
 

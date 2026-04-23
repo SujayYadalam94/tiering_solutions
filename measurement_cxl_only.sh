@@ -16,7 +16,16 @@ if [[ -z "${SIZE_MIB}" || -z "${RUN_ID}" ]]; then
     exit 1
 fi
 
-NUMA_MEM_NODE=${NUMA_MEM_NODE:-${NUMA_MEM_NODES##*,}}
+case "${MEASUREMENT_PLATFORM}" in
+    c220g5)
+        DEFAULT_NUMA_MEM_NODE=1
+        ;;
+    gsl_optane)
+        DEFAULT_NUMA_MEM_NODE=2
+        ;;
+esac
+
+NUMA_MEM_NODE=${NUMA_MEM_NODE:-${DEFAULT_NUMA_MEM_NODE}}
 
 WORKLOAD_ARGS=("${ARGS[@]:2}")
 mapfile -t WORKLOAD_IDS < <(measurement_expand_workloads "${WORKLOAD_ARGS[@]}")

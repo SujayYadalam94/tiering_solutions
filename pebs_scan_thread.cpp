@@ -361,7 +361,7 @@ void *pebs_scan_thread(void *arg)
                         ps = reinterpret_cast<const struct perf_sample *>(record_ptr);
                         assert(ps != nullptr);
 
-                        const bool apply_filters = (!MIGRATION_WORKERS_ENABLED || VIRTUAL_FEATURES_ENABLED);
+                        const bool apply_filters = (!ENABLE_MIGRATION_WORKERS || VIRTUAL_FEATURES_ENABLED);
 
                         if (apply_filters && static_cast<pid_t>(ps->pid) != target_pid)
                         {

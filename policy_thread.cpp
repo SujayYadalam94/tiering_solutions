@@ -2,6 +2,7 @@
 #include <sched.h>
 #include <unistd.h>
 
+#include <iomanip>
 #include <iostream>
 
 #include "arms_kernel_threads.h"
@@ -89,6 +90,19 @@ void *arms_policy_thread(void *arg)
                       << ", filtered_helper_ip: " << filtered_helper_ip
                       << ", filtered_runtime_tid: " << filtered_runtime_tid
                       << ", filtered_other_pid: " << filtered_other_pid << std::endl;
+            double write_l3_hit_rate = 0.0;
+            uint64_t demand_rfo_any = 0;
+            uint64_t demand_rfo_l3_miss = 0;
+            const bool have_offcore_rate =
+                get_offcore_write_l3_hit_rate(&write_l3_hit_rate, &demand_rfo_any, &demand_rfo_l3_miss);
+
+            std::cout << "[ARMS] Total samples - READ: " << total_samples[READ] << ", WRITE: " << total_samples[WRITE];
+            if (have_offcore_rate && demand_rfo_any > 0)
+            {
+                std::cout << ", WRITE_L3_HIT_RATE: " << std::fixed << std::setprecision(2)
+                          << (write_l3_hit_rate * 100.0) << "%" << std::defaultfloat;
+            }
+            std::cout << std::endl;
         }
         total_samples[READ] = total_samples[WRITE] = 0;
 

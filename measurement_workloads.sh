@@ -37,9 +37,18 @@ measurement_expand_workloads() {
     fi
 
     local workload_id
+    local emitted=0
     for workload_id in "$@"; do
+        if [[ -z "${workload_id}" ]]; then
+            continue
+        fi
         printf '%s\n' "${workload_id}"
+        emitted=1
     done
+
+    if [[ ${emitted} -eq 0 ]]; then
+        measurement_list_default_workloads
+    fi
 }
 
 measurement_workload_file() {
