@@ -23,6 +23,18 @@ extern bool initialized;
 #define PRINT_TRAINING_DATA (false)
 #endif
 
+#ifndef NEAR_MEM_TRACING_RUN
+#define NEAR_MEM_TRACING_RUN (false)
+#endif
+
+#ifndef FORCE_FAR_MEMORY_DEFAULT
+#define FORCE_FAR_MEMORY_DEFAULT (false)
+#endif
+
+#ifndef ENABLE_MIGRATION_WORKERS
+#define ENABLE_MIGRATION_WORKERS (true)
+#endif
+
 #define VIRTUAL_FEATURES_ENABLED ((USE_MODEL == (true)) || (LOGGING_RUN == (true)))
 
 #ifndef VIRTUAL_STEP_SAMPLES
@@ -32,7 +44,7 @@ extern bool initialized;
 #define FULL_LOGS (false)
 
 #ifndef ARMS_VERBOSE
-#define ARMS_VERBOSE (false)
+#define ARMS_VERBOSE (true)
 #endif
 
 #ifndef ARMS_PARTIAL_RANK_MULTIPLIER
@@ -40,7 +52,7 @@ extern bool initialized;
 #endif
 
 #ifndef SKIP_UNTIL_SAMPLE
-#define SKIP_UNTIL_SAMPLE (5000000)
+#define SKIP_UNTIL_SAMPLE (0)
 #endif
 
 #ifndef MAX_LOGGED_SAMPLES
@@ -169,7 +181,10 @@ extern bool initialized;
 
 /// PEBS kswapd thread wakeup interval
 // ==============================================================================
-#if VIRTUAL_FEATURES_ENABLED
+#if NEAR_MEM_TRACING_RUN == (true)
+#define PEBS_KSWAPD_INTERVAL_BIG (250000)   // in us (250ms)
+#define PEBS_KSWAPD_INTERVAL_SMALL (250000) // in us (250ms)
+#elif VIRTUAL_FEATURES_ENABLED
 #define PEBS_KSWAPD_INTERVAL_BIG (250000)   // in us (250ms)
 #define PEBS_KSWAPD_INTERVAL_SMALL (250000) // in us (250ms)
 #else
@@ -226,7 +241,10 @@ extern bool initialized;
 
 #define PERF_PAGES (1 + (1 << 10)) // Has to be == 1+2^n, here 16MB
 
-#if VIRTUAL_FEATURES_ENABLED
+#if NEAR_MEM_TRACING_RUN == (true)
+#define DEFAULT_SAMPLE_PERIOD (10007)
+#define HF_SAMPLE_PERIOD (10007)
+#elif VIRTUAL_FEATURES_ENABLED
 #define DEFAULT_SAMPLE_PERIOD (10007)
 #define HF_SAMPLE_PERIOD (10007)
 #else

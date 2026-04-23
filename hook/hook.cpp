@@ -178,7 +178,11 @@ extern "C" int __libc_start_main(int (*main)(int, char **, char **), int argc, c
     std::cout << "found process " << executable_name << std::endl;
     configure_preload_ip_filter();
 
-    if (LOGGING_RUN)
+    if (NEAR_MEM_TRACING_RUN && !FORCE_FAR_MEMORY_DEFAULT)
+    {
+        set_application_thread_near_memory_preferred();
+    }
+    else if (LOGGING_RUN)
     {
         set_application_thread_near_memory_default();
     }

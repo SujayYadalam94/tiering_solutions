@@ -267,8 +267,14 @@ void *pebs_scan_thread(void *arg)
                         ps = reinterpret_cast<const struct perf_sample *>(record_ptr);
                         assert(ps != nullptr);
 
-                        if (is_migration_worker_tid(static_cast<pid_t>(ps->tid)))
+                        if (VIRTUAL_FEATURES_ENABLED && is_migration_worker_tid(static_cast<pid_t>(ps->tid)))
                         {
+                            break;
+                        }
+
+                        if(VIRTUAL_FEATURES_ENABLED && is_preload_library_ip(ps->ip))
+                        {
+                            note_preload_library_sample_filtered();
                             break;
                         }
 

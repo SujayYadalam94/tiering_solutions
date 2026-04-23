@@ -93,6 +93,38 @@ cleanup_measurement_outputs() {
     rm -f "${max_dram_file}"
 }
 
+
+measurement_prepare_workload_runtime() {
+    WORKLOAD_RUNTIME_DIR=
+    WORKLOAD_RUNTIME_CHDIR_ARG=
+
+    if [[ -z "${WORKLOAD_RUNTIME_INPUT_SOURCE:-}" ]]; then
+        return 0
+    fi
+
+    if [[ ! -f "${WORKLOAD_RUNTIME_INPUT_SOURCE}" ]]; then
+        echo "ERROR: workload runtime input not found: ${WORKLOAD_RUNTIME_INPUT_SOURCE}" >&2
+        return 1
+    fi
+
+    WORKLOAD_RUNTIME_DIR=$(mktemp -d)
+    local target_name=${WORKLOAD_RUNTIME_INPUT_TARGET:-$(basename "${WORKLOAD_RUNTIME_INPUT_SOURCE}")}
+
+    if ! cp "${WORKLOAD_RUNTIME_INPUT_SOURCE}" "${WORKLOAD_RUNTIME_DIR}/${target_name}"; then
+        rm -rf "${WORKLOAD_RUNTIME_DIR}"
+        WORKLOAD_RUNTIME_DIR=
+        return 1
+    fi
+
+    if [[ -f timer.flag ]] && ! cp timer.flag "${WORKLOAD_RUNTIME_DIR}/timer.flag"; then
+        rm -rf "${WORKLOAD_RUNTIME_DIR}"
+        WORKLOAD_RUNTIME_DIR=
+        return 1
+    fi
+
+    WORKLOAD_RUNTIME_CHDIR_ARG="--chdir=${WORKLOAD_RUNTIME_DIR}"
+}
+
 run_preloaded_measurement() {
     local program=$1
     local library_path=$2
@@ -112,6 +144,10 @@ run_preloaded_measurement() {
         had_errexit=1
     fi
 
+    if ! measurement_prepare_workload_runtime; then
+        return 1
+    fi
+
     set +e
     start_epoch_s=$(date +%s)
     {
@@ -119,7 +155,7 @@ run_preloaded_measurement() {
             --kill-after="${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS}s" \
             "${MEASUREMENT_TIMEOUT_SECONDS}s" \
             numactl --membind="${numa_mem_nodes}" -- taskset -c "${taskset_cpus}" \
-            sudo \
+            sudo env ${WORKLOAD_RUNTIME_CHDIR_ARG:+${WORKLOAD_RUNTIME_CHDIR_ARG}} \
             LOG_OUTPUT_PATH="${log_output_path}" \
             LD_PRELOAD="${library_path}" \
             ${program} 2>&1
@@ -154,6 +190,18 @@ move_max_dram_log_if_present() {
 
     if [[ -f max_dram_hugepages.log ]]; then
         mv max_dram_hugepages.log "${destination}"
+    fi
+}
+
+cleanup_offcore_write_l3_metrics_log() {
+    rm -f offcore_write_l3_metrics.log
+}
+
+copy_offcore_write_l3_metrics_log_if_present() {
+    local destination=$1
+
+    if [[ -f offcore_write_l3_metrics.log ]]; then
+        cp -f offcore_write_l3_metrics.log "${destination}"
     fi
 }
 
@@ -193,9 +241,10 @@ run_measurement_setup() {
 
 run_measurement_setup_baseline_default() {
     local size_mib=$1
+    local measurement_platform=${MEASUREMENT_PLATFORM:-c220g5}
 
     sudo bash "${MEASUREMENT_COMMON_DIR}/unsetup.sh" || true
-    sudo bash "${MEASUREMENT_COMMON_DIR}/setup.sh" "${size_mib}" default
+    sudo bash "${MEASUREMENT_COMMON_DIR}/setup.sh" "${size_mib}" default "${measurement_platform}"
     measurement_apply_baseline_default_migration_settings || return 1
 }
 

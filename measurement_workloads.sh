@@ -4,16 +4,15 @@ MEASUREMENT_WORKLOADS_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 MEASUREMENT_WORKLOADS_PATH="${MEASUREMENT_WORKLOADS_DIR}/workloads"
 
 declare -ar MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
+    "pr-kron.sg"
+    "bc-kron.sg"
+    "lulesh2.0_s400"
     "faiss_10M"
     "XSBench"
     "DuckDB-TPCH-sf100"
-    "lulesh2.0_s400"
     "mg.D.x"
     "bc-twitter.sg"
     "pr-twitter.sg"
-    "bc-kron.sg"
-    "pr-kron.sg"
-
     #"DuckDB-TPCDS-sf100"
 )
 
@@ -31,9 +30,18 @@ measurement_expand_workloads() {
     fi
 
     local workload_id
+    local emitted=0
     for workload_id in "$@"; do
+        if [[ -z "${workload_id}" ]]; then
+            continue
+        fi
         printf '%s\n' "${workload_id}"
+        emitted=1
     done
+
+    if [[ ${emitted} -eq 0 ]]; then
+        measurement_list_default_workloads
+    fi
 }
 
 measurement_workload_file() {
@@ -47,6 +55,9 @@ measurement_reset_workload_vars() {
     unset WORKLOAD_COMMAND
     unset WORKLOAD_EXE_NAME
     unset WORKLOAD_MODEL_BASE
+    unset WORKLOAD_RUNTIME_INPUT_SOURCE
+    unset WORKLOAD_RUNTIME_INPUT_TARGET
+    unset WORKLOAD_VIRTUAL_STEP_SAMPLES
     unset WORKLOAD_SYSTEMS
 }
 

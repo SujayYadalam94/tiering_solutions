@@ -93,6 +93,8 @@ bool is_migration_worker_tid(pid_t tid);
 void change_sampling_frequency();
 void detect_hot_change();
 void update_scores_and_migrate(size_t timestep);
+bool get_offcore_write_l3_hit_rate(double *hit_rate, uint64_t *demand_rfo_any = nullptr,
+                                   uint64_t *demand_rfo_l3_miss = nullptr);
 
 void *madvise_worker_thread(void *arg);
 void *pebs_scan_thread(void *arg);

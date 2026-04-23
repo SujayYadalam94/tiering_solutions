@@ -397,6 +397,7 @@ void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
     PRINT_CELL_AUTO(discounted_reward_90);
     PRINT_CELL_AUTO(discounted_reward_95);
     PRINT_CELL_AUTO(discounted_reward_99);
+    PRINT_CELL_AUTO(step_offcore_write_l3_miss_rate);
 
     os << "\n";
 
