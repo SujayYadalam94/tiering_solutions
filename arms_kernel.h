@@ -118,7 +118,7 @@ enum sampling_modes {
   NUM_SAMPLING_MODES
 };
 
-#define SCANNING_THREAD_CPU (0 + 1)
+#define SCANNING_THREAD_CPU (10) // Numa node 2
 #define POLICY_THREAD_CPU (SCANNING_THREAD_CPU + 1)
 
 /// Bandwidth monitoring
@@ -181,10 +181,11 @@ struct arms_page_info {
   uint16_t hot_age;
   bool in_dram;
   bool can_promote;
+  bool is_hugepage;
   std::mutex page_lock;
 
   arms_page_info() : va(0), score(0), prev_score(0), hot_age(0),
-                     in_dram(false), can_promote(true) {
+                     in_dram(false), can_promote(true), is_hugepage(false) {
     for (int i = 0; i < WINDOW_SIZE; i++) w[i] = 0;
     for (int i = 0; i < NPBUFTYPES; i++) {
       accesses[i][0] = accesses[i][1] = 0;

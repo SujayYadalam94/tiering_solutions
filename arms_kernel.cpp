@@ -51,7 +51,10 @@ static std::unordered_map<uint64_t, arms_page_info*> pages_map;
 static std::mutex pages_map_lock;
 
 static int pagemap_fd = -1;
+static int kpageflags_fd = -1;
 static pid_t target_pid = 0;
+
+#define KPF_THP (1ULL << 22)
 
 static int perf_fd[PEBS_NPROCS][NPBUFTYPES];
 static struct perf_event_mmap_page *perf_page[PEBS_NPROCS][NPBUFTYPES];
@@ -553,6 +556,14 @@ static void scan_process_pages() {
           numa_move_pages(0, 1, &addr, nullptr, &status, 0);
           page->in_dram = (status == FAST_TIER);
 
+          // Detect if this page is backed by a THP (bit 22 of kpageflags)
+          if (kpageflags_fd >= 0) {
+            uint64_t kflags = 0;
+            if (pread(kpageflags_fd, &kflags, sizeof(kflags), pfn * sizeof(uint64_t)) == sizeof(kflags)) {
+              page->is_hugepage = (kflags & KPF_THP) != 0;
+            }
+          }
+
           {
             std::lock_guard<std::mutex> lock(pages_map_lock);
             pages_map[va] = page;
@@ -562,9 +573,25 @@ static void scan_process_pages() {
     }
   }
 
-  std::cout << "[ARMS] Number of process pages tracked: " << pages_map.size() << std::endl;
+  uint64_t node0_huge = 0, node0_base = 0;
+  uint64_t node1_huge = 0, node1_base = 0;
+  {
+    std::lock_guard<std::mutex> lock(pages_map_lock);
+    for (const auto& kv : pages_map) {
+      const arms_page_info* page = kv.second;
+      if (page->in_dram) {
+        if (page->is_hugepage) node0_huge++; else node0_base++;
+      } else {
+        if (page->is_hugepage) node1_huge++; else node1_base++;
+      }
+    }
+  }
 
-  maps_file.close();
+  uint64_t node0_kb = node0_huge * (HUGEPAGE_SIZE / 1024) + node0_base * 4;
+  uint64_t node1_kb = node1_huge * (HUGEPAGE_SIZE / 1024) + node1_base * 4;
+
+  std::cout << "[ARMS] node0: " << node0_huge << " hugepages, " << node0_base << " basepages, total size " << node0_kb << " KB" << std::endl;
+  std::cout << "[ARMS] node1: " << node1_huge << " hugepages, " << node1_base << " basepages, total size " << node1_kb << " KB" << std::endl;
 }
 
 
@@ -1030,7 +1057,7 @@ void arms_start_tiering() {
     dramsize = ((dramsize + PAGE_SIZE - 1) / PAGE_SIZE) * PAGE_SIZE;
   }
 
-  // Open pagemap
+  // Open pagemap and kpageflags
   target_pid = getpid();
   char pagemap_path[256];
   snprintf(pagemap_path, sizeof(pagemap_path), "/proc/%d/pagemap", target_pid);
@@ -1038,6 +1065,11 @@ void arms_start_tiering() {
   if (pagemap_fd < 0) {
     perror("Failed to open pagemap");
     return;
+  }
+
+  kpageflags_fd = open("/proc/kpageflags", O_RDONLY);
+  if (kpageflags_fd < 0) {
+    perror("Failed to open /proc/kpageflags (hugepage detection disabled)");
   }
 
   // Check NUMA configuration
@@ -1074,6 +1106,10 @@ void arms_kernel_shutdown() {
 
   if (pagemap_fd >= 0) {
     close(pagemap_fd);
+  }
+
+  if (kpageflags_fd >= 0) {
+    close(kpageflags_fd);
   }
 
   // Clean up page tracking
