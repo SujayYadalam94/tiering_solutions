@@ -100,7 +100,7 @@ static long perf_event_open(struct perf_event_attr *hw_event, pid_t pid,
                            int cpu, int group_fd, unsigned long flags);
 static void setup_perf_events();
 static void update_scores_and_migrate();
-static int migrate_pages_to_node(std::vector<uint64_t>& vas, int target_node);
+static std::vector<int> migrate_pages_to_node(std::vector<uint64_t>& vas, int target_node);
 static void scan_process_pages();
 
 // ============================================================================
@@ -675,15 +675,14 @@ static int score_compare(const void *a, const void *b) {
   return (ea->score > eb->score) ? -1 : (ea->score < eb->score);
 }
 
-static int migrate_pages_to_node(std::vector<uint64_t>& vas, int target_node) {
-  if (vas.empty()) return 0;
+static float migrate_pages_to_node(std::vector<uint64_t>& vas, std::vector<int>& status, int target_node) {
+  if (vas.empty()) return {};
 
   auto start = std::chrono::high_resolution_clock::now();
 
   size_t num_pages = vas.size();
   std::vector<void*> pages(num_pages);
   std::vector<int> nodes(num_pages, target_node);
-  std::vector<int> status(num_pages, -1);
 
   for (size_t i = 0; i < num_pages; i++) {
     pages[i] = (void*)vas[i];
@@ -694,25 +693,8 @@ static int migrate_pages_to_node(std::vector<uint64_t>& vas, int target_node) {
 
   auto end = std::chrono::high_resolution_clock::now();
   auto duration_us = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
-  float time_per_page_us = (float)duration_us / (float)num_pages;
 
-  // Update migration cost estimates
-  if (target_node == FAST_TIER) {
-    // Promotion
-    promotion_cost_avg = MIGRATION_COST_ALPHA * time_per_page_us +
-                        (1 - MIGRATION_COST_ALPHA) * promotion_cost_avg;
-  } else {
-    // Demotion
-    demotion_cost_avg = MIGRATION_COST_ALPHA * time_per_page_us +
-                       (1 - MIGRATION_COST_ALPHA) * demotion_cost_avg;
-  }
-
-  if (ret != 0) {
-    perror("numa_move_pages");
-    return -1;
-  }
-
-  return num_pages;
+  return (float)duration_us;
 }
 
 static void update_scores_and_migrate() {
@@ -879,34 +861,50 @@ static void update_scores_and_migrate() {
 
   // Perform migrations
   if (!demote_list.empty()) {
-    int ret = migrate_pages_to_node(demote_list, SLOW_TIER);
-    if (ret > 0) {
-      migrations_down += ret;
-      std::cout << "[ARMS] Demoted " << ret << " pages to NVM" << std::endl;
+    std::vector<int> status(demote_list.size(), -1);
+    float migration_time = migrate_pages_to_node(demote_list, status, SLOW_TIER);
 
-      // Update page state
-      for (uint64_t va : demote_list) {
-        auto it = pages_map.find(va);
+    size_t successful_demotions = 0;
+    for (size_t i = 0; i < demote_list.size(); i++) {
+      if (status[i] == SLOW_TIER) {
+        // Update page in_dram state
+        auto it = pages_map.find(demote_list[i]);
         if (it != pages_map.end()) {
           it->second->in_dram = false;
         }
+        successful_demotions++;
       }
+    }
+    std::cout << "[ARMS] Demotions: Successful=" << successful_demotions << ", Failed=" << (demote_list.size() - successful_demotions) << std::endl;
+    
+    // Update demotion cost estimate based on actual time taken for this page
+    if (successful_demotions > 0) {
+      float avg_cost_per_page = migration_time / successful_demotions;
+      demotion_cost_avg = (1 - MIGRATION_COST_ALPHA) * demotion_cost_avg + MIGRATION_COST_ALPHA * avg_cost_per_page;
     }
   }
 
   if (!promote_list.empty()) {
-    int ret = migrate_pages_to_node(promote_list, FAST_TIER);
-    if (ret > 0) {
-      migrations_up += ret;
-      std::cout << "[ARMS] Promoted " << ret << " pages to DRAM" << std::endl;
+    std::vector<int> status(promote_list.size(), -1);
+    float migration_time = migrate_pages_to_node(promote_list, status, FAST_TIER);
 
-      // Update page state
-      for (uint64_t va : promote_list) {
-        auto it = pages_map.find(va);
+    size_t successful_promotions = 0;
+    for (size_t i = 0; i < promote_list.size(); i++) {
+      if (status[i] == FAST_TIER) {
+        // Update page in_dram state
+        auto it = pages_map.find(promote_list[i]);
         if (it != pages_map.end()) {
           it->second->in_dram = true;
         }
+        successful_promotions++;
       }
+    }
+    std::cout << "[ARMS] Promotions: Successful=" << successful_promotions << ", Failed=" << (promote_list.size() - successful_promotions) << std::endl;
+
+    // Update promotion cost estimate based on actual time taken for this page
+    if (successful_promotions > 0) {
+      float avg_cost_per_page = migration_time / successful_promotions;
+      promotion_cost_avg = (1 - MIGRATION_COST_ALPHA) * promotion_cost_avg + MIGRATION_COST_ALPHA * avg_cost_per_page;
     }
   }
 

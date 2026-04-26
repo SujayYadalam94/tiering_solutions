@@ -34,7 +34,6 @@ $(TARGET_LIB): $(HOOK_SRC) arms_kernel.cpp
 	    -ldl -lpthread -lnuma \
 	    $(EXTRA_COMPILE_ARGS)
 	@echo "Hook library built successfully: $(TARGET_LIB)"
-	@echo "Usage: LD_PRELOAD=./$(TARGET_LIB) ./your_application"
 
 # Compile C++ sources
 %.o: %.cpp
