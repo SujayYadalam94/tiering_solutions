@@ -203,6 +203,54 @@ uint64_t measure_bw(int tier)
 
   return cur_bw;
 }
+
+uint64_t read_imc_event_config(const char *event_name) {
+  char path[128];
+  char buf[64];
+  int fd, n;
+  uint64_t event = 0, umask = 0;
+  char *p;
+  snprintf(path, sizeof(path), "/sys/devices/uncore_imc_0/events/%s", event_name);
+  fd = open(path, O_RDONLY);
+  if (fd == -1) {
+    std::cerr << "ERROR: Failed to open " << path << std::endl;
+    exit(1);
+  }
+  n = read(fd, buf, sizeof(buf) - 1);
+  close(fd);
+  if (n <= 0) {
+    std::cerr << "ERROR: Failed to read " << path << std::endl;
+    exit(1);
+  }
+  buf[n] = '\0';
+  p = strstr(buf, "event=");
+  if (p) event = strtoul(p + 6, NULL, 16);
+  p = strstr(buf, "umask=");
+  if (p) umask = strtoul(p + 6, NULL, 16);
+  return (umask << 8) | event;
+}
+
+uint32_t read_imc_type(int imc_idx) {
+  char path[64];
+  char buf[16];
+  int fd, n;
+
+  snprintf(path, sizeof(path), "/sys/devices/uncore_imc_%d/type", imc_idx);
+  fd = open(path, O_RDONLY);
+  if (fd == -1) {
+    std::cerr << "ERROR: Failed to open " << path << std::endl;
+    exit(1);
+  }
+  n = read(fd, buf, sizeof(buf) - 1);
+  close(fd);
+  if (n <= 0) {
+    std::cerr << "ERROR: Failed to read " << path << std::endl;
+    exit(1);
+  }
+  buf[n] = '\0';
+  return (uint32_t)strtoul(buf, NULL, 10);
+}
+
 void open_perf_events()
 {
   int fd;
@@ -212,13 +260,13 @@ void open_perf_events()
     for (unsigned long j = 0; j < NUM_EVENTS; j++) {
       for (unsigned long k = 0; k < NUM_IMC; k++) {
         memset(&pe, 0, sizeof(pe));
-        pe.type = i + 12; // TODO: read type from /sys/devices/uncore_imc_x/type
+        pe.type = read_imc_type(k);
         pe.size = sizeof(pe);
         pe.disabled = 1;
         pe.inherit = 1;
-        pe.config = (j == 0) ? 0x304:0xC04;
+        pe.config = read_imc_event_config((j == 0) ? "cas_count_read" : "cas_count_write");
 
-        fd = perf_event_open(&pe, -1, 10, -1, 0);
+        fd = perf_event_open(&pe, -1, (i == 0) ? 0 : 10, -1, 0); // CPU0 for tier0, CPU10 for tier1
         if (fd == -1) {
           std::cerr << "ERROR: Failed to open perf event for BW monitoring" << std::endl;
           exit(1);
