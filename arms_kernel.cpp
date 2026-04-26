@@ -508,11 +508,9 @@ static void scan_process_pages() {
   if (pagemap_fd < 0) return;
 
   // Read /proc/self/maps to get VMA ranges
-  static std::ifstream maps_file("/proc/self/maps");
-  maps_file.clear(); // Clear any EOF flags
-  maps_file.seekg(0); // Reset to beginning for each scan
+  std::ifstream maps_file("/proc/self/maps");
   if (!maps_file.is_open()) {
-    perror("Failed to open /proc/self/maps");
+    std::cerr << "[ARMS] Failed to open /proc/self/maps" << std::endl;
     return;
   }
 
@@ -603,8 +601,10 @@ static void detect_hot_change() {
   float cur_dram_bw, cur_nvm_bw;
 
   // Measure current bandwidth
-  cur_dram_bw = (float)measure_bw(0) / (1024.0 * 1024.0 * 1024.0); // GB/s
-  cur_nvm_bw  = (float)measure_bw(1) / (1024.0 * 1024.0 * 1024.0); // GB/s
+  cur_dram_bw = (float)measure_bw(0) * 64 / (1024.0 * 1024.0 * 1024.0); // GB/s
+  cur_nvm_bw  = (float)measure_bw(1) * 64 / (1024.0 * 1024.0 * 1024.0); // GB/s
+
+  std::cout << "[ARMS] Current DRAM BW: " << cur_dram_bw << " GB/s, NVM BW: " << cur_nvm_bw << " GB/s" << std::endl;
 
   // Update EWMA of bandwidth
   dram_bw_ewma = (1 - HCD_EWMA_ALPHA) * dram_bw_ewma + HCD_EWMA_ALPHA * cur_dram_bw;
@@ -785,49 +785,6 @@ static void update_scores_and_migrate() {
     }
   }
 
-  // Instrumentation: Track violation time
-  bool is_violating = (dramsize > 0 && current_dram_pages > max_dram_pages);
-
-  // Aggressive demotion if violating
-  if (is_violating) {
-      max_migrations_cur_interval *= 100;
-  }
-
-  auto now = std::chrono::high_resolution_clock::now();
-
-  if (is_violating) {
-    if (violation_start_time == std::chrono::time_point<std::chrono::high_resolution_clock>::min()) {
-      // Started violating
-      violation_start_time = now;
-    }
-  } else {
-    if (violation_start_time != std::chrono::time_point<std::chrono::high_resolution_clock>::min()) {
-      // Stopped violating
-      auto duration = std::chrono::duration_cast<std::chrono::microseconds>(now - violation_start_time).count();
-      violation_durations_us.push_back(duration);
-      total_violation_us += duration;
-      violation_start_time = std::chrono::time_point<std::chrono::high_resolution_clock>::min();
-    }
-  }
-
-  std::cout << "[ARMS] Current DRAM pages: " << current_dram_pages
-            << ", Max DRAM pages: " << max_dram_pages
-            << ", Free DRAM pages: " << fasttier_free_pages << std::endl;
-
-  // Enforce watermark: demote excess pages from the coldest end
-  if (dramsize > 0) {
-    while (current_dram_pages > max_dram_pages && demote_idx > 0) {
-      if (migrated_count >= max_migrations_cur_interval) break;
-
-      if (scores[demote_idx].page->in_dram) {
-        demote_list.push_back(scores[demote_idx].page->va);
-        current_dram_pages--;
-        migrated_count++;
-      }
-      demote_idx--;
-    }
-  }
-
   // Try to promote hot NVM pages, demoting cold DRAM pages if necessary
   while (promote_idx < (dramsize/PAGE_SIZE) && promote_idx < demote_idx) {
     if (migrated_count >= max_migrations_cur_interval) {
@@ -989,6 +946,7 @@ static void* arms_policy_thread(void *arg) {
     curr_access_version = 1 - curr_access_version;
     __sync_synchronize();
 
+    // Run Hotset change detector every second
     if (global_version % (1000000 / policy_thread_interval) == 0) {
       detect_hot_change();
 
@@ -1004,11 +962,9 @@ static void* arms_policy_thread(void *arg) {
       latency_diff = nvm_lat - dram_lat;
     }
 
-    // Periodically scan for new pages
-    static int scan_counter = 0;
-    if (++scan_counter >= 10) {  // Every 5 seconds
+    // Scan process page map every 5 seconds to discover new pages
+    if (global_version % (500000 / policy_thread_interval) == 0) {
       scan_process_pages();
-      scan_counter = 0;
     }
 
     update_scores_and_migrate();
@@ -1027,6 +983,10 @@ static void* arms_policy_thread(void *arg) {
               << ", NVMREAD: " << total_samples[NVMREAD]
               << ", WRITE: " << total_samples[WRITE] << std::endl;
     total_samples[DRAMREAD] = total_samples[NVMREAD] = total_samples[WRITE] = 0;
+
+    // Print migration cost
+    std::cout << "[ARMS] Estimated promotion cost: " << promotion_cost_avg << " us/page, "
+              << "Estimated demotion cost: " << demotion_cost_avg << " us/page" << std::endl;
 
     ptimer_stop_and_print(&loop_timer);
     double elapsed_us = loop_timer.elapsed_us;
@@ -1121,35 +1081,6 @@ void arms_kernel_shutdown() {
     pages_map.clear();
   }
 
-  // Calculate final stats
-  if (violation_start_time != std::chrono::time_point<std::chrono::high_resolution_clock>::min()) {
-    auto now = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(now - violation_start_time).count();
-    violation_durations_us.push_back(duration);
-    total_violation_us += duration;
-  }
-
-  auto total_runtime = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - start_time_point).count();
-  double violation_pct = (total_runtime > 0) ? (100.0 * total_violation_us / total_runtime) : 0.0;
-
-  double avg_fix_time = 0;
-  if (!violation_durations_us.empty()) {
-    uint64_t sum = 0;
-    for (auto d : violation_durations_us) sum += d;
-    avg_fix_time = (double)sum / violation_durations_us.size();
-  }
-
-  uint64_t total_migrations = migrations_up + migrations_down;
-  uint64_t total_bytes_migrated = total_migrations * PAGE_SIZE;
-
   std::cout << "[ARMS] Migration Statistics:" << std::endl;
-  std::cout << "  Total Migrations: " << total_migrations << " (Promotions: " << migrations_up << ", Demotions: " << migrations_down << ")" << std::endl;
-  std::cout << "  Total Bytes Migrated: " << total_bytes_migrated / (1024.0 * 1024.0) << " MB" << std::endl;
-
-  std::cout << "[ARMS] Violation Statistics:" << std::endl;
-  std::cout << "  Total Runtime: " << total_runtime / 1000000.0 << " s" << std::endl;
-  std::cout << "  Time in Violation: " << total_violation_us / 1000000.0 << " s (" << violation_pct << "%)" << std::endl;
-  std::cout << "  Average Time to Fix Violation: " << avg_fix_time / 1000.0 << " ms" << std::endl;
-
-  std::cout << "[ARMS] Shutdown complete." << std::endl;
+  std::cout << "[ARMS] Promotions: " << migrations_up << ", Demotions: " << migrations_down << ")" << std::endl;
 }
