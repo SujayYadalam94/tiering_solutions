@@ -8,13 +8,13 @@ declare -ar MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
     #"mg.D.x"
     #"DuckDB-TPCH-sf100"
     #"faiss_10M"
-    #"XSBench"
+    "XSBench"
 
     "bc-kron.sg"
     "pr-kron.sg"
 
-    "bc-twitter.sg"
-    "pr-twitter.sg"
+    #"bc-twitter.sg"
+    #"pr-twitter.sg"
 
     #"lulesh2.0_s400"
     

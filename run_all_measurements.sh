@@ -56,7 +56,7 @@ EOF
     fi
 }
 
-SIZES=(6000)
+SIZES=(8000)
 RUNS=3
 ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}
 
@@ -79,8 +79,8 @@ for size in "${SIZES[@]}"; do
             fi
 
             # ARMS
-            #run_measurement_setup "${size}"
-            #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+            run_measurement_setup "${size}"
+            "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
 
             # NOMAD
             #if [[ -x "${SCRIPT_DIR}/measurement_nomad.sh" ]]; then
@@ -106,8 +106,8 @@ for size in "${SIZES[@]}"; do
             #    echo "WARNING: ./measurement_hybridtier.sh not found or not executable; skipping HybridTier"
             #fi
 
-            run_measurement_setup "${size}"
-            "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${ARMS_LIB_SUFFIX}" "${workload_id}"
+            #run_measurement_setup "${size}"
+            #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${ARMS_LIB_SUFFIX}" "${workload_id}"
 
             run_measurement_teardown
         done

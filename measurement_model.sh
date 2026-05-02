@@ -27,8 +27,8 @@ echo "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}"
 #minmax_options=(true false)
 #hist_lengths=(4 8)
 #penalties=(0
-pcts=(99 95 90)
-minmax_options=(true false)
+pcts=(99)
+minmax_options=(true)
 hist_lengths=(4)
 penalties=(0.9)
 

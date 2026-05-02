@@ -1,9 +1,0 @@
-event=OFFCORE_RESPONSE:request=DEMAND_RFO:response=L3_MISS.ANY_SNOOP
-eventsel_umask_config=0x1b7
-offcore_mask_any_response=0x10002
-offcore_mask_l3_miss_any_snoop=0x3fbc000002
-demand_rfo_any_response=1016760533
-demand_rfo_l3_miss_any_snoop=716190179
-demand_rfo_l3_hit_any_snoop=300570354
-demand_rfo_l3_miss_rate=0.70438432
-demand_rfo_l3_hit_rate=0.29561568
