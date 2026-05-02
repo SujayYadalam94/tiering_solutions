@@ -11,7 +11,7 @@ PLATFORM_ARGS=(--platform "${MEASUREMENT_PLATFORM}")
 
 echo "Using measurement platform: ${MEASUREMENT_PLATFORM}"
 
-SIZES=(6000)
+SIZES=(4005)
 RUNS=1
 
 mapfile -t WORKLOAD_IDS < <(measurement_list_default_workloads)

@@ -117,6 +117,7 @@ void page_info::reset_model_score_history()
     }
     this->model_score_history_count = 0;
     this->model_score_history_index = 0;
+    this->adjusted_model_score_moving_average = 0.0f;
 }
 
 void page_info::push_model_score(float score)
@@ -127,6 +128,10 @@ void page_info::push_model_score(float score)
     {
         this->model_score_history_count++;
     }
+
+    const uint16_t i = MODEL_SCORE_MOVING_AVERAGE_ALPHA_IDX;
+    const float denom = get_adjusted_ewma_denom(i, this->age);
+    this->adjusted_model_score_moving_average = adjusted_ewma(this->adjusted_model_score_moving_average, score, denom);
 }
 
 float page_info::max_model_score_history() const
@@ -181,6 +186,16 @@ float page_info::average_model_score_history() const
     }
 
     return sum / static_cast<float>(this->model_score_history_count);
+}
+
+float page_info::adjusted_moving_average_model_score() const
+{
+    if (this->model_score_history_count == 0)
+    {
+        return 0.0f;
+    }
+
+    return this->adjusted_model_score_moving_average;
 }
 
 float ewma(const float yp, const float x, const float alpha)

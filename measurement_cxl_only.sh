@@ -53,14 +53,15 @@ function run_workload {
     fi
 
     set +e
-    /usr/bin/time -o "${time_file}" \
-        timeout --foreground --signal=TERM \
+    {
+        time timeout --foreground --signal=TERM \
             --kill-after="${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS}s" \
             "${MEASUREMENT_TIMEOUT_SECONDS}s" \
             numactl --membind="${NUMA_MEM_NODE}" -- taskset -c "${TASKSET_CPUS}" \
             sudo \
             LOG_OUTPUT_PATH="${log_output_path}" \
-            ${WORKLOAD_COMMAND}
+            ${WORKLOAD_COMMAND} 2>&1
+    } 2> "${time_file}"
     status=$?
     if [[ ${had_errexit} -eq 1 ]]; then
         set -e

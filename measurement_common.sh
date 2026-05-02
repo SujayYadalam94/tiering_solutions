@@ -92,12 +92,12 @@ measurement_init_platform_from_args() {
 measurement_build_model_name() {
     local pct=$1
     local model_base=$2
-    local minmax=$3
+    local history_summary=$3
     local hist_length=$4
-    local penalty=$5
+    local switch_scaler=$5
 
     printf 'model_discounted_reward_%s_%s_l2-%s_%s_%s' \
-        "${pct}" "${model_base}" "${minmax}" "${hist_length}" "${penalty}"
+        "${pct}" "${model_base}" "${history_summary}" "${hist_length}" "${switch_scaler}"
 }
 
 measurement_build_model_library_path() {

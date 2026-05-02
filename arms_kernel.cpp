@@ -278,6 +278,8 @@ void set_application_thread_far_memory_default()
     numa_bitmask_setbit(slow_tier_nodemask, SLOW_TIER);
     numa_set_membind(slow_tier_nodemask);
     numa_bitmask_free(slow_tier_nodemask);
+
+    std::cout << "[ARMS] Set application thread to prefer far memory by default." << std::endl;
 }
 
 void set_application_thread_near_memory_default()
@@ -299,6 +301,8 @@ void set_application_thread_near_memory_default()
     numa_bitmask_setbit(fast_tier_nodemask, FAST_TIER);
     numa_set_membind(fast_tier_nodemask);
     numa_bitmask_free(fast_tier_nodemask);
+
+    std::cout << "[ARMS] Set application thread to prefer near memory by default." << std::endl;
 }
 
 void set_application_thread_near_memory_preferred()
@@ -312,6 +316,8 @@ void set_application_thread_near_memory_preferred()
     // Prefer near memory for new allocations but allow fallback when near tier
     // is full so we still allocate as much as possible in near memory.
     numa_set_preferred(FAST_TIER);
+
+    std::cout << "[ARMS] Set application thread to prefer near memory preferred." << std::endl;
 }
 
 bool is_access_log_page(uint64_t page_base)
@@ -1441,11 +1447,13 @@ static void update_model_scores_and_log(std::vector<score_entry> &scores, size_t
         auto &score_entry = scores[i];
         auto &row = rows[i];
 
-#if MIN_MAX_HISTORY == (true)
+#if MODEL_SCORE_HISTORY_SUMMARY == MODEL_SCORE_HISTORY_SUMMARY_MIN_MAX
         float history_model_score = score_entry.page->in_dram ? score_entry.page->max_model_score_history()
                                                               : score_entry.page->min_model_score_history();
-#else
+#elif MODEL_SCORE_HISTORY_SUMMARY == MODEL_SCORE_HISTORY_SUMMARY_AVERAGE
         float history_model_score = score_entry.page->average_model_score_history();
+#elif MODEL_SCORE_HISTORY_SUMMARY == MODEL_SCORE_HISTORY_SUMMARY_MOVING_AVERAGE
+        float history_model_score = score_entry.page->adjusted_moving_average_model_score();
 #endif
 
         if (USE_MODEL)
@@ -1576,9 +1584,14 @@ static migration_decision select_migration_candidates(const std::vector<score_en
         }
 #endif
 
-        float cost = CB_MULTIPLIER * (promotion_cost_avg);
+        float cost = PROMOTION_COST_MULTIPLIER * (promotion_cost_avg);
 #if USE_MODEL == (true)
-        float benefit = SWITCH_SCALER * hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
+        // float benefit = SWITCH_SCALER * hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
+        float benefit = hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
+        // std::cout << "cost: " << cost << " PROMOTION_COST_MULTIPLIER: " << PROMOTION_COST_MULTIPLIER
+        //           << " MODEL_DISCOUNT_PERCENT: " << MODEL_DISCOUNT_PERCENT
+        //           << " promotion_cost_avg: " << promotion_cost_avg << " hot_page->score: " << hot_page->score;
+        // std::cout << " scaler: " << SWITCH_SCALER << " mul: " << HF_SAMPLE_PERIOD * latency_diff << std::endl;
 #else
         float benefit = hot_page->score * hot_page->hot_age * HF_SAMPLE_PERIOD * latency_diff;
 #endif
@@ -1612,7 +1625,7 @@ static migration_decision select_migration_candidates(const std::vector<score_en
                 if (cold_page->in_dram)
                 {
                     selected_cold_page = cold_page;
-                    cost += CB_MULTIPLIER * (demotion_cost_avg);
+                    cost += DEMOTION_COST_MULTIPLIER * (demotion_cost_avg);
 #if USE_MODEL == (true)
                     benefit -= cold_page->score * HF_SAMPLE_PERIOD * latency_diff;
 #else
@@ -1736,7 +1749,10 @@ void arms_start_tiering()
     std::cout << "[ARMS] USE_MODEL = " << (USE_MODEL ? "true" : "false") << std::endl;
     std::cout << "[ARMS] LOGGING_RUN = " << (LOGGING_RUN ? "true" : "false") << std::endl;
     std::cout << "[ARMS] ENABLE_MIGRATION_WORKERS = " << (ENABLE_MIGRATION_WORKERS ? "true" : "false") << std::endl;
-    std::cout << "[ARMS] MIN_MAX_HISTORY = " << (MIN_MAX_HISTORY ? "true" : "false") << std::endl;
+    std::cout << "[ARMS] MODEL_SCORE_HISTORY_SUMMARY = " << MODEL_SCORE_HISTORY_SUMMARY_NAME << std::endl;
+    std::cout << "[ARMS] MODEL_SCORE_MOVING_AVERAGE_ALPHA_IDX = " << MODEL_SCORE_MOVING_AVERAGE_ALPHA_IDX << std::endl;
+    std::cout << "[ARMS] MODEL_SCORE_MOVING_AVERAGE_ALPHA = " << w_ewma_alpha[MODEL_SCORE_MOVING_AVERAGE_ALPHA_IDX]
+              << std::endl;
     std::cout << "[ARMS] HISTORY_LENGTH = " << HISTORY_LENGTH << std::endl;
 
     std::cout << "[ARMS] PRINT_TRAINING_DATA = " << (PRINT_TRAINING_DATA ? "true" : "false") << std::endl;

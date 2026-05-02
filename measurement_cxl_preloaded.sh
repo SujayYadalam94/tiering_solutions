@@ -103,8 +103,8 @@ function run_workload {
     fi
 
     set +e
-    /usr/bin/time -o "${time_file}" \
-        timeout --foreground --signal=TERM \
+    {
+        time timeout --foreground --signal=TERM \
             --kill-after="${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS}s" \
             "${MEASUREMENT_TIMEOUT_SECONDS}s" \
             numactl --membind="${NUMA_MEM_NODE}" -- taskset -c "${TASKSET_CPUS}" \
@@ -112,7 +112,8 @@ function run_workload {
             LOG_OUTPUT_PATH="${log_output_path}" \
             VIRTUAL_STEP_SAMPLES="${WORKLOAD_VIRTUAL_STEP_SAMPLES:-3162}" \
             LD_PRELOAD="${LIBRARY_PATH}" \
-            ${WORKLOAD_COMMAND}
+            ${WORKLOAD_COMMAND} 2>&1
+    } 2> "${time_file}"
     status=$?
     measurement_cleanup_workload_runtime
     if [[ ${had_errexit} -eq 1 ]]; then

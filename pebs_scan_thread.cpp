@@ -392,7 +392,7 @@ void *pebs_scan_thread(void *arg)
                             break;
                         }
 
-                        if (type == WRITE && ps->addr == 0)
+                        if (apply_filters && type == WRITE && ps->addr == 0)
                         {
                             break;
                         }

@@ -9,6 +9,9 @@
 
 #include <mutex>
 
+#define STRINGIFY_IMPL(value) #value
+#define STRINGIFY(value) STRINGIFY_IMPL(value)
+
 extern bool initialized;
 
 #ifndef LOGGING_RUN
@@ -47,7 +50,7 @@ extern bool initialized;
 #define FULL_LOGS (false)
 
 #ifndef ARMS_VERBOSE
-#define ARMS_VERBOSE (true)
+#define ARMS_VERBOSE (false)
 #endif
 
 #ifndef ARMS_PARTIAL_RANK_MULTIPLIER
@@ -77,13 +80,43 @@ extern bool initialized;
 #define MIGRATION_WORKER_COUNT (10)
 
 #if USE_MODEL == (false)
-#define BACKOFF_PERIOD (4) // Number of scanning intervals to backoff after promotion/demotion
+#define BACKOFF_PERIOD (0) // Number of scanning intervals to backoff after promotion/demotion
 #else
 #define BACKOFF_PERIOD (0)
 #endif
 
+#define MODEL_SCORE_HISTORY_SUMMARY_MIN_MAX (0)
+#define MODEL_SCORE_HISTORY_SUMMARY_AVERAGE (1)
+#define MODEL_SCORE_HISTORY_SUMMARY_MOVING_AVERAGE (2)
+
+#ifndef MODEL_SCORE_HISTORY_SUMMARY
+#ifdef MIN_MAX_HISTORY
+#if MIN_MAX_HISTORY == (true)
+#define MODEL_SCORE_HISTORY_SUMMARY (MODEL_SCORE_HISTORY_SUMMARY_MIN_MAX)
+#else
+#define MODEL_SCORE_HISTORY_SUMMARY (MODEL_SCORE_HISTORY_SUMMARY_AVERAGE)
+#endif
+#else
+#define MODEL_SCORE_HISTORY_SUMMARY (MODEL_SCORE_HISTORY_SUMMARY_MIN_MAX)
+#endif
+#endif
+
 #ifndef MIN_MAX_HISTORY
-#define MIN_MAX_HISTORY (true)
+#define MIN_MAX_HISTORY (MODEL_SCORE_HISTORY_SUMMARY == MODEL_SCORE_HISTORY_SUMMARY_MIN_MAX)
+#endif
+
+#ifndef MODEL_SCORE_MOVING_AVERAGE_ALPHA_IDX
+#define MODEL_SCORE_MOVING_AVERAGE_ALPHA_IDX (3)
+#endif
+
+#if MODEL_SCORE_HISTORY_SUMMARY == MODEL_SCORE_HISTORY_SUMMARY_MIN_MAX
+#define MODEL_SCORE_HISTORY_SUMMARY_NAME "min_max"
+#elif MODEL_SCORE_HISTORY_SUMMARY == MODEL_SCORE_HISTORY_SUMMARY_AVERAGE
+#define MODEL_SCORE_HISTORY_SUMMARY_NAME "average"
+#elif MODEL_SCORE_HISTORY_SUMMARY == MODEL_SCORE_HISTORY_SUMMARY_MOVING_AVERAGE
+#define MODEL_SCORE_HISTORY_SUMMARY_NAME "adjusted_moving_average"
+#else
+#error "Unsupported MODEL_SCORE_HISTORY_SUMMARY"
 #endif
 
 #ifndef HISTORY_LENGTH
@@ -175,8 +208,8 @@ extern bool initialized;
 #error "Please define your hardware platform (e.g., SCAILP or C220G5)"
 #endif
 
-#define MIN_PROMOTION_DATACOPY_TIME (PAGE_SIZE / (NVM_RD_BW_KNEE * 1024)) // ~ 700us
-#define MIN_DEMOTION_DATACOPY_TIME (PAGE_SIZE / (NVM_WR_BW_KNEE * 1024))  // ~ 1200us
+#define MIN_PROMOTION_DATACOPY_TIME (PAGE_SIZE / (NVM_RD_BW_KNEE * 1024)) // ~ 133us
+#define MIN_DEMOTION_DATACOPY_TIME (PAGE_SIZE / (NVM_WR_BW_KNEE * 1024))  // ~ 133us
 #define MIGRATION_METADATA_COST (500)                                     // us
 
 #define MIN_PROMOTION_COST (MIN_PROMOTION_DATACOPY_TIME + MIGRATION_METADATA_COST)
@@ -233,7 +266,23 @@ extern bool initialized;
 
 /// Page migration
 // ==============================================================================
-#define CB_MULTIPLIER (1.5) // Cost-benefit multiplier
+#if USE_MODEL == (true)
+// #define PROMOTION_COST_MULTIPLIER (1.5)
+// #define DEMOTION_COST_MULTIPLIER (18.5)
+
+#define PROMOTION_COST_MULTIPLIER (SWITCH_SCALER / (1.0 - (static_cast<double>(MODEL_DISCOUNT_PERCENT) / 100.0)))
+#define DEMOTION_COST_MULTIPLIER (SWITCH_SCALER / (1.0 - (static_cast<double>(MODEL_DISCOUNT_PERCENT) / 100.0)))
+
+#pragma message("BUILD INFO: SWITCH_SCALER = " STRINGIFY(SWITCH_SCALER))
+#pragma message("BUILD INFO: MODEL_DISCOUNT_PERCENT = " STRINGIFY(MODEL_DISCOUNT_PERCENT))
+#pragma message("BUILD INFO: PROMOTION_COST_MULTIPLIER = " STRINGIFY(PROMOTION_COST_MULTIPLIER))
+
+#else
+#define PROMOTION_COST_MULTIPLIER (1.5)
+#define DEMOTION_COST_MULTIPLIER (1.5)
+#pragma message("BUILD INFO: PROMOTION_COST_MULTIPLIER = 1.5")
+#endif
+
 #define MIGRATION_COST_DECAY_RATE                                                                                      \
     (1.5) // Decay rate for migration cost (1.5 means that the cost decreases by 1.5 every 1 interval)
 
@@ -242,7 +291,11 @@ extern bool initialized;
     (2. / (double)(MIGRATION_WINDOW_SIZE + 1)) // EWMA alpha for migration cost (20 periods -> 0.0952)
 // ==============================================================================
 
+#if USE_MODEL == (true)
 #define PERF_PAGES (1 + (1 << 10)) // Has to be == 1+2^n, here 64MB
+#else
+#define PERF_PAGES (1 + (1 << 11)) // 128MB because of double sampling rate
+#endif
 
 #if NEAR_MEM_TRACING_RUN == (true)
 #define DEFAULT_SAMPLE_PERIOD (10007)
@@ -313,6 +366,9 @@ enum imc_bw_counters
 static const float w_ewma_alpha[WINDOW_SIZE] = W_EWMA_ALPHA;
 static const float hist_bias[WINDOW_SIZE] = HIST_BIAS;
 static const float recn_bias[WINDOW_SIZE] = RECN_BIAS;
+
+static_assert((MODEL_SCORE_MOVING_AVERAGE_ALPHA_IDX >= 0) && (MODEL_SCORE_MOVING_AVERAGE_ALPHA_IDX < WINDOW_SIZE),
+              "MODEL_SCORE_MOVING_AVERAGE_ALPHA_IDX must be in the range [0, WINDOW_SIZE).");
 
 #define DENOM_SIZE (300)
 static bool w_ewma_denom_initialized = 0;

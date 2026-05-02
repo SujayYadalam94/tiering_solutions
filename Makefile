@@ -25,10 +25,11 @@ PLATFORMS := C220G5 GSL_OPTANE
 DEFAULT_PLATFORM ?= C220G5
 
 # Compile-time configuration matrix
-MIN_MAX_HISTORY_VALUES := false true
-HISTORY_LENGTH_VALUES := 4 
-SWITCH_SCALER_VALUES := 0.9
-COMBOS := $(foreach mmh,$(MIN_MAX_HISTORY_VALUES),$(foreach hlen,$(HISTORY_LENGTH_VALUES),$(foreach scaler,$(SWITCH_SCALER_VALUES),$(mmh)_$(hlen)_$(scaler))))
+MODEL_SCORE_HISTORY_SUMMARY_VALUES := 2
+# 0=min_max, 1=average, 2=adjusted_moving_average
+HISTORY_LENGTH_VALUES := 10
+SWITCH_SCALER_VALUES := 0.5 1.0 1.5 2.0 2.5
+COMBOS := $(foreach summary,$(MODEL_SCORE_HISTORY_SUMMARY_VALUES),$(foreach hlen,$(HISTORY_LENGTH_VALUES),$(foreach scaler,$(SWITCH_SCALER_VALUES),$(summary)_$(hlen)_$(scaler))))
 
 # Models and outputs
 MODELS := $(wildcard models/*.o)
@@ -58,8 +59,6 @@ SRCS = arms_kernel.cpp \
 	policy_thread.cpp \
 	timer.cpp hook/hook.cpp groups.cpp page.cpp logging.cpp model.cpp
 OBJ_NAMES = $(SRCS:.cpp=.o)
-NON_MODEL_SRCS := $(filter-out model.cpp,$(SRCS))
-NON_MODEL_OBJ_NAMES := $(NON_MODEL_SRCS:.cpp=.o)
 
 BASE_DEFINES_model := -DUSE_MODEL=true
 BASE_DEFINES_train := -DUSE_MODEL=true -DPRINT_TRAINING_DATA=true
@@ -71,15 +70,17 @@ BASE_DEFINES_arms_train := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=true
 BASE_DEFINES_arms_near_train := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=true -DNEAR_MEM_TRACING_RUN=true
 BASE_DEFINES_arms_cxl_train := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=true -DNEAR_MEM_TRACING_RUN=true -DFORCE_FAR_MEMORY_DEFAULT=true -DENABLE_MIGRATION_WORKERS=false
 
-combo_mmh = $(word 1,$(subst _, ,$1))
+combo_summary = $(word 1,$(subst _, ,$1))
 combo_hlen = $(word 2,$(subst _, ,$1))
 combo_scaler = $(word 3,$(subst _, ,$1))
-combo_defs = -DMIN_MAX_HISTORY=$(call combo_mmh,$1) -DHISTORY_LENGTH=$(call combo_hlen,$1) -DSWITCH_SCALER=$(call combo_scaler,$1)
+combo_defs = -DMODEL_SCORE_HISTORY_SUMMARY=$(call combo_summary,$1) -DHISTORY_LENGTH=$(call combo_hlen,$1) -DSWITCH_SCALER=$(call combo_scaler,$1)
 platform_defs = -D$(1)
 
-model_name_from_obj = $(basename $(notdir $1))
-model_discount_percent = $(if $(filter model_discounted_reward_%,$1),$(word 1,$(subst _, ,$(patsubst model_discounted_reward_%,%,$1))),0)
+model_name_from_obj = $(patsubst %.o,%,$(notdir $1))
+model_discount_suffix = $(patsubst model_discounted_reward_%,%,$(call model_name_from_obj,$1))
+model_discount_percent = $(if $(filter model_discounted_reward_%,$(call model_name_from_obj,$1)),$(firstword $(subst _, ,$(call model_discount_suffix,$1))),0)
 model_discount_define = -DMODEL_DISCOUNT_PERCENT=$(call model_discount_percent,$1)
+variant_model_objects = $(foreach model,$(MODELS),$(addprefix $(OBJ_DIR)/$(1)/$(2)/$(3)/$(call model_name_from_obj,$(model))/,$(OBJ_NAMES)))
 
 LOGGING_MODEL_NAME := $(call model_name_from_obj,$(LOGGING_MODEL_OBJ))
 LOGGING_MODEL_DISCOUNT_PERCENT := $(call model_discount_percent,$(LOGGING_MODEL_NAME))
@@ -107,35 +108,35 @@ all: $(LIB_TARGETS) $(TRAIN_LIB_TARGETS) $(ARMS_TARGETS) $(ARMS_NOMIGRATION_TARG
 $(TARGET_LIB): $(ARMS_TARGET_DEFAULT) | $(LIB_OUTPUT_DIR)
 	cp -f $< $@
 
-define MAKE_PLATFORM_COMBO_RULES
-MODEL_COMMON_OBJS_$(1)_$(2) := $$(addprefix $$(OBJ_DIR)/model/$(1)/$(2)/common/,$$(NON_MODEL_OBJ_NAMES))
-TRAIN_COMMON_OBJS_$(1)_$(2) := $$(addprefix $$(OBJ_DIR)/train/$(1)/$(2)/common/,$$(NON_MODEL_OBJ_NAMES))
-
-# Build one ARMS library per model object under models/ and config combo
-# Example: models/foo.o -> libraries/libhemem-foo-true_2_1.0.so
-$$(LIB_OUTPUT_DIR)/$(1)/libhemem-%-$(2).so: $$(MODEL_COMMON_OBJS_$(1)_$(2)) $$(OBJ_DIR)/model/$(1)/$(2)/%/model.o models/%.o | $$(LIB_OUTPUT_DIR)/$(1)
-	$$(LINK_SHARED_RECIPE)
-
-# Build one ARMS library per model object under models with training data enabled
-# Example: models/foo.o -> libraries/libhemem-foo_train-true_2_1.0.so
-$$(LIB_OUTPUT_DIR)/$(1)/libhemem-%_$(2)_train.so: $$(TRAIN_COMMON_OBJS_$(1)_$(2)) $$(OBJ_DIR)/train/$(1)/$(2)/%/model.o models/%.o | $$(LIB_OUTPUT_DIR)/$(1)
-	$$(LINK_SHARED_RECIPE)
-
-# Compile C++ sources for USE_MODEL=true variants and config combo
-$$(OBJ_DIR)/model/$(1)/$(2)/common/%.o: %.cpp | $$(OBJ_DIR)
-	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_model) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)))
-
-$$(OBJ_DIR)/train/$(1)/$(2)/common/%.o: %.cpp | $$(OBJ_DIR)
-	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_train) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)))
-
-$$(OBJ_DIR)/model/$(1)/$(2)/%/model.o: model.cpp | $$(OBJ_DIR)
+define MAKE_MODEL_SOURCE_RULES
+$$(OBJ_DIR)/model/$(1)/$(2)/%/$(patsubst %.cpp,%.o,$(3)): $(3) | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_model) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)) $$(call model_discount_define,$$*))
 
-$$(OBJ_DIR)/train/$(1)/$(2)/%/model.o: model.cpp | $$(OBJ_DIR)
+$$(OBJ_DIR)/train/$(1)/$(2)/%/$(patsubst %.cpp,%.o,$(3)): $(3) | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_train) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)) $$(call model_discount_define,$$*))
 endef
 
+define MAKE_PLATFORM_COMBO_RULES
+MODEL_OBJS_$(1)_$(2) := $$(addprefix $$(OBJ_DIR)/model/$(1)/$(2)/%/,$$(OBJ_NAMES))
+TRAIN_OBJS_$(1)_$(2) := $$(addprefix $$(OBJ_DIR)/train/$(1)/$(2)/%/,$$(OBJ_NAMES))
+
+.NOTINTERMEDIATE: $$(call variant_model_objects,model,$(1),$(2)) $$(call variant_model_objects,train,$(1),$(2))
+.PRECIOUS: $$(call variant_model_objects,model,$(1),$(2)) $$(call variant_model_objects,train,$(1),$(2))
+
+# Build one ARMS library per model object under models/ and config combo
+# Example: models/foo.o -> libraries/libhemem-foo-2_10_1.0.so
+$$(LIB_OUTPUT_DIR)/$(1)/libhemem-%-$(2).so: $$(MODEL_OBJS_$(1)_$(2)) models/%.o | $$(LIB_OUTPUT_DIR)/$(1)
+	$$(LINK_SHARED_RECIPE)
+
+# Build one ARMS library per model object under models with training data enabled
+# Example: models/foo.o -> libraries/libhemem-foo_2_10_1.0_train.so
+$$(LIB_OUTPUT_DIR)/$(1)/libhemem-%_$(2)_train.so: $$(TRAIN_OBJS_$(1)_$(2)) models/%.o | $$(LIB_OUTPUT_DIR)/$(1)
+	$$(LINK_SHARED_RECIPE)
+
+endef
+
 $(foreach platform,$(PLATFORMS),$(foreach combo,$(COMBOS),$(eval $(call MAKE_PLATFORM_COMBO_RULES,$(platform),$(combo)))))
+$(foreach platform,$(PLATFORMS),$(foreach combo,$(COMBOS),$(foreach src,$(SRCS),$(eval $(call MAKE_MODEL_SOURCE_RULES,$(platform),$(combo),$(src))))))
 
 define MAKE_PLATFORM_BASE_RULES
 NOMODEL_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/nomodel/$(1)/,$$(OBJ_NAMES))
