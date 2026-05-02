@@ -24,18 +24,20 @@ mkdir -p "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}" logs "${SCRIPT_DIR}/times
 echo "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}"
 
 #pcts=(90 95 99)
-#minmax_options=(true false)
+#history_summary_modes=(0 1 2)
 #hist_lengths=(4 8)
-#penalties=(0
-pcts=(99 95 90)
-minmax_options=(true false)
-hist_lengths=(4)
-penalties=(0.9)
+#switch_scalers=(0
+pcts=(99)
+history_summary_modes=(2)
+hist_lengths=(10)
+#switch_scalers=(1.0 2.0 4.0 8.0 16.0 32.0 64.0 128.0 256.0)
+#switch_scalers=(256.0 128.0 64.0 32.0 16.0 8.0 4.0 2.0 1.0 )
+switch_scalers=(0.5 0.75 1.0 1.25 1.5)
 
 #pcts=(95)
-#minmax_options=(true)
+#history_summary_modes=(2)
 #hist_lengths=(8)
-#penalties=(0.9)
+#switch_scalers=(0.9)
 
 function run_program {
     local program=$1
@@ -81,17 +83,17 @@ function run_model_sweep {
     local output=$3
     local run=$4
     local pct
-    local minmax
+    local history_summary
     local hist_length
-    local penalty
+    local switch_scaler
     local model_name
     local model_path
 
     for pct in "${pcts[@]}"; do
-        for minmax in "${minmax_options[@]}"; do
+        for history_summary in "${history_summary_modes[@]}"; do
             for hist_length in "${hist_lengths[@]}"; do
-                for penalty in "${penalties[@]}"; do
-                    model_name=$(measurement_build_model_name "${pct}" "${model_base}" "${minmax}" "${hist_length}" "${penalty}")
+                for switch_scaler in "${switch_scalers[@]}"; do
+                    model_name=$(measurement_build_model_name "${pct}" "${model_base}" "${history_summary}" "${hist_length}" "${switch_scaler}")
                     model_path=$(measurement_build_model_library_path "${SCRIPT_DIR}" "${model_name}" "${LIB_SUFFIX}")
 
                     echo "Running ${output} with model: ${model_name} ${model_path}"

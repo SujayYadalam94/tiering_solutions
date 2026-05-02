@@ -79,6 +79,7 @@ struct page_info
     float model_score_history[HISTORY_LENGTH];
     uint8_t model_score_history_count;
     uint8_t model_score_history_index;
+    float adjusted_model_score_moving_average;
     // Tracks the last smoothing step used to update model_score_history.
     // In model/logging mode this is a virtual step id.
     uint64_t last_model_score_step;
@@ -150,6 +151,7 @@ struct page_info
     float max_model_score_history() const;
     float min_model_score_history() const;
     float average_model_score_history() const;
+    float adjusted_moving_average_model_score() const;
 };
 
 typedef std::shared_ptr<page_info> page_ptr;

@@ -56,8 +56,8 @@ EOF
     fi
 }
 
-SIZES=(6000)
-RUNS=3
+SIZES=(4007)
+RUNS=1
 ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}
 
 mapfile -t WORKLOAD_IDS < <(measurement_list_default_workloads)
@@ -71,16 +71,17 @@ for size in "${SIZES[@]}"; do
         for workload_id in "${WORKLOAD_IDS[@]}"; do
             echo "---- Workload ${workload_id} ----"
 
+            # ARMS
+            #run_measurement_setup "${size}"
+            #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+
+
             # Model
             if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
                 "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
             else
                 echo "WARNING: ./measurement_model.sh not found or not executable; skipping model"
             fi
-
-            # ARMS
-            #run_measurement_setup "${size}"
-            #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
 
             # NOMAD
             #if [[ -x "${SCRIPT_DIR}/measurement_nomad.sh" ]]; then
@@ -106,8 +107,24 @@ for size in "${SIZES[@]}"; do
             #    echo "WARNING: ./measurement_hybridtier.sh not found or not executable; skipping HybridTier"
             #fi
 
-            run_measurement_setup "${size}"
-            "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${ARMS_LIB_SUFFIX}" "${workload_id}"
+            #run_measurement_setup "${size}"
+            #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${ARMS_LIB_SUFFIX}" "${workload_id}"
+
+            # DRAM-only baseline
+            #if [[ -x "${SCRIPT_DIR}/measurement_dram_only.sh" ]]; then
+            #    run_measurement_setup_baseline_default "${size}"
+            #    "${SCRIPT_DIR}/measurement_dram_only.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
+            #else
+            #    echo "WARNING: ./measurement_dram_only.sh not found or not executable; skipping DRAM-only"
+            #fi
+
+            ## CXL-only baseline
+            #if [[ -x "${SCRIPT_DIR}/measurement_cxl_only.sh" ]]; then
+            #    run_measurement_setup_baseline_default "${size}"
+            #    "${SCRIPT_DIR}/measurement_cxl_only.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
+            #else
+            #    echo "WARNING: ./measurement_cxl_only.sh not found or not executable; skipping CXL-only"
+            #fi
 
             run_measurement_teardown
         done
