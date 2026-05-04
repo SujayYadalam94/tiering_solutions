@@ -13,7 +13,7 @@ declare -ar MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
     "bc-twitter.sg"
     "pr-twitter.sg"
 
-    "lulesh2.0_s400"
+    #"lulesh2.0_s400"
 
 
     #"DuckDB-TPCDS-sf100"

@@ -110,14 +110,13 @@ static bool ip_in_sorted_ranges(const std::vector<ip_range> &ranges, uint64_t ip
     return ip >= it->start && ip < it->end;
 }
 
-static uint64_t parse_virtual_step_samples_env()
+static bool has_env_value(const char *raw_value)
 {
-    const char *raw_value = std::getenv("VIRTUAL_STEP_SAMPLES");
-    if (raw_value == nullptr || raw_value[0] == '\0')
-    {
-        return static_cast<uint64_t>(VIRTUAL_STEP_SAMPLES);
-    }
+    return raw_value != nullptr && raw_value[0] != '\0';
+}
 
+static bool parse_positive_u64_env(const char *env_name, const char *raw_value, uint64_t *parsed_value)
+{
     std::string normalized;
     normalized.reserve(std::strlen(raw_value));
     for (const char *cursor = raw_value; *cursor != '\0'; ++cursor)
@@ -130,9 +129,8 @@ static uint64_t parse_virtual_step_samples_env()
 
     if (normalized.empty())
     {
-        std::cerr << "[ARMS] Warning: empty VIRTUAL_STEP_SAMPLES override; using default " << VIRTUAL_STEP_SAMPLES
-                  << std::endl;
-        return static_cast<uint64_t>(VIRTUAL_STEP_SAMPLES);
+        std::cerr << "[ARMS] Warning: empty " << env_name << " override; ignoring it" << std::endl;
+        return false;
     }
 
     errno = 0;
@@ -140,12 +138,49 @@ static uint64_t parse_virtual_step_samples_env()
     const unsigned long long parsed = std::strtoull(normalized.c_str(), &end, 10);
     if (errno != 0 || end == normalized.c_str() || *end != '\0' || parsed == 0)
     {
-        std::cerr << "[ARMS] Warning: invalid VIRTUAL_STEP_SAMPLES='" << raw_value << "'; using default "
-                  << VIRTUAL_STEP_SAMPLES << std::endl;
-        return static_cast<uint64_t>(VIRTUAL_STEP_SAMPLES);
+        std::cerr << "[ARMS] Warning: invalid " << env_name << "='" << raw_value << "'; ignoring it" << std::endl;
+        return false;
     }
 
-    return static_cast<uint64_t>(parsed);
+    *parsed_value = static_cast<uint64_t>(parsed);
+    return true;
+}
+
+static uint64_t parse_virtual_step_samples_env()
+{
+    const char *raw_value = std::getenv("VIRTUAL_STEP_SAMPLES");
+    uint64_t parsed = 0;
+    if (has_env_value(raw_value) && parse_positive_u64_env("VIRTUAL_STEP_SAMPLES", raw_value, &parsed))
+    {
+        return parsed;
+    }
+
+    raw_value = std::getenv("WORKLOAD_VIRTUAL_STEP_SAMPLES");
+    if (has_env_value(raw_value) && parse_positive_u64_env("WORKLOAD_VIRTUAL_STEP_SAMPLES", raw_value, &parsed))
+    {
+        return parsed;
+    }
+
+    return static_cast<uint64_t>(VIRTUAL_STEP_SAMPLES);
+}
+
+static uint64_t parse_workload_virtual_step_samples_env()
+{
+    uint64_t parsed = 0;
+
+    const char *raw_value = std::getenv("WORKLOAD_VIRTUAL_STEP_SAMPLES");
+    if (has_env_value(raw_value) && parse_positive_u64_env("WORKLOAD_VIRTUAL_STEP_SAMPLES", raw_value, &parsed))
+    {
+        return parsed;
+    }
+
+    raw_value = std::getenv("VIRTUAL_STEP_SAMPLES");
+    if (has_env_value(raw_value) && parse_positive_u64_env("VIRTUAL_STEP_SAMPLES", raw_value, &parsed))
+    {
+        return parsed;
+    }
+
+    return static_cast<uint64_t>(VIRTUAL_STEP_SAMPLES);
 }
 } // namespace
 
@@ -153,6 +188,37 @@ uint64_t get_virtual_step_samples()
 {
     static const uint64_t virtual_step_samples = parse_virtual_step_samples_env();
     return virtual_step_samples;
+}
+
+uint64_t get_workload_virtual_step_samples()
+{
+    static const uint64_t workload_virtual_step_samples = parse_workload_virtual_step_samples_env();
+    return workload_virtual_step_samples;
+}
+
+double get_virtual_step_samples_cost_scale()
+{
+    static const double virtual_step_samples_cost_scale =
+        static_cast<double>(get_workload_virtual_step_samples()) / static_cast<double>(VIRTUAL_STEP_SAMPLES);
+    return virtual_step_samples_cost_scale;
+}
+
+static double get_promotion_cost_multiplier()
+{
+#if USE_MODEL == (true)
+    return static_cast<double>(BASE_MIGRATION_COST_MULTIPLIER) * get_virtual_step_samples_cost_scale();
+#else
+    return static_cast<double>(BASE_MIGRATION_COST_MULTIPLIER);
+#endif
+}
+
+static double get_demotion_cost_multiplier()
+{
+#if USE_MODEL == (true)
+    return static_cast<double>(BASE_MIGRATION_COST_MULTIPLIER) * get_virtual_step_samples_cost_scale();
+#else
+    return static_cast<double>(BASE_MIGRATION_COST_MULTIPLIER);
+#endif
 }
 
 void set_preload_ip_ranges(const char *library_path, const struct ip_range *ranges, size_t range_count)
@@ -1584,16 +1650,16 @@ static migration_decision select_migration_candidates(const std::vector<score_en
         }
 #endif
 
-        float cost = PROMOTION_COST_MULTIPLIER * (promotion_cost_avg);
+        double cost = get_promotion_cost_multiplier() * promotion_cost_avg;
 #if USE_MODEL == (true)
         // float benefit = SWITCH_SCALER * hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
-        float benefit = hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
-        // std::cout << "cost: " << cost << " PROMOTION_COST_MULTIPLIER: " << PROMOTION_COST_MULTIPLIER
+        double benefit = hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
+        // std::cout << "cost: " << cost << " PROMOTION_COST_MULTIPLIER: " << get_promotion_cost_multiplier()
         //           << " MODEL_DISCOUNT_PERCENT: " << MODEL_DISCOUNT_PERCENT
         //           << " promotion_cost_avg: " << promotion_cost_avg << " hot_page->score: " << hot_page->score;
         // std::cout << " scaler: " << SWITCH_SCALER << " mul: " << HF_SAMPLE_PERIOD * latency_diff << std::endl;
 #else
-        float benefit = hot_page->score * hot_page->hot_age * HF_SAMPLE_PERIOD * latency_diff;
+        double benefit = hot_page->score * hot_page->hot_age * HF_SAMPLE_PERIOD * latency_diff;
 #endif
 
         if (benefit < cost)
@@ -1625,7 +1691,7 @@ static migration_decision select_migration_candidates(const std::vector<score_en
                 if (cold_page->in_dram)
                 {
                     selected_cold_page = cold_page;
-                    cost += DEMOTION_COST_MULTIPLIER * (demotion_cost_avg);
+                    cost += get_demotion_cost_multiplier() * demotion_cost_avg;
 #if USE_MODEL == (true)
                     benefit -= cold_page->score * HF_SAMPLE_PERIOD * latency_diff;
 #else
@@ -1759,8 +1825,13 @@ void arms_start_tiering()
     std::cout << "[ARMS] ENABLE_MIGRATION_WORKERS = " << (ENABLE_MIGRATION_WORKERS ? "true" : "false") << std::endl;
     std::cout << "[ARMS] VIRTUAL_FEATURES_ENABLED = " << (VIRTUAL_FEATURES_ENABLED ? "true" : "false") << std::endl;
     std::cout << "[ARMS] VIRTUAL_STEP_SAMPLES = " << get_virtual_step_samples() << std::endl;
+    std::cout << "[ARMS] WORKLOAD_VIRTUAL_STEP_SAMPLES = " << get_workload_virtual_step_samples() << std::endl;
+    std::cout << "[ARMS] VIRTUAL_STEP_SAMPLES_COST_SCALE = " << get_virtual_step_samples_cost_scale() << std::endl;
     std::cout << "[ARMS] PEBS_KSWAPD_INTERVAL_BIG = " << PEBS_KSWAPD_INTERVAL_BIG << std::endl;
     std::cout << "[ARMS] PEBS_KSWAPD_INTERVAL_SMALL = " << PEBS_KSWAPD_INTERVAL_SMALL << std::endl;
+    std::cout << "[ARMS] BASE_MIGRATION_COST_MULTIPLIER = " << BASE_MIGRATION_COST_MULTIPLIER << std::endl;
+    std::cout << "[ARMS] PROMOTION_COST_MULTIPLIER = " << get_promotion_cost_multiplier() << std::endl;
+    std::cout << "[ARMS] DEMOTION_COST_MULTIPLIER = " << get_demotion_cost_multiplier() << std::endl;
 
     struct bitmask *default_nodemask = numa_allocate_nodemask();
     if (default_nodemask == nullptr)

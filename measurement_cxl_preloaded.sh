@@ -110,6 +110,7 @@ function run_workload {
             numactl --membind="${NUMA_MEM_NODE}" -- taskset -c "${TASKSET_CPUS}" \
             sudo env ${WORKLOAD_RUNTIME_CHDIR_ARG:+${WORKLOAD_RUNTIME_CHDIR_ARG}} \
             LOG_OUTPUT_PATH="${log_output_path}" \
+            WORKLOAD_VIRTUAL_STEP_SAMPLES="${WORKLOAD_VIRTUAL_STEP_SAMPLES:-3162}" \
             VIRTUAL_STEP_SAMPLES="${WORKLOAD_VIRTUAL_STEP_SAMPLES:-3162}" \
             LD_PRELOAD="${LIBRARY_PATH}" \
             ${WORKLOAD_COMMAND} 2>&1

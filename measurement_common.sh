@@ -219,6 +219,7 @@ run_preloaded_measurement() {
             numactl --membind="${numa_mem_nodes}" -- taskset -c "${taskset_cpus}" \
             sudo env ${WORKLOAD_RUNTIME_CHDIR_ARG:+${WORKLOAD_RUNTIME_CHDIR_ARG}} \
             LOG_OUTPUT_PATH="${log_output_path}" \
+            WORKLOAD_VIRTUAL_STEP_SAMPLES="${WORKLOAD_VIRTUAL_STEP_SAMPLES:-3162}" \
             VIRTUAL_STEP_SAMPLES="${WORKLOAD_VIRTUAL_STEP_SAMPLES:-3162}" \
             LD_PRELOAD="${library_path}" \
             ${program} 2>&1
