@@ -144,8 +144,6 @@ cleanup_measurement_outputs() {
     rm -f "${max_dram_file}"
 }
 
-
-
 measurement_prepare_workload_runtime() {
     WORKLOAD_RUNTIME_DIR=
     WORKLOAD_RUNTIME_CHDIR_ARG=

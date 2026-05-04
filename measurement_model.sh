@@ -26,7 +26,7 @@ echo "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}"
 #pcts=(90 95 99)
 #history_summary_modes=(0 1 2)
 #hist_lengths=(4 8)
-#switch_scalers=(0
+
 pcts=(99)
 history_summary_modes=(2)
 hist_lengths=(10)

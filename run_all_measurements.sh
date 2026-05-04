@@ -58,6 +58,7 @@ EOF
 
 SIZES=(4008)
 RUNS=3
+
 ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}
 
 mapfile -t WORKLOAD_IDS < <(measurement_list_default_workloads)
