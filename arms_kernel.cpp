@@ -1761,6 +1761,8 @@ void arms_start_tiering()
     std::cout << "[ARMS] VIRTUAL_STEP_SAMPLES = " << get_virtual_step_samples() << std::endl;
     std::cout << "[ARMS] PEBS_KSWAPD_INTERVAL_BIG = " << PEBS_KSWAPD_INTERVAL_BIG << std::endl;
     std::cout << "[ARMS] PEBS_KSWAPD_INTERVAL_SMALL = " << PEBS_KSWAPD_INTERVAL_SMALL << std::endl;
+    std::cout << "[ARMS] PROMOTION_COST_MULTIPLIER = " << PROMOTION_COST_MULTIPLIER << std::endl;
+    std::cout << "[ARMS] DEMOTION_COST_MULTIPLIER = " << DEMOTION_COST_MULTIPLIER << std::endl;
 
     struct bitmask *default_nodemask = numa_allocate_nodemask();
     if (default_nodemask == nullptr)

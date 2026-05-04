@@ -21,14 +21,14 @@ LIBS = -lnuma -lpthread -ldl
 # Build directories for reusable objects
 BUILD_DIR := build
 OBJ_DIR := $(BUILD_DIR)/obj
-PLATFORMS := C220G5 GSL_OPTANE
-DEFAULT_PLATFORM ?= C220G5
+PLATFORMS := GSL_OPTANE
+DEFAULT_PLATFORM ?= GSL_OPTANE
 
 # Compile-time configuration matrix
 MODEL_SCORE_HISTORY_SUMMARY_VALUES := 2
 # 0=min_max, 1=average, 2=adjusted_moving_average
 HISTORY_LENGTH_VALUES := 10
-SWITCH_SCALER_VALUES := 0.5 1.0 1.5 2.0 2.5
+SWITCH_SCALER_VALUES := 0.25 0.5 1.0 1.5 2.0 2.5
 COMBOS := $(foreach summary,$(MODEL_SCORE_HISTORY_SUMMARY_VALUES),$(foreach hlen,$(HISTORY_LENGTH_VALUES),$(foreach scaler,$(SWITCH_SCALER_VALUES),$(summary)_$(hlen)_$(scaler))))
 
 # Models and outputs

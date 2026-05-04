@@ -73,8 +73,8 @@ for size in "${SIZES[@]}"; do
             echo "---- Workload ${workload_id} ----"
 
             # ARMS
-            #run_measurement_setup "${size}"
-            #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+            run_measurement_setup "${size}"
+            "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
 
 
             # Model
@@ -110,25 +110,6 @@ for size in "${SIZES[@]}"; do
 
             #run_measurement_setup "${size}"
             #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${ARMS_LIB_SUFFIX}" "${workload_id}"
-<<<<<<< HEAD
-=======
-
-            # DRAM-only baseline
-            #if [[ -x "${SCRIPT_DIR}/measurement_dram_only.sh" ]]; then
-            #    run_measurement_setup_baseline_default "${size}"
-            #    "${SCRIPT_DIR}/measurement_dram_only.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
-            #else
-            #    echo "WARNING: ./measurement_dram_only.sh not found or not executable; skipping DRAM-only"
-            #fi
-
-            ## CXL-only baseline
-            #if [[ -x "${SCRIPT_DIR}/measurement_cxl_only.sh" ]]; then
-            #    run_measurement_setup_baseline_default "${size}"
-            #    "${SCRIPT_DIR}/measurement_cxl_only.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
-            #else
-            #    echo "WARNING: ./measurement_cxl_only.sh not found or not executable; skipping CXL-only"
-            #fi
->>>>>>> 058f6325889dc63e81d47cfaf2a27266c260ba1a
 
             run_measurement_teardown
         done
