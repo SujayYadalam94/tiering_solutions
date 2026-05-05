@@ -1,4 +1,5 @@
 #include <cassert>
+#include <chrono>
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
@@ -219,13 +220,26 @@ static void maybe_advance_virtual_step()
         return;
     }
 
+    const uint64_t current_virtual_step = virtual_step.fetch_add(1, std::memory_order_relaxed) + 1;
+
+    static std::chrono::steady_clock::time_point previous_virtual_step_time;
+    static bool have_previous_virtual_step_time = false;
+    const auto now = std::chrono::steady_clock::now();
+    if (have_previous_virtual_step_time && current_virtual_step > 1)
+    {
+        const double step_duration_ms =
+            std::chrono::duration<double, std::milli>(now - previous_virtual_step_time).count();
+        observe_virtual_step_duration_ms(step_duration_ms);
+    }
+    previous_virtual_step_time = now;
+    have_previous_virtual_step_time = true;
+
     if (ARMS_VERBOSE)
     {
-        std::cout << "[ARMS] Advancing virtual step to " << (virtual_step.load(std::memory_order_relaxed) + 1)
-                  << " after " << current_samples << " virtual samples." << std::endl;
+        std::cout << "[ARMS] Advancing virtual step to " << current_virtual_step << " after " << current_samples
+                  << " virtual samples; avg step duration = " << get_virtual_step_duration_ms_average()
+                  << " ms, time cost scale = " << get_virtual_step_time_cost_scale() << "." << std::endl;
     }
-
-    const uint64_t current_virtual_step = virtual_step.fetch_add(1, std::memory_order_relaxed) + 1;
 
     std::vector<page_ptr> page_snapshot;
     {

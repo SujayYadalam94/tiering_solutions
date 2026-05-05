@@ -21,8 +21,8 @@ LIBS = -lnuma -lpthread -ldl
 # Build directories for reusable objects
 BUILD_DIR := build
 OBJ_DIR := $(BUILD_DIR)/obj
-PLATFORMS := C220G5
-DEFAULT_PLATFORM ?= C220G5
+PLATFORMS := GSL_OPTANE
+DEFAULT_PLATFORM ?= GSL_OPTANE
 
 # Compile-time configuration matrix
 MODEL_SCORE_HISTORY_SUMMARY_VALUES := 2
