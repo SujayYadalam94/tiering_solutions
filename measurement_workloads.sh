@@ -5,14 +5,13 @@ MEASUREMENT_WORKLOADS_PATH="${MEASUREMENT_WORKLOADS_DIR}/workloads"
 
 declare -ar MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
     "faiss_10M"
-    "mg.D.x"
-    "DuckDB-TPCH-sf100"
+    #"mg.D.x"
+    #DuckDB-TPCH-sf100"
     "bc-kron.sg"
     "XSBench"
     "pr-kron.sg"
     "bc-twitter.sg"
     "pr-twitter.sg"
-
     #"lulesh2.0_s400"
 
 

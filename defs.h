@@ -109,6 +109,10 @@ extern bool initialized;
 #define MODEL_SCORE_MOVING_AVERAGE_ALPHA_IDX (3)
 #endif
 
+#ifndef VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX
+#define VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX (3)
+#endif
+
 #if MODEL_SCORE_HISTORY_SUMMARY == MODEL_SCORE_HISTORY_SUMMARY_MIN_MAX
 #define MODEL_SCORE_HISTORY_SUMMARY_NAME "min_max"
 #elif MODEL_SCORE_HISTORY_SUMMARY == MODEL_SCORE_HISTORY_SUMMARY_AVERAGE
@@ -227,6 +231,8 @@ extern bool initialized;
 #define PEBS_KSWAPD_INTERVAL_BIG (500000)   // in us (500ms)
 #define PEBS_KSWAPD_INTERVAL_SMALL (100000) // in us (100ms)
 #endif
+
+#define VIRTUAL_STEP_TARGET_MS ((double)(PEBS_KSWAPD_INTERVAL_BIG) / 1000.0)
 
 // ==============================================================================
 
@@ -361,6 +367,9 @@ static const float recn_bias[WINDOW_SIZE] = RECN_BIAS;
 
 static_assert((MODEL_SCORE_MOVING_AVERAGE_ALPHA_IDX >= 0) && (MODEL_SCORE_MOVING_AVERAGE_ALPHA_IDX < WINDOW_SIZE),
               "MODEL_SCORE_MOVING_AVERAGE_ALPHA_IDX must be in the range [0, WINDOW_SIZE).");
+static_assert((VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX >= 0) &&
+                  (VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX < WINDOW_SIZE),
+              "VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX must be in the range [0, WINDOW_SIZE).");
 
 #define DENOM_SIZE (300)
 static bool w_ewma_denom_initialized = 0;

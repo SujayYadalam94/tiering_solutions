@@ -13,6 +13,7 @@
 #include <cassert>
 #include <cerrno>
 #include <chrono>
+#include <cmath>
 #include <condition_variable>
 #include <cstdint>
 #include <deque>
@@ -91,6 +92,8 @@ std::shared_mutex helper_library_ip_ranges_lock;
 std::atomic<uint64_t> helper_library_filtered_samples{0};
 std::atomic<uint64_t> tiering_runtime_tid_filtered_samples{0};
 std::atomic<uint64_t> other_pid_filtered_samples{0};
+std::atomic<uint64_t> virtual_step_duration_average_count{0};
+std::atomic<double> virtual_step_duration_ms_average{0.0};
 
 static bool ip_in_sorted_ranges(const std::vector<ip_range> &ranges, uint64_t ip)
 {
@@ -182,6 +185,11 @@ static uint64_t parse_workload_virtual_step_samples_env()
 
     return static_cast<uint64_t>(VIRTUAL_STEP_SAMPLES);
 }
+
+static double get_virtual_step_target_ms()
+{
+    return static_cast<double>(VIRTUAL_STEP_TARGET_MS);
+}
 } // namespace
 
 uint64_t get_virtual_step_samples()
@@ -203,10 +211,57 @@ double get_virtual_step_samples_cost_scale()
     return virtual_step_samples_cost_scale;
 }
 
+double get_virtual_step_duration_ms_average()
+{
+    if (virtual_step_duration_average_count.load(std::memory_order_relaxed) == 0)
+    {
+        return get_virtual_step_target_ms();
+    }
+
+    const double average_ms = virtual_step_duration_ms_average.load(std::memory_order_relaxed);
+    if (!std::isfinite(average_ms) || average_ms <= 0.0)
+    {
+        return get_virtual_step_target_ms();
+    }
+
+    return average_ms;
+}
+
+double get_virtual_step_time_cost_scale()
+{
+    const double average_ms = get_virtual_step_duration_ms_average();
+    if (average_ms <= 0.0)
+    {
+        return 1.0;
+    }
+
+    return get_virtual_step_target_ms() / average_ms;
+}
+
+void observe_virtual_step_duration_ms(double duration_ms)
+{
+    if (!std::isfinite(duration_ms) || duration_ms <= 0.0)
+    {
+        return;
+    }
+
+    const uint64_t sample_count = virtual_step_duration_average_count.load(std::memory_order_relaxed);
+    const float denom = get_adjusted_ewma_denom(VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX,
+                                                static_cast<uint32_t>(sample_count));
+    const double previous_average =
+        sample_count == 0 ? 0.0 : virtual_step_duration_ms_average.load(std::memory_order_relaxed);
+    const double next_average = previous_average * (1.0 - (1.0 / static_cast<double>(denom))) +
+                                (duration_ms / static_cast<double>(denom));
+
+    virtual_step_duration_ms_average.store(next_average, std::memory_order_relaxed);
+    virtual_step_duration_average_count.store(sample_count + 1, std::memory_order_relaxed);
+}
+
 static double get_promotion_cost_multiplier()
 {
 #if USE_MODEL == (true)
-    return static_cast<double>(BASE_MIGRATION_COST_MULTIPLIER) * get_virtual_step_samples_cost_scale();
+    return static_cast<double>(BASE_MIGRATION_COST_MULTIPLIER) * get_virtual_step_samples_cost_scale() *
+           get_virtual_step_time_cost_scale();
 #else
     return static_cast<double>(BASE_MIGRATION_COST_MULTIPLIER);
 #endif
@@ -215,7 +270,8 @@ static double get_promotion_cost_multiplier()
 static double get_demotion_cost_multiplier()
 {
 #if USE_MODEL == (true)
-    return static_cast<double>(BASE_MIGRATION_COST_MULTIPLIER) * get_virtual_step_samples_cost_scale();
+    return static_cast<double>(BASE_MIGRATION_COST_MULTIPLIER) * get_virtual_step_samples_cost_scale() *
+           get_virtual_step_time_cost_scale();
 #else
     return static_cast<double>(BASE_MIGRATION_COST_MULTIPLIER);
 #endif
@@ -1812,6 +1868,9 @@ void arms_start_tiering()
 {
     std::cout << "[ARMS] Initializing ARMS..." << std::endl;
 
+    virtual_step_duration_ms_average.store(0.0, std::memory_order_relaxed);
+    virtual_step_duration_average_count.store(0, std::memory_order_relaxed);
+
     std::cout << "[ARMS] USE_MODEL = " << (USE_MODEL ? "true" : "false") << std::endl;
     std::cout << "[ARMS] LOGGING_RUN = " << (LOGGING_RUN ? "true" : "false") << std::endl;
     std::cout << "[ARMS] ENABLE_MIGRATION_WORKERS = " << (ENABLE_MIGRATION_WORKERS ? "true" : "false") << std::endl;
@@ -1827,6 +1886,11 @@ void arms_start_tiering()
     std::cout << "[ARMS] VIRTUAL_STEP_SAMPLES = " << get_virtual_step_samples() << std::endl;
     std::cout << "[ARMS] WORKLOAD_VIRTUAL_STEP_SAMPLES = " << get_workload_virtual_step_samples() << std::endl;
     std::cout << "[ARMS] VIRTUAL_STEP_SAMPLES_COST_SCALE = " << get_virtual_step_samples_cost_scale() << std::endl;
+    std::cout << "[ARMS] VIRTUAL_STEP_TARGET_MS = " << VIRTUAL_STEP_TARGET_MS << std::endl;
+    std::cout << "[ARMS] VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX = " << VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX
+              << std::endl;
+    std::cout << "[ARMS] VIRTUAL_STEP_DURATION_MS_AVG = " << get_virtual_step_duration_ms_average() << std::endl;
+    std::cout << "[ARMS] VIRTUAL_STEP_TIME_COST_SCALE = " << get_virtual_step_time_cost_scale() << std::endl;
     std::cout << "[ARMS] PEBS_KSWAPD_INTERVAL_BIG = " << PEBS_KSWAPD_INTERVAL_BIG << std::endl;
     std::cout << "[ARMS] PEBS_KSWAPD_INTERVAL_SMALL = " << PEBS_KSWAPD_INTERVAL_SMALL << std::endl;
     std::cout << "[ARMS] BASE_MIGRATION_COST_MULTIPLIER = " << BASE_MIGRATION_COST_MULTIPLIER << std::endl;

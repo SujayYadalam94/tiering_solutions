@@ -56,7 +56,7 @@ EOF
     fi
 }
 
-SIZES=(4008)
+SIZES=(8001)
 RUNS=3
 
 ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}
@@ -110,7 +110,7 @@ for size in "${SIZES[@]}"; do
 
             #run_measurement_setup "${size}"
             #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${ARMS_LIB_SUFFIX}" "${workload_id}"
-            
+
             # DRAM-only baseline
             #if [[ -x "${SCRIPT_DIR}/measurement_dram_only.sh" ]]; then
             #    run_measurement_setup_baseline_default "${size}"
