@@ -56,7 +56,7 @@ EOF
     fi
 }
 
-SIZES=(4008)
+SIZES=(6001)
 RUNS=3
 
 ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}

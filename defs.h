@@ -41,7 +41,7 @@ extern bool initialized;
 #define VIRTUAL_FEATURES_ENABLED ((USE_MODEL == (true)) || (LOGGING_RUN == (true)))
 
 #ifndef VIRTUAL_STEP_SAMPLES
-//#define VIRTUAL_STEP_SAMPLES (3162)
+// #define VIRTUAL_STEP_SAMPLES (3162)
 #define VIRTUAL_STEP_SAMPLES (10000)
 // #define VIRTUAL_STEP_SAMPLES (31623)
 // #define VIRTUAL_STEP_SAMPLES (100000)
@@ -267,8 +267,7 @@ extern bool initialized;
 /// Page migration
 // ==============================================================================
 #if USE_MODEL == (true)
-#define BASE_MIGRATION_COST_MULTIPLIER                                                                                 \
-    ((SWITCH_SCALER) / (1.0 - (static_cast<double>(MODEL_DISCOUNT_PERCENT) / 100.0)))
+#define BASE_MIGRATION_COST_MULTIPLIER ((SWITCH_SCALER) / (1.0 - (static_cast<double>(MODEL_DISCOUNT_PERCENT) / 100.0)))
 
 #else
 #define BASE_MIGRATION_COST_MULTIPLIER (1.5)
