@@ -62,6 +62,7 @@ static struct perf_event_mmap_page *perf_page[PEBS_NPROCS][NPBUFTYPES];
 static volatile bool running = true;
 static pthread_t scan_thread;
 static pthread_t policy_thread;
+static pthread_t page_scan_thread;
 static uint32_t policy_thread_interval = PEBS_KSWAPD_INTERVAL_BIG;
 
 static volatile uint64_t global_version = 0;
@@ -433,28 +434,19 @@ static void* pebs_scan_thread(void *arg) {
             assert(ps != nullptr);
 
             if (ps->addr != 0) {
-              uint64_t page_va = ps->addr & HUGE_PFN_MASK;  // Align to page
+              uint64_t huge_va = ps->addr & HUGE_PFN_MASK;
+              uint64_t base_va = ps->addr & ~(BASEPAGE_SIZE - 1);
 
-              if (page_va != 0) {
-                auto it = pages_map.find(page_va);
-                if (it == pages_map.end()) {
-                  // New page discovered
-                  /*arms_page_info* page = new arms_page_info();
-                  page->va = page_va;
-                  {
-                    std::lock_guard<std::mutex> lock(pages_map_lock);
-                    pages_map[page_va] = page;
-                  }
-                  it = pages_map.find(page_va);*/
-                  //std::cout << "[ARMS] Discovered new page: VA = 0x" << std::hex << page_va << std::dec << std::endl;
-                  break;
+              if (huge_va != 0) {
+                // Try hugepage-aligned key first, fall back to basepage-aligned key
+                auto it = pages_map.find(huge_va);
+                if (it == pages_map.end())
+                  it = pages_map.find(base_va);
+
+                if (it != pages_map.end()) {
+                  it->second->accesses[type][curr_access_version]++;
+                  total_samples[type]++;
                 }
-                assert (it != pages_map.end());
-
-                // Increment access count
-                arms_page_info* page = it->second;
-                page->accesses[type][curr_access_version]++;
-                total_samples[type]++;
               }
             }
             break;
@@ -530,44 +522,55 @@ static void scan_process_pages() {
     // Skip kernel regions
     if (start_addr >= 0x7fffffffffff) continue;
 
-    // Scan this VMA range
-    for (uint64_t va = start_addr; va < end_addr; va += PAGE_SIZE) {
-      // Align to page size
-      va = va & HUGE_PFN_MASK;
-      uint64_t pagemap_index = (va / 4096) * sizeof(uint64_t);
+    // Scan this VMA range at basepage granularity; skip ahead on hugepages
+    for (uint64_t va = start_addr; va < end_addr; ) {
+      uint64_t pagemap_index = (va / BASEPAGE_SIZE) * sizeof(uint64_t);
       uint64_t pagemap_entry;
 
       ssize_t ret = pread(pagemap_fd, &pagemap_entry, sizeof(pagemap_entry), pagemap_index);
-      if (ret != sizeof(pagemap_entry)) continue;
+      if (ret != sizeof(pagemap_entry)) { va += BASEPAGE_SIZE; continue; }
 
       uint64_t pfn = pagemap_entry & 0x7fffffffffffff;
       bool present = (pagemap_entry >> 63) & 1;
 
       if (present && pfn > 0) {
-        if (pages_map.find(va) == pages_map.end()) {
+        // Detect if backed by a THP (bit 22 of kpageflags)
+        bool is_hugepage = false;
+        if (kpageflags_fd >= 0) {
+          uint64_t kflags = 0;
+          if (pread(kpageflags_fd, &kflags, sizeof(kflags), pfn * sizeof(uint64_t)) == sizeof(kflags)) {
+            is_hugepage = (kflags & KPF_THP) != 0;
+          }
+        }
+
+        // Hugepages are keyed at 2MB alignment; basepages at 4KB alignment
+        uint64_t key_va = is_hugepage ? (va & HUGE_PFN_MASK) : va;
+
+        if (pages_map.find(key_va) == pages_map.end()) {
           arms_page_info* page = new arms_page_info();
-          page->va = va;
+          page->va = key_va;
+          page->is_hugepage = is_hugepage;
 
           // Determine which node this page is on
           int status = -1;
-          void* addr = (void*)va;
+          void* addr = (void*)key_va;
           numa_move_pages(0, 1, &addr, nullptr, &status, 0);
           page->in_dram = (status == FAST_TIER);
 
-          // Detect if this page is backed by a THP (bit 22 of kpageflags)
-          if (kpageflags_fd >= 0) {
-            uint64_t kflags = 0;
-            if (pread(kpageflags_fd, &kflags, sizeof(kflags), pfn * sizeof(uint64_t)) == sizeof(kflags)) {
-              page->is_hugepage = (kflags & KPF_THP) != 0;
-            }
-          }
-
           {
             std::lock_guard<std::mutex> lock(pages_map_lock);
-            pages_map[va] = page;
+            pages_map[key_va] = page;
           }
         }
+
+        // Skip the remainder of the hugepage to avoid redundant insertions
+        if (is_hugepage) {
+          va = (va & HUGE_PFN_MASK) + HUGEPAGE_SIZE;
+          continue;
+        }
       }
+
+      va += BASEPAGE_SIZE;
     }
   }
 
@@ -725,7 +728,11 @@ static void update_scores_and_migrate() {
 
   // Update the hot age of pages
   uint64_t i;
-  for (i = 0; i < (dramsize/PAGE_SIZE) && i < scores.size(); i++) {
+  uint64_t topk_bytes = 0;
+  for (i = 0; i < scores.size(); i++) {
+    uint64_t psize = page_size_bytes(scores[i].page);
+    if (topk_bytes + psize > dramsize) break;
+    topk_bytes += psize;
     arms_page_info* page = scores[i].page;
     if (page->score != 0) {
       page->hot_age++;
@@ -734,6 +741,7 @@ static void update_scores_and_migrate() {
       }
     }
   }
+  uint64_t topk_count = i;  // first index outside the hot set
   for (; i < scores.size(); i++) {
     arms_page_info* page = scores[i].page;
     page->hot_age = 0;
@@ -748,6 +756,7 @@ static void update_scores_and_migrate() {
   // Identify promotion and demotion candidates
   std::vector<uint64_t> promote_list;
   std::vector<uint64_t> demote_list;
+  uint64_t promote_list_bytes = 0;
 
   uint64_t promote_idx = 0;
   uint64_t demote_idx = scores.size() - 1;
@@ -756,28 +765,28 @@ static void update_scores_and_migrate() {
   uint32_t max_migrations_cur_interval = ((policy_thread_interval) / (promotion_cost_avg + demotion_cost_avg));
 
   uint64_t fasttier_free_kb = get_fasttier_free_mem();
-  uint64_t fasttier_free_pages = fasttier_free_kb / (PAGE_SIZE / 1024);
+  uint64_t fasttier_free_bytes = fasttier_free_kb * 1024ULL;
 
   // Calculate current DRAM usage and enforce watermark
-  uint64_t max_dram_pages = dramsize / PAGE_SIZE;
-  uint64_t current_dram_pages = 0;
+  uint64_t max_dram_bytes = dramsize;
+  uint64_t current_dram_bytes = 0;
   for (const auto& entry : scores) {
     if (entry.page->in_dram) {
-      current_dram_pages++;
+      current_dram_bytes += page_size_bytes(entry.page);
     }
   }
 
   // Try to promote hot NVM pages, demoting cold DRAM pages if necessary
-  while (promote_idx < (dramsize/PAGE_SIZE) && promote_idx < demote_idx) {
+  while (promote_idx < topk_count && promote_idx < demote_idx) {
     if (migrated_count >= max_migrations_cur_interval) {
       break; // Reached max migrations for this interval
     }
 
     // Find the hottest page that needs promotion
-    while (promote_idx < (dramsize/PAGE_SIZE) && scores[promote_idx].page->in_dram) {
+    while (promote_idx < topk_count && scores[promote_idx].page->in_dram) {
       promote_idx++;
     }
-    if (promote_idx >= demote_idx || promote_idx > (dramsize/PAGE_SIZE)) break;
+    if (promote_idx >= demote_idx || promote_idx >= topk_count) break;
 
     arms_page_info* hot_page = scores[promote_idx].page;
     if (!hot_page->can_promote) {
@@ -798,12 +807,13 @@ static void update_scores_and_migrate() {
     }
 
     // Check if we can promote without demoting
-    bool system_has_space = promote_list.size() < fasttier_free_pages;
-    bool app_has_space = (current_dram_pages + promote_list.size() < max_dram_pages);
+    bool system_has_space = promote_list_bytes < fasttier_free_bytes;
+    bool app_has_space = (current_dram_bytes + promote_list_bytes < max_dram_bytes);
 
     if (system_has_space && app_has_space) {
       // There is enough free space in DRAM - no need to demote
       promote_list.push_back(hot_page->va);
+      promote_list_bytes += page_size_bytes(hot_page);
       promote_idx++;
       migrated_count++;
       continue;
@@ -814,7 +824,7 @@ static void update_scores_and_migrate() {
     while (demote_idx > promote_idx && !scores[demote_idx].page->in_dram) {
       demote_idx--;
     }
-    if (demote_idx <= promote_idx || demote_idx <= (dramsize/PAGE_SIZE)) break;
+    if (demote_idx <= promote_idx || demote_idx < topk_count) break;
 
     arms_page_info* cold_page = scores[demote_idx].page;
 
@@ -849,6 +859,7 @@ static void update_scores_and_migrate() {
 
     // Both checks passed - add to migration lists
     promote_list.push_back(hot_page->va);
+    promote_list_bytes += page_size_bytes(hot_page);
     demote_list.push_back(cold_page->va);
 
     promote_idx++;
@@ -922,6 +933,19 @@ static void update_scores_and_migrate() {
 }
 
 // ============================================================================
+// Page Scan Thread
+// ============================================================================
+
+static void* arms_page_scan_thread(void *arg) {
+  (void)arg;
+  while (running) {
+    scan_process_pages();
+    usleep(5000000);
+  }
+  return nullptr;
+}
+
+// ============================================================================
 // Policy Thread
 // ============================================================================
 
@@ -958,11 +982,6 @@ static void* arms_policy_thread(void *arg) {
         nvm_lat += (nvm_bw_ewma - NVM_RD_BW_KNEE) * NVM_BW_SLOPE;
       }
       latency_diff = nvm_lat - dram_lat;
-    }
-
-    // Scan process page map every 5 seconds to discover new pages
-    if (global_version % (500000 / policy_thread_interval) == 0) {
-      scan_process_pages();
     }
 
     update_scores_and_migrate();
@@ -1048,6 +1067,7 @@ void arms_start_tiering() {
   // Start scanning and policy threads
   pthread_create(&scan_thread, nullptr, pebs_scan_thread, nullptr);
   pthread_create(&policy_thread, nullptr, arms_policy_thread, nullptr);
+  pthread_create(&page_scan_thread, nullptr, arms_page_scan_thread, nullptr);
 
   std::cout << "[ARMS] Initialization complete." << std::endl;
 }
@@ -1059,6 +1079,7 @@ void arms_kernel_shutdown() {
 
   pthread_join(scan_thread, nullptr);
   pthread_join(policy_thread, nullptr);
+  pthread_join(page_scan_thread, nullptr);
 
   close_perf_events();
 

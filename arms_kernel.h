@@ -153,6 +153,7 @@ enum imc_bw_counters {
 // ==============================================================================
 #define HUGEPAGE_SIZE 	(2UL * 1024UL * 1024UL)
 #define PAGE_SIZE   	(HUGEPAGE_SIZE)
+#define BASEPAGE_SIZE	(4096UL)
 #define HUGE_PFN_MASK	(HUGEPAGE_MASK ^ UINT64_MAX)
 #define HUGEPAGE_MASK	(HUGEPAGE_SIZE - 1)
 
@@ -192,6 +193,10 @@ struct arms_page_info {
     }
   }
 };
+
+inline uint64_t page_size_bytes(const arms_page_info* page) {
+  return page->is_hugepage ? HUGEPAGE_SIZE : BASEPAGE_SIZE;
+}
 
 // Score entry for sorting
 struct score_entry {
