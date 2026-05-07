@@ -89,40 +89,16 @@
 // ==============================================================================
 
 
-/// Page scoring parameters
+/// struct arms_page layout — WINDOW_SIZE kept for w[] field; not used for scoring
 // ==============================================================================
-// Number of EWMA windows
 #define WINDOW_SIZE   (2)
-
-// Bias values for history and recency
-#define HIST_BIAS_RECN  (0.4)
-#define HIST_BIAS       {HIST_BIAS_RECN, 1.-HIST_BIAS_RECN}
-//#define HIST_BIAS       {0.4, 0.6}  // Harmonic progression (1/3, 1/2)
-
-#define RECN_BIAS_RECN  (0.731)
-#define RECN_BIAS       {RECN_BIAS_RECN, 1.-RECN_BIAS_RECN}
-//#define RECN_BIAS     {0.731, 0.269}    // Exponential (e-1, e-2)
-
-#define SHORT_TERM_WND_PERIOD_MS (1000)  // 1s
-#define LONG_TERM_WND_PERIOD_MS  (10000) // 10s
-
-#define SHORT_TERM_WND_ALPHA (2./(double)(SHORT_TERM_WND_PERIOD_MS/(PEBS_KSWAPD_INTERVAL_BIG/1000) + 1))  // 1s -> 0.6667
-#define LONG_TERM_WND_ALPHA  (2./(double)(LONG_TERM_WND_PERIOD_MS/(PEBS_KSWAPD_INTERVAL_BIG/1000) + 1))   // 10s -> 0.0952
-
-#define W_EWMA_ALPHA  {(SHORT_TERM_WND_ALPHA), (LONG_TERM_WND_ALPHA)}  // 1s, 10s
 // ==============================================================================
 
 
-/// Hot-change Detector
+/// Bandwidth tracking for MLP computation
 // ==============================================================================
-#define HCD_EWMA_ALPHA          (0.1) // EWMA alpha
-#define HCD_STD_ALPHA           (0.2) // std alpha
-
-#define HCD_RECN_MAX_PERIODS    (20)  // Max periods to stay in RECN bias
-#define HCD_RECN_MIN_NVM_BW     (0.3) // Min NVM bw to switch to RECN bias
-
-#define HCD_PH_DRIFT            (0.5)   // CUSUM drift
-#define HCD_PH_THRESHOLD        (6.0)   // CUSUM threshold
+#define HCD_EWMA_ALPHA          (0.1) // EWMA alpha for BW smoothing
+#define HCD_STD_ALPHA           (0.2) // std alpha for BW smoothing
 // ==============================================================================
 
 
@@ -176,7 +152,17 @@ enum imc_bw_counters {
 #define NUM_IMC        (6)
 #define NUM_EVENTS     (2) // There are 2 events per IMC: Reads and Writes
 
+// Intel CHA/TOR uncore event for per-tier MLP (UNC_CHA_TOR_OCCUPANCY.ALL_MISS)
+#define TOR_OCC_EVENT_CODE  0x36
+#define TOR_OCC_UMASK       0x21   // ALL_MISS: all LLC misses regardless of requester/destination
+#define TOR_OCC_FILTER_LOCAL   (0x40432ULL << 32)  // local DRAM accesses (node 0)
+#define TOR_OCC_FILTER_REMOTE  (0x40431ULL << 32)  // remote
+#define TOR_CHA_MAX         16     // Upper bound on CHA tiles to probe at init
+
 #endif
+
+// Minimum MLP clamp — just guards against divide-by-zero; real values can be < 1
+#define MLP_MIN  0.001f
 
 struct perf_sample {
   struct perf_event_header header;

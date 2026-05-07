@@ -4,7 +4,7 @@ CFLAGS = -g -Wall -O3 -fPIC
 LDFLAGS = -shared
 INCLUDES = -I../linux/usr/include/
 LIBS = -lm -lpthread
-ARMS_LIBS = $(LIBS) -ldl -lsyscall_intercept -L../Hoard/src -lhoard
+ARMS_LIBS = $(LIBS) -ldl -lsyscall_intercept
 
 default: libarms.so
 
