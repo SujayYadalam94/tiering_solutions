@@ -65,6 +65,7 @@ struct page_info
     float prev_score;
     uint16_t hot_age;
     bool can_promote;
+    bool can_demote;
 
     uint64_t last_seen_scan;
     uint64_t last_access_generation;
@@ -144,7 +145,7 @@ struct page_info
     void update_window(volatile uint8_t prev_access_version, const enum sampling_modes sampling_mode);
     void update_virtual_window(size_t count_total, uint64_t step_id);
     void update_derivative_features(size_t rank, size_t num_sorted_pages, size_t count_total);
-    void update_can_promote(size_t num_dram_pages, size_t rank);
+    void update_can_promote(size_t num_dram_pages, size_t total_scores, size_t rank);
     float compute_score(const float *bias);
     void reset_model_score_history();
     void push_model_score(float score);

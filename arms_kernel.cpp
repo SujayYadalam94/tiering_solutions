@@ -246,12 +246,12 @@ void observe_virtual_step_duration_ms(double duration_ms)
     }
 
     const uint64_t sample_count = virtual_step_duration_average_count.load(std::memory_order_relaxed);
-    const float denom = get_adjusted_ewma_denom(VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX,
-                                                static_cast<uint32_t>(sample_count));
+    const float denom =
+        get_adjusted_ewma_denom(VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX, static_cast<uint32_t>(sample_count));
     const double previous_average =
         sample_count == 0 ? 0.0 : virtual_step_duration_ms_average.load(std::memory_order_relaxed);
-    const double next_average = previous_average * (1.0 - (1.0 / static_cast<double>(denom))) +
-                                (duration_ms / static_cast<double>(denom));
+    const double next_average =
+        previous_average * (1.0 - (1.0 / static_cast<double>(denom))) + (duration_ms / static_cast<double>(denom));
 
     virtual_step_duration_ms_average.store(next_average, std::memory_order_relaxed);
     virtual_step_duration_average_count.store(sample_count + 1, std::memory_order_relaxed);
@@ -260,8 +260,8 @@ void observe_virtual_step_duration_ms(double duration_ms)
 static double get_promotion_cost_multiplier()
 {
 #if USE_MODEL == (true)
-    return static_cast<double>(BASE_MIGRATION_COST_MULTIPLIER) * get_virtual_step_samples_cost_scale() *
-           get_virtual_step_time_cost_scale();
+    return static_cast<double>(BASE_MIGRATION_COST_MULTIPLIER) * get_virtual_step_samples_cost_scale();
+    // *get_virtual_step_time_cost_scale();
 #else
     return static_cast<double>(BASE_MIGRATION_COST_MULTIPLIER);
 #endif
@@ -270,8 +270,8 @@ static double get_promotion_cost_multiplier()
 static double get_demotion_cost_multiplier()
 {
 #if USE_MODEL == (true)
-    return static_cast<double>(BASE_MIGRATION_COST_MULTIPLIER) * get_virtual_step_samples_cost_scale() *
-           get_virtual_step_time_cost_scale();
+    return static_cast<double>(BASE_MIGRATION_COST_MULTIPLIER) * get_virtual_step_samples_cost_scale();
+    // *get_virtual_step_time_cost_scale();
 #else
     return static_cast<double>(BASE_MIGRATION_COST_MULTIPLIER);
 #endif
@@ -578,6 +578,11 @@ uint32_t time_since_recn = 0;
 float promotion_cost_avg = MIN_PROMOTION_COST;
 float demotion_cost_avg = MIN_DEMOTION_COST;
 float latency_diff = UNLOADED_NVM_LAT - UNLOADED_DRAM_LAT;
+
+#if USE_MODEL == (true)
+static float dram_boundary_score_moving_average = 0.0f;
+static uint32_t dram_boundary_score_moving_average_count = 0;
+#endif
 
 std::atomic<bool> terminated{false};
 struct group_tracker *grp_tracker = NULL;
@@ -1625,7 +1630,7 @@ static ranking_plan rank_scores_for_migration(size_t dram_pages, size_t free_hug
 
     for (size_t i = 0; i < plan.candidate_window; i++)
     {
-        scores[i].page->update_can_promote(dram_pages + free_hugepages, i);
+        scores[i].page->update_can_promote(dram_pages + free_hugepages, scores.size(), i);
     }
 
     return plan;
@@ -1662,6 +1667,35 @@ static int64_t calculate_free_hugepages()
     return free_hugepages;
 }
 
+static int64_t max_dram_hugepages(const std::vector<score_entry> &scores)
+{
+    int64_t free_hugepages = calculate_free_hugepages();
+    int64_t dram_hugepages = 0;
+    for (const auto &entry : scores)
+    {
+        if (entry.page->in_dram)
+        {
+            dram_hugepages++;
+        }
+    }
+    return dram_hugepages + free_hugepages;
+}
+
+#if USE_MODEL == (true)
+static void update_dram_boundary_score_moving_average(const std::vector<score_entry> &scores, int64_t max_hugepages)
+{
+    if (max_hugepages < 0 || static_cast<size_t>(max_hugepages) >= scores.size())
+    {
+        return;
+    }
+
+    const float boundary_score = scores[static_cast<size_t>(max_hugepages) - 250].score;
+    const float denom = get_adjusted_ewma_denom(3, dram_boundary_score_moving_average_count);
+    dram_boundary_score_moving_average = adjusted_ewma(dram_boundary_score_moving_average, boundary_score, denom);
+    dram_boundary_score_moving_average_count++;
+}
+#endif
+
 static migration_decision select_migration_candidates(const std::vector<score_entry> &scores, const ranking_plan &plan)
 {
     migration_decision decision;
@@ -1682,6 +1716,16 @@ static migration_decision select_migration_candidates(const std::vector<score_en
                   << " hugepages)" << std::endl;
     }
 
+#if USE_MODEL == (true)
+    const int64_t max_hugepages = max_dram_hugepages(scores);
+    update_dram_boundary_score_moving_average(scores, max_hugepages);
+    const double boundary_score_cost = dram_boundary_score_moving_average_count > 0
+                                           ? dram_boundary_score_moving_average * HF_SAMPLE_PERIOD * latency_diff
+                                           : 0.0;
+    // std::cout << "[ARMS] Boundary score cost: " << boundary_score_cost << " max_hugepages: " << max_hugepages
+    //           << std::endl;
+#endif
+
     while (promote_idx < static_cast<size_t>(demote_idx))
     {
         if (decision.migrated_count >= plan.max_migrations_cur_interval)
@@ -1699,17 +1743,16 @@ static migration_decision select_migration_candidates(const std::vector<score_en
         {
             continue;
         }
-#if USE_MODEL == (false) && LOGGING_RUN == (false)
         if (!hot_page->can_promote)
         {
             continue;
         }
-#endif
 
-        double cost = get_promotion_cost_multiplier() * promotion_cost_avg;
+        double cost = 1 * get_promotion_cost_multiplier() * promotion_cost_avg;
 #if USE_MODEL == (true)
-        // float benefit = SWITCH_SCALER * hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
-        double benefit = hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
+        // cost += boundary_score_cost;
+        //  float benefit = SWITCH_SCALER * hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
+        double benefit = (hot_page->score) * HF_SAMPLE_PERIOD * latency_diff;
         // std::cout << "cost: " << cost << " PROMOTION_COST_MULTIPLIER: " << get_promotion_cost_multiplier()
         //           << " MODEL_DISCOUNT_PERCENT: " << MODEL_DISCOUNT_PERCENT
         //           << " promotion_cost_avg: " << promotion_cost_avg << " hot_page->score: " << hot_page->score;
@@ -1744,12 +1787,15 @@ static migration_decision select_migration_candidates(const std::vector<score_en
                 }
 #endif
 
-                if (cold_page->in_dram)
+                if (cold_page->in_dram && cold_page->can_demote)
                 {
+
                     selected_cold_page = cold_page;
-                    cost += get_demotion_cost_multiplier() * demotion_cost_avg;
+                    cost += 1 * get_demotion_cost_multiplier() * demotion_cost_avg;
+
 #if USE_MODEL == (true)
-                    benefit -= cold_page->score * HF_SAMPLE_PERIOD * latency_diff;
+                    // cost += boundary_score_cost;
+                    benefit -= (cold_page->score) * HF_SAMPLE_PERIOD * latency_diff;
 #else
                     benefit -= cold_page->score * hot_page->hot_age * HF_SAMPLE_PERIOD * latency_diff;
 #endif
@@ -1789,6 +1835,7 @@ static migration_decision select_migration_candidates(const std::vector<score_en
         }
     }
 
+    // std::cout << "migrations: " << decision.migrated_count << std::endl;
     return decision;
 }
 

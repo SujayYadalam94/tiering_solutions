@@ -56,7 +56,7 @@ EOF
     fi
 }
 
-SIZES=(6005)
+SIZES=(8028)
 RUNS=3
 
 ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}
@@ -73,8 +73,8 @@ for size in "${SIZES[@]}"; do
             echo "---- Workload ${workload_id} ----"
 
             # ARMS
-            run_measurement_setup "${size}"
-            "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+            #run_measurement_setup "${size}"
+            #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
 
 
             # Model
