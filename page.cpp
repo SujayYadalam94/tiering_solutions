@@ -418,10 +418,9 @@ void page_info::update_derivative_features(size_t rank, size_t num_sorted_pages,
 #endif
 }
 
-void page_info::update_can_promote(size_t num_dram_pages, size_t rank)
+void page_info::update_can_promote(size_t num_dram_pages, size_t total_scores, size_t rank)
 {
-    (void)num_dram_pages;
-    (void)rank;
+    (void)total_scores;
 #if USE_MODEL == (false)
     if (rank < num_dram_pages)
     {
@@ -438,6 +437,23 @@ void page_info::update_can_promote(size_t num_dram_pages, size_t rank)
     {
         this->hot_age = 0;
         this->can_promote = false;
+    }
+#else
+    if (rank < (num_dram_pages * 0.5))
+    {
+        this->can_promote = true;
+    }
+    else
+    {
+        this->can_promote = false;
+    }
+    if (rank > total_scores - (0.5 * (total_scores - num_dram_pages)))
+    {
+        this->can_demote = true;
+    }
+    else
+    {
+        this->can_demote = false;
     }
 #endif
 }

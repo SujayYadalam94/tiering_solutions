@@ -28,11 +28,11 @@ echo "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}"
 #hist_lengths=(4 8)
 
 pcts=(99)
-history_summary_modes=(2)
+history_summary_modes=(1)
 hist_lengths=(10)
 #switch_scalers=(1.0 2.0 4.0 8.0 16.0 32.0 64.0 128.0 256.0)
 #switch_scalers=(256.0 128.0 64.0 32.0 16.0 8.0 4.0 2.0 1.0 )
-switch_scalers=(0.125 0.25 0.5 1.0)
+switch_scalers=(0.1)
 
 #pcts=(95)
 #history_summary_modes=(2)

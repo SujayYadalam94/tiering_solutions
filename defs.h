@@ -41,7 +41,7 @@ extern bool initialized;
 #define VIRTUAL_FEATURES_ENABLED ((USE_MODEL == (true)) || (LOGGING_RUN == (true)))
 
 #ifndef VIRTUAL_STEP_SAMPLES
-//#define VIRTUAL_STEP_SAMPLES (3162)
+// #define VIRTUAL_STEP_SAMPLES (3162)
 #define VIRTUAL_STEP_SAMPLES (10000)
 // #define VIRTUAL_STEP_SAMPLES (31623)
 // #define VIRTUAL_STEP_SAMPLES (100000)
@@ -106,11 +106,11 @@ extern bool initialized;
 #endif
 
 #ifndef MODEL_SCORE_MOVING_AVERAGE_ALPHA_IDX
-#define MODEL_SCORE_MOVING_AVERAGE_ALPHA_IDX (3)
+#define MODEL_SCORE_MOVING_AVERAGE_ALPHA_IDX (2)
 #endif
 
 #ifndef VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX
-#define VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX (3)
+#define VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX (2)
 #endif
 
 #if MODEL_SCORE_HISTORY_SUMMARY == MODEL_SCORE_HISTORY_SUMMARY_MIN_MAX
@@ -273,8 +273,7 @@ extern bool initialized;
 /// Page migration
 // ==============================================================================
 #if USE_MODEL == (true)
-#define BASE_MIGRATION_COST_MULTIPLIER                                                                                 \
-    ((SWITCH_SCALER) / (1.0 - (static_cast<double>(MODEL_DISCOUNT_PERCENT) / 100.0)))
+#define BASE_MIGRATION_COST_MULTIPLIER ((SWITCH_SCALER) / (1.0 - (static_cast<double>(MODEL_DISCOUNT_PERCENT) / 100.0)))
 
 #else
 #define BASE_MIGRATION_COST_MULTIPLIER (1.5)
@@ -367,8 +366,7 @@ static const float recn_bias[WINDOW_SIZE] = RECN_BIAS;
 
 static_assert((MODEL_SCORE_MOVING_AVERAGE_ALPHA_IDX >= 0) && (MODEL_SCORE_MOVING_AVERAGE_ALPHA_IDX < WINDOW_SIZE),
               "MODEL_SCORE_MOVING_AVERAGE_ALPHA_IDX must be in the range [0, WINDOW_SIZE).");
-static_assert((VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX >= 0) &&
-                  (VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX < WINDOW_SIZE),
+static_assert((VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX >= 0) && (VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX < WINDOW_SIZE),
               "VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX must be in the range [0, WINDOW_SIZE).");
 
 #define DENOM_SIZE (300)
