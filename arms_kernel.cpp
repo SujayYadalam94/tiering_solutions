@@ -246,12 +246,12 @@ void observe_virtual_step_duration_ms(double duration_ms)
     }
 
     const uint64_t sample_count = virtual_step_duration_average_count.load(std::memory_order_relaxed);
-    const float denom = get_adjusted_ewma_denom(VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX,
-                                                static_cast<uint32_t>(sample_count));
+    const float denom =
+        get_adjusted_ewma_denom(VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX, static_cast<uint32_t>(sample_count));
     const double previous_average =
         sample_count == 0 ? 0.0 : virtual_step_duration_ms_average.load(std::memory_order_relaxed);
-    const double next_average = previous_average * (1.0 - (1.0 / static_cast<double>(denom))) +
-                                (duration_ms / static_cast<double>(denom));
+    const double next_average =
+        previous_average * (1.0 - (1.0 / static_cast<double>(denom))) + (duration_ms / static_cast<double>(denom));
 
     virtual_step_duration_ms_average.store(next_average, std::memory_order_relaxed);
     virtual_step_duration_average_count.store(sample_count + 1, std::memory_order_relaxed);
@@ -260,8 +260,8 @@ void observe_virtual_step_duration_ms(double duration_ms)
 static double get_promotion_cost_multiplier()
 {
 #if USE_MODEL == (true)
-    return static_cast<double>(BASE_MIGRATION_COST_MULTIPLIER) * get_virtual_step_samples_cost_scale() *
-           get_virtual_step_time_cost_scale();
+    return static_cast<double>(BASE_MIGRATION_COST_MULTIPLIER) * get_virtual_step_samples_cost_scale();
+    // *get_virtual_step_time_cost_scale();
 #else
     return static_cast<double>(BASE_MIGRATION_COST_MULTIPLIER);
 #endif
@@ -270,8 +270,8 @@ static double get_promotion_cost_multiplier()
 static double get_demotion_cost_multiplier()
 {
 #if USE_MODEL == (true)
-    return static_cast<double>(BASE_MIGRATION_COST_MULTIPLIER) * get_virtual_step_samples_cost_scale() *
-           get_virtual_step_time_cost_scale();
+    return static_cast<double>(BASE_MIGRATION_COST_MULTIPLIER) * get_virtual_step_samples_cost_scale();
+    // *get_virtual_step_time_cost_scale();
 #else
     return static_cast<double>(BASE_MIGRATION_COST_MULTIPLIER);
 #endif
