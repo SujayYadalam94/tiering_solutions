@@ -1,0 +1,9 @@
+#!/bin/bash
+
+WORKLOAD_ID="faiss_10M-original"
+WORKLOAD_OUTPUT="faiss_10M-original"
+WORKLOAD_COMMAND="${BENCH_ROOT}/big-ann-benchmarks/.venv/bin/python3 ${BENCH_ROOT}/big-ann-benchmarks/data/10M_benchmark.py --threads 16 --index-key HNSW,Flat --stress-mode latency --dataset openai --n-queries 10000"
+WORKLOAD_EXE_NAME="python3"
+WORKLOAD_MODEL_BASE="faiss_10M"
+WORKLOAD_VIRTUAL_STEP_SAMPLES="3162"
+WORKLOAD_SYSTEMS="arms hybridtier model logging"

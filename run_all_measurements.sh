@@ -56,7 +56,7 @@ EOF
     fi
 }
 
-SIZES=(8028)
+SIZES=(6032)
 RUNS=3
 
 ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}
@@ -66,23 +66,23 @@ mapfile -t WORKLOAD_IDS < <(measurement_list_default_workloads)
 for size in "${SIZES[@]}"; do
     echo "== Running measurements with size ${size}MiB =="
 
-    for run in $(seq 1 ${RUNS}); do
+    for run in $(seq 2 ${RUNS}); do
         echo "-- Run ${run}/${RUNS} for size ${size}MiB --"
 
         for workload_id in "${WORKLOAD_IDS[@]}"; do
             echo "---- Workload ${workload_id} ----"
 
-            # ARMS
-            #run_measurement_setup "${size}"
-            #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
-
-
             # Model
-            if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
-                "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
-            else
-                echo "WARNING: ./measurement_model.sh not found or not executable; skipping model"
-            fi
+            #if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
+            #    "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+            #else
+            #    echo "WARNING: ./measurement_model.sh not found or not executable; skipping model"
+            #fi
+
+            # ARMS
+            run_measurement_setup "${size}"
+            "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+
 
             # NOMAD
             #if [[ -x "${SCRIPT_DIR}/measurement_nomad.sh" ]]; then

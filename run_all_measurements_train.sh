@@ -12,14 +12,14 @@ PLATFORM_ARGS=(--platform "${MEASUREMENT_PLATFORM}")
 echo "Using measurement platform: ${MEASUREMENT_PLATFORM}"
 
 SIZES=(10009)
-RUNS=1
+RUNS=3
 
 mapfile -t WORKLOAD_IDS < <(measurement_list_default_workloads)
 
 for size in "${SIZES[@]}"; do
     echo "== Running measurements with size ${size}MiB =="
 
-    for run in $(seq 1 ${RUNS}); do
+    for run in $(seq 2 ${RUNS}); do
         echo "-- Run ${run}/${RUNS} for size ${size}MiB --"
 
         for workload_id in "${WORKLOAD_IDS[@]}"; do

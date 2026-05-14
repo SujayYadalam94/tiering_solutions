@@ -1748,7 +1748,7 @@ static migration_decision select_migration_candidates(const std::vector<score_en
             continue;
         }
 
-        double cost = 1 * get_promotion_cost_multiplier() * promotion_cost_avg;
+        double cost = get_promotion_cost_multiplier() * promotion_cost_avg;
 #if USE_MODEL == (true)
         // cost += boundary_score_cost;
         //  float benefit = SWITCH_SCALER * hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
@@ -1791,7 +1791,7 @@ static migration_decision select_migration_candidates(const std::vector<score_en
                 {
 
                     selected_cold_page = cold_page;
-                    cost += 1 * get_demotion_cost_multiplier() * demotion_cost_avg;
+                    cost += get_demotion_cost_multiplier() * demotion_cost_avg;
 
 #if USE_MODEL == (true)
                     // cost += boundary_score_cost;

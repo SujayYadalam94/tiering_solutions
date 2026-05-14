@@ -83,7 +83,7 @@ static inline void extract_features(struct data_row &row, double *features)
     features[i++] = group_neg_mean;
     features[i++] = group_pos_mean;
     features[i++] = group_0_mean;
-    features[i++] = static_cast<double>(row.age);
+    features[i++] = static_cast<double>(row.age > 100 ? 100 : row.age);
     features[i++] = r_ratio_20;
     features[i++] = r_ratio_100;
     features[i++] = round_to_6(row.group_ewma5_var);

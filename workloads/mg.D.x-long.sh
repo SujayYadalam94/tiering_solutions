@@ -1,0 +1,11 @@
+#!/bin/bash
+
+WORKLOAD_ID="mg.D.x-long"
+WORKLOAD_OUTPUT="mg.D.x-long"
+WORKLOAD_COMMAND="OMP_NUM_THREADS=16 ${BENCH_ROOT}/NPB3.4.3/NPB3.4-OMP/bin/mg.D.x"
+WORKLOAD_EXE_NAME="mg.D.x"
+WORKLOAD_MODEL_BASE="mg.D.x"
+WORKLOAD_RUNTIME_INPUT_SOURCE="${BENCH_ROOT}/tiering_solutions/workloads/mg.D.x-long.input"
+WORKLOAD_RUNTIME_INPUT_TARGET="mg.input"
+WORKLOAD_VIRTUAL_STEP_SAMPLES="10000"
+WORKLOAD_SYSTEMS="arms hybridtier model logging"

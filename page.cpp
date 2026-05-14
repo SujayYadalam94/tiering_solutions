@@ -105,6 +105,7 @@ void page_info::reset_page_access_fields()
     this->num_promotions = 0;
 
     this->can_promote = true;
+    this->can_demote = true;
 
     this->last_logged_row = NULL;
 }
