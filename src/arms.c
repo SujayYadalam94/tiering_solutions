@@ -36,8 +36,10 @@ uint64_t min_interpose_mem_size = 0;
 
 uint64_t nvmsize = 0;
 uint64_t dramsize = 0;
+uint64_t max_dramsize = 0;
 char* drampath = NULL;
 char* nvmpath = NULL;
+char* dram_config_path = NULL;
 
 int dramfd = -1;
 int nvmfd = -1;
@@ -169,6 +171,16 @@ static void *arms_stats_thread()
 }
 
 
+uint64_t parse_size_string(const char *s)
+{
+  char *end;
+  uint64_t val = strtoull(s, &end, 10);
+  if      (*end == 'G' || *end == 'g') val *= 1024ULL * 1024 * 1024;
+  else if (*end == 'M' || *end == 'm') val *= 1024ULL * 1024;
+  else if (*end == 'K' || *end == 'k') val *= 1024ULL;
+  return val;
+}
+
 void arms_init()
 {
   struct uffdio_api uffdio_api;
@@ -258,15 +270,33 @@ void arms_init()
     min_interpose_mem_size = MIN_INTERPOSE_MEM_SIZE_DEFAULT;
   LOG_STATS("MIN_INTERPOSE_MEM_SIZE: %lu\n", min_interpose_mem_size);
 
-  char* dramsize_string = getenv("DRAMSIZE");
-  if(dramsize_string != NULL)
-    dramsize = strtoull(dramsize_string, NULL, 10);
-  else
-    dramsize = DRAMSIZE_DEFAULT;
-  LOG_STATS("DRAMSIZE: %lu\n", dramsize);
+  max_dramsize = DRAMSIZE_DEFAULT;
 
-  if(dramsize != 0) {
-    dram_devdax_mmap =libc_mmap(NULL, dramsize, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, dramfd, 0);
+  dram_config_path = getenv("DRAM_CONFIG_PATH");
+  if (dram_config_path == NULL) {
+    dram_config_path = malloc(sizeof(DRAM_CONFIG_PATH_DEFAULT));
+    strcpy(dram_config_path, DRAM_CONFIG_PATH_DEFAULT);
+  }
+
+  /* Initial dramsize: prefer env var, then config file, then max */
+  char* dramsize_string = getenv("DRAMSIZE");
+  if (dramsize_string != NULL) {
+    dramsize = parse_size_string(dramsize_string);
+  } else {
+    FILE *f = fopen(dram_config_path, "r");
+    if (f != NULL) {
+      char buf[64];
+      if (fgets(buf, sizeof(buf), f) != NULL)
+        dramsize = parse_size_string(buf);
+      fclose(f);
+    }
+  }
+  if (dramsize == 0 || dramsize > max_dramsize)
+    dramsize = max_dramsize;
+  LOG_STATS("MAX_DRAMSIZE: %lu DRAMSIZE: %lu\n", max_dramsize, dramsize);
+
+  if (max_dramsize != 0) {
+    dram_devdax_mmap = libc_mmap(NULL, max_dramsize, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE, dramfd, 0);
     if (dram_devdax_mmap == MAP_FAILED) {
       perror("dram devdax mmap");
       assert(0);
@@ -622,8 +652,8 @@ void arms_migrate_up(struct arms_page *page, uint64_t dram_offset)
   assert((uint64_t)old_addr_offset + pagesize <= nvmsize);
 
   new_addr = dram_devdax_mmap + new_addr_offset;
-  assert((uint64_t)new_addr_offset < dramsize);
-  assert((uint64_t)new_addr_offset + pagesize <= dramsize);
+  assert((uint64_t)new_addr_offset < max_dramsize);
+  assert((uint64_t)new_addr_offset + pagesize <= max_dramsize);
 
   // copy page from faulting location to temp location
   gettimeofday(&start, NULL);
@@ -733,8 +763,8 @@ void arms_migrate_down(struct arms_page *page, uint64_t nvm_offset)
   new_addr_offset = nvm_offset;
 
   old_addr = dram_devdax_mmap + old_addr_offset;
-  assert((uint64_t)old_addr_offset < dramsize);
-  assert((uint64_t)old_addr_offset + pagesize <= dramsize);
+  assert((uint64_t)old_addr_offset < max_dramsize);
+  assert((uint64_t)old_addr_offset + pagesize <= max_dramsize);
 
   new_addr = nvm_devdax_mmap + new_addr_offset;
   assert((uint64_t)new_addr_offset < nvmsize);

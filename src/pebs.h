@@ -211,4 +211,6 @@ void pebs_remove_page(struct arms_page *page);
 void pebs_stats();
 void pebs_shutdown();
 
+void dram_resize();
+
 #endif /*  ARMS_LRU_MODIFIED_H  */

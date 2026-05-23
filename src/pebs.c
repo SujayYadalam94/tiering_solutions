@@ -62,6 +62,7 @@ struct score_entry *scores;
 //static struct fifo_list nvm_cold_list;
 
 static struct fifo_list dram_free_list;
+static struct fifo_list dram_reserve_list;
 static struct fifo_list nvm_free_list;
 
 static struct migration_req_list migration_queue;
@@ -999,6 +1000,9 @@ void *pebs_policy_thread()
     LOG_REPORT("Starting new interval\n");
     LOG_REPORT("========================================\n");
 
+    // First, check if dram was resized and resize
+    dram_resize();
+
     // Update the window index (circular buffer)
     curr_window_index = global_version % WINDOW_SIZE;
     // "Bump" the global version to indicate that we are starting a new interval
@@ -1464,6 +1468,116 @@ void pebs_remove_page(struct arms_page *page)
 #define L3_LOAD_MISS_REMOTE 0x2d3
 #endif
 
+void dram_grow(uint64_t new_size)
+{
+  uint64_t pages_to_add = (new_size - dramsize) / PAGE_SIZE;
+  for (uint64_t i = 0; i < pages_to_add; i++) {
+    struct arms_page *p = dequeue_fifo(&dram_reserve_list);
+    if (p == NULL) {
+      LOG_ERROR("dram_grow: no more reserved DRAM pages, added %lu pages so far\n", i);
+      break;      
+    }
+    enqueue_fifo(&dram_free_list, p);
+  }
+  dramsize = new_size;
+  LOG_STATS("DRAM grown to %lu bytes\n", dramsize);
+}
+
+int cmp_score_asc(const void *a, const void *b)
+{
+  float sa = (*(struct arms_page **)a)->score;
+  float sb = (*(struct arms_page **)b)->score;
+  return (sa > sb) - (sa < sb);
+}
+
+void dram_shrink(uint64_t new_size)
+{
+  uint64_t pages_to_remove = (dramsize - new_size) / PAGE_SIZE;
+  uint64_t reclaimed = 0;
+
+  /*
+   * Step 1: Collect all in-use DRAM pages and sort coldest first.
+   * We migrate BEFORE updating dramsize because arms_migrate_down
+   * asserts devdax_offset < dramsize.
+   */
+  struct arms_page **inuse = NULL;
+  size_t n_inuse = 0, cap = 0;
+
+  pthread_mutex_lock(&pages_lock);
+  khiter_t k;
+  for (k = kh_begin(pages); k != kh_end(pages); ++k) {
+    if (!kh_exist(pages, k)) continue;
+    struct arms_page *p = kh_val(pages, k);
+    if (p && p->in_dram && p->present) {
+      if (n_inuse == cap) {
+        cap = cap ? cap * 2 : 16;
+        inuse = realloc(inuse, cap * sizeof(*inuse));
+      }
+      inuse[n_inuse++] = p;
+    }
+  }
+  pthread_mutex_unlock(&pages_lock);
+
+  if (n_inuse > 0)
+    qsort(inuse, n_inuse, sizeof(*inuse), cmp_score_asc);
+
+  /* Step 2: Migrate the coldest pages to NVM; freed DRAM slots go to reserve */
+  for (size_t i = 0; i < n_inuse && reclaimed < pages_to_remove; i++) {
+    struct arms_page *cp = inuse[i];
+    struct arms_page *np = dequeue_fifo(&nvm_free_list);
+    if (np == NULL) {
+      LOG_STATS("dram_shrink: no free NVM pages, %lu pages left\n",
+                pages_to_remove - reclaimed);
+      break;
+    }
+    if (!demote_to_free_nvm_page(cp, np)) {
+      enqueue_fifo(&nvm_free_list, np);
+      continue;
+    }
+    /* np->in_dram = true, np->present = false — DRAM slot goes to reserve */
+    enqueue_fifo(&dram_reserve_list, np);
+    reclaimed++;
+  }
+  free(inuse);
+
+  /* Step 3: Drain remaining shortfall from the free list */
+  for (; reclaimed < pages_to_remove; reclaimed++) {
+    struct arms_page *p = dequeue_fifo(&dram_free_list);
+    if (p == NULL) break;
+    enqueue_fifo(&dram_reserve_list, p);
+  }
+
+  /* Step 4: Update dramsize */
+  dramsize = new_size;
+
+  LOG_STATS("DRAM shrunk to %lu bytes\n", dramsize);
+}
+
+void dram_resize()
+{
+  FILE *f = fopen(dram_config_path, "r");
+  if (f == NULL) return;
+  char buf[64];
+  uint64_t new_size = 0;
+  if (fgets(buf, sizeof(buf), f) != NULL)
+    new_size = parse_size_string(buf);
+  fclose(f);
+
+  if (new_size == 0) return;
+  /* Align to page and cap at max */
+  new_size = (new_size / PAGE_SIZE) * PAGE_SIZE;
+  if (new_size > max_dramsize) new_size = max_dramsize;
+
+  uint64_t cur = dramsize;
+
+  if (new_size == cur) return;
+
+  if (new_size > cur)
+    dram_grow(new_size);
+  else
+    dram_shrink(new_size);
+}
+
 void pebs_init(void)
 {
   pebs_print_config();
@@ -1493,7 +1607,8 @@ void pebs_init(void)
   }
 
   pthread_mutex_init(&(dram_free_list.list_lock), NULL);
-  for (int i = 0; i < dramsize / PAGE_SIZE; i++) {
+  pthread_mutex_init(&(dram_reserve_list.list_lock), NULL);
+  for (uint64_t i = 0; i < max_dramsize / PAGE_SIZE; i++) {
     struct arms_page *p = calloc(1, sizeof(struct arms_page));
     p->devdax_offset = i * PAGE_SIZE;
     p->present = false;
@@ -1501,7 +1616,10 @@ void pebs_init(void)
     p->pt = pagesize_to_pt(PAGE_SIZE);
     pthread_mutex_init(&(p->page_lock), NULL);
 
-    enqueue_fifo(&dram_free_list, p);
+    if (i * PAGE_SIZE < dramsize)
+      enqueue_fifo(&dram_free_list, p);
+    else
+      enqueue_fifo(&dram_reserve_list, p);
   }
 
   pthread_mutex_init(&(nvm_free_list.list_lock), NULL);

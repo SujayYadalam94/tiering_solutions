@@ -64,14 +64,20 @@ extern uint64_t min_interpose_mem_size;
 
 extern uint64_t nvmsize;
 extern uint64_t dramsize;
+extern uint64_t max_dramsize;
 extern char* drampath;
 extern char* nvmpath;
+extern char* dram_config_path;
 
-#define NVMSIZE_DEFAULT   (64L * (1024L * 1024L * 1024L))
-#define DRAMSIZE_DEFAULT  (32L * (1024L * 1024L * 1024L))
+#define NVMSIZE_DEFAULT   (60L * (1024L * 1024L * 1024L))
+#define DRAMSIZE_DEFAULT  (60L * (1024L * 1024L * 1024L))
 
-#define DRAMPATH_DEFAULT  "/dev/dax0.0"
-#define NVMPATH_DEFAULT   "/dev/dax1.0"
+#define DRAMPATH_DEFAULT        "/dev/dax0.0"
+#define NVMPATH_DEFAULT         "/dev/dax1.0"
+#define DRAM_CONFIG_PATH_DEFAULT "/tmp/arms_dram_size"
+#define DRAM_RESIZE_INTERVAL_US  5000000
+
+uint64_t parse_size_string(const char *s);
 
 #define BASEPAGE_SIZE	  (4UL * 1024UL)
 #define HUGEPAGE_SIZE 	(2UL * 1024UL * 1024UL)
