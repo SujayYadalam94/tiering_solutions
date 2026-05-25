@@ -17,10 +17,12 @@
 #include <sys/ioctl.h>
 #include <float.h>
 #include <fcntl.h>
+#include <errno.h>
 #include <math.h>
 
 #include "arms.h"
 #include "pebs.h"
+#include "counterfactual.h"
 #include "timer.h"
 #include "spsc-ring.h"
 
@@ -548,6 +550,8 @@ static void reset_page_access_fields(struct arms_page *page)
   }
   page->hot_age = 0;
   page->prev_score = 0;
+  page->long_read_accesses  = 0;
+  page->long_write_accesses = 0;
 }
 
 static inline void update_window(struct arms_page* page) {
@@ -780,6 +784,22 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
     // Update the window values
     update_window(page);
 
+    /* Accumulate actual accesses for the counterfactual window.
+     * Multiplying raw sample counts by the current sample period gives
+     * actual access counts (one PEBS sample ≈ sample_period real events).
+     * uint64_t prevents overflow: max ≈ CF_WINDOW_PERIODS × 65535 × 10007
+     * ≈ 39 × 10^9, well within 2^64.
+     * sampling_mode is a file-scope global written only by the policy thread. */
+    {
+      uint32_t cf_sp = (sampling_mode == DEFAULT_SAMPLING)
+                       ? DEFAULT_SAMPLE_PERIOD : HF_SAMPLE_PERIOD;
+      page->long_read_accesses  +=
+          (uint64_t)(page->accesses[DRAMREAD][prev_access_version]
+                   + page->accesses[NVMREAD][prev_access_version]) * cf_sp;
+      page->long_write_accesses +=
+          (uint64_t) page->accesses[WRITE][prev_access_version]    * cf_sp;
+    }
+
     // Reset the access counts
     page->accesses[DRAMREAD][prev_access_version] = 0;
     page->accesses[NVMREAD][prev_access_version] = 0;
@@ -933,6 +953,160 @@ void *pebs_migration_thread()
   }
 }
 
+/* CYCLE_ACTIVITY.STALLS_L3_MISS (Skylake/Cascade Lake):
+ * event=0xA3, umask=0x06, cmask=0x06.
+ * Raw perf config = (cmask<<24)|(umask<<8)|event. */
+#define CYCLE_ACTIVITY_STALLS_L3_MISS  0x060006A3UL
+
+/* One counting fd per app CPU (same set as PEBS), plus IMC BW accumulators
+ * for the CF window.  Written exclusively by the policy thread. */
+static int      cf_stall_fd  [PEBS_NPROCS];
+static uint64_t cf_stall_prev[PEBS_NPROCS];
+static int      cf_cycles_fd  [PEBS_NPROCS];
+static uint64_t cf_cycles_prev[PEBS_NPROCS];
+static int      cf_n_stall_cpus = 0;
+
+static double   cf_dram_bw_sum = 0.0;  /* GB/s × samples over CF window */
+static double   cf_cxl_bw_sum  = 0.0;
+static int      cf_bw_samples   = 0;
+
+/* Protects pages_map structural changes and BW accumulators against
+ * concurrent access by the CF thread during its snapshot walk. */
+static pthread_mutex_t cf_snapshot_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+/* Open CYCLE_ACTIVITY.STALLS_L3_MISS and cpu-cycles counting fds on the same
+ * CPUs as PEBS.  Called once from pebs_policy_thread() after setup_imc_bw_counters(). */
+static void setup_stall_counters(void)
+{
+  memset(cf_stall_fd,    -1, sizeof(cf_stall_fd));
+  memset(cf_stall_prev,   0, sizeof(cf_stall_prev));
+  memset(cf_cycles_fd,   -1, sizeof(cf_cycles_fd));
+  memset(cf_cycles_prev,  0, sizeof(cf_cycles_prev));
+  cf_n_stall_cpus = 0;
+
+  struct perf_event_attr attr;
+
+  /* CYCLE_ACTIVITY.STALLS_L3_MISS */
+  memset(&attr, 0, sizeof(attr));
+  attr.type           = PERF_TYPE_RAW;
+  attr.size           = sizeof(attr);
+  attr.config         = CYCLE_ACTIVITY_STALLS_L3_MISS;
+  attr.disabled       = 0;
+  attr.exclude_kernel = 1;
+  attr.exclude_hv     = 1;
+
+  /* cpu-cycles (PERF_COUNT_HW_CPU_CYCLES) — same config for all CPUs */
+  struct perf_event_attr cyc_attr;
+  memset(&cyc_attr, 0, sizeof(cyc_attr));
+  cyc_attr.type           = PERF_TYPE_HARDWARE;
+  cyc_attr.size           = sizeof(cyc_attr);
+  cyc_attr.config         = PERF_COUNT_HW_CPU_CYCLES;
+  cyc_attr.disabled       = 0;
+  cyc_attr.exclude_kernel = 1;
+  cyc_attr.exclude_hv     = 1;
+
+  for (int i = 0; i < PEBS_NPROCS; i++) {
+#ifdef C220G5
+    if (i >= 10 && i < 20) continue;   /* skip ARMS-pinned / unused CPUs */
+#endif
+    cf_stall_fd[i] = perf_event_open(&attr, -1, i, -1, 0);
+    if (cf_stall_fd[i] < 0) {
+      LOG_ERROR("cf: STALLS_L3_MISS cpu%d: %s\n", i, strerror(errno));
+    } else {
+      if (read(cf_stall_fd[i], &cf_stall_prev[i], sizeof(uint64_t)) != sizeof(uint64_t))
+        cf_stall_prev[i] = 0;
+    }
+
+    cf_cycles_fd[i] = perf_event_open(&cyc_attr, -1, i, -1, 0);
+    if (cf_cycles_fd[i] < 0) {
+      LOG_ERROR("cf: cpu-cycles cpu%d: %s\n", i, strerror(errno));
+    } else {
+      if (read(cf_cycles_fd[i], &cf_cycles_prev[i], sizeof(uint64_t)) != sizeof(uint64_t))
+        cf_cycles_prev[i] = 0;
+    }
+
+    if (cf_stall_fd[i] >= 0 && cf_cycles_fd[i] >= 0)
+      cf_n_stall_cpus++;
+  }
+  LOG_REPORT("cf: opened STALLS_L3_MISS + cpu-cycles on %d CPUs\n", cf_n_stall_cpus);
+}
+
+/* ================================================================
+ * TOR occupancy counters for total MLP measurement
+ * MLP = Σ1/Σ2:
+ *   Σ1 = TOR_OCCUPANCY (sum of occupancy each cycle, thresh=0)
+ *   Σ2 = TOR active cycles (cycles where occupancy ≥ 1, thresh=1)
+ * Uses TOR_OCC_FILTER_ALL to capture all LLC misses (DRAM + CXL).
+ * ================================================================ */
+#define TOR_OCC_EVENT_CODE  0x36
+#define TOR_OCC_UMASK       0x21
+#define TOR_OCC_FILTER_ALL  (0x40433ULL << 32)
+#define TOR_CHA_MAX         16
+#define MLP_MIN             0.001f
+
+static int      tor_occ_fd  [TOR_CHA_MAX];
+static int      tor_act_fd  [TOR_CHA_MAX];
+static uint64_t prev_tor_occ[TOR_CHA_MAX];
+static uint64_t prev_tor_act[TOR_CHA_MAX];
+static int      tor_cha_count = 0;
+
+static void setup_tor_counters(void)
+{
+  char path[128], buf[32];
+  struct perf_event_attr pe;
+
+  for (int i = 0; i < TOR_CHA_MAX; i++) {
+    int fd, n;
+    snprintf(path, sizeof(path),
+             "/sys/bus/event_source/devices/uncore_cha_%d/type", i);
+    fd = open(path, O_RDONLY);
+    if (fd == -1) break;
+    n = read(fd, buf, sizeof(buf) - 1);
+    close(fd);
+    if (n <= 0) break;
+    buf[n] = '\0';
+    uint32_t pmu_type = (uint32_t)strtoul(buf, NULL, 10);
+
+    /* Sigma1: total occupancy (thresh=0, default) */
+    memset(&pe, 0, sizeof(pe));
+    pe.type    = pmu_type;
+    pe.size    = sizeof(pe);
+    pe.config  = ((uint64_t)TOR_OCC_UMASK << 8) | TOR_OCC_EVENT_CODE;
+    pe.config1 = TOR_OCC_FILTER_ALL;
+    tor_occ_fd[tor_cha_count] = perf_event_open(&pe, -1, 0, -1, 0);
+
+    /* Sigma2: active cycles (thresh=1, encoded in config bits 24-31) */
+    pe.config  = ((uint64_t)TOR_OCC_UMASK << 8) | TOR_OCC_EVENT_CODE | (1ULL << 24);
+    pe.config1 = TOR_OCC_FILTER_ALL;
+    tor_act_fd[tor_cha_count] = perf_event_open(&pe, -1, 0, -1, 0);
+
+    if (tor_occ_fd[tor_cha_count] == -1 || tor_act_fd[tor_cha_count] == -1) {
+      LOG_ERROR("WARNING: TOR open failed for CHA %d (errno %d)\n", i, errno);
+      if (tor_occ_fd[tor_cha_count] > 0) close(tor_occ_fd[tor_cha_count]);
+      if (tor_act_fd[tor_cha_count] > 0) close(tor_act_fd[tor_cha_count]);
+      continue;
+    }
+
+    ioctl(tor_occ_fd[tor_cha_count], PERF_EVENT_IOC_RESET,  0);
+    ioctl(tor_occ_fd[tor_cha_count], PERF_EVENT_IOC_ENABLE, 0);
+    ioctl(tor_act_fd[tor_cha_count], PERF_EVENT_IOC_RESET,  0);
+    ioctl(tor_act_fd[tor_cha_count], PERF_EVENT_IOC_ENABLE, 0);
+    tor_cha_count++;
+  }
+
+  if (tor_cha_count == 0) {
+    LOG_ERROR("WARNING: No TOR counters opened; total_mlp stays at %.3f\n", MLP_MIN);
+    return;
+  }
+
+  for (int i = 0; i < tor_cha_count; i++) {
+    ssize_t r __attribute__((unused));
+    r = read(tor_occ_fd[i], &prev_tor_occ[i], sizeof(uint64_t));
+    r = read(tor_act_fd[i], &prev_tor_act[i], sizeof(uint64_t));
+  }
+  LOG_REPORT("cf: TOR counters: %d CHA tiles opened\n", tor_cha_count);
+}
+
 void *pebs_policy_thread()
 {
   struct ptimer loop_timer, tree_timer, score_timer, sort_timer, id_timer;
@@ -988,6 +1162,16 @@ void *pebs_policy_thread()
 
   // Initialize memory controller BW counters
   setup_imc_bw_counters();
+  setup_stall_counters();
+  setup_tor_counters();
+  counterfactual_register_state(
+      pages_map,
+      cf_stall_fd,  cf_stall_prev,
+      cf_cycles_fd, cf_cycles_prev,
+      &cf_dram_bw_sum, &cf_cxl_bw_sum, &cf_bw_samples,
+      &dramsize,
+      &cf_snapshot_mutex,
+      tor_occ_fd, tor_act_fd, prev_tor_occ, prev_tor_act, tor_cha_count);
 
   // Sleep first to allow the scanning thread to start
   usleep((uint64_t)((1.0 * policy_thread_period)));
@@ -1019,6 +1203,13 @@ void *pebs_policy_thread()
       // update the BW
       dram_bw_ewma = (1 - HCD_EWMA_ALPHA) * dram_bw_ewma + HCD_EWMA_ALPHA * cur_dram_bw;
       nvm_bw_ewma = (1 - HCD_EWMA_ALPHA) * nvm_bw_ewma + HCD_EWMA_ALPHA * cur_nvm_bw;
+
+      /* Accumulate for the CF window average. */
+      pthread_mutex_lock(&cf_snapshot_mutex);
+      cf_dram_bw_sum += cur_dram_bw;
+      cf_cxl_bw_sum  += cur_nvm_bw;
+      cf_bw_samples++;
+      pthread_mutex_unlock(&cf_snapshot_mutex);
       nvm_bw_std  = ((1 - HCD_STD_ALPHA) * nvm_bw_std * nvm_bw_std) + HCD_STD_ALPHA * (cur_nvm_bw - nvm_bw_ewma) * (cur_nvm_bw - nvm_bw_ewma);
       nvm_bw_std = sqrtf(fmaxf(nvm_bw_std, 1e-12f)); // avoid stddev of 0
 
@@ -1052,8 +1243,8 @@ void *pebs_policy_thread()
         batch_size = 1;
       }
 
-      LOG_REPORT("NVM bw: %f, NVM bw EWMA: %f, NVM bw stddev: %f, cusum: %f\n",
-                 cur_nvm_bw, nvm_bw_ewma, nvm_bw_std, cusum);
+      LOG_REPORT("DRAM bw: %f, NVM bw: %f, NVM bw EWMA: %f, NVM bw stddev: %f, cusum: %f\n",
+                 cur_dram_bw, cur_nvm_bw, nvm_bw_ewma, nvm_bw_std, cusum);
 
       // Calculate the latency diff between DRAM and NVM
       float dram_lat = UNLOADED_DRAM_LAT;
@@ -1101,10 +1292,12 @@ void *pebs_policy_thread()
         kb_put(kPagesTree, pages_tree, entry);
       }
       #else
+      pthread_mutex_lock(&cf_snapshot_mutex);
       khiter_t k = kh_get(kPagesMap, pages_map, page->va);
       if (mp->free) {
         if (k != kh_end(pages_map)) {
           kh_del(kPagesMap, pages_map, k);
+          pthread_mutex_unlock(&cf_snapshot_mutex);
 
           // Add page to correct free list
           if (page->in_dram) {
@@ -1114,6 +1307,7 @@ void *pebs_policy_thread()
           }
           reset_page_access_fields(page);
         } else {
+          pthread_mutex_unlock(&cf_snapshot_mutex);
           LOG_ERROR("WARNING: Page not found in map\n");
         }
       }
@@ -1122,6 +1316,7 @@ void *pebs_policy_thread()
         k = kh_put(kPagesMap, pages_map, page->va, &absent);
         assert(absent);
         kh_value(pages_map, k) = page;
+        pthread_mutex_unlock(&cf_snapshot_mutex);
       }
 
       #endif
@@ -1643,6 +1838,9 @@ void pebs_init(void)
   #endif
 
   scores = (struct score_entry*)arms_malloc((MAX_NVME_PAGES + MAX_DRAM_PAGES) * sizeof(struct score_entry));
+
+  /* Spawn the counterfactual analysis thread and load bw-lat curves. */
+  counterfactual_init((size_t)(MAX_NVME_PAGES + MAX_DRAM_PAGES));
 
   // Initialize the free/add ring buffers
   mod_page_dq = kdq_init(mod_page_t);

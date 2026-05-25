@@ -14,7 +14,7 @@
 //// Uncomment to enable debug logging
 //#define ARMS_DEBUG
 
-#define LOG_STREAM (stdout)
+#define LOG_STREAM (stderr)
 
 #ifdef ARMS_DEBUG
 #define LOG_DEBUG(...)  fprintf(LOG_STREAM, __VA_ARGS__)

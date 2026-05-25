@@ -69,7 +69,7 @@ extern char* drampath;
 extern char* nvmpath;
 extern char* dram_config_path;
 
-#define NVMSIZE_DEFAULT   (60L * (1024L * 1024L * 1024L))
+#define NVMSIZE_DEFAULT   (78L * (1024L * 1024L * 1024L))
 #define DRAMSIZE_DEFAULT  (60L * (1024L * 1024L * 1024L))
 
 #define DRAMPATH_DEFAULT        "/dev/dax0.0"
@@ -196,10 +196,15 @@ struct arms_page {
   uint16_t hot_age;
   bool can_promote;
 
+  /* Accumulated actual accesses over the counterfactual window (samples × period).
+   * Written exclusively by the policy thread; uint64_t to avoid overflow over 30 s. */
+  uint64_t long_read_accesses;
+  uint64_t long_write_accesses;
+
   struct arms_page *next, *prev;
   struct fifo_list *list;
 };
-static_assert(sizeof(struct arms_page) == 128);
+static_assert(sizeof(struct arms_page) == 144);
 
 struct migration_req {
   struct arms_page *dram_page;
