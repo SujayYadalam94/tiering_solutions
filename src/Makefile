@@ -12,8 +12,8 @@ all: arms-libs
 
 arms-libs: libarms-lru.so libarms-simple.so libarms-lru-swap.so libarms.so
 
-libarms.so: arms.o pebs.o timer.o interpose.o fifo.o spsc-ring.o
-	$(CC) $(LDFLAGS) -o libarms.so arms.o timer.o interpose.o pebs.o fifo.o spsc-ring.o $(ARMS_LIBS)
+libarms.so: arms.o pebs.o counterfactual.o timer.o interpose.o fifo.o spsc-ring.o
+	$(CC) $(LDFLAGS) -o libarms.so arms.o timer.o interpose.o pebs.o counterfactual.o fifo.o spsc-ring.o $(ARMS_LIBS)
 
 libarms-lru.so: policies/arms-lru.o policies/lru.o timer.o interpose.o policies/paging.o fifo.o spsc-ring.o
 	$(CC) $(LDFLAGS) -o libarms-lru.so policies/arms-lru.o timer.o policies/lru.o interpose.o policies/paging.o fifo.o spsc-ring.o $(ARMS_LIBS)
@@ -54,8 +54,11 @@ policies/lru_swap.o: policies/lru.c policies/lru.h arms.h fifo.h spsc-ring.h
 policies/paging.o: policies/paging.c policies/paging.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c policies/paging.c -o policies/paging.o
 
-pebs.o: pebs.c pebs.h arms.h fifo.h
+pebs.o: pebs.c pebs.h arms.h counterfactual.h fifo.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c pebs.c
+
+counterfactual.o: counterfactual.c counterfactual.h pebs.h arms.h
+	$(CC) $(CFLAGS) $(INCLUDES) -c counterfactual.c
 
 fifo.o: fifo.c fifo.h arms.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c fifo.c
