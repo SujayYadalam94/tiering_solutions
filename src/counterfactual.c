@@ -409,14 +409,11 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
     if (measured_stalls > 0 && estimate_stalls > 0.0)
         exposure_factor = (double)measured_stalls / estimate_stalls;
 
-    LOG_REPORT("cf: exposure_factor=%.3f (estimate_stalls=%.0f measured_stalls=%lu)\n",
-               exposure_factor, estimate_stalls, measured_stalls);
-
     /* 3. Build the candidate sweep range: current ± CF_SWEEP_DELTA, clamped. */
     uint64_t sweep_lo = (current_dram_bytes > CF_SWEEP_DELTA)
                         ? current_dram_bytes - CF_SWEEP_DELTA : 0;
-    uint64_t sweep_hi = (current_dram_bytes + CF_SWEEP_DELTA < total_bytes)
-                        ? current_dram_bytes + CF_SWEEP_DELTA : total_bytes;
+    uint64_t sweep_hi = (current_dram_bytes + CF_SWEEP_DELTA < max_dramsize)
+                        ? current_dram_bytes + CF_SWEEP_DELTA : max_dramsize;
     sweep_lo = (sweep_lo / PAGE_SIZE) * PAGE_SIZE;
     sweep_hi = (sweep_hi / PAGE_SIZE) * PAGE_SIZE;
 
@@ -431,6 +428,8 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
                " dram_bw=%.3f GB/s cxl_bw=%.3f GB/s mlp=%.3f\n",
                measured_stalls, measured_cycles, actual_stall_rate,
                cur_dram_acc, cur_cxl_acc, dram_bw_gbps, cxl_bw_gbps, total_mlp);
+    LOG_REPORT("cf: exposure_factor=%.3f (estimate_stalls=%.0f measured_stalls=%lu)\n",
+               exposure_factor, estimate_stalls, measured_stalls);
     LOG_REPORT("cf: %10s  %13s  %10s  %14s %10s  %13s  %10s  %9s\n",
                "DRAM (MB)", "Slowdown (%)", "DRAM acc", "DRAM BW(GB/s)",
                "CXL acc", "CXL BW(GB/s)",
