@@ -60,6 +60,7 @@ static double              *s_dram_bw_sum = NULL;
 static double              *s_cxl_bw_sum  = NULL;
 static int                 *s_bw_samples  = NULL;
 static uint64_t            *s_dramsize    = NULL;
+static uint64_t             s_original_dramsize = 0;  /* DRAM bytes at first registration */
 static pthread_mutex_t     *s_snap_mutex  = NULL;
 
 /* TOR counter state registered from pebs.c. */
@@ -380,8 +381,6 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
     /* 1. Sort hottest-first (FLAG-1: by read_accesses). */
     qsort(snap, n, sizeof(*snap), cf_cmp_hotness_desc);
 
-    const uint64_t total_bytes = (uint64_t)n * PAGE_SIZE;
-
     /* 2. Sum per-tier access counts from the actual placement (in_dram flags).
      *    Used as the reference point for the BW delta calculation below. */
     uint64_t cur_dram_acc = 0, cur_cxl_acc = 0;
@@ -441,37 +440,49 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
     uint64_t span      = sweep_hi - sweep_lo;
     int      num_steps = CF_SWEEP_STEPS;
 
+    /* Bytes-per-access ratio: constant across all candidates. */
+    double agg_acc = (double)cur_dram_acc + (double)cur_cxl_acc;
+    double agg_bw  = dram_bw_gbps + cxl_bw_gbps;
+    double bpa     = (agg_acc > 0) ? agg_bw * CF_WINDOW_S * 1e9 / agg_acc
+                                   : CF_CACHE_LINE_BYTES;
+
+    /* Compute expected stalls at the original (startup) DRAM size as the
+     * fixed baseline for all slowdown comparisons — prevents the ratchet
+     * effect that occurs when comparing against an already-shrunk current size. */
+    uint64_t ref_dram    = (s_original_dramsize > 0) ? s_original_dramsize : current_dram_bytes;
+    size_t   n_dram_orig = (size_t)(ref_dram / PAGE_SIZE);
+    if (n_dram_orig > n) return;
+    uint64_t dram_acc_orig = 0, cxl_acc_orig = 0;
+    for (size_t i = 0;           i < n_dram_orig; i++) dram_acc_orig += snap[i].read_accesses;
+    for (size_t i = n_dram_orig; i < n;           i++) cxl_acc_orig  += snap[i].read_accesses;
+    double c_dram_bw_orig  = dram_acc_orig * bpa / (CF_WINDOW_S * 1e9);
+    double c_cxl_bw_orig   = cxl_acc_orig  * bpa / (CF_WINDOW_S * 1e9);
+    double exp_stalls_orig  = cf_compute_expected_stalls(c_dram_bw_orig, c_cxl_bw_orig,
+                                                          dram_acc_orig, cxl_acc_orig,
+                                                          exposure_factor);
+    LOG_REPORT("cf: original_dram=%lu MB (exp_stalls_orig=%.0f stall_rate_orig=%.6f)\n",
+               ref_dram >> 20, exp_stalls_orig, exp_stalls_orig / cycles);
+
     for (int step = 0; step <= num_steps; step++) {
         uint64_t candidate_bytes = sweep_lo + (span * (uint64_t)step) / (uint64_t)num_steps;
         candidate_bytes = (candidate_bytes / PAGE_SIZE) * PAGE_SIZE;
 
         size_t n_dram = (size_t)(candidate_bytes / PAGE_SIZE);
-        if (n_dram > n) n_dram = n;
+        if (n_dram > n) continue;
         size_t n_cxl = n - n_dram;
 
         uint64_t dram_acc = 0, cxl_acc = 0;
         for (size_t i = 0;      i < n_dram; i++) dram_acc += snap[i].read_accesses;
         for (size_t i = n_dram; i < n;      i++) cxl_acc  += snap[i].read_accesses;
 
-        /* Converts a PEBS access-count delta to a bandwidth delta (GB/s). */
-        // const double bw_scale = (double)CF_CACHE_LINE_BYTES / ((double)CF_WINDOW_S * 1e9);
-        // double c_dram_bw = dram_bw_gbps
-        //                    - (double)((int64_t)cur_dram_acc - (int64_t)dram_acc) * bw_scale;
-        // double c_cxl_bw  = cxl_bw_gbps
-        //                    - (double)((int64_t)cur_cxl_acc  - (int64_t)cxl_acc)  * bw_scale;
-        double agg_acc = (double)cur_dram_acc + (double)cur_cxl_acc;
-        double agg_bw  = dram_bw_gbps + cxl_bw_gbps;      // measured total, robust
-        double bpa     = (agg_acc > 0) ? agg_bw * CF_WINDOW_S * 1e9 / agg_acc
-                                    : CF_CACHE_LINE_BYTES;
-        // then per candidate:
         double c_dram_bw = dram_acc * bpa / (CF_WINDOW_S * 1e9);
         double c_cxl_bw  = cxl_acc  * bpa / (CF_WINDOW_S * 1e9);
 
         double exp_stalls = cf_compute_expected_stalls(c_dram_bw, c_cxl_bw,
                                                         dram_acc, cxl_acc,
                                                         exposure_factor);
-        /* Slowdown vs. measured actual stalls: positive = slower, negative = faster. */
-        double slowdown = (exp_stalls - (double)measured_stalls) / cycles;
+        /* Slowdown vs. expected stalls at original DRAM size: positive = slower, negative = faster. */
+        double slowdown = (exp_stalls - exp_stalls_orig) / cycles;
 
         uint64_t    dram_mb = candidate_bytes >> 20;
         const char *mark    = (slowdown < CF_SLOWDOWN_THRESHOLD) ? " <--" : "";
@@ -486,7 +497,7 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
             cf_last_pred.valid                = 1;
             cf_last_pred.predicted_dram_bytes = candidate_bytes;
             cf_last_pred.predicted_stall_rate = exp_stalls / cycles;
-            cf_last_pred.baseline_stall_rate  = actual_stall_rate;
+            cf_last_pred.baseline_stall_rate  = exp_stalls_orig / cycles;
             cf_last_pred.ts                   = window_ts;
         }
     }
@@ -495,7 +506,7 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
     if (found_recommendation && recommended_pages != 0) {
         uint64_t rec_mb = (uint64_t)recommended_pages * PAGE_SIZE >> 20;
         LOG_REPORT("cf: RECOMMENDATION: min DRAM = %lu MB"
-                   " (predicted slowdown < %.0f%% vs. measured)\n",
+                   " (predicted slowdown < %.0f%% vs. original DRAM size)\n",
                    rec_mb, CF_SLOWDOWN_THRESHOLD * 100.0);
         // Write the recommended size to the specified path as 'X'M
         FILE *f = fopen(dram_config_path, "w");
@@ -644,6 +655,8 @@ void counterfactual_register_state(
     s_cxl_bw_sum     = cxl_bw_sum;
     s_bw_samples     = bw_samples;
     s_dramsize       = dramsize;
+    if (s_original_dramsize == 0)
+        s_original_dramsize = *dramsize;
     s_snap_mutex     = snapshot_mutex;
     s_tor_occ_fd     = tor_occ_fd;
     s_tor_act_fd     = tor_act_fd;
