@@ -72,6 +72,17 @@ static uint64_t *s_prev_tor_act = NULL;
 static int       s_tor_cha_count = 0;
 static float     total_mlp       = MLP_MIN;
 
+/* Phase-change detection: per-metric EWMA + exponential variance state. */
+typedef struct {
+    double ewma;
+    double var;
+    int    n;
+} cf_phase_metric_t;
+
+static cf_phase_metric_t cf_pm_stall_rate = {0};
+static cf_phase_metric_t cf_pm_total_bw   = {0};
+static cf_phase_metric_t cf_pm_total_acc  = {0};
+
 static void measure_tor_mlp(void)
 {
     if (s_tor_cha_count == 0) return;
@@ -315,6 +326,24 @@ static double cf_compute_expected_stalls(double dram_bw, double cxl_bw,
             (double)cxl_acc  * cxl_lat_cyc) / (double)total_mlp) * exposure_factor;
 }
 
+/* Update EWMA + variance for one phase-detection metric and return true if
+ * the new value is a spike (> CF_PHASE_SPIKE_THRESHOLD std-devs above EWMA).
+ * Comparison uses the pre-update EWMA so a genuine outlier isn't absorbed
+ * into the mean before the check. */
+static bool cf_phase_update(cf_phase_metric_t *m, double value)
+{
+    double diff  = value - m->ewma;
+    bool   spike = false;
+    if (m->n >= CF_PHASE_MIN_WINDOWS) {
+        double std = sqrt(m->var);
+        spike = (std > 0.0 && diff > CF_PHASE_SPIKE_THRESHOLD * std);
+    }
+    m->ewma += CF_PHASE_EWMA_ALPHA * diff;
+    m->var   = (1.0 - CF_PHASE_EWMA_ALPHA) * (m->var + CF_PHASE_EWMA_ALPHA * diff * diff);
+    m->n++;
+    return spike;
+}
+
 static int cf_cmp_hotness_desc(const void *a, const void *b)
 {
     uint64_t ra = ((const cf_page_snapshot_t *)a)->read_accesses;
@@ -377,6 +406,41 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
                    actual_stall_rate,
                    pred_error,
                    pred_error * 100.0);
+    }
+
+    /* Phase-change detection: spike in any metric → restore DRAM to original size. */
+    {
+        uint64_t total_acc = 0;
+        for (size_t i = 0; i < n; i++)
+            total_acc += snap[i].read_accesses + snap[i].write_accesses;
+        double total_bw = dram_bw_gbps + cxl_bw_gbps;
+
+        bool spike_stall = cf_phase_update(&cf_pm_stall_rate, actual_stall_rate);
+        bool spike_bw    = cf_phase_update(&cf_pm_total_bw,   total_bw);
+        bool spike_acc   = cf_phase_update(&cf_pm_total_acc,  (double)total_acc);
+
+        if ((spike_stall || spike_bw || spike_acc) && s_original_dramsize > 0) {
+            LOG_REPORT("cf: PHASE_CHANGE_DETECTED ts=%ld"
+                       " spike_stall=%d(%.6f/ewma=%.6f)"
+                       " spike_bw=%d(%.3f/ewma=%.3f)"
+                       " spike_acc=%d(%lu/ewma=%.0f)"
+                       " — restoring DRAM to %lu MB\n",
+                       (long)window_ts,
+                       spike_stall, actual_stall_rate, cf_pm_stall_rate.ewma,
+                       spike_bw, total_bw, cf_pm_total_bw.ewma,
+                       spike_acc, (unsigned long)total_acc, cf_pm_total_acc.ewma,
+                       s_original_dramsize >> 20);
+            // FILE *f = fopen(dram_config_path, "w");
+            // if (f) {
+            //     fprintf(f, "%luM\n", s_original_dramsize >> 20);
+            //     fclose(f);
+            // }
+            cf_pm_stall_rate = (cf_phase_metric_t){0};
+            cf_pm_total_bw   = (cf_phase_metric_t){0};
+            cf_pm_total_acc  = (cf_phase_metric_t){0};
+            cf_last_pred.valid = 0;
+            return;
+        }
     }
 
     /* 1. Sort hottest-first (FLAG-1: by read_accesses). */

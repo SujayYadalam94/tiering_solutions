@@ -53,6 +53,12 @@
 
 #define CF_DECAY_FACTOR 0.5   /* per-window decay of the long access counts */
 
+/* Phase-change detection: sudden spike in stall rate, bandwidth, or access
+ * count triggers a restore of DRAM to its original size. */
+#define CF_PHASE_EWMA_ALPHA      0.2   /* smoothing factor for per-window EWMA */
+#define CF_PHASE_SPIKE_THRESHOLD 3.0   /* std-devs above EWMA to trigger restore */
+#define CF_PHASE_MIN_WINDOWS     3     /* warm-up windows before detection is armed */
+
 /* CPU core for the CF thread.  MIGRATION_THREAD_CPU is the highest
  * pinned core in the existing system; we use the next one after it.
  * For C220G5: FAULT=10, SCANNING=11, MIGRATION=12, CF=13. */
