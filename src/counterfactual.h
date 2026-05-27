@@ -28,16 +28,18 @@
 #define CF_CPU_FREQ_GHZ   2.5
 
 /* Slowdown threshold for the minimum-DRAM recommendation. */
-#define CF_SLOWDOWN_THRESHOLD  0.02   /* 2 % */
+#define CF_SLOWDOWN_THRESHOLD   0.02   /* 2 % */
+/* Slowdown threshold above which DRAM is considered too small and needs to grow. */
+#define CF_INCREASE_THRESHOLD   0.02   /* 2 % */
 
-/* How far above and below the current DRAM size to sweep (bytes).
- * The analysis tries [current - CF_SWEEP_DELTA, ..., current + CF_SWEEP_DELTA]
- * clamped to [0, max_dramsize], so only small adjustments are explored each
- * window rather than the full possible range. */
-#define CF_SWEEP_DELTA_GB  4ULL
-#define CF_SWEEP_DELTA     (CF_SWEEP_DELTA_GB * 1024ULL * 1024ULL * 1024ULL)
+/* How far to sweep from the current DRAM size (bytes), depending on direction.
+ * Decrease sweeps [current - CF_SWEEP_DELTA_DECREASE, current].
+ * Increase sweeps [current, current + CF_SWEEP_DELTA_INCREASE].
+ * Both ranges are clamped to [0, max_dramsize]. */
+#define CF_SWEEP_DELTA_DECREASE  (4ULL * 1024ULL * 1024ULL * 1024ULL)   /* 4 GB */
+#define CF_SWEEP_DELTA_INCREASE  (8ULL * 1024ULL * 1024ULL * 1024ULL)   /* 8 GB */
 
-/* Number of candidate sizes within the ±CF_SWEEP_DELTA range.
+/* Number of candidate sizes within the sweep range.
  * Must be ≥ 1; odd values naturally include the current size. */
 #define CF_SWEEP_STEPS    2
 

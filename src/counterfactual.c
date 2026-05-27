@@ -333,8 +333,9 @@ static int cf_cmp_hotness_desc(const void *a, const void *b)
  * Steps:
  *  1. Sort pages hottest-first to build the access CDF.
  *  2. Compute current_stalls from the actual placement (in_dram flags).
- *  3. Sweep CF_SWEEP_STEPS+1 candidate DRAM sizes in the range
- *       [current_dram - CF_SWEEP_DELTA, current_dram + CF_SWEEP_DELTA]
+ *  3. Sweep CF_SWEEP_STEPS+1 candidate DRAM sizes in an asymmetric range:
+ *       decrease: [current_dram - CF_SWEEP_DELTA_DECREASE, current_dram]
+ *       increase: [current_dram, current_dram + CF_SWEEP_DELTA_INCREASE]
  *     clamped to [0, n×PAGE_SIZE].  For each size, the hottest pages go
  *     into DRAM; the rest spill to CXL.  This is the optimal placement
  *     for that size, not a simulation of the current policy.
@@ -408,39 +409,7 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
     if (measured_stalls > 0 && estimate_stalls > 0.0)
         exposure_factor = (double)measured_stalls / estimate_stalls;
 
-    /* 3. Build the candidate sweep range: current ± CF_SWEEP_DELTA, clamped. */
-    uint64_t sweep_lo = (current_dram_bytes > CF_SWEEP_DELTA)
-                        ? current_dram_bytes - CF_SWEEP_DELTA : 0;
-    uint64_t sweep_hi = (current_dram_bytes + CF_SWEEP_DELTA < max_dramsize)
-                        ? current_dram_bytes + CF_SWEEP_DELTA : max_dramsize;
-    sweep_lo = (sweep_lo / PAGE_SIZE) * PAGE_SIZE;
-    sweep_hi = (sweep_hi / PAGE_SIZE) * PAGE_SIZE;
-
-    LOG_REPORT("cf: === counterfactual ts=%ld (window=%ds, %zu pages,"
-               " current=%lu MB, sweep=[%lu, %lu] MB, ±%lluGB) ===\n",
-               (long)window_ts, CF_WINDOW_S, n,
-               current_dram_bytes >> 20,
-               sweep_lo >> 20, sweep_hi >> 20,
-               CF_SWEEP_DELTA_GB);
-    LOG_REPORT("cf: measured — stalls=%lu cycles=%lu stall_rate=%.6f"
-               " dram_acc=%lu cxl_acc=%lu"
-               " dram_bw=%.3f GB/s cxl_bw=%.3f GB/s mlp=%.3f\n",
-               measured_stalls, measured_cycles, actual_stall_rate,
-               cur_dram_acc, cur_cxl_acc, dram_bw_gbps, cxl_bw_gbps, total_mlp);
-    LOG_REPORT("cf: exposure_factor=%.3f (estimate_stalls=%.0f measured_stalls=%lu)\n",
-               exposure_factor, estimate_stalls, measured_stalls);
-    LOG_REPORT("cf: %10s  %13s  %10s  %14s %10s  %13s  %10s  %9s\n",
-               "DRAM (MB)", "Slowdown (%)", "DRAM acc", "DRAM BW(GB/s)",
-               "CXL acc", "CXL BW(GB/s)",
-               "DRAM pages", "CXL pages");
-
-    size_t recommended_pages    = 0;
-    int    found_recommendation = 0;
-
-    uint64_t span      = sweep_hi - sweep_lo;
-    int      num_steps = CF_SWEEP_STEPS;
-
-    /* Bytes-per-access ratio: constant across all candidates. */
+    /* 3. Bytes-per-access ratio: constant across all candidates. */
     double agg_acc = (double)cur_dram_acc + (double)cur_cxl_acc;
     double agg_bw  = dram_bw_gbps + cxl_bw_gbps;
     double bpa     = (agg_acc > 0) ? agg_bw * CF_WINDOW_S * 1e9 / agg_acc
@@ -462,6 +431,60 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
                                                           exposure_factor);
     LOG_REPORT("cf: original_dram=%lu MB (exp_stalls_orig=%.0f stall_rate_orig=%.6f)\n",
                ref_dram >> 20, exp_stalls_orig, exp_stalls_orig / cycles);
+
+    /* Determine direction: if current DRAM is already causing slowdown above the
+     * threshold, sweep upward to find a larger size; otherwise sweep downward. */
+    size_t   n_dram_curr   = (size_t)(current_dram_bytes / PAGE_SIZE);
+    uint64_t dram_acc_curr = 0, cxl_acc_curr = 0;
+    for (size_t i = 0;           i < n_dram_curr && i < n; i++) dram_acc_curr += snap[i].read_accesses;
+    for (size_t i = n_dram_curr; i < n;                    i++) cxl_acc_curr  += snap[i].read_accesses;
+    double c_dram_bw_curr  = dram_acc_curr * bpa / (CF_WINDOW_S * 1e9);
+    double c_cxl_bw_curr   = cxl_acc_curr  * bpa / (CF_WINDOW_S * 1e9);
+    double exp_stalls_curr = cf_compute_expected_stalls(c_dram_bw_curr, c_cxl_bw_curr,
+                                                         dram_acc_curr, cxl_acc_curr,
+                                                         exposure_factor);
+    double current_slowdown = (exp_stalls_curr - exp_stalls_orig) / cycles;
+    int    needs_increase   = (current_slowdown > CF_INCREASE_THRESHOLD);
+
+    /* 4. Build the candidate sweep range: asymmetric based on direction. */
+    uint64_t sweep_lo, sweep_hi;
+    if (needs_increase) {
+        sweep_lo = current_dram_bytes;
+        sweep_hi = (current_dram_bytes + CF_SWEEP_DELTA_INCREASE < max_dramsize)
+                   ? current_dram_bytes + CF_SWEEP_DELTA_INCREASE : max_dramsize;
+    } else {
+        sweep_lo = (current_dram_bytes > CF_SWEEP_DELTA_DECREASE)
+                   ? current_dram_bytes - CF_SWEEP_DELTA_DECREASE : 0;
+        sweep_hi = current_dram_bytes;
+    }
+    sweep_lo = (sweep_lo / PAGE_SIZE) * PAGE_SIZE;
+    sweep_hi = (sweep_hi / PAGE_SIZE) * PAGE_SIZE;
+
+    LOG_REPORT("cf: === counterfactual ts=%ld (window=%ds, %zu pages,"
+               " current=%lu MB, sweep=[%lu, %lu] MB,"
+               " current_slowdown=%.4f%%, direction=%s) ===\n",
+               (long)window_ts, CF_WINDOW_S, n,
+               current_dram_bytes >> 20,
+               sweep_lo >> 20, sweep_hi >> 20,
+               current_slowdown * 100.0,
+               needs_increase ? "increase" : "decrease");
+    LOG_REPORT("cf: measured — stalls=%lu cycles=%lu stall_rate=%.6f"
+               " dram_acc=%lu cxl_acc=%lu"
+               " dram_bw=%.3f GB/s cxl_bw=%.3f GB/s mlp=%.3f\n",
+               measured_stalls, measured_cycles, actual_stall_rate,
+               cur_dram_acc, cur_cxl_acc, dram_bw_gbps, cxl_bw_gbps, total_mlp);
+    LOG_REPORT("cf: exposure_factor=%.3f (estimate_stalls=%.0f measured_stalls=%lu)\n",
+               exposure_factor, estimate_stalls, measured_stalls);
+    LOG_REPORT("cf: %10s  %13s  %10s  %14s %10s  %13s  %10s  %9s\n",
+               "DRAM (MB)", "Slowdown (%)", "DRAM acc", "DRAM BW(GB/s)",
+               "CXL acc", "CXL BW(GB/s)",
+               "DRAM pages", "CXL pages");
+
+    size_t recommended_pages    = 0;
+    int    found_recommendation = 0;
+
+    uint64_t span      = sweep_hi - sweep_lo;
+    int      num_steps = CF_SWEEP_STEPS;
 
     for (int step = 0; step <= num_steps; step++) {
         uint64_t candidate_bytes = sweep_lo + (span * (uint64_t)step) / (uint64_t)num_steps;
@@ -505,9 +528,10 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
     /* 4. Emit recommendation. */
     if (found_recommendation && recommended_pages != 0) {
         uint64_t rec_mb = (uint64_t)recommended_pages * PAGE_SIZE >> 20;
-        LOG_REPORT("cf: RECOMMENDATION: min DRAM = %lu MB"
+        const char *direction = needs_increase ? "grow" : "shrink";
+        LOG_REPORT("cf: RECOMMENDATION: %s DRAM to %lu MB"
                    " (predicted slowdown < %.0f%% vs. original DRAM size)\n",
-                   rec_mb, CF_SLOWDOWN_THRESHOLD * 100.0);
+                   direction, rec_mb, CF_SLOWDOWN_THRESHOLD * 100.0);
         // Write the recommended size to the specified path as 'X'M
         FILE *f = fopen(dram_config_path, "w");
         if (f) {
