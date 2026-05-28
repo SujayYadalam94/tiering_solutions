@@ -86,6 +86,10 @@
  */
 #define CF_BWLAT_DEFAULT  "bw-lat.dat"
 
+/* Default path for the per-second CSV metrics log.
+ * Override at runtime with the ARMS_CSV_LOG env var. */
+#define CF_CSV_DEFAULT_PATH  "/tmp/arms_metrics.csv"
+
 /* ================================================================
  * Snapshot type
  *

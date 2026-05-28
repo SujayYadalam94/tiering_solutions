@@ -72,6 +72,48 @@ static uint64_t *s_prev_tor_act = NULL;
 static int       s_tor_cha_count = 0;
 static float     total_mlp       = MLP_MIN;
 
+/* CSV metrics log — one row per second. */
+static FILE   *cf_csv_fp          = NULL;
+static double  s_prev_dram_bw_sum = 0.0;
+static double  s_prev_cxl_bw_sum  = 0.0;
+static int     s_prev_bw_samples  = 0;
+
+static void cf_open_csv(void)
+{
+    const char *path = getenv("ARMS_CSV_LOG") ?: CF_CSV_DEFAULT_PATH;
+    cf_csv_fp = fopen(path, "w");
+    if (!cf_csv_fp) {
+        LOG_REPORT("cf: cannot open CSV log '%s' (%s)\n", path, strerror(errno));
+        return;
+    }
+    fprintf(cf_csv_fp,
+            "Timestamp,cur_dram_acc,cur_cxl_acc,dram_bw_gbps,"
+            "obs_dram_lat_cyc,cxl_bw_gbps,obs_cxl_lat_cyc,"
+            "MLP,measured_stalls,measured_cycles,current_dram_bytes\n");
+    fflush(cf_csv_fp);
+    LOG_REPORT("cf: CSV metrics log opened at '%s'\n", path);
+}
+
+static void cf_write_csv_row(time_t ts,
+                              uint64_t cur_dram_acc, uint64_t cur_cxl_acc,
+                              double dram_bw_gbps, double obs_dram_lat_cyc,
+                              double cxl_bw_gbps,  double obs_cxl_lat_cyc,
+                              float mlp,
+                              uint64_t measured_stalls, uint64_t measured_cycles,
+                              uint64_t current_dram_bytes)
+{
+    if (!cf_csv_fp) return;
+    fprintf(cf_csv_fp, "%ld,%lu,%lu,%.3f,%.1f,%.3f,%.1f,%.4f,%lu,%lu,%lu\n",
+            (long)ts,
+            cur_dram_acc, cur_cxl_acc,
+            dram_bw_gbps, obs_dram_lat_cyc,
+            cxl_bw_gbps,  obs_cxl_lat_cyc,
+            (double)mlp,
+            measured_stalls, measured_cycles,
+            current_dram_bytes);
+    fflush(cf_csv_fp);
+}
+
 /* Phase-change detection: per-metric EWMA + exponential variance state. */
 typedef struct {
     double ewma;
@@ -627,19 +669,98 @@ void *counterfactual_thread_fn(void *arg)
     if (pthread_setaffinity_np(pthread_self(), sizeof(cpuset), &cpuset) != 0)
         LOG_REPORT("cf: pthread_setaffinity_np failed (non-fatal)\n");
 
-    for (;;) {
-        struct timespec ts;
-        clock_gettime(CLOCK_MONOTONIC, &ts);
-        ts.tv_sec += CF_WINDOW_S;
-        clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &ts, NULL);
+    cf_open_csv();
 
+    struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+
+    for (;;) {
+        uint64_t total_stalls_win = 0, total_cycles_win = 0;
+        khiter_t it;
+
+        /* Inner loop: one 1-second tick per iteration, CF_WINDOW_S ticks per window.
+         * Collects per-second metrics and writes a CSV row each tick. */
+        for (int sec = 0; sec < CF_WINDOW_S; sec++) {
+            ts.tv_sec += 1;
+            clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &ts, NULL);
+
+            if (!s_pages_map || !cf_snap_buf || !s_snap_mutex) continue;
+
+            struct timespec now_ts;
+            clock_gettime(CLOCK_REALTIME, &now_ts);
+
+            pthread_mutex_lock(s_snap_mutex);
+
+            /* Lightweight page walk: sum accesses per tier for CSV. */
+            uint64_t cur_dram_acc = 0, cur_cxl_acc = 0;
+            for (it = kh_begin(s_pages_map); it != kh_end(s_pages_map); ++it) {
+                if (!kh_exist(s_pages_map, it)) continue;
+                struct arms_page *p = kh_val(s_pages_map, it);
+                if (!p || !p->present) continue;
+                if (p->in_dram) cur_dram_acc += p->long_read_accesses;
+                else            cur_cxl_acc  += p->long_read_accesses;
+            }
+
+            /* Per-second stall/cycle deltas; accumulated into 30s totals. */
+            uint64_t stalls_1s = 0, cycles_1s = 0;
+            for (int ci = 0; ci < PEBS_NPROCS; ci++) {
+                uint64_t val = 0;
+                if (s_stall_fd[ci] >= 0 &&
+                    read(s_stall_fd[ci], &val, sizeof(val)) == (ssize_t)sizeof(val)) {
+                    stalls_1s        += val - s_stall_prev[ci];
+                    s_stall_prev[ci]  = val;
+                }
+                val = 0;
+                if (s_cycles_fd[ci] >= 0 &&
+                    read(s_cycles_fd[ci], &val, sizeof(val)) == (ssize_t)sizeof(val)) {
+                    cycles_1s         += val - s_cycles_prev[ci];
+                    s_cycles_prev[ci]  = val;
+                }
+            }
+            total_stalls_win += stalls_1s;
+            total_cycles_win += cycles_1s;
+
+            /* Per-second BW: average over samples accumulated since last tick. */
+            int    bw_delta   = *s_bw_samples - s_prev_bw_samples;
+            double dram_bw_1s = (bw_delta > 0)
+                                ? (*s_dram_bw_sum - s_prev_dram_bw_sum) / bw_delta : 0.0;
+            double cxl_bw_1s  = (bw_delta > 0)
+                                ? (*s_cxl_bw_sum  - s_prev_cxl_bw_sum)  / bw_delta : 0.0;
+            if (dram_bw_1s < 0.0) dram_bw_1s = 0.0;
+            if (cxl_bw_1s  < 0.0) cxl_bw_1s  = 0.0;
+            s_prev_dram_bw_sum = *s_dram_bw_sum;
+            s_prev_cxl_bw_sum  = *s_cxl_bw_sum;
+            s_prev_bw_samples  = *s_bw_samples;
+
+            uint64_t cur_dram_bytes = *s_dramsize;
+
+            pthread_mutex_unlock(s_snap_mutex);
+
+            /* Latency lookup from per-second BW (read-only on static curve arrays). */
+            double obs_dram_lat_cyc = cf_lookup_latency_us((float)dram_bw_1s,
+                                          cf_dram_bw, cf_dram_lat, cf_dram_n, "DRAM")
+                                      * CF_CPU_FREQ_GHZ * 1000.0;
+            double obs_cxl_lat_cyc  = cf_lookup_latency_us((float)cxl_bw_1s,
+                                          cf_cxl_bw, cf_cxl_lat, cf_cxl_n, "CXL")
+                                      * CF_CPU_FREQ_GHZ * 1000.0;
+
+            measure_tor_mlp();
+
+            cf_write_csv_row(now_ts.tv_sec,
+                             cur_dram_acc, cur_cxl_acc,
+                             dram_bw_1s, obs_dram_lat_cyc,
+                             cxl_bw_1s,  obs_cxl_lat_cyc,
+                             total_mlp,
+                             stalls_1s, cycles_1s,
+                             cur_dram_bytes);
+        }
+
+        /* 30-second decision boundary: build full snapshot with decay and run analysis. */
         if (!s_pages_map || !cf_snap_buf || !s_snap_mutex) continue;
 
         pthread_mutex_lock(s_snap_mutex);
 
-        /* Walk pages_map and build snapshot; reset per-page accumulators. */
         size_t n = 0;
-        khiter_t it;
         for (it = kh_begin(s_pages_map); it != kh_end(s_pages_map); ++it) {
             if (!kh_exist(s_pages_map, it)) continue;
             struct arms_page *p = kh_val(s_pages_map, it);
@@ -656,36 +777,22 @@ void *counterfactual_thread_fn(void *arg)
             }
         }
 
-        /* Read CYCLE_ACTIVITY.STALLS_L3_MISS and cpu-cycles deltas. */
-        uint64_t total_stalls = 0, total_cycles = 0;
-        for (int ci = 0; ci < PEBS_NPROCS; ci++) {
-            uint64_t val = 0;
-            if (s_stall_fd[ci] >= 0 &&
-                read(s_stall_fd[ci], &val, sizeof(val)) == (ssize_t)sizeof(val)) {
-                total_stalls      += val - s_stall_prev[ci];
-                s_stall_prev[ci]   = val;
-            }
-            val = 0;
-            if (s_cycles_fd[ci] >= 0 &&
-                read(s_cycles_fd[ci], &val, sizeof(val)) == (ssize_t)sizeof(val)) {
-                total_cycles       += val - s_cycles_prev[ci];
-                s_cycles_prev[ci]   = val;
-            }
-        }
-
         double dram_bw_avg = (*s_bw_samples > 0) ? *s_dram_bw_sum / *s_bw_samples : 0.0;
         double cxl_bw_avg  = (*s_bw_samples > 0) ? *s_cxl_bw_sum  / *s_bw_samples : 0.0;
         uint64_t cur_dram  = *s_dramsize;
-        *s_dram_bw_sum = 0.0;
-        *s_cxl_bw_sum  = 0.0;
-        *s_bw_samples  = 0;
+        *s_dram_bw_sum     = 0.0;
+        *s_cxl_bw_sum      = 0.0;
+        *s_bw_samples      = 0;
+        s_prev_dram_bw_sum = 0.0;
+        s_prev_cxl_bw_sum  = 0.0;
+        s_prev_bw_samples  = 0;
 
         pthread_mutex_unlock(s_snap_mutex);
 
         measure_tor_mlp();
 
         cf_run_analysis(cf_snap_buf, n, cur_dram,
-                        total_stalls, total_cycles,
+                        total_stalls_win, total_cycles_win,
                         dram_bw_avg, cxl_bw_avg);
     }
     return NULL;
