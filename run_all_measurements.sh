@@ -56,8 +56,8 @@ EOF
     fi
 }
 
-SIZES=(6032)
-RUNS=3
+SIZES=(0)
+RUNS=10
 
 ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}
 
@@ -66,7 +66,7 @@ mapfile -t WORKLOAD_IDS < <(measurement_list_default_workloads)
 for size in "${SIZES[@]}"; do
     echo "== Running measurements with size ${size}MiB =="
 
-    for run in $(seq 2 ${RUNS}); do
+    for run in $(seq 4 ${RUNS}); do
         echo "-- Run ${run}/${RUNS} for size ${size}MiB --"
 
         for workload_id in "${WORKLOAD_IDS[@]}"; do
@@ -80,8 +80,8 @@ for size in "${SIZES[@]}"; do
             #fi
 
             # ARMS
-            run_measurement_setup "${size}"
-            "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+            #run_measurement_setup "${size}"
+            #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
 
 
             # NOMAD
@@ -119,13 +119,13 @@ for size in "${SIZES[@]}"; do
             #    echo "WARNING: ./measurement_dram_only.sh not found or not executable; skipping DRAM-only"
             #fi
 
-            ## CXL-only baseline
-            #if [[ -x "${SCRIPT_DIR}/measurement_cxl_only.sh" ]]; then
-            #    run_measurement_setup_baseline_default "${size}"
-            #    "${SCRIPT_DIR}/measurement_cxl_only.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
-            #else
-            #    echo "WARNING: ./measurement_cxl_only.sh not found or not executable; skipping CXL-only"
-            #fi
+            # CXL-only baseline
+            if [[ -x "${SCRIPT_DIR}/measurement_cxl_only.sh" ]]; then
+                run_measurement_setup_baseline_default "${size}"
+                "${SCRIPT_DIR}/measurement_cxl_only.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
+            else
+                echo "WARNING: ./measurement_cxl_only.sh not found or not executable; skipping CXL-only"
+            fi
 
             run_measurement_teardown
         done

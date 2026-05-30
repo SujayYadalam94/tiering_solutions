@@ -6,8 +6,8 @@ MEASUREMENT_WORKLOADS_PATH="${MEASUREMENT_WORKLOADS_DIR}/workloads"
 declare -ar MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
     #"bc-kron.sg-long"
     #"pr-kron.sg-long"
-    "bc-twitter.sg-long"
-    #"pr-twitter.sg-long"
+    #"bc-twitter.sg-long"
+    "pr-twitter.sg-long"
     #"faiss_10M-long"
 
     #"XSBench"

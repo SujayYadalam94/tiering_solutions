@@ -56,7 +56,7 @@ EOF
     fi
 }
 
-SIZES=(6035)
+SIZES=(4035)
 RUNS=3
 
 ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}
@@ -74,15 +74,15 @@ for size in "${SIZES[@]}"; do
 
 
             # Model
-            if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
-                "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
-            else
-                echo "WARNING: ./measurement_model.sh not found or not executable; skipping model"
-            fi
+            #if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
+            #    "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+            #else
+            #    echo "WARNING: ./measurement_model.sh not found or not executable; skipping model"
+            #fi
 
             # ARMS
-            #run_measurement_setup "${size}"
-            #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+            run_measurement_setup "${size}"
+            "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
 
 
             # NOMAD
