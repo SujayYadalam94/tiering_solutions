@@ -51,7 +51,7 @@
  * FLAG-2: bandwidth feed to the latency curve uses read accesses only. */
 #define CF_CACHE_LINE_BYTES  64
 
-#define CF_DECAY_FACTOR 0.5   /* per-window decay of the long access counts */
+#define CF_DECAY_FACTOR 0   /* per-window decay of the long access counts */
 
 /* Phase-change detection: sudden spike in stall rate, bandwidth, or access
  * count triggers a restore of DRAM to its original size. */
@@ -129,6 +129,7 @@ void counterfactual_register_state(
     void            *pages_map,
     int             *stall_fd,   uint64_t *stall_prev,
     int             *cycles_fd,  uint64_t *cycles_prev,
+    uint64_t        *cf_dram_acc, uint64_t *cf_nvm_acc,
     double          *dram_bw_sum, double *cxl_bw_sum, int *bw_samples,
     uint64_t        *dramsize,
     pthread_mutex_t *snapshot_mutex,

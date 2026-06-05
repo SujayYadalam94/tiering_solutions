@@ -140,6 +140,25 @@ int pfd[PEBS_NPROCS][NPBUFTYPES];
 volatile bool need_cool_dram = false;
 volatile bool need_cool_nvm = false;
 
+/* One counting fd per app CPU (same set as PEBS), plus IMC BW accumulators
+ * for the CF window.  Written exclusively by the policy thread. */
+static int      cf_stall_fd  [PEBS_NPROCS];
+static uint64_t cf_stall_prev[PEBS_NPROCS];
+static int      cf_cycles_fd  [PEBS_NPROCS];
+static uint64_t cf_cycles_prev[PEBS_NPROCS];
+static int      cf_n_stall_cpus = 0;
+
+static double   cf_dram_bw_sum = 0.0;  /* GB/s × samples over CF window */
+static double   cf_cxl_bw_sum  = 0.0;
+static int      cf_bw_samples   = 0;
+
+static uint64_t cf_dram_acc = 0;
+static uint64_t cf_nvm_acc  = 0;
+
+/* Protects pages_map structural changes and BW accumulators against
+ * concurrent access by the CF thread during its snapshot walk. */
+static pthread_mutex_t cf_snapshot_mutex = PTHREAD_MUTEX_INITIALIZER;
+
 static long perf_event_open(struct perf_event_attr *hw_event, pid_t pid,
   int cpu, int group_fd, unsigned long flags)
 {
@@ -798,6 +817,9 @@ static size_t calculate_scores_map(struct score_entry *scores_out, const float *
                    + page->accesses[NVMREAD][prev_access_version]) * cf_sp;
       page->long_write_accesses +=
           (uint64_t) page->accesses[WRITE][prev_access_version]    * cf_sp;
+
+      cf_dram_acc += (uint64_t) page->accesses[DRAMREAD][prev_access_version] * cf_sp;
+      cf_nvm_acc  += (uint64_t) page->accesses[NVMREAD][prev_access_version]  * cf_sp;
     }
 
     // Reset the access counts
@@ -957,22 +979,6 @@ void *pebs_migration_thread()
  * event=0xA3, umask=0x06, cmask=0x06.
  * Raw perf config = (cmask<<24)|(umask<<8)|event. */
 #define CYCLE_ACTIVITY_STALLS_L3_MISS  0x060006A3UL
-
-/* One counting fd per app CPU (same set as PEBS), plus IMC BW accumulators
- * for the CF window.  Written exclusively by the policy thread. */
-static int      cf_stall_fd  [PEBS_NPROCS];
-static uint64_t cf_stall_prev[PEBS_NPROCS];
-static int      cf_cycles_fd  [PEBS_NPROCS];
-static uint64_t cf_cycles_prev[PEBS_NPROCS];
-static int      cf_n_stall_cpus = 0;
-
-static double   cf_dram_bw_sum = 0.0;  /* GB/s × samples over CF window */
-static double   cf_cxl_bw_sum  = 0.0;
-static int      cf_bw_samples   = 0;
-
-/* Protects pages_map structural changes and BW accumulators against
- * concurrent access by the CF thread during its snapshot walk. */
-static pthread_mutex_t cf_snapshot_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 /* Open CYCLE_ACTIVITY.STALLS_L3_MISS and cpu-cycles counting fds on the same
  * CPUs as PEBS.  Called once from pebs_policy_thread() after setup_imc_bw_counters(). */
@@ -1168,6 +1174,7 @@ void *pebs_policy_thread()
       pages_map,
       cf_stall_fd,  cf_stall_prev,
       cf_cycles_fd, cf_cycles_prev,
+      &cf_dram_acc, &cf_nvm_acc,
       &cf_dram_bw_sum, &cf_cxl_bw_sum, &cf_bw_samples,
       &dramsize,
       &cf_snapshot_mutex,

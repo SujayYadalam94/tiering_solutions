@@ -56,6 +56,8 @@ static int                 *s_stall_fd    = NULL;
 static uint64_t            *s_stall_prev  = NULL;
 static int                 *s_cycles_fd   = NULL;
 static uint64_t            *s_cycles_prev = NULL;
+static uint64_t            *s_dram_acc    = NULL;
+static uint64_t            *s_cxl_acc     = NULL;
 static double              *s_dram_bw_sum = NULL;
 static double              *s_cxl_bw_sum  = NULL;
 static int                 *s_bw_samples  = NULL;
@@ -691,16 +693,6 @@ void *counterfactual_thread_fn(void *arg)
 
             pthread_mutex_lock(s_snap_mutex);
 
-            /* Lightweight page walk: sum accesses per tier for CSV. */
-            uint64_t cur_dram_acc = 0, cur_cxl_acc = 0;
-            for (it = kh_begin(s_pages_map); it != kh_end(s_pages_map); ++it) {
-                if (!kh_exist(s_pages_map, it)) continue;
-                struct arms_page *p = kh_val(s_pages_map, it);
-                if (!p || !p->present) continue;
-                if (p->in_dram) cur_dram_acc += p->long_read_accesses;
-                else            cur_cxl_acc  += p->long_read_accesses;
-            }
-
             /* Per-second stall/cycle deltas; accumulated into 30s totals. */
             uint64_t stalls_1s = 0, cycles_1s = 0;
             for (int ci = 0; ci < PEBS_NPROCS; ci++) {
@@ -747,12 +739,15 @@ void *counterfactual_thread_fn(void *arg)
             measure_tor_mlp();
 
             cf_write_csv_row(now_ts.tv_sec,
-                             cur_dram_acc, cur_cxl_acc,
+                             *s_dram_acc, *s_cxl_acc,
                              dram_bw_1s, obs_dram_lat_cyc,
                              cxl_bw_1s,  obs_cxl_lat_cyc,
                              total_mlp,
                              stalls_1s, cycles_1s,
                              cur_dram_bytes);
+
+            *s_dram_acc = 0;
+            *s_cxl_acc  = 0;
         }
 
         /* 30-second decision boundary: build full snapshot with decay and run analysis. */
@@ -834,6 +829,7 @@ void counterfactual_register_state(
     void            *pages_map,
     int             *stall_fd,   uint64_t *stall_prev,
     int             *cycles_fd,  uint64_t *cycles_prev,
+    uint64_t        *cf_dram_acc, uint64_t *cf_nvm_acc,
     double          *dram_bw_sum, double *cxl_bw_sum, int *bw_samples,
     uint64_t        *dramsize,
     pthread_mutex_t *snapshot_mutex,
@@ -846,6 +842,8 @@ void counterfactual_register_state(
     s_stall_prev     = stall_prev;
     s_cycles_fd      = cycles_fd;
     s_cycles_prev    = cycles_prev;
+    s_dram_acc       = cf_dram_acc;
+    s_cxl_acc        = cf_nvm_acc;
     s_dram_bw_sum    = dram_bw_sum;
     s_cxl_bw_sum     = cxl_bw_sum;
     s_bw_samples     = bw_samples;
