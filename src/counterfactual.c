@@ -493,6 +493,10 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
                        spike_bw, total_bw, cf_pm_total_bw.ewma,
                        spike_acc, (unsigned long)total_acc, cf_pm_total_acc.ewma,
                        s_original_dramsize >> 20);
+            if (cf_csv_fp) {
+                fprintf(cf_csv_fp, "PHASE CHANGED!\n");
+                fflush(cf_csv_fp);
+            }
             // FILE *f = fopen(dram_config_path, "w");
             // if (f) {
             //     fprintf(f, "%luM\n", s_original_dramsize >> 20);
@@ -557,8 +561,8 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
         sweep_hi = (current_dram_bytes + CF_SWEEP_DELTA_DECREASE < max_dramsize)
                    ? current_dram_bytes + CF_SWEEP_DELTA_DECREASE : max_dramsize;
     } else {
-        sweep_lo = (current_dram_bytes > CF_SWEEP_DELTA_DECREASE)
-                   ? current_dram_bytes - CF_SWEEP_DELTA_DECREASE : 0;
+        sweep_lo = (current_dram_bytes - CF_SWEEP_DELTA_DECREASE < CF_MIN_DRAM_SIZE)
+                   ? CF_MIN_DRAM_SIZE : current_dram_bytes - CF_SWEEP_DELTA_DECREASE;
         sweep_hi = current_dram_bytes;
     }
     sweep_lo = (sweep_lo / PAGE_SIZE) * PAGE_SIZE;

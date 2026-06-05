@@ -32,6 +32,8 @@
 /* Slowdown threshold above which DRAM is considered too small and needs to grow. */
 #define CF_INCREASE_THRESHOLD   0.03   /* 3 % */
 
+#define CF_MIN_DRAM_SIZE (4*1024*1024*1024ULL)   /* 4 GB; used only for sweep range clamping */
+
 /* How far to sweep from the current DRAM size (bytes), depending on direction.
  * Decrease sweeps [current - CF_SWEEP_DELTA_DECREASE, current].
  * Increase sweeps [current, current + CF_SWEEP_DELTA_INCREASE].
