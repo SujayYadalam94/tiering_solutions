@@ -55,6 +55,11 @@
 
 #define CF_DECAY_FACTOR 0   /* per-window decay of the long access counts */
 
+/* PEBS sampling period used when accumulating long_read_accesses (see pebs.c).
+ * Must match DEFAULT_SAMPLE_PERIOD (10007) or HF_SAMPLE_PERIOD (5003) from pebs.h.
+ * For page-table-scan hotness tracking, multiply by kappa > 1 for a conservative bound. */
+#define CF_PEBS_SAMPLE_PERIOD  10007
+
 /* Phase-change detection: sudden spike in stall rate, bandwidth, or access
  * count triggers a restore of DRAM to its original size. */
 #define CF_PHASE_EWMA_ALPHA      0.2   /* smoothing factor for per-window EWMA */

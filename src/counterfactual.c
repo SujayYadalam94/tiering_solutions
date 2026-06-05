@@ -346,6 +346,34 @@ static float cf_lookup_latency_us(float bw_gbps,
  * LP-model variant: stalls = (alpha_dram * Ad * Ld + alpha_cxl * Ac * Lc) / MLP + beta
  * Coefficients come from the LP fitter in exposure_lp.py.
  */
+static inline double cf_norm_cdf(double x)
+{
+    return 0.5 * erfc(-x * M_SQRT1_2);
+}
+
+/*
+ * Compute ΔA: expected access-count shift from DRAM to CXL due to PEBS
+ * sampling noise when shrinking to n_dram pages.
+ *
+ * snap[] must be sorted hottest-first.  h★ = snap[n_dram-1].read_accesses
+ * is the ideal boundary; σ_i = √(h_i × CF_PEBS_SAMPLE_PERIOD).
+ * Returns ΔA = Σ_{i < n_dram} h_i × Φ(z_i).
+ */
+static double cf_compute_tiering_adjustment(const cf_page_snapshot_t *snap,
+                                             size_t n_dram)
+{
+    if (n_dram == 0) return 0.0;
+    double h_star  = (double)snap[n_dram - 1].read_accesses;
+    double delta_a = 0.0;
+    for (size_t i = 0; i < n_dram; i++) {
+        double h_i = (double)snap[i].read_accesses;
+        if (h_i <= 0.0) continue;
+        double z_i = (h_star - h_i) / sqrt(h_i * CF_PEBS_SAMPLE_PERIOD);
+        delta_a += h_i * cf_norm_cdf(z_i);
+    }
+    return delta_a;
+}
+
 static double cf_compute_expected_stalls_lp(double dram_bw, double cxl_bw,
                                               uint64_t dram_acc, uint64_t cxl_acc,
                                               const cf_lp_params_t *p)
@@ -613,11 +641,24 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
         for (size_t i = 0;      i < n_dram; i++) dram_acc += snap[i].read_accesses;
         for (size_t i = n_dram; i < n;      i++) cxl_acc  += snap[i].read_accesses;
 
-        double c_dram_bw = dram_acc * bpa / (CF_WINDOW_S * 1e9);
-        double c_cxl_bw  = cxl_acc  * bpa / (CF_WINDOW_S * 1e9);
+        /* Tiering inaccuracy correction for shrink candidates.
+         * Grow candidates assume ideal promotion (optimistic). */
+        uint64_t eff_dram_acc = dram_acc, eff_cxl_acc = cxl_acc;
+        if (!needs_increase) {
+            double delta_a = cf_compute_tiering_adjustment(snap, n_dram);
+            eff_dram_acc = (delta_a < (double)dram_acc) ?
+                           (uint64_t)((double)dram_acc - delta_a) : 0;
+            eff_cxl_acc  = cxl_acc + (uint64_t)delta_a;
+            LOG_REPORT("cf:   tiering_adj: delta_a=%.0f"
+                       " eff_dram_acc=%lu eff_cxl_acc=%lu\n",
+                       delta_a, eff_dram_acc, eff_cxl_acc);
+        }
+
+        double c_dram_bw = eff_dram_acc * bpa / (CF_WINDOW_S * 1e9);
+        double c_cxl_bw  = eff_cxl_acc  * bpa / (CF_WINDOW_S * 1e9);
 
         double exp_stalls = cf_compute_expected_stalls_lp(c_dram_bw, c_cxl_bw,
-                                                           dram_acc, cxl_acc,
+                                                           eff_dram_acc, eff_cxl_acc,
                                                            &s_lp_params);
         /* Slowdown vs. expected stalls at original DRAM size: positive = slower, negative = faster. */
         double slowdown = (exp_stalls - exp_stalls_orig) / cycles;
@@ -626,7 +667,7 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
         const char *mark    = (slowdown < effective_threshold) ? " <--" : "";
         LOG_REPORT("cf: %10lu  %12.2f%% %10lu %14.3f %10lu %13.3f  %10zu  %9zu%s\n",
                    dram_mb, slowdown * 100.0,
-                   dram_acc, c_dram_bw, cxl_acc, c_cxl_bw, n_dram, n_cxl, mark);
+                   eff_dram_acc, c_dram_bw, eff_cxl_acc, c_cxl_bw, n_dram, n_cxl, mark);
 
         if (!found_recommendation && slowdown < effective_threshold) {
             recommended_pages    = n_dram;
