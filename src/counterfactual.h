@@ -28,9 +28,9 @@
 #define CF_CPU_FREQ_GHZ   2.5
 
 /* Slowdown threshold for the minimum-DRAM recommendation. */
-#define CF_SLOWDOWN_THRESHOLD   0.02   /* 2 % */
+#define CF_SLOWDOWN_THRESHOLD   0.05   /* 2 % */
 /* Slowdown threshold above which DRAM is considered too small and needs to grow. */
-#define CF_INCREASE_THRESHOLD   0.02   /* 2 % */
+#define CF_INCREASE_THRESHOLD   0.03   /* 3 % */
 
 /* How far to sweep from the current DRAM size (bytes), depending on direction.
  * Decrease sweeps [current - CF_SWEEP_DELTA_DECREASE, current].
@@ -41,7 +41,7 @@
 
 /* Number of candidate sizes within the sweep range.
  * Must be ≥ 1; odd values naturally include the current size. */
-#define CF_SWEEP_STEPS    2
+#define CF_SWEEP_STEPS    1
 
 /* Maximum number of (bw_gbps, latency_us) data points per bw-lat curve file. */
 #define CF_MAX_CURVE_POINTS  64
@@ -57,7 +57,7 @@
  * count triggers a restore of DRAM to its original size. */
 #define CF_PHASE_EWMA_ALPHA      0.2   /* smoothing factor for per-window EWMA */
 #define CF_PHASE_SPIKE_THRESHOLD 3.0   /* std-devs above EWMA to trigger restore */
-#define CF_PHASE_MIN_WINDOWS     3     /* warm-up windows before detection is armed */
+#define CF_PHASE_MIN_WINDOWS     1     /* warm-up windows before detection is armed */
 
 /* CPU core for the CF thread.  MIGRATION_THREAD_CPU is the highest
  * pinned core in the existing system; we use the next one after it.
@@ -89,6 +89,20 @@
 /* Default path for the per-second CSV metrics log.
  * Override at runtime with the ARMS_CSV_LOG env var. */
 #define CF_CSV_DEFAULT_PATH  "/tmp/arms_metrics.csv"
+
+/* Default path for LP model parameters written by exposure_lp.py --daemon.
+ * Override at runtime with the CF_MODEL_PARAMS env var. */
+#define CF_MODEL_PARAMS_PATH  "/tmp/cf_model_params"
+
+/* LP model parameters produced by the exposure LP fitter.
+ * valid=1 when all four fields have been successfully read from the params file. */
+typedef struct {
+    double alpha_dram;
+    double alpha_cxl;
+    double beta;
+    double epsilon;
+    int    valid;
+} cf_lp_params_t;
 
 /* ================================================================
  * Snapshot type

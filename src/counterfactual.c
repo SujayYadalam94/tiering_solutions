@@ -74,6 +74,9 @@ static uint64_t *s_prev_tor_act = NULL;
 static int       s_tor_cha_count = 0;
 static float     total_mlp       = MLP_MIN;
 
+/* LP model parameters read from CF_MODEL_PARAMS_PATH each analysis window. */
+static cf_lp_params_t s_lp_params;  /* zeroed = invalid at startup */
+
 /* CSV metrics log — one row per second. */
 static FILE   *cf_csv_fp          = NULL;
 static double  s_prev_dram_bw_sum = 0.0;
@@ -340,23 +343,12 @@ static float cf_lookup_latency_us(float bw_gbps,
  * ================================================================ */
 
 /*
- * Compute expected stall cycles for a DRAM/CXL access split.
- *
- * dram_bw / cxl_bw  — effective bandwidth to each tier (GB/s), derived from
- *                      IMC measurements scaled by the per-tier access fraction.
- * dram_acc / cxl_acc — PEBS access counts used to weight the per-access latency.
- * exposure_factor    — calibrated from observed state; captures OOO execution,
- *                      MLP, and prefetching effects.
- *
- * Latency (cycles):
- *   lat_cycles = lat_us × CF_CPU_FREQ_GHZ × 1000                      FLAG-3
- *
- * Expected stalls:
- *   stalls = (dram_acc × dram_lat_cyc + cxl_acc × cxl_lat_cyc) / exposure_factor
+ * LP-model variant: stalls = (alpha_dram * Ad * Ld + alpha_cxl * Ac * Lc) / MLP + beta
+ * Coefficients come from the LP fitter in exposure_lp.py.
  */
-static double cf_compute_expected_stalls(double dram_bw, double cxl_bw,
-                                          uint64_t dram_acc, uint64_t cxl_acc,
-                                          double exposure_factor)
+static double cf_compute_expected_stalls_lp(double dram_bw, double cxl_bw,
+                                              uint64_t dram_acc, uint64_t cxl_acc,
+                                              const cf_lp_params_t *p)
 {
     double dram_lat_us = cf_lookup_latency_us((float)dram_bw,
                              cf_dram_bw, cf_dram_lat, cf_dram_n, "DRAM");
@@ -366,8 +358,9 @@ static double cf_compute_expected_stalls(double dram_bw, double cxl_bw,
     double dram_lat_cyc = dram_lat_us * CF_CPU_FREQ_GHZ * 1000.0;
     double cxl_lat_cyc  = cxl_lat_us  * CF_CPU_FREQ_GHZ * 1000.0;
 
-    return (((double)dram_acc * dram_lat_cyc +
-            (double)cxl_acc  * cxl_lat_cyc) / (double)total_mlp) * exposure_factor;
+    return (p->alpha_dram * (double)dram_acc * dram_lat_cyc +
+            p->alpha_cxl  * (double)cxl_acc  * cxl_lat_cyc) / (double)total_mlp
+           + p->beta;
 }
 
 /* Update EWMA + variance for one phase-detection metric and return true if
@@ -386,6 +379,26 @@ static bool cf_phase_update(cf_phase_metric_t *m, double value)
     m->var   = (1.0 - CF_PHASE_EWMA_ALPHA) * (m->var + CF_PHASE_EWMA_ALPHA * diff * diff);
     m->n++;
     return spike;
+}
+
+static void cf_read_lp_params(void)
+{
+    const char *path = getenv("CF_MODEL_PARAMS") ?: CF_MODEL_PARAMS_PATH;
+    FILE *f = fopen(path, "r");
+    if (!f) { s_lp_params.valid = 0; return; }
+
+    cf_lp_params_t p = {0};
+    int found = 0;
+    char line[128];
+    while (fgets(line, sizeof(line), f)) {
+        if      (sscanf(line, "alpha_dram=%lf", &p.alpha_dram) == 1) found++;
+        else if (sscanf(line, "alpha_cxl=%lf",  &p.alpha_cxl)  == 1) found++;
+        else if (sscanf(line, "beta=%lf",        &p.beta)       == 1) found++;
+        else if (sscanf(line, "epsilon=%lf",     &p.epsilon)    == 1) found++;
+    }
+    fclose(f);
+    p.valid = (found == 4);
+    s_lp_params = p;
 }
 
 static int cf_cmp_hotness_desc(const void *a, const void *b)
@@ -428,6 +441,12 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
         return;
     }
     if (n == 0) return;
+
+    cf_read_lp_params();
+    if (!s_lp_params.valid) {
+        LOG_REPORT("cf: LP model params not yet available — skipping analysis\n");
+        return;
+    }
 
     struct timespec now_ts;
     clock_gettime(CLOCK_REALTIME, &now_ts);
@@ -498,25 +517,6 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
         else                  cur_cxl_acc  += snap[i].read_accesses;
     }
 
-    /* Compute exposure_factor from the observed placement.
-     * estimate_stalls is the raw latency×accesses product (no MLP correction).
-     * MLP is now measured explicitly via TOR counters (total_mlp).
-     * exposure_factor = measured_stalls * total_mlp / estimate_stalls captures
-     * residual OOO and prefetching effects beyond MLP; falls back to 1.0. */
-    double obs_dram_lat_us  = cf_lookup_latency_us((float)dram_bw_gbps,
-                                  cf_dram_bw, cf_dram_lat, cf_dram_n, "DRAM");
-    double obs_cxl_lat_us   = cf_lookup_latency_us((float)cxl_bw_gbps,
-                                  cf_cxl_bw,  cf_cxl_lat,  cf_cxl_n,  "CXL");
-    double obs_dram_lat_cyc = obs_dram_lat_us * CF_CPU_FREQ_GHZ * 1000.0;
-    double obs_cxl_lat_cyc  = obs_cxl_lat_us  * CF_CPU_FREQ_GHZ * 1000.0;
-
-    double estimate_stalls = ((double)cur_dram_acc * obs_dram_lat_cyc
-                           + (double)cur_cxl_acc  * obs_cxl_lat_cyc) / (double)total_mlp;
-
-    double exposure_factor = 1.0;
-    if (measured_stalls > 0 && estimate_stalls > 0.0)
-        exposure_factor = (double)measured_stalls / estimate_stalls;
-
     /* 3. Bytes-per-access ratio: constant across all candidates. */
     double agg_acc = (double)cur_dram_acc + (double)cur_cxl_acc;
     double agg_bw  = dram_bw_gbps + cxl_bw_gbps;
@@ -534,32 +534,28 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
     for (size_t i = n_dram_orig; i < n;           i++) cxl_acc_orig  += snap[i].read_accesses;
     double c_dram_bw_orig  = dram_acc_orig * bpa / (CF_WINDOW_S * 1e9);
     double c_cxl_bw_orig   = cxl_acc_orig  * bpa / (CF_WINDOW_S * 1e9);
-    double exp_stalls_orig  = cf_compute_expected_stalls(c_dram_bw_orig, c_cxl_bw_orig,
-                                                          dram_acc_orig, cxl_acc_orig,
-                                                          exposure_factor);
+    double exp_stalls_orig  = cf_compute_expected_stalls_lp(c_dram_bw_orig, c_cxl_bw_orig,
+                                                             dram_acc_orig, cxl_acc_orig,
+                                                             &s_lp_params);
     LOG_REPORT("cf: original_dram=%lu MB (exp_stalls_orig=%.0f stall_rate_orig=%.6f)\n",
                ref_dram >> 20, exp_stalls_orig, exp_stalls_orig / cycles);
 
-    /* Determine direction: if current DRAM is already causing slowdown above the
-     * threshold, sweep upward to find a larger size; otherwise sweep downward. */
-    size_t   n_dram_curr   = (size_t)(current_dram_bytes / PAGE_SIZE);
-    uint64_t dram_acc_curr = 0, cxl_acc_curr = 0;
-    for (size_t i = 0;           i < n_dram_curr && i < n; i++) dram_acc_curr += snap[i].read_accesses;
-    for (size_t i = n_dram_curr; i < n;                    i++) cxl_acc_curr  += snap[i].read_accesses;
-    double c_dram_bw_curr  = dram_acc_curr * bpa / (CF_WINDOW_S * 1e9);
-    double c_cxl_bw_curr   = cxl_acc_curr  * bpa / (CF_WINDOW_S * 1e9);
-    double exp_stalls_curr = cf_compute_expected_stalls(c_dram_bw_curr, c_cxl_bw_curr,
-                                                         dram_acc_curr, cxl_acc_curr,
-                                                         exposure_factor);
+    /* Use the LP model to predict stalls at the current actual placement, then
+     * compare against the original-size baseline to determine sweep direction. */
+    double c_dram_bw_curr  = cur_dram_acc * bpa / (CF_WINDOW_S * 1e9);
+    double c_cxl_bw_curr   = cur_cxl_acc  * bpa / (CF_WINDOW_S * 1e9);
+    double exp_stalls_curr = cf_compute_expected_stalls_lp(c_dram_bw_curr, c_cxl_bw_curr,
+                                                            cur_dram_acc, cur_cxl_acc,
+                                                            &s_lp_params);
     double current_slowdown = (exp_stalls_curr - exp_stalls_orig) / cycles;
     int    needs_increase   = (current_slowdown > CF_INCREASE_THRESHOLD);
 
-    /* 4. Build the candidate sweep range: asymmetric based on direction. */
+    /* 4. Build the candidate sweep range: ±4 GB from current, direction-gated. */
     uint64_t sweep_lo, sweep_hi;
     if (needs_increase) {
         sweep_lo = current_dram_bytes;
-        sweep_hi = (current_dram_bytes + CF_SWEEP_DELTA_INCREASE < max_dramsize)
-                   ? current_dram_bytes + CF_SWEEP_DELTA_INCREASE : max_dramsize;
+        sweep_hi = (current_dram_bytes + CF_SWEEP_DELTA_DECREASE < max_dramsize)
+                   ? current_dram_bytes + CF_SWEEP_DELTA_DECREASE : max_dramsize;
     } else {
         sweep_lo = (current_dram_bytes > CF_SWEEP_DELTA_DECREASE)
                    ? current_dram_bytes - CF_SWEEP_DELTA_DECREASE : 0;
@@ -581,12 +577,19 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
                " dram_bw=%.3f GB/s cxl_bw=%.3f GB/s mlp=%.3f\n",
                measured_stalls, measured_cycles, actual_stall_rate,
                cur_dram_acc, cur_cxl_acc, dram_bw_gbps, cxl_bw_gbps, total_mlp);
-    LOG_REPORT("cf: exposure_factor=%.3f (estimate_stalls=%.0f measured_stalls=%lu)\n",
-               exposure_factor, estimate_stalls, measured_stalls);
+    LOG_REPORT("cf: LP params: alpha_dram=%.6f alpha_cxl=%.6f beta=%.2f epsilon=%.2f\n",
+               s_lp_params.alpha_dram, s_lp_params.alpha_cxl,
+               s_lp_params.beta, s_lp_params.epsilon);
     LOG_REPORT("cf: %10s  %13s  %10s  %14s %10s  %13s  %10s  %9s\n",
                "DRAM (MB)", "Slowdown (%)", "DRAM acc", "DRAM BW(GB/s)",
                "CXL acc", "CXL BW(GB/s)",
                "DRAM pages", "CXL pages");
+
+    /* Epsilon from the LP fit is the worst-case model error in stall cycles.
+     * Subtract it from the threshold so we only recommend when we're confident
+     * the true slowdown is within CF_SLOWDOWN_THRESHOLD. */
+    double epsilon_margin      = s_lp_params.epsilon / cycles;
+    double effective_threshold = CF_SLOWDOWN_THRESHOLD - epsilon_margin;
 
     size_t recommended_pages    = 0;
     int    found_recommendation = 0;
@@ -609,19 +612,19 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
         double c_dram_bw = dram_acc * bpa / (CF_WINDOW_S * 1e9);
         double c_cxl_bw  = cxl_acc  * bpa / (CF_WINDOW_S * 1e9);
 
-        double exp_stalls = cf_compute_expected_stalls(c_dram_bw, c_cxl_bw,
-                                                        dram_acc, cxl_acc,
-                                                        exposure_factor);
+        double exp_stalls = cf_compute_expected_stalls_lp(c_dram_bw, c_cxl_bw,
+                                                           dram_acc, cxl_acc,
+                                                           &s_lp_params);
         /* Slowdown vs. expected stalls at original DRAM size: positive = slower, negative = faster. */
         double slowdown = (exp_stalls - exp_stalls_orig) / cycles;
 
         uint64_t    dram_mb = candidate_bytes >> 20;
-        const char *mark    = (slowdown < CF_SLOWDOWN_THRESHOLD) ? " <--" : "";
+        const char *mark    = (slowdown < effective_threshold) ? " <--" : "";
         LOG_REPORT("cf: %10lu  %12.2f%% %10lu %14.3f %10lu %13.3f  %10zu  %9zu%s\n",
                    dram_mb, slowdown * 100.0,
                    dram_acc, c_dram_bw, cxl_acc, c_cxl_bw, n_dram, n_cxl, mark);
 
-        if (!found_recommendation && slowdown < CF_SLOWDOWN_THRESHOLD) {
+        if (!found_recommendation && slowdown < effective_threshold) {
             recommended_pages    = n_dram;
             found_recommendation = 1;
 
@@ -636,10 +639,12 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
     /* 4. Emit recommendation. */
     if (found_recommendation && recommended_pages != 0) {
         uint64_t rec_mb = (uint64_t)recommended_pages * PAGE_SIZE >> 20;
-        const char *direction = needs_increase ? "grow" : "shrink";
+        const char *direction = (rec_mb > (current_dram_bytes >> 20)) ? "grow" : "shrink";
         LOG_REPORT("cf: RECOMMENDATION: %s DRAM to %lu MB"
-                   " (predicted slowdown < %.0f%% vs. original DRAM size)\n",
-                   direction, rec_mb, CF_SLOWDOWN_THRESHOLD * 100.0);
+                   " (predicted slowdown < %.2f%% vs. original DRAM size,"
+                   " epsilon_margin=%.2f%%)\n",
+                   direction, rec_mb,
+                   effective_threshold * 100.0, epsilon_margin * 100.0);
         // Write the recommended size to the specified path as 'X'M
         FILE *f = fopen(dram_config_path, "w");
         if (f) {
@@ -650,9 +655,8 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
                        dram_config_path, strerror(errno));
         }
     } else {
-        LOG_REPORT("cf: no candidate in [%lu, %lu] MB meets < %.0f%% slowdown\n",
-                   sweep_lo >> 20, sweep_hi >> 20,
-                   CF_SLOWDOWN_THRESHOLD * 100.0);
+        LOG_REPORT("cf: no candidate in [%lu, %lu] MB meets < %.2f%% slowdown\n",
+                   sweep_lo >> 20, sweep_hi >> 20, effective_threshold * 100.0);
     }
 }
 
@@ -783,8 +787,6 @@ void *counterfactual_thread_fn(void *arg)
         s_prev_bw_samples  = 0;
 
         pthread_mutex_unlock(s_snap_mutex);
-
-        measure_tor_mlp();
 
         cf_run_analysis(cf_snap_buf, n, cur_dram,
                         total_stalls_win, total_cycles_win,
