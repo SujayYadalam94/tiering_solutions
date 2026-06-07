@@ -1178,7 +1178,8 @@ void *pebs_policy_thread()
       &cf_dram_bw_sum, &cf_cxl_bw_sum, &cf_bw_samples,
       &dramsize,
       &cf_snapshot_mutex,
-      tor_occ_fd, tor_act_fd, prev_tor_occ, prev_tor_act, tor_cha_count);
+      tor_occ_fd, tor_act_fd, prev_tor_occ, prev_tor_act, tor_cha_count,
+      &migration_waits, &promotion_cost_avg);
 
   // Sleep first to allow the scanning thread to start
   usleep((uint64_t)((1.0 * policy_thread_period)));

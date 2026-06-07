@@ -68,6 +68,7 @@ extern uint64_t max_dramsize;
 extern char* drampath;
 extern char* nvmpath;
 extern char* dram_config_path;
+extern uint64_t migration_waits;
 
 #define NVMSIZE_DEFAULT   (78L * (1024L * 1024L * 1024L))
 #define DRAMSIZE_DEFAULT  (60L * (1024L * 1024L * 1024L))

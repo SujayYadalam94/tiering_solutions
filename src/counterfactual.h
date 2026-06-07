@@ -28,18 +28,17 @@
 #define CF_CPU_FREQ_GHZ   2.5
 
 /* Slowdown threshold for the minimum-DRAM recommendation. */
-#define CF_SLOWDOWN_THRESHOLD   0.05   /* 2 % */
-/* Slowdown threshold above which DRAM is considered too small and needs to grow. */
-#define CF_INCREASE_THRESHOLD   0.03   /* 3 % */
+#define CF_SLOWDOWN_THRESHOLD   0.05   /* 5 % */
+#define CF_SPEEDUP_THRESHOLD    0.07   /* 7 % */
 
 #define CF_MIN_DRAM_SIZE (4*1024*1024*1024ULL)   /* 4 GB; used only for sweep range clamping */
 
-/* How far to sweep from the current DRAM size (bytes), depending on direction.
- * Decrease sweeps [current - CF_SWEEP_DELTA_DECREASE, current].
- * Increase sweeps [current, current + CF_SWEEP_DELTA_INCREASE].
- * Both ranges are clamped to [0, max_dramsize]. */
+/* How far to sweep from the current DRAM size (bytes).
+ * Every period both directions are evaluated:
+ *   [current - CF_SWEEP_DELTA_DECREASE, current + CF_SWEEP_DELTA_INCREASE]
+ * Clamped to [CF_MIN_DRAM_SIZE, max_dramsize]. */
 #define CF_SWEEP_DELTA_DECREASE  (4ULL * 1024ULL * 1024ULL * 1024ULL)   /* 4 GB */
-#define CF_SWEEP_DELTA_INCREASE  (8ULL * 1024ULL * 1024ULL * 1024ULL)   /* 8 GB */
+#define CF_SWEEP_DELTA_INCREASE  (4ULL * 1024ULL * 1024ULL * 1024ULL)   /* 4 GB */
 
 /* Number of candidate sizes within the sweep range.
  * Must be ≥ 1; odd values naturally include the current size. */
@@ -136,16 +135,20 @@ void counterfactual_init(size_t max_pages);
  * Must be called from pebs_policy_thread() after setup_stall_counters(),
  * before the first CF_WINDOW_S timer fires (i.e. within the first 30 s).
  *
- *   pages_map      — khash_t(kPagesMap) * cast to void *
- *   stall_fd/prev  — per-CPU CYCLE_ACTIVITY.STALLS_L3_MISS fds + last-read values
- *   cycles_fd/prev — per-CPU cpu-cycles fds + last-read values
- *   dram_bw_sum    — IMC DRAM BW accumulator (GB/s · samples)
- *   cxl_bw_sum     — IMC CXL BW accumulator
- *   bw_samples     — number of samples in the current window
- *   dramsize       — pointer to the live dramsize variable
- *   snapshot_mutex — held by the CF thread during the snapshot walk;
- *                    also held by the policy thread around pages_map
- *                    structural changes and BW accumulator updates. */
+ *   pages_map        — khash_t(kPagesMap) * cast to void *
+ *   stall_fd/prev    — per-CPU CYCLE_ACTIVITY.STALLS_L3_MISS fds + last-read values
+ *   cycles_fd/prev   — per-CPU cpu-cycles fds + last-read values
+ *   dram_bw_sum      — IMC DRAM BW accumulator (GB/s · samples)
+ *   cxl_bw_sum       — IMC CXL BW accumulator
+ *   bw_samples       — number of samples in the current window
+ *   dramsize         — pointer to the live dramsize variable
+ *   snapshot_mutex   — held by the CF thread during the snapshot walk;
+ *                      also held by the policy thread around pages_map
+ *                      structural changes and BW accumulator updates.
+ *   migration_waits  — pointer to the global blocking-fault counter (arms.c);
+ *                      read once per window; delta used to estimate MW(D).
+ *   avg_wait_us      — pointer to promotion_cost_avg (µs); used as the per-fault
+ *                      blocking duration when computing delta migration overhead. */
 void counterfactual_register_state(
     void            *pages_map,
     int             *stall_fd,   uint64_t *stall_prev,
@@ -156,7 +159,9 @@ void counterfactual_register_state(
     pthread_mutex_t *snapshot_mutex,
     int             *tor_occ_fd, int *tor_act_fd,
     uint64_t        *prev_tor_occ, uint64_t *prev_tor_act,
-    int              tor_cha_count);
+    int              tor_cha_count,
+    uint64_t        *migration_waits,
+    float           *avg_wait_us);
 
 /* CF thread entry point registered with pthread_create in counterfactual_init.
  * Loops on a CF_WINDOW_S CLOCK_MONOTONIC timer; runs cf_run_analysis() each

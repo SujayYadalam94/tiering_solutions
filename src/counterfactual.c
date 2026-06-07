@@ -43,8 +43,11 @@ static size_t               cf_snap_cap = 0;   /* capacity (max pages) */
 typedef struct {
     int      valid;
     uint64_t predicted_dram_bytes;
-    double   predicted_stall_rate;   /* exp_stalls / cycles at prediction time */
-    double   baseline_stall_rate;    /* measured_stalls / cycles at prediction time */
+    double   predicted_stall_rate;       /* (exp_stalls + epsilon) / cycles at prediction time */
+    double   baseline_stall_rate;        /* exp_stalls_orig / cycles at prediction time */
+    double   predicted_mig_overhead_cyc; /* mw_prime * avg_wait_cyc */
+    double   predicted_mw_prime;         /* expected migration wait count */
+    double   predicted_avg_wait_cyc;     /* per-wait cost in cycles used */
     time_t   ts;
 } cf_pred_record_t;
 
@@ -73,6 +76,11 @@ static uint64_t *s_prev_tor_occ = NULL;
 static uint64_t *s_prev_tor_act = NULL;
 static int       s_tor_cha_count = 0;
 static float     total_mlp       = MLP_MIN;
+
+/* Migration overhead state registered from arms.c / pebs.c. */
+static uint64_t *s_migration_waits = NULL;
+static float    *s_avg_wait_us     = NULL;
+static uint64_t  s_mw_prev         = 0;
 
 /* LP model parameters read from CF_MODEL_PARAMS_PATH each analysis window. */
 static cf_lp_params_t s_lp_params;  /* zeroed = invalid at startup */
@@ -425,6 +433,10 @@ static void cf_read_lp_params(void)
         else if (sscanf(line, "epsilon=%lf",     &p.epsilon)    == 1) found++;
     }
     fclose(f);
+
+    // Scale beta and epsilon from per-second units to per-window units using the aggregate period.
+    p.beta *= CF_WINDOW_S;
+    p.epsilon *= CF_WINDOW_S;
     p.valid = (found == 4);
     s_lp_params = p;
 }
@@ -447,11 +459,10 @@ static int cf_cmp_hotness_desc(const void *a, const void *b)
  * Steps:
  *  1. Sort pages hottest-first to build the access CDF.
  *  2. Compute current_stalls from the actual placement (in_dram flags).
- *  3. Sweep CF_SWEEP_STEPS+1 candidate DRAM sizes in an asymmetric range:
- *       decrease: [current_dram - CF_SWEEP_DELTA_DECREASE, current_dram]
- *       increase: [current_dram, current_dram + CF_SWEEP_DELTA_INCREASE]
- *     clamped to [0, n×PAGE_SIZE].  For each size, the hottest pages go
- *     into DRAM; the rest spill to CXL.  This is the optimal placement
+ *  3. Sweep CF_SWEEP_STEPS+1 candidate DRAM sizes across a symmetric range:
+ *       [current_dram - CF_SWEEP_DELTA_DECREASE, current_dram + CF_SWEEP_DELTA_INCREASE]
+ *     clamped to [CF_MIN_DRAM_SIZE, max_dramsize].  For each size, the hottest
+ *     pages go into DRAM; the rest spill to CXL.  This is the optimal placement
  *     for that size, not a simulation of the current policy.
  *  4. Log a sweep table and recommend the smallest size whose predicted
  *     slowdown is below CF_SLOWDOWN_THRESHOLD.
@@ -462,7 +473,8 @@ static int cf_cmp_hotness_desc(const void *a, const void *b)
 static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
                              uint64_t current_dram_bytes,
                              uint64_t measured_stalls, uint64_t measured_cycles,
-                             double dram_bw_gbps, double cxl_bw_gbps)
+                             double dram_bw_gbps, double cxl_bw_gbps,
+                             uint64_t mw_win, double avg_wait_cyc)
 {
     if (cf_dram_n < 2 || cf_cxl_n < 2) {
         LOG_REPORT("cf: bw-lat curves not loaded — skipping analysis\n");
@@ -497,6 +509,22 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
                    actual_stall_rate,
                    pred_error,
                    pred_error * 100.0);
+
+        double actual_mig_overhead_cyc = (double)mw_win * avg_wait_cyc;
+        double mig_error     = actual_mig_overhead_cyc - cf_last_pred.predicted_mig_overhead_cyc;
+        double mig_error_pct = (cf_last_pred.predicted_mig_overhead_cyc > 0.0)
+                               ? mig_error / cf_last_pred.predicted_mig_overhead_cyc * 100.0
+                               : 0.0;
+        LOG_REPORT("cf: ACCURACY_MIG ts=%ld pred_ts=%ld"
+                   " predicted_mig_cyc=%.0f actual_mig_cyc=%.0f"
+                   " predicted_mw=%.0f actual_mw=%lu"
+                   " predicted_wait_cyc=%.1f actual_wait_cyc=%.1f"
+                   " error=%.0f error_pct=%.2f%%\n",
+                   (long)window_ts, (long)cf_last_pred.ts,
+                   cf_last_pred.predicted_mig_overhead_cyc, actual_mig_overhead_cyc,
+                   cf_last_pred.predicted_mw_prime, mw_win,
+                   cf_last_pred.predicted_avg_wait_cyc, avg_wait_cyc,
+                   mig_error, mig_error_pct);
     }
 
     /* Phase-change detection: spike in any metric → restore DRAM to original size. */
@@ -572,38 +600,20 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
     LOG_REPORT("cf: original_dram=%lu MB (exp_stalls_orig=%.0f stall_rate_orig=%.6f)\n",
                ref_dram >> 20, exp_stalls_orig, exp_stalls_orig / cycles);
 
-    /* Use the LP model to predict stalls at the current actual placement, then
-     * compare against the original-size baseline to determine sweep direction. */
-    double c_dram_bw_curr  = cur_dram_acc * bpa / (CF_WINDOW_S * 1e9);
-    double c_cxl_bw_curr   = cur_cxl_acc  * bpa / (CF_WINDOW_S * 1e9);
-    double exp_stalls_curr = cf_compute_expected_stalls_lp(c_dram_bw_curr, c_cxl_bw_curr,
-                                                            cur_dram_acc, cur_cxl_acc,
-                                                            &s_lp_params);
-    double current_slowdown = (exp_stalls_curr - exp_stalls_orig) / cycles;
-    int    needs_increase   = (current_slowdown > CF_INCREASE_THRESHOLD);
-
-    /* 4. Build the candidate sweep range: ±4 GB from current, direction-gated. */
-    uint64_t sweep_lo, sweep_hi;
-    if (needs_increase) {
-        sweep_lo = current_dram_bytes;
-        sweep_hi = (current_dram_bytes + CF_SWEEP_DELTA_DECREASE < max_dramsize)
-                   ? current_dram_bytes + CF_SWEEP_DELTA_DECREASE : max_dramsize;
-    } else {
-        sweep_lo = (current_dram_bytes - CF_SWEEP_DELTA_DECREASE < CF_MIN_DRAM_SIZE)
-                   ? CF_MIN_DRAM_SIZE : current_dram_bytes - CF_SWEEP_DELTA_DECREASE;
-        sweep_hi = current_dram_bytes;
-    }
+    /* 4. Build the candidate sweep range: both smaller and larger than current. */
+    uint64_t sweep_lo = (current_dram_bytes > CF_SWEEP_DELTA_DECREASE)
+                        ? current_dram_bytes - CF_SWEEP_DELTA_DECREASE : 0;
+    if (sweep_lo < CF_MIN_DRAM_SIZE) sweep_lo = CF_MIN_DRAM_SIZE;
+    uint64_t sweep_hi = (max_dramsize - current_dram_bytes > CF_SWEEP_DELTA_INCREASE)
+                        ? current_dram_bytes + CF_SWEEP_DELTA_INCREASE : max_dramsize;
     sweep_lo = (sweep_lo / PAGE_SIZE) * PAGE_SIZE;
     sweep_hi = (sweep_hi / PAGE_SIZE) * PAGE_SIZE;
 
     LOG_REPORT("cf: === counterfactual ts=%ld (window=%ds, %zu pages,"
-               " current=%lu MB, sweep=[%lu, %lu] MB,"
-               " current_slowdown=%.4f%%, direction=%s) ===\n",
+               " current=%lu MB, sweep=[%lu, %lu] MB) ===\n",
                (long)window_ts, CF_WINDOW_S, n,
                current_dram_bytes >> 20,
-               sweep_lo >> 20, sweep_hi >> 20,
-               current_slowdown * 100.0,
-               needs_increase ? "increase" : "decrease");
+               sweep_lo >> 20, sweep_hi >> 20);
     LOG_REPORT("cf: measured — stalls=%lu cycles=%lu stall_rate=%.6f"
                " dram_acc=%lu cxl_acc=%lu"
                " dram_bw=%.3f GB/s cxl_bw=%.3f GB/s mlp=%.3f\n",
@@ -621,10 +631,34 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
      * Subtract it from the threshold so we only recommend when we're confident
      * the true slowdown is within CF_SLOWDOWN_THRESHOLD. */
     double epsilon_margin      = s_lp_params.epsilon / cycles;
-    double effective_threshold = CF_SLOWDOWN_THRESHOLD - epsilon_margin;
+    double effective_threshold = CF_SLOWDOWN_THRESHOLD;
 
-    size_t recommended_pages    = 0;
-    int    found_recommendation = 0;
+    /* If model uncertainty exceeds the slowdown threshold the LP fit is not
+     * reliable enough to trust shrink decisions.  Increase DRAM to avoid
+     * acting on bad predictions. */
+    if (epsilon_margin > 0.2) {
+        uint64_t target_bytes = (s_original_dramsize > current_dram_bytes)
+                                ? s_original_dramsize
+                                : current_dram_bytes + CF_SWEEP_DELTA_INCREASE;
+        if (target_bytes > s_original_dramsize) target_bytes = s_original_dramsize;
+        uint64_t target_mb = target_bytes >> 20;
+        LOG_REPORT("cf: INACCURATE_MODEL ts=%ld epsilon_margin=%.2f%% > threshold=%.2f%%"
+                   " — increasing DRAM to %lu MB\n",
+                   (long)window_ts, epsilon_margin * 100.0,
+                   CF_SLOWDOWN_THRESHOLD * 100.0, target_mb);
+        FILE *f = fopen(dram_config_path, "w");
+        if (f) {
+            fprintf(f, "%luM\n", target_mb);
+            fclose(f);
+        }
+        return;
+    }
+
+    size_t   shrink_rec_pages = 0,    grow_rec_pages = 0;
+    uint64_t shrink_rec_bytes = 0,    grow_rec_bytes = 0;
+    double   shrink_rec_stalls = 0.0, grow_rec_stalls = 0.0;
+    double   shrink_rec_mw = 0.0,     grow_rec_mw = 0.0;
+    int      found_shrink = 0,        found_grow = 0;
 
     uint64_t span      = sweep_hi - sweep_lo;
     int      num_steps = CF_SWEEP_STEPS;
@@ -644,7 +678,7 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
         /* Tiering inaccuracy correction for shrink candidates.
          * Grow candidates assume ideal promotion (optimistic). */
         uint64_t eff_dram_acc = dram_acc, eff_cxl_acc = cxl_acc;
-        if (!needs_increase) {
+        if (candidate_bytes <= current_dram_bytes) {
             double delta_a = cf_compute_tiering_adjustment(snap, n_dram);
             eff_dram_acc = (delta_a < (double)dram_acc) ?
                            (uint64_t)((double)dram_acc - delta_a) : 0;
@@ -660,37 +694,87 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
         double exp_stalls = cf_compute_expected_stalls_lp(c_dram_bw, c_cxl_bw,
                                                            eff_dram_acc, eff_cxl_acc,
                                                            &s_lp_params);
+
+
+        /* Migration overhead: MW(D') = MW(D) * cxl_acc(D') / cxl_acc_cur */
+        double mw_prime           = (cur_cxl_acc > 0)
+                                    ? (double)mw_win * (double)eff_cxl_acc / (double)cur_cxl_acc
+                                    : (double)mw_win;
+        double delta_mig_overhead = (mw_prime - (double)mw_win) * avg_wait_cyc;
+
         /* Slowdown vs. expected stalls at original DRAM size: positive = slower, negative = faster. */
-        double slowdown = (exp_stalls - exp_stalls_orig) / cycles;
+        /* For smaller DRAM sizes, we add migration overhead*/
+        double slowdown = 0.0;
+        if (candidate_bytes <= current_dram_bytes) {
+            slowdown = ((exp_stalls - exp_stalls_orig) + delta_mig_overhead) / cycles;
+        } else {
+            slowdown = (exp_stalls - exp_stalls_orig) / cycles;
+        }
 
         uint64_t    dram_mb = candidate_bytes >> 20;
-        const char *mark    = (slowdown < effective_threshold) ? " <--" : "";
-        LOG_REPORT("cf: %10lu  %12.2f%% %10lu %14.3f %10lu %13.3f  %10zu  %9zu%s\n",
+        const char *mark    = (candidate_bytes <= current_dram_bytes && slowdown < effective_threshold)
+                              ? " <-- shrink"
+                              : (candidate_bytes > current_dram_bytes && slowdown < -CF_SPEEDUP_THRESHOLD)
+                              ? " <-- grow"
+                              : "";
+        LOG_REPORT("cf: %10lu  %12.2f%% %10lu %14.3f %10lu %13.3f  %10zu  %9zu  mig_ovhd=%.0f%s\n",
                    dram_mb, slowdown * 100.0,
-                   eff_dram_acc, c_dram_bw, eff_cxl_acc, c_cxl_bw, n_dram, n_cxl, mark);
+                   eff_dram_acc, c_dram_bw, eff_cxl_acc, c_cxl_bw, n_dram, n_cxl,
+                   delta_mig_overhead, mark);
 
-        if (!found_recommendation && slowdown < effective_threshold) {
-            recommended_pages    = n_dram;
-            found_recommendation = 1;
-
-            cf_last_pred.valid                = 1;
-            cf_last_pred.predicted_dram_bytes = candidate_bytes;
-            cf_last_pred.predicted_stall_rate = exp_stalls / cycles;
-            cf_last_pred.baseline_stall_rate  = exp_stalls_orig / cycles;
-            cf_last_pred.ts                   = window_ts;
+        if (candidate_bytes <= current_dram_bytes) {
+            if (!found_shrink && slowdown < effective_threshold) {
+                shrink_rec_pages  = n_dram;
+                shrink_rec_bytes  = candidate_bytes;
+                shrink_rec_stalls = exp_stalls;
+                shrink_rec_mw     = mw_prime;
+                found_shrink      = 1;
+            }
+        } else {
+            double grow_threshold = -CF_SPEEDUP_THRESHOLD;
+            if (!found_grow && slowdown < grow_threshold) {
+                grow_rec_pages  = n_dram;
+                grow_rec_bytes  = candidate_bytes;
+                grow_rec_stalls = exp_stalls;
+                grow_rec_mw     = mw_prime;
+                found_grow      = 1;
+            }
         }
     }
 
-    /* 4. Emit recommendation. */
-    if (found_recommendation && recommended_pages != 0) {
-        uint64_t rec_mb = (uint64_t)recommended_pages * PAGE_SIZE >> 20;
-        const char *direction = (rec_mb > (current_dram_bytes >> 20)) ? "grow" : "shrink";
-        LOG_REPORT("cf: RECOMMENDATION: %s DRAM to %lu MB"
-                   " (predicted slowdown < %.2f%% vs. original DRAM size,"
-                   " epsilon_margin=%.2f%%)\n",
-                   direction, rec_mb,
-                   effective_threshold * 100.0, epsilon_margin * 100.0);
-        // Write the recommended size to the specified path as 'X'M
+    /* 4. Emit recommendation.
+     * Prefer shrinking (smallest viable DRAM); only grow if no shrink candidate
+     * qualifies but a larger size yields speedup > CF_SPEEDUP_THRESHOLD. */
+    int      use_grow   = !found_shrink && found_grow;
+    size_t   rec_pages  = found_shrink  ? shrink_rec_pages  : grow_rec_pages;
+    uint64_t rec_bytes  = found_shrink  ? shrink_rec_bytes  : grow_rec_bytes;
+    double   rec_stalls = found_shrink  ? shrink_rec_stalls : grow_rec_stalls;
+    double   rec_mw     = found_shrink  ? shrink_rec_mw     : grow_rec_mw;
+
+    if ((found_shrink || use_grow) && rec_pages != 0) {
+        uint64_t rec_mb = rec_bytes >> 20;
+
+        if (use_grow) {
+            LOG_REPORT("cf: RECOMMENDATION: grow DRAM to %lu MB"
+                       " (speedup > %.2f%% vs. original size, epsilon_margin=%.2f%%)\n",
+                       rec_mb,
+                       CF_SPEEDUP_THRESHOLD * 100.0, epsilon_margin * 100.0);
+        } else {
+            LOG_REPORT("cf: RECOMMENDATION: shrink DRAM to %lu MB"
+                       " (slowdown < %.2f%% vs. original size, epsilon_margin=%.2f%%)\n",
+                       rec_mb,
+                       effective_threshold * 100.0, epsilon_margin * 100.0);
+        }
+
+        cf_last_pred.valid                       = 1;
+        cf_last_pred.predicted_dram_bytes        = rec_bytes;
+        cf_last_pred.predicted_stall_rate        = (rec_stalls + s_lp_params.epsilon) / cycles;
+        cf_last_pred.baseline_stall_rate         = exp_stalls_orig / cycles;
+        cf_last_pred.predicted_mig_overhead_cyc  = rec_mw * avg_wait_cyc;
+        cf_last_pred.predicted_mw_prime          = rec_mw;
+        cf_last_pred.predicted_avg_wait_cyc      = avg_wait_cyc;
+        cf_last_pred.ts                          = window_ts;
+
         FILE *f = fopen(dram_config_path, "w");
         if (f) {
             fprintf(f, "%luM\n", rec_mb);
@@ -700,8 +784,10 @@ static void cf_run_analysis(cf_page_snapshot_t *snap, size_t n,
                        dram_config_path, strerror(errno));
         }
     } else {
-        LOG_REPORT("cf: no candidate in [%lu, %lu] MB meets < %.2f%% slowdown\n",
-                   sweep_lo >> 20, sweep_hi >> 20, effective_threshold * 100.0);
+        LOG_REPORT("cf: no shrink candidate meets < %.2f%% slowdown"
+                   " and no grow candidate meets > %.2f%% speedup\n",
+                   effective_threshold * 100.0,
+                   CF_SPEEDUP_THRESHOLD * 100.0);
     }
 }
 
@@ -831,11 +917,19 @@ void *counterfactual_thread_fn(void *arg)
         s_prev_cxl_bw_sum  = 0.0;
         s_prev_bw_samples  = 0;
 
+        uint64_t mw_now = s_migration_waits ? *s_migration_waits : 0;
+        uint64_t mw_win = mw_now - s_mw_prev;
+        s_mw_prev       = mw_now;
+        double avg_wait_cyc = s_avg_wait_us
+                              ? (double)*s_avg_wait_us * CF_CPU_FREQ_GHZ * 1000.0
+                              : 0.0;
+
         pthread_mutex_unlock(s_snap_mutex);
 
         cf_run_analysis(cf_snap_buf, n, cur_dram,
                         total_stalls_win, total_cycles_win,
-                        dram_bw_avg, cxl_bw_avg);
+                        dram_bw_avg, cxl_bw_avg,
+                        mw_win, avg_wait_cyc);
     }
     return NULL;
 }
@@ -882,25 +976,29 @@ void counterfactual_register_state(
     pthread_mutex_t *snapshot_mutex,
     int             *tor_occ_fd, int *tor_act_fd,
     uint64_t        *prev_tor_occ, uint64_t *prev_tor_act,
-    int              tor_cha_count)
+    int              tor_cha_count,
+    uint64_t        *migration_waits,
+    float           *avg_wait_us)
 {
-    s_pages_map      = (khash_t(kPagesMap) *)pages_map;
-    s_stall_fd       = stall_fd;
-    s_stall_prev     = stall_prev;
-    s_cycles_fd      = cycles_fd;
-    s_cycles_prev    = cycles_prev;
-    s_dram_acc       = cf_dram_acc;
-    s_cxl_acc        = cf_nvm_acc;
-    s_dram_bw_sum    = dram_bw_sum;
-    s_cxl_bw_sum     = cxl_bw_sum;
-    s_bw_samples     = bw_samples;
-    s_dramsize       = dramsize;
+    s_pages_map        = (khash_t(kPagesMap) *)pages_map;
+    s_stall_fd         = stall_fd;
+    s_stall_prev       = stall_prev;
+    s_cycles_fd        = cycles_fd;
+    s_cycles_prev      = cycles_prev;
+    s_dram_acc         = cf_dram_acc;
+    s_cxl_acc          = cf_nvm_acc;
+    s_dram_bw_sum      = dram_bw_sum;
+    s_cxl_bw_sum       = cxl_bw_sum;
+    s_bw_samples       = bw_samples;
+    s_dramsize         = dramsize;
     if (s_original_dramsize == 0)
         s_original_dramsize = *dramsize;
-    s_snap_mutex     = snapshot_mutex;
-    s_tor_occ_fd     = tor_occ_fd;
-    s_tor_act_fd     = tor_act_fd;
-    s_prev_tor_occ   = prev_tor_occ;
-    s_prev_tor_act   = prev_tor_act;
-    s_tor_cha_count  = tor_cha_count;
+    s_snap_mutex       = snapshot_mutex;
+    s_tor_occ_fd       = tor_occ_fd;
+    s_tor_act_fd       = tor_act_fd;
+    s_prev_tor_occ     = prev_tor_occ;
+    s_prev_tor_act     = prev_tor_act;
+    s_tor_cha_count    = tor_cha_count;
+    s_migration_waits  = migration_waits;
+    s_avg_wait_us      = avg_wait_us;
 }
