@@ -4,15 +4,15 @@ SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 # shellcheck source=measurement_common.sh
 source "${SCRIPT_DIR}/measurement_common.sh"
 # shellcheck source=measurement_workloads.sh
-source "${SCRIPT_DIR}/measurement_workloads.sh"
+source "${SCRIPT_DIR}/measurement_workloads_short.sh"
 
 measurement_init_platform_from_args "$@" || exit 1
 PLATFORM_ARGS=(--platform "${MEASUREMENT_PLATFORM}")
 
 echo "Using measurement platform: ${MEASUREMENT_PLATFORM}"
 
-SIZES=(10009)
-RUNS=3
+SIZES=(100014)
+RUNS=1
 
 mapfile -t WORKLOAD_IDS < <(measurement_list_default_workloads)
 

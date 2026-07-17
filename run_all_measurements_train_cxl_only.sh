@@ -4,7 +4,7 @@ SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 # shellcheck source=measurement_common.sh
 source "${SCRIPT_DIR}/measurement_common.sh"
 # shellcheck source=measurement_workloads.sh
-source "${SCRIPT_DIR}/measurement_workloads.sh"
+source "${SCRIPT_DIR}/measurement_workloads_short.sh"
 
 measurement_init_platform_from_args "$@" || exit 1
 PLATFORM_ARGS=(--platform "${MEASUREMENT_PLATFORM}")
@@ -27,7 +27,7 @@ done
 
 WORKLOAD_ARGS=("${MEASUREMENT_REMAINING_ARGS[@]}")
 
-SIZES=(100000)
+SIZES=(100013)
 RUNS=1
 
 case "${MEASUREMENT_PLATFORM}" in

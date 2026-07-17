@@ -1,0 +1,10 @@
+/users/zimooo2/tiering_solutions/measurement_common.sh: line 188: 146122 Segmentation fault      timeout --foreground --signal=TERM --kill-after="${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS}s" "${MEASUREMENT_TIMEOUT_SECONDS}s" numactl --membind="${numa_mem_nodes}" -- taskset -c "${taskset_cpus}" sudo env ${WORKLOAD_RUNTIME_CHDIR_ARG:+${WORKLOAD_RUNTIME_CHDIR_ARG}} LOG_OUTPUT_PATH="${log_output_path}" WORKLOAD_VIRTUAL_STEP_SAMPLES="${WORKLOAD_VIRTUAL_STEP_SAMPLES:-3162}" VIRTUAL_STEP_SAMPLES="${WORKLOAD_VIRTUAL_STEP_SAMPLES:-3162}" LD_PRELOAD="${library_path}" ${program} 2>&1
+
+real	0m0.800s
+user	0m0.010s
+sys	0m0.030s
+exit_status=139
+timed_out=0
+elapsed_seconds=1
+timeout_seconds=6000
+kill_after_seconds=30

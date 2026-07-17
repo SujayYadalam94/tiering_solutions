@@ -75,6 +75,19 @@ static inline void extract_features(struct data_row &row, double *features)
     const double r_ratio_20 = round_to_6(build_ratio_feature(row.ewma_20_r, row.ewma_20));
     const double r_ratio_100 = round_to_6(build_ratio_feature(row.ewma_100_r, row.ewma_100));
 
+    //    "ewma_2",
+    //    "ewma_5",
+    //    "ewma_20",
+    //    "ewma_100",
+    //    "global_avg_accesses_model",
+    //    "group_neg_mean",
+    //    "group_pos_mean",
+    //    "group_0_mean",
+    //    "age",
+    //    "r_ratio_20",
+    //    "r_ratio_100",
+    //    "group_ewma5_var"
+
     features[i++] = round_to_6(row.ewma_2);
     features[i++] = round_to_6(row.ewma_5);
     features[i++] = round_to_6(row.ewma_20);

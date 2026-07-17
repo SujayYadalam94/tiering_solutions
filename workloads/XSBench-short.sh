@@ -1,0 +1,9 @@
+#!/bin/bash
+
+WORKLOAD_ID="XSBench-short"
+WORKLOAD_OUTPUT="XSBench-short"
+WORKLOAD_COMMAND="OMP_NUM_THREADS=16 ${BENCH_ROOT}/XSBench/openmp-threading/XSBench -t 16 -g 50000 -p 1000000"
+WORKLOAD_EXE_NAME="XSBench"
+WORKLOAD_MODEL_BASE="XSBench"
+WORKLOAD_VIRTUAL_STEP_SAMPLES="10000"
+WORKLOAD_SYSTEMS="arms hybridtier model logging"

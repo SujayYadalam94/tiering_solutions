@@ -26,7 +26,7 @@ done
 
 WORKLOAD_ARGS=("${MEASUREMENT_REMAINING_ARGS[@]}")
 
-SIZES=(100000)
+SIZES=(100050)
 RUNS=1
 NUMA_MEM_NODES_OVERRIDE=${NUMA_MEM_NODES_OVERRIDE:-${NUMA_MEM_NODE_OVERRIDE:-0}}
 
@@ -34,6 +34,8 @@ RUN_LABEL_SUFFIX=${RUN_LABEL_SUFFIX:-_train}
 ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_near_train}
 COLLECT_TIMESTAMP=$(date '+%Y%m%d_%H%M%S')
 COLLECT_LOGS_DIR=${COLLECT_LOGS_DIR:-"${SCRIPT_DIR}/collected_logs/${MEASUREMENT_PLATFORM}/arms_near_train_${COLLECT_TIMESTAMP}"}
+LOG_CONVERTER_SCRIPT=${LOG_CONVERTER_SCRIPT:-"${SCRIPT_DIR}/logs/filter_v3_split_runs.py"}
+LOG_CONVERTER_VENV_PYTHON=${LOG_CONVERTER_VENV_PYTHON:-"${SCRIPT_DIR}/../tiering_models/process_data/data/.venv/bin/python"}
 
 echo "Using measurement platform: ${MEASUREMENT_PLATFORM}"
 echo "Using NUMA_MEM_NODES override: ${NUMA_MEM_NODES_OVERRIDE}"
@@ -50,6 +52,23 @@ copy_if_present() {
     fi
 }
 
+convert_logs_to_parquet() {
+    local workload_output=$1
+    local log_dir="${SCRIPT_DIR}/logs/${workload_output}"
+    local python_cmd=python3
+
+    if [[ ! -f "${LOG_CONVERTER_SCRIPT}" ]]; then
+        echo "ERROR: converter script not found at ${LOG_CONVERTER_SCRIPT}" >&2
+        return 1
+    fi
+
+    if [[ -x "${LOG_CONVERTER_VENV_PYTHON}" ]]; then
+        python_cmd="${LOG_CONVERTER_VENV_PYTHON}"
+    fi
+
+    "${python_cmd}" "${LOG_CONVERTER_SCRIPT}" "${log_dir}"
+}
+
 collect_arms_artifacts() {
     local size_mib=$1
     local run_label=$2
@@ -63,7 +82,7 @@ collect_arms_artifacts() {
 
     copy_if_present "${source_time_dir}/${basename}.time" "${destination_dir}"
     copy_if_present "${source_time_dir}/max_dram_hugepages_${basename}.log" "${destination_dir}"
-    copy_if_present "${source_log_dir}/${basename}_arms.log" "${destination_dir}"
+    copy_if_present "${source_log_dir}/${basename}_arms.parquet" "${destination_dir}"
 }
 
 if [[ ! -x "${SCRIPT_DIR}/measurement_arms.sh" ]]; then
@@ -81,7 +100,11 @@ for size in "${SIZES[@]}"; do
         run_label="${run}${RUN_LABEL_SUFFIX}"
         echo "-- Run ${run}/${RUNS} for size ${size}MiB (label ${run_label}) --"
 
+
         for workload_id in "${WORKLOAD_IDS[@]}"; do
+            run_measurement_setup "${size}" || exit 1
+            trap 'run_measurement_teardown' EXIT
+
             measurement_load_workload "${workload_id}" || exit 1
             if ! measurement_workload_supports_system arms; then
                 echo "Skipping ${workload_id}: not supported by arms"
@@ -92,8 +115,12 @@ for size in "${SIZES[@]}"; do
 
             NUMA_MEM_NODES="${NUMA_MEM_NODES_OVERRIDE}" \
                 "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run_label}" "${ARMS_LIB_SUFFIX}" "${workload_id}"
+            convert_logs_to_parquet "${WORKLOAD_OUTPUT}" || exit 1
             collect_arms_artifacts "${size}" "${run_label}" "${WORKLOAD_OUTPUT}"
         done
+
+        run_measurement_teardown
+        trap - EXIT
     done
 done
 
