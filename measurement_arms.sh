@@ -29,7 +29,7 @@ function run_workload {
     local log_dir="${SCRIPT_DIR}/logs/${WORKLOAD_OUTPUT}"
     local time_file="${time_dir}/${time_basename}.time"
     local log_output_path="${log_dir}/${time_basename}_arms.log"
-    local offcore_metrics_file="${log_dir}/${time_basename}_arms_offcore_write_l3_metrics.log"
+    local write_cas_metrics_file="${log_dir}/${time_basename}_arms_unc_m_cas_count_wr.log"
     local max_dram_file="${time_dir}/max_dram_hugepages_${time_basename}.log"
     local model_path="${SCRIPT_DIR}/libraries/${MEASUREMENT_LIBRARY_PROFILE_DIR}/libhemem-arms${LIB_SUFFIX}.so"
 
@@ -41,8 +41,8 @@ function run_workload {
     fi
 
     cleanup_measurement_outputs "${time_file}" "${log_output_path}" "${max_dram_file}"
-    rm -f "${offcore_metrics_file}"
-    cleanup_offcore_write_l3_metrics_log
+    rm -f "${write_cas_metrics_file}"
+    cleanup_unc_m_cas_count_wr_log
     run_preloaded_measurement "${WORKLOAD_COMMAND}" "${model_path}" "${log_output_path}" "${time_file}" \
         "${NUMA_MEM_NODES}" "${TASKSET_CPUS}"
     local status=$?
@@ -58,7 +58,7 @@ function run_workload {
         echo "WARNING: ${WORKLOAD_OUTPUT} run ${run} failed with status ${status}"
     fi
     move_max_dram_log_if_present "${max_dram_file}"
-    copy_offcore_write_l3_metrics_log_if_present "${offcore_metrics_file}"
+    copy_unc_m_cas_count_wr_log_if_present "${write_cas_metrics_file}"
 }
 
 for workload_id in "${WORKLOAD_IDS[@]}"; do

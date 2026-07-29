@@ -98,7 +98,7 @@ struct data_row
     uint32_t age;
     int num_demotions;
     int num_promotions;
-    float step_offcore_write_l3_miss_rate;
+    uint64_t step_unc_m_cas_count_wr;
 
     // Reward Componants computed at the end
     struct data_row *prev;

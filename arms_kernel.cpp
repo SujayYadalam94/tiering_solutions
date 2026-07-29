@@ -559,15 +559,13 @@ std::atomic<uint64_t> virtual_step{0};
 std::shared_mutex virtual_features_lock;
 std::atomic<bool> shutdown_started{false};
 static constexpr const char *MAX_DRAM_HUGEPAGE_LOG = "max_dram_hugepages.log";
-static constexpr const char *OFFCORE_WRITE_L3_METRICS_LOG = "offcore_write_l3_metrics.log";
+static constexpr const char *UNC_M_CAS_COUNT_WR_LOG = "unc_m_cas_count_wr.log";
 
-// Optional verbose-only counters used to estimate demand-RFO L3 write hit-rate.
-// They do not affect page sampling or migration policy.
-int offcore_rfo_any_response_fd[PEBS_NPROCS];
-int offcore_rfo_l3_miss_fd[PEBS_NPROCS];
-bool offcore_write_metrics_enabled = false;
-uint64_t previous_offcore_rfo_any_response = 0;
-uint64_t previous_offcore_rfo_l3_miss = 0;
+// Optional verbose-only view of the existing IMC write-CAS counters. This does
+// not affect page sampling or migration policy.
+bool unc_m_cas_count_wr_enabled = false;
+uint64_t unc_m_cas_count_wr_baseline = 0;
+uint64_t previous_unc_m_cas_count_wr = 0;
 
 float dram_bw_ewma = 0.0;
 float nvm_bw_ewma = 0.0;
@@ -596,300 +594,6 @@ static long perf_event_open(struct perf_event_attr *hw_event, pid_t pid, int cpu
 {
     int ret = syscall(__NR_perf_event_open, hw_event, pid, cpu, group_fd, flags);
     return ret;
-}
-
-// OFFCORE_RESPONSE EventSel={B7H,BBH}, UMask=01H.
-// We use B7H by default (config=0x1b7), and put response filters in config1.
-#define OFFCORE_RESPONSE_EVENT_CONFIG 0x01b7
-#define OFFCORE_DEMAND_RFO_ANY_RESPONSE_MASK 0x0000000000010002ULL
-#define OFFCORE_DEMAND_RFO_L3_MISS_ANY_SNOOP_MASK 0x0000003FBC000002ULL
-
-static int open_raw_counting_event(__u64 config, __u64 config1, int cpu, const char *event_name)
-{
-    struct perf_event_attr pe;
-    memset(&pe, 0, sizeof(struct perf_event_attr));
-
-    pe.type = PERF_TYPE_RAW;
-    pe.size = sizeof(pe);
-    pe.config = config;
-    pe.config1 = config1;
-    pe.disabled = 1;
-    pe.exclude_kernel = 1;
-    pe.exclude_hv = 1;
-
-    int fd = perf_event_open(&pe, -1, cpu, -1, 0);
-    if (fd == -1 && ARMS_VERBOSE)
-    {
-        fprintf(stderr, "[ARMS] Failed to open %s on CPU %d (config=0x%llx, config1=0x%llx): %s\n", event_name, cpu,
-                static_cast<unsigned long long>(config), static_cast<unsigned long long>(config1), strerror(errno));
-    }
-
-    return fd;
-}
-
-static void setup_offcore_write_l3_metrics_counters()
-{
-    for (int i = 0; i < PEBS_NPROCS; i++)
-    {
-        offcore_rfo_any_response_fd[i] = -1;
-        offcore_rfo_l3_miss_fd[i] = -1;
-    }
-
-    offcore_write_metrics_enabled = false;
-    previous_offcore_rfo_any_response = 0;
-    previous_offcore_rfo_l3_miss = 0;
-
-    if (!ARMS_VERBOSE)
-    {
-        return;
-    }
-
-    std::cout << "[ARMS] Setting up OFFCORE DEMAND_RFO counters for L3 write hit-rate metrics..." << std::endl;
-
-    int counters_opened = 0;
-    for (int cpu = 0; cpu < PEBS_NPROCS; cpu++)
-    {
-#ifdef C220G5
-        if (cpu >= 10 && cpu < 20)
-            continue;
-#endif
-
-#ifdef GSL_OPTANE
-        if (cpu >= 16 && cpu < 32)
-            continue;
-#endif
-
-        int any_fd = open_raw_counting_event(OFFCORE_RESPONSE_EVENT_CONFIG, OFFCORE_DEMAND_RFO_ANY_RESPONSE_MASK, cpu,
-                                             "OFFCORE_RESPONSE:DEMAND_RFO:ANY_RESPONSE");
-        int l3_miss_fd =
-            open_raw_counting_event(OFFCORE_RESPONSE_EVENT_CONFIG, OFFCORE_DEMAND_RFO_L3_MISS_ANY_SNOOP_MASK, cpu,
-                                    "OFFCORE_RESPONSE:DEMAND_RFO:L3_MISS.ANY_SNOOP");
-
-        if (any_fd == -1 || l3_miss_fd == -1)
-        {
-            if (any_fd >= 0)
-            {
-                close(any_fd);
-            }
-            if (l3_miss_fd >= 0)
-            {
-                close(l3_miss_fd);
-            }
-            continue;
-        }
-
-        offcore_rfo_any_response_fd[cpu] = any_fd;
-        offcore_rfo_l3_miss_fd[cpu] = l3_miss_fd;
-
-        ioctl(any_fd, PERF_EVENT_IOC_RESET, 0);
-        ioctl(l3_miss_fd, PERF_EVENT_IOC_RESET, 0);
-        ioctl(any_fd, PERF_EVENT_IOC_ENABLE, 0);
-        ioctl(l3_miss_fd, PERF_EVENT_IOC_ENABLE, 0);
-
-        counters_opened++;
-    }
-
-    if (counters_opened > 0)
-    {
-        offcore_write_metrics_enabled = true;
-        std::cout << "[ARMS] OFFCORE DEMAND_RFO counters enabled on " << counters_opened << " CPUs." << std::endl;
-    }
-    else
-    {
-        std::cerr << "[ARMS] OFFCORE DEMAND_RFO counters unavailable; skipping write L3 hit-rate logging." << std::endl;
-    }
-}
-
-static uint64_t read_counter_sum(const int fds[PEBS_NPROCS], const char *counter_name)
-{
-    uint64_t total = 0;
-    for (int cpu = 0; cpu < PEBS_NPROCS; cpu++)
-    {
-        if (fds[cpu] < 0)
-        {
-            continue;
-        }
-
-        uint64_t value = 0;
-        ssize_t bytes = read(fds[cpu], &value, sizeof(value));
-        if (bytes != static_cast<ssize_t>(sizeof(value)))
-        {
-            if (ARMS_VERBOSE)
-            {
-                fprintf(stderr, "[ARMS] Failed to read %s on CPU %d: %s\n", counter_name, cpu, strerror(errno));
-            }
-            continue;
-        }
-
-        total += value;
-    }
-    return total;
-}
-
-static uint64_t clamp_offcore_miss_count(uint64_t any, uint64_t miss)
-{
-    return (miss > any) ? any : miss;
-}
-
-bool get_offcore_write_l3_hit_rate(double *hit_rate, uint64_t *demand_rfo_any, uint64_t *demand_rfo_l3_miss)
-{
-    if (!offcore_write_metrics_enabled)
-    {
-        return false;
-    }
-
-    const uint64_t any = read_counter_sum(offcore_rfo_any_response_fd, "OFFCORE_RESPONSE:DEMAND_RFO:ANY_RESPONSE");
-    const uint64_t miss = read_counter_sum(offcore_rfo_l3_miss_fd, "OFFCORE_RESPONSE:DEMAND_RFO:L3_MISS.ANY_SNOOP");
-
-    if (demand_rfo_any != nullptr)
-    {
-        *demand_rfo_any = any;
-    }
-
-    if (demand_rfo_l3_miss != nullptr)
-    {
-        *demand_rfo_l3_miss = miss;
-    }
-
-    if (hit_rate != nullptr)
-    {
-        if (any == 0)
-        {
-            *hit_rate = 0.0;
-        }
-        else
-        {
-            const uint64_t clamped_miss = (miss > any) ? any : miss;
-            *hit_rate = 1.0 - (static_cast<double>(clamped_miss) / static_cast<double>(any));
-        }
-    }
-
-    return true;
-}
-
-struct offcore_write_l3_step_metrics
-{
-    bool available = false;
-    double step_miss_rate = 0.0;
-};
-
-// OFFCORE counters are cumulative from setup time, so per-step rates are derived
-// from deltas between successive policy-step snapshots.
-static offcore_write_l3_step_metrics snapshot_offcore_write_l3_step_metrics()
-{
-    offcore_write_l3_step_metrics metrics;
-
-    uint64_t cumulative_any = 0;
-    uint64_t cumulative_miss = 0;
-    if (!get_offcore_write_l3_hit_rate(nullptr, &cumulative_any, &cumulative_miss))
-    {
-        return metrics;
-    }
-
-    const uint64_t step_any = (cumulative_any >= previous_offcore_rfo_any_response)
-                                  ? (cumulative_any - previous_offcore_rfo_any_response)
-                                  : cumulative_any;
-    const uint64_t step_miss_raw = (cumulative_miss >= previous_offcore_rfo_l3_miss)
-                                       ? (cumulative_miss - previous_offcore_rfo_l3_miss)
-                                       : cumulative_miss;
-    const uint64_t step_miss = clamp_offcore_miss_count(step_any, step_miss_raw);
-
-    previous_offcore_rfo_any_response = cumulative_any;
-    previous_offcore_rfo_l3_miss = cumulative_miss;
-
-    metrics.available = true;
-    if (step_any > 0)
-    {
-        metrics.step_miss_rate = static_cast<double>(step_miss) / static_cast<double>(step_any);
-    }
-
-    return metrics;
-}
-
-static void close_offcore_write_l3_metrics_counters()
-{
-    for (int cpu = 0; cpu < PEBS_NPROCS; cpu++)
-    {
-        if (offcore_rfo_any_response_fd[cpu] >= 0)
-        {
-            close(offcore_rfo_any_response_fd[cpu]);
-            offcore_rfo_any_response_fd[cpu] = -1;
-        }
-
-        if (offcore_rfo_l3_miss_fd[cpu] >= 0)
-        {
-            close(offcore_rfo_l3_miss_fd[cpu]);
-            offcore_rfo_l3_miss_fd[cpu] = -1;
-        }
-    }
-
-    offcore_write_metrics_enabled = false;
-    previous_offcore_rfo_any_response = 0;
-    previous_offcore_rfo_l3_miss = 0;
-}
-
-static void write_offcore_write_l3_metrics_to_file()
-{
-    if (!offcore_write_metrics_enabled)
-    {
-        return;
-    }
-
-    for (int cpu = 0; cpu < PEBS_NPROCS; cpu++)
-    {
-        if (offcore_rfo_any_response_fd[cpu] >= 0)
-        {
-            ioctl(offcore_rfo_any_response_fd[cpu], PERF_EVENT_IOC_DISABLE, 0);
-        }
-        if (offcore_rfo_l3_miss_fd[cpu] >= 0)
-        {
-            ioctl(offcore_rfo_l3_miss_fd[cpu], PERF_EVENT_IOC_DISABLE, 0);
-        }
-    }
-
-    const uint64_t demand_rfo_any =
-        read_counter_sum(offcore_rfo_any_response_fd, "OFFCORE_RESPONSE:DEMAND_RFO:ANY_RESPONSE");
-    const uint64_t demand_rfo_l3_miss =
-        read_counter_sum(offcore_rfo_l3_miss_fd, "OFFCORE_RESPONSE:DEMAND_RFO:L3_MISS.ANY_SNOOP");
-    const uint64_t clamped_demand_rfo_l3_miss = clamp_offcore_miss_count(demand_rfo_any, demand_rfo_l3_miss);
-
-    const uint64_t demand_rfo_l3_hit = demand_rfo_any - clamped_demand_rfo_l3_miss;
-
-    const double miss_rate =
-        (demand_rfo_any > 0) ? (static_cast<double>(clamped_demand_rfo_l3_miss) / static_cast<double>(demand_rfo_any))
-                             : 0.0;
-    const double hit_rate = (demand_rfo_any > 0) ? (1.0 - miss_rate) : 0.0;
-
-    int fd = open(OFFCORE_WRITE_L3_METRICS_LOG, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (fd == -1)
-    {
-        perror("[ARMS] Failed to open offcore_write_l3_metrics.log");
-        return;
-    }
-
-    if (dprintf(fd, "event=OFFCORE_RESPONSE:request=DEMAND_RFO:response=L3_MISS.ANY_SNOOP\n") < 0 ||
-        dprintf(fd, "eventsel_umask_config=0x%llx\n", static_cast<unsigned long long>(OFFCORE_RESPONSE_EVENT_CONFIG)) <
-            0 ||
-        dprintf(fd, "offcore_mask_any_response=0x%llx\n",
-                static_cast<unsigned long long>(OFFCORE_DEMAND_RFO_ANY_RESPONSE_MASK)) < 0 ||
-        dprintf(fd, "offcore_mask_l3_miss_any_snoop=0x%llx\n",
-                static_cast<unsigned long long>(OFFCORE_DEMAND_RFO_L3_MISS_ANY_SNOOP_MASK)) < 0 ||
-        dprintf(fd, "demand_rfo_any_response=%llu\n", static_cast<unsigned long long>(demand_rfo_any)) < 0 ||
-        dprintf(fd, "demand_rfo_l3_miss_any_snoop=%llu\n",
-                static_cast<unsigned long long>(clamped_demand_rfo_l3_miss)) < 0 ||
-        dprintf(fd, "demand_rfo_l3_hit_any_snoop=%llu\n", static_cast<unsigned long long>(demand_rfo_l3_hit)) < 0 ||
-        dprintf(fd, "demand_rfo_l3_miss_rate=%0.8f\n", miss_rate) < 0 ||
-        dprintf(fd, "demand_rfo_l3_hit_rate=%0.8f\n", hit_rate) < 0)
-    {
-        perror("[ARMS] Failed to write offcore_write_l3_metrics.log");
-    }
-
-    close(fd);
-
-    if (ARMS_VERBOSE)
-    {
-        std::cout << "[ARMS] Wrote OFFCORE write L3 metrics to " << OFFCORE_WRITE_L3_METRICS_LOG << std::endl;
-    }
 }
 
 // ============================================================================
@@ -1182,6 +886,148 @@ static int setup_imc_bw_counters()
     return 0;
 }
 #endif
+
+static bool read_unc_m_cas_count_wr_raw(uint64_t *count)
+{
+    if (count == nullptr)
+    {
+        return false;
+    }
+
+    uint64_t total = 0;
+#ifdef SCAILP
+    for (int imc = 0; imc < NUM_IMC; imc++)
+    {
+        total += *((uint64_t *)(imc_mmio_addr[imc] + get_imc_bw_counter_offset(DRAM_WRITES)));
+    }
+#else
+    constexpr int cas_count_write_event = 1;
+    for (int imc = 0; imc < NUM_IMC; imc++)
+    {
+        uint64_t value = 0;
+        const ssize_t bytes = read(bw_fds[0][cas_count_write_event][imc], &value, sizeof(value));
+        if (bytes != static_cast<ssize_t>(sizeof(value)))
+        {
+            if (ARMS_VERBOSE)
+            {
+                fprintf(stderr, "[ARMS] Failed to read UNC_M_CAS_COUNT.WR on IMC %d: %s\n", imc, strerror(errno));
+            }
+            return false;
+        }
+        total += value;
+    }
+#endif
+
+    *count = total;
+    return true;
+}
+
+static void setup_unc_m_cas_count_wr_metrics()
+{
+    unc_m_cas_count_wr_enabled = false;
+    unc_m_cas_count_wr_baseline = 0;
+    previous_unc_m_cas_count_wr = 0;
+
+    if (!ARMS_VERBOSE)
+    {
+        return;
+    }
+
+    if (!read_unc_m_cas_count_wr_raw(&unc_m_cas_count_wr_baseline))
+    {
+        std::cerr << "[ARMS] UNC_M_CAS_COUNT.WR unavailable; skipping DRAM write-CAS logging." << std::endl;
+        return;
+    }
+
+    unc_m_cas_count_wr_enabled = true;
+    std::cout << "[ARMS] UNC_M_CAS_COUNT.WR logging enabled across " << NUM_IMC << " IMCs." << std::endl;
+}
+
+bool get_unc_m_cas_count_wr(uint64_t *count)
+{
+    if (!unc_m_cas_count_wr_enabled || count == nullptr)
+    {
+        return false;
+    }
+
+    uint64_t raw_count = 0;
+    if (!read_unc_m_cas_count_wr_raw(&raw_count))
+    {
+        return false;
+    }
+
+    *count = (raw_count >= unc_m_cas_count_wr_baseline) ? (raw_count - unc_m_cas_count_wr_baseline) : raw_count;
+    return true;
+}
+
+struct unc_m_cas_count_wr_step_metrics
+{
+    bool available = false;
+    uint64_t count = 0;
+};
+
+// UNC_M_CAS_COUNT.WR is cumulative, so derive the per-policy-step count from
+// successive snapshots. The value is the number of 64-byte write CAS commands
+// issued by the integrated memory controllers.
+static unc_m_cas_count_wr_step_metrics snapshot_unc_m_cas_count_wr_step_metrics()
+{
+    unc_m_cas_count_wr_step_metrics metrics;
+
+    uint64_t cumulative_count = 0;
+    if (!get_unc_m_cas_count_wr(&cumulative_count))
+    {
+        return metrics;
+    }
+
+    metrics.available = true;
+    metrics.count = (cumulative_count >= previous_unc_m_cas_count_wr)
+                        ? (cumulative_count - previous_unc_m_cas_count_wr)
+                        : cumulative_count;
+    previous_unc_m_cas_count_wr = cumulative_count;
+    return metrics;
+}
+
+static void write_unc_m_cas_count_wr_to_file()
+{
+    uint64_t count = 0;
+    if (!get_unc_m_cas_count_wr(&count))
+    {
+        return;
+    }
+
+    int fd = open(UNC_M_CAS_COUNT_WR_LOG, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (fd == -1)
+    {
+        perror("[ARMS] Failed to open unc_m_cas_count_wr.log");
+        return;
+    }
+
+    constexpr uint64_t cache_line_bytes = 64;
+    if (dprintf(fd, "event=UNC_M_CAS_COUNT.WR\n") < 0 ||
+        dprintf(fd, "sysfs_event=cas_count_write\n") < 0 ||
+        dprintf(fd, "count_unit=64_byte_write_cas\n") < 0 ||
+        dprintf(fd, "cache_line_bytes=%llu\n", static_cast<unsigned long long>(cache_line_bytes)) < 0 ||
+        dprintf(fd, "imc_count=%d\n", NUM_IMC) < 0 ||
+        dprintf(fd, "unc_m_cas_count_wr=%llu\n", static_cast<unsigned long long>(count)) < 0 ||
+        dprintf(fd, "dram_write_bytes=%llu\n", static_cast<unsigned long long>(count * cache_line_bytes)) < 0)
+    {
+        perror("[ARMS] Failed to write unc_m_cas_count_wr.log");
+    }
+
+    close(fd);
+
+    if (ARMS_VERBOSE)
+    {
+        std::cout << "[ARMS] Wrote UNC_M_CAS_COUNT.WR metrics to " << UNC_M_CAS_COUNT_WR_LOG << std::endl;
+    }
+}
+
+static void close_unc_m_cas_count_wr_metrics()
+{
+    unc_m_cas_count_wr_enabled = false;
+    unc_m_cas_count_wr_baseline = 0;
+    previous_unc_m_cas_count_wr = 0;
+}
 
 static struct perf_event_mmap_page *perf_setup(__u64 config, __u64 config1, __u16 cpu, __u16 type)
 {
@@ -1523,7 +1369,7 @@ static void update_model_scores_and_log(std::vector<score_entry> &scores, size_t
     std::sort(scores.begin(), scores.end(),
               [](const score_entry &a, const score_entry &b) { return sort_entry_cmp_by_ewma5(&a, &b) < 0; });
 #endif
-    const offcore_write_l3_step_metrics offcore_step_metrics = snapshot_offcore_write_l3_step_metrics();
+    const unc_m_cas_count_wr_step_metrics write_cas_step_metrics = snapshot_unc_m_cas_count_wr_step_metrics();
 
     for (size_t i = 0; i < scores.size(); i++)
     {
@@ -1557,9 +1403,9 @@ static void update_model_scores_and_log(std::vector<score_entry> &scores, size_t
             row.num_promotions = 0;
         }
 
-        if (offcore_step_metrics.available)
+        if (write_cas_step_metrics.available)
         {
-            row.step_offcore_write_l3_miss_rate = static_cast<float>(offcore_step_metrics.step_miss_rate);
+            row.step_unc_m_cas_count_wr = write_cas_step_metrics.count;
         }
         row.arms_score = compute_score(score_entry.page);
         score_entry.page->arms_score = row.arms_score;
@@ -2020,9 +1866,9 @@ void arms_start_tiering()
 
     // Setup PEBS
     setup_perf_events();
-    setup_offcore_write_l3_metrics_counters();
     // Initialize memory controller BW counters
     setup_imc_bw_counters();
+    setup_unc_m_cas_count_wr_metrics();
 
     initialized = true;
 
@@ -2099,8 +1945,8 @@ void arms_kernel_shutdown()
 
     if (!PRINT_TRAINING_DATA)
     {
-        write_offcore_write_l3_metrics_to_file();
-        close_offcore_write_l3_metrics_counters();
+        write_unc_m_cas_count_wr_to_file();
+        close_unc_m_cas_count_wr_metrics();
         // must exit using syscall to avoid invoking atexit handlers that might try to use ARMS data structures after
         // they've been cleaned up
         _exit(0);
@@ -2126,8 +1972,8 @@ void arms_kernel_shutdown()
         }
     }
     close_perf_events();
-    write_offcore_write_l3_metrics_to_file();
-    close_offcore_write_l3_metrics_counters();
+    write_unc_m_cas_count_wr_to_file();
+    close_unc_m_cas_count_wr_metrics();
 
     printf("[ARMS] Closed PEBS counters.\n");
 

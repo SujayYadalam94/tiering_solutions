@@ -2,7 +2,6 @@
 #include <sched.h>
 #include <unistd.h>
 
-#include <iomanip>
 #include <iostream>
 
 #include "arms_kernel_threads.h"
@@ -85,22 +84,17 @@ void *arms_policy_thread(void *arg)
         // Print total samples
         if (ARMS_VERBOSE)
         {
+            uint64_t unc_m_cas_count_wr = 0;
+            const bool have_write_cas_count = get_unc_m_cas_count_wr(&unc_m_cas_count_wr);
+
             std::cout << "[ARMS] Total samples - READ: " << total_samples[READ] << ", WRITE: " << total_samples[WRITE]
                       << ", filtered_preload_ip: " << filtered_preload_ip
                       << ", filtered_helper_ip: " << filtered_helper_ip
                       << ", filtered_runtime_tid: " << filtered_runtime_tid
-                      << ", filtered_other_pid: " << filtered_other_pid << std::endl;
-            double write_l3_hit_rate = 0.0;
-            uint64_t demand_rfo_any = 0;
-            uint64_t demand_rfo_l3_miss = 0;
-            const bool have_offcore_rate =
-                get_offcore_write_l3_hit_rate(&write_l3_hit_rate, &demand_rfo_any, &demand_rfo_l3_miss);
-
-            std::cout << "[ARMS] Total samples - READ: " << total_samples[READ] << ", WRITE: " << total_samples[WRITE];
-            if (have_offcore_rate && demand_rfo_any > 0)
+                      << ", filtered_other_pid: " << filtered_other_pid;
+            if (have_write_cas_count)
             {
-                std::cout << ", WRITE_L3_HIT_RATE: " << std::fixed << std::setprecision(2)
-                          << (write_l3_hit_rate * 100.0) << "%" << std::defaultfloat;
+                std::cout << ", UNC_M_CAS_COUNT.WR: " << unc_m_cas_count_wr;
             }
             std::cout << std::endl;
         }

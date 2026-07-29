@@ -1,4 +1,4 @@
-#!/bin/bash
+df#!/bin/bash
 
 MEASUREMENT_COMMON_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 
@@ -256,15 +256,15 @@ move_max_dram_log_if_present() {
     fi
 }
 
-cleanup_offcore_write_l3_metrics_log() {
-    rm -f offcore_write_l3_metrics.log
+cleanup_unc_m_cas_count_wr_log() {
+    rm -f unc_m_cas_count_wr.log
 }
 
-copy_offcore_write_l3_metrics_log_if_present() {
+copy_unc_m_cas_count_wr_log_if_present() {
     local destination=$1
 
-    if [[ -f offcore_write_l3_metrics.log ]]; then
-        cp -f offcore_write_l3_metrics.log "${destination}"
+    if [[ -f unc_m_cas_count_wr.log ]]; then
+        cp -f unc_m_cas_count_wr.log "${destination}"
     fi
 }
 

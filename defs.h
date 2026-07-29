@@ -50,7 +50,7 @@ extern bool initialized;
 #define FULL_LOGS (false)
 
 #ifndef ARMS_VERBOSE
-#define ARMS_VERBOSE (false)
+#define ARMS_VERBOSE (true)
 #endif
 
 #ifndef ARMS_PARTIAL_RANK_MULTIPLIER
@@ -62,7 +62,7 @@ extern bool initialized;
 #endif
 
 #ifndef MAX_LOGGED_SAMPLES
-#define MAX_LOGGED_SAMPLES (10000000)
+#define MAX_LOGGED_SAMPLES (100000000)
 #endif
 
 #ifndef PAGEMAP_FULL_SCAN_INTERVALS
