@@ -113,8 +113,11 @@ for workload_id in "${WORKLOAD_IDS[@]}"; do
         continue
     fi
 
-    echo "Running workload: ${WORKLOAD_ID}"
-    run_model_sweep "${WORKLOAD_COMMAND}" "${WORKLOAD_MODEL_BASE}" "${WORKLOAD_OUTPUT}" "${RUN_ID}"
+    model_base=${MODEL_BASE_OVERRIDE:-${WORKLOAD_MODEL_BASE}}
+    output=${MODEL_OUTPUT_OVERRIDE:-${WORKLOAD_OUTPUT}}
+
+    echo "Running workload: ${WORKLOAD_ID} with model base: ${model_base}; output: ${output}"
+    run_model_sweep "${WORKLOAD_COMMAND}" "${model_base}" "${output}" "${RUN_ID}"
 done
 
 mkdir -p "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}/model"

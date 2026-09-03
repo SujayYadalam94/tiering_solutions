@@ -56,8 +56,8 @@ EOF
     fi
 }
 
-SIZES=(0)
-RUNS=1
+SIZES=(10061)
+RUNS=3
 
 ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}
 
@@ -93,6 +93,25 @@ for size in "${SIZES[@]}"; do
             #    echo "WARNING: ./measurement_nomad.sh not found or not executable; skipping NOMAD"
             #fi
 
+            # MEMTIS
+            if [[ -x "${SCRIPT_DIR}/measurement_memtis.sh" ]]; then
+                # Use the normal pre-run cleanup so existing process memory is
+                # migrated away from the fast node before MEMTIS reserves its
+                # sampler buffers. The workload itself can still use both nodes.
+                run_measurement_setup "${size}" memtis
+                sudo -E "${SCRIPT_DIR}/measurement_memtis.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
+            else
+                echo "WARNING: ./measurement_memtis.sh not found or not executable; skipping MEMTIS"
+            fi
+
+            # MEMTIS near-first variant
+            if [[ -x "${SCRIPT_DIR}/measurement_memtis_near.sh" ]]; then
+                run_measurement_setup "${size}" memtis
+                sudo -E "${SCRIPT_DIR}/measurement_memtis_near.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
+            else
+                echo "WARNING: ./measurement_memtis_near.sh not found or not executable; skipping MEMTIS near-first"
+            fi
+
             # Model
             #if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
             #    "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
@@ -112,20 +131,20 @@ for size in "${SIZES[@]}"; do
             #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${ARMS_LIB_SUFFIX}" "${workload_id}"
 
             # DRAM-only baseline
-            if [[ -x "${SCRIPT_DIR}/measurement_dram_only.sh" ]]; then
-                run_measurement_setup_baseline_default "${size}"
-                "${SCRIPT_DIR}/measurement_dram_only.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
-            else
-                echo "WARNING: ./measurement_dram_only.sh not found or not executable; skipping DRAM-only"
-            fi
+            #if [[ -x "${SCRIPT_DIR}/measurement_dram_only.sh" ]]; then
+            #    run_measurement_setup_baseline_default "${size}"
+            #    "${SCRIPT_DIR}/measurement_dram_only.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
+            #else
+            #    echo "WARNING: ./measurement_dram_only.sh not found or not executable; skipping DRAM-only"
+            #fi
 
             # CXL-only baseline
-            if [[ -x "${SCRIPT_DIR}/measurement_cxl_only.sh" ]]; then
-                run_measurement_setup_baseline_default "${size}"
-                "${SCRIPT_DIR}/measurement_cxl_only.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
-            else
-                echo "WARNING: ./measurement_cxl_only.sh not found or not executable; skipping CXL-only"
-            fi
+            #if [[ -x "${SCRIPT_DIR}/measurement_cxl_only.sh" ]]; then
+            #    run_measurement_setup_baseline_default "${size}"
+            #    "${SCRIPT_DIR}/measurement_cxl_only.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
+            #else
+            #    echo "WARNING: ./measurement_cxl_only.sh not found or not executable; skipping CXL-only"
+            #fi
 
             run_measurement_teardown
         done

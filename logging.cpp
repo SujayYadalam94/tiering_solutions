@@ -31,7 +31,11 @@ access_log::access_log() : logged_samples(-SKIP_UNTIL_SAMPLE), scores_log(nullpt
 
         if (numa_available() >= 0)
         {
+#if defined(ALL_NUMA_MEMORY_DEFAULT) && ALL_NUMA_MEMORY_DEFAULT
+            void *log_mem = numa_alloc_interleaved(log_bytes);
+#else
             void *log_mem = numa_alloc_onnode(log_bytes, LOG_NUMA_NODE);
+#endif
             if (log_mem != nullptr)
             {
                 scores_log = static_cast<struct data_row *>(log_mem);
@@ -47,7 +51,11 @@ access_log::access_log() : logged_samples(-SKIP_UNTIL_SAMPLE), scores_log(nullpt
 
         if (numa_available() >= 0)
         {
+#if defined(ALL_NUMA_MEMORY_DEFAULT) && ALL_NUMA_MEMORY_DEFAULT
+            numa_interleave_memory(scores_log, log_bytes, numa_all_nodes_ptr);
+#else
             numa_tonode_memory(scores_log, log_bytes, LOG_NUMA_NODE);
+#endif
         }
     }
 }

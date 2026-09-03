@@ -9,8 +9,8 @@ source "${SCRIPT_DIR}/measurement_workloads.sh"
 measurement_init_platform_from_args "$@" || exit 1
 ARGS=("${MEASUREMENT_REMAINING_ARGS[@]}")
 
-RUNS=${ARGS[0]:-11}
-START_RUN=${START_RUN:-11}
+RUNS=${ARGS[0]:-10}
+START_RUN=${START_RUN:-1}
 LOGGING_SIZE_MIB=${LOGGING_SIZE_MIB:-0}
 LOGGING_MODEL_PCT=${LOGGING_MODEL_PCT:-95}
 LOGGING_MODEL_MINMAX=${LOGGING_MODEL_MINMAX:-false}

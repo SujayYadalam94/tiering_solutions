@@ -45,6 +45,22 @@ write_sysctl_value() {
 	sudo sysctl -w "${key}=${value}"
 }
 
+kernel_auto_min_free_kbytes() {
+	# Match init_per_zone_wmark_min() in this kernel: sqrt(lowmem_kbytes * 16),
+	# clamped to 128 KiB..256 MiB. On these 64-bit hosts, MemTotal is a close
+	# approximation of the kernel's managed low-memory page count. Enabling THP
+	# may subsequently raise this to khugepaged's normal recommendation.
+	awk '
+		$1 == "MemTotal:" {
+			value = int(sqrt($2 * 16))
+			if (value < 128) value = 128
+			if (value > 262144) value = 262144
+			print value
+			exit
+		}
+	' /proc/meminfo
+}
+
 set_irq_affinity() {
 	for f in /proc/irq/*/smp_affinity_list; do
 	  echo "${IRQ_AFFINITY}" | sudo tee "$f" >/dev/null 2>&1 || true
@@ -63,6 +79,10 @@ apply_cpu_slowdown_if_needed() {
 		echo "Skipping CPU slowdown for platform ${MEASUREMENT_PLATFORM}"
 		return
 	fi
+	if [[ "${MEASUREMENT_SYSTEM}" == "memtis" ]]; then
+		echo "Skipping common MSR slowdown; MEMTIS will use its artifact script at the equivalent 700 MHz setting"
+		return
+	fi
 
 	local cpu
 	for cpu in ${CPU_SLOWDOWN_CPUS//,/ }; do
@@ -78,13 +98,28 @@ apply_cpu_slowdown_if_needed() {
 	done
 }
 
-write_sysctl_value vm.overcommit_memory 1
-write_sysctl_value vm.watermark_scale_factor 10
-write_sysctl_value vm.watermark_boost_factor 10000
-# Shrink kernel reserves so nearly all RAM is usable by memeater and later apps.
-write_sysctl_value vm.min_free_kbytes 1048576
-write_sysctl_value vm.user_reserve_kbytes 16384
-write_sysctl_value vm.admin_reserve_kbytes 16384
+if [[ "${MEASUREMENT_SYSTEM}" == "memtis" ]]; then
+	echo "Applying kernel-default VM settings for MEMTIS"
+	MEMTIS_MIN_FREE_KBYTES=$(kernel_auto_min_free_kbytes)
+	if [[ -z "${MEMTIS_MIN_FREE_KBYTES}" ]]; then
+		echo "ERROR: could not calculate the kernel-default vm.min_free_kbytes" >&2
+		exit 1
+	fi
+	write_sysctl_value vm.overcommit_memory 0
+	write_sysctl_value vm.watermark_scale_factor 10
+	write_sysctl_value vm.watermark_boost_factor 15000
+	write_sysctl_value vm.min_free_kbytes "${MEMTIS_MIN_FREE_KBYTES}"
+	write_sysctl_value vm.user_reserve_kbytes 131072
+	write_sysctl_value vm.admin_reserve_kbytes 8192
+else
+	write_sysctl_value vm.overcommit_memory 1
+	write_sysctl_value vm.watermark_scale_factor 10
+	write_sysctl_value vm.watermark_boost_factor 10000
+	# Experiment-specific reserves used by the other measurement systems.
+	write_sysctl_value vm.min_free_kbytes 1048576
+	write_sysctl_value vm.user_reserve_kbytes 16384
+	write_sysctl_value vm.admin_reserve_kbytes 16384
+fi
 sudo sysctl -w vm.lowmem_reserve_ratio="256 256 32"
 #sudo sysctl -w vm.zone_reclaim_mode=0
 #sudo sysctl -w vm.dirty_background_ratio=1
@@ -93,16 +128,32 @@ write_sysctl_value kernel.numa_balancing 0
 write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0
 write_sysfs_value /proc/sys/kernel/numa_balancing 0
 write_sysfs_value /sys/kernel/mm/numa/demotion_enabled 0
-write_sysfs_value /sys/kernel/mm/lru_gen/enabled 0x0000
+if [[ "${MEASUREMENT_SYSTEM}" != "memtis" ]]; then
+	write_sysfs_value /sys/kernel/mm/lru_gen/enabled 0x0000
+fi
 echo "Turning huge page ON"
 write_sysfs_value /sys/kernel/mm/transparent_hugepage/enabled always
 write_sysfs_value /sys/kernel/mm/transparent_hugepage/defrag always
-write_sysfs_value /sys/kernel/mm/transparent_hugepage/shmem_enabled force
+if [[ "${MEASUREMENT_SYSTEM}" == "memtis" ]]; then
+	# The MEMTIS kernel and artifact leave shmem THP at its default, "never".
+	# Set it explicitly because a preceding non-MEMTIS run may have selected
+	# "force" through this shared setup script.
+	write_sysfs_value /sys/kernel/mm/transparent_hugepage/shmem_enabled never
+else
+	write_sysfs_value /sys/kernel/mm/transparent_hugepage/shmem_enabled force
+fi
 write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/defrag 1
-write_sysfs_value /proc/sys/vm/compaction_proactiveness 80
-echo 8192 | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan
-echo 0    | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs
-echo 1    | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs
+if [[ "${MEASUREMENT_SYSTEM}" == "memtis" ]]; then
+	write_sysfs_value /proc/sys/vm/compaction_proactiveness 20
+	write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 4096
+	write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs 10000
+	write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs 60000
+else
+	write_sysfs_value /proc/sys/vm/compaction_proactiveness 80
+	write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 8192
+	write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs 0
+	write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs 1
+fi
 echo 1000000 | sudo tee /proc/sys/kernel/perf_event_max_sample_rate
 echo 0 | sudo tee /proc/sys/kernel/perf_cpu_time_max_percent
 
@@ -128,11 +179,21 @@ fi
 # existing IRQs
 set_irq_affinity
 
-# Migrate memory of all running user processes to NUMA node 1
-migrate_all_processes_to_slow_tier
+# All-NUMA workloads need both tiers and should not move or re-affine the SSH,
+# tmux, and system processes that launched the experiment.
+if [[ "${MEASUREMENT_SYSTEM}" == "all_numa" ]]; then
+	echo "Skipping global process migration for all-NUMA workload"
+else
+	# Migrate memory of all running user processes to the slow tier.
+	migrate_all_processes_to_slow_tier
+fi
 
 # Free page cache and reclaimable slab so allocations match the requested headroom.
-write_sysctl_value vm.vfs_cache_pressure 2000 >/dev/null
+if [[ "${MEASUREMENT_SYSTEM}" == "memtis" ]]; then
+	write_sysctl_value vm.vfs_cache_pressure 100 >/dev/null
+else
+	write_sysctl_value vm.vfs_cache_pressure 2000 >/dev/null
+fi
 
 #bash defrag.sh
 

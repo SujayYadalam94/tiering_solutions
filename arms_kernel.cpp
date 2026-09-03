@@ -1799,16 +1799,23 @@ void arms_start_tiering()
     {
         numa_bitmask_clearall(default_nodemask);
 
+#if defined(ALL_NUMA_MEMORY_DEFAULT) && ALL_NUMA_MEMORY_DEFAULT
+        std::cout << "[ARMS] Running with all-NUMA memory - binding to FAST_TIER and SLOW_TIER" << std::endl;
+        numa_bitmask_setbit(default_nodemask, FAST_TIER);
+        numa_bitmask_setbit(default_nodemask, SLOW_TIER);
+#else
         if (LOGGING_RUN)
         {
-            std::cout << "[ARMS] Running in LOGGING_RUN mode - binding to FAST_TIER only" << std::endl;
+            std::cout << "[ARMS] Running in LOGGING_RUN mode - binding to FAST_TIER and SLOW_TIER" << std::endl;
             numa_bitmask_setbit(default_nodemask, FAST_TIER);
+            numa_bitmask_setbit(default_nodemask, SLOW_TIER);
         }
         else
         {
             std::cout << "[ARMS] Running in tiering mode - binding to SLOW_TIER only" << std::endl;
             numa_bitmask_setbit(default_nodemask, SLOW_TIER);
         }
+#endif
 
         numa_set_membind(default_nodemask);
         numa_bitmask_free(default_nodemask);

@@ -46,6 +46,7 @@ ARMS_PLAIN_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platfo
 LOGGING_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-logging.so)
 ARMS_TRAIN_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_train.so)
 ARMS_NEAR_TRAIN_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_near_train.so)
+ARMS_NEAR_TRAIN_ALL_NUMA_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_near_train_all_numa.so)
 ARMS_CXL_TRAIN_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_cxl_train.so)
 ARMS_TARGET_DEFAULT := $(LIB_OUTPUT_DIR)/$(DEFAULT_PLATFORM)/libhemem-arms.so
 
@@ -61,6 +62,8 @@ SRCS = arms_kernel.cpp \
 	timer.cpp hook/hook.cpp groups.cpp page.cpp logging.cpp model.cpp
 OBJ_NAMES = $(SRCS:.cpp=.o)
 
+ARMS_ALL_NUMA_TRAIN_MAX_LOGGED_SAMPLES ?= 10000000
+
 BASE_DEFINES_model := -DUSE_MODEL=true
 BASE_DEFINES_train := -DUSE_MODEL=true -DPRINT_TRAINING_DATA=true
 BASE_DEFINES_nomodel := -DUSE_MODEL=false
@@ -69,6 +72,7 @@ BASE_DEFINES_logging := -DUSE_MODEL=true -DPRINT_TRAINING_DATA=true -DLOGGING_RU
 BASE_DEFINES_arms_plain := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=false -DLOGGING_RUN=false -DNEAR_MEM_TRACING_RUN=true
 BASE_DEFINES_arms_train := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=true
 BASE_DEFINES_arms_near_train := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=true -DNEAR_MEM_TRACING_RUN=true
+BASE_DEFINES_arms_near_train_all_numa := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=true -DNEAR_MEM_TRACING_RUN=true -DALL_NUMA_MEMORY_DEFAULT=true -DMAX_LOGGED_SAMPLES=$(ARMS_ALL_NUMA_TRAIN_MAX_LOGGED_SAMPLES)
 BASE_DEFINES_arms_cxl_train := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=true -DNEAR_MEM_TRACING_RUN=true -DFORCE_FAR_MEMORY_DEFAULT=true -DENABLE_MIGRATION_WORKERS=false
 
 combo_summary = $(word 1,$(subst _, ,$1))
@@ -104,7 +108,7 @@ HOSTNAME := $(shell hostname)
 
 .PHONY: all clean
 
-all: $(LIB_TARGETS) $(TRAIN_LIB_TARGETS) $(ARMS_TARGETS) $(ARMS_NOMIGRATION_TARGETS) $(ARMS_PLAIN_TARGETS) $(LOGGING_TARGETS) $(ARMS_TRAIN_TARGETS) $(ARMS_NEAR_TRAIN_TARGETS) $(ARMS_CXL_TRAIN_TARGETS)
+all: $(LIB_TARGETS) $(TRAIN_LIB_TARGETS) $(ARMS_TARGETS) $(ARMS_NOMIGRATION_TARGETS) $(ARMS_PLAIN_TARGETS) $(LOGGING_TARGETS) $(ARMS_TRAIN_TARGETS) $(ARMS_NEAR_TRAIN_TARGETS) $(ARMS_NEAR_TRAIN_ALL_NUMA_TARGETS) $(ARMS_CXL_TRAIN_TARGETS)
 
 $(TARGET_LIB): $(ARMS_TARGET_DEFAULT) | $(LIB_OUTPUT_DIR)
 	cp -f $< $@
@@ -146,6 +150,7 @@ ARMS_PLAIN_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_plain/$(1)/,$$(OBJ_NAMES))
 LOGGING_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/logging/$(1)/,$$(OBJ_NAMES))
 ARMS_TRAIN_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_train/$(1)/,$$(OBJ_NAMES))
 ARMS_NEAR_TRAIN_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_near_train/$(1)/,$$(OBJ_NAMES))
+ARMS_NEAR_TRAIN_ALL_NUMA_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_near_train_all_numa/$(1)/,$$(OBJ_NAMES))
 ARMS_CXL_TRAIN_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_cxl_train/$(1)/,$$(OBJ_NAMES))
 
 # Build without linking a model; force USE_MODEL=false
@@ -171,6 +176,10 @@ $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_train.so: $$(ARMS_TRAIN_OBJS_$(1)) | $$(LI
 $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_near_train.so: $$(ARMS_NEAR_TRAIN_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
 	$$(LINK_SHARED_RECIPE)
 
+# Build near-training with application and trace allocations allowed across all NUMA tiers.
+$$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_near_train_all_numa.so: $$(ARMS_NEAR_TRAIN_ALL_NUMA_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
+	$$(LINK_SHARED_RECIPE)
+
 # Build ARMS with the same non-virtual timestep path as near-train, but keep far-memory default and disable migration workers.
 $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_cxl_train.so: $$(ARMS_CXL_TRAIN_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
 	$$(LINK_SHARED_RECIPE)
@@ -193,6 +202,9 @@ $$(OBJ_DIR)/arms_train/$(1)/%.o: %.cpp | $$(OBJ_DIR)
 
 $$(OBJ_DIR)/arms_near_train/$(1)/%.o: %.cpp | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_near_train) $$(call platform_defs,$(1)))
+
+$$(OBJ_DIR)/arms_near_train_all_numa/$(1)/%.o: %.cpp | $$(OBJ_DIR)
+	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_near_train_all_numa) $$(call platform_defs,$(1)))
 
 $$(OBJ_DIR)/arms_cxl_train/$(1)/%.o: %.cpp | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_cxl_train) $$(call platform_defs,$(1)))

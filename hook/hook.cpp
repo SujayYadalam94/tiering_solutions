@@ -268,6 +268,10 @@ extern "C" int __libc_start_main(int (*main)(int, char **, char **), int argc, c
     std::cout << "found process " << executable_name << std::endl;
     configure_preload_ip_filter();
 
+#if defined(ALL_NUMA_MEMORY_DEFAULT) && ALL_NUMA_MEMORY_DEFAULT
+    // Preserve the runner's all-node policy until arms_start_tiering installs
+    // an explicit mask containing both the fast and slow tiers.
+#else
     if (NEAR_MEM_TRACING_RUN && !FORCE_FAR_MEMORY_DEFAULT)
     {
         set_application_thread_near_memory_preferred();
@@ -281,6 +285,7 @@ extern "C" int __libc_start_main(int (*main)(int, char **, char **), int argc, c
         // Keep application allocations in far memory by default.
         set_application_thread_far_memory_default();
     }
+#endif
 
     // start tiering threads
     arms_start_tiering();

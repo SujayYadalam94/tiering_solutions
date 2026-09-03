@@ -1,0 +1,26 @@
+Using threads=16
+Dataset preset: openai
+Base file: /users/zimooo2/big-ann-benchmarks/data/OpenAIArXiv/openai_base.bin
+Query file: /users/zimooo2/big-ann-benchmarks/data/OpenAIArXiv/openai_query.bin
+Dataset dimensions: base=2321096x1536, query=20000x1536
+Requested n_vectors=100000000 exceeds available 2321096; using 2321096
+AVX512 requested: enabled
+Faiss OpenMP max threads: 16
+Stress mode: latency
+Search repeats: 1, warmup runs: 0
+Requested query order: random
+Index cache: enabled
+Index cache file: /users/zimooo2/big-ann-benchmarks/data/faiss_openai_HNSW_Flat_d1536_n2321096.index
+Loading data from /users/zimooo2/big-ann-benchmarks/data/OpenAIArXiv/openai_query.bin...
+Query shape: (10000, 1536)
+Loading index from cache: /users/zimooo2/big-ann-benchmarks/data/faiss_openai_HNSW_Flat_d1536_n2321096.index
+Cache load took 110.27s
+Using cached index with ntotal=2321096
+
+--- Benchmarking Search ---
+efSearch sweep: [4096]
+top_k=100, total_queries=10000
+
+[latency] batch_size=32, random_order=True
+mode=latency   | efSearch=4096 | time=  409.87s | qps=      24.4 | ms/query= 40.9868 | proxy_dist_read=    234.38 GiB
+pid: 119086

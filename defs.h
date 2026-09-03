@@ -50,7 +50,7 @@ extern bool initialized;
 #define FULL_LOGS (false)
 
 #ifndef ARMS_VERBOSE
-#define ARMS_VERBOSE (true)
+#define ARMS_VERBOSE (false)
 #endif
 
 #ifndef ARMS_PARTIAL_RANK_MULTIPLIER
@@ -62,7 +62,7 @@ extern bool initialized;
 #endif
 
 #ifndef MAX_LOGGED_SAMPLES
-#define MAX_LOGGED_SAMPLES (100000000)
+#define MAX_LOGGED_SAMPLES (20000000)
 #endif
 
 #ifndef PAGEMAP_FULL_SCAN_INTERVALS
@@ -289,7 +289,7 @@ extern bool initialized;
 // ==============================================================================
 
 #if USE_MODEL == (true)
-#define PERF_PAGES (1 + (1 << 10)) // Has to be == 1+2^n, here 64MB
+#define PERF_PAGES (1 + (1 << 12)) // Has to be == 1+2^n, here 64MB
 #else
 #define PERF_PAGES (1 + (1 << 11)) // 128MB because of double sampling rate
 #endif
