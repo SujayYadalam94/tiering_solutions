@@ -9,4 +9,5 @@
 	url = https://github.com/emeryberger/Hoard.git
 [submodule "src/libvulcan"]
 	path = src/libvulcan
-	url = https://github.com/rohitdwivedula/libvulcan.git
+	url = https://github.com/ldos-project/libvulcan.git
+	branch = v0
