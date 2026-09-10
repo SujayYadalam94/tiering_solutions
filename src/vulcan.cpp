@@ -28,7 +28,20 @@ extern "C" void pebs_vulcan_init(void)
 
 
 extern "C" void pebs_vulcan_setup_LLM_heuristic(){
+    // Feature-handle aliases so a policy is written against the standalone libVulcan names
+    // (f_*) and the read-only feature_store type (FS_REF). Macros (not references) so that a
+    // no-capture [] scoring lambda can still reach the file-static `state`.
+    #define FS_REF const vulcan::feature_store&
+    #define f_config   state->config
+    #define f_accesses state->accesses
+    #define f_dram_bw  state->dram_bw
+    #define f_nvm_bw   state->nvm_bw
     #include "LLMCode.h"
+    #undef FS_REF
+    #undef f_config
+    #undef f_accesses
+    #undef f_dram_bw
+    #undef f_nvm_bw
 
     state->config.set_sorting_function(vulcan::rank::FullSort);
     state->config.set_scoring_fn(scoring_fn);
