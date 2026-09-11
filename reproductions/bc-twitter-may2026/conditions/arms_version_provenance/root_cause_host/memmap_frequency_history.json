@@ -1,0 +1,97 @@
+[
+  {
+    "path": "/users/zimooo2/.bash_history",
+    "mtime_utc": "2026-09-09T12:06:15.393274+00:00",
+    "sha256": "d2ff07f66992528f446cba1492c6c67a41d8f91decbd4d8e6623165e3098d844",
+    "line_count": 2000,
+    "has_command_timestamps": false,
+    "relevant_matches": [
+      {
+        "line": 1278,
+        "command": "sudo wrmsr --processor 11 0x620 0x707"
+      }
+    ]
+  },
+  {
+    "path": "/users/zimooo2/.bash_history-05835.tmp",
+    "mtime_utc": "2026-05-11T20:55:24.719324+00:00",
+    "sha256": "4d63f488bad28262e29a54d105329399511d420947888ee7c37d972b960e253c",
+    "line_count": 2000,
+    "has_command_timestamps": false,
+    "relevant_matches": [
+      {
+        "line": 806,
+        "command": "sudo wrmsr --processor 39  0x620 0x707"
+      }
+    ]
+  },
+  {
+    "path": "/users/zimooo2/.bash_history-09434.tmp",
+    "mtime_utc": "2026-03-26T05:28:10.017581+00:00",
+    "sha256": "d574a26638fdc557daf8af266424e47b8f2209d3afa3e36ec28fed2b339738e4",
+    "line_count": 2000,
+    "has_command_timestamps": false,
+    "relevant_matches": [
+      {
+        "line": 13,
+        "command": "sudo wrmsr --processor 39 0x620 0x707"
+      },
+      {
+        "line": 22,
+        "command": "sudo wrmsr --processor 39 0x620 0x707"
+      },
+      {
+        "line": 73,
+        "command": "sudo journalctl -b -k | grep -Ei 'memmap|mmap|grub|kernel command line|command line|e820|efi'"
+      },
+      {
+        "line": 573,
+        "command": "echo '=== cpufreq ==='"
+      },
+      {
+        "line": 574,
+        "command": "grep . /sys/devices/system/cpu/cpufreq/policy*/scaling_governor 2>/dev/null"
+      },
+      {
+        "line": 575,
+        "command": "grep . /sys/devices/system/cpu/cpufreq/policy*/scaling_min_freq 2>/dev/null"
+      },
+      {
+        "line": 576,
+        "command": "grep . /sys/devices/system/cpu/cpufreq/policy*/scaling_max_freq 2>/dev/null"
+      },
+      {
+        "line": 577,
+        "command": "grep . /sys/devices/system/cpu/cpufreq/policy*/scaling_cur_freq 2>/dev/null"
+      },
+      {
+        "line": 585,
+        "command": "grep . /sys/devices/system/cpu/cpufreq/policy*/scaling_max_freq 2>/dev/null"
+      },
+      {
+        "line": 586,
+        "command": "grep . /sys/devices/system/cpu/cpufreq/policy*/cpuinfo_max_freq 2>/dev/null"
+      },
+      {
+        "line": 871,
+        "command": "memmap=86G\\$8G"
+      },
+      {
+        "line": 914,
+        "command": "print(f\"memmap={reserve_gib}G\\\\$0x{reserve_start_phys:x}\")"
+      },
+      {
+        "line": 985,
+        "command": "echo \"== GRUB source ==\"; grep -nE 'GRUB_CMDLINE_LINUX|memmap' /etc/default/grub /etc/default/grub.d/*.cfg 2>/dev/null; echo \"== Generated grub.cfg ==\"; grep -nE 'linux.*memmap' /boot/grub*/grub.cfg 2>/dev/null | head -n 20; echo \"== Running kernel cmdline ==\"; cat /proc/cmdline; echo \"== Kernel logs (this boot) ==\"; sudo journalctl -k -b | grep -Ei 'memmap|e820|reserved|BIOS-e820|badram'"
+      },
+      {
+        "line": 989,
+        "command": "grep -nE 'linux.*memmap' /boot/grub*/grub.cfg"
+      },
+      {
+        "line": 990,
+        "command": "sudo grep -nE 'linux.*memmap' /boot/grub*/grub.cfg"
+      }
+    ]
+  }
+]

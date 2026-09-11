@@ -1,0 +1,3136 @@
+{
+  "passed": true,
+  "completed_runs": 14,
+  "study": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/historical_settings_tests/study.json",
+  "summary": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/historical_settings_tests/analysis/summary.json",
+  "issues": [],
+  "checks": [
+    {
+      "session": "20260909T175404Z-425061",
+      "case": "may07_arms",
+      "knob": "none",
+      "passed": true,
+      "failures": [],
+      "control_differences": {
+        "before": {},
+        "after": {}
+      },
+      "accepted_target_controls": {
+        "before": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        },
+        "after": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        }
+      },
+      "post_preparation_verified_control_count": 11,
+      "node0_zones": {
+        "before": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 412908,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 227960,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "after": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 410788,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 245987,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "restoration_differences": []
+    },
+    {
+      "session": "20260909T175404Z-425061",
+      "case": "may07_model",
+      "knob": "none",
+      "passed": true,
+      "failures": [],
+      "control_differences": {
+        "before": {},
+        "after": {}
+      },
+      "accepted_target_controls": {
+        "before": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        },
+        "after": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        }
+      },
+      "post_preparation_verified_control_count": 11,
+      "node0_zones": {
+        "before": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 411888,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 229416,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "after": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 404720,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 240627,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "restoration_differences": []
+    },
+    {
+      "session": "20260909T175946Z-432507",
+      "case": "may07_arms",
+      "knob": "lowmem32",
+      "passed": true,
+      "failures": [],
+      "control_differences": {
+        "before": {},
+        "after": {}
+      },
+      "accepted_target_controls": {
+        "before": {
+          "lowmem_reserve_ratio": "32 32 16 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        },
+        "after": {
+          "lowmem_reserve_ratio": "32 32 16 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        }
+      },
+      "post_preparation_verified_control_count": 11,
+      "node0_zones": {
+        "before": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              12981,
+              36895,
+              36895,
+              36895
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 412912,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              23913,
+              23913,
+              23913
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 238750,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "after": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              12981,
+              36895,
+              36895,
+              36895
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 410683,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              23913,
+              23913,
+              23913
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 245311,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "restoration_differences": []
+    },
+    {
+      "session": "20260909T175946Z-432507",
+      "case": "may07_model",
+      "knob": "lowmem32",
+      "passed": true,
+      "failures": [],
+      "control_differences": {
+        "before": {},
+        "after": {}
+      },
+      "accepted_target_controls": {
+        "before": {
+          "lowmem_reserve_ratio": "32 32 16 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        },
+        "after": {
+          "lowmem_reserve_ratio": "32 32 16 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        }
+      },
+      "post_preparation_verified_control_count": 11,
+      "node0_zones": {
+        "before": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              12981,
+              36895,
+              36895,
+              36895
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 411294,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              23913,
+              23913,
+              23913
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 238762,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "after": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              12981,
+              36895,
+              36895,
+              36895
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 410864,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              23913,
+              23913,
+              23913
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 207830,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "restoration_differences": []
+    },
+    {
+      "session": "20260909T180532Z-439108",
+      "case": "may07_arms",
+      "knob": "lowmem4",
+      "passed": true,
+      "failures": [],
+      "control_differences": {
+        "before": {},
+        "after": {}
+      },
+      "accepted_target_controls": {
+        "before": {
+          "lowmem_reserve_ratio": "4 4 4 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        },
+        "after": {
+          "lowmem_reserve_ratio": "4 4 4 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        }
+      },
+      "post_preparation_verified_control_count": 11,
+      "node0_zones": {
+        "before": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              103852,
+              295164,
+              295164,
+              295164
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 412912,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              191311,
+              191311,
+              191311
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 233271,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "after": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              103852,
+              295164,
+              295164,
+              295164
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 411881,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              191311,
+              191311,
+              191311
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 247762,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "restoration_differences": []
+    },
+    {
+      "session": "20260909T180532Z-439108",
+      "case": "may07_model",
+      "knob": "lowmem4",
+      "passed": true,
+      "failures": [],
+      "control_differences": {
+        "before": {},
+        "after": {}
+      },
+      "accepted_target_controls": {
+        "before": {
+          "lowmem_reserve_ratio": "4 4 4 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        },
+        "after": {
+          "lowmem_reserve_ratio": "4 4 4 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        }
+      },
+      "post_preparation_verified_control_count": 11,
+      "node0_zones": {
+        "before": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              103852,
+              295164,
+              295164,
+              295164
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 412393,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              191311,
+              191311,
+              191311
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 248893,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "after": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              103852,
+              295164,
+              295164,
+              295164
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 411888,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              191311,
+              191311,
+              191311
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 248266,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "restoration_differences": []
+    },
+    {
+      "session": "20260909T181201Z-445918",
+      "case": "may07_arms",
+      "knob": "watermark_boost0",
+      "passed": true,
+      "failures": [],
+      "control_differences": {
+        "before": {},
+        "after": {}
+      },
+      "accepted_target_controls": {
+        "before": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "0",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        },
+        "after": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "0",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        }
+      },
+      "post_preparation_verified_control_count": 11,
+      "node0_zones": {
+        "before": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 412912,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 231965,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "after": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 410352,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 167522,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "restoration_differences": []
+    },
+    {
+      "session": "20260909T181201Z-445918",
+      "case": "may07_model",
+      "knob": "watermark_boost0",
+      "passed": true,
+      "failures": [],
+      "control_differences": {
+        "before": {},
+        "after": {}
+      },
+      "accepted_target_controls": {
+        "before": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "0",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        },
+        "after": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "0",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        }
+      },
+      "post_preparation_verified_control_count": 11,
+      "node0_zones": {
+        "before": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 411888,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 237909,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "after": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 409840,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 207417,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "restoration_differences": []
+    },
+    {
+      "session": "20260909T181744Z-453115",
+      "case": "may07_arms",
+      "knob": "min_free16m",
+      "passed": true,
+      "failures": [],
+      "control_differences": {
+        "before": {},
+        "after": {}
+      },
+      "accepted_target_controls": {
+        "before": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "16384",
+          "pages_to_scan": "8192"
+        },
+        "after": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "16384",
+          "pages_to_scan": "8192"
+        }
+      },
+      "post_preparation_verified_control_count": 11,
+      "node0_zones": {
+        "before": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 3,
+            "high_pages": 6,
+            "promo_pages": 9,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 412912,
+            "boost_pages": 0,
+            "min_pages": 65,
+            "low_pages": 480,
+            "high_pages": 895,
+            "promo_pages": 1310,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 237232,
+            "boost_pages": 0,
+            "min_pages": 120,
+            "low_pages": 885,
+            "high_pages": 1650,
+            "promo_pages": 2415,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "after": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 3,
+            "high_pages": 6,
+            "promo_pages": 9,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 410352,
+            "boost_pages": 0,
+            "min_pages": 65,
+            "low_pages": 480,
+            "high_pages": 895,
+            "promo_pages": 1310,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 210484,
+            "boost_pages": 0,
+            "min_pages": 120,
+            "low_pages": 885,
+            "high_pages": 1650,
+            "promo_pages": 2415,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "restoration_differences": []
+    },
+    {
+      "session": "20260909T181744Z-453115",
+      "case": "may07_model",
+      "knob": "min_free16m",
+      "passed": true,
+      "failures": [],
+      "control_differences": {
+        "before": {},
+        "after": {}
+      },
+      "accepted_target_controls": {
+        "before": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "16384",
+          "pages_to_scan": "8192"
+        },
+        "after": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "16384",
+          "pages_to_scan": "8192"
+        }
+      },
+      "post_preparation_verified_control_count": 11,
+      "node0_zones": {
+        "before": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 3,
+            "high_pages": 6,
+            "promo_pages": 9,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 410864,
+            "boost_pages": 0,
+            "min_pages": 65,
+            "low_pages": 480,
+            "high_pages": 895,
+            "promo_pages": 1310,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 237237,
+            "boost_pages": 0,
+            "min_pages": 120,
+            "low_pages": 885,
+            "high_pages": 1650,
+            "promo_pages": 2415,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "after": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 3,
+            "high_pages": 6,
+            "promo_pages": 9,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 407792,
+            "boost_pages": 0,
+            "min_pages": 65,
+            "low_pages": 480,
+            "high_pages": 895,
+            "promo_pages": 1310,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 246759,
+            "boost_pages": 0,
+            "min_pages": 120,
+            "low_pages": 885,
+            "high_pages": 1650,
+            "promo_pages": 2415,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "restoration_differences": []
+    },
+    {
+      "session": "20260909T182328Z-460094",
+      "case": "may07_arms",
+      "knob": "khugepaged_pages4096",
+      "passed": true,
+      "failures": [],
+      "control_differences": {
+        "before": {},
+        "after": {}
+      },
+      "accepted_target_controls": {
+        "before": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "4096"
+        },
+        "after": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "4096"
+        }
+      },
+      "post_preparation_verified_control_count": 11,
+      "node0_zones": {
+        "before": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 412912,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 232243,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "after": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 412400,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 230585,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "restoration_differences": []
+    },
+    {
+      "session": "20260909T182328Z-460094",
+      "case": "may07_model",
+      "knob": "khugepaged_pages4096",
+      "passed": true,
+      "failures": [],
+      "control_differences": {
+        "before": {},
+        "after": {}
+      },
+      "accepted_target_controls": {
+        "before": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "4096"
+        },
+        "after": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "4096"
+        }
+      },
+      "post_preparation_verified_control_count": 11,
+      "node0_zones": {
+        "before": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 412912,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 232600,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "after": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 407280,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 224560,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "restoration_differences": []
+    },
+    {
+      "session": "20260909T182911Z-468305",
+      "case": "may07_arms",
+      "knob": "none",
+      "passed": true,
+      "failures": [],
+      "control_differences": {
+        "before": {},
+        "after": {}
+      },
+      "accepted_target_controls": {
+        "before": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        },
+        "after": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        }
+      },
+      "post_preparation_verified_control_count": 11,
+      "node0_zones": {
+        "before": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 412912,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 229480,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "after": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 408393,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 243425,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "restoration_differences": []
+    },
+    {
+      "session": "20260909T182911Z-468305",
+      "case": "may07_model",
+      "knob": "none",
+      "passed": true,
+      "failures": [],
+      "control_differences": {
+        "before": {},
+        "after": {}
+      },
+      "accepted_target_controls": {
+        "before": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        },
+        "after": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        }
+      },
+      "post_preparation_verified_control_count": 11,
+      "node0_zones": {
+        "before": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 409793,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 239393,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "after": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 403545,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 205141,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "restoration_differences": []
+    }
+  ],
+  "start_node0_free_mib_range": [
+    2514.390625,
+    2594.1484375
+  ],
+  "limits": "Accepted sysctl vectors and frozen artifacts are verified. Zone values are observed projections, not required to equal across tests. No proof of equal physical fragmentation or process-specific VM counters."
+}

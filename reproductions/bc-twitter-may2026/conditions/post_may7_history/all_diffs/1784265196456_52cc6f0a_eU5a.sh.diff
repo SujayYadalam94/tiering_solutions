@@ -1,0 +1,8 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/52cc6f0a/89Uc.sh
++++ /users/zimooo2/.vscode-server/data/User/History/52cc6f0a/eU5a.sh
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++df#!/bin/bash
+ 
+ MEASUREMENT_COMMON_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+ 

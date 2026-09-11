@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-160e6d/iJQ5.h
++++ /users/zimooo2/.vscode-server/data/User/History/-160e6d/ud2J.h
+@@ -50,7 +50,7 @@
+ #define FULL_LOGS (false)
+ 
+ #ifndef ARMS_VERBOSE
+-#define ARMS_VERBOSE (false)
++#define ARMS_VERBOSE (true)
+ #endif
+ 
+ #ifndef ARMS_PARTIAL_RANK_MULTIPLIER

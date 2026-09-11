@@ -1,0 +1,214 @@
+{
+  "created_utc": "2026-09-09T12:57:19.271972+00:00",
+  "input_manifest": "../../manifest.json",
+  "input_manifest_sha256": "daa387b512ba859d2bfe0f65a2bc38d51134a0b76b75359adabbe0162dcb39e1",
+  "compiler": "g++ (GCC) 15.1.0",
+  "compile_flags": [
+    "-std=c++17",
+    "-O3",
+    "-DNDEBUG",
+    "-pthread",
+    "-fPIC",
+    "-I."
+  ],
+  "link_flags": [
+    "-shared",
+    "-pthread",
+    "-lnuma",
+    "-ldl"
+  ],
+  "sources": [
+    "arms_kernel.cpp",
+    "pebs_scan_thread.cpp",
+    "pagemap_scan_thread.cpp",
+    "migration_worker.cpp",
+    "policy_thread.cpp",
+    "timer.cpp",
+    "hook/hook.cpp",
+    "groups.cpp",
+    "page.cpp",
+    "logging.cpp",
+    "model.cpp"
+  ],
+  "snapshots": {
+    "may04": {
+      "revision": "8d6a8bc66",
+      "sha256": {
+        "arms_kernel.cpp": "84aaf7f5bdfbc022c56e1252ff3e8fd8b9d230a560384eba34c4f03062833888",
+        "pebs_scan_thread.cpp": "2739e7afaac37f5b62ecfae867114c74a918ddbce07b98f28a4680f9fad906f2",
+        "pagemap_scan_thread.cpp": "150e974876abb5695ba6b4f5a33ebf611b0c8aba78b9b665354f11aeb8f8b4da",
+        "migration_worker.cpp": "482ee79f31be4da4220f35ff9b7fd1c07124490de4f4b88b4a99d8bee94479ad",
+        "policy_thread.cpp": "564c29b19a7ac8383908e9f692d52524daa03b9811b026a04755446a7f0573da",
+        "timer.cpp": "3a5b78e7ecc4c74f47da8edcc7d1ca3edab411df45db1db99374a17fc02097ad",
+        "hook/hook.cpp": "79a3ad38bd9e643ac5fbe2c65eeacd01ae3fecfd1f2981b0f72344a5e3f5095a",
+        "groups.cpp": "bef4fc32b98bc51820c828a282bb0de8651d0b9f2371fb5d44b860707ab89a92",
+        "page.cpp": "473250ed0d572f5751641ae08ed44d844bce614a1696986271d8abf97030410f",
+        "logging.cpp": "d1de2eb4181be32869cfacdb1568a9c449140425514934815e44deafc87c0cf3",
+        "model.cpp": "e72df0128deeffde90162ace1e53236b1974486615adf5f1dd4e561726c69e37",
+        "arms_kernel_threads.h": "ad17a0f3575d339464b20e2581bdf1977597d51022c43a48e60a47ef4b26bdc7",
+        "timer.h": "4466c6581fe3e6645d1f0d97d91de43261aac002b638855af5ad056b35a36aa1",
+        "groups.h": "80163712ee731af0b9d5c13e3bc820940c41bafc1f8ceefc41b31b9ae46e5b06",
+        "logging.h": "1c43ee5c5be98445d6c8ab899199149dbc2bca5aa712255eb80008e4f79ca21e",
+        "defs.h": "b8ead14a2d08cc66771e2e431f9cb161dd6b77853b0de4796027dbce0959daf9",
+        "model.h": "70862dbceef47a808212a203ae8853f1380f53a3ab3dad6045a90d29d3a706d0",
+        "arms_kernel.h": "ec4d569eb526d5e1f5b20bec59e5b26a508ac00144de310d05c932039443c773",
+        "page.h": "a7bb3203915a8cd34f84f12996b80f9ba66a57cd90cfb7ea33266fb41b4086a2"
+      }
+    }
+  },
+  "models": {
+    "may03": {
+      "source": "models/old/model_discounted_reward_99_bc-twitter.sg_l2",
+      "training_repository_revision": "25cd9ed",
+      "training_repository_path": "process_data/models/model_discounted_reward_99_bc-twitter.sg_l2",
+      "sha256": {
+        ".o": "763ad7a415847b832a89389d6a20bca1a4f8d01871b0d69186aee7f943591585",
+        ".txt": "57c39dda632eddbb5a0e1f2006f81d7778ec967634243dd1803a8278eaf285df",
+        "_report.txt": "147338232f93db6f48bcc60ff6ea983b391d7fe7459399458a35ef9ad192729e"
+      }
+    }
+  },
+  "notes": [
+    "Historical May 7 candidates; no historical per-run binary/model hashes survive.",
+    "Source and models are read from ../../source/may04 and ../../models/may03.",
+    "Libraries use C220G5; model discount 99, adjusted moving average mode 2, history length 10.",
+    "Builds are sequential. This script does not run benchmarks or change host settings."
+  ],
+  "cases": {
+    "may07_arms": {
+      "source": "may04",
+      "model": null,
+      "configuration": null,
+      "discount_percent": null,
+      "definitions": [
+        "-DC220G5",
+        "-DUSE_MODEL=false"
+      ],
+      "library": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/ablation_builds/libraries/may07_arms.so",
+      "library_sha256": "f845a9711cfa2744eaa135a77f9954a8b4250239b2cb431aa4b01ac093da3615",
+      "reused_case": "may07_arms"
+    },
+    "may07_cost_0p125": {
+      "source": "may04",
+      "model": "may03",
+      "configuration": [
+        2,
+        10,
+        0.125
+      ],
+      "discount_percent": 99,
+      "definitions": [
+        "-DC220G5",
+        "-DUSE_MODEL=true",
+        "-DMODEL_DISCOUNT_PERCENT=99",
+        "-DMODEL_SCORE_HISTORY_SUMMARY=2",
+        "-DHISTORY_LENGTH=10",
+        "-DSWITCH_SCALER=0.125"
+      ],
+      "library": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/ablation_builds/libraries/may07_cost_0p125.so",
+      "library_sha256": "715fe6bb488e8ffa3999753df0c199e24f7f22f4ead7bed5eb4d763811f0d11a",
+      "reused_case": null
+    },
+    "may07_cost_0p25": {
+      "source": "may04",
+      "model": "may03",
+      "configuration": [
+        2,
+        10,
+        0.25
+      ],
+      "discount_percent": 99,
+      "definitions": [
+        "-DC220G5",
+        "-DUSE_MODEL=true",
+        "-DMODEL_DISCOUNT_PERCENT=99",
+        "-DMODEL_SCORE_HISTORY_SUMMARY=2",
+        "-DHISTORY_LENGTH=10",
+        "-DSWITCH_SCALER=0.25"
+      ],
+      "library": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/ablation_builds/libraries/may07_cost_0p25.so",
+      "library_sha256": "c3b9ba19bb092e9f4646dd256d8322fac6ec696536370bd9c07e75fb6f1ced02",
+      "reused_case": null
+    },
+    "may07_cost_0p5": {
+      "source": "may04",
+      "model": "may03",
+      "configuration": [
+        2,
+        10,
+        0.5
+      ],
+      "discount_percent": 99,
+      "definitions": [
+        "-DC220G5",
+        "-DUSE_MODEL=true",
+        "-DMODEL_DISCOUNT_PERCENT=99",
+        "-DMODEL_SCORE_HISTORY_SUMMARY=2",
+        "-DHISTORY_LENGTH=10",
+        "-DSWITCH_SCALER=0.5"
+      ],
+      "library": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/ablation_builds/libraries/may07_cost_0p5.so",
+      "library_sha256": "c0f06d1b3febb5c3fea8359e87332a5c3068b6e6d62754251be7b5ebd6ecc1e6",
+      "reused_case": "may07_model"
+    },
+    "may07_cost_1p0": {
+      "source": "may04",
+      "model": "may03",
+      "configuration": [
+        2,
+        10,
+        1.0
+      ],
+      "discount_percent": 99,
+      "definitions": [
+        "-DC220G5",
+        "-DUSE_MODEL=true",
+        "-DMODEL_DISCOUNT_PERCENT=99",
+        "-DMODEL_SCORE_HISTORY_SUMMARY=2",
+        "-DHISTORY_LENGTH=10",
+        "-DSWITCH_SCALER=1.0"
+      ],
+      "library": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/ablation_builds/libraries/may07_cost_1p0.so",
+      "library_sha256": "724fad4e488390e15cf240bf972b95a2fe0fd09cbec7ccc7fc5b4094d3926dba",
+      "reused_case": null
+    },
+    "may07_cost_1p5": {
+      "source": "may04",
+      "model": "may03",
+      "configuration": [
+        2,
+        10,
+        1.5
+      ],
+      "discount_percent": 99,
+      "definitions": [
+        "-DC220G5",
+        "-DUSE_MODEL=true",
+        "-DMODEL_DISCOUNT_PERCENT=99",
+        "-DMODEL_SCORE_HISTORY_SUMMARY=2",
+        "-DHISTORY_LENGTH=10",
+        "-DSWITCH_SCALER=1.5"
+      ],
+      "library": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/ablation_builds/libraries/may07_cost_1p5.so",
+      "library_sha256": "b015617cade72c0096dec6472a68f87396c4828523d119c1b625dc6fbb21e0f2",
+      "reused_case": null
+    }
+  },
+  "condition_preset": "may04_full",
+  "setup_source_revision": "8d6a8bc66",
+  "perf_rate_override": null,
+  "release_pmem_metadata": false,
+  "knob_sensitivity": "none",
+  "post_preparation_overrides": {},
+  "runner_and_setup_sha256": {
+    "run_conditions.py": "5ca53c8b725c3dbbef1faacab337be6c93d2f7aca341c41f56105a371b5aff78",
+    "runner_core.py": "ade8976c9ba543c24027eeaa5ef5a2edd82d01257544efbe74d70eaeb66550ad",
+    "may04_setup/setup.sh": "3365dffcd8de8c203ef769b097181fc49e87bbbaf8cf127f5ae48b04c5d4e904",
+    "may04_setup/defrag.sh": "2017ff1c78b30c2e4cdbda731d38930fde353f8d0e4da8e842fda5f28cc2da2e"
+  },
+  "setup_deviations": [
+    "Skip unsetup broad pkill and rmmod; require no memeater and no swap.",
+    "Restore original host control values and surviving process main-thread affinities after this session.",
+    "Preparation changes memory placement and cache state; these are not restored."
+  ]
+}

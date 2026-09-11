@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-c40ee90/ww29.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-c40ee90/FvIs.sh
+@@ -4,7 +4,7 @@
+ SRC_ROOT="${1:-c220g5}"
+ DEST_ROOT="${2:-c220g5_final}"
+ VERSION_TAG="${3:-6.18}"
+-RUN_SIZES="${4:-4041 6041 8041 1041}"
++RUN_SIZES="${4:-4041 6041 8041 10041}"
+ DATASET_SUFFIX="${5:-long}"
+ 
+ TIERS=(arms model)

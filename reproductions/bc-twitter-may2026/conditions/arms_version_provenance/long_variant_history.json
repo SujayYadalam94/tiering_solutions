@@ -1,0 +1,266 @@
+{
+  "generated_utc": "2026-09-09T15:59:14.654352+00:00",
+  "cohorts": [
+    {
+      "size_mib": 4032,
+      "arms_mean_seconds": 711.096,
+      "model_mean_seconds": 632.7456666666667,
+      "difference_seconds": 78.35033333333331,
+      "model_filename_variants": [
+        "discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time"
+      ],
+      "boot_starts": [
+        "2026-05-12T17:06:17+00:00"
+      ],
+      "gaps": [
+        {
+          "run": 1,
+          "order": "model then arms",
+          "inferred_gap_seconds": 11153.470967337998
+        },
+        {
+          "run": 2,
+          "order": "arms then model",
+          "inferred_gap_seconds": 45.50920815400002
+        },
+        {
+          "run": 3,
+          "order": "arms then model",
+          "inferred_gap_seconds": 45.19822491299999
+        }
+      ]
+    },
+    {
+      "size_mib": 4035,
+      "arms_mean_seconds": 808.5566666666667,
+      "model_mean_seconds": 744.401,
+      "difference_seconds": 64.15566666666678,
+      "model_filename_variants": [
+        "discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time"
+      ],
+      "boot_starts": [
+        "2026-05-14T07:30:49+00:00"
+      ],
+      "gaps": [
+        {
+          "run": 1,
+          "order": "model then arms",
+          "inferred_gap_seconds": 44.79966818799994
+        },
+        {
+          "run": 2,
+          "order": "model then arms",
+          "inferred_gap_seconds": 44.80274809299999
+        },
+        {
+          "run": 3,
+          "order": "model then arms",
+          "inferred_gap_seconds": 44.959578127999976
+        }
+      ]
+    },
+    {
+      "size_mib": 4040,
+      "arms_mean_seconds": 625.3146666666667,
+      "model_mean_seconds": 614.2376666666667,
+      "difference_seconds": 11.076999999999998,
+      "model_filename_variants": [
+        "discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time"
+      ],
+      "boot_starts": [
+        "2026-06-13T22:10:24+00:00"
+      ],
+      "gaps": [
+        {
+          "run": 1,
+          "order": "model then arms",
+          "inferred_gap_seconds": 64.56043771899999
+        },
+        {
+          "run": 2,
+          "order": "model then arms",
+          "inferred_gap_seconds": 69.33755282300001
+        },
+        {
+          "run": 3,
+          "order": "model then arms",
+          "inferred_gap_seconds": 91.984042219
+        }
+      ]
+    },
+    {
+      "size_mib": 4041,
+      "arms_mean_seconds": 628.544,
+      "model_mean_seconds": 619.911,
+      "difference_seconds": 8.633000000000038,
+      "model_filename_variants": [
+        "discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time"
+      ],
+      "boot_starts": [
+        "2026-06-22T03:55:37+00:00"
+      ],
+      "gaps": [
+        {
+          "run": 1,
+          "order": "model then arms",
+          "inferred_gap_seconds": 45.59445388100005
+        },
+        {
+          "run": 2,
+          "order": "model then arms",
+          "inferred_gap_seconds": 45.42432893199998
+        },
+        {
+          "run": 3,
+          "order": "model then arms",
+          "inferred_gap_seconds": 45.73361354499991
+        }
+      ]
+    }
+  ],
+  "may14_to_may30_blob_comparison": [
+    {
+      "path": "Makefile",
+      "git_blobs": {
+        "4da3d6c3f": "732d5fe73c64d2f8cf6ccf28e707d4f691174708",
+        "d6f720be6": "732d5fe73c64d2f8cf6ccf28e707d4f691174708"
+      },
+      "identical": true
+    },
+    {
+      "path": "arms_kernel.cpp",
+      "git_blobs": {
+        "4da3d6c3f": "f8750b79f5428a6815343afa96baa4409740a786",
+        "d6f720be6": "f8750b79f5428a6815343afa96baa4409740a786"
+      },
+      "identical": true
+    },
+    {
+      "path": "defs.h",
+      "git_blobs": {
+        "4da3d6c3f": "83bfc8ceb970596b5489b15e586892fcf969fd42",
+        "d6f720be6": "83bfc8ceb970596b5489b15e586892fcf969fd42"
+      },
+      "identical": true
+    },
+    {
+      "path": "page.cpp",
+      "git_blobs": {
+        "4da3d6c3f": "0ccb977736405ccf003baa10f18baa4339003cf0",
+        "d6f720be6": "0ccb977736405ccf003baa10f18baa4339003cf0"
+      },
+      "identical": true
+    },
+    {
+      "path": "page.h",
+      "git_blobs": {
+        "4da3d6c3f": "18f829497fe4ee1cee0f5fc8bdde04bd18134785",
+        "d6f720be6": "18f829497fe4ee1cee0f5fc8bdde04bd18134785"
+      },
+      "identical": true
+    },
+    {
+      "path": "migration_worker.cpp",
+      "git_blobs": {
+        "4da3d6c3f": "8f8a879b3a98a69340356def955a94f3d14b1a21",
+        "d6f720be6": "8f8a879b3a98a69340356def955a94f3d14b1a21"
+      },
+      "identical": true
+    },
+    {
+      "path": "policy_thread.cpp",
+      "git_blobs": {
+        "4da3d6c3f": "446fbd195e526c7bbca5212affba501593fe61c3",
+        "d6f720be6": "446fbd195e526c7bbca5212affba501593fe61c3"
+      },
+      "identical": true
+    },
+    {
+      "path": "pagemap_scan_thread.cpp",
+      "git_blobs": {
+        "4da3d6c3f": "9f9e3f4a242a8d4ab102feaa116fbb169c01126f",
+        "d6f720be6": "9f9e3f4a242a8d4ab102feaa116fbb169c01126f"
+      },
+      "identical": true
+    },
+    {
+      "path": "pebs_scan_thread.cpp",
+      "git_blobs": {
+        "4da3d6c3f": "57e15a06985e92aac42ec30c7822601d3dd5ed37",
+        "d6f720be6": "57e15a06985e92aac42ec30c7822601d3dd5ed37"
+      },
+      "identical": true
+    },
+    {
+      "path": "groups.cpp",
+      "git_blobs": {
+        "4da3d6c3f": "203a71522ce82e768a114b53dec67886dcbb20d3",
+        "d6f720be6": "203a71522ce82e768a114b53dec67886dcbb20d3"
+      },
+      "identical": true
+    },
+    {
+      "path": "timer.cpp",
+      "git_blobs": {
+        "4da3d6c3f": "126ebebbbeb45f27ac8ac20d504888d1d3bad164",
+        "d6f720be6": "126ebebbbeb45f27ac8ac20d504888d1d3bad164"
+      },
+      "identical": true
+    },
+    {
+      "path": "hook/hook.cpp",
+      "git_blobs": {
+        "4da3d6c3f": "50eeec1dc0c064a01158d2401b4271cd6ab38cc1",
+        "d6f720be6": "50eeec1dc0c064a01158d2401b4271cd6ab38cc1"
+      },
+      "identical": true
+    },
+    {
+      "path": "setup.sh",
+      "git_blobs": {
+        "4da3d6c3f": "9269f544c753641578e44d8709ec815d031f7770",
+        "d6f720be6": "9269f544c753641578e44d8709ec815d031f7770"
+      },
+      "identical": true
+    },
+    {
+      "path": "defrag.sh",
+      "git_blobs": {
+        "4da3d6c3f": "75f7cba0e88d2af97e53c5cd600959c5cd3e48d8",
+        "d6f720be6": "75f7cba0e88d2af97e53c5cd600959c5cd3e48d8"
+      },
+      "identical": true
+    },
+    {
+      "path": "measurement_common.sh",
+      "git_blobs": {
+        "4da3d6c3f": "a5a88fbfd9ca5635ae93bab233cd5ef677e400db",
+        "d6f720be6": "a5a88fbfd9ca5635ae93bab233cd5ef677e400db"
+      },
+      "identical": true
+    },
+    {
+      "path": "measurement_arms.sh",
+      "git_blobs": {
+        "4da3d6c3f": "47370eddde20b900575f37f62c78646fafc7f603",
+        "d6f720be6": "47370eddde20b900575f37f62c78646fafc7f603"
+      },
+      "identical": true
+    },
+    {
+      "path": "workloads/bc-twitter.sg-long.sh",
+      "git_blobs": {
+        "4da3d6c3f": "4cf6fc274132e905e39aaa801981b852e4d6d069",
+        "d6f720be6": "4cf6fc274132e905e39aaa801981b852e4d6d069"
+      },
+      "identical": true
+    }
+  ],
+  "caveats": [
+    "Run size labels are filename parameters, not observed physical-memory counters.",
+    "Local HEAD and editor saves do not prove loaded binary contents.",
+    "Identical model names do not establish identical weights.",
+    "Graph path equality does not establish graph bytes or backing-device identity.",
+    "May12 run1 same-number ARMS/model files are not consecutive."
+  ]
+}

@@ -1,0 +1,1221 @@
+{
+  "generated_utc": "2026-09-09T18:26:58.750990+00:00",
+  "study": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/historical_settings_tests/validation/study.json",
+  "sessions": [
+    "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T170421Z-382094",
+    "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T173344Z-414920"
+  ],
+  "explicit_baseline_sessions": [
+    "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T170421Z-382094",
+    "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T173344Z-414920"
+  ],
+  "excluded_comparison_target_paths": [
+    "/proc/sys/vm/lowmem_reserve_ratio",
+    "/proc/sys/vm/watermark_boost_factor",
+    "/proc/sys/vm/min_free_kbytes",
+    "/sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan"
+  ],
+  "analysis_dependency_sha256": "2be948fde303e4d0a9f34056eb16d9a7790c21db268b344cccdba26e7b08c962",
+  "caveats": [
+    "Differences are test minus explicit matching baseline mean; negative runtime differences indicate improvement. Baseline ranges/stdev are recorded. Sequential tests are not randomized causal estimates.",
+    "Baseline matching excludes only the four intentionally varied VM/khugepaged target paths; the audit separately checks all target and unchanged controls before/after.",
+    "VM and khugepaged event deltas are system-wide, not process-specific time or work. Thread CPU seconds may exceed wall time.",
+    "Fewer compact_fail events alone do not establish less memory pressure: inspect allocstall_movable, pgscan_direct, pgsteal_direct, THP migration outcomes, CPU seconds and runtime together.",
+    "Node0 zone watermarks and protection are native page counts from snapshots, not MiB. Before/after memory snapshots are not in-run peaks.",
+    "Latest PID status usually lacks AnonHugePages; missing remains null and RssAnon is separately labeled."
+  ],
+  "runs": [
+    {
+      "session": "20260909T170421Z-382094",
+      "session_path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T170421Z-382094",
+      "case": "may07_arms",
+      "repetition": 1,
+      "valid": true,
+      "knob": "none",
+      "condition_preset": "may04_full",
+      "before_utc": "2026-09-09T17:05:55.126876+00:00",
+      "after_utc": "2026-09-09T17:07:42.833573+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+      "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+      "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+      "binary_sha256": "744d57aee15e1bb6af4a796d725f4b686a1f2063c335dc7facb0327316b18449",
+      "library_sha256": "f845a9711cfa2744eaa135a77f9954a8b4250239b2cb431aa4b01ac093da3615",
+      "perf_rate_effective": "1000000",
+      "release_pmem_metadata": false,
+      "elapsed_seconds": 107.6,
+      "read_seconds": 39.6214,
+      "average_iteration_seconds": 6.75623,
+      "trial_count": 10,
+      "trial_compute_seconds": 67.56228,
+      "user_cpu_seconds": 999.1,
+      "system_cpu_seconds": 154.03,
+      "resource_exit_status": 0.0,
+      "node0_memfree_before_kib": 2576620,
+      "node0_memfree_after_kib": 2305456,
+      "node0_anon_hugepages_before_kib": 0,
+      "node0_anon_hugepages_after_kib": 0,
+      "global_anon_hugepages_before_kib": 890880,
+      "global_anon_hugepages_after_kib": 890880,
+      "latest_status_anon_hugepages_kib": null,
+      "latest_status_rssanon_kib": 13262964,
+      "latest_status_vmrss_kib": 13267792,
+      "latest_status_file_mtime_utc": "2026-09-09T17:07:35.920676+00:00",
+      "effective_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "effective_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "requested_controls": {
+        "defrag": null,
+        "alloc_sleep_millisecs": null,
+        "scan_sleep_millisecs": null
+      },
+      "requested_control_matches": {
+        "defrag": null,
+        "alloc_sleep_millisecs": null,
+        "scan_sleep_millisecs": null
+      },
+      "vmstat_deltas_global_not_process_attribution": {
+        "compact_stall": 70375,
+        "compact_fail": 70340,
+        "compact_success": 35,
+        "compact_migrate_scanned": 19463982,
+        "compact_free_scanned": 3785531,
+        "compact_isolated": 1988344,
+        "compact_daemon_wake": 5,
+        "compact_daemon_migrate_scanned": 1062432,
+        "compact_daemon_free_scanned": 767287,
+        "thp_fault_alloc": 13670,
+        "thp_fault_fallback": 0,
+        "thp_fault_fallback_charge": 0,
+        "thp_collapse_alloc": 1939,
+        "thp_collapse_alloc_failed": 31473,
+        "thp_split_page": 3669,
+        "thp_split_page_failed": 0,
+        "thp_deferred_split_page": 385,
+        "thp_split_pmd": 4865,
+        "thp_scan_exceed_none_pte": 19004,
+        "thp_scan_exceed_swap_pte": 83,
+        "thp_scan_exceed_share_pte": 355,
+        "pgmigrate_success": 4962722,
+        "pgmigrate_fail": 93806,
+        "thp_migration_success": 4246,
+        "thp_migration_fail": 3669,
+        "thp_migration_split": 3669,
+        "allocstall_movable": 35198,
+        "pgscan_direct": 0,
+        "pgsteal_direct": 0
+      },
+      "khugepaged_counters_global_not_process_attribution": {
+        "full_scans": {
+          "before": 9175473,
+          "after": 9188559,
+          "delta": 13086
+        },
+        "pages_collapsed": {
+          "before": 123181,
+          "after": 125052,
+          "delta": 1871
+        }
+      },
+      "runner_restored": true,
+      "restoration_error_count": 0,
+      "target_controls_restored": {
+        "defrag": true,
+        "alloc_sleep_millisecs": true,
+        "scan_sleep_millisecs": true
+      },
+      "restoration_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "restoration_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "preparation_seconds": 49.74196058799862,
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T170421Z-382094/results/20260909T170421Z-382094/01-may07_arms",
+      "warnings": [
+        "latest_status.txt has no AnonHugePages; RSS is not used as a substitute"
+      ],
+      "captured_controls": {
+        "before": {
+          "/proc/sys/vm/overcommit_memory": "1",
+          "/proc/sys/vm/watermark_scale_factor": "10",
+          "/proc/sys/vm/watermark_boost_factor": "10000",
+          "/proc/sys/vm/min_free_kbytes": "1048576",
+          "/proc/sys/vm/user_reserve_kbytes": "16384",
+          "/proc/sys/vm/admin_reserve_kbytes": "16384",
+          "/proc/sys/vm/lowmem_reserve_ratio": "256 256 32 0 0",
+          "/proc/sys/vm/zone_reclaim_mode": "0",
+          "/proc/sys/vm/vfs_cache_pressure": "2000",
+          "/proc/sys/vm/compaction_proactiveness": "80",
+          "/proc/sys/kernel/numa_balancing": "0",
+          "/proc/sys/kernel/perf_event_max_sample_rate": "1000000",
+          "/proc/sys/kernel/perf_cpu_time_max_percent": "0",
+          "/sys/kernel/mm/numa/demotion_enabled": "false",
+          "/sys/kernel/mm/lru_gen/enabled": "0x0000",
+          "/sys/kernel/mm/transparent_hugepage/enabled": "always",
+          "/sys/kernel/mm/transparent_hugepage/defrag": "always",
+          "/sys/kernel/mm/transparent_hugepage/shmem_enabled": "force",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/defrag": "1",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan": "8192",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs": "0",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs": "1",
+          "/sys/kernel/mm/ksm/run": "0"
+        },
+        "after": {
+          "/proc/sys/vm/overcommit_memory": "1",
+          "/proc/sys/vm/watermark_scale_factor": "10",
+          "/proc/sys/vm/watermark_boost_factor": "10000",
+          "/proc/sys/vm/min_free_kbytes": "1048576",
+          "/proc/sys/vm/user_reserve_kbytes": "16384",
+          "/proc/sys/vm/admin_reserve_kbytes": "16384",
+          "/proc/sys/vm/lowmem_reserve_ratio": "256 256 32 0 0",
+          "/proc/sys/vm/zone_reclaim_mode": "0",
+          "/proc/sys/vm/vfs_cache_pressure": "2000",
+          "/proc/sys/vm/compaction_proactiveness": "80",
+          "/proc/sys/kernel/numa_balancing": "0",
+          "/proc/sys/kernel/perf_event_max_sample_rate": "1000000",
+          "/proc/sys/kernel/perf_cpu_time_max_percent": "0",
+          "/sys/kernel/mm/numa/demotion_enabled": "false",
+          "/sys/kernel/mm/lru_gen/enabled": "0x0000",
+          "/sys/kernel/mm/transparent_hugepage/enabled": "always",
+          "/sys/kernel/mm/transparent_hugepage/defrag": "always",
+          "/sys/kernel/mm/transparent_hugepage/shmem_enabled": "force",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/defrag": "1",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan": "8192",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs": "0",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs": "1",
+          "/sys/kernel/mm/ksm/run": "0"
+        }
+      },
+      "historical_controls": {
+        "before": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        },
+        "after": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        }
+      },
+      "node0_zones": {
+        "before": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 412903,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 228436,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "after": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 410561,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 162987,
+            "boost_pages": 1536,
+            "min_pages": 9268,
+            "low_pages": 11201,
+            "high_pages": 13134,
+            "promo_pages": 15067,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "requested_historical_controls": {
+        "lowmem_reserve_ratio": null,
+        "watermark_boost_factor": null,
+        "min_free_kbytes": null,
+        "pages_to_scan": null
+      },
+      "restoration_differences": [],
+      "graph_mount": "TARGET SOURCE    FSTYPE\n/      /dev/sda3 ext3\n",
+      "graph_device": 2051,
+      "model_configuration": null,
+      "is_explicit_baseline": true,
+      "baseline_reference": null
+    },
+    {
+      "session": "20260909T170421Z-382094",
+      "session_path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T170421Z-382094",
+      "case": "may07_model",
+      "repetition": 1,
+      "valid": true,
+      "knob": "none",
+      "condition_preset": "may04_full",
+      "before_utc": "2026-09-09T17:08:28.038172+00:00",
+      "after_utc": "2026-09-09T17:10:07.065077+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+      "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+      "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+      "binary_sha256": "744d57aee15e1bb6af4a796d725f4b686a1f2063c335dc7facb0327316b18449",
+      "library_sha256": "c0f06d1b3febb5c3fea8359e87332a5c3068b6e6d62754251be7b5ebd6ecc1e6",
+      "perf_rate_effective": "1000000",
+      "release_pmem_metadata": false,
+      "elapsed_seconds": 98.93,
+      "read_seconds": 39.6764,
+      "average_iteration_seconds": 5.90007,
+      "trial_count": 10,
+      "trial_compute_seconds": 59.00071,
+      "user_cpu_seconds": 980.99,
+      "system_cpu_seconds": 70.3,
+      "resource_exit_status": 0.0,
+      "node0_memfree_before_kib": 2592008,
+      "node0_memfree_after_kib": 2478068,
+      "node0_anon_hugepages_before_kib": 0,
+      "node0_anon_hugepages_after_kib": 0,
+      "global_anon_hugepages_before_kib": 890880,
+      "global_anon_hugepages_after_kib": 888832,
+      "latest_status_anon_hugepages_kib": null,
+      "latest_status_rssanon_kib": 13715524,
+      "latest_status_vmrss_kib": 13720524,
+      "latest_status_file_mtime_utc": "2026-09-09T17:09:58.697660+00:00",
+      "effective_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "effective_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "requested_controls": {
+        "defrag": null,
+        "alloc_sleep_millisecs": null,
+        "scan_sleep_millisecs": null
+      },
+      "requested_control_matches": {
+        "defrag": null,
+        "alloc_sleep_millisecs": null,
+        "scan_sleep_millisecs": null
+      },
+      "vmstat_deltas_global_not_process_attribution": {
+        "compact_stall": 30805,
+        "compact_fail": 30797,
+        "compact_success": 8,
+        "compact_migrate_scanned": 5263050,
+        "compact_free_scanned": 111810,
+        "compact_isolated": 85615,
+        "compact_daemon_wake": 0,
+        "compact_daemon_migrate_scanned": 2065920,
+        "compact_daemon_free_scanned": 17513,
+        "thp_fault_alloc": 13654,
+        "thp_fault_fallback": 0,
+        "thp_fault_fallback_charge": 0,
+        "thp_collapse_alloc": 619,
+        "thp_collapse_alloc_failed": 15092,
+        "thp_split_page": 282,
+        "thp_split_page_failed": 0,
+        "thp_deferred_split_page": 402,
+        "thp_split_pmd": 1443,
+        "thp_scan_exceed_none_pte": 18303,
+        "thp_scan_exceed_swap_pte": 42,
+        "thp_scan_exceed_share_pte": 339,
+        "pgmigrate_success": 3662795,
+        "pgmigrate_fail": 11812,
+        "thp_migration_success": 6806,
+        "thp_migration_fail": 282,
+        "thp_migration_split": 282,
+        "allocstall_movable": 15423,
+        "pgscan_direct": 0,
+        "pgsteal_direct": 0
+      },
+      "khugepaged_counters_global_not_process_attribution": {
+        "full_scans": {
+          "before": 9205610,
+          "after": 9223577,
+          "delta": 17967
+        },
+        "pages_collapsed": {
+          "before": 125322,
+          "after": 125906,
+          "delta": 584
+        }
+      },
+      "runner_restored": true,
+      "restoration_error_count": 0,
+      "target_controls_restored": {
+        "defrag": true,
+        "alloc_sleep_millisecs": true,
+        "scan_sleep_millisecs": true
+      },
+      "restoration_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "restoration_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "preparation_seconds": 44.94103228899985,
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T170421Z-382094/results/20260909T170421Z-382094/01-may07_model",
+      "warnings": [
+        "latest_status.txt has no AnonHugePages; RSS is not used as a substitute"
+      ],
+      "captured_controls": {
+        "before": {
+          "/proc/sys/vm/overcommit_memory": "1",
+          "/proc/sys/vm/watermark_scale_factor": "10",
+          "/proc/sys/vm/watermark_boost_factor": "10000",
+          "/proc/sys/vm/min_free_kbytes": "1048576",
+          "/proc/sys/vm/user_reserve_kbytes": "16384",
+          "/proc/sys/vm/admin_reserve_kbytes": "16384",
+          "/proc/sys/vm/lowmem_reserve_ratio": "256 256 32 0 0",
+          "/proc/sys/vm/zone_reclaim_mode": "0",
+          "/proc/sys/vm/vfs_cache_pressure": "2000",
+          "/proc/sys/vm/compaction_proactiveness": "80",
+          "/proc/sys/kernel/numa_balancing": "0",
+          "/proc/sys/kernel/perf_event_max_sample_rate": "1000000",
+          "/proc/sys/kernel/perf_cpu_time_max_percent": "0",
+          "/sys/kernel/mm/numa/demotion_enabled": "false",
+          "/sys/kernel/mm/lru_gen/enabled": "0x0000",
+          "/sys/kernel/mm/transparent_hugepage/enabled": "always",
+          "/sys/kernel/mm/transparent_hugepage/defrag": "always",
+          "/sys/kernel/mm/transparent_hugepage/shmem_enabled": "force",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/defrag": "1",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan": "8192",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs": "0",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs": "1",
+          "/sys/kernel/mm/ksm/run": "0"
+        },
+        "after": {
+          "/proc/sys/vm/overcommit_memory": "1",
+          "/proc/sys/vm/watermark_scale_factor": "10",
+          "/proc/sys/vm/watermark_boost_factor": "10000",
+          "/proc/sys/vm/min_free_kbytes": "1048576",
+          "/proc/sys/vm/user_reserve_kbytes": "16384",
+          "/proc/sys/vm/admin_reserve_kbytes": "16384",
+          "/proc/sys/vm/lowmem_reserve_ratio": "256 256 32 0 0",
+          "/proc/sys/vm/zone_reclaim_mode": "0",
+          "/proc/sys/vm/vfs_cache_pressure": "2000",
+          "/proc/sys/vm/compaction_proactiveness": "80",
+          "/proc/sys/kernel/numa_balancing": "0",
+          "/proc/sys/kernel/perf_event_max_sample_rate": "1000000",
+          "/proc/sys/kernel/perf_cpu_time_max_percent": "0",
+          "/sys/kernel/mm/numa/demotion_enabled": "false",
+          "/sys/kernel/mm/lru_gen/enabled": "0x0000",
+          "/sys/kernel/mm/transparent_hugepage/enabled": "always",
+          "/sys/kernel/mm/transparent_hugepage/defrag": "always",
+          "/sys/kernel/mm/transparent_hugepage/shmem_enabled": "force",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/defrag": "1",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan": "8192",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs": "0",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs": "1",
+          "/sys/kernel/mm/ksm/run": "0"
+        }
+      },
+      "historical_controls": {
+        "before": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        },
+        "after": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        }
+      },
+      "node0_zones": {
+        "before": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 411887,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 233299,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "after": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 410863,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 205838,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "requested_historical_controls": {
+        "lowmem_reserve_ratio": null,
+        "watermark_boost_factor": null,
+        "min_free_kbytes": null,
+        "pages_to_scan": null
+      },
+      "restoration_differences": [],
+      "graph_mount": "TARGET SOURCE    FSTYPE\n/      /dev/sda3 ext3\n",
+      "graph_device": 2051,
+      "model_configuration": [
+        2,
+        10,
+        0.5
+      ],
+      "is_explicit_baseline": true,
+      "baseline_reference": null
+    },
+    {
+      "session": "20260909T173344Z-414920",
+      "session_path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T173344Z-414920",
+      "case": "may07_arms",
+      "repetition": 1,
+      "valid": true,
+      "knob": "none",
+      "condition_preset": "may04_full",
+      "before_utc": "2026-09-09T17:35:17.317878+00:00",
+      "after_utc": "2026-09-09T17:37:03.227004+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+      "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+      "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+      "binary_sha256": "744d57aee15e1bb6af4a796d725f4b686a1f2063c335dc7facb0327316b18449",
+      "library_sha256": "f845a9711cfa2744eaa135a77f9954a8b4250239b2cb431aa4b01ac093da3615",
+      "perf_rate_effective": "1000000",
+      "release_pmem_metadata": false,
+      "elapsed_seconds": 105.8,
+      "read_seconds": 39.61655,
+      "average_iteration_seconds": 6.57701,
+      "trial_count": 10,
+      "trial_compute_seconds": 65.7701,
+      "user_cpu_seconds": 986.87,
+      "system_cpu_seconds": 135.64,
+      "resource_exit_status": 0.0,
+      "node0_memfree_before_kib": 2609820,
+      "node0_memfree_after_kib": 2411756,
+      "node0_anon_hugepages_before_kib": 0,
+      "node0_anon_hugepages_after_kib": 0,
+      "global_anon_hugepages_before_kib": 892928,
+      "global_anon_hugepages_after_kib": 892928,
+      "latest_status_anon_hugepages_kib": null,
+      "latest_status_rssanon_kib": 13663536,
+      "latest_status_vmrss_kib": 13668380,
+      "latest_status_file_mtime_utc": "2026-09-09T17:36:58.380128+00:00",
+      "effective_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "effective_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "requested_controls": {
+        "defrag": null,
+        "alloc_sleep_millisecs": null,
+        "scan_sleep_millisecs": null
+      },
+      "requested_control_matches": {
+        "defrag": null,
+        "alloc_sleep_millisecs": null,
+        "scan_sleep_millisecs": null
+      },
+      "vmstat_deltas_global_not_process_attribution": {
+        "compact_stall": 64880,
+        "compact_fail": 64855,
+        "compact_success": 25,
+        "compact_migrate_scanned": 18543014,
+        "compact_free_scanned": 2834365,
+        "compact_isolated": 1951141,
+        "compact_daemon_wake": 0,
+        "compact_daemon_migrate_scanned": 2009088,
+        "compact_daemon_free_scanned": 72803,
+        "thp_fault_alloc": 13652,
+        "thp_fault_fallback": 0,
+        "thp_fault_fallback_charge": 0,
+        "thp_collapse_alloc": 1771,
+        "thp_collapse_alloc_failed": 29486,
+        "thp_split_page": 2911,
+        "thp_split_page_failed": 0,
+        "thp_deferred_split_page": 261,
+        "thp_split_pmd": 3739,
+        "thp_scan_exceed_none_pte": 24918,
+        "thp_scan_exceed_swap_pte": 72,
+        "thp_scan_exceed_share_pte": 108,
+        "pgmigrate_success": 4884450,
+        "pgmigrate_fail": 96371,
+        "thp_migration_success": 4875,
+        "thp_migration_fail": 2911,
+        "thp_migration_split": 2911,
+        "allocstall_movable": 32458,
+        "pgscan_direct": 0,
+        "pgsteal_direct": 0
+      },
+      "khugepaged_counters_global_not_process_attribution": {
+        "full_scans": {
+          "before": 9643649,
+          "after": 9657145,
+          "delta": 13496
+        },
+        "pages_collapsed": {
+          "before": 131113,
+          "after": 132787,
+          "delta": 1674
+        }
+      },
+      "runner_restored": true,
+      "restoration_error_count": 0,
+      "target_controls_restored": {
+        "defrag": true,
+        "alloc_sleep_millisecs": true,
+        "scan_sleep_millisecs": true
+      },
+      "restoration_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "restoration_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "preparation_seconds": 48.33244727000056,
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T173344Z-414920/results/20260909T173344Z-414920/01-may07_arms",
+      "warnings": [
+        "latest_status.txt has no AnonHugePages; RSS is not used as a substitute"
+      ],
+      "captured_controls": {
+        "before": {
+          "/proc/sys/vm/overcommit_memory": "1",
+          "/proc/sys/vm/watermark_scale_factor": "10",
+          "/proc/sys/vm/watermark_boost_factor": "10000",
+          "/proc/sys/vm/min_free_kbytes": "1048576",
+          "/proc/sys/vm/user_reserve_kbytes": "16384",
+          "/proc/sys/vm/admin_reserve_kbytes": "16384",
+          "/proc/sys/vm/lowmem_reserve_ratio": "256 256 32 0 0",
+          "/proc/sys/vm/zone_reclaim_mode": "0",
+          "/proc/sys/vm/vfs_cache_pressure": "2000",
+          "/proc/sys/vm/compaction_proactiveness": "80",
+          "/proc/sys/kernel/numa_balancing": "0",
+          "/proc/sys/kernel/perf_event_max_sample_rate": "1000000",
+          "/proc/sys/kernel/perf_cpu_time_max_percent": "0",
+          "/sys/kernel/mm/numa/demotion_enabled": "false",
+          "/sys/kernel/mm/lru_gen/enabled": "0x0000",
+          "/sys/kernel/mm/transparent_hugepage/enabled": "always",
+          "/sys/kernel/mm/transparent_hugepage/defrag": "always",
+          "/sys/kernel/mm/transparent_hugepage/shmem_enabled": "force",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/defrag": "1",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan": "8192",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs": "0",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs": "1",
+          "/sys/kernel/mm/ksm/run": "0"
+        },
+        "after": {
+          "/proc/sys/vm/overcommit_memory": "1",
+          "/proc/sys/vm/watermark_scale_factor": "10",
+          "/proc/sys/vm/watermark_boost_factor": "10000",
+          "/proc/sys/vm/min_free_kbytes": "1048576",
+          "/proc/sys/vm/user_reserve_kbytes": "16384",
+          "/proc/sys/vm/admin_reserve_kbytes": "16384",
+          "/proc/sys/vm/lowmem_reserve_ratio": "256 256 32 0 0",
+          "/proc/sys/vm/zone_reclaim_mode": "0",
+          "/proc/sys/vm/vfs_cache_pressure": "2000",
+          "/proc/sys/vm/compaction_proactiveness": "80",
+          "/proc/sys/kernel/numa_balancing": "0",
+          "/proc/sys/kernel/perf_event_max_sample_rate": "1000000",
+          "/proc/sys/kernel/perf_cpu_time_max_percent": "0",
+          "/sys/kernel/mm/numa/demotion_enabled": "false",
+          "/sys/kernel/mm/lru_gen/enabled": "0x0000",
+          "/sys/kernel/mm/transparent_hugepage/enabled": "always",
+          "/sys/kernel/mm/transparent_hugepage/defrag": "always",
+          "/sys/kernel/mm/transparent_hugepage/shmem_enabled": "force",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/defrag": "1",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan": "8192",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs": "0",
+          "/sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs": "1",
+          "/sys/kernel/mm/ksm/run": "0"
+        }
+      },
+      "historical_controls": {
+        "before": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        },
+        "after": {
+          "lowmem_reserve_ratio": "256 256 32 0 0",
+          "watermark_boost_factor": "10000",
+          "min_free_kbytes": "1048576",
+          "pages_to_scan": "8192"
+        }
+      },
+      "node0_zones": {
+        "before": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 412906,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 236733,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "after": {
+          "DMA": {
+            "pages_free_pages": 2816,
+            "boost_pages": 0,
+            "min_pages": 38,
+            "low_pages": 47,
+            "high_pages": 56,
+            "promo_pages": 65,
+            "spanned_pages": 4095,
+            "present_pages": 3996,
+            "managed_pages": 3840,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              1622,
+              4611,
+              4611,
+              4611
+            ]
+          },
+          "DMA32": {
+            "pages_free_pages": 410347,
+            "boost_pages": 0,
+            "min_pages": 4197,
+            "low_pages": 5246,
+            "high_pages": 6295,
+            "promo_pages": 7344,
+            "spanned_pages": 1044480,
+            "present_pages": 431795,
+            "managed_pages": 415411,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              2989,
+              2989,
+              2989
+            ]
+          },
+          "Normal": {
+            "pages_free_pages": 248359,
+            "boost_pages": 0,
+            "min_pages": 7732,
+            "low_pages": 9665,
+            "high_pages": 11598,
+            "promo_pages": 13531,
+            "spanned_pages": 24379392,
+            "present_pages": 786432,
+            "managed_pages": 765246,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Movable": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 32,
+            "low_pages": 32,
+            "high_pages": 32,
+            "promo_pages": 32,
+            "spanned_pages": 0,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "Device": {
+            "pages_free_pages": 0,
+            "boost_pages": 0,
+            "min_pages": 0,
+            "low_pages": 0,
+            "high_pages": 0,
+            "promo_pages": 0,
+            "spanned_pages": 23597056,
+            "present_pages": 0,
+            "managed_pages": 0,
+            "cma_pages": 0,
+            "protection_pages": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "requested_historical_controls": {
+        "lowmem_reserve_ratio": null,
+        "watermark_boost_factor": null,
+        "min_free_kbytes": null,
+        "pages_to_scan": null
+      },
+      "restoration_differences": [],
+      "graph_mount": "TARGET SOURCE    FSTYPE\n/      /dev/sda3 ext3\n",
+      "graph_device": 2051,
+      "model_configuration": null,
+      "is_explicit_baseline": true,
+      "baseline_reference": null
+    }
+  ]
+}

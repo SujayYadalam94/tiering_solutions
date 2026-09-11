@@ -1,0 +1,12 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/22fb7345/5KHp.sh
++++ /users/zimooo2/.vscode-server/data/User/History/22fb7345/dk0p.sh
+@@ -1,7 +1,7 @@
+ #!/bin/bash
+ 
+-WORKLOAD_ID="pr-kron.sg-long"
+-WORKLOAD_OUTPUT="pr-kron.sg-long"
++WORKLOAD_ID="pr-kron.sg-short"
++WORKLOAD_OUTPUT="pr-kron.sg-short"
+ WORKLOAD_COMMAND="OMP_NUM_THREADS=16 ${BENCH_ROOT}/gapbs/pr -n 1 -f ${BENCH_ROOT}/gapbs/benchmark/graphs/kron.sg"
+ WORKLOAD_EXE_NAME="pr"
+ WORKLOAD_MODEL_BASE="pr-kron.sg"

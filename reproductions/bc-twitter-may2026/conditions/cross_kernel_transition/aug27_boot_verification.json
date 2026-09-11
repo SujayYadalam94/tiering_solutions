@@ -1,0 +1,218 @@
+[
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/4053MiB_run3.time",
+    "mtime_utc": "2026-08-27T09:42:32.924319+00:00",
+    "boot": {
+      "epoch": 1787750261,
+      "utc": "2026-08-26T13:17:41+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 930048
+    },
+    "next_boot": {
+      "epoch": 1787827220,
+      "utc": "2026-08-27T10:40:20+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 934272
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/4053MiB_run1.time",
+    "mtime_utc": "2026-08-27T08:07:42.409720+00:00",
+    "boot": {
+      "epoch": 1787750261,
+      "utc": "2026-08-26T13:17:41+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 930048
+    },
+    "next_boot": {
+      "epoch": 1787827220,
+      "utc": "2026-08-27T10:40:20+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 934272
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/4053MiB_run2.time",
+    "mtime_utc": "2026-08-27T08:55:44.649886+00:00",
+    "boot": {
+      "epoch": 1787750261,
+      "utc": "2026-08-26T13:17:41+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 930048
+    },
+    "next_boot": {
+      "epoch": 1787827220,
+      "utc": "2026-08-27T10:40:20+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 934272
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-kron.sg/4053MiB_run3.time",
+    "mtime_utc": "2026-08-27T09:18:40.267680+00:00",
+    "boot": {
+      "epoch": 1787750261,
+      "utc": "2026-08-26T13:17:41+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 930048
+    },
+    "next_boot": {
+      "epoch": 1787827220,
+      "utc": "2026-08-27T10:40:20+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 934272
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-kron.sg/4053MiB_run1.time",
+    "mtime_utc": "2026-08-27T07:42:46.792296+00:00",
+    "boot": {
+      "epoch": 1787750261,
+      "utc": "2026-08-26T13:17:41+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 930048
+    },
+    "next_boot": {
+      "epoch": 1787827220,
+      "utc": "2026-08-27T10:40:20+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 934272
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-kron.sg/4053MiB_run2.time",
+    "mtime_utc": "2026-08-27T08:31:00.210766+00:00",
+    "boot": {
+      "epoch": 1787750261,
+      "utc": "2026-08-26T13:17:41+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 930048
+    },
+    "next_boot": {
+      "epoch": 1787827220,
+      "utc": "2026-08-27T10:40:20+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 934272
+    }
+  },
+  {
+    "path": "times/c220g5/model/wl_bc-twitter.sg_model_all/4053MiB_run1_model_discounted_reward_99_all_l2-1_10_0.1.time",
+    "mtime_utc": "2026-08-27T08:11:15.527496+00:00",
+    "boot": {
+      "epoch": 1787750261,
+      "utc": "2026-08-26T13:17:41+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 930048
+    },
+    "next_boot": {
+      "epoch": 1787827220,
+      "utc": "2026-08-27T10:40:20+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 934272
+    }
+  },
+  {
+    "path": "times/c220g5/model/wl_bc-twitter.sg_model_all/4053MiB_run3_model_discounted_reward_99_all_l2-1_10_0.1.time",
+    "mtime_utc": "2026-08-27T09:45:55.889952+00:00",
+    "boot": {
+      "epoch": 1787750261,
+      "utc": "2026-08-26T13:17:41+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 930048
+    },
+    "next_boot": {
+      "epoch": 1787827220,
+      "utc": "2026-08-27T10:40:20+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 934272
+    }
+  },
+  {
+    "path": "times/c220g5/model/wl_bc-twitter.sg_model_all/4053MiB_run2_model_discounted_reward_99_all_l2-1_10_0.1.time",
+    "mtime_utc": "2026-08-27T08:59:07.300499+00:00",
+    "boot": {
+      "epoch": 1787750261,
+      "utc": "2026-08-26T13:17:41+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 930048
+    },
+    "next_boot": {
+      "epoch": 1787827220,
+      "utc": "2026-08-27T10:40:20+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 934272
+    }
+  },
+  {
+    "path": "times/c220g5/model/wl_bc-kron.sg_model_all/4053MiB_run1_model_discounted_reward_99_all_l2-1_10_0.1.time",
+    "mtime_utc": "2026-08-27T07:49:43.661667+00:00",
+    "boot": {
+      "epoch": 1787750261,
+      "utc": "2026-08-26T13:17:41+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 930048
+    },
+    "next_boot": {
+      "epoch": 1787827220,
+      "utc": "2026-08-27T10:40:20+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 934272
+    }
+  },
+  {
+    "path": "times/c220g5/model/wl_bc-kron.sg_model_all/4053MiB_run3_model_discounted_reward_99_all_l2-1_10_0.1.time",
+    "mtime_utc": "2026-08-27T09:24:58.661625+00:00",
+    "boot": {
+      "epoch": 1787750261,
+      "utc": "2026-08-26T13:17:41+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 930048
+    },
+    "next_boot": {
+      "epoch": 1787827220,
+      "utc": "2026-08-27T10:40:20+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 934272
+    }
+  },
+  {
+    "path": "times/c220g5/model/wl_bc-kron.sg_model_all/4053MiB_run2_model_discounted_reward_99_all_l2-1_10_0.1.time",
+    "mtime_utc": "2026-08-27T08:37:40.969919+00:00",
+    "boot": {
+      "epoch": 1787750261,
+      "utc": "2026-08-26T13:17:41+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 930048
+    },
+    "next_boot": {
+      "epoch": 1787827220,
+      "utc": "2026-08-27T10:40:20+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "source": "/var/log/wtmp.1",
+      "byte_offset": 934272
+    }
+  }
+]

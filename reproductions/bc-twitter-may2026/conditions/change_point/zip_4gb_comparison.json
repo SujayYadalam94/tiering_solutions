@@ -1,0 +1,782 @@
+[
+  {
+    "path": "arms_6.18/bc-kron.sg/4009MiB_run1.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      34,
+      4
+    ],
+    "sha256": "a37621eebdecd6a3a336ee9334eff1e0be17af1e3d65232103fc64a7aff6b97d",
+    "matches_current": true
+  },
+  {
+    "path": "arms_6.18/bc-kron.sg/4009MiB_run2.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      34,
+      4
+    ],
+    "sha256": "e710a6c665dd570eeec7c2a7efb53af53a3c2422cceeb2a99143645897c51b18",
+    "matches_current": true
+  },
+  {
+    "path": "arms_6.18/bc-kron.sg/4009MiB_run3.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      34,
+      4
+    ],
+    "sha256": "9f6c1a5b9c49532ef83f2b6fbb0725a5322144638f920f664d934ce40b631de2",
+    "matches_current": true
+  },
+  {
+    "path": "arms_6.18/bc-twitter.sg/4009MiB_run1.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      34,
+      4
+    ],
+    "sha256": "0fa3245410764fa5fa16e61b5834adeb9eaa5645f80e1e8b48ef63d39e6d4df7",
+    "matches_current": true
+  },
+  {
+    "path": "arms_6.18/bc-twitter.sg/4009MiB_run2.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      34,
+      4
+    ],
+    "sha256": "d3e73e405ad1a78984c99f32701ef805843721ef30f5a0c887d6fb66e41e1ff4",
+    "matches_current": true
+  },
+  {
+    "path": "arms_6.18/bc-twitter.sg/4009MiB_run3.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      34,
+      4
+    ],
+    "sha256": "1e8d4a39370c92c0a131b709378989e8e550e473492f0e3072f0513916743be5",
+    "matches_current": true
+  },
+  {
+    "path": "arms_6.18_long/bc-twitter.sg/4035MiB_run1.time",
+    "zip_time": [
+      2026,
+      5,
+      14,
+      21,
+      48,
+      56
+    ],
+    "sha256": "ae75d67a14d9a1d8c3b08538b8a1357745b2e6db79afa85608b72c5aff0c699c",
+    "matches_current": true
+  },
+  {
+    "path": "arms_6.18_long/bc-twitter.sg/4035MiB_run2.time",
+    "zip_time": [
+      2026,
+      5,
+      14,
+      21,
+      48,
+      56
+    ],
+    "sha256": "a820b1006307e516f2c2ee031c42a2a1c5a6950ab181474d9f48fd18a53a9049",
+    "matches_current": true
+  },
+  {
+    "path": "arms_6.18_long/bc-twitter.sg/4035MiB_run3.time",
+    "zip_time": [
+      2026,
+      5,
+      14,
+      21,
+      48,
+      56
+    ],
+    "sha256": "fb732979718da5046821d6081c2225130d1cce56518ca9c56eed9c86d4af778e",
+    "matches_current": true
+  },
+  {
+    "path": "arms_6.2/bc-kron.sg/4000MiB_run1.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      23,
+      2,
+      48
+    ],
+    "sha256": "fe1f25affbffb28a5a51d9187ac7c598a20a5ee5bab50fb871bea39b4a73019a",
+    "matches_current": true
+  },
+  {
+    "path": "arms_6.2/bc-kron.sg/4000MiB_run2.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      23,
+      2,
+      48
+    ],
+    "sha256": "b46b86a946f8b1788a9a2a897ca418a97860c632fadfa90229439bbbcc8c03e3",
+    "matches_current": true
+  },
+  {
+    "path": "arms_6.2/bc-kron.sg/4000MiB_run3.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      23,
+      2,
+      48
+    ],
+    "sha256": "933baceb8f1ced55b67e4b14c296a9cc5251c2cdc3383be5f6164073a1112a8f",
+    "matches_current": true
+  },
+  {
+    "path": "arms_6.2/bc-twitter.sg/4000MiB_run1.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      23,
+      2,
+      48
+    ],
+    "sha256": "7783a57e4eaeb18e26c98c382bc1eab312afb645c04f8b2ba59638a9b9d9e8e5",
+    "matches_current": true
+  },
+  {
+    "path": "arms_6.2/bc-twitter.sg/4000MiB_run2.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      23,
+      2,
+      48
+    ],
+    "sha256": "d999bb5fdc2d18ee1a3ac9487c14ee3cf4361a00c61509630b6aaa589da58e3b",
+    "matches_current": true
+  },
+  {
+    "path": "arms_6.2/bc-twitter.sg/4000MiB_run3.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      23,
+      2,
+      48
+    ],
+    "sha256": "f9734320c777041b3a22844b7b063af71ef754593494282cf597f85d3b528707",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18/bc-kron.sg/4028MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "ef9f8b31c90c1027753ca45106ac16b26fd3eb8c94d450dc8affc6c44b5db2bf",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18/bc-kron.sg/4028MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "4ef941b44e0549674bc843091b81b1988502fe1bdd6f13d6d04affc2134776d4",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18/bc-kron.sg/4028MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "42fba49a19866510ac203f07c042633f53562fd8b832682fac9063adcd086af7",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18/bc-twitter.sg/4028MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "8c5e18967d30f13f22f2bca1d3eac1f8f7690435eae893e33f5fbc4dd5d02f74",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18/bc-twitter.sg/4028MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "e90f25f3b0e4822bba90b1d49cc5be6cc009c909f6fae28683653ba5f2487d87",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18/bc-twitter.sg/4028MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "d3c94b684d5b03ee638113387ef1b8d0b196f619ac6f99711839724900329be0",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.125.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "1bb6e5c6a4f4f659e3feef13bab9735196be532b62ded14a0966c71c4f0214cc",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.25.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "6715c4d738406ca04344abd71218c548bf7042b385b0106aa4f1de5168aa9a6d",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.5.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "dfdeda5effc743cc250632ceea64ef9b515aa6f2d8e784aecbe582938513d47f",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.0.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "77c3c9b9cf8320fa35058967bc267b1c84dc6ab722706f08cb10afa0ff0c0a19",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.5.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "560ec53f21d25c4d709de9534664c4ed29ebf83271dfd8e027bafe7a6a6d798c",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.125.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "a899ccf1fcb3a203131bf67661640f2c6887871f20959234a2269e4609e256f8",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.25.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "07cf9a785858582d42102be37b5bbb8187216392e6ce19faf23eb67357ff24b3",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.5.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "b0de5cd1c7b085cec3885712e14bc3d597d3f75d7eccb983fa112e5c7fc805f0",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.0.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "9526e2fe998406dbc6f53aebb9727507bba6978ce54b5e2fb8c074c47648f867",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.5.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "700163f9c2d8d1f649d58b2a263ee9240cfff4d7cfdf45fb9e62bd8d7002351f",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.125.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "f908df97396710f3efde03ec29a6348ba933c9399e29ce6f527362f777f48ff8",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.25.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "442425e7d05aaf8e9ac731165b538cdd9eeaacb0acc6e6e610962d75f7eb6b3c",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.5.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "5b3bc2c421245cb64dd9ab55af5a114921aaa50b88b99a828c274e4c2161308b",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.0.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "9d717a665c409a97d153e3bc4890873f8b7111dbcfc9992d187c052cb9a7fd0f",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.5.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "7a78268ce25c63178939226607cd959d6d9eb36ca6607114748ca373fcde897a",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "9946e7af5c7a07e7f4bb64b790332a9bafab83ccdc6f9d6b7eb11317457c9728",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "fd01396e6bfa8d95a94f5bbe8441dc9db13308053e35bea06a44f307acb04602",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "4a1eb31fca472543cb8b88fe909018431c7cf222385bf7a77961c3ea4678289e",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "787e6b1f5fd3d8aff779d655aa4afd593dcc5aa20e926ba6cebbdef0ed99d76d",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "c9f6a18b0e347f41044c248c3e352482307b89522423691f8a1cb3fa71c83699",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "dff0ee2aa56645f2bf6828954298280022b8f36d31a9db71541e3a53b488ef7b",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "28de91a4af74eae8af89d065509c14bb90198a4b5bf3ceec678edf86d3f7f601",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "12db0c43a9b21e9ec3159d18bfec2037bfda58fce61c764ccf9feda184f3ff28",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "185046818dac18b4dd768748aaf98558aa611cc2c42fdbeea086d707b65269ea",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "2a8cb43dbf14ea9faa5231ad8ed058f3f5a1c8fc9e92be0e80fd7df9b070e4fb",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "d222468e665fb79864b205048bffdceed20595448ad27f8baaf83cbaf8507ae0",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "ab848b4e8a3ad1a6e5c801fd533a90cc6bbd5cd0c6a70e7200ecccc862994d4d",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "a41b09a20b97f9d0fbbaf0501f8ad097184920b98cebd94ecd185baa34b636cc",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "f8bca0feb73c73d18d9706c155a729bd8ad5aedde731330327b916c03e298fdb",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      0,
+      17,
+      18
+    ],
+    "sha256": "759736a607a03436ea77a710e774231e681f9637aa4ff150e854831aca5e723d",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_long/bc-twitter.sg/4035MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "zip_time": [
+      2026,
+      5,
+      14,
+      21,
+      49,
+      20
+    ],
+    "sha256": "26f4ff246b5dce417050d6c56c78d3c3c0084c54acd5f2e9ca86fca23563f31f",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_long/bc-twitter.sg/4035MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "zip_time": [
+      2026,
+      5,
+      14,
+      21,
+      49,
+      20
+    ],
+    "sha256": "ebc3993474f01b5b5fb4fec449a809bc06176f5696881df545afdf63bc73f374",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.18_long/bc-twitter.sg/4035MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "zip_time": [
+      2026,
+      5,
+      14,
+      21,
+      49,
+      20
+    ],
+    "sha256": "8316dc24c4d09a6f743cc0d56f4c57aa7acdebc87d1c6ee6d2f02971bebd9aa7",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.2/bc-kron.sg/4030MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      23,
+      5,
+      12
+    ],
+    "sha256": "d852adf87e2d19d0a1a4d073ba78099538f1fe852fc43aa3c147827b0983e25b",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.2/bc-kron.sg/4030MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      23,
+      5,
+      12
+    ],
+    "sha256": "20beb07790b9cc42674aa7988b5421fbce4d8ef665b8107e35a0123b8ecece37",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.2/bc-kron.sg/4030MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      23,
+      5,
+      12
+    ],
+    "sha256": "77439ed46898087598f3c0ed94e530ac437627646bbd547b05fb6e40cfcb1844",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.2/bc-twitter.sg/4030MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      23,
+      5,
+      18
+    ],
+    "sha256": "9f7b5c90635f6fc4c4d09b6f637c4b7c7649ac6fd5ad1781aac27a83781b20e6",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.2/bc-twitter.sg/4030MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      23,
+      5,
+      18
+    ],
+    "sha256": "1b10b94460e156381b644c8d59b43c4ff17f90de78e4c3071b05d182953c0915",
+    "matches_current": true
+  },
+  {
+    "path": "model_6.2/bc-twitter.sg/4030MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "zip_time": [
+      2026,
+      5,
+      11,
+      23,
+      5,
+      18
+    ],
+    "sha256": "8629f480136484caf62a4395d4e54018fb04561671cdca40349bfe74f32b2522",
+    "matches_current": true
+  }
+]

@@ -1,0 +1,16 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-160e6d/Javf.h
++++ /users/zimooo2/.vscode-server/data/User/History/-160e6d/R1XD.h
+@@ -106,11 +106,11 @@
+ #endif
+ 
+ #ifndef MODEL_SCORE_MOVING_AVERAGE_ALPHA_IDX
+-#define MODEL_SCORE_MOVING_AVERAGE_ALPHA_IDX (1)
++#define MODEL_SCORE_MOVING_AVERAGE_ALPHA_IDX (2)
+ #endif
+ 
+ #ifndef VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX
+-#define VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX (1)
++#define VIRTUAL_STEP_DURATION_AVERAGE_ALPHA_IDX (2)
+ #endif
+ 
+ #if MODEL_SCORE_HISTORY_SUMMARY == MODEL_SCORE_HISTORY_SUMMARY_MIN_MAX

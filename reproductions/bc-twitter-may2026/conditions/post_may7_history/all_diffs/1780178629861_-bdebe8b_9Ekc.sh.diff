@@ -1,0 +1,12 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-bdebe8b/E4T1.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-bdebe8b/9Ekc.sh
+@@ -1,7 +1,7 @@
+ #!/bin/bash
+ 
+-WORKLOAD_ID="faiss_10M-long"
+-WORKLOAD_OUTPUT="faiss_10M-long"
++WORKLOAD_ID="faiss_10M-short"
++WORKLOAD_OUTPUT="faiss_10M-short"
+ WORKLOAD_COMMAND="${BENCH_ROOT}/big-ann-benchmarks/.venv/bin/python3 ${BENCH_ROOT}/big-ann-benchmarks/data/10M_benchmark.py --threads 16 --index-key HNSW,Flat --stress-mode latency --dataset openai --n-queries 1000 --search-repeats 1"
+ WORKLOAD_EXE_NAME="python3"
+ WORKLOAD_MODEL_BASE="faiss_10M"

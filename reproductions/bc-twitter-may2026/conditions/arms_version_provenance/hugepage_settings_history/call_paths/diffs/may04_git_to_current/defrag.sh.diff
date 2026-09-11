@@ -1,0 +1,14 @@
+--- may04_git/defrag.sh
++++ current/defrag.sh
+@@ -1,3 +1,6 @@
++#!/bin/bash
++set -e
++
+ sudo bash -c 'echo always > /sys/kernel/mm/transparent_hugepage/enabled && echo always > /sys/kernel/mm/transparent_hugepage/defrag'
+ 
+ 
+@@ -7,4 +10,4 @@
+ sudo bash -c 'echo 1 > /proc/sys/vm/compact_memory'
+ sudo sync
+ sudo bash -c 'sync; echo 3 > /proc/sys/vm/drop_caches'
+-sudo bash -c 'sync; echo 2 > /proc/sys/vm/drop_caches'+sudo bash -c 'sync; echo 2 > /proc/sys/vm/drop_caches'

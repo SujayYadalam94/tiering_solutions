@@ -1,0 +1,122 @@
+[
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/workspace-chunks.db",
+    "resource": "hook/hook.cpp",
+    "version": "1758-1773761752134",
+    "source_mtime": "2026-03-17T15:35:52.134000+00:00",
+    "chunks": 3,
+    "unmatched_chunks": 0,
+    "git_variants": 9,
+    "other_candidates": 15
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/workspace-chunks.db",
+    "resource": "pebs_scan_thread.cpp",
+    "version": "4124-1773761583045",
+    "source_mtime": "2026-03-17T15:33:03.045000+00:00",
+    "chunks": 6,
+    "unmatched_chunks": 0,
+    "git_variants": 18,
+    "other_candidates": 50
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/workspace-chunks.db",
+    "resource": "pagemap_scan_thread.cpp",
+    "version": "12235-1773760928734",
+    "source_mtime": "2026-03-17T15:22:08.734000+00:00",
+    "chunks": 21,
+    "unmatched_chunks": 0,
+    "git_variants": 14,
+    "other_candidates": 50
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/workspace-chunks.db",
+    "resource": "arms_kernel.cpp",
+    "version": "38667-1773761425973",
+    "source_mtime": "2026-03-17T15:30:25.973000+00:00",
+    "chunks": 62,
+    "unmatched_chunks": 0,
+    "git_variants": 55,
+    "other_candidates": 50
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/local-index.1.db",
+    "resource": "arms_kernel_threads.h",
+    "version": "2894-1773095726548",
+    "source_mtime": "2026-03-09T22:35:26.548000+00:00",
+    "chunks": 3,
+    "unmatched_chunks": 0,
+    "git_variants": 13,
+    "other_candidates": 16
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/local-index.1.db",
+    "resource": "page.h",
+    "version": "2924-1773095726428",
+    "source_mtime": "2026-03-09T22:35:26.428000+00:00",
+    "chunks": 3,
+    "unmatched_chunks": 0,
+    "git_variants": 21,
+    "other_candidates": 18
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/local-index.1.db",
+    "resource": "migration_worker.cpp",
+    "version": "12518-1773116831149",
+    "source_mtime": "2026-03-10T04:27:11.149000+00:00",
+    "chunks": 12,
+    "unmatched_chunks": 4,
+    "git_variants": 15,
+    "other_candidates": 50
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/local-index.1.db",
+    "resource": "policy_thread.cpp",
+    "version": "3268-1773116087242",
+    "source_mtime": "2026-03-10T04:14:47.242000+00:00",
+    "chunks": 4,
+    "unmatched_chunks": 0,
+    "git_variants": 11,
+    "other_candidates": 17
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/local-index.1.db",
+    "resource": "defs.h",
+    "version": "9525-1773761378261",
+    "source_mtime": "2026-03-17T15:29:38.261000+00:00",
+    "chunks": 11,
+    "unmatched_chunks": 0,
+    "git_variants": 40,
+    "other_candidates": 50
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/local-index.1.db",
+    "resource": "arms_kernel.cpp",
+    "version": "38667-1773761107356",
+    "source_mtime": "2026-03-17T15:25:07.356000+00:00",
+    "chunks": 42,
+    "unmatched_chunks": 0,
+    "git_variants": 55,
+    "other_candidates": 50
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/local-index.1.db",
+    "resource": "pebs_scan_thread.cpp",
+    "version": "4792-1773761944485",
+    "source_mtime": "2026-03-17T15:39:04.485000+00:00",
+    "chunks": 4,
+    "unmatched_chunks": 0,
+    "git_variants": 18,
+    "other_candidates": 50
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/local-index.1.db",
+    "resource": "pagemap_scan_thread.cpp",
+    "version": "12235-1773760928710",
+    "source_mtime": "2026-03-17T15:22:08.710000+00:00",
+    "chunks": 12,
+    "unmatched_chunks": 0,
+    "git_variants": 14,
+    "other_candidates": 50
+  }
+]

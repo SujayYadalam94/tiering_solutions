@@ -1,0 +1,20 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/53656f4/4EsO.sh
++++ /users/zimooo2/.vscode-server/data/User/History/53656f4/t86Z.sh
+@@ -21,7 +21,7 @@
+ and collects each trace with its timing and peak-DRAM artifacts.
+ 
+ The graph defaults to:
+-  \${BENCH_ROOT}/gapbs/benchmark/graph-80GB.sg
++  \${BENCH_ROOT}/gapbs/benchmark/kron-80GB.sg
+ 
+ Environment overrides:
+   GAPBS_80GB_GRAPH       graph path
+@@ -48,7 +48,7 @@
+     exit 1
+ fi
+ 
+-GAPBS_80GB_GRAPH=${GAPBS_80GB_GRAPH:-${BENCH_ROOT}/gapbs/benchmark/graph-80GB.sg}
++GAPBS_80GB_GRAPH=${GAPBS_80GB_GRAPH:-${BENCH_ROOT}/gapbs/benchmark/kron-80GB.sg}
+ export GAPBS_80GB_GRAPH
+ 
+ TRAIN_SIZE_MIB=${TRAIN_SIZE_MIB:-100101}

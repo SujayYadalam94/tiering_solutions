@@ -1,0 +1,12 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/5f1ddae6/8mEG.sh
++++ /users/zimooo2/.vscode-server/data/User/History/5f1ddae6/xm1h.sh
+@@ -1,7 +1,7 @@
+ #!/bin/bash
+ 
+-WORKLOAD_ID="bc-kron.sg-long"
+-WORKLOAD_OUTPUT="bc-kron.sg-long"
++WORKLOAD_ID="bc-kron.sg-short"
++WORKLOAD_OUTPUT="bc-kron.sg-short"
+ WORKLOAD_COMMAND="OMP_NUM_THREADS=16 ${BENCH_ROOT}/gapbs/bc -n 1 -f ${BENCH_ROOT}/gapbs/benchmark/graphs/kron.sg"
+ WORKLOAD_EXE_NAME="bc"
+ WORKLOAD_MODEL_BASE="bc-kron.sg"

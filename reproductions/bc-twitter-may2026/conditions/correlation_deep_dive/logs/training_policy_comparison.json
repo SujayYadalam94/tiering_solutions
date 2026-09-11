@@ -1,0 +1,850 @@
+[
+  {
+    "path": "logs/bc-twitter.sg/run1.parquet",
+    "rows": 1413260,
+    "statistics": {
+      "model_score": [
+        {
+          "min": -0.0,
+          "max": 22656048.0,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 108214.976562,
+          "null_count": 0
+        }
+      ],
+      "arms_score": [
+        {
+          "min": -0.0,
+          "max": 0.0,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.0,
+          "null_count": 0
+        }
+      ],
+      "score": [
+        {
+          "min": -2.8385761088295295e+35,
+          "max": 2.771302248002149e+36,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 108214.976562,
+          "null_count": 0
+        }
+      ],
+      "num_demotions": [
+        {
+          "min": 0,
+          "max": 0,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "null_count": 0
+        }
+      ],
+      "num_promotions": [
+        {
+          "min": 0,
+          "max": 50,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 54,
+          "null_count": 0
+        }
+      ],
+      "step": [
+        {
+          "min": 0,
+          "max": 154,
+          "null_count": 0
+        },
+        {
+          "min": 154,
+          "max": 207,
+          "null_count": 0
+        }
+      ],
+      "global_avg_accesses": [
+        {
+          "min": -0.0,
+          "max": 155.0,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 63.245716,
+          "null_count": 0
+        }
+      ],
+      "global_avg_accesses_model": [
+        {
+          "min": -0.0,
+          "max": 155.0,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 63.245716,
+          "null_count": 0
+        }
+      ]
+    }
+  },
+  {
+    "path": "logs/bc-kron.sg/run1.parquet",
+    "rows": 5364028,
+    "statistics": {
+      "model_score": [
+        {
+          "min": -0.0,
+          "max": 27551048.0,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 126277.53125,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 154427.359375,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 174547.53125,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 140461.875,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 117478.054688,
+          "null_count": 0
+        }
+      ],
+      "arms_score": [
+        {
+          "min": -0.0,
+          "max": 0.0,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.0,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.0,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.0,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.0,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.0,
+          "null_count": 0
+        }
+      ],
+      "score": [
+        {
+          "min": -30984058880.0,
+          "max": 3.6255596279026003e+36,
+          "null_count": 0
+        },
+        {
+          "min": -5e-06,
+          "max": 105027.53125,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 7.777783355128578e+31,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 181301.53125,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 138257.90625,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 113961.835938,
+          "null_count": 0
+        }
+      ],
+      "num_demotions": [
+        {
+          "min": 0,
+          "max": 0,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "null_count": 0
+        }
+      ],
+      "num_promotions": [
+        {
+          "min": 0,
+          "max": 91,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 72,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 58,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 43,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 67,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 84,
+          "null_count": 0
+        }
+      ],
+      "step": [
+        {
+          "min": 0,
+          "max": 104,
+          "null_count": 0
+        },
+        {
+          "min": 104,
+          "max": 209,
+          "null_count": 0
+        },
+        {
+          "min": 209,
+          "max": 313,
+          "null_count": 0
+        },
+        {
+          "min": 313,
+          "max": 417,
+          "null_count": 0
+        },
+        {
+          "min": 417,
+          "max": 521,
+          "null_count": 0
+        },
+        {
+          "min": 521,
+          "max": 533,
+          "null_count": 0
+        }
+      ],
+      "global_avg_accesses": [
+        {
+          "min": -0.0,
+          "max": 103.666664,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 69.5,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 92.333336,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 104.5,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 147.0,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 59.507664,
+          "null_count": 0
+        }
+      ],
+      "global_avg_accesses_model": [
+        {
+          "min": -0.0,
+          "max": 103.666664,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 69.5,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 92.333336,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 104.5,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 147.0,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 59.507664,
+          "null_count": 0
+        }
+      ]
+    }
+  },
+  {
+    "path": "logs/bc-twitter.sg/100050MiB_run1_train_arms.parquet",
+    "rows": 2535960,
+    "statistics": {
+      "model_score": [
+        {
+          "min": -0.0,
+          "max": 0.0,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.0,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.0,
+          "null_count": 0
+        }
+      ],
+      "arms_score": [
+        {
+          "min": -0.0,
+          "max": 13206.325195,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 11747.669922,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 11416.414062,
+          "null_count": 0
+        }
+      ],
+      "score": [
+        {
+          "min": -0.0,
+          "max": 13206.325195,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 11747.669922,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 11416.414062,
+          "null_count": 0
+        }
+      ],
+      "num_demotions": [
+        {
+          "min": 0,
+          "max": 0,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "null_count": 0
+        }
+      ],
+      "num_promotions": [
+        {
+          "min": 0,
+          "max": 2,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 15,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 20,
+          "null_count": 0
+        }
+      ],
+      "step": [
+        {
+          "min": 1,
+          "max": 329,
+          "null_count": 0
+        },
+        {
+          "min": 329,
+          "max": 483,
+          "null_count": 0
+        },
+        {
+          "min": 483,
+          "max": 547,
+          "null_count": 0
+        }
+      ],
+      "global_avg_accesses": [
+        {
+          "min": -0.0,
+          "max": 13128.692383,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 12968.972656,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 12242.286133,
+          "null_count": 0
+        }
+      ],
+      "global_avg_accesses_model": [
+        {
+          "min": -0.0,
+          "max": 0.994822,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.957718,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.77873,
+          "null_count": 0
+        }
+      ]
+    }
+  },
+  {
+    "path": "logs/bc-kron.sg/100050MiB_run1_train_arms.parquet",
+    "rows": 7706588,
+    "statistics": {
+      "model_score": [
+        {
+          "min": -0.0,
+          "max": 0.0,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.0,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.0,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.0,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.0,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.0,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.0,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.0,
+          "null_count": 0
+        }
+      ],
+      "arms_score": [
+        {
+          "min": -0.0,
+          "max": 13251.970703,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 13313.855469,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 12784.657227,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 12429.976562,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 12844.322266,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 12588.30957,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 11832.068359,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 11768.358398,
+          "null_count": 0
+        }
+      ],
+      "score": [
+        {
+          "min": -0.0,
+          "max": 13251.970703,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 13313.855469,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 12784.657227,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 12429.976562,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 12844.322266,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 12588.30957,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 11832.068359,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 11768.358398,
+          "null_count": 0
+        }
+      ],
+      "num_demotions": [
+        {
+          "min": 0,
+          "max": 0,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 0,
+          "null_count": 0
+        }
+      ],
+      "num_promotions": [
+        {
+          "min": 0,
+          "max": 2,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 3,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 5,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 8,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 11,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 15,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 19,
+          "null_count": 0
+        },
+        {
+          "min": 0,
+          "max": 20,
+          "null_count": 0
+        }
+      ],
+      "step": [
+        {
+          "min": 1,
+          "max": 326,
+          "null_count": 0
+        },
+        {
+          "min": 326,
+          "max": 455,
+          "null_count": 0
+        },
+        {
+          "min": 455,
+          "max": 560,
+          "null_count": 0
+        },
+        {
+          "min": 560,
+          "max": 664,
+          "null_count": 0
+        },
+        {
+          "min": 664,
+          "max": 769,
+          "null_count": 0
+        },
+        {
+          "min": 769,
+          "max": 872,
+          "null_count": 0
+        },
+        {
+          "min": 872,
+          "max": 976,
+          "null_count": 0
+        },
+        {
+          "min": 976,
+          "max": 1012,
+          "null_count": 0
+        }
+      ],
+      "global_avg_accesses": [
+        {
+          "min": -0.0,
+          "max": 13178.227539,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 13179.285156,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 13008.296875,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 12615.266602,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 12323.325195,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 12200.235352,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 12032.960938,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 11908.262695,
+          "null_count": 0
+        }
+      ],
+      "global_avg_accesses_model": [
+        {
+          "min": -0.0,
+          "max": 0.993882,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.987222,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.938906,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.832612,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.754082,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.71717,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.691353,
+          "null_count": 0
+        },
+        {
+          "min": -0.0,
+          "max": 0.672305,
+          "null_count": 0
+        }
+      ]
+    }
+  }
+]

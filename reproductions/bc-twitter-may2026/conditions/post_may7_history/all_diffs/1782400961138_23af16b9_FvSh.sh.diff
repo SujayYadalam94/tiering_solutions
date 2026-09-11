@@ -1,0 +1,29 @@
+--- git:8d6a8bc66:copy_c220g5_final_long.sh
++++ /users/zimooo2/.vscode-server/data/User/History/23af16b9/FvSh.sh
+@@ -0,0 +1,26 @@
++#!/usr/bin/env bash
++set -euo pipefail
++
++# Ensure destination directories exist.
++mkdir -p c220g5_final/arms_6.18_long/{bc-kron.sg,bc-twitter.sg,DuckDB-TPCH-sf100,faiss_10M,mg.D.x,pr-kron.sg,pr-twitter.sg,XSBench}
++mkdir -p c220g5_final/model_6.18_long/{bc-kron.sg,bc-twitter.sg,DuckDB-TPCH-sf100,faiss_10M,mg.D.x,pr-kron.sg,pr-twitter.sg,XSBench}
++
++cp c220g5/arms/bc-kron.sg-long/10041MiB_run* c220g5_final/arms_6.18_long/bc-kron.sg
++cp c220g5/arms/bc-twitter.sg-long/10041MiB_run* c220g5_final/arms_6.18_long/bc-twitter.sg
++cp c220g5/arms/DuckDB-TPCH-sf100-long/10041MiB_run* c220g5_final/arms_6.18_long/DuckDB-TPCH-sf100
++cp c220g5/arms/faiss_10M-long/10041MiB_run* c220g5_final/arms_6.18_long/faiss_10M
++cp c220g5/arms/mg.D.x-long/10041MiB_run* c220g5_final/arms_6.18_long/mg.D.x
++cp c220g5/arms/pr-kron.sg-long/10041MiB_run* c220g5_final/arms_6.18_long/pr-kron.sg
++cp c220g5/arms/pr-twitter.sg-long/10041MiB_run* c220g5_final/arms_6.18_long/pr-twitter.sg
++cp c220g5/arms/XSBench-long/10041MiB_run* c220g5_final/arms_6.18_long/XSBench
++
++cp c220g5/model/bc-kron.sg-long/10041MiB_run* c220g5_final/model_6.18_long/bc-kron.sg
++cp c220g5/model/bc-twitter.sg-long/10041MiB_run* c220g5_final/model_6.18_long/bc-twitter.sg
++cp c220g5/model/DuckDB-TPCH-sf100-long/10041MiB_run* c220g5_final/model_6.18_long/DuckDB-TPCH-sf100
++cp c220g5/model/faiss_10M-long/10041MiB_run* c220g5_final/model_6.18_long/faiss_10M
++cp c220g5/model/mg.D.x-long/10041MiB_run* c220g5_final/model_6.18_long/mg.D.x
++cp c220g5/model/pr-kron.sg-long/10041MiB_run* c220g5_final/model_6.18_long/pr-kron.sg
++cp c220g5/model/pr-twitter.sg-long/10041MiB_run* c220g5_final/model_6.18_long/pr-twitter.sg
++cp c220g5/model/XSBench-long/10041MiB_run* c220g5_final/model_6.18_long/XSBench
++
++echo "Copy complete."

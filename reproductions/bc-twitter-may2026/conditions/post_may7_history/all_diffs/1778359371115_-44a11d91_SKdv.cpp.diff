@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-44a11d91/Vks2.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-44a11d91/SKdv.cpp
+@@ -1689,7 +1689,7 @@
+         return;
+     }
+ 
+-    const float boundary_score = scores[static_cast<size_t>(max_hugepages) / 2].score;
++    const float boundary_score = scores[static_cast<size_t>(max_hugepages) - 250].score;
+     const float denom = get_adjusted_ewma_denom(3, dram_boundary_score_moving_average_count);
+     dram_boundary_score_moving_average = adjusted_ewma(dram_boundary_score_moving_average, boundary_score, denom);
+     dram_boundary_score_moving_average_count++;

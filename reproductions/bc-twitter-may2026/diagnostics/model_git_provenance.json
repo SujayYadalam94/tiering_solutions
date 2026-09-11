@@ -1,0 +1,35 @@
+{
+  "repository": "/users/zimooo2/tiering_models",
+  "commit": "25cd9eddd277c84363e4340fec527625bb5e86b9",
+  "checked_utc": "2026-09-09T12:38:15.207525+00:00",
+  "models": [
+    {
+      "candidate": "may03",
+      "git_spec": "25cd9ed:process_data/models/model_discounted_reward_99_bc-twitter.sg_l2.o",
+      "git_blob": "dfc9e5b0847ebebd5e24b42185ed40a4a52294ff",
+      "sha256": "763ad7a415847b832a89389d6a20bca1a4f8d01871b0d69186aee7f943591585",
+      "matches_frozen": true
+    },
+    {
+      "candidate": "may03",
+      "git_spec": "25cd9ed:process_data/models/model_discounted_reward_99_bc-twitter.sg_l2.txt",
+      "git_blob": "b90c89bf05a1f4102e983d1577c497b713bb1df7",
+      "sha256": "57c39dda632eddbb5a0e1f2006f81d7778ec967634243dd1803a8278eaf285df",
+      "matches_frozen": true
+    },
+    {
+      "candidate": "may14",
+      "git_spec": "25cd9ed:process_data/model_discounted_reward_99_bc-twitter.sg_l2.o",
+      "git_blob": "69e4b9345bffbad7da746d67a95e22a961f8ba96",
+      "sha256": "96148ddca2bbc531768cef66f9012cf91830696b683a82b6d7dbd52cfebb60dc",
+      "matches_frozen": true
+    },
+    {
+      "candidate": "may14",
+      "git_spec": "25cd9ed:process_data/model_discounted_reward_99_bc-twitter.sg_l2.txt",
+      "git_blob": "19f9d3b5893f20f7f954e084d3e26806ce072788",
+      "sha256": "a965a5dc3b9e69825e16a741b86c734d7e02a460e043664ee7396619800d41e9",
+      "matches_frozen": true
+    }
+  ]
+}

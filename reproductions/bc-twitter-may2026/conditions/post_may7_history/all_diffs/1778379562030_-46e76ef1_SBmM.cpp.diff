@@ -1,0 +1,20 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-46e76ef1/dxA8.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-46e76ef1/SBmM.cpp
+@@ -439,7 +439,7 @@
+         this->can_promote = false;
+     }
+ #else
+-    if (rank < (num_dram_pages * 0.5))
++    if (rank < (num_dram_pages * 0.75))
+     {
+         this->can_promote = true;
+     }
+@@ -447,7 +447,7 @@
+     {
+         this->can_promote = false;
+     }
+-    if (rank > total_scores - (0.5 * (total_scores - num_dram_pages)))
++    if (rank > total_scores - (0.75 * (total_scores - num_dram_pages)))
+     {
+         this->can_demote = true;
+     }

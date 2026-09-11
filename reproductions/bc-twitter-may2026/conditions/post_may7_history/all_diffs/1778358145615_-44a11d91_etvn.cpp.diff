@@ -1,0 +1,10 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-44a11d91/Yxd7.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-44a11d91/etvn.cpp
+@@ -1793,6 +1793,7 @@
+                     cost += 1 * get_demotion_cost_multiplier() * demotion_cost_avg;
+ 
+ #if USE_MODEL == (true)
++                    cost += boundary_score_cost;
+                     benefit -= (cold_page->score) * HF_SAMPLE_PERIOD * latency_diff;
+ #else
+                     benefit -= cold_page->score * hot_page->hot_age * HF_SAMPLE_PERIOD * latency_diff;

@@ -1,0 +1,13 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/1e202976/fwnd.sh
++++ /users/zimooo2/.vscode-server/data/User/History/1e202976/q6Tj.sh
+@@ -6,8 +6,8 @@
+ declare -ar MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
+     #"bc-kron.sg-long"
+     #"pr-kron.sg-long"
+-    #"bc-twitter.sg-long"
+-    "pr-twitter.sg-long"
++    "bc-twitter.sg-long"
++    #"pr-twitter.sg-long"
+     #"faiss_10M-long"
+ 
+     #"XSBench"

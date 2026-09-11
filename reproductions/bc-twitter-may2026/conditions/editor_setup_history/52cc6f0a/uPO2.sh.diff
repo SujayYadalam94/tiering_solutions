@@ -1,0 +1,11 @@
+--- 8d6a8bc66:measurement_common.sh
++++ 52cc6f0a/uPO2.sh
+@@ -143,6 +143,8 @@
+     cleanup_split_log_files "${log_output_path}"
+     rm -f "${max_dram_file}"
+ }
++
++
+ 
+ measurement_prepare_workload_runtime() {
+     WORKLOAD_RUNTIME_DIR=

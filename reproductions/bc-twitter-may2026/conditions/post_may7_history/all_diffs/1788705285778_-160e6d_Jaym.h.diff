@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-160e6d/TGRB.h
++++ /users/zimooo2/.vscode-server/data/User/History/-160e6d/Jaym.h
+@@ -289,7 +289,7 @@
+ // ==============================================================================
+ 
+ #if USE_MODEL == (true)
+-#define PERF_PAGES (1 + (1 << 10)) // Has to be == 1+2^n, here 64MB
++#define PERF_PAGES (1 + (1 << 12)) // Has to be == 1+2^n, here 64MB
+ #else
+ #define PERF_PAGES (1 + (1 << 11)) // 128MB because of double sampling rate
+ #endif

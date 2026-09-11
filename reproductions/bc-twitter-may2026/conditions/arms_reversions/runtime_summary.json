@@ -1,0 +1,160 @@
+{
+  "session": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T153630Z-322048",
+  "inputs": {
+    "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+    "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+    "graph_stat": {
+      "size": 12732173745,
+      "device": 2051,
+      "inode": 4082114
+    },
+    "binary": "/users/zimooo2/gapbs/bc",
+    "binary_sha256": "744d57aee15e1bb6af4a796d725f4b686a1f2063c335dc7facb0327316b18449",
+    "mount": "TARGET SOURCE    FSTYPE\n/      /dev/sda3 ext3\n"
+  },
+  "restoration_errors": [],
+  "results": [
+    {
+      "case": "may07_arms",
+      "repetition": 1,
+      "returncode": 0,
+      "elapsed_seconds": 102.61,
+      "read_seconds": 39.63292,
+      "average_iteration_seconds": 6.25989,
+      "trial_count": 10,
+      "interference": null,
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T153630Z-322048/results/20260909T153630Z-322048/01-may07_arms",
+      "valid": true,
+      "compute_seconds": 62.5989,
+      "startup_free_dram_mib": 2465.58984375,
+      "node0_total_kib": 4737988,
+      "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+      "perf_rate": "1000000",
+      "perf_percent": "0",
+      "ring_count": 40,
+      "ring_sizes_mib": [
+        "8.00391"
+      ],
+      "preparation_seconds": 54.79588007300117,
+      "preparation_returncodes": [
+        0,
+        0
+      ],
+      "library_sha256": "f845a9711cfa2744eaa135a77f9954a8b4250239b2cb431aa4b01ac093da3615",
+      "throttle_or_loss_lines": [],
+      "global_counter_deltas": {
+        "compact_stall": 64608,
+        "compact_fail": 64575,
+        "compact_success": 33,
+        "pgmigrate_success": 4193601,
+        "pgmigrate_fail": 59559,
+        "thp_collapse_alloc_failed": 30034,
+        "pgscan_direct": 12499
+      }
+    },
+    {
+      "case": "may04_float_arms",
+      "repetition": 1,
+      "returncode": 0,
+      "elapsed_seconds": 103.57,
+      "read_seconds": 39.71666,
+      "average_iteration_seconds": 6.34364,
+      "trial_count": 10,
+      "interference": null,
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T153630Z-322048/results/20260909T153630Z-322048/01-may04_float_arms",
+      "valid": true,
+      "compute_seconds": 63.4364,
+      "startup_free_dram_mib": 2552.359375,
+      "node0_total_kib": 4737988,
+      "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+      "perf_rate": "1000000",
+      "perf_percent": "0",
+      "ring_count": 40,
+      "ring_sizes_mib": [
+        "8.00391"
+      ],
+      "preparation_seconds": 45.388148038999134,
+      "preparation_returncodes": [
+        0,
+        0
+      ],
+      "library_sha256": "50a7efb031917cf40872557a86e3bd65847927e213ee1fe1617487f66fad74ff",
+      "throttle_or_loss_lines": [],
+      "global_counter_deltas": {
+        "compact_stall": 64981,
+        "compact_fail": 64948,
+        "compact_success": 33,
+        "pgmigrate_success": 4552957,
+        "pgmigrate_fail": 74952,
+        "thp_collapse_alloc_failed": 30003,
+        "pgscan_direct": 0
+      }
+    },
+    {
+      "case": "may02_arms",
+      "repetition": 1,
+      "returncode": 0,
+      "elapsed_seconds": 104.49,
+      "read_seconds": 39.58183,
+      "average_iteration_seconds": 6.45246,
+      "trial_count": 10,
+      "interference": null,
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T153630Z-322048/results/20260909T153630Z-322048/01-may02_arms",
+      "valid": true,
+      "compute_seconds": 64.5246,
+      "startup_free_dram_mib": 2534.0625,
+      "node0_total_kib": 4737988,
+      "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+      "perf_rate": "1000000",
+      "perf_percent": "0",
+      "ring_count": 40,
+      "ring_sizes_mib": [
+        "8.00391"
+      ],
+      "preparation_seconds": 43.13728132799952,
+      "preparation_returncodes": [
+        0,
+        0
+      ],
+      "library_sha256": "e29c204c0300b33245fbe42e53812d8ef0d81d4d7de0014764b8e0cde07e82f4",
+      "throttle_or_loss_lines": [],
+      "global_counter_deltas": {
+        "compact_stall": 65835,
+        "compact_fail": 65825,
+        "compact_success": 10,
+        "pgmigrate_success": 4595941,
+        "pgmigrate_fail": 81685,
+        "thp_collapse_alloc_failed": 30373,
+        "pgscan_direct": 0
+      }
+    }
+  ],
+  "means": {
+    "may07_arms": {
+      "valid_runs": 1,
+      "elapsed_seconds": 102.61,
+      "read_seconds": 39.63292,
+      "average_iteration_seconds": 6.25989,
+      "compute_seconds": 62.5989
+    },
+    "may04_float_arms": {
+      "valid_runs": 1,
+      "elapsed_seconds": 103.57,
+      "read_seconds": 39.71666,
+      "average_iteration_seconds": 6.34364,
+      "compute_seconds": 63.4364
+    },
+    "may02_arms": {
+      "valid_runs": 1,
+      "elapsed_seconds": 104.49,
+      "read_seconds": 39.58183,
+      "average_iteration_seconds": 6.45246,
+      "compute_seconds": 64.5246
+    }
+  },
+  "limitations": [
+    "The user stopped the sweep after one completed execution per case; precise effect sizes are not established.",
+    "VM counters are global, not process-attributed time measurements.",
+    "Original archived ARMS phase timings and executable hash are unavailable."
+  ]
+}

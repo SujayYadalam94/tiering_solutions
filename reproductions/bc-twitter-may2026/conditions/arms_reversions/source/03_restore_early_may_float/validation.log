@@ -1,0 +1,5 @@
+In file included from arms_kernel.h:8,
+                 from arms_kernel.cpp:47:
+defs.h:280:67: note: ‘#pragma message: BUILD INFO: BASE_MIGRATION_COST_MULTIPLIER = 1.5’
+  280 | #pragma message("BUILD INFO: BASE_MIGRATION_COST_MULTIPLIER = 1.5")
+      |                                                                   ^

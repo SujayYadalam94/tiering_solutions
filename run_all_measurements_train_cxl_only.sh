@@ -73,7 +73,8 @@ collect_arms_artifacts() {
 
     copy_if_present "${source_time_dir}/${basename}.time" "${destination_dir}"
     copy_if_present "${source_time_dir}/max_dram_hugepages_${basename}.log" "${destination_dir}"
-    copy_if_present "${source_log_dir}/${basename}_arms.log" "${destination_dir}"
+    measurement_require_training_parquet "${source_log_dir}/${basename}_arms.parquet" || return 1
+    copy_if_present "${source_log_dir}/${basename}_arms.parquet" "${destination_dir}"
 }
 
 if [[ ! -x "${SCRIPT_DIR}/measurement_arms.sh" ]]; then
@@ -101,8 +102,8 @@ for size in "${SIZES[@]}"; do
             echo "---- Workload ${workload_id}: CXL-only time-based ARMS ----"
 
             NUMA_MEM_NODES="${NUMA_MEM_NODES_OVERRIDE}" \
-                "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run_label}" "${ARMS_LIB_SUFFIX}" "${workload_id}"
-            collect_arms_artifacts "${size}" "${run_label}" "${WORKLOAD_OUTPUT}"
+                "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run_label}" "${ARMS_LIB_SUFFIX}" "${workload_id}" || exit 1
+            collect_arms_artifacts "${size}" "${run_label}" "${WORKLOAD_OUTPUT}" || exit 1
         done
     done
 done

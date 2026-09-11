@@ -1,0 +1,33 @@
+{
+  "purpose": "Match paired early-May BC Twitter speeds; experimental settings are not evidence of historical values.",
+  "expected_kernel": "6.18.1-061801-generic",
+  "expected_boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+  "wrapper_sha256": "b216d7967edd10900f88badf88449761f25e731bec46deedaf4a4afe43105c85",
+  "builds": {
+    "may07_arms": {
+      "source": "may04",
+      "model": null,
+      "configuration": null,
+      "library": "libraries/may07_arms.so",
+      "library_sha256": "f845a9711cfa2744eaa135a77f9954a8b4250239b2cb431aa4b01ac093da3615"
+    },
+    "may07_model": {
+      "source": "may04",
+      "model": "may03",
+      "configuration": [
+        2,
+        10,
+        0.5
+      ],
+      "library": "libraries/may07_model.so",
+      "library_sha256": "c0f06d1b3febb5c3fea8359e87332a5c3068b6e6d62754251be7b5ebd6ecc1e6"
+    }
+  },
+  "initial_cases": [
+    {
+      "knob": "lowmem8",
+      "session": "20260909T192149Z-500236"
+    }
+  ],
+  "confirmation_cases": []
+}

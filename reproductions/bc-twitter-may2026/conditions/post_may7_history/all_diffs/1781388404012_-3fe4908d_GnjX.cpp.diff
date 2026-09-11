@@ -1,0 +1,20 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-3fe4908d/udfi.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-3fe4908d/GnjX.cpp
+@@ -12,7 +12,7 @@
+ #include <vector>
+ 
+ // Number of features - must match model file feature_names count.
+-#define MODEL_NUM_FEATURES 12
++#define MODEL_NUM_FEATURES 11
+ 
+ static inline double model_discount_scale()
+ {
+@@ -83,7 +83,7 @@
+     features[i++] = group_neg_mean;
+     features[i++] = group_pos_mean;
+     features[i++] = group_0_mean;
+-    features[i++] = static_cast<double>(row.age > 100 ? 100 : row.age);
++    // features[i++] = static_cast<double>(row.age > 100 ? 100 : row.age);
+     features[i++] = r_ratio_20;
+     features[i++] = r_ratio_100;
+     features[i++] = round_to_6(row.group_ewma5_var);

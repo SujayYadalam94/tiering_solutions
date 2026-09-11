@@ -1,0 +1,9 @@
+{
+  "source": "/users/zimooo2/tiering_solutions/libarms_kernel.so",
+  "sha256": "d6cfc27d1420ee40f588479f7c1be3b5e3353fe3d0f2738a899a7397b4c1845a",
+  "bytes": 375440,
+  "mtime_utc": "2026-04-30T05:21:33.059956+00:00",
+  "ctime_utc": "2026-04-30T05:21:33.059956+00:00",
+  "compiler_comment": "\nString dump of section '.comment':\n  [     0]  GCC: (GNU) 15.1.0\n\n",
+  "provenance_limit": "Surviving local artifact; no historical run hash proves its use. Timestamp predates commit introducing some contained symbols, so commit dates do not date local uncommitted code."
+}

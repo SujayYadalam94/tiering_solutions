@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-44a11d91/etvn.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-44a11d91/4RSb.cpp
+@@ -1752,7 +1752,7 @@
+ #if USE_MODEL == (true)
+         cost += boundary_score_cost;
+         // float benefit = SWITCH_SCALER * hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
+-        double benefit = (hot_page->score - 2.1) * HF_SAMPLE_PERIOD * latency_diff;
++        double benefit = (hot_page->score) * HF_SAMPLE_PERIOD * latency_diff;
+         // std::cout << "cost: " << cost << " PROMOTION_COST_MULTIPLIER: " << get_promotion_cost_multiplier()
+         //           << " MODEL_DISCOUNT_PERCENT: " << MODEL_DISCOUNT_PERCENT
+         //           << " promotion_cost_avg: " << promotion_cost_avg << " hot_page->score: " << hot_page->score;

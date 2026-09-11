@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-44a11d91/0Cpk.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-44a11d91/t0MH.cpp
+@@ -1774,7 +1774,7 @@
+                     {
+                         cost += 1 * scores[max_hugepages - 1].page->score * HF_SAMPLE_PERIOD * latency_diff;
+                     }
+-                    benefit -= cold_page->score * HF_SAMPLE_PERIOD * latency_diff;
++                    benefit -= (cold_page->score + 40) * HF_SAMPLE_PERIOD * latency_diff;
+ #else
+                     benefit -= cold_page->score * hot_page->hot_age * HF_SAMPLE_PERIOD * latency_diff;
+ #endif

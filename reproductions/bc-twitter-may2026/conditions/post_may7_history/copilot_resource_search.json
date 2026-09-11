@@ -1,0 +1,64 @@
+[
+  {
+    "file": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/chat-session-resources/c68e57a8-7aa5-4a8b-8265-ead7d88c602b/call_W1NNCV5CqRkStgBWI4TD1o1A__vscode-1778289962920/content.txt",
+    "bytes": 94693,
+    "hits": []
+  },
+  {
+    "file": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/chat-session-resources/ebed26cb-569e-4041-a3bf-ef7e8857c852/call_ZFYAp7Z3otrkqMi6KSNoSG5S__vscode-1778289962826/content.txt",
+    "bytes": 27906,
+    "hits": []
+  },
+  {
+    "file": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/chat-session-resources/ebed26cb-569e-4041-a3bf-ef7e8857c852/call_Vp3Dhwwz5attOjHKwr6HgoPZ__vscode-1778289962829/content.txt",
+    "bytes": 17802,
+    "hits": [
+      {
+        "line": 363,
+        "text": " static double get_promotion_cost_multiplier()"
+      }
+    ]
+  },
+  {
+    "file": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/chat-session-resources/ebed26cb-569e-4041-a3bf-ef7e8857c852/call_XKYPfiVsxL5ZuO32Ej9mdW50__vscode-1778289962820/content.txt",
+    "bytes": 53076,
+    "hits": []
+  },
+  {
+    "file": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-2/GitHub.copilot-chat/chat-session-resources/26bda7df-a42b-40c5-a30e-b9794601043f/call_zIDwiTdcHcQlxC5qRVeAWBmq__vscode-1773077335968/content.txt",
+    "bytes": 13290,
+    "hits": [
+      {
+        "line": 16,
+        "text": "  - [tiering_solutions/migration_worker.cpp](tiering_solutions/migration_worker.cpp#L180-L189): `promotion_cost_avg` / `demotion_cost_avg` update"
+      },
+      {
+        "line": 89,
+        "text": "  - `promotion_cost_avg` / `demotion_cost_avg` are consumed by ranking budget and cost-benefit tests in [tiering_solutions/arms_kernel.cpp](tiering_solutions/arms_kernel.cpp#L852-L887) and [tiering_solutions/arms_kernel.cpp](tiering_solutions/arms_kernel.cpp#L989-L992)."
+      }
+    ]
+  },
+  {
+    "file": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-2/GitHub.copilot-chat/chat-session-resources/19c6bc75-327d-4640-b590-db7af3b56e49/call_XVXJxWUXaDri9BQErEKVTCi2__vscode-1773077336049/content.txt",
+    "bytes": 10532,
+    "hits": []
+  },
+  {
+    "file": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-2/GitHub.copilot-chat/chat-session-resources/19c6bc75-327d-4640-b590-db7af3b56e49/call_pQ3VgJdDlMedWZwt5ZFsRqJq__vscode-1773077336114/content.txt",
+    "bytes": 13450,
+    "hits": [
+      {
+        "line": 31,
+        "text": "- `max_migrations_cur_interval` is effectively hugepage-oriented already, because `promotion_cost_avg` / `demotion_cost_avg` are based on `PAGE_SIZE`, and `PAGE_SIZE == HUGEPAGE_SIZE`."
+      },
+      {
+        "line": 34,
+        "text": "- Free-space accounting converts `MemFree` KB into base pages."
+      },
+      {
+        "line": 186,
+        "text": "- **Conservatism in free-space accounting**: changing `MemFree` conversion from base pages to hugepages will be coarser. That is probably more consistent with hugepage migration, but it may reduce apparent promotable capacity."
+      }
+    ]
+  }
+]

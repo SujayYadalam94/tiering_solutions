@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-1356624/md0Y.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-1356624/gsxg.sh
+@@ -79,7 +79,7 @@
+ 
+             # Model
+             if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
+-                "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
++                "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "_long" "${workload_id}"
+             else
+                 echo "WARNING: ./measurement_model.sh not found or not executable; skipping model"
+             fi

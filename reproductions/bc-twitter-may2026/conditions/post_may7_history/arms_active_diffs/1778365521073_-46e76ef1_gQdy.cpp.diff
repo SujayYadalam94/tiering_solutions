@@ -1,0 +1,14 @@
+--- /users/zimooo2/.vscode-server/data/User/History/-46e76ef1/FjmG.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-46e76ef1/gQdy.cpp
+@@ -308,8 +308,9 @@
+ this->gap4 = this->w_perc[1] - static_cast<float>(this->global_avg_accesses_perc);
+ this->read_write_gap3 = this->w_r_perc[3] - this->w_w_perc[3];
+ }
+-void page_info::update_can_promote(size_t num_dram_pages, size_t rank)
+-{
++void page_info::update_can_promote(size_t num_dram_pages, size_t total_scores, size_t rank)
++{
++(void)total_scores;
+ if (rank < num_dram_pages)
+ {
+ if (this->score > 0)

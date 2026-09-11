@@ -1,0 +1,47 @@
+[
+  {
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "message": "Linux version 6.18.1-061801-generic (kernel@balboa) (x86_64-linux-gnu-gcc-15 (Ubuntu 15.2.0-4ubuntu4) 15.2.0, GNU ld (GNU Binutils for Ubuntu) 2.45) #202512121839 SMP PREEMPT_DYNAMIC Fri Dec 12 19:19:06 UTC 2025",
+    "timestamp_us": "1788952507785164"
+  },
+  {
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "message": "Command line: BOOT_IMAGE=/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=92G!2G",
+    "timestamp_us": "1788952507785203"
+  },
+  {
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "message": "Kernel command line: BOOT_IMAGE=/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=92G!2G",
+    "timestamp_us": "1788952507788670"
+  },
+  {
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "message": "sd 2:0:0:0: [sda] 937703088 512-byte logical blocks: (480 GB/447 GiB)",
+    "timestamp_us": "1788952507966529"
+  },
+  {
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "message": "sd 2:0:1:0: [sdb] 2344225968 512-byte logical blocks: (1.20 TB/1.09 TiB)",
+    "timestamp_us": "1788952507966944"
+  },
+  {
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "message": "sd 2:0:0:0: [sda] 4096-byte physical blocks",
+    "timestamp_us": "1788952507967982"
+  },
+  {
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "message": "EXT4-fs (sda3): mounted filesystem ccb0832d-c80e-430f-b248-d117889f1992 ro with ordered data mode. Quota mode: none.",
+    "timestamp_us": "1788952507969268"
+  },
+  {
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "message": "EXT4-fs (sda3): re-mounted ccb0832d-c80e-430f-b248-d117889f1992 r/w.",
+    "timestamp_us": "1788952508106882"
+  },
+  {
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "message": "EXT4-fs (sdb): mounted filesystem 2eb6e6d1-ff94-4ab9-bc79-9c26aa2ef327 r/w with ordered data mode. Quota mode: none.",
+    "timestamp_us": "1788952585752889"
+  }
+]

@@ -1,0 +1,36 @@
+--- /users/zimooo2/.vscode-server/data/User/History/-44a11d91/1WXs.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-44a11d91/6am0.cpp
+@@ -409,6 +409,11 @@
+ float promotion_cost_avg = ((((2UL * 1024UL * 1024UL)) / ((15) * 1024)) + (500));
+ float demotion_cost_avg = ((((2UL * 1024UL * 1024UL)) / ((15) * 1024)) + (500));
+ float latency_diff = (0.25) - (0.1);
++static constexpr uint16_t MIGRATION_BOUNDARY_SCORE_AVERAGE_ALPHA_IDX = 3;
++static_assert(MIGRATION_BOUNDARY_SCORE_AVERAGE_ALPHA_IDX < (4),
++"MIGRATION_BOUNDARY_SCORE_AVERAGE_ALPHA_IDX must be in the range [0, WINDOW_SIZE).");
++static float max_dram_boundary_score_average = 0.0f;
++static uint64_t max_dram_boundary_score_average_count = 0;
+ std::atomic<bool> terminated{false};
+ struct group_tracker *grp_tracker =
+ __null
+@@ -1254,6 +1259,21 @@
+ }
+ }
+ return dram_hugepages + free_hugepages;
++}
++static bool update_max_dram_boundary_score_average(const std::vector<score_entry> &scores, float &score_average)
++{
++const int64_t max_hugepages = max_dram_hugepages(scores);
++if (max_hugepages <= 0 || static_cast<size_t>(max_hugepages) > scores.size())
++{
++return false;
++}
++const float boundary_score = scores[static_cast<size_t>(max_hugepages - 1)].page->score;
++const float denom = get_adjusted_ewma_denom(MIGRATION_BOUNDARY_SCORE_AVERAGE_ALPHA_IDX,
++max_dram_boundary_score_average_count);
++max_dram_boundary_score_average = adjusted_ewma(max_dram_boundary_score_average, boundary_score, denom);
++max_dram_boundary_score_average_count++;
++score_average = max_dram_boundary_score_average;
++return true;
+ }
+ static migration_decision select_migration_candidates(const std::vector<score_entry> &scores, const ranking_plan &plan)
+ {

@@ -1,0 +1,88 @@
+--- 4da3d6c3f/groups.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/15ff3714/94HS.cpp
+@@ -51,7 +51,7 @@
+ void page_group_update(struct page_group *pg, const float count, const float ewma5, const float total_access,
+                        const uint32_t page_age)
+ {
+-    const uint32_t page_entries = ++pg->count;
++    pg->count++;
+ 
+     if (page_age > pg->max_age)
+     {
+@@ -60,8 +60,8 @@
+ 
+     pg->sum += count;
+     pg->sum_ewma5 += ewma5;
+-    pg->avg = pg->sum / static_cast<float>(page_entries);
+-    pg->avg_ewma5 = pg->sum_ewma5 / static_cast<float>(page_entries);
++    pg->avg = pg->sum / (float)pg->count;
++    pg->avg_ewma5 = pg->sum_ewma5 / (float)pg->count;
+ 
+     if (count > pg->max)
+     {
+@@ -77,9 +77,9 @@
+         float perc = (count / total_access);
+         float perc_ewma5 = (ewma5 / total_access);
+         pg->sum_perc += perc;
+-        pg->avg_perc = pg->sum_perc / static_cast<float>(page_entries);
++        pg->avg_perc = pg->sum_perc / (float)pg->count;
+         pg->sum_perc_ewma5 += perc_ewma5;
+-        pg->avg_perc_ewma5 = pg->sum_perc_ewma5 / static_cast<float>(page_entries);
++        pg->avg_perc_ewma5 = pg->sum_perc_ewma5 / (float)pg->count;
+         if (perc > pg->max_perc)
+         {
+             pg->max_perc = perc;
+@@ -91,6 +91,7 @@
+     }
+ 
+     pg->max_age = std::max(pg->max_age, page_age);
++    pg->count = count;
+ }
+ 
+ struct group_tracker *create_group_tracker()
+@@ -129,15 +130,6 @@
+     page_group_update(group, page->count, page->w[1], total_access, page->age);
+ }
+ 
+-void update_group_entry_values(struct group_tracker *gt, uint64_t va, float count, float ewma5, float total_access,
+-                               uint32_t page_age)
+-{
+-    const uint64_t group_id = page_to_group_id(va);
+-    std::lock_guard<std::mutex> lock(gt->group_lock);
+-    struct page_group *group = get_or_create_group_locked(gt, group_id);
+-    page_group_update(group, count, ewma5, total_access, page_age);
+-}
+-
+ struct page_group *try_get_group(struct group_tracker *gt, const uint64_t va, const int8_t offset)
+ {
+     const uint64_t group_id = page_to_group_id(va);
+@@ -162,29 +154,3 @@
+         out_groups[offset + 7] = (it != gt->groups_map.end()) ? it->second : NULL;
+     }
+ }
+-
+-void get_group_window_values(struct group_tracker *gt, const uint64_t va, float out_avg[15], float out_avg_ewma5[15],
+-                             float out_avg_perc[15], float out_avg_perc_ewma5[15])
+-{
+-    const uint64_t group_id = page_to_group_id(va);
+-
+-    std::lock_guard<std::mutex> lock(gt->group_lock);
+-    for (int offset = -7; offset <= 7; ++offset)
+-    {
+-        auto it = gt->groups_map.find(group_id + offset);
+-        if (it == gt->groups_map.end())
+-        {
+-            out_avg[offset + 7] = 0.0f;
+-            out_avg_ewma5[offset + 7] = 0.0f;
+-            out_avg_perc[offset + 7] = 0.0f;
+-            out_avg_perc_ewma5[offset + 7] = 0.0f;
+-            continue;
+-        }
+-
+-        const struct page_group *group = it->second;
+-        out_avg[offset + 7] = group->avg;
+-        out_avg_ewma5[offset + 7] = group->avg_ewma5;
+-        out_avg_perc[offset + 7] = group->avg_perc;
+-        out_avg_perc_ewma5[offset + 7] = group->avg_perc_ewma5;
+-    }
+-}

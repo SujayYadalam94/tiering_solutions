@@ -1,0 +1,19 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-198ec96b/Gemn.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-198ec96b/OLpC.sh
+@@ -4,11 +4,11 @@
+ MEASUREMENT_WORKLOADS_PATH="${MEASUREMENT_WORKLOADS_DIR}/workloads"
+ 
+ declare -ar MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
+-    #"bc-kron.sg"
+-    #"pr-kron.sg"
+-    #"bc-twitter.sg"
+-    #"pr-twitter.sg"
+-    #"XSBench"
++    "bc-kron.sg"
++    "pr-kron.sg"
++    "bc-twitter.sg"
++    "pr-twitter.sg"
++    "XSBench"
+     "faiss_10M"
+     "mg.D.x"
+     "DuckDB-TPCH-sf100"

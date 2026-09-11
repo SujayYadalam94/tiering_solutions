@@ -1,0 +1,75 @@
+{
+  "kernel": "6.18.1-061801-generic",
+  "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+  "command": [
+    "sudo",
+    "-n",
+    "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/arms_version_provenance/may_memory_cleanup/check_region_residency"
+  ],
+  "source_sha256": "9e24fee4419c5d63ef97dd57fb7374964bee365666f3ce9ab06db02b2c62163f",
+  "returncode": 0,
+  "stdout": "{\"phase\":\"all_far\",\"query_return\":0,\"first_page_node\":1,\"near_base_pages\":0,\"far_base_pages\":512,\"other_statuses\":0,\"actual_near_bytes\":0,\"near_bytes_if_first_page_represents_region\":0}\n{\"operation\":\"move\",\"submitted_addresses\":1,\"target_node\":0,\"return\":0}\n{\"phase\":\"first_page_promoted\",\"query_return\":0,\"first_page_node\":0,\"near_base_pages\":1,\"far_base_pages\":511,\"other_statuses\":0,\"actual_near_bytes\":4096,\"near_bytes_if_first_page_represents_region\":2097152}\n{\"operation\":\"move\",\"submitted_addresses\":512,\"target_node\":0,\"return\":0}\n{\"phase\":\"all_near\",\"query_return\":0,\"first_page_node\":0,\"near_base_pages\":512,\"far_base_pages\":0,\"other_statuses\":0,\"actual_near_bytes\":2097152,\"near_bytes_if_first_page_represents_region\":2097152}\n{\"operation\":\"move\",\"submitted_addresses\":1,\"target_node\":1,\"return\":0}\n{\"phase\":\"first_page_demoted\",\"query_return\":0,\"first_page_node\":1,\"near_base_pages\":511,\"far_base_pages\":1,\"other_statuses\":0,\"actual_near_bytes\":2093056,\"near_bytes_if_first_page_represents_region\":0}\n",
+  "stderr": "",
+  "observations": [
+    {
+      "phase": "all_far",
+      "query_return": 0,
+      "first_page_node": 1,
+      "near_base_pages": 0,
+      "far_base_pages": 512,
+      "other_statuses": 0,
+      "actual_near_bytes": 0,
+      "near_bytes_if_first_page_represents_region": 0
+    },
+    {
+      "operation": "move",
+      "submitted_addresses": 1,
+      "target_node": 0,
+      "return": 0
+    },
+    {
+      "phase": "first_page_promoted",
+      "query_return": 0,
+      "first_page_node": 0,
+      "near_base_pages": 1,
+      "far_base_pages": 511,
+      "other_statuses": 0,
+      "actual_near_bytes": 4096,
+      "near_bytes_if_first_page_represents_region": 2097152
+    },
+    {
+      "operation": "move",
+      "submitted_addresses": 512,
+      "target_node": 0,
+      "return": 0
+    },
+    {
+      "phase": "all_near",
+      "query_return": 0,
+      "first_page_node": 0,
+      "near_base_pages": 512,
+      "far_base_pages": 0,
+      "other_statuses": 0,
+      "actual_near_bytes": 2097152,
+      "near_bytes_if_first_page_represents_region": 2097152
+    },
+    {
+      "operation": "move",
+      "submitted_addresses": 1,
+      "target_node": 1,
+      "return": 0
+    },
+    {
+      "phase": "first_page_demoted",
+      "query_return": 0,
+      "first_page_node": 1,
+      "near_base_pages": 511,
+      "far_base_pages": 1,
+      "other_statuses": 0,
+      "actual_near_bytes": 2093056,
+      "near_bytes_if_first_page_represents_region": 0
+    }
+  ],
+  "global_controls_unchanged": true,
+  "scope": "Own private 2 MiB region forced to base pages; no BC benchmark or global setup/sysctl writes."
+}

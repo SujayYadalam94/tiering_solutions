@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-44a11d91/VUsz.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-44a11d91/opPc.cpp
+@@ -1724,7 +1724,7 @@
+ #if USE_MODEL == (true)
+         auto max_hugepages = max_dram_hugepages(scores);
+         // float benefit = SWITCH_SCALER * hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
+-        double benefit = (hot_page->score - 180) * HF_SAMPLE_PERIOD * latency_diff;
++        double benefit = (hot_page->score - 6) * HF_SAMPLE_PERIOD * latency_diff;
+         // std::cout << "cost: " << cost << " PROMOTION_COST_MULTIPLIER: " << get_promotion_cost_multiplier()
+         //           << " MODEL_DISCOUNT_PERCENT: " << MODEL_DISCOUNT_PERCENT
+         //           << " promotion_cost_avg: " << promotion_cost_avg << " hot_page->score: " << hot_page->score;

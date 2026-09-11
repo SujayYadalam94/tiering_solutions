@@ -1,0 +1,11 @@
+--- git:4da3d6c3f:defs.h
++++ b066fe101a6da9163d47ac8b8e5de0aab1523b93
+@@ -62,7 +62,7 @@
+ #endif
+ 
+ #ifndef MAX_LOGGED_SAMPLES
+-#define MAX_LOGGED_SAMPLES (10000000)
++#define MAX_LOGGED_SAMPLES (100000000)
+ #endif
+ 
+ #ifndef PAGEMAP_FULL_SCAN_INTERVALS

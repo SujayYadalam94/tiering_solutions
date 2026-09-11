@@ -1,0 +1,21 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-2c506191/rZvI.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-2c506191/FxKU.sh
+@@ -105,12 +105,12 @@
+             fi
+ 
+             # MEMTIS near-first variant
+-            if [[ -x "${SCRIPT_DIR}/measurement_memtis_near.sh" ]]; then
+-                run_measurement_setup "${size}" memtis
+-                sudo -E "${SCRIPT_DIR}/measurement_memtis_near.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
+-            else
+-                echo "WARNING: ./measurement_memtis_near.sh not found or not executable; skipping MEMTIS near-first"
+-            fi
++            #if [[ -x "${SCRIPT_DIR}/measurement_memtis_near.sh" ]]; then
++            #    run_measurement_setup "${size}" memtis
++            #    sudo -E "${SCRIPT_DIR}/measurement_memtis_near.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
++            #else
++            #    echo "WARNING: ./measurement_memtis_near.sh not found or not executable; skipping MEMTIS near-first"
++            #fi
+ 
+             # Model
+             #if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then

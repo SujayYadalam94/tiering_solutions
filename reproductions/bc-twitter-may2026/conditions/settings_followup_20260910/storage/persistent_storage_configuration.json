@@ -1,0 +1,1245 @@
+[
+  {
+    "path": "/etc/fstab",
+    "symlink_target": null,
+    "mtime_utc": "2026-03-02T00:09:10.725703+00:00",
+    "ctime_utc": "2026-03-02T00:09:13.746702+00:00",
+    "relevant_lines": [
+      {
+        "line": 9,
+        "text": "/dev/disk/by-uuid/ccb0832d-c80e-430f-b248-d117889f1992 / ext3 defaults 0 1"
+      },
+      {
+        "line": 11,
+        "text": "/dev/disk/by-uuid/D99E-6443 /boot/efi vfat defaults 0 1"
+      },
+      {
+        "line": 13,
+        "text": "UUID=3f7d9ae1-ac8c-4790-96aa-251f6f206a06\t\tswap\tswap\tdefaults\t0\t0"
+      }
+    ]
+  },
+  {
+    "path": "/etc/hdparm.conf",
+    "symlink_target": null,
+    "mtime_utc": "2024-04-23T09:45:14+00:00",
+    "ctime_utc": "2024-06-22T10:27:44.650409+00:00",
+    "relevant_lines": [
+      {
+        "line": 33,
+        "text": "quiet"
+      }
+    ]
+  },
+  {
+    "path": "/usr/lib/udev/rules.d/85-hdparm.rules",
+    "symlink_target": null,
+    "mtime_utc": "2024-04-23T09:45:15+00:00",
+    "ctime_utc": "2024-06-22T10:27:56.739653+00:00",
+    "relevant_lines": [
+      {
+        "line": 1,
+        "text": "ACTION==\"add\", SUBSYSTEM==\"block\", KERNEL==\"[sh]d[a-z]\", RUN+=\"/lib/udev/hdparm\""
+      }
+    ]
+  },
+  {
+    "path": "/lib/hdparm/hdparm-functions",
+    "symlink_target": null,
+    "mtime_utc": "2024-04-23T09:45:14+00:00",
+    "ctime_utc": "2024-06-22T10:27:48.751499+00:00",
+    "relevant_lines": [
+      {
+        "line": 1,
+        "text": "hdparm_is_on_battery() {"
+      },
+      {
+        "line": 2,
+        "text": "    on_ac_power 2>/dev/null"
+      },
+      {
+        "line": 3,
+        "text": "    [ $? -eq 1 ]"
+      },
+      {
+        "line": 4,
+        "text": "}"
+      },
+      {
+        "line": 6,
+        "text": "hdparm_set_option()"
+      },
+      {
+        "line": 7,
+        "text": "{"
+      },
+      {
+        "line": 8,
+        "text": "  local NEW_OPT= NEW_DEF="
+      },
+      {
+        "line": 9,
+        "text": "  if test -n \"$DISC\"; then"
+      },
+      {
+        "line": 10,
+        "text": "    for i in $OPTIONS; do"
+      },
+      {
+        "line": 11,
+        "text": "      if test x${i%${i#??}} != x${1%${1#??}}; then"
+      },
+      {
+        "line": 12,
+        "text": "        NEW_OPT=\"$NEW_OPT $i\""
+      },
+      {
+        "line": 13,
+        "text": "      else"
+      },
+      {
+        "line": 14,
+        "text": "        NEW_OPT=${NEW_OPT%-q}"
+      },
+      {
+        "line": 15,
+        "text": "      fi"
+      },
+      {
+        "line": 16,
+        "text": "    done"
+      },
+      {
+        "line": 17,
+        "text": "    OPTIONS=\"$NEW_OPT $OPT_QUIET $1\""
+      },
+      {
+        "line": 18,
+        "text": "  else"
+      },
+      {
+        "line": 19,
+        "text": "    for i in $DEFAULT; do"
+      },
+      {
+        "line": 20,
+        "text": "      if test x${i%${i#??}} != x${1%${1#??}}; then"
+      },
+      {
+        "line": 21,
+        "text": "        NEW_DEF=\"$NEW_DEF $i\""
+      },
+      {
+        "line": 22,
+        "text": "      else"
+      },
+      {
+        "line": 23,
+        "text": "        NEW_DEF=${NEW_DEF%-q}"
+      },
+      {
+        "line": 24,
+        "text": "      fi"
+      },
+      {
+        "line": 25,
+        "text": "    done"
+      },
+      {
+        "line": 26,
+        "text": "    DEFAULT=\"$NEW_DEF $DEF_QUIET $1\""
+      },
+      {
+        "line": 27,
+        "text": "  fi"
+      },
+      {
+        "line": 28,
+        "text": "}"
+      },
+      {
+        "line": 30,
+        "text": "hdparm_eval_value()"
+      },
+      {
+        "line": 31,
+        "text": "{"
+      },
+      {
+        "line": 32,
+        "text": "  case $1 in"
+      },
+      {
+        "line": 33,
+        "text": "    off|0)"
+      },
+      {
+        "line": 34,
+        "text": "      hdparm_set_option \"$2\"0"
+      },
+      {
+        "line": 35,
+        "text": "       ;;"
+      },
+      {
+        "line": 36,
+        "text": "    on|1)"
+      },
+      {
+        "line": 37,
+        "text": "      hdparm_set_option \"$2\"1"
+      },
+      {
+        "line": 38,
+        "text": "      ;;"
+      },
+      {
+        "line": 39,
+        "text": "    *)"
+      },
+      {
+        "line": 40,
+        "text": "      log_failure_msg \"Unknown Value for $2: $1\""
+      },
+      {
+        "line": 41,
+        "text": "      exit 1"
+      },
+      {
+        "line": 42,
+        "text": "      ;;"
+      },
+      {
+        "line": 43,
+        "text": "  esac"
+      },
+      {
+        "line": 44,
+        "text": "}"
+      },
+      {
+        "line": 48,
+        "text": "hdparm_try_apm()"
+      },
+      {
+        "line": 49,
+        "text": "{"
+      },
+      {
+        "line": 51,
+        "text": "    if [ -z \"$ID_PATH\" ]; then"
+      },
+      {
+        "line": 52,
+        "text": "        local ID_PATH=\"$(udevadm info -n \"$1\" -q property 2>/dev/null | sed -n 's/^ID_PATH=//p')\" || true"
+      },
+      {
+        "line": 53,
+        "text": "    fi"
+      },
+      {
+        "line": 54,
+        "text": "    case $ID_PATH in"
+      },
+      {
+        "line": 55,
+        "text": "        pci-*-ieee1394-*|pci-*-usb-*)"
+      },
+      {
+        "line": 56,
+        "text": "            return 1"
+      },
+      {
+        "line": 57,
+        "text": "            ;;"
+      },
+      {
+        "line": 58,
+        "text": "    esac"
+      },
+      {
+        "line": 61,
+        "text": "    if [ -z \"$ID_ATA_FEATURE_SET_APM\" ]; then"
+      },
+      {
+        "line": 62,
+        "text": "        local ID_ATA_FEATURE_SET_APM=\"$(udevadm info -n \"$1\" -q property 2>/dev/null | sed -n 's/^ID_ATA_FEATURE_SET_APM=//p')\" || true"
+      },
+      {
+        "line": 63,
+        "text": "    fi"
+      },
+      {
+        "line": 64,
+        "text": "    if [ \"$ID_ATA_FEATURE_SET_APM\" = \"1\" ]; then"
+      },
+      {
+        "line": 65,
+        "text": "        return 0"
+      },
+      {
+        "line": 66,
+        "text": "    fi"
+      },
+      {
+        "line": 67,
+        "text": "    return 1"
+      },
+      {
+        "line": 68,
+        "text": "}"
+      },
+      {
+        "line": 76,
+        "text": "hdparm_options()"
+      },
+      {
+        "line": 77,
+        "text": "{"
+      },
+      {
+        "line": 78,
+        "text": "    local WANTED_DISK=\"$1\""
+      },
+      {
+        "line": 80,
+        "text": "    local DISC= DEFAULT= DEF_QUIET= COMMAND_LINE="
+      },
+      {
+        "line": 83,
+        "text": "    local OPTIONS OPT_QUIET KEY SEP VALUE"
+      },
+      {
+        "line": 85,
+        "text": "    egrep -v '^[[:space:]]*(#|$)' /etc/hdparm.conf |"
+      },
+      {
+        "line": 86,
+        "text": "    {"
+      },
+      {
+        "line": 88,
+        "text": "        if hdparm_try_apm \"$WANTED_DISK\"; then"
+      },
+      {
+        "line": 89,
+        "text": "            if hdparm_is_on_battery; then"
+      },
+      {
+        "line": 90,
+        "text": "                hdparm_set_option -B128"
+      },
+      {
+        "line": 94,
+        "text": "        hdparm_set_option -S36"
+      },
+      {
+        "line": 95,
+        "text": "            else"
+      },
+      {
+        "line": 96,
+        "text": "                hdparm_set_option -B254"
+      },
+      {
+        "line": 97,
+        "text": "            fi"
+      },
+      {
+        "line": 98,
+        "text": "        fi"
+      },
+      {
+        "line": 100,
+        "text": "        while read KEY SEP VALUE; do"
+      },
+      {
+        "line": 101,
+        "text": "            case $SEP in"
+      },
+      {
+        "line": 102,
+        "text": "                '{')"
+      },
+      {
+        "line": 103,
+        "text": "                    case $KEY in"
+      },
+      {
+        "line": 104,
+        "text": "                        command_line)"
+      },
+      {
+        "line": 105,
+        "text": "                            unset DISC"
+      },
+      {
+        "line": 106,
+        "text": "                            unset OPTIONS"
+      },
+      {
+        "line": 107,
+        "text": "                            unset OPT_QUIET"
+      },
+      {
+        "line": 108,
+        "text": "                            COMMAND_LINE=1"
+      },
+      {
+        "line": 109,
+        "text": "                            ;;"
+      },
+      {
+        "line": 110,
+        "text": "                        *)"
+      },
+      {
+        "line": 111,
+        "text": "                            if [ -h \"$KEY\" ]"
+      },
+      {
+        "line": 112,
+        "text": "                            then"
+      },
+      {
+        "line": 113,
+        "text": "                                DISC=$(readlink -m \"$KEY\")"
+      },
+      {
+        "line": 114,
+        "text": "                                DISC=${DISC%%[[:digit:]]*}"
+      },
+      {
+        "line": 115,
+        "text": "                            else"
+      },
+      {
+        "line": 116,
+        "text": "                                DISC=$KEY"
+      },
+      {
+        "line": 117,
+        "text": "                            fi"
+      },
+      {
+        "line": 118,
+        "text": "                            OPTIONS=$DEFAULT"
+      },
+      {
+        "line": 119,
+        "text": "                            OPT_QUIET=$DEF_QUIET"
+      },
+      {
+        "line": 120,
+        "text": "                            ;;"
+      },
+      {
+        "line": 121,
+        "text": "                    esac"
+      },
+      {
+        "line": 122,
+        "text": "                    ;;"
+      },
+      {
+        "line": 123,
+        "text": "                =)"
+      },
+      {
+        "line": 124,
+        "text": "                    case $KEY in"
+      },
+      {
+        "line": 125,
+        "text": "                         read_ahead_sect)"
+      },
+      {
+        "line": 126,
+        "text": "                             hdparm_set_option -a$VALUE"
+      },
+      {
+        "line": 127,
+        "text": "                            ;;"
+      },
+      {
+        "line": 128,
+        "text": "                        lookahead)"
+      },
+      {
+        "line": 129,
+        "text": "                            hdparm_eval_value $VALUE -A"
+      },
+      {
+        "line": 130,
+        "text": "                            ;;"
+      },
+      {
+        "line": 131,
+        "text": "                        bus)"
+      },
+      {
+        "line": 132,
+        "text": "                            hdparm_eval_value $VALUE -b"
+      },
+      {
+        "line": 133,
+        "text": "                            ;;"
+      },
+      {
+        "line": 134,
+        "text": "                        apm)"
+      },
+      {
+        "line": 135,
+        "text": "                            if ! hdparm_is_on_battery; then"
+      },
+      {
+        "line": 136,
+        "text": "                                hdparm_set_option -B$VALUE"
+      },
+      {
+        "line": 137,
+        "text": "                            fi"
+      },
+      {
+        "line": 138,
+        "text": "                            ;;"
+      },
+      {
+        "line": 139,
+        "text": "                        apm_battery)"
+      },
+      {
+        "line": 140,
+        "text": "                            if hdparm_is_on_battery; then"
+      },
+      {
+        "line": 141,
+        "text": "                                hdparm_set_option -B$VALUE"
+      },
+      {
+        "line": 142,
+        "text": "                            fi"
+      },
+      {
+        "line": 143,
+        "text": "                            ;;"
+      },
+      {
+        "line": 144,
+        "text": "                        io32_support)"
+      },
+      {
+        "line": 145,
+        "text": "                            hdparm_set_option -c$VALUE"
+      },
+      {
+        "line": 146,
+        "text": "                            ;;"
+      },
+      {
+        "line": 147,
+        "text": "                        dma)"
+      },
+      {
+        "line": 148,
+        "text": "                            hdparm_eval_value $VALUE -d"
+      },
+      {
+        "line": 149,
+        "text": "                            ;;"
+      },
+      {
+        "line": 150,
+        "text": "                        defect_mana)"
+      },
+      {
+        "line": 151,
+        "text": "                            hdparm_eval_value $VALUE -D"
+      },
+      {
+        "line": 152,
+        "text": "                            ;;"
+      },
+      {
+        "line": 153,
+        "text": "                        cd_speed)"
+      },
+      {
+        "line": 154,
+        "text": "                            hdparm_set_option -E$VALUE"
+      },
+      {
+        "line": 155,
+        "text": "                            ;;"
+      },
+      {
+        "line": 156,
+        "text": "                        mult_sect_io)"
+      },
+      {
+        "line": 157,
+        "text": "                            hdparm_set_option -m$VALUE"
+      },
+      {
+        "line": 158,
+        "text": "                            ;;"
+      },
+      {
+        "line": 159,
+        "text": "                        prefetch_sect)"
+      },
+      {
+        "line": 160,
+        "text": "                            hdparm_set_option -P$VALUE"
+      },
+      {
+        "line": 161,
+        "text": "                            ;;"
+      },
+      {
+        "line": 162,
+        "text": "                        read_only)"
+      },
+      {
+        "line": 163,
+        "text": "                            hdparm_eval_value $VALUE -r"
+      },
+      {
+        "line": 164,
+        "text": "                            ;;"
+      },
+      {
+        "line": 165,
+        "text": "                        write_read_verify)"
+      },
+      {
+        "line": 166,
+        "text": "                            hdparm_eval_value $VALUE -R"
+      },
+      {
+        "line": 167,
+        "text": "                            ;;"
+      },
+      {
+        "line": 168,
+        "text": "                        spindown_time)"
+      },
+      {
+        "line": 169,
+        "text": "                            hdparm_set_option -S$VALUE"
+      },
+      {
+        "line": 170,
+        "text": "                            ;;"
+      },
+      {
+        "line": 171,
+        "text": "                        force_spindown_time)"
+      },
+      {
+        "line": 172,
+        "text": "                            hdparm_set_option force_spindown_time$VALUE"
+      },
+      {
+        "line": 173,
+        "text": "                            ;;"
+      },
+      {
+        "line": 174,
+        "text": "                        poweron_standby)"
+      },
+      {
+        "line": 175,
+        "text": "                            hdparm_eval_value $VALUE -s"
+      },
+      {
+        "line": 176,
+        "text": "                            ;;"
+      },
+      {
+        "line": 177,
+        "text": "                        interrupt_unmask)"
+      },
+      {
+        "line": 178,
+        "text": "                            hdparm_eval_value $VALUE -u"
+      },
+      {
+        "line": 179,
+        "text": "                            ;;"
+      },
+      {
+        "line": 180,
+        "text": "                        write_cache)"
+      },
+      {
+        "line": 181,
+        "text": "                            hdparm_eval_value $VALUE -W"
+      },
+      {
+        "line": 182,
+        "text": "                            ;;"
+      },
+      {
+        "line": 183,
+        "text": "                        transfer_mode)"
+      },
+      {
+        "line": 184,
+        "text": "                            hdparm_set_option -X$VALUE"
+      },
+      {
+        "line": 185,
+        "text": "                            ;;"
+      },
+      {
+        "line": 186,
+        "text": "                        acoustic_management)"
+      },
+      {
+        "line": 187,
+        "text": "                            hdparm_set_option -M$VALUE"
+      },
+      {
+        "line": 188,
+        "text": "                            ;;"
+      },
+      {
+        "line": 189,
+        "text": "                        keep_settings_over_reset)"
+      },
+      {
+        "line": 190,
+        "text": "                            hdparm_eval_value $VALUE -k"
+      },
+      {
+        "line": 191,
+        "text": "                            ;;"
+      },
+      {
+        "line": 192,
+        "text": "                        keep_features_over_reset)"
+      },
+      {
+        "line": 193,
+        "text": "                            hdparm_eval_value $VALUE -K"
+      },
+      {
+        "line": 194,
+        "text": "                            ;;"
+      },
+      {
+        "line": 195,
+        "text": "                        chipset_pio_mode)"
+      },
+      {
+        "line": 196,
+        "text": "                            hdparm_set_option -p$VALUE"
+      },
+      {
+        "line": 197,
+        "text": "                            ;;"
+      },
+      {
+        "line": 198,
+        "text": "                        security_unlock)"
+      },
+      {
+        "line": 199,
+        "text": "                            hdparm_set_option --security-unlock $VALUE"
+      },
+      {
+        "line": 200,
+        "text": "                            ;;"
+      },
+      {
+        "line": 201,
+        "text": "                        security_pass)"
+      },
+      {
+        "line": 202,
+        "text": "                            hdparm_set_option --security-set-pass $VALUE"
+      },
+      {
+        "line": 203,
+        "text": "                            ;;"
+      },
+      {
+        "line": 204,
+        "text": "                        security_disable)"
+      },
+      {
+        "line": 205,
+        "text": "                            hdparm_set_option --security-disable $VALUE"
+      },
+      {
+        "line": 206,
+        "text": "                            ;;"
+      },
+      {
+        "line": 207,
+        "text": "                        user-master)"
+      },
+      {
+        "line": 208,
+        "text": "                            hdparm_set_option --user-master $VALUE"
+      },
+      {
+        "line": 209,
+        "text": "                            ;;"
+      },
+      {
+        "line": 210,
+        "text": "                        security_mode)"
+      },
+      {
+        "line": 211,
+        "text": "                            hdparm_set_option --security-mode $VALUE"
+      },
+      {
+        "line": 212,
+        "text": "                            ;;"
+      },
+      {
+        "line": 213,
+        "text": "                        ROOTFS)"
+      },
+      {
+        "line": 214,
+        "text": "                            ;;"
+      },
+      {
+        "line": 215,
+        "text": "                        *)"
+      },
+      {
+        "line": 216,
+        "text": "                            echo \"Unknown option $KEY\""
+      },
+      {
+        "line": 217,
+        "text": "                            exit 1"
+      },
+      {
+        "line": 218,
+        "text": "                            ;;"
+      },
+      {
+        "line": 219,
+        "text": "                    esac"
+      },
+      {
+        "line": 220,
+        "text": "                    ;;"
+      },
+      {
+        "line": 221,
+        "text": "                \"\")"
+      },
+      {
+        "line": 222,
+        "text": "                    case $KEY in"
+      },
+      {
+        "line": 223,
+        "text": "                        '}')"
+      },
+      {
+        "line": 224,
+        "text": "                            if [ -z \"$DISC\" ] && [ -z \"$COMMAND_LINE\" ]; then"
+      },
+      {
+        "line": 225,
+        "text": "                                echo \"No disk enabled. Exiting\" >&2"
+      },
+      {
+        "line": 226,
+        "text": "                                return 1"
+      },
+      {
+        "line": 227,
+        "text": "                            fi"
+      },
+      {
+        "line": 228,
+        "text": "                            if [ -n \"$OPTIONS\" ] && [ \"$DISC\" = \"$WANTED_DISK\" ]"
+      },
+      {
+        "line": 229,
+        "text": "                            then"
+      },
+      {
+        "line": 230,
+        "text": "                                echo $OPTIONS"
+      },
+      {
+        "line": 231,
+        "text": "                                return 0"
+      },
+      {
+        "line": 232,
+        "text": "                            fi"
+      },
+      {
+        "line": 233,
+        "text": "                            COMMAND_LINE="
+      },
+      {
+        "line": 234,
+        "text": "                            ;;"
+      },
+      {
+        "line": 235,
+        "text": "                        quiet)"
+      },
+      {
+        "line": 236,
+        "text": "                            if [ -n \"$DISC\" ]; then"
+      },
+      {
+        "line": 237,
+        "text": "                                OPT_QUIET=-q"
+      },
+      {
+        "line": 238,
+        "text": "                            else"
+      },
+      {
+        "line": 239,
+        "text": "                                DEF_QUIET=-q"
+      },
+      {
+        "line": 240,
+        "text": "                            fi"
+      },
+      {
+        "line": 241,
+        "text": "                            ;;"
+      },
+      {
+        "line": 242,
+        "text": "                        standby)"
+      },
+      {
+        "line": 243,
+        "text": "                            hdparm_set_option -y"
+      },
+      {
+        "line": 244,
+        "text": "                            ;;"
+      },
+      {
+        "line": 245,
+        "text": "                        sleep)"
+      },
+      {
+        "line": 246,
+        "text": "                            hdparm_set_option -Y"
+      },
+      {
+        "line": 247,
+        "text": "                            ;;"
+      },
+      {
+        "line": 248,
+        "text": "                        disable_seagate)"
+      },
+      {
+        "line": 249,
+        "text": "                            hdparm_set_option -Z"
+      },
+      {
+        "line": 250,
+        "text": "                            ;;"
+      },
+      {
+        "line": 251,
+        "text": "                        security_freeze)"
+      },
+      {
+        "line": 252,
+        "text": "                            hdparm_set_option --security-freeze"
+      },
+      {
+        "line": 253,
+        "text": "                            ;;"
+      },
+      {
+        "line": 254,
+        "text": "                        *)"
+      },
+      {
+        "line": 255,
+        "text": "                            if [ -z \"$COMMAND_LINE\" ]; then"
+      },
+      {
+        "line": 256,
+        "text": "                                echo \"unknown option $KEY\" >&2"
+      },
+      {
+        "line": 257,
+        "text": "                                return 1"
+      },
+      {
+        "line": 258,
+        "text": "                            fi"
+      },
+      {
+        "line": 259,
+        "text": "                            ;;"
+      },
+      {
+        "line": 260,
+        "text": "                    esac"
+      },
+      {
+        "line": 261,
+        "text": "                    ;;"
+      },
+      {
+        "line": 262,
+        "text": "                *)"
+      },
+      {
+        "line": 263,
+        "text": "                    if [ -z \"$COMMAND_LINE\" ]; then"
+      },
+      {
+        "line": 264,
+        "text": "                        echo \"unknown separator $SEP\" >&2"
+      },
+      {
+        "line": 265,
+        "text": "                        return 1"
+      },
+      {
+        "line": 266,
+        "text": "                    fi"
+      },
+      {
+        "line": 267,
+        "text": "                    ;;"
+      },
+      {
+        "line": 268,
+        "text": "            esac"
+      },
+      {
+        "line": 269,
+        "text": "        done"
+      },
+      {
+        "line": 272,
+        "text": "        if [ -n \"$DEFAULT\" ]; then"
+      },
+      {
+        "line": 273,
+        "text": "            echo $DEFAULT"
+      },
+      {
+        "line": 274,
+        "text": "            return 0"
+      },
+      {
+        "line": 275,
+        "text": "        fi"
+      },
+      {
+        "line": 276,
+        "text": "    }"
+      },
+      {
+        "line": 277,
+        "text": "}"
+      }
+    ]
+  },
+  {
+    "path": "/usr/lib/systemd/system/fstrim.timer",
+    "symlink_target": null,
+    "mtime_utc": "2025-09-16T00:08:02+00:00",
+    "ctime_utc": "2026-02-23T15:03:07.824490+00:00",
+    "relevant_lines": [
+      {
+        "line": 1,
+        "text": "[Unit]"
+      },
+      {
+        "line": 2,
+        "text": "Description=Discard unused filesystem blocks once a week"
+      },
+      {
+        "line": 3,
+        "text": "Documentation=man:fstrim"
+      },
+      {
+        "line": 4,
+        "text": "ConditionVirtualization=!container"
+      },
+      {
+        "line": 5,
+        "text": "ConditionPathExists=!/etc/initrd-release"
+      },
+      {
+        "line": 7,
+        "text": "[Timer]"
+      },
+      {
+        "line": 8,
+        "text": "OnCalendar=weekly"
+      },
+      {
+        "line": 9,
+        "text": "AccuracySec=1h"
+      },
+      {
+        "line": 10,
+        "text": "Persistent=true"
+      },
+      {
+        "line": 11,
+        "text": "RandomizedDelaySec=100min"
+      },
+      {
+        "line": 13,
+        "text": "[Install]"
+      },
+      {
+        "line": 14,
+        "text": "WantedBy=timers.target"
+      }
+    ]
+  },
+  {
+    "path": "/usr/lib/systemd/system/fstrim.service",
+    "symlink_target": null,
+    "mtime_utc": "2025-09-16T00:08:02+00:00",
+    "ctime_utc": "2026-02-23T15:03:07.824490+00:00",
+    "relevant_lines": [
+      {
+        "line": 1,
+        "text": "[Unit]"
+      },
+      {
+        "line": 2,
+        "text": "Description=Discard unused blocks on filesystems from /etc/fstab"
+      },
+      {
+        "line": 3,
+        "text": "Documentation=man:fstrim(8)"
+      },
+      {
+        "line": 4,
+        "text": "ConditionVirtualization=!container"
+      },
+      {
+        "line": 6,
+        "text": "[Service]"
+      },
+      {
+        "line": 7,
+        "text": "Type=oneshot"
+      },
+      {
+        "line": 8,
+        "text": "ExecStart=/sbin/fstrim --listed-in /etc/fstab:/proc/self/mountinfo --verbose --quiet-unsupported"
+      },
+      {
+        "line": 9,
+        "text": "PrivateDevices=no"
+      },
+      {
+        "line": 10,
+        "text": "PrivateNetwork=yes"
+      },
+      {
+        "line": 11,
+        "text": "PrivateUsers=no"
+      },
+      {
+        "line": 12,
+        "text": "ProtectKernelTunables=yes"
+      },
+      {
+        "line": 13,
+        "text": "ProtectKernelModules=yes"
+      },
+      {
+        "line": 14,
+        "text": "ProtectControlGroups=yes"
+      },
+      {
+        "line": 15,
+        "text": "MemoryDenyWriteExecute=yes"
+      },
+      {
+        "line": 16,
+        "text": "SystemCallFilter=@default @file-system @basic-io @system-service"
+      }
+    ]
+  },
+  {
+    "path": "/var/lib/systemd/timers/stamp-fstrim.timer",
+    "symlink_target": null,
+    "mtime_utc": "2026-09-07T05:34:24.373255+00:00",
+    "ctime_utc": "2026-09-07T05:34:24.372734+00:00",
+    "relevant_lines": []
+  },
+  {
+    "path": "/etc/systemd/system/timers.target.wants/fstrim.timer",
+    "symlink_target": "/lib/systemd/system/fstrim.timer",
+    "mtime_utc": "2024-04-23T09:37:12+00:00",
+    "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+    "relevant_lines": [
+      {
+        "line": 1,
+        "text": "[Unit]"
+      },
+      {
+        "line": 2,
+        "text": "Description=Discard unused filesystem blocks once a week"
+      },
+      {
+        "line": 3,
+        "text": "Documentation=man:fstrim"
+      },
+      {
+        "line": 4,
+        "text": "ConditionVirtualization=!container"
+      },
+      {
+        "line": 5,
+        "text": "ConditionPathExists=!/etc/initrd-release"
+      },
+      {
+        "line": 7,
+        "text": "[Timer]"
+      },
+      {
+        "line": 8,
+        "text": "OnCalendar=weekly"
+      },
+      {
+        "line": 9,
+        "text": "AccuracySec=1h"
+      },
+      {
+        "line": 10,
+        "text": "Persistent=true"
+      },
+      {
+        "line": 11,
+        "text": "RandomizedDelaySec=100min"
+      },
+      {
+        "line": 13,
+        "text": "[Install]"
+      },
+      {
+        "line": 14,
+        "text": "WantedBy=timers.target"
+      }
+    ]
+  }
+]

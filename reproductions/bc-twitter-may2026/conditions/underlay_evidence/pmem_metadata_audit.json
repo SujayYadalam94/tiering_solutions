@@ -1,0 +1,434 @@
+{
+  "captured_utc": "2026-09-09T13:32:02.867374+00:00",
+  "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+  "kernel_cmdline": "BOOT_IMAGE=/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=92G!2G",
+  "node0_meminfo": "Node 0 MemTotal:        4737988 kB\nNode 0 MemFree:          534764 kB\nNode 0 MemUsed:         4203224 kB\nNode 0 SwapCached:            0 kB\nNode 0 Active:            21000 kB\nNode 0 Inactive:        2045088 kB\nNode 0 Active(anon):         40 kB\nNode 0 Inactive(anon):    24140 kB\nNode 0 Active(file):      20960 kB\nNode 0 Inactive(file):  2020948 kB\nNode 0 Unevictable:        3072 kB\nNode 0 Mlocked:               0 kB\nNode 0 Dirty:               672 kB\nNode 0 Writeback:             0 kB\nNode 0 FilePages:       2045848 kB\nNode 0 Mapped:              336 kB\nNode 0 AnonPages:         23312 kB\nNode 0 Shmem:              3940 kB\nNode 0 KernelStack:        8420 kB\nNode 0 PageTables:        18524 kB\nNode 0 SecPageTables:      7360 kB\nNode 0 NFS_Unstable:          0 kB\nNode 0 Bounce:                0 kB\nNode 0 WritebackTmp:          0 kB\nNode 0 KReclaimable:      20488 kB\nNode 0 Slab:             205456 kB\nNode 0 SReclaimable:      20488 kB\nNode 0 SUnreclaim:       184968 kB\nNode 0 AnonHugePages:      6144 kB\nNode 0 ShmemHugePages:        0 kB\nNode 0 ShmemPmdMapped:        0 kB\nNode 0 FileHugePages:   2011136 kB\nNode 0 FilePmdMapped:         0 kB\nNode 0 Unaccepted:            0 kB\nNode 0 HugePages_Total:     0\nNode 0 HugePages_Free:      0\nNode 0 HugePages_Surp:      0\n",
+  "nd_devices": [
+    {
+      "name": "dax0.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region0/dax0.0",
+      "mode": "none",
+      "align": "2097152",
+      "uuid": "",
+      "namespace": "",
+      "numa_node": "0",
+      "target_node": "0",
+      "devtype": "nd_dax",
+      "blocks": []
+    },
+    {
+      "name": "dax1.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region1/dax1.0",
+      "mode": "none",
+      "align": "2097152",
+      "uuid": "",
+      "namespace": "",
+      "numa_node": "0",
+      "target_node": "0",
+      "devtype": "nd_dax",
+      "blocks": []
+    },
+    {
+      "name": "dax2.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region2/dax2.0",
+      "mode": "none",
+      "align": "2097152",
+      "uuid": "",
+      "namespace": "",
+      "numa_node": "0",
+      "target_node": "0",
+      "devtype": "nd_dax",
+      "blocks": []
+    },
+    {
+      "name": "dax3.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region3/dax3.0",
+      "mode": "none",
+      "align": "2097152",
+      "uuid": "",
+      "namespace": "",
+      "numa_node": "0",
+      "target_node": "0",
+      "devtype": "nd_dax",
+      "blocks": []
+    },
+    {
+      "name": "dax4.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region4/dax4.0",
+      "mode": "none",
+      "align": "2097152",
+      "uuid": "",
+      "namespace": "",
+      "numa_node": "0",
+      "target_node": "0",
+      "devtype": "nd_dax",
+      "blocks": []
+    },
+    {
+      "name": "dax5.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region5/dax5.0",
+      "mode": "none",
+      "align": "2097152",
+      "uuid": "",
+      "namespace": "",
+      "numa_node": "0",
+      "target_node": "0",
+      "devtype": "nd_dax",
+      "blocks": []
+    },
+    {
+      "name": "dax6.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region6/dax6.0",
+      "mode": "none",
+      "align": "2097152",
+      "uuid": "",
+      "namespace": "",
+      "numa_node": "0",
+      "target_node": "0",
+      "devtype": "nd_dax",
+      "blocks": []
+    },
+    {
+      "name": "dax7.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region7/dax7.0",
+      "mode": "none",
+      "align": "2097152",
+      "uuid": "",
+      "namespace": "",
+      "numa_node": "0",
+      "target_node": "0",
+      "devtype": "nd_dax",
+      "blocks": []
+    },
+    {
+      "name": "namespace0.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region0/namespace0.0",
+      "size": "268435456",
+      "mode": "memory",
+      "numa_node": "0",
+      "target_node": "0",
+      "force_raw": "0",
+      "holder": "",
+      "devtype": "nd_namespace_io",
+      "blocks": []
+    },
+    {
+      "name": "namespace1.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region1/namespace1.0",
+      "size": "1828716544",
+      "mode": "memory",
+      "numa_node": "0",
+      "target_node": "0",
+      "force_raw": "0",
+      "holder": "",
+      "devtype": "nd_namespace_io",
+      "blocks": []
+    },
+    {
+      "name": "namespace2.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region2/namespace2.0",
+      "size": "25165824",
+      "mode": "memory",
+      "numa_node": "0",
+      "target_node": "0",
+      "force_raw": "0",
+      "holder": "",
+      "devtype": "nd_namespace_io",
+      "blocks": []
+    },
+    {
+      "name": "namespace3.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region3/namespace3.0",
+      "size": "5373952",
+      "mode": "memory",
+      "numa_node": "0",
+      "target_node": "0",
+      "force_raw": "0",
+      "holder": "",
+      "devtype": "nd_namespace_io",
+      "blocks": []
+    },
+    {
+      "name": "namespace4.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region4/namespace4.0",
+      "size": "151552",
+      "mode": "memory",
+      "numa_node": "0",
+      "target_node": "0",
+      "force_raw": "0",
+      "holder": "",
+      "devtype": "nd_namespace_io",
+      "blocks": []
+    },
+    {
+      "name": "namespace5.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region5/namespace5.0",
+      "size": "2863104",
+      "mode": "memory",
+      "numa_node": "0",
+      "target_node": "0",
+      "force_raw": "0",
+      "holder": "",
+      "devtype": "nd_namespace_io",
+      "blocks": []
+    },
+    {
+      "name": "namespace6.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region6/namespace6.0",
+      "size": "16777216",
+      "mode": "memory",
+      "numa_node": "0",
+      "target_node": "0",
+      "force_raw": "0",
+      "holder": "",
+      "driver": "/sys/bus/nd/drivers/nd_pmem",
+      "devtype": "nd_namespace_io",
+      "blocks": [
+        "pmem6"
+      ]
+    },
+    {
+      "name": "namespace7.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region7/namespace7.0",
+      "size": "96636764160",
+      "mode": "memory",
+      "numa_node": "0",
+      "target_node": "0",
+      "force_raw": "0",
+      "holder": "",
+      "driver": "/sys/bus/nd/drivers/nd_pmem",
+      "devtype": "nd_namespace_io",
+      "blocks": [
+        "pmem7"
+      ]
+    },
+    {
+      "name": "pfn0.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region0/pfn0.0",
+      "mode": "none",
+      "align": "2097152",
+      "uuid": "",
+      "namespace": "",
+      "numa_node": "0",
+      "target_node": "0",
+      "devtype": "nd_pfn",
+      "blocks": []
+    },
+    {
+      "name": "pfn1.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region1/pfn1.0",
+      "mode": "none",
+      "align": "2097152",
+      "uuid": "",
+      "namespace": "",
+      "numa_node": "0",
+      "target_node": "0",
+      "devtype": "nd_pfn",
+      "blocks": []
+    },
+    {
+      "name": "pfn2.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region2/pfn2.0",
+      "mode": "none",
+      "align": "2097152",
+      "uuid": "",
+      "namespace": "",
+      "numa_node": "0",
+      "target_node": "0",
+      "devtype": "nd_pfn",
+      "blocks": []
+    },
+    {
+      "name": "pfn3.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region3/pfn3.0",
+      "mode": "none",
+      "align": "2097152",
+      "uuid": "",
+      "namespace": "",
+      "numa_node": "0",
+      "target_node": "0",
+      "devtype": "nd_pfn",
+      "blocks": []
+    },
+    {
+      "name": "pfn4.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region4/pfn4.0",
+      "mode": "none",
+      "align": "2097152",
+      "uuid": "",
+      "namespace": "",
+      "numa_node": "0",
+      "target_node": "0",
+      "devtype": "nd_pfn",
+      "blocks": []
+    },
+    {
+      "name": "pfn5.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region5/pfn5.0",
+      "mode": "none",
+      "align": "2097152",
+      "uuid": "",
+      "namespace": "",
+      "numa_node": "0",
+      "target_node": "0",
+      "devtype": "nd_pfn",
+      "blocks": []
+    },
+    {
+      "name": "pfn6.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region6/pfn6.0",
+      "mode": "none",
+      "align": "2097152",
+      "uuid": "",
+      "namespace": "",
+      "numa_node": "0",
+      "target_node": "0",
+      "devtype": "nd_pfn",
+      "blocks": []
+    },
+    {
+      "name": "pfn7.0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region7/pfn7.0",
+      "mode": "none",
+      "align": "2097152",
+      "uuid": "",
+      "namespace": "",
+      "numa_node": "0",
+      "target_node": "0",
+      "devtype": "nd_pfn",
+      "blocks": []
+    },
+    {
+      "name": "region0",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region0",
+      "size": "268435456",
+      "align": "0x1000000",
+      "numa_node": "0",
+      "target_node": "0",
+      "driver": "/sys/bus/nd/drivers/nd_region",
+      "devtype": "nd_pmem",
+      "blocks": []
+    },
+    {
+      "name": "region1",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region1",
+      "size": "1828716544",
+      "align": "0x1000000",
+      "numa_node": "0",
+      "target_node": "0",
+      "driver": "/sys/bus/nd/drivers/nd_region",
+      "devtype": "nd_pmem",
+      "blocks": []
+    },
+    {
+      "name": "region2",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region2",
+      "size": "25165824",
+      "align": "0x1000000",
+      "numa_node": "0",
+      "target_node": "0",
+      "driver": "/sys/bus/nd/drivers/nd_region",
+      "devtype": "nd_pmem",
+      "blocks": []
+    },
+    {
+      "name": "region3",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region3",
+      "size": "5373952",
+      "align": "0x1000",
+      "numa_node": "0",
+      "target_node": "0",
+      "driver": "/sys/bus/nd/drivers/nd_region",
+      "devtype": "nd_pmem",
+      "blocks": []
+    },
+    {
+      "name": "region4",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region4",
+      "size": "151552",
+      "align": "0x1000",
+      "numa_node": "0",
+      "target_node": "0",
+      "driver": "/sys/bus/nd/drivers/nd_region",
+      "devtype": "nd_pmem",
+      "blocks": []
+    },
+    {
+      "name": "region5",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region5",
+      "size": "2863104",
+      "align": "0x1000",
+      "numa_node": "0",
+      "target_node": "0",
+      "driver": "/sys/bus/nd/drivers/nd_region",
+      "devtype": "nd_pmem",
+      "blocks": []
+    },
+    {
+      "name": "region6",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region6",
+      "size": "16777216",
+      "align": "0x1000000",
+      "numa_node": "0",
+      "target_node": "0",
+      "driver": "/sys/bus/nd/drivers/nd_region",
+      "devtype": "nd_pmem",
+      "blocks": []
+    },
+    {
+      "name": "region7",
+      "realpath": "/sys/devices/platform/e820_pmem/ndbus0/region7",
+      "size": "96636764160",
+      "align": "0x1000000",
+      "numa_node": "0",
+      "target_node": "0",
+      "driver": "/sys/bus/nd/drivers/nd_region",
+      "devtype": "nd_pmem",
+      "blocks": []
+    }
+  ],
+  "dax_device_names": [],
+  "modules": [
+    "nd_pmem 24576 0 - Live 0x0000000000000000",
+    "nd_btt 36864 1 nd_pmem, Live 0x0000000000000000",
+    "dax_pmem 12288 0 - Live 0x0000000000000000"
+  ],
+  "zone_device": [
+    {
+      "header": "Node 0, zone   Device",
+      "values": [
+        "pages free     0",
+        "spanned  23597056",
+        "present  0",
+        "managed  0"
+      ]
+    },
+    {
+      "header": "Node 1, zone   Device",
+      "values": [
+        "pages free     0",
+        "spanned  0",
+        "present  0",
+        "managed  0"
+      ]
+    }
+  ],
+  "current_btf_struct_page_size": 64,
+  "btf_struct_page_type_byte_offset": 9488,
+  "bound_namespace_bytes": 96653541376,
+  "per_4k_page_metadata_arithmetic_bytes": 1510211584,
+  "per_4k_page_metadata_arithmetic_mib": 1440.25,
+  "source_mechanism": {
+    "path": "/users/zimooo2/linux-hybridtier/drivers/nvdimm/pmem.c",
+    "sha256": "84f61443cfb8512ff3ca065b0a5ee04c909872ecb452d10afcd612398ee8eed4",
+    "lines": "541-547",
+    "description": "pmem_should_map_pages true uses devm_memremap_pages with default pgmap and no device altmap; current namespace mode memory corresponds to this decision in namespace_devs.c."
+  },
+  "history_result": "No ndctl/daxctl/pmem/dax/memmap/module commands targetingthese devices found inMay11datedshellhistory orcurrenthistory; unrelatedasync_promote andmsr commands exist.",
+  "limits": [
+    "NohistoricalMaymodulebinding ornamespace mode snapshot.",
+    "Local explanatorysource ishybridtierkernel, nottheexactrunning6.18source; currentnamespace state andBTFpage size aredirectmeasurements.",
+    "The1440.25MiB arithmetic estimates conventionalstructpage storage; actualallocatedmetadata/locality andruntimeperformance effect areunmeasured.",
+    "No namespace/module/device/boot changes wereperformed."
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "may04_to_may14": {
+    "arms_kernel.cpp": false,
+    "pebs_scan_thread.cpp": true,
+    "pagemap_scan_thread.cpp": true,
+    "migration_worker.cpp": true,
+    "policy_thread.cpp": true,
+    "timer.cpp": true,
+    "hook/hook.cpp": true,
+    "groups.cpp": true,
+    "page.cpp": false,
+    "logging.cpp": true,
+    "model.cpp": true
+  },
+  "may14_to_current": {
+    "arms_kernel.cpp": false,
+    "pebs_scan_thread.cpp": true,
+    "pagemap_scan_thread.cpp": true,
+    "migration_worker.cpp": true,
+    "policy_thread.cpp": true,
+    "timer.cpp": true,
+    "hook/hook.cpp": false,
+    "groups.cpp": true,
+    "page.cpp": true,
+    "logging.cpp": false,
+    "model.cpp": false
+  }
+}

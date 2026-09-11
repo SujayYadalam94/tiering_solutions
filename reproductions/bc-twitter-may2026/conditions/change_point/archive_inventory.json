@@ -1,0 +1,4010 @@
+[
+  {
+    "path": "times/c220g5_final/times.zip",
+    "size": 476887,
+    "mtime_utc": "2026-05-31T04:39:54.032755+00:00",
+    "entry_count": 1334,
+    "matches": [
+      {
+        "name": "arms_6.18/bc-kron.sg/10009MiB_run1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-kron.sg/10009MiB_run2.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-kron.sg/10009MiB_run3.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-kron.sg/4009MiB_run1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-kron.sg/4009MiB_run2.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-kron.sg/4009MiB_run3.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-kron.sg/6009MiB_run1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-kron.sg/6009MiB_run2.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-kron.sg/6009MiB_run3.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-kron.sg/8009MiB_run1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-kron.sg/8009MiB_run2.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-kron.sg/8009MiB_run3.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-twitter.sg/10009MiB_run1.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-twitter.sg/10009MiB_run2.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-twitter.sg/10009MiB_run3.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-twitter.sg/4009MiB_run1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-twitter.sg/4009MiB_run2.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-twitter.sg/4009MiB_run3.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-twitter.sg/6009MiB_run1.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-twitter.sg/6009MiB_run2.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-twitter.sg/6009MiB_run3.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-twitter.sg/8009MiB_run1.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-twitter.sg/8009MiB_run2.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18/bc-twitter.sg/8009MiB_run3.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          34,
+          4
+        ]
+      },
+      {
+        "name": "arms_6.18_long/bc-twitter.sg/4035MiB_run1.time",
+        "size": 133,
+        "zip_time": [
+          2026,
+          5,
+          14,
+          21,
+          48,
+          56
+        ]
+      },
+      {
+        "name": "arms_6.18_long/bc-twitter.sg/4035MiB_run2.time",
+        "size": 133,
+        "zip_time": [
+          2026,
+          5,
+          14,
+          21,
+          48,
+          56
+        ]
+      },
+      {
+        "name": "arms_6.18_long/bc-twitter.sg/4035MiB_run3.time",
+        "size": 133,
+        "zip_time": [
+          2026,
+          5,
+          14,
+          21,
+          48,
+          56
+        ]
+      },
+      {
+        "name": "arms_6.18_long/bc-twitter.sg/6032MiB_run1.time",
+        "size": 133,
+        "zip_time": [
+          2026,
+          5,
+          14,
+          21,
+          48,
+          56
+        ]
+      },
+      {
+        "name": "arms_6.18_long/bc-twitter.sg/6032MiB_run2.time",
+        "size": 133,
+        "zip_time": [
+          2026,
+          5,
+          14,
+          21,
+          48,
+          56
+        ]
+      },
+      {
+        "name": "arms_6.18_long/bc-twitter.sg/6032MiB_run3.time",
+        "size": 133,
+        "zip_time": [
+          2026,
+          5,
+          14,
+          21,
+          48,
+          56
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-kron.sg/10000MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-kron.sg/10000MiB_run2.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-kron.sg/10000MiB_run3.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-kron.sg/2000MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-kron.sg/2000MiB_run2.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-kron.sg/2000MiB_run3.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-kron.sg/4000MiB_run1.time",
+        "size": 43,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-kron.sg/4000MiB_run2.time",
+        "size": 43,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-kron.sg/4000MiB_run3.time",
+        "size": 43,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-kron.sg/6000MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-kron.sg/6000MiB_run2.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-kron.sg/6000MiB_run3.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-kron.sg/8000MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-kron.sg/8000MiB_run2.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-kron.sg/8000MiB_run3.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-twitter.sg/10000MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-twitter.sg/10000MiB_run2.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-twitter.sg/10000MiB_run3.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-twitter.sg/2000MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-twitter.sg/2000MiB_run2.time",
+        "size": 89,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-twitter.sg/2000MiB_run3.time",
+        "size": 89,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-twitter.sg/4000MiB_run1.time",
+        "size": 43,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-twitter.sg/4000MiB_run2.time",
+        "size": 43,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-twitter.sg/4000MiB_run3.time",
+        "size": 43,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-twitter.sg/6000MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-twitter.sg/6000MiB_run2.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-twitter.sg/6000MiB_run3.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-twitter.sg/8000MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-twitter.sg/8000MiB_run2.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "arms_6.2/bc-twitter.sg/8000MiB_run3.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          2,
+          48
+        ]
+      },
+      {
+        "name": "cs_only-6.2/bc-kron.sg/0MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          30,
+          23,
+          38,
+          58
+        ]
+      },
+      {
+        "name": "cs_only-6.2/bc-twitter.sg/0MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          30,
+          23,
+          38,
+          58
+        ]
+      },
+      {
+        "name": "cxl_only-6.18/bc-kron.sg/0MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          30,
+          18,
+          48,
+          30
+        ]
+      },
+      {
+        "name": "cxl_only-6.18/bc-twitter.sg/0MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          30,
+          19,
+          10,
+          14
+        ]
+      },
+      {
+        "name": "dram_only_6.18/bc-kron.sg/0MiB_run1.time",
+        "size": 89,
+        "zip_time": [
+          2026,
+          5,
+          30,
+          18,
+          42,
+          12
+        ]
+      },
+      {
+        "name": "dram_only_6.18/bc-kron.sg/100015MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          30,
+          18,
+          36,
+          28
+        ]
+      },
+      {
+        "name": "dram_only_6.18/bc-twitter.sg/0MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          30,
+          19,
+          7,
+          0
+        ]
+      },
+      {
+        "name": "dram_only_6.18/bc-twitter.sg/100015MiB_run1.time",
+        "size": 91,
+        "zip_time": [
+          2026,
+          5,
+          30,
+          18,
+          37,
+          16
+        ]
+      },
+      {
+        "name": "dram_only-6.2/bc-kron.sg/0MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          30,
+          23,
+          38,
+          58
+        ]
+      },
+      {
+        "name": "dram_only-6.2/bc-twitter.sg/0MiB_run1.time",
+        "size": 89,
+        "zip_time": [
+          2026,
+          5,
+          30,
+          23,
+          38,
+          58
+        ]
+      },
+      {
+        "name": "hybridtier/bc-kron.sg/10000MiB_run1.time",
+        "size": 92,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-kron.sg/10000MiB_run2.time",
+        "size": 93,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-kron.sg/10000MiB_run3.time",
+        "size": 93,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-kron.sg/2000MiB_run1.time",
+        "size": 92,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-kron.sg/2000MiB_run2.time",
+        "size": 93,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-kron.sg/2000MiB_run3.time",
+        "size": 93,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-kron.sg/4000MiB_run1.time",
+        "size": 46,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-kron.sg/4000MiB_run2.time",
+        "size": 45,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-kron.sg/4000MiB_run3.time",
+        "size": 46,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-kron.sg/6000MiB_run1.time",
+        "size": 93,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-kron.sg/6000MiB_run2.time",
+        "size": 93,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-kron.sg/6000MiB_run3.time",
+        "size": 93,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-kron.sg/8000MiB_run1.time",
+        "size": 91,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-kron.sg/8000MiB_run2.time",
+        "size": 92,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-kron.sg/8000MiB_run3.time",
+        "size": 91,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-twitter.sg/10000MiB_run1.time",
+        "size": 93,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-twitter.sg/10000MiB_run2.time",
+        "size": 92,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-twitter.sg/10000MiB_run3.time",
+        "size": 93,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-twitter.sg/2000MiB_run1.time",
+        "size": 93,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-twitter.sg/2000MiB_run2.time",
+        "size": 92,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-twitter.sg/2000MiB_run3.time",
+        "size": 93,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-twitter.sg/4000MiB_run1.time",
+        "size": 46,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-twitter.sg/4000MiB_run2.time",
+        "size": 46,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-twitter.sg/4000MiB_run3.time",
+        "size": 46,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-twitter.sg/6000MiB_run1.time",
+        "size": 92,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-twitter.sg/6000MiB_run2.time",
+        "size": 93,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-twitter.sg/6000MiB_run3.time",
+        "size": 93,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-twitter.sg/8000MiB_run1.time",
+        "size": 93,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-twitter.sg/8000MiB_run2.time",
+        "size": 93,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "hybridtier/bc-twitter.sg/8000MiB_run3.time",
+        "size": 93,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "model_6.18/bc-kron.sg/10028MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18/bc-kron.sg/10028MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18/bc-kron.sg/10028MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18/bc-kron.sg/4028MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18/bc-kron.sg/4028MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18/bc-kron.sg/4028MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18/bc-kron.sg/6032MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          14,
+          0,
+          24,
+          52
+        ]
+      },
+      {
+        "name": "model_6.18/bc-kron.sg/6032MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          14,
+          0,
+          24,
+          52
+        ]
+      },
+      {
+        "name": "model_6.18/bc-kron.sg/6032MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          14,
+          0,
+          24,
+          52
+        ]
+      },
+      {
+        "name": "model_6.18/bc-kron.sg/8028MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18/bc-kron.sg/8028MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18/bc-kron.sg/8028MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18/bc-twitter.sg/10028MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18/bc-twitter.sg/10028MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18/bc-twitter.sg/10028MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18/bc-twitter.sg/4028MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18/bc-twitter.sg/4028MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18/bc-twitter.sg/4028MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18/bc-twitter.sg/6032MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          14,
+          0,
+          24,
+          52
+        ]
+      },
+      {
+        "name": "model_6.18/bc-twitter.sg/6032MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          14,
+          0,
+          24,
+          52
+        ]
+      },
+      {
+        "name": "model_6.18/bc-twitter.sg/6032MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          14,
+          0,
+          24,
+          52
+        ]
+      },
+      {
+        "name": "model_6.18/bc-twitter.sg/8028MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18/bc-twitter.sg/8028MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18/bc-twitter.sg/8028MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/10005MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.0625.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/10005MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.125.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/10005MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.25.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/10005MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/10005MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.0.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/10005MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/10005MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.0625.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/10005MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.125.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/10005MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.25.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/10005MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/10005MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.0.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/10005MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/10005MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.0625.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/10005MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.125.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/10005MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.25.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/10005MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/10005MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.0.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/10005MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.125.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.25.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.5.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.0.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.125.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.25.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.5.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.0.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.125.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.25.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.5.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.0.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/4009MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/6009MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.125.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/6009MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.25.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/6009MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/6009MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.0.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/6009MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/6009MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.125.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/6009MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.25.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/6009MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/6009MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.0.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/6009MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/6009MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.125.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/6009MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.25.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/6009MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/6009MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.0.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/6009MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/8009MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.125.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/8009MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.25.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/8009MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/8009MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.0.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/8009MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/8009MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.125.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/8009MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.25.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/8009MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/8009MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.0.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/8009MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/8009MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.125.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/8009MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.25.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/8009MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_0.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/8009MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.0.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-kron.sg/8009MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "size": 131,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          17,
+          18
+        ]
+      },
+      {
+        "name": "model_6.18_long/bc-twitter.sg/4035MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 133,
+        "zip_time": [
+          2026,
+          5,
+          14,
+          21,
+          49,
+          20
+        ]
+      },
+      {
+        "name": "model_6.18_long/bc-twitter.sg/4035MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          14,
+          21,
+          49,
+          20
+        ]
+      },
+      {
+        "name": "model_6.18_long/bc-twitter.sg/4035MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 133,
+        "zip_time": [
+          2026,
+          5,
+          14,
+          21,
+          49,
+          20
+        ]
+      },
+      {
+        "name": "model_6.18_long/bc-twitter.sg/6035MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 133,
+        "zip_time": [
+          2026,
+          5,
+          14,
+          21,
+          49,
+          20
+        ]
+      },
+      {
+        "name": "model_6.18_long/bc-twitter.sg/6035MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          14,
+          21,
+          49,
+          20
+        ]
+      },
+      {
+        "name": "model_6.18_long/bc-twitter.sg/6035MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 133,
+        "zip_time": [
+          2026,
+          5,
+          14,
+          21,
+          49,
+          20
+        ]
+      },
+      {
+        "name": "model_6.2/bc-kron.sg/10030MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          12,
+          22,
+          6,
+          0
+        ]
+      },
+      {
+        "name": "model_6.2/bc-kron.sg/10030MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          12,
+          22,
+          6,
+          0
+        ]
+      },
+      {
+        "name": "model_6.2/bc-kron.sg/10030MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          12,
+          22,
+          6,
+          0
+        ]
+      },
+      {
+        "name": "model_6.2/bc-kron.sg/4030MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          5,
+          12
+        ]
+      },
+      {
+        "name": "model_6.2/bc-kron.sg/4030MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          5,
+          12
+        ]
+      },
+      {
+        "name": "model_6.2/bc-kron.sg/4030MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          5,
+          12
+        ]
+      },
+      {
+        "name": "model_6.2/bc-kron.sg/6029MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          16,
+          36
+        ]
+      },
+      {
+        "name": "model_6.2/bc-kron.sg/6029MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          16,
+          36
+        ]
+      },
+      {
+        "name": "model_6.2/bc-kron.sg/6029MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          16,
+          36
+        ]
+      },
+      {
+        "name": "model_6.2/bc-kron.sg/8029MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          9,
+          45,
+          14
+        ]
+      },
+      {
+        "name": "model_6.2/bc-kron.sg/8029MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          9,
+          45,
+          14
+        ]
+      },
+      {
+        "name": "model_6.2/bc-kron.sg/8029MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          9,
+          45,
+          14
+        ]
+      },
+      {
+        "name": "model_6.2/bc-twitter.sg/10030MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          12,
+          22,
+          5,
+          50
+        ]
+      },
+      {
+        "name": "model_6.2/bc-twitter.sg/10030MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          12,
+          22,
+          5,
+          50
+        ]
+      },
+      {
+        "name": "model_6.2/bc-twitter.sg/10030MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          12,
+          22,
+          5,
+          50
+        ]
+      },
+      {
+        "name": "model_6.2/bc-twitter.sg/4030MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          5,
+          18
+        ]
+      },
+      {
+        "name": "model_6.2/bc-twitter.sg/4030MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          5,
+          18
+        ]
+      },
+      {
+        "name": "model_6.2/bc-twitter.sg/4030MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          5,
+          18
+        ]
+      },
+      {
+        "name": "model_6.2/bc-twitter.sg/6029MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          16,
+          36
+        ]
+      },
+      {
+        "name": "model_6.2/bc-twitter.sg/6029MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          16,
+          36
+        ]
+      },
+      {
+        "name": "model_6.2/bc-twitter.sg/6029MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          0,
+          16,
+          36
+        ]
+      },
+      {
+        "name": "model_6.2/bc-twitter.sg/8029MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          9,
+          45,
+          20
+        ]
+      },
+      {
+        "name": "model_6.2/bc-twitter.sg/8029MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          9,
+          45,
+          20
+        ]
+      },
+      {
+        "name": "model_6.2/bc-twitter.sg/8029MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "size": 132,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          9,
+          45,
+          20
+        ]
+      },
+      {
+        "name": "nomad/bc-kron.sg/10000MiB_run1.time",
+        "size": 91,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-kron.sg/10000MiB_run2.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-kron.sg/10000MiB_run3.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-kron.sg/4000MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-kron.sg/4000MiB_run2.time",
+        "size": 89,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-kron.sg/4000MiB_run3.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-kron.sg/6000MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-kron.sg/6000MiB_run2.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-kron.sg/6000MiB_run3.time",
+        "size": 89,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-kron.sg/8000MiB_run1.time",
+        "size": 91,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-kron.sg/8000MiB_run2.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-kron.sg/8000MiB_run3.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-twitter.sg/10000MiB_run1.time",
+        "size": 91,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-twitter.sg/10000MiB_run2.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-twitter.sg/10000MiB_run3.time",
+        "size": 91,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-twitter.sg/4000MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-twitter.sg/4000MiB_run2.time",
+        "size": 89,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-twitter.sg/4000MiB_run3.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-twitter.sg/6000MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-twitter.sg/6000MiB_run2.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-twitter.sg/6000MiB_run3.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-twitter.sg/8000MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-twitter.sg/8000MiB_run2.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "nomad/bc-twitter.sg/8000MiB_run3.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          24
+        ]
+      },
+      {
+        "name": "tpp/bc-kron.sg/10000MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-kron.sg/10000MiB_run2.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-kron.sg/10000MiB_run3.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-kron.sg/4000MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-kron.sg/4000MiB_run2.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-kron.sg/4000MiB_run3.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-kron.sg/6000MiB_run1.time",
+        "size": 89,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-kron.sg/6000MiB_run2.time",
+        "size": 89,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-kron.sg/6000MiB_run3.time",
+        "size": 89,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-kron.sg/8000MiB_run1.time",
+        "size": 89,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-kron.sg/8000MiB_run2.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-kron.sg/8000MiB_run3.time",
+        "size": 89,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-twitter.sg/10000MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-twitter.sg/10000MiB_run2.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-twitter.sg/10000MiB_run3.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-twitter.sg/4000MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-twitter.sg/4000MiB_run2.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-twitter.sg/4000MiB_run3.time",
+        "size": 89,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-twitter.sg/6000MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-twitter.sg/6000MiB_run2.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-twitter.sg/6000MiB_run3.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-twitter.sg/8000MiB_run1.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-twitter.sg/8000MiB_run2.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      },
+      {
+        "name": "tpp/bc-twitter.sg/8000MiB_run3.time",
+        "size": 90,
+        "zip_time": [
+          2026,
+          5,
+          11,
+          23,
+          3,
+          46
+        ]
+      }
+    ]
+  },
+  {
+    "path": "logs/fixed_logs.zip",
+    "size": 2452121787,
+    "mtime_utc": "2026-06-06T19:42:00.883081+00:00",
+    "entry_count": 8,
+    "matches": [
+      {
+        "name": "bc-kron.sg/100050MiB_run1_train_arms.parquet",
+        "size": 391612470,
+        "zip_time": [
+          2026,
+          6,
+          6,
+          12,
+          23,
+          28
+        ]
+      },
+      {
+        "name": "bc-twitter.sg/100050MiB_run1_train_arms.parquet",
+        "size": 87707865,
+        "zip_time": [
+          2026,
+          6,
+          6,
+          12,
+          45,
+          44
+        ]
+      }
+    ]
+  },
+  {
+    "path": "models/models.zip",
+    "size": 1179708,
+    "mtime_utc": "2026-09-02T17:13:59.121906+00:00",
+    "entry_count": 11,
+    "matches": [
+      {
+        "name": "model_discounted_reward_99_bc-kron.sg_l2.o",
+        "size": 317584,
+        "zip_time": [
+          2026,
+          6,
+          18,
+          11,
+          50,
+          30
+        ]
+      },
+      {
+        "name": "model_discounted_reward_99_bc-twitter.sg_l2.o",
+        "size": 273968,
+        "zip_time": [
+          2026,
+          6,
+          18,
+          11,
+          26,
+          10
+        ]
+      }
+    ]
+  }
+]

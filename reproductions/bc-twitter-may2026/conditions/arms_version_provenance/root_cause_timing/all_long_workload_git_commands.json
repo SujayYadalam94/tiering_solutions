@@ -1,0 +1,122 @@
+[
+  {
+    "path": "workloads/DuckDB-TPCDS-sf100-long.sh",
+    "git_blobs": {
+      "4da3d6c3f": "c7312a34f4103e3f2fe71143b3ed3e64ca473504",
+      "d6f720be6": "c7312a34f4103e3f2fe71143b3ed3e64ca473504"
+    },
+    "identical": true,
+    "command_lines": [
+      "WORKLOAD_COMMAND=\"OMP_NUM_THREADS=16 ${BENCH_ROOT}/duckdb/build/release/benchmark/benchmark_runner benchmark/large/tpcds-sf100/.*benchmark --threads=16 --nruns=10\"",
+      "WORKLOAD_VIRTUAL_STEP_SAMPLES=\"100000\""
+    ]
+  },
+  {
+    "path": "workloads/DuckDB-TPCH-sf100-long.sh",
+    "git_blobs": {
+      "4da3d6c3f": "f483f844c7b020c5eb4b4ef1936407d507bdfc7f",
+      "d6f720be6": "f483f844c7b020c5eb4b4ef1936407d507bdfc7f"
+    },
+    "identical": true,
+    "command_lines": [
+      "WORKLOAD_COMMAND=\"OMP_NUM_THREADS=16 ${BENCH_ROOT}/duckdb/build/release/benchmark/benchmark_runner benchmark/large/tpch-sf100/.*benchmark --threads=16 --nruns=10 --disable-timeout\"",
+      "WORKLOAD_VIRTUAL_STEP_SAMPLES=\"100000\""
+    ]
+  },
+  {
+    "path": "workloads/XSBench-long.sh",
+    "git_blobs": {
+      "4da3d6c3f": "16f2718934dbe136b3562435774d3e5e05d45145",
+      "d6f720be6": "16f2718934dbe136b3562435774d3e5e05d45145"
+    },
+    "identical": true,
+    "command_lines": [
+      "WORKLOAD_COMMAND=\"OMP_NUM_THREADS=16 ${BENCH_ROOT}/XSBench/openmp-threading/XSBench -t 16 -g 50000 -p 100000000\"",
+      "WORKLOAD_VIRTUAL_STEP_SAMPLES=\"10000\""
+    ]
+  },
+  {
+    "path": "workloads/bc-kron.sg-long.sh",
+    "git_blobs": {
+      "4da3d6c3f": "a5908842763b45254debfc6a328b625f6f40f0ca",
+      "d6f720be6": "a5908842763b45254debfc6a328b625f6f40f0ca"
+    },
+    "identical": true,
+    "command_lines": [
+      "WORKLOAD_COMMAND=\"OMP_NUM_THREADS=16 ${BENCH_ROOT}/gapbs/bc -n 50 -f ${BENCH_ROOT}/gapbs/benchmark/graphs/kron.sg\"",
+      "WORKLOAD_VIRTUAL_STEP_SAMPLES=\"10000\""
+    ]
+  },
+  {
+    "path": "workloads/bc-twitter.sg-long.sh",
+    "git_blobs": {
+      "4da3d6c3f": "4cf6fc274132e905e39aaa801981b852e4d6d069",
+      "d6f720be6": "4cf6fc274132e905e39aaa801981b852e4d6d069"
+    },
+    "identical": true,
+    "command_lines": [
+      "WORKLOAD_COMMAND=\"OMP_NUM_THREADS=16 ${BENCH_ROOT}/gapbs/bc -n 100 -f ${BENCH_ROOT}/gapbs/benchmark/graphs/twitter.sg\"",
+      "WORKLOAD_VIRTUAL_STEP_SAMPLES=\"10000\""
+    ]
+  },
+  {
+    "path": "workloads/faiss_10M-long.sh",
+    "git_blobs": {
+      "4da3d6c3f": "55a49a9e0985e31b5b1f875b992357a197cbce33",
+      "d6f720be6": "55a49a9e0985e31b5b1f875b992357a197cbce33"
+    },
+    "identical": true,
+    "command_lines": [
+      "WORKLOAD_COMMAND=\"${BENCH_ROOT}/big-ann-benchmarks/.venv/bin/python3 ${BENCH_ROOT}/big-ann-benchmarks/data/10M_benchmark.py --threads 16 --index-key HNSW,Flat --stress-mode latency --dataset openai --n-queries 5000 --search-repeats 5\"",
+      "WORKLOAD_VIRTUAL_STEP_SAMPLES=\"3162\""
+    ]
+  },
+  {
+    "path": "workloads/lulesh2.0_s400-long.sh",
+    "git_blobs": {
+      "4da3d6c3f": "cb97bfa0a0a709bead6c6fca3588c61533fcde01",
+      "d6f720be6": "cb97bfa0a0a709bead6c6fca3588c61533fcde01"
+    },
+    "identical": true,
+    "command_lines": [
+      "WORKLOAD_COMMAND=\"OMP_NUM_THREADS=16 ${BENCH_ROOT}/LULESH/build/lulesh2.0 -i 50 -s 400\"",
+      "WORKLOAD_VIRTUAL_STEP_SAMPLES=\"31622\""
+    ]
+  },
+  {
+    "path": "workloads/mg.D.x-long.sh",
+    "git_blobs": {
+      "4da3d6c3f": "594b00ba0154be7d666e1aa83911eecad3e795fb",
+      "d6f720be6": "594b00ba0154be7d666e1aa83911eecad3e795fb"
+    },
+    "identical": true,
+    "command_lines": [
+      "WORKLOAD_COMMAND=\"OMP_NUM_THREADS=16 ${BENCH_ROOT}/NPB3.4.3/NPB3.4-OMP/bin/mg.D.x\"",
+      "WORKLOAD_VIRTUAL_STEP_SAMPLES=\"10000\""
+    ]
+  },
+  {
+    "path": "workloads/pr-kron.sg-long.sh",
+    "git_blobs": {
+      "4da3d6c3f": "6cd6d970502ea284176111014a5cfcffb4a24602",
+      "d6f720be6": "6cd6d970502ea284176111014a5cfcffb4a24602"
+    },
+    "identical": true,
+    "command_lines": [
+      "WORKLOAD_COMMAND=\"OMP_NUM_THREADS=16 ${BENCH_ROOT}/gapbs/pr -n 50 -f ${BENCH_ROOT}/gapbs/benchmark/graphs/kron.sg\"",
+      "WORKLOAD_VIRTUAL_STEP_SAMPLES=\"10000\""
+    ]
+  },
+  {
+    "path": "workloads/pr-twitter.sg-long.sh",
+    "git_blobs": {
+      "4da3d6c3f": "d42e3bd644944d06ee1718eabc48e113339f019d",
+      "d6f720be6": "d42e3bd644944d06ee1718eabc48e113339f019d"
+    },
+    "identical": true,
+    "command_lines": [
+      "WORKLOAD_COMMAND=\"OMP_NUM_THREADS=16 ${BENCH_ROOT}/gapbs/pr -n 100 -f ${BENCH_ROOT}/gapbs/benchmark/graphs/twitter.sg\"",
+      "WORKLOAD_VIRTUAL_STEP_SAMPLES=\"10000\""
+    ]
+  }
+]

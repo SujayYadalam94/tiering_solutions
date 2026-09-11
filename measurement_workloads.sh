@@ -4,18 +4,32 @@ MEASUREMENT_WORKLOADS_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 MEASUREMENT_WORKLOADS_PATH="${MEASUREMENT_WORKLOADS_DIR}/workloads"
 
 declare -ar MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
-    "pr-graph-80GB.sg"
-    "bc-graph-80GB.sg"
+    #"pr-graph-80GB.sg"
+    #"bc-graph-80GB.sg"
+    #"pr-graph-80GB-swap.sg"
+    #"bc-graph-80GB-swap.sg"
 
-    #"DuckDB-TPCH-sf100-original"
+    "bc-twitter.sg"
     #"bc-kron.sg"
-    #"pr-kron.sg"
-    #"bc-twitter.sg"
     #"pr-twitter.sg"
+    
+    #"pr-kron.sg"
+    #"DuckDB-TPCH-sf100-original"
+
     #"XSBench"
-    #
+    ##
     #"faiss_10M-original"
     #"mg.D.x-original"
+
+    # No-virtual-step models reuse the standard workloads' baseline measurements.
+    #"bc-twitter.sg_no_virtual_step"
+    #"pr-twitter.sg_no_virtual_step"
+    #"bc-kron.sg_no_virtual_step"
+    #"pr-kron.sg_no_virtual_step"
+    #"DuckDB-TPCH-sf100-original_no_virtual_step"
+    #"XSBench_no_virtual_step"
+    #"faiss_10M-original_no_virtual_step"
+    #"mg.D.x-original_no_virtual_step"
     #"bc-twitter.sg-long"
     #"pr-twitter.sg-long"
 

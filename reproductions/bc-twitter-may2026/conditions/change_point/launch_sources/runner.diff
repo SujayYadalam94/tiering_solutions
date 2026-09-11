@@ -1,0 +1,11 @@
+--- reproductions/bc-twitter-may2026/conditions/change_point/launch_sources/may14_runner.sh	2026-09-09 16:59:30.697897811 -0500
++++ reproductions/bc-twitter-may2026/conditions/change_point/launch_sources/june13_runner.sh	2026-09-09 16:59:30.697897811 -0500
+@@ -56,7 +56,7 @@
+     fi
+ }
+ 
+-SIZES=(4035)
++SIZES=(4040)
+ RUNS=3
+ 
+ ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}

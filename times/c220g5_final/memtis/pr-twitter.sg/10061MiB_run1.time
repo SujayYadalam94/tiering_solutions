@@ -1,0 +1,19 @@
+
+real	4m58.183s
+user	61m51.688s
+sys	0m52.903s
+exit_status=0
+timed_out=0
+elapsed_seconds=298
+timeout_seconds=12000
+kill_after_seconds=30
+memtis_fast_tier_mib=10061
+memtis_effective_fast_tier_mib=8039
+memtis_fast_node_free_at_start_mib=8295
+memtis_startup_headroom_mib=256
+memtis_min_fast_tier_mib=128
+memtis_fast_node=0
+memtis_cxl_mode=enabled
+memtis_uncore_freq_khz=700000
+memtis_initial_placement=slow
+memtis_slow_node=1

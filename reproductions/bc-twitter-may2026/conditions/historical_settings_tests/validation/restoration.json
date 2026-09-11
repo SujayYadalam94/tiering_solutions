@@ -1,0 +1,21 @@
+{
+  "mode": "saved snapshots only",
+  "checks": [
+    {
+      "session": "20260909T170421Z-382094",
+      "knob": "none",
+      "runner_restoration_errors": [],
+      "recorded_differences": [],
+      "current_differences": null
+    },
+    {
+      "session": "20260909T173344Z-414920",
+      "knob": "none",
+      "runner_restoration_errors": [],
+      "recorded_differences": [],
+      "current_differences": null
+    }
+  ],
+  "live_readback_performed": false,
+  "passed": true
+}

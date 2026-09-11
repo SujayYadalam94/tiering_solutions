@@ -1,0 +1,342 @@
+{
+  "git_blob": "03706cb28ef60ea53612aed877e7505d5c26853f",
+  "bytes": 301200432,
+  "sha256": "8aa9254f56ef332b8dffef783ac367d052acb66fce8f1456a1547e5ebefc8484",
+  "footer_bytes": 90624,
+  "created_by": "parquet-cpp-arrow version 24.0.0",
+  "rows": 7123233,
+  "row_groups": 7,
+  "columns": [
+    "step",
+    "page",
+    "read",
+    "write",
+    "count",
+    "global_avg_accesses",
+    "global_avg_accesses_model",
+    "ewma_2",
+    "ewma_2_r",
+    "ewma_2_w",
+    "ewma_5",
+    "ewma_5_r",
+    "ewma_5_w",
+    "ewma_20",
+    "ewma_20_r",
+    "ewma_20_w",
+    "ewma_100",
+    "ewma_100_r",
+    "ewma_100_w",
+    "virtual_missed_ewma_100",
+    "gap4",
+    "read_write_gap3",
+    "ewma_var_2",
+    "ewma_var_5",
+    "ewma_var_20",
+    "ewma_var_100",
+    "group_-7_mean_ewma5",
+    "group_-6_mean_ewma5",
+    "group_-5_mean_ewma5",
+    "group_-4_mean_ewma5",
+    "group_-3_mean_ewma5",
+    "group_-2_mean_ewma5",
+    "group_-1_mean_ewma5",
+    "group_0_mean_ewma5",
+    "group_1_mean_ewma5",
+    "group_2_mean_ewma5",
+    "group_3_mean_ewma5",
+    "group_4_mean_ewma5",
+    "group_5_mean_ewma5",
+    "group_6_mean_ewma5",
+    "group_7_mean_ewma5",
+    "group_-7_mean",
+    "group_-6_mean",
+    "group_-5_mean",
+    "group_-4_mean",
+    "group_-3_mean",
+    "group_-2_mean",
+    "group_-1_mean",
+    "group_0_mean",
+    "group_1_mean",
+    "group_2_mean",
+    "group_3_mean",
+    "group_4_mean",
+    "group_5_mean",
+    "group_6_mean",
+    "group_7_mean",
+    "group_ewma5_var",
+    "age_count_total",
+    "model_score",
+    "arms_score",
+    "score",
+    "in_dram",
+    "age",
+    "num_demotions",
+    "num_promotions",
+    "discounted_reward_90",
+    "discounted_reward_95",
+    "discounted_reward_99",
+    "step_offcore_write_l3_miss_rate",
+    ""
+  ],
+  "statistics": {
+    "step": [
+      {
+        "min": 1,
+        "max": 189,
+        "null_count": 0
+      },
+      {
+        "min": 189,
+        "max": 272,
+        "null_count": 0
+      },
+      {
+        "min": 272,
+        "max": 355,
+        "null_count": 0
+      },
+      {
+        "min": 355,
+        "max": 438,
+        "null_count": 0
+      },
+      {
+        "min": 438,
+        "max": 520,
+        "null_count": 0
+      },
+      {
+        "min": 520,
+        "max": 603,
+        "null_count": 0
+      },
+      {
+        "min": 603,
+        "max": 668,
+        "null_count": 0
+      }
+    ],
+    "model_score": [
+      {
+        "min": -0.0,
+        "max": 0.0,
+        "null_count": 0
+      },
+      {
+        "min": -0.0,
+        "max": 0.0,
+        "null_count": 0
+      },
+      {
+        "min": -0.0,
+        "max": 0.0,
+        "null_count": 0
+      },
+      {
+        "min": -0.0,
+        "max": 0.0,
+        "null_count": 0
+      },
+      {
+        "min": -0.0,
+        "max": 0.0,
+        "null_count": 0
+      },
+      {
+        "min": -0.0,
+        "max": 0.0,
+        "null_count": 0
+      },
+      {
+        "min": -0.0,
+        "max": 0.0,
+        "null_count": 0
+      }
+    ],
+    "arms_score": [
+      {
+        "min": -0.0,
+        "max": 13227.087891,
+        "null_count": 0
+      },
+      {
+        "min": -0.0,
+        "max": 11816.117188,
+        "null_count": 0
+      },
+      {
+        "min": -0.0,
+        "max": 11813.3125,
+        "null_count": 0
+      },
+      {
+        "min": -0.0,
+        "max": 11817.484375,
+        "null_count": 0
+      },
+      {
+        "min": -0.0,
+        "max": 11828.810547,
+        "null_count": 0
+      },
+      {
+        "min": -0.0,
+        "max": 11912.509766,
+        "null_count": 0
+      },
+      {
+        "min": -0.0,
+        "max": 11828.933594,
+        "null_count": 0
+      }
+    ],
+    "score": [
+      {
+        "min": -0.0,
+        "max": 13227.087891,
+        "null_count": 0
+      },
+      {
+        "min": -0.0,
+        "max": 11816.117188,
+        "null_count": 0
+      },
+      {
+        "min": -0.0,
+        "max": 11813.3125,
+        "null_count": 0
+      },
+      {
+        "min": -0.0,
+        "max": 11817.484375,
+        "null_count": 0
+      },
+      {
+        "min": -0.0,
+        "max": 11828.810547,
+        "null_count": 0
+      },
+      {
+        "min": -0.0,
+        "max": 11912.509766,
+        "null_count": 0
+      },
+      {
+        "min": -0.0,
+        "max": 11828.933594,
+        "null_count": 0
+      }
+    ],
+    "in_dram": [
+      {
+        "min": 0,
+        "max": 1,
+        "null_count": 0
+      },
+      {
+        "min": 0,
+        "max": 1,
+        "null_count": 0
+      },
+      {
+        "min": 0,
+        "max": 1,
+        "null_count": 0
+      },
+      {
+        "min": 0,
+        "max": 1,
+        "null_count": 0
+      },
+      {
+        "min": 0,
+        "max": 1,
+        "null_count": 0
+      },
+      {
+        "min": 0,
+        "max": 1,
+        "null_count": 0
+      },
+      {
+        "min": 0,
+        "max": 1,
+        "null_count": 0
+      }
+    ],
+    "num_demotions": [
+      {
+        "min": 0,
+        "max": 0,
+        "null_count": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "null_count": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "null_count": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "null_count": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "null_count": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "null_count": 0
+      },
+      {
+        "min": 0,
+        "max": 0,
+        "null_count": 0
+      }
+    ],
+    "num_promotions": [
+      {
+        "min": 0,
+        "max": 23,
+        "null_count": 0
+      },
+      {
+        "min": 0,
+        "max": 2,
+        "null_count": 0
+      },
+      {
+        "min": 0,
+        "max": 2,
+        "null_count": 0
+      },
+      {
+        "min": 0,
+        "max": 2,
+        "null_count": 0
+      },
+      {
+        "min": 0,
+        "max": 2,
+        "null_count": 0
+      },
+      {
+        "min": 0,
+        "max": 2,
+        "null_count": 0
+      },
+      {
+        "min": 0,
+        "max": 2,
+        "null_count": 0
+      }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-2c506191/krx3.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-2c506191/5LFH.sh
+@@ -124,11 +124,11 @@
+             #fi
+ 
+             # Model
+-            #if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
+-            #    "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+-            #else
+-            #    echo "WARNING: ./measurement_model.sh not found or not executable; skipping model"
+-            #fi
++            if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
++                "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
++            else
++                echo "WARNING: ./measurement_model.sh not found or not executable; skipping model"
++            fi
+ 
+             # HybridTier
+             #run_measurement_setup "${size}"

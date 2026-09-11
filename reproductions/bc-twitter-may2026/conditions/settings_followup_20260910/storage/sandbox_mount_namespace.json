@@ -1,0 +1,15 @@
+{
+  "note": "Attempting /proc/1/mountinfo does not escape this sandbox PID/mount namespace: listed mounts still contain sandbox binds. Do not interpret its read-only/nosuid/nodev mount restrictions as host benchmark state. Device identities and superblock type are visible; parent-host mount flags need an unsandboxed readback.",
+  "namespace_lines": [
+    "369 293 8:3 / / ro,nosuid,nodev,relatime master:1 - ext3 /dev/sda3 rw",
+    "382 380 0:30 / /sys/fs/cgroup ro,nosuid,nodev,noexec,relatime master:9 - cgroup2 cgroup2 rw,nsdelegate,memory_recursiveprot",
+    "395 369 8:16 / /users/zimooo2/big-ann-benchmarks/data ro,nosuid,nodev,relatime master:172 - ext4 /dev/sdb rw",
+    "396 369 8:16 / /users/zimooo2/tiering_solutions/logs ro,nosuid,nodev,relatime master:223 - ext4 /dev/sdb rw",
+    "397 369 8:16 / /users/zimooo2/gapbs/benchmark ro,nosuid,nodev,relatime master:231 - ext4 /dev/sdb rw",
+    "488 369 8:3 /tmp /tmp rw,nosuid,nodev,relatime master:1 - ext3 /dev/sda3 rw",
+    "492 488 8:3 /tmp/codex-bwrap-synthetic-mount-targets-20020 /tmp/codex-bwrap-synthetic-mount-targets-20020 ro,nosuid,nodev,relatime master:1 - ext3 /dev/sda3 rw",
+    "493 369 8:3 /users/zimooo2/tiering_solutions /users/zimooo2/tiering_solutions rw,nosuid,nodev,relatime master:1 - ext3 /dev/sda3 rw",
+    "494 493 8:16 / /users/zimooo2/tiering_solutions/logs rw,nosuid,nodev,relatime master:223 - ext4 /dev/sdb rw",
+    "495 493 8:3 /users/zimooo2/tiering_solutions/.git /users/zimooo2/tiering_solutions/.git ro,nosuid,nodev,relatime master:1 - ext3 /dev/sda3 rw"
+  ]
+}

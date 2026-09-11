@@ -1,0 +1,56 @@
+--- gitblob:9bfd97bc6283899e642e01ffdb175012f572e52d
++++ indexed-March10-worker-whitespace-normalized
+@@ -42,8 +42,7 @@
+ }
+ if(ref.page)
+ {
+-std::lock_guard<std::mutex>page_lock(ref.page->page_lock);
+-ref.expected_hugepages=ref.page->seen_pages>0?1:0;
++ref.expected_hugepages=1;
+ }
+ returnref;
+ }
+@@ -54,12 +53,7 @@
+ return;
+ }
+ std::lock_guard<std::mutex>plock(ref.page->page_lock);
+-ref.page->seen_pages=BASE_PAGE_PER_HUGEPAGE;
+-ref.page->pages_in_dram=(target_node==FAST_TIER)?BASE_PAGE_PER_HUGEPAGE:0;
+-for(size_tj=0;j<BASE_PAGE_PER_HUGEPAGE;j++)
+-{
+-ref.page->page_status[j]=target_node;
+-}
++ref.page->in_dram=(target_node==FAST_TIER);
+ #ifUSE_MODEL==(true)||LOGGING_RUN==(true)
+ ref.page->promote_backoff=BACKOFF_PERIOD;
+ #endif
+@@ -104,8 +98,8 @@
+ }
+ elseif(status[i]!=nodes[i]&&status[i]!=-EFAULT&&status[i]!=-ENOENT)
+ {
+-//std::cerr<<"[ARMS]Warning:PagemigrationfailedforVA"<<pages[i]<<",targetnode:"<<std::dec
+-//<<nodes[i]<<",status:"<<status[i]<<std::endl;
++std::cout<<"[ARMS]Warning:PagemigrationfailedforVA"<<pages[i]<<",targetnode:"<<std::dec
++<<nodes[i]<<",status:"<<status[i]<<std::endl;
+ }
+ }
+ promoted_pages=successful_promotions;
+@@ -139,9 +133,6 @@
+ }
+ voidenqueue_migration_task(conststd::vector<uint64_t>&promote_vas,conststd::vector<uint64_t>&demote_vas)
+ {
+-#ifUSE_MODEL==(true)||LOGGING_RUN==(true)
+-numa_set_preferred(FAST_TIER);
+-#endif
+ if(promote_vas.empty()&&demote_vas.empty())
+ return;
+ constexprsize_tTASK_COUNT=MIGRATION_WORKER_COUNT;
+@@ -259,7 +250,7 @@
+ inttotal_retry_promoted=0;
+ boolretry_error=false;
+ std::vector<migration_task::page_ref>pending_promotions=task.promote_pages;
+-constexprintMAX_PROMOTION_RETRY_PASSES=1;
++constexprintMAX_PROMOTION_RETRY_PASSES=2;
+ for(intpass=0;pass<MAX_PROMOTION_RETRY_PASSES&&!pending_promotions.empty();pass++)
+ {
+ std::vector<migration_task::page_ref>failed_this_pass;

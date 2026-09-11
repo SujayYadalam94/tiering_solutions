@@ -1,0 +1,36 @@
+{
+  "source_cohort": "Original c220g5 May7 paired standard/cost-ablation executions; exact source verification in ../arms_version_provenance/may_memory_cleanup/speed_match_targets.json",
+  "arms": {
+    "mean_seconds": 115.80366666666667,
+    "min_seconds": 112.781,
+    "max_seconds": 118.355,
+    "n": 3
+  },
+  "model": {
+    "configuration": [
+      2,
+      10,
+      0.5
+    ],
+    "mean_seconds": 100.12666666666667,
+    "min_seconds": 99.587,
+    "max_seconds": 100.399,
+    "n": 3
+  },
+  "gap_seconds": 15.677,
+  "practical_target_bands_seconds": {
+    "arms": [
+      113,
+      119
+    ],
+    "model": [
+      99,
+      102
+    ],
+    "gap": [
+      13,
+      18
+    ]
+  },
+  "band_interpretation": "Engineering acceptance target for one reconstructed pair, not confidence intervals; original read/iteration splits are absent."
+}

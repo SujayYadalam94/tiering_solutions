@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": [
+    "Node0 parser excludes per-CPU pageset high values",
+    "Protection vector preserved",
+    "Five-element ratio equality normalizes whitespace without ignoring missing entries",
+    "Intentional target change matches two same-policy baselines and their mean",
+    "Unrelated control change prevents baseline matching"
+  ],
+  "scope": "Synthetic rows in memory; no files outside validation, host writes, live reads, or workloads."
+}

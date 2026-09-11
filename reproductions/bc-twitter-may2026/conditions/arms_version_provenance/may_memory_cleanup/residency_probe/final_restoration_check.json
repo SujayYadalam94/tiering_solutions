@@ -1,0 +1,18 @@
+{
+  "mode": "saved snapshots plus live readback",
+  "checks": [
+    {
+      "session": "20260909T191220Z-491552",
+      "knob": "none",
+      "runner_restoration_errors": [],
+      "recorded_differences": [],
+      "current_differences": []
+    }
+  ],
+  "live_readback_performed": true,
+  "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+  "boot_unchanged": true,
+  "active_benchmarks": [],
+  "pmem7_driver": "/sys/bus/nd/drivers/nd_pmem",
+  "passed": true
+}

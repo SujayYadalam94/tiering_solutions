@@ -1,0 +1,34 @@
+--- git:6b1bc11ddde993c4e365c9d65ac96fb0a6e8b677:run_all_measurements.sh
++++ 9e9da65570411d9ddc316a2f0c35a634b3c8e646.sh
+@@ -56,9 +56,14 @@
+     fi
+ }
+ 
++<<<<<<< HEAD
+ SIZES=(4008)
+ RUNS=3
++=======
++SIZES=(8000)
++RUNS=3
+ 
++>>>>>>> 3640df8e35b674a89d8eb6d9b9deedd541fbef79
+ ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}
+ 
+ mapfile -t WORKLOAD_IDS < <(measurement_list_default_workloads)
+@@ -110,6 +115,8 @@
+ 
+             #run_measurement_setup "${size}"
+             #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${ARMS_LIB_SUFFIX}" "${workload_id}"
++<<<<<<< HEAD
++=======
+ 
+             # DRAM-only baseline
+             #if [[ -x "${SCRIPT_DIR}/measurement_dram_only.sh" ]]; then
+@@ -126,6 +133,7 @@
+             #else
+             #    echo "WARNING: ./measurement_cxl_only.sh not found or not executable; skipping CXL-only"
+             #fi
++>>>>>>> 058f6325889dc63e81d47cfaf2a27266c260ba1a
+ 
+             run_measurement_teardown
+         done

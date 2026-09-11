@@ -1,0 +1,68 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-44a11d91/qNXR.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-44a11d91/w115.cpp
+@@ -579,6 +579,11 @@
+ float demotion_cost_avg = MIN_DEMOTION_COST;
+ float latency_diff = UNLOADED_NVM_LAT - UNLOADED_DRAM_LAT;
+ 
++#if USE_MODEL == (true)
++float dram_boundary_score_moving_average = 0.0f;
++uint32_t dram_boundary_score_moving_average_count = 0;
++#endif
++
+ std::atomic<bool> terminated{false};
+ struct group_tracker *grp_tracker = NULL;
+ struct group_tracker *virtual_grp_tracker = NULL;
+@@ -1676,6 +1681,21 @@
+     return dram_hugepages + free_hugepages;
+ }
+ 
++#if USE_MODEL == (true)
++static void update_dram_boundary_score_moving_average(const std::vector<score_entry> &scores, int64_t max_hugepages)
++{
++    if (max_hugepages <= 0 || static_cast<size_t>(max_hugepages) > scores.size())
++    {
++        return;
++    }
++
++    const float boundary_score = scores[static_cast<size_t>(max_hugepages - 1)].score;
++    const float denom = get_adjusted_ewma_denom(3, dram_boundary_score_moving_average_count);
++    dram_boundary_score_moving_average = adjusted_ewma(dram_boundary_score_moving_average, boundary_score, denom);
++    dram_boundary_score_moving_average_count++;
++}
++#endif
++
+ static migration_decision select_migration_candidates(const std::vector<score_entry> &scores, const ranking_plan &plan)
+ {
+     migration_decision decision;
+@@ -1696,6 +1716,14 @@
+                   << " hugepages)" << std::endl;
+     }
+ 
++#if USE_MODEL == (true)
++    const int64_t max_hugepages = max_dram_hugepages(scores);
++    update_dram_boundary_score_moving_average(scores, max_hugepages);
++    const double boundary_score_cost = dram_boundary_score_moving_average_count > 0
++                                           ? dram_boundary_score_moving_average * HF_SAMPLE_PERIOD * latency_diff
++                                           : 0.0;
++#endif
++
+     while (promote_idx < static_cast<size_t>(demote_idx))
+     {
+         if (decision.migrated_count >= plan.max_migrations_cur_interval)
+@@ -1722,7 +1750,7 @@
+ 
+         double cost = 1 * get_promotion_cost_multiplier() * promotion_cost_avg;
+ #if USE_MODEL == (true)
+-        auto max_hugepages = max_dram_hugepages(scores);
++    cost += boundary_score_cost;
+         // float benefit = SWITCH_SCALER * hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
+         double benefit = (hot_page->score - 2.1) * HF_SAMPLE_PERIOD * latency_diff;
+         // std::cout << "cost: " << cost << " PROMOTION_COST_MULTIPLIER: " << get_promotion_cost_multiplier()
+@@ -1765,7 +1793,6 @@
+                     cost += 1 * get_demotion_cost_multiplier() * demotion_cost_avg;
+ 
+ #if USE_MODEL == (true)
+-                    auto max_hugepages = max_dram_hugepages(scores);
+                     benefit -= (cold_page->score) * HF_SAMPLE_PERIOD * latency_diff;
+ #else
+                     benefit -= cold_page->score * hot_page->hot_age * HF_SAMPLE_PERIOD * latency_diff;

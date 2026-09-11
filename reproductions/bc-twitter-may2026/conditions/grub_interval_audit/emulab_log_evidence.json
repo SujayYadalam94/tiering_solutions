@@ -1,0 +1,1095 @@
+[
+  {
+    "path": "/var/emulab/logs/bootsetup.debug",
+    "bytes": 1971,
+    "mtime_utc": "2026-09-09T22:24:09.213532+00:00",
+    "ctime_utc": "2026-09-09T22:24:09.213532+00:00",
+    "sha256": "8dba32e41a21d81ab438ba6f2cdcbb4bf13c28bc447d30e441e7fc04f6cb1fdb",
+    "line_count": 48,
+    "boot_argument_matches": []
+  },
+  {
+    "path": "/var/emulab/logs/dhclient.log",
+    "bytes": 24492,
+    "mtime_utc": "2026-09-09T22:24:01.454317+00:00",
+    "ctime_utc": "2026-09-09T22:24:01.454317+00:00",
+    "sha256": "69078d5e8e831c01ed6f91b8786ebb62db6f3884e98b01d7b428a877cfc5c277",
+    "line_count": 396,
+    "boot_argument_matches": []
+  },
+  {
+    "path": "/var/emulab/logs/emulab-networkd-eno1.log",
+    "bytes": 165496,
+    "mtime_utc": "2026-09-09T22:24:01.458317+00:00",
+    "ctime_utc": "2026-09-09T22:24:01.458317+00:00",
+    "sha256": "4971ab1756e7ee72fc5da784837b64490a713a98ae64b7356c8aaa9aca4042fb",
+    "line_count": 2290,
+    "boot_argument_matches": [],
+    "selected_boot_lines": [
+      {
+        "line": 1541,
+        "text": "Thu May 14 12:10:13 AM CDT 2026: eno1: starting"
+      },
+      {
+        "line": 1542,
+        "text": "Thu May 14 12:10:17 AM CDT 2026: eno1: control net is us"
+      },
+      {
+        "line": 1543,
+        "text": "Thu May 14 12:10:18 AM CDT 2026: eno1: downed eno2"
+      },
+      {
+        "line": 1544,
+        "text": "Thu May 14 12:10:18 AM CDT 2026: eno1: /run/systemd/network/enp94s0f0np0.network is not ours; ignoring"
+      },
+      {
+        "line": 1545,
+        "text": "Thu May 14 12:10:18 AM CDT 2026: eno1: /run/systemd/network/enp94s0f1np1.network is not ours; ignoring"
+      },
+      {
+        "line": 1546,
+        "text": "Thu May 14 12:10:18 AM CDT 2026: eno1: writing cnet metadata in /var/emulab/boot"
+      },
+      {
+        "line": 1547,
+        "text": "Thu May 14 12:10:18 AM CDT 2026: eno1: restarting systemd-networkd"
+      },
+      {
+        "line": 1548,
+        "text": "Thu May 14 12:10:18 AM CDT 2026: eno1: done!"
+      },
+      {
+        "line": 1549,
+        "text": "Thu May 14 01:14:57 AM CDT 2026: eno1: starting"
+      },
+      {
+        "line": 1550,
+        "text": "Thu May 14 01:15:01 AM CDT 2026: eno1: control net is us"
+      },
+      {
+        "line": 1551,
+        "text": "Thu May 14 01:15:02 AM CDT 2026: eno1: downed eno2"
+      },
+      {
+        "line": 1552,
+        "text": "Thu May 14 01:15:02 AM CDT 2026: eno1: /run/systemd/network/enp94s0f0np0.network is not ours; ignoring"
+      },
+      {
+        "line": 1553,
+        "text": "Thu May 14 01:15:02 AM CDT 2026: eno1: /run/systemd/network/enp94s0f1np1.network is not ours; ignoring"
+      },
+      {
+        "line": 1554,
+        "text": "Thu May 14 01:15:02 AM CDT 2026: eno1: writing cnet metadata in /var/emulab/boot"
+      },
+      {
+        "line": 1555,
+        "text": "Thu May 14 01:15:02 AM CDT 2026: eno1: restarting systemd-networkd"
+      },
+      {
+        "line": 1556,
+        "text": "Thu May 14 01:15:03 AM CDT 2026: eno1: done!"
+      },
+      {
+        "line": 1557,
+        "text": "Thu May 14 02:30:54 AM CDT 2026: eno1: starting"
+      },
+      {
+        "line": 1558,
+        "text": "Thu May 14 02:30:59 AM CDT 2026: eno1: control net is us"
+      },
+      {
+        "line": 1559,
+        "text": "Thu May 14 02:30:59 AM CDT 2026: eno1: downed eno2"
+      },
+      {
+        "line": 1560,
+        "text": "Thu May 14 02:30:59 AM CDT 2026: eno1: /run/systemd/network/enp94s0f0np0.network is not ours; ignoring"
+      },
+      {
+        "line": 1561,
+        "text": "Thu May 14 02:30:59 AM CDT 2026: eno1: /run/systemd/network/enp94s0f1np1.network is not ours; ignoring"
+      },
+      {
+        "line": 1562,
+        "text": "Thu May 14 02:30:59 AM CDT 2026: eno1: writing cnet metadata in /var/emulab/boot"
+      },
+      {
+        "line": 1563,
+        "text": "Thu May 14 02:30:59 AM CDT 2026: eno1: restarting systemd-networkd"
+      },
+      {
+        "line": 1564,
+        "text": "Thu May 14 02:31:00 AM CDT 2026: eno1: done!"
+      },
+      {
+        "line": 1565,
+        "text": "Sat May 30 04:57:35 PM CDT 2026: eno1: starting"
+      },
+      {
+        "line": 1566,
+        "text": "Sat May 30 04:57:39 PM CDT 2026: eno1: control net is us"
+      },
+      {
+        "line": 1567,
+        "text": "Sat May 30 04:57:40 PM CDT 2026: eno1: downed eno2"
+      },
+      {
+        "line": 1568,
+        "text": "Sat May 30 04:57:40 PM CDT 2026: eno1: /run/systemd/network/enp94s0f0np0.network is not ours; ignoring"
+      },
+      {
+        "line": 1569,
+        "text": "Sat May 30 04:57:40 PM CDT 2026: eno1: /run/systemd/network/enp94s0f1np1.network is not ours; ignoring"
+      },
+      {
+        "line": 1570,
+        "text": "Sat May 30 04:57:40 PM CDT 2026: eno1: writing cnet metadata in /var/emulab/boot"
+      },
+      {
+        "line": 1571,
+        "text": "Sat May 30 04:57:40 PM CDT 2026: eno1: restarting systemd-networkd"
+      },
+      {
+        "line": 1572,
+        "text": "Sat May 30 04:57:40 PM CDT 2026: eno1: done!"
+      },
+      {
+        "line": 1573,
+        "text": "Sat May 30 09:38:42 PM CDT 2026: eno1: starting"
+      },
+      {
+        "line": 1574,
+        "text": "Sat May 30 09:38:46 PM CDT 2026: eno1: control net is us"
+      },
+      {
+        "line": 1575,
+        "text": "Sat May 30 09:38:46 PM CDT 2026: eno1: /run/systemd/network/eno2.network is not ours; ignoring"
+      },
+      {
+        "line": 1576,
+        "text": "Sat May 30 09:38:46 PM CDT 2026: eno1: /run/systemd/network/enp94s0f0.network is not ours; ignoring"
+      },
+      {
+        "line": 1577,
+        "text": "Sat May 30 09:38:47 PM CDT 2026: eno1: downed enp94s0f1"
+      },
+      {
+        "line": 1578,
+        "text": "Sat May 30 09:38:47 PM CDT 2026: eno1: /run/systemd/network/wlan0.network is not ours; ignoring"
+      },
+      {
+        "line": 1579,
+        "text": "Sat May 30 09:38:47 PM CDT 2026: eno1: /run/systemd/network/wlan1.network is not ours; ignoring"
+      },
+      {
+        "line": 1580,
+        "text": "Sat May 30 09:38:47 PM CDT 2026: eno1: /run/systemd/network/wpan0.network is not ours; ignoring"
+      },
+      {
+        "line": 1581,
+        "text": "Sat May 30 09:38:47 PM CDT 2026: eno1: /run/systemd/network/wpan1.network is not ours; ignoring"
+      },
+      {
+        "line": 1582,
+        "text": "Sat May 30 09:38:47 PM CDT 2026: eno1: /run/systemd/network/wpan2.network is not ours; ignoring"
+      },
+      {
+        "line": 1583,
+        "text": "Sat May 30 09:38:47 PM CDT 2026: eno1: /run/systemd/network/wpan3.network is not ours; ignoring"
+      },
+      {
+        "line": 1584,
+        "text": "Sat May 30 09:38:47 PM CDT 2026: eno1: writing cnet metadata in /var/emulab/boot"
+      },
+      {
+        "line": 1585,
+        "text": "Sat May 30 09:38:47 PM CDT 2026: eno1: restarting systemd-networkd"
+      },
+      {
+        "line": 1586,
+        "text": "Sat May 30 09:38:47 PM CDT 2026: eno1: done!"
+      },
+      {
+        "line": 1587,
+        "text": "Sat Jun 13 05:10:29 PM CDT 2026: eno1: starting"
+      },
+      {
+        "line": 1588,
+        "text": "Sat Jun 13 05:10:34 PM CDT 2026: eno1: control net is us"
+      },
+      {
+        "line": 1589,
+        "text": "Sat Jun 13 05:10:34 PM CDT 2026: eno1: downed enp94s0f1np1"
+      },
+      {
+        "line": 1590,
+        "text": "Sat Jun 13 05:10:34 PM CDT 2026: eno1: writing cnet metadata in /var/emulab/boot"
+      },
+      {
+        "line": 1591,
+        "text": "Sat Jun 13 05:10:34 PM CDT 2026: eno1: restarting systemd-networkd"
+      },
+      {
+        "line": 1592,
+        "text": "Sat Jun 13 05:10:35 PM CDT 2026: eno1: done!"
+      },
+      {
+        "line": 1649,
+        "text": "Sun Jun 21 09:30:03 AM CDT 2026: eno1: starting"
+      },
+      {
+        "line": 1650,
+        "text": "Sun Jun 21 09:30:07 AM CDT 2026: eno1: control net is us"
+      },
+      {
+        "line": 1651,
+        "text": "Sun Jun 21 09:30:08 AM CDT 2026: eno1: downed eno2"
+      },
+      {
+        "line": 1652,
+        "text": "Sun Jun 21 09:30:08 AM CDT 2026: eno1: /run/systemd/network/enp94s0f0np0.network is not ours; ignoring"
+      },
+      {
+        "line": 1653,
+        "text": "Sun Jun 21 09:30:08 AM CDT 2026: eno1: /run/systemd/network/enp94s0f1np1.network is not ours; ignoring"
+      },
+      {
+        "line": 1654,
+        "text": "Sun Jun 21 09:30:08 AM CDT 2026: eno1: writing cnet metadata in /var/emulab/boot"
+      },
+      {
+        "line": 1655,
+        "text": "Sun Jun 21 09:30:08 AM CDT 2026: eno1: restarting systemd-networkd"
+      },
+      {
+        "line": 1656,
+        "text": "Sun Jun 21 09:30:09 AM CDT 2026: eno1: done!"
+      },
+      {
+        "line": 1657,
+        "text": "Sun Jun 21 09:49:12 AM CDT 2026: eno1: starting"
+      },
+      {
+        "line": 1658,
+        "text": "Sun Jun 21 09:49:16 AM CDT 2026: eno1: control net is us"
+      },
+      {
+        "line": 1659,
+        "text": "Sun Jun 21 09:49:16 AM CDT 2026: eno1: downed eno2"
+      },
+      {
+        "line": 1660,
+        "text": "Sun Jun 21 09:49:16 AM CDT 2026: eno1: /run/systemd/network/enp94s0f0np0.network is not ours; ignoring"
+      },
+      {
+        "line": 1661,
+        "text": "Sun Jun 21 09:49:16 AM CDT 2026: eno1: writing cnet metadata in /var/emulab/boot"
+      },
+      {
+        "line": 1662,
+        "text": "Sun Jun 21 09:49:16 AM CDT 2026: eno1: restarting systemd-networkd"
+      },
+      {
+        "line": 1663,
+        "text": "Sun Jun 21 09:49:17 AM CDT 2026: eno1: done!"
+      },
+      {
+        "line": 1664,
+        "text": "Sun Jun 21 10:55:42 PM CDT 2026: eno1: starting"
+      },
+      {
+        "line": 1665,
+        "text": "Sun Jun 21 10:55:46 PM CDT 2026: eno1: control net is us"
+      },
+      {
+        "line": 1666,
+        "text": "Sun Jun 21 10:55:46 PM CDT 2026: eno1: downed eno2"
+      },
+      {
+        "line": 1667,
+        "text": "Sun Jun 21 10:55:46 PM CDT 2026: eno1: /run/systemd/network/enp94s0f0np0.network is not ours; ignoring"
+      },
+      {
+        "line": 1668,
+        "text": "Sun Jun 21 10:55:46 PM CDT 2026: eno1: /run/systemd/network/enp94s0f1np1.network is not ours; ignoring"
+      },
+      {
+        "line": 1669,
+        "text": "Sun Jun 21 10:55:46 PM CDT 2026: eno1: writing cnet metadata in /var/emulab/boot"
+      },
+      {
+        "line": 1670,
+        "text": "Sun Jun 21 10:55:46 PM CDT 2026: eno1: restarting systemd-networkd"
+      },
+      {
+        "line": 1671,
+        "text": "Sun Jun 21 10:55:47 PM CDT 2026: eno1: done!"
+      }
+    ]
+  },
+  {
+    "path": "/var/emulab/logs/emulab-networkd-eno2.log",
+    "bytes": 36876,
+    "mtime_utc": "2026-09-09T22:23:59.702317+00:00",
+    "ctime_utc": "2026-09-09T22:23:59.702317+00:00",
+    "sha256": "ebb072dbb77eb27968f715d2da5ce2859325e37e829e459043c8594b987ef4ef",
+    "line_count": 558,
+    "boot_argument_matches": [],
+    "selected_boot_lines": [
+      {
+        "line": 395,
+        "text": "Thu May 14 12:10:13 AM CDT 2026: eno2: starting"
+      },
+      {
+        "line": 396,
+        "text": "Thu May 14 12:10:17 AM CDT 2026: eno2: control net is not us, removing eno2.network"
+      },
+      {
+        "line": 397,
+        "text": "Thu May 14 01:14:57 AM CDT 2026: eno2: starting"
+      },
+      {
+        "line": 398,
+        "text": "Thu May 14 01:15:01 AM CDT 2026: eno2: control net is not us, removing eno2.network"
+      },
+      {
+        "line": 399,
+        "text": "Thu May 14 02:30:54 AM CDT 2026: eno2: starting"
+      },
+      {
+        "line": 400,
+        "text": "Thu May 14 02:30:59 AM CDT 2026: eno2: control net is not us, removing eno2.network"
+      },
+      {
+        "line": 401,
+        "text": "Sat May 30 04:57:35 PM CDT 2026: eno2: starting"
+      },
+      {
+        "line": 402,
+        "text": "Sat May 30 04:57:39 PM CDT 2026: eno2: control net is not us, removing eno2.network"
+      },
+      {
+        "line": 403,
+        "text": "Sat May 30 09:38:42 PM CDT 2026: eno2: starting"
+      },
+      {
+        "line": 404,
+        "text": "Sat May 30 09:38:46 PM CDT 2026: eno2: control net is not us, removing eno2.network"
+      },
+      {
+        "line": 405,
+        "text": "Sat Jun 13 05:10:29 PM CDT 2026: eno2: starting"
+      },
+      {
+        "line": 406,
+        "text": "Sat Jun 13 05:10:34 PM CDT 2026: eno2: control net is not us, removing eno2.network"
+      },
+      {
+        "line": 421,
+        "text": "Sun Jun 21 09:30:03 AM CDT 2026: eno2: starting"
+      },
+      {
+        "line": 422,
+        "text": "Sun Jun 21 09:30:07 AM CDT 2026: eno2: control net is not us, removing eno2.network"
+      },
+      {
+        "line": 423,
+        "text": "Sun Jun 21 09:49:12 AM CDT 2026: eno2: starting"
+      },
+      {
+        "line": 424,
+        "text": "Sun Jun 21 09:49:16 AM CDT 2026: eno2: control net is not us, removing eno2.network"
+      },
+      {
+        "line": 425,
+        "text": "Sun Jun 21 10:55:42 PM CDT 2026: eno2: starting"
+      },
+      {
+        "line": 426,
+        "text": "Sun Jun 21 10:55:46 PM CDT 2026: eno2: control net is not us, removing eno2.network"
+      }
+    ]
+  },
+  {
+    "path": "/var/emulab/logs/emulab-networkd-enp94s0f0.log",
+    "bytes": 15047,
+    "mtime_utc": "2026-09-09T22:23:59.702317+00:00",
+    "ctime_utc": "2026-09-09T22:23:59.702317+00:00",
+    "sha256": "aaabc4f4c6c6dfb18f460fef286162f2629a884467a38cc5d1058c49ba2e14e3",
+    "line_count": 205,
+    "boot_argument_matches": [],
+    "selected_boot_lines": [
+      {
+        "line": 127,
+        "text": "Sat May 30 09:38:43 PM CDT 2026: enp94s0f0: starting"
+      },
+      {
+        "line": 128,
+        "text": "Sat May 30 09:38:46 PM CDT 2026: enp94s0f0: control net is not us, removing enp94s0f0.network"
+      }
+    ]
+  },
+  {
+    "path": "/var/emulab/logs/emulab-networkd-enp94s0f0np0.log",
+    "bytes": 36155,
+    "mtime_utc": "2026-09-09T22:20:00.727618+00:00",
+    "ctime_utc": "2026-09-09T22:20:00.727618+00:00",
+    "sha256": "d848f3f9c1cbc43c51da899b3b26742a7cad31ad9d7a4a74908cf7e71b586b8b",
+    "line_count": 454,
+    "boot_argument_matches": [],
+    "selected_boot_lines": [
+      {
+        "line": 369,
+        "text": "Thu May 14 12:10:11 AM CDT 2026: enp94s0f0np0: starting"
+      },
+      {
+        "line": 370,
+        "text": "Thu May 14 12:10:17 AM CDT 2026: enp94s0f0np0: control net is not us, removing enp94s0f0np0.network"
+      },
+      {
+        "line": 371,
+        "text": "Thu May 14 01:14:56 AM CDT 2026: enp94s0f0np0: starting"
+      },
+      {
+        "line": 372,
+        "text": "Thu May 14 01:15:01 AM CDT 2026: enp94s0f0np0: control net is not us, removing enp94s0f0np0.network"
+      },
+      {
+        "line": 373,
+        "text": "Thu May 14 02:30:52 AM CDT 2026: enp94s0f0np0: starting"
+      },
+      {
+        "line": 374,
+        "text": "Thu May 14 02:30:59 AM CDT 2026: enp94s0f0np0: control net is not us, removing enp94s0f0np0.network"
+      },
+      {
+        "line": 375,
+        "text": "Sat May 30 04:57:33 PM CDT 2026: enp94s0f0np0: starting"
+      },
+      {
+        "line": 376,
+        "text": "Sat May 30 04:57:39 PM CDT 2026: enp94s0f0np0: control net is not us, removing enp94s0f0np0.network"
+      },
+      {
+        "line": 377,
+        "text": "Sat Jun 13 05:10:28 PM CDT 2026: enp94s0f0np0: starting"
+      },
+      {
+        "line": 378,
+        "text": "Sat Jun 13 05:10:34 PM CDT 2026: enp94s0f0np0: control net is not us, removing enp94s0f0np0.network"
+      },
+      {
+        "line": 393,
+        "text": "Sun Jun 21 09:30:01 AM CDT 2026: enp94s0f0np0: starting"
+      },
+      {
+        "line": 394,
+        "text": "Sun Jun 21 09:30:07 AM CDT 2026: enp94s0f0np0: control net is not us, removing enp94s0f0np0.network"
+      },
+      {
+        "line": 395,
+        "text": "Sun Jun 21 09:49:10 AM CDT 2026: enp94s0f0np0: starting"
+      },
+      {
+        "line": 396,
+        "text": "Sun Jun 21 09:49:16 AM CDT 2026: enp94s0f0np0: control net is not us, removing enp94s0f0np0.network"
+      },
+      {
+        "line": 397,
+        "text": "Sun Jun 21 10:55:41 PM CDT 2026: enp94s0f0np0: starting"
+      },
+      {
+        "line": 398,
+        "text": "Sun Jun 21 10:55:46 PM CDT 2026: enp94s0f0np0: control net is not us, removing enp94s0f0np0.network"
+      }
+    ]
+  },
+  {
+    "path": "/var/emulab/logs/emulab-networkd-enp94s0f1.log",
+    "bytes": 15047,
+    "mtime_utc": "2026-09-09T22:23:59.702317+00:00",
+    "ctime_utc": "2026-09-09T22:23:59.702317+00:00",
+    "sha256": "79a1a453d1e7f68646dfdc874eace6271787cea154440d8494d1d0d0197c2ac8",
+    "line_count": 205,
+    "boot_argument_matches": [],
+    "selected_boot_lines": [
+      {
+        "line": 127,
+        "text": "Sat May 30 09:38:43 PM CDT 2026: enp94s0f1: starting"
+      },
+      {
+        "line": 128,
+        "text": "Sat May 30 09:38:46 PM CDT 2026: enp94s0f1: control net is not us, removing enp94s0f1.network"
+      }
+    ]
+  },
+  {
+    "path": "/var/emulab/logs/emulab-networkd-enp94s0f1np1.log",
+    "bytes": 37788,
+    "mtime_utc": "2026-09-09T22:20:00.732617+00:00",
+    "ctime_utc": "2026-09-09T22:20:00.732617+00:00",
+    "sha256": "1d683dd21d7e15044b83fe313f90bf31b0b5c8d193a7e4d23fb49ac57d4cf3ef",
+    "line_count": 467,
+    "boot_argument_matches": [],
+    "selected_boot_lines": [
+      {
+        "line": 382,
+        "text": "Thu May 14 12:10:11 AM CDT 2026: enp94s0f1np1: starting"
+      },
+      {
+        "line": 383,
+        "text": "Thu May 14 12:10:17 AM CDT 2026: enp94s0f1np1: control net is not us, removing enp94s0f1np1.network"
+      },
+      {
+        "line": 384,
+        "text": "Thu May 14 01:14:56 AM CDT 2026: enp94s0f1np1: starting"
+      },
+      {
+        "line": 385,
+        "text": "Thu May 14 01:15:01 AM CDT 2026: enp94s0f1np1: control net is not us, removing enp94s0f1np1.network"
+      },
+      {
+        "line": 386,
+        "text": "Thu May 14 02:30:53 AM CDT 2026: enp94s0f1np1: starting"
+      },
+      {
+        "line": 387,
+        "text": "Thu May 14 02:30:59 AM CDT 2026: enp94s0f1np1: control net is not us, removing enp94s0f1np1.network"
+      },
+      {
+        "line": 388,
+        "text": "Sat May 30 04:57:33 PM CDT 2026: enp94s0f1np1: starting"
+      },
+      {
+        "line": 389,
+        "text": "Sat May 30 04:57:39 PM CDT 2026: enp94s0f1np1: control net is not us, removing enp94s0f1np1.network"
+      },
+      {
+        "line": 390,
+        "text": "Sat Jun 13 05:10:28 PM CDT 2026: enp94s0f1np1: starting"
+      },
+      {
+        "line": 391,
+        "text": "Sat Jun 13 05:10:34 PM CDT 2026: enp94s0f1np1: control net is not us, removing enp94s0f1np1.network"
+      },
+      {
+        "line": 406,
+        "text": "Sun Jun 21 09:30:01 AM CDT 2026: enp94s0f1np1: starting"
+      },
+      {
+        "line": 407,
+        "text": "Sun Jun 21 09:30:07 AM CDT 2026: enp94s0f1np1: control net is not us, removing enp94s0f1np1.network"
+      },
+      {
+        "line": 408,
+        "text": "Sun Jun 21 09:49:10 AM CDT 2026: enp94s0f1np1: starting"
+      },
+      {
+        "line": 409,
+        "text": "Sun Jun 21 09:49:16 AM CDT 2026: enp94s0f1np1: control net is not us, removing enp94s0f1np1.network"
+      },
+      {
+        "line": 410,
+        "text": "Sun Jun 21 10:55:41 PM CDT 2026: enp94s0f1np1: starting"
+      },
+      {
+        "line": 411,
+        "text": "Sun Jun 21 10:55:46 PM CDT 2026: enp94s0f1np1: control net is not us, removing enp94s0f1np1.network"
+      }
+    ]
+  },
+  {
+    "path": "/var/emulab/logs/emulab-networkd-wlan0.log",
+    "bytes": 10935,
+    "mtime_utc": "2026-09-09T21:20:51.460000+00:00",
+    "ctime_utc": "2026-09-09T21:20:51.460000+00:00",
+    "sha256": "1b395b24b64871b29ef9a1c4cdee8727a1449e33291006e4aa4b50decc10f66b",
+    "line_count": 162,
+    "boot_argument_matches": [],
+    "selected_boot_lines": [
+      {
+        "line": 127,
+        "text": "Sat May 30 09:38:43 PM CDT 2026: wlan0: starting"
+      },
+      {
+        "line": 128,
+        "text": "Sat May 30 09:38:46 PM CDT 2026: wlan0: control net is not us, removing wlan0.network"
+      }
+    ]
+  },
+  {
+    "path": "/var/emulab/logs/emulab-networkd-wlan1.log",
+    "bytes": 10935,
+    "mtime_utc": "2026-09-09T21:20:51.476000+00:00",
+    "ctime_utc": "2026-09-09T21:20:51.476000+00:00",
+    "sha256": "b96b04ffef2f082cc3dcb120614a8ac41ef5ec2f14f5eca3e8e4353824294d95",
+    "line_count": 162,
+    "boot_argument_matches": [],
+    "selected_boot_lines": [
+      {
+        "line": 127,
+        "text": "Sat May 30 09:38:43 PM CDT 2026: wlan1: starting"
+      },
+      {
+        "line": 128,
+        "text": "Sat May 30 09:38:46 PM CDT 2026: wlan1: control net is not us, removing wlan1.network"
+      }
+    ]
+  },
+  {
+    "path": "/var/emulab/logs/emulab-networkd-wpan0.log",
+    "bytes": 10935,
+    "mtime_utc": "2026-09-09T21:20:51.473000+00:00",
+    "ctime_utc": "2026-09-09T21:20:51.473000+00:00",
+    "sha256": "21d203a8f2bc89d5cc2a37213164772cbadce294aa8f1984713bdf059b7ae20a",
+    "line_count": 162,
+    "boot_argument_matches": [],
+    "selected_boot_lines": [
+      {
+        "line": 127,
+        "text": "Sat May 30 09:38:43 PM CDT 2026: wpan0: starting"
+      },
+      {
+        "line": 128,
+        "text": "Sat May 30 09:38:46 PM CDT 2026: wpan0: control net is not us, removing wpan0.network"
+      }
+    ]
+  },
+  {
+    "path": "/var/emulab/logs/emulab-networkd-wpan1.log",
+    "bytes": 10935,
+    "mtime_utc": "2026-09-09T21:20:51.453000+00:00",
+    "ctime_utc": "2026-09-09T21:20:51.453000+00:00",
+    "sha256": "55afdd28c0daa35d83178042388cf9ea532c0da8739ecd723b8c42aeb5ac3a4d",
+    "line_count": 162,
+    "boot_argument_matches": [],
+    "selected_boot_lines": [
+      {
+        "line": 127,
+        "text": "Sat May 30 09:38:43 PM CDT 2026: wpan1: starting"
+      },
+      {
+        "line": 128,
+        "text": "Sat May 30 09:38:46 PM CDT 2026: wpan1: control net is not us, removing wpan1.network"
+      }
+    ]
+  },
+  {
+    "path": "/var/emulab/logs/emulab-networkd-wpan2.log",
+    "bytes": 10935,
+    "mtime_utc": "2026-09-09T21:20:51.483000+00:00",
+    "ctime_utc": "2026-09-09T21:20:51.483000+00:00",
+    "sha256": "1b97726c82e8353627802abb0977742a216a135d2b132d0457c93fc805bcd6fe",
+    "line_count": 162,
+    "boot_argument_matches": [],
+    "selected_boot_lines": [
+      {
+        "line": 127,
+        "text": "Sat May 30 09:38:43 PM CDT 2026: wpan2: starting"
+      },
+      {
+        "line": 128,
+        "text": "Sat May 30 09:38:46 PM CDT 2026: wpan2: control net is not us, removing wpan2.network"
+      }
+    ]
+  },
+  {
+    "path": "/var/emulab/logs/emulab-networkd-wpan3.log",
+    "bytes": 10935,
+    "mtime_utc": "2026-09-09T21:20:51.402999+00:00",
+    "ctime_utc": "2026-09-09T21:20:51.402999+00:00",
+    "sha256": "54c08728a1a863603619291a9dd0147912065363a6d1ac8847ce00cea6971cbe",
+    "line_count": 162,
+    "boot_argument_matches": [],
+    "selected_boot_lines": [
+      {
+        "line": 127,
+        "text": "Sat May 30 09:38:43 PM CDT 2026: wpan3: starting"
+      },
+      {
+        "line": 128,
+        "text": "Sat May 30 09:38:46 PM CDT 2026: wpan3: control net is not us, removing wpan3.network"
+      }
+    ]
+  },
+  {
+    "path": "/var/emulab/logs/emulab-watchdog.log",
+    "bytes": 3448621,
+    "mtime_utc": "2026-09-10T07:09:23.188810+00:00",
+    "ctime_utc": "2026-09-10T07:09:23.188810+00:00",
+    "sha256": "5b244feb35aafe2f69b443d8646fe401c5604f727a96bb00958164a683510be7",
+    "line_count": 67516,
+    "boot_argument_matches": [],
+    "selected_control_lines": [
+      {
+        "line": 26337,
+        "text": "May 14 00:10:19 watchdog[1980]: Initial NTP drift: NONE"
+      },
+      {
+        "line": 26339,
+        "text": "May 14 00:10:19 watchdog[1980]: setintervals: scheduling rusage now"
+      },
+      {
+        "line": 26340,
+        "text": "May 14 00:10:19 watchdog[1980]: setintervals: descheduling dhcpdconf"
+      },
+      {
+        "line": 26341,
+        "text": "May 14 00:10:19 watchdog[1980]: setintervals: scheduling drift"
+      },
+      {
+        "line": 26342,
+        "text": "May 14 00:10:19 watchdog[1980]: setintervals: scheduling hkeys now"
+      },
+      {
+        "line": 26343,
+        "text": "May 14 00:10:19 watchdog[1980]: setintervals: scheduling isalive now"
+      },
+      {
+        "line": 26344,
+        "text": "May 14 00:10:19 watchdog[1980]: setintervals: scheduling rootpswd now"
+      },
+      {
+        "line": 26345,
+        "text": "May 14 00:10:19 watchdog[1980]: setintervals: descheduling cvsup"
+      },
+      {
+        "line": 26346,
+        "text": "May 14 00:10:19 watchdog[1980]: setintervals: scheduling check"
+      },
+      {
+        "line": 26347,
+        "text": "May 14 00:10:19 watchdog[1980]: setintervals: descheduling batt"
+      },
+      {
+        "line": 26348,
+        "text": "May 14 00:10:19 watchdog[1980]: setintervals: check=1800, isalive=180, drift=14400, cvsup=0, rusage=1800, hostkeys=59999940, battery=0, rootpswd=3600 dhcpdconf=0"
+      },
+      {
+        "line": 26364,
+        "text": "May 14 01:15:03 watchdog[2153]: Initial NTP drift: NONE"
+      },
+      {
+        "line": 26366,
+        "text": "May 14 01:15:03 watchdog[2153]: setintervals: scheduling rootpswd now"
+      },
+      {
+        "line": 26367,
+        "text": "May 14 01:15:03 watchdog[2153]: setintervals: descheduling batt"
+      },
+      {
+        "line": 26368,
+        "text": "May 14 01:15:03 watchdog[2153]: setintervals: scheduling drift"
+      },
+      {
+        "line": 26369,
+        "text": "May 14 01:15:03 watchdog[2153]: setintervals: descheduling dhcpdconf"
+      },
+      {
+        "line": 26370,
+        "text": "May 14 01:15:03 watchdog[2153]: setintervals: scheduling rusage now"
+      },
+      {
+        "line": 26371,
+        "text": "May 14 01:15:03 watchdog[2153]: setintervals: scheduling hkeys now"
+      },
+      {
+        "line": 26372,
+        "text": "May 14 01:15:03 watchdog[2153]: setintervals: scheduling isalive now"
+      },
+      {
+        "line": 26373,
+        "text": "May 14 01:15:03 watchdog[2153]: setintervals: scheduling check"
+      },
+      {
+        "line": 26374,
+        "text": "May 14 01:15:03 watchdog[2153]: setintervals: descheduling cvsup"
+      },
+      {
+        "line": 26375,
+        "text": "May 14 01:15:03 watchdog[2153]: setintervals: check=1800, isalive=180, drift=14400, cvsup=0, rusage=1800, hostkeys=59999940, battery=0, rootpswd=3600 dhcpdconf=0"
+      },
+      {
+        "line": 26384,
+        "text": "May 14 01:45:06 watchdog[2153]: setintervals: failed (65280), retry 1"
+      },
+      {
+        "line": 26394,
+        "text": "May 14 01:45:15 watchdog[2153]: setintervals: failed (65280), retry 2"
+      },
+      {
+        "line": 26400,
+        "text": "May 14 01:45:21 watchdog[2153]: setintervals: failed (65280), retry 3"
+      },
+      {
+        "line": 26406,
+        "text": "May 14 01:45:28 watchdog[2153]: setintervals: failed (65280) after 3 attempts, using current values"
+      },
+      {
+        "line": 26407,
+        "text": "May 14 01:45:28 watchdog[2153]: setintervals: check=1800, isalive=180, drift=14400, cvsup=0, rusage=1800, hostkeys=59999940, battery=0, rootpswd=3600 dhcpdconf=0"
+      },
+      {
+        "line": 26417,
+        "text": "May 14 02:15:28 watchdog[2153]: setintervals: fetching intervals"
+      },
+      {
+        "line": 26421,
+        "text": "May 14 02:31:01 watchdog[2126]: Initial NTP drift: NONE"
+      },
+      {
+        "line": 26423,
+        "text": "May 14 02:31:01 watchdog[2126]: setintervals: scheduling isalive now"
+      },
+      {
+        "line": 26424,
+        "text": "May 14 02:31:01 watchdog[2126]: setintervals: scheduling rusage now"
+      },
+      {
+        "line": 26425,
+        "text": "May 14 02:31:01 watchdog[2126]: setintervals: scheduling rootpswd now"
+      },
+      {
+        "line": 26426,
+        "text": "May 14 02:31:01 watchdog[2126]: setintervals: descheduling dhcpdconf"
+      },
+      {
+        "line": 26427,
+        "text": "May 14 02:31:01 watchdog[2126]: setintervals: scheduling check"
+      },
+      {
+        "line": 26428,
+        "text": "May 14 02:31:01 watchdog[2126]: setintervals: scheduling hkeys now"
+      },
+      {
+        "line": 26429,
+        "text": "May 14 02:31:01 watchdog[2126]: setintervals: descheduling batt"
+      },
+      {
+        "line": 26430,
+        "text": "May 14 02:31:01 watchdog[2126]: setintervals: descheduling cvsup"
+      },
+      {
+        "line": 26431,
+        "text": "May 14 02:31:01 watchdog[2126]: setintervals: scheduling drift"
+      },
+      {
+        "line": 26432,
+        "text": "May 14 02:31:01 watchdog[2126]: setintervals: check=1800, isalive=180, drift=14400, cvsup=0, rusage=1800, hostkeys=59999940, battery=0, rootpswd=3600 dhcpdconf=0"
+      },
+      {
+        "line": 36485,
+        "text": "Jun 13 17:10:36 watchdog[2190]: Initial NTP drift: NONE"
+      },
+      {
+        "line": 36487,
+        "text": "Jun 13 17:10:36 watchdog[2190]: setintervals: scheduling rootpswd now"
+      },
+      {
+        "line": 36488,
+        "text": "Jun 13 17:10:36 watchdog[2190]: setintervals: descheduling batt"
+      },
+      {
+        "line": 36489,
+        "text": "Jun 13 17:10:36 watchdog[2190]: setintervals: descheduling dhcpdconf"
+      },
+      {
+        "line": 36490,
+        "text": "Jun 13 17:10:36 watchdog[2190]: setintervals: scheduling drift"
+      },
+      {
+        "line": 36491,
+        "text": "Jun 13 17:10:36 watchdog[2190]: setintervals: scheduling rusage now"
+      },
+      {
+        "line": 36492,
+        "text": "Jun 13 17:10:36 watchdog[2190]: setintervals: descheduling cvsup"
+      },
+      {
+        "line": 36493,
+        "text": "Jun 13 17:10:36 watchdog[2190]: setintervals: scheduling check"
+      },
+      {
+        "line": 36494,
+        "text": "Jun 13 17:10:36 watchdog[2190]: setintervals: scheduling isalive now"
+      },
+      {
+        "line": 36495,
+        "text": "Jun 13 17:10:36 watchdog[2190]: setintervals: scheduling hkeys now"
+      },
+      {
+        "line": 36496,
+        "text": "Jun 13 17:10:36 watchdog[2190]: setintervals: check=1800, isalive=180, drift=14400, cvsup=0, rusage=1800, hostkeys=59999940, battery=0, rootpswd=3600 dhcpdconf=0"
+      },
+      {
+        "line": 39439,
+        "text": "Jun 21 09:30:09 watchdog[2151]: Initial NTP drift: NONE"
+      },
+      {
+        "line": 39441,
+        "text": "Jun 21 09:30:09 watchdog[2151]: setintervals: descheduling dhcpdconf"
+      },
+      {
+        "line": 39442,
+        "text": "Jun 21 09:30:09 watchdog[2151]: setintervals: descheduling batt"
+      },
+      {
+        "line": 39443,
+        "text": "Jun 21 09:30:09 watchdog[2151]: setintervals: scheduling hkeys now"
+      },
+      {
+        "line": 39444,
+        "text": "Jun 21 09:30:09 watchdog[2151]: setintervals: scheduling isalive now"
+      },
+      {
+        "line": 39445,
+        "text": "Jun 21 09:30:09 watchdog[2151]: setintervals: scheduling rootpswd now"
+      },
+      {
+        "line": 39446,
+        "text": "Jun 21 09:30:09 watchdog[2151]: setintervals: scheduling check"
+      },
+      {
+        "line": 39447,
+        "text": "Jun 21 09:30:09 watchdog[2151]: setintervals: descheduling cvsup"
+      },
+      {
+        "line": 39448,
+        "text": "Jun 21 09:30:09 watchdog[2151]: setintervals: scheduling drift"
+      },
+      {
+        "line": 39449,
+        "text": "Jun 21 09:30:09 watchdog[2151]: setintervals: scheduling rusage now"
+      },
+      {
+        "line": 39450,
+        "text": "Jun 21 09:30:09 watchdog[2151]: setintervals: check=1800, isalive=180, drift=14400, cvsup=0, rusage=1800, hostkeys=59999940, battery=0, rootpswd=3600 dhcpdconf=0"
+      },
+      {
+        "line": 39456,
+        "text": "Jun 21 09:49:18 watchdog[2188]: Initial NTP drift: NONE"
+      },
+      {
+        "line": 39458,
+        "text": "Jun 21 09:49:18 watchdog[2188]: setintervals: scheduling rootpswd now"
+      },
+      {
+        "line": 39459,
+        "text": "Jun 21 09:49:18 watchdog[2188]: setintervals: descheduling dhcpdconf"
+      },
+      {
+        "line": 39460,
+        "text": "Jun 21 09:49:18 watchdog[2188]: setintervals: scheduling rusage now"
+      },
+      {
+        "line": 39461,
+        "text": "Jun 21 09:49:18 watchdog[2188]: setintervals: descheduling batt"
+      },
+      {
+        "line": 39462,
+        "text": "Jun 21 09:49:18 watchdog[2188]: setintervals: scheduling isalive now"
+      },
+      {
+        "line": 39463,
+        "text": "Jun 21 09:49:18 watchdog[2188]: setintervals: scheduling drift"
+      },
+      {
+        "line": 39464,
+        "text": "Jun 21 09:49:18 watchdog[2188]: setintervals: descheduling cvsup"
+      },
+      {
+        "line": 39465,
+        "text": "Jun 21 09:49:18 watchdog[2188]: setintervals: scheduling check"
+      },
+      {
+        "line": 39466,
+        "text": "Jun 21 09:49:18 watchdog[2188]: setintervals: scheduling hkeys now"
+      },
+      {
+        "line": 39467,
+        "text": "Jun 21 09:49:18 watchdog[2188]: setintervals: check=1800, isalive=180, drift=14400, cvsup=0, rusage=1800, hostkeys=59999940, battery=0, rootpswd=3600 dhcpdconf=0"
+      },
+      {
+        "line": 39650,
+        "text": "Jun 21 22:55:48 watchdog[2171]: Initial NTP drift: NONE"
+      },
+      {
+        "line": 39652,
+        "text": "Jun 21 22:55:48 watchdog[2171]: setintervals: descheduling cvsup"
+      },
+      {
+        "line": 39653,
+        "text": "Jun 21 22:55:48 watchdog[2171]: setintervals: scheduling hkeys now"
+      },
+      {
+        "line": 39654,
+        "text": "Jun 21 22:55:48 watchdog[2171]: setintervals: descheduling batt"
+      },
+      {
+        "line": 39655,
+        "text": "Jun 21 22:55:48 watchdog[2171]: setintervals: scheduling check"
+      },
+      {
+        "line": 39656,
+        "text": "Jun 21 22:55:48 watchdog[2171]: setintervals: descheduling dhcpdconf"
+      },
+      {
+        "line": 39657,
+        "text": "Jun 21 22:55:48 watchdog[2171]: setintervals: scheduling rusage now"
+      },
+      {
+        "line": 39658,
+        "text": "Jun 21 22:55:48 watchdog[2171]: setintervals: scheduling drift"
+      },
+      {
+        "line": 39659,
+        "text": "Jun 21 22:55:48 watchdog[2171]: setintervals: scheduling rootpswd now"
+      },
+      {
+        "line": 39660,
+        "text": "Jun 21 22:55:48 watchdog[2171]: setintervals: scheduling isalive now"
+      },
+      {
+        "line": 39661,
+        "text": "Jun 21 22:55:48 watchdog[2171]: setintervals: check=1800, isalive=180, drift=14400, cvsup=0, rusage=1800, hostkeys=59999940, battery=0, rootpswd=3600 dhcpdconf=0"
+      }
+    ]
+  },
+  {
+    "path": "/var/emulab/logs/linktest.debug",
+    "bytes": 31966,
+    "mtime_utc": "2026-09-09T22:21:20.597058+00:00",
+    "ctime_utc": "2026-09-09T22:21:20.597058+00:00",
+    "sha256": "8a3415bbd9ed8391e75bf79269a129e4e66701a96b0ae9a7e36113d870b2ea2f",
+    "line_count": 560,
+    "boot_argument_matches": []
+  },
+  {
+    "path": "/var/emulab/logs/progagent.debug",
+    "bytes": 166679,
+    "mtime_utc": "2026-09-09T22:24:06.213150+00:00",
+    "ctime_utc": "2026-09-09T22:24:06.213150+00:00",
+    "sha256": "cd4e1746140bd6eb5f203d3cc1f8d5583092b282a9aa6a1abf15c3f40b0855f9",
+    "line_count": 3305,
+    "boot_argument_matches": []
+  },
+  {
+    "path": "/var/emulab/logs/progwrap.debug",
+    "bytes": 6642,
+    "mtime_utc": "2026-09-09T22:24:06.205149+00:00",
+    "ctime_utc": "2026-09-09T22:24:06.205149+00:00",
+    "sha256": "9d4e173e4bcb5743ad6022b6bd71fe4a19554bce045d1eecc85f456c0c436aac",
+    "line_count": 246,
+    "boot_argument_matches": []
+  },
+  {
+    "path": "/var/emulab/logs/syncserver.debug",
+    "bytes": 86041,
+    "mtime_utc": "2026-09-10T00:47:13.821043+00:00",
+    "ctime_utc": "2026-09-10T00:47:13.821043+00:00",
+    "sha256": "9ccf3ef938890bd5901d38a1e4abc4cdbe6e8c4db46d65a7c881ecd51898d713",
+    "line_count": 1672,
+    "boot_argument_matches": []
+  }
+]

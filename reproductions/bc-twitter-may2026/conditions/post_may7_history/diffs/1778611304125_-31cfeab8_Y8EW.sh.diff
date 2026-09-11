@@ -1,0 +1,9 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-31cfeab8/zGON.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-31cfeab8/Y8EW.sh
+@@ -5,5 +5,5 @@
+ WORKLOAD_COMMAND="OMP_NUM_THREADS=16 ${BENCH_ROOT}/gapbs/bc -n 50 -f ${BENCH_ROOT}/gapbs/benchmark/graphs/kron.sg"
+ WORKLOAD_EXE_NAME="bc"
+ WORKLOAD_MODEL_BASE="bc-kron.sg"
+-WORKLOAD_VIRTUAL_STEP_SAMPLES="100000"
++WORKLOAD_VIRTUAL_STEP_SAMPLES="10000"
+ WORKLOAD_SYSTEMS="arms hybridtier model logging"

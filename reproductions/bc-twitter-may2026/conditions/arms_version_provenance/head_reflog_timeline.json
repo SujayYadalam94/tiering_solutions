@@ -1,0 +1,227 @@
+{
+  "interpretation": "Local HEAD movements, not build or execution manifests; uncommitted edits do not move HEAD.",
+  "events": [
+    {
+      "revision": "de3bdd000f93f6858f4444340949d497942c7172",
+      "timestamp_utc": "2026-03-05T20:20:20+00:00",
+      "event": "checkout: moving from arms_c220g5 to johannes_kernel",
+      "next_event_utc": "2026-03-05T20:20:20+00:00"
+    },
+    {
+      "revision": "50ce4ed6f44656be852b8a1e00de0461112f93f4",
+      "timestamp_utc": "2026-03-05T20:20:20+00:00",
+      "event": "clone: from github.com:SujayYadalam94/tiering_solutions.git",
+      "next_event_utc": "2026-03-08T17:03:12+00:00"
+    },
+    {
+      "revision": "7d4508f982c569414bcd21918a807e052ea482a9",
+      "timestamp_utc": "2026-03-08T17:03:12+00:00",
+      "event": "commit: cleanup",
+      "next_event_utc": "2026-03-08T17:16:09+00:00"
+    },
+    {
+      "revision": "b99ce2a0e8970b603d8f8905c210bf020f96a65f",
+      "timestamp_utc": "2026-03-08T17:16:09+00:00",
+      "event": "pull: Fast-forward",
+      "next_event_utc": "2026-03-09T21:40:05+00:00"
+    },
+    {
+      "revision": "6b2f5ddf79c799504ef96ed0032017e6b11eb7af",
+      "timestamp_utc": "2026-03-09T21:40:05+00:00",
+      "event": "commit: merge",
+      "next_event_utc": "2026-03-09T21:40:46+00:00"
+    },
+    {
+      "revision": "4e4f062b3002e998217f0286a9fa1c7ff8f1d4f1",
+      "timestamp_utc": "2026-03-09T21:40:46+00:00",
+      "event": "commit: huge page change",
+      "next_event_utc": "2026-03-11T02:15:42+00:00"
+    },
+    {
+      "revision": "6822f5e082e37bebf5f6a3376e45bfdf69d50b6a",
+      "timestamp_utc": "2026-03-11T02:15:42+00:00",
+      "event": "commit: checkpoint",
+      "next_event_utc": "2026-03-14T15:14:19+00:00"
+    },
+    {
+      "revision": "d87369bcef81010ca06406e3e456295ff412d957",
+      "timestamp_utc": "2026-03-14T15:14:19+00:00",
+      "event": "commit: functional migration mechanism",
+      "next_event_utc": "2026-03-15T00:39:26+00:00"
+    },
+    {
+      "revision": "e6223c95ae33008078585393fb96214187cbcd1a",
+      "timestamp_utc": "2026-03-15T00:39:26+00:00",
+      "event": "commit: seemingly working minor fragmented page support",
+      "next_event_utc": "2026-03-15T23:05:27+00:00"
+    },
+    {
+      "revision": "fedcde1ee67e9cbcbcf442944f61f44c0193498c",
+      "timestamp_utc": "2026-03-15T23:05:27+00:00",
+      "event": "commit: logging",
+      "next_event_utc": "2026-03-16T20:20:28+00:00"
+    },
+    {
+      "revision": "fedcde1ee67e9cbcbcf442944f61f44c0193498c",
+      "timestamp_utc": "2026-03-16T20:20:28+00:00",
+      "event": "reset: moving to HEAD",
+      "next_event_utc": "2026-03-16T20:20:31+00:00"
+    },
+    {
+      "revision": "a6ad3eb0de783021ac27713dcb78ef3e858da4ee",
+      "timestamp_utc": "2026-03-16T20:20:31+00:00",
+      "event": "pull: Fast-forward",
+      "next_event_utc": "2026-03-17T00:19:43+00:00"
+    },
+    {
+      "revision": "ec524f5999d155bd035aa7316851f3f0b4d123c9",
+      "timestamp_utc": "2026-03-17T00:19:43+00:00",
+      "event": "commit: merge back",
+      "next_event_utc": "2026-03-20T04:29:44+00:00"
+    },
+    {
+      "revision": "c90937f3cb2b94dcf823fd811c5fefaed7dbc86c",
+      "timestamp_utc": "2026-03-20T04:29:44+00:00",
+      "event": "commit: data",
+      "next_event_utc": "2026-03-21T22:32:44+00:00"
+    },
+    {
+      "revision": "761df1b26f643f26bf3eb66a0d63425410357fde",
+      "timestamp_utc": "2026-03-21T22:32:44+00:00",
+      "event": "commit: times",
+      "next_event_utc": "2026-03-21T22:34:29+00:00"
+    },
+    {
+      "revision": "92b72c012a33dcd37031b527fa32429b53cae8f3",
+      "timestamp_utc": "2026-03-21T22:34:29+00:00",
+      "event": "checkout: moving from johannes_kernel to johannes_kernel_inf",
+      "next_event_utc": "2026-03-22T00:20:35+00:00"
+    },
+    {
+      "revision": "b1cda0ea71e4e7f623835bc9c1de97c7e1f2ea3d",
+      "timestamp_utc": "2026-03-22T00:20:35+00:00",
+      "event": "commit: stash",
+      "next_event_utc": "2026-03-22T00:20:40+00:00"
+    },
+    {
+      "revision": "761df1b26f643f26bf3eb66a0d63425410357fde",
+      "timestamp_utc": "2026-03-22T00:20:40+00:00",
+      "event": "checkout: moving from johannes_kernel_inf to johannes_kernel",
+      "next_event_utc": "2026-03-24T14:59:53+00:00"
+    },
+    {
+      "revision": "2cb2ac9cf857360aa244c132c25f07286d5e3beb",
+      "timestamp_utc": "2026-03-24T14:59:53+00:00",
+      "event": "commit: times and model fix",
+      "next_event_utc": "2026-03-28T22:31:17+00:00"
+    },
+    {
+      "revision": "08f552ec3ffcc18e688a3b49a37993a7a17646e2",
+      "timestamp_utc": "2026-03-28T22:31:17+00:00",
+      "event": "commit: save times",
+      "next_event_utc": "2026-04-01T04:36:21+00:00"
+    },
+    {
+      "revision": "75aae8db68aa8511ba331334a26cbb48c48978a3",
+      "timestamp_utc": "2026-04-01T04:36:21+00:00",
+      "event": "commit: add new times",
+      "next_event_utc": "2026-04-11T19:24:21+00:00"
+    },
+    {
+      "revision": "e27bfc96f180f11839a05ac09c0ed071ed802643",
+      "timestamp_utc": "2026-04-11T19:24:21+00:00",
+      "event": "commit: all dram and all cxl logging scripts",
+      "next_event_utc": "2026-04-11T19:42:22+00:00"
+    },
+    {
+      "revision": "e83f571815a3a73a91a36f1b8e61b1df553cfa1b",
+      "timestamp_utc": "2026-04-11T19:42:22+00:00",
+      "event": "pull: Fast-forward",
+      "next_event_utc": "2026-04-23T23:22:10+00:00"
+    },
+    {
+      "revision": "7b0da923a70ccd868e3d3a4018ccec27fc48341b",
+      "timestamp_utc": "2026-04-23T23:22:10+00:00",
+      "event": "commit: merge",
+      "next_event_utc": "2026-04-23T23:40:23+00:00"
+    },
+    {
+      "revision": "ed737070caaff377520d44fc0879e9d3732b5a77",
+      "timestamp_utc": "2026-04-23T23:40:23+00:00",
+      "event": "pull: Fast-forward",
+      "next_event_utc": "2026-05-02T18:20:52+00:00"
+    },
+    {
+      "revision": "058f6325889dc63e81d47cfaf2a27266c260ba1a",
+      "timestamp_utc": "2026-05-02T18:20:52+00:00",
+      "event": "commit: update",
+      "next_event_utc": "2026-05-04T03:00:24+00:00"
+    },
+    {
+      "revision": "29e225954a5244b7d9d1e97ca3ca78350f859fe3",
+      "timestamp_utc": "2026-05-04T03:00:24+00:00",
+      "event": "commit: merge",
+      "next_event_utc": "2026-05-04T03:01:18+00:00"
+    },
+    {
+      "revision": "6b1bc11ddde993c4e365c9d65ac96fb0a6e8b677",
+      "timestamp_utc": "2026-05-04T03:01:18+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-05T01:40:38+00:00"
+    },
+    {
+      "revision": "4494a8ebb29f22aea16d062096d9e3090fa4068e",
+      "timestamp_utc": "2026-05-05T01:40:38+00:00",
+      "event": "commit: merge",
+      "next_event_utc": "2026-05-05T01:41:13+00:00"
+    },
+    {
+      "revision": "8d6a8bc66b230f2d77580f00f63dab61fa25ec6e",
+      "timestamp_utc": "2026-05-05T01:41:13+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-10T04:39:59+00:00"
+    },
+    {
+      "revision": "41e8adedd10a4afd521881170b10708b8f634fb9",
+      "timestamp_utc": "2026-05-10T04:39:59+00:00",
+      "event": "commit: new version",
+      "next_event_utc": "2026-05-14T06:17:14+00:00"
+    },
+    {
+      "revision": "890a2449c725305d4665fcd16a50a532956edfb2",
+      "timestamp_utc": "2026-05-14T06:17:14+00:00",
+      "event": "commit: merge",
+      "next_event_utc": "2026-05-14T06:17:52+00:00"
+    },
+    {
+      "revision": "4da3d6c3f994eefdc5e080c19734a74253d04338",
+      "timestamp_utc": "2026-05-14T06:17:52+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-30T19:26:56+00:00"
+    },
+    {
+      "revision": "d6f720be6ef0f6344265588a2c4b5280b3e0e399",
+      "timestamp_utc": "2026-05-30T19:26:56+00:00",
+      "event": "commit: final paper",
+      "next_event_utc": "2026-07-17T05:01:55+00:00"
+    },
+    {
+      "revision": "272fdc005d1ce6b957f2bb0adbedd2e55f7c66d5",
+      "timestamp_utc": "2026-07-17T05:01:55+00:00",
+      "event": "commit: merge",
+      "next_event_utc": "2026-07-29T02:51:30+00:00"
+    },
+    {
+      "revision": "2caec5ede80def1bf4c1b6c9abfcc6e8b5b62347",
+      "timestamp_utc": "2026-07-29T02:51:30+00:00",
+      "event": "commit: merge",
+      "next_event_utc": "2026-09-03T13:53:26+00:00"
+    },
+    {
+      "revision": "671e0e64423d586c82b91dc6c9681946d54043e7",
+      "timestamp_utc": "2026-09-03T13:53:26+00:00",
+      "event": "commit: more times",
+      "next_event_utc": null
+    }
+  ]
+}

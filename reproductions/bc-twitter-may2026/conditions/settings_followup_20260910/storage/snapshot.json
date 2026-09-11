@@ -1,0 +1,290 @@
+{
+  "captured_utc": "2026-09-10T16:40:41.213706+00:00",
+  "paths": {
+    "data/graphs/twitter.sg": {
+      "realpath": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+      "inode": 4082114,
+      "device": 2051,
+      "size": 12732173745,
+      "mtime": "2026-09-08T17:23:59.911233+00:00",
+      "ctime": "2026-09-08T17:24:43.900824+00:00",
+      "stat": {
+        "command": [
+          "stat",
+          "--printf=%n %w %y %z %i %s\n",
+          "data/graphs/twitter.sg"
+        ],
+        "code": 0,
+        "out": "data/graphs/twitter.sg 2026-09-08 12:22:40.523170020 -0500 2026-09-08 12:23:59.911233486 -0500 2026-09-08 12:24:43.900824260 -0500 4082114 12732173745\n",
+        "err": ""
+      },
+      "mount": {
+        "command": [
+          "findmnt",
+          "-T",
+          "data/graphs/twitter.sg",
+          "-o",
+          "TARGET,SOURCE,FSTYPE,OPTIONS",
+          "--json"
+        ],
+        "code": 0,
+        "out": "{\n   \"filesystems\": [\n      {\n         \"target\": \"/users/zimooo2/tiering_solutions\",\n         \"source\": \"/dev/sda3[/users/zimooo2/tiering_solutions]\",\n         \"fstype\": \"ext3\",\n         \"options\": \"rw,nosuid,nodev,relatime\"\n      }\n   ]\n}\n",
+        "err": ""
+      }
+    },
+    "data/graphs/kron.sg": {
+      "realpath": "/users/zimooo2/tiering_solutions/data/graphs/kron.sg",
+      "inode": 4082112,
+      "device": 2051,
+      "size": 17966800881,
+      "mtime": "2026-09-08T17:21:37.091323+00:00",
+      "ctime": "2026-09-08T17:22:40.522170+00:00",
+      "stat": {
+        "command": [
+          "stat",
+          "--printf=%n %w %y %z %i %s\n",
+          "data/graphs/kron.sg"
+        ],
+        "code": 0,
+        "out": "data/graphs/kron.sg 2026-09-08 12:19:17.083470812 -0500 2026-09-08 12:21:37.091322923 -0500 2026-09-08 12:22:40.522170007 -0500 4082112 17966800881\n",
+        "err": ""
+      },
+      "mount": {
+        "command": [
+          "findmnt",
+          "-T",
+          "data/graphs/kron.sg",
+          "-o",
+          "TARGET,SOURCE,FSTYPE,OPTIONS",
+          "--json"
+        ],
+        "code": 0,
+        "out": "{\n   \"filesystems\": [\n      {\n         \"target\": \"/users/zimooo2/tiering_solutions\",\n         \"source\": \"/dev/sda3[/users/zimooo2/tiering_solutions]\",\n         \"fstype\": \"ext3\",\n         \"options\": \"rw,nosuid,nodev,relatime\"\n      }\n   ]\n}\n",
+        "err": ""
+      }
+    },
+    "/users/zimooo2/gapbs/benchmark/graphs/twitter.sg": {
+      "realpath": "/users/zimooo2/gapbs/benchmark/graphs/twitter.sg",
+      "inode": 40370188,
+      "device": 2064,
+      "size": 12732173745,
+      "mtime": "2026-08-21T15:17:06.891084+00:00",
+      "ctime": "2026-08-21T15:17:06.891084+00:00",
+      "stat": {
+        "command": [
+          "stat",
+          "--printf=%n %w %y %z %i %s\n",
+          "/users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+        ],
+        "code": 0,
+        "out": "/users/zimooo2/gapbs/benchmark/graphs/twitter.sg 2026-08-21 10:16:35.017641170 -0500 2026-08-21 10:17:06.891084259 -0500 2026-08-21 10:17:06.891084259 -0500 40370188 12732173745\n",
+        "err": ""
+      },
+      "mount": {
+        "command": [
+          "findmnt",
+          "-T",
+          "/users/zimooo2/gapbs/benchmark/graphs/twitter.sg",
+          "-o",
+          "TARGET,SOURCE,FSTYPE,OPTIONS",
+          "--json"
+        ],
+        "code": 0,
+        "out": "{\n   \"filesystems\": [\n      {\n         \"target\": \"/users/zimooo2/gapbs/benchmark\",\n         \"source\": \"/dev/sdb\",\n         \"fstype\": \"ext4\",\n         \"options\": \"ro,nosuid,nodev,relatime\"\n      }\n   ]\n}\n",
+        "err": ""
+      }
+    },
+    "/users/zimooo2/gapbs/benchmark/graphs/kron.sg": {
+      "realpath": "/users/zimooo2/gapbs/benchmark/graphs/kron.sg",
+      "inode": 40370184,
+      "device": 2064,
+      "size": 17966800881,
+      "mtime": "2026-08-21T14:59:44.955611+00:00",
+      "ctime": "2026-08-21T14:59:44.955611+00:00",
+      "stat": {
+        "command": [
+          "stat",
+          "--printf=%n %w %y %z %i %s\n",
+          "/users/zimooo2/gapbs/benchmark/graphs/kron.sg"
+        ],
+        "code": 0,
+        "out": "/users/zimooo2/gapbs/benchmark/graphs/kron.sg 2026-08-21 09:58:01.098189137 -0500 2026-08-21 09:59:44.955611253 -0500 2026-08-21 09:59:44.955611253 -0500 40370184 17966800881\n",
+        "err": ""
+      },
+      "mount": {
+        "command": [
+          "findmnt",
+          "-T",
+          "/users/zimooo2/gapbs/benchmark/graphs/kron.sg",
+          "-o",
+          "TARGET,SOURCE,FSTYPE,OPTIONS",
+          "--json"
+        ],
+        "code": 0,
+        "out": "{\n   \"filesystems\": [\n      {\n         \"target\": \"/users/zimooo2/gapbs/benchmark\",\n         \"source\": \"/dev/sdb\",\n         \"fstype\": \"ext4\",\n         \"options\": \"ro,nosuid,nodev,relatime\"\n      }\n   ]\n}\n",
+        "err": ""
+      }
+    },
+    "/etc/fstab": {
+      "realpath": "/etc/fstab",
+      "inode": 1278681,
+      "device": 2051,
+      "size": 717,
+      "mtime": "2026-03-02T00:09:10.725703+00:00",
+      "ctime": "2026-03-02T00:09:13.746702+00:00",
+      "stat": {
+        "command": [
+          "stat",
+          "--printf=%n %w %y %z %i %s\n",
+          "/etc/fstab"
+        ],
+        "code": 0,
+        "out": "/etc/fstab 2026-03-01 18:09:13.746702515 -0600 2026-03-01 18:09:10.725702412 -0600 2026-03-01 18:09:13.746702515 -0600 1278681 717\n",
+        "err": ""
+      },
+      "mount": {
+        "command": [
+          "findmnt",
+          "-T",
+          "/etc/fstab",
+          "-o",
+          "TARGET,SOURCE,FSTYPE,OPTIONS",
+          "--json"
+        ],
+        "code": 0,
+        "out": "{\n   \"filesystems\": [\n      {\n         \"target\": \"/\",\n         \"source\": \"/dev/sda3\",\n         \"fstype\": \"ext3\",\n         \"options\": \"ro,nosuid,nodev,relatime\"\n      }\n   ]\n}\n",
+        "err": ""
+      }
+    }
+  },
+  "devices": {
+    "sda": {
+      "device/model": "INTEL SSDSC2BB48",
+      "device/rev": "CS04",
+      "device/numa_node": {
+        "error": "[Errno 2] No such file or directory: '/sys/block/sda/device/numa_node'"
+      },
+      "device/queue_depth": "32",
+      "device/timeout": "30",
+      "queue/scheduler": "none [mq-deadline]",
+      "queue/read_ahead_kb": "256",
+      "queue/nr_requests": "256",
+      "queue/rotational": "0",
+      "queue/rq_affinity": "1",
+      "queue/nomerges": "0",
+      "queue/max_sectors_kb": "4096",
+      "queue/max_hw_sectors_kb": "16383",
+      "queue/io_poll": "0",
+      "queue/io_poll_delay": "-1",
+      "queue/wbt_lat_usec": "2000",
+      "queue/write_cache": "write back",
+      "queue/fua": "1",
+      "queue/discard_max_bytes": "134217216",
+      "queue/discard_granularity": "4096",
+      "queue/add_random": "0",
+      "queue/dax": "0",
+      "queue/optimal_io_size": "131072",
+      "queue/minimum_io_size": "4096"
+    },
+    "sdb": {
+      "device/model": "ST1200MM0088",
+      "device/rev": "N0A6",
+      "device/numa_node": {
+        "error": "[Errno 2] No such file or directory: '/sys/block/sdb/device/numa_node'"
+      },
+      "device/queue_depth": "64",
+      "device/timeout": "30",
+      "queue/scheduler": "none [mq-deadline]",
+      "queue/read_ahead_kb": "256",
+      "queue/nr_requests": "256",
+      "queue/rotational": "1",
+      "queue/rq_affinity": "1",
+      "queue/nomerges": "0",
+      "queue/max_sectors_kb": "4096",
+      "queue/max_hw_sectors_kb": "16383",
+      "queue/io_poll": "0",
+      "queue/io_poll_delay": "-1",
+      "queue/wbt_lat_usec": "75000",
+      "queue/write_cache": "write back",
+      "queue/fua": "1",
+      "queue/discard_max_bytes": "0",
+      "queue/discard_granularity": "0",
+      "queue/add_random": "1",
+      "queue/dax": "0",
+      "queue/optimal_io_size": "131072",
+      "queue/minimum_io_size": "512"
+    }
+  },
+  "vm": {
+    "dirty_ratio": "20",
+    "dirty_background_ratio": "10",
+    "dirty_bytes": "0",
+    "dirty_background_bytes": "0",
+    "dirty_expire_centisecs": "3000",
+    "dirty_writeback_centisecs": "500",
+    "dirtytime_expire_seconds": "43200",
+    "vfs_cache_pressure": "2000",
+    "swappiness": "60"
+  },
+  "services": [
+    {
+      "command": [
+        "systemctl",
+        "show",
+        "fstrim.timer",
+        "fstrim.service",
+        "-p",
+        "UnitFileState",
+        "-p",
+        "ActiveState",
+        "-p",
+        "SubState",
+        "-p",
+        "FragmentPath",
+        "-p",
+        "LastTriggerUSec",
+        "-p",
+        "ExecStart",
+        "-p",
+        "ConditionResult"
+      ],
+      "code": 1,
+      "out": "",
+      "err": "Failed to connect to bus: Operation not permitted\n"
+    },
+    {
+      "command": [
+        "systemctl",
+        "cat",
+        "fstrim.timer",
+        "fstrim.service"
+      ],
+      "code": 1,
+      "out": "",
+      "err": "Failed to connect to bus: Operation not permitted\n"
+    },
+    {
+      "command": [
+        "df",
+        "-hT",
+        "data/graphs/twitter.sg",
+        "/users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+      ],
+      "code": 0,
+      "out": "Filesystem     Type  Size  Used Avail Use% Mounted on\n/dev/sda3      ext3  432G  348G   66G  85% /users/zimooo2/tiering_solutions\n/dev/sdb       ext4  1.1T  595G  449G  57% /users/zimooo2/gapbs/benchmark\n",
+      "err": ""
+    },
+    {
+      "command": [
+        "findmnt",
+        "-t",
+        "cgroup2",
+        "-o",
+        "TARGET,OPTIONS"
+      ],
+      "code": 0,
+      "out": "TARGET         OPTIONS\n/sys/fs/cgroup ro,nosuid,nodev,noexec,relatime,nsdelegate,memory_recursiveprot\n",
+      "err": ""
+    }
+  ]
+}

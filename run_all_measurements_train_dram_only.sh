@@ -26,16 +26,14 @@ done
 
 WORKLOAD_ARGS=("${MEASUREMENT_REMAINING_ARGS[@]}")
 
-SIZES=(100101)
-RUNS=1
+SIZES=(100102)
+RUNS=10
 NUMA_MEM_NODES_OVERRIDE=${NUMA_MEM_NODES_OVERRIDE:-${NUMA_MEM_NODE_OVERRIDE:-0}}
 
 RUN_LABEL_SUFFIX=${RUN_LABEL_SUFFIX:-_train}
 ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_near_train}
 COLLECT_TIMESTAMP=$(date '+%Y%m%d_%H%M%S')
 COLLECT_LOGS_DIR=${COLLECT_LOGS_DIR:-"${SCRIPT_DIR}/collected_logs/${MEASUREMENT_PLATFORM}/arms_near_train_${COLLECT_TIMESTAMP}"}
-LOG_CONVERTER_SCRIPT=${LOG_CONVERTER_SCRIPT:-"${SCRIPT_DIR}/logs/filter_v3_split_runs.py"}
-LOG_CONVERTER_VENV_PYTHON=${LOG_CONVERTER_VENV_PYTHON:-"${SCRIPT_DIR}/../tiering_models/process_data/data/.venv/bin/python"}
 
 echo "Using measurement platform: ${MEASUREMENT_PLATFORM}"
 echo "Using NUMA_MEM_NODES override: ${NUMA_MEM_NODES_OVERRIDE}"
@@ -50,23 +48,6 @@ copy_if_present() {
     else
         echo "WARNING: missing artifact ${source_file}"
     fi
-}
-
-convert_logs_to_parquet() {
-    local workload_output=$1
-    local log_dir="${SCRIPT_DIR}/logs/${workload_output}"
-    local python_cmd=python3
-
-    if [[ ! -f "${LOG_CONVERTER_SCRIPT}" ]]; then
-        echo "ERROR: converter script not found at ${LOG_CONVERTER_SCRIPT}" >&2
-        return 1
-    fi
-
-    if [[ -x "${LOG_CONVERTER_VENV_PYTHON}" ]]; then
-        python_cmd="${LOG_CONVERTER_VENV_PYTHON}"
-    fi
-
-    "${python_cmd}" "${LOG_CONVERTER_SCRIPT}" "${log_dir}"
 }
 
 collect_arms_artifacts() {
@@ -96,7 +77,7 @@ mapfile -t WORKLOAD_IDS < <(measurement_expand_workloads "${WORKLOAD_ARGS[@]}")
 for size in "${SIZES[@]}"; do
     echo "== Running ARMS near-train measurements with size ${size}MiB =="
 
-    for run in $(seq 1 "${RUNS}"); do
+    for run in $(seq 7 "${RUNS}"); do
         run_label="${run}${RUN_LABEL_SUFFIX}"
         echo "-- Run ${run}/${RUNS} for size ${size}MiB (label ${run_label}) --"
 
@@ -114,8 +95,8 @@ for size in "${SIZES[@]}"; do
             echo "---- Workload ${workload_id}: ARMS near-train ----"
 
             NUMA_MEM_NODES="${NUMA_MEM_NODES_OVERRIDE}" \
-                "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run_label}" "${ARMS_LIB_SUFFIX}" "${workload_id}"
-            convert_logs_to_parquet "${WORKLOAD_OUTPUT}" || exit 1
+                "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run_label}" "${ARMS_LIB_SUFFIX}" "${workload_id}" || exit 1
+            measurement_require_training_parquet "${SCRIPT_DIR}/logs/${WORKLOAD_OUTPUT}/${size}MiB_run${run_label}_arms.parquet" || exit 1
             collect_arms_artifacts "${size}" "${run_label}" "${WORKLOAD_OUTPUT}"
         done
 

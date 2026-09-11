@@ -1,0 +1,20 @@
+--- git:4da3d6c3f:defs.h
++++ 51265376c464b00b73f6da82748353cbaba1ab69
+@@ -62,7 +62,7 @@
+ #endif
+ 
+ #ifndef MAX_LOGGED_SAMPLES
+-#define MAX_LOGGED_SAMPLES (10000000)
++#define MAX_LOGGED_SAMPLES (20000000)
+ #endif
+ 
+ #ifndef PAGEMAP_FULL_SCAN_INTERVALS
+@@ -291,7 +291,7 @@
+ #if USE_MODEL == (true)
+ #define PERF_PAGES (1 + (1 << 10)) // Has to be == 1+2^n, here 64MB
+ #else
+-#define PERF_PAGES (1 + (1 << 11)) // 128MB because of double sampling rate
++#define PERF_PAGES (1 + (1 << 14)) // 128MB because of double sampling rate
+ #endif
+ 
+ #if NEAR_MEM_TRACING_RUN == (true)

@@ -1,0 +1,3279 @@
+{
+  "source": "/users/zimooo2/.ipython/profile_default/history.sqlite",
+  "sessions": [
+    {
+      "session": 1,
+      "start": "2026-03-09 11:45:59.231464",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 2,
+      "start": "2026-03-09 15:14:25.799342",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 3,
+      "start": "2026-03-10 09:30:50.314038",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 4,
+      "start": "2026-03-10 09:56:43.218436",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 5,
+      "start": "2026-03-11 10:24:51.418697",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 6,
+      "start": "2026-03-11 10:25:42.678398",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 7,
+      "start": "2026-03-11 10:35:48.876353",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 8,
+      "start": "2026-03-11 16:32:45.438575",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 9,
+      "start": "2026-03-11 22:08:50.892077",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 10,
+      "start": "2026-03-11 22:34:15.626898",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 11,
+      "start": "2026-03-12 09:51:50.913999",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 12,
+      "start": "2026-03-13 10:47:50.784580",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 13,
+      "start": "2026-03-14 10:05:48.805141",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 14,
+      "start": "2026-03-14 10:30:46.125522",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 15,
+      "start": "2026-03-14 10:51:25.018976",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 16,
+      "start": "2026-03-14 18:11:40.545120",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 17,
+      "start": "2026-03-14 19:40:42.671241",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 18,
+      "start": "2026-03-15 00:47:25.455707",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 19,
+      "start": "2026-03-15 11:30:35.671705",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 20,
+      "start": "2026-03-16 11:56:34.844390",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 21,
+      "start": "2026-03-17 10:05:30.333825",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 22,
+      "start": "2026-03-18 10:14:06.872007",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 23,
+      "start": "2026-03-18 10:40:12.994715",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 24,
+      "start": "2026-03-18 18:30:36.703862",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 25,
+      "start": "2026-03-20 11:00:12.261636",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 26,
+      "start": "2026-03-20 16:14:40.872808",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 27,
+      "start": "2026-03-20 16:15:02.673599",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 28,
+      "start": "2026-03-20 16:23:47.913173",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 29,
+      "start": "2026-03-20 16:58:24.623766",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 30,
+      "start": "2026-03-20 16:58:41.949883",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 31,
+      "start": "2026-03-20 17:04:41.467656",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 32,
+      "start": "2026-03-20 17:05:02.280824",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 33,
+      "start": "2026-03-20 17:05:03.540530",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 34,
+      "start": "2026-03-20 17:05:07.235507",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 35,
+      "start": "2026-03-20 17:06:49.756856",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 36,
+      "start": "2026-03-20 17:07:31.604935",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 37,
+      "start": "2026-03-20 17:08:06.500785",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 38,
+      "start": "2026-03-20 17:12:02.814169",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 39,
+      "start": "2026-03-20 17:59:52.387247",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 40,
+      "start": "2026-03-20 18:00:33.275517",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 41,
+      "start": "2026-03-20 19:39:40.138895",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 42,
+      "start": "2026-03-20 20:48:27.808447",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 43,
+      "start": "2026-03-21 11:33:50.010395",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 44,
+      "start": "2026-03-21 12:06:09.447794",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 45,
+      "start": "2026-03-21 12:09:43.221641",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 46,
+      "start": "2026-03-21 14:01:53.354719",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 47,
+      "start": "2026-03-21 19:07:22.783413",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 48,
+      "start": "2026-03-23 01:12:26.051662",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 49,
+      "start": "2026-03-23 01:15:28.812325",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 50,
+      "start": "2026-03-23 11:10:42.700734",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 51,
+      "start": "2026-03-23 17:21:08.628583",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 52,
+      "start": "2026-03-23 17:52:53.471849",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 53,
+      "start": "2026-03-23 17:52:55.172438",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 54,
+      "start": "2026-03-23 18:42:46.261934",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 55,
+      "start": "2026-03-23 18:45:01.559151",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 56,
+      "start": "2026-03-23 18:50:08.408376",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 57,
+      "start": "2026-03-23 19:03:59.170326",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 58,
+      "start": "2026-03-23 20:17:05.094848",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 59,
+      "start": "2026-03-23 23:27:18.062702",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 60,
+      "start": "2026-03-23 23:36:05.283123",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 61,
+      "start": "2026-03-24 12:54:55.444507",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 62,
+      "start": "2026-03-24 12:55:11.754983",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 63,
+      "start": "2026-03-24 14:11:25.546904",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 64,
+      "start": "2026-03-24 17:21:48.748985",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 65,
+      "start": "2026-03-24 18:32:01.842332",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 66,
+      "start": "2026-03-24 18:32:04.627878",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 67,
+      "start": "2026-03-24 19:31:26.338969",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 68,
+      "start": "2026-03-24 22:54:56.000619",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 69,
+      "start": "2026-03-25 01:53:15.275943",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 70,
+      "start": "2026-03-25 10:19:52.272497",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 71,
+      "start": "2026-03-25 16:42:14.316301",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 72,
+      "start": "2026-03-25 17:02:29.373838",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 73,
+      "start": "2026-03-26 22:11:21.876568",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 74,
+      "start": "2026-03-26 22:12:46.865372",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 75,
+      "start": "2026-03-27 10:34:26.842420",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 76,
+      "start": "2026-03-27 11:00:46.814128",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 77,
+      "start": "2026-03-28 17:22:34.438444",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 78,
+      "start": "2026-03-28 20:55:42.667013",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 79,
+      "start": "2026-03-29 00:52:13.486683",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 80,
+      "start": "2026-03-29 00:56:36.206230",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 81,
+      "start": "2026-03-29 12:25:54.987139",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 82,
+      "start": "2026-03-29 16:45:48.928167",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 83,
+      "start": "2026-03-30 11:44:42.887610",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 84,
+      "start": "2026-04-06 11:35:14.030361",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 85,
+      "start": "2026-04-11 14:23:45.475795",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 86,
+      "start": "2026-04-11 17:55:42.818978",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 87,
+      "start": "2026-04-11 18:03:22.894804",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 88,
+      "start": "2026-04-19 14:58:46.834091",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 89,
+      "start": "2026-04-21 15:45:16.573766",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 90,
+      "start": "2026-04-21 19:02:57.540642",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 91,
+      "start": "2026-04-23 18:18:19.199627",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 92,
+      "start": "2026-04-23 18:18:46.756341",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 93,
+      "start": "2026-04-24 20:25:50.693259",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 94,
+      "start": "2026-04-25 00:45:45.458298",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 95,
+      "start": "2026-04-25 16:06:24.100005",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 96,
+      "start": "2026-04-25 16:07:07.870880",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 97,
+      "start": "2026-04-25 17:47:50.512148",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 98,
+      "start": "2026-04-26 00:19:14.752745",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 99,
+      "start": "2026-04-26 01:27:27.792219",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 100,
+      "start": "2026-04-26 01:51:37.974922",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 101,
+      "start": "2026-04-26 11:57:50.077189",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 102,
+      "start": "2026-04-26 13:06:32.635604",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 103,
+      "start": "2026-04-26 14:17:46.871461",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 104,
+      "start": "2026-04-26 21:12:01.379079",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 105,
+      "start": "2026-04-27 16:04:24.121170",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 106,
+      "start": "2026-04-27 18:39:17.341159",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 107,
+      "start": "2026-04-27 19:08:50.434595",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 108,
+      "start": "2026-04-27 19:09:55.692962",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 109,
+      "start": "2026-04-27 19:58:37.339504",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 110,
+      "start": "2026-04-27 20:23:26.300739",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 111,
+      "start": "2026-04-27 21:05:30.347457",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 112,
+      "start": "2026-04-28 14:39:18.586889",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 113,
+      "start": "2026-04-28 16:10:36.156822",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 114,
+      "start": "2026-04-28 16:50:03.486417",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 115,
+      "start": "2026-04-28 19:50:30.431194",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 116,
+      "start": "2026-04-28 19:50:30.451479",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 117,
+      "start": "2026-04-28 19:51:09.495345",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 118,
+      "start": "2026-04-29 00:21:39.814776",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 119,
+      "start": "2026-04-29 00:22:06.176783",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 120,
+      "start": "2026-04-29 00:25:42.485764",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 121,
+      "start": "2026-04-29 00:25:42.485780",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 122,
+      "start": "2026-04-29 00:48:17.583509",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 123,
+      "start": "2026-04-29 12:37:48.342288",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 124,
+      "start": "2026-04-29 12:37:48.349431",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 125,
+      "start": "2026-04-29 12:48:31.533163",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 126,
+      "start": "2026-04-29 13:26:01.621686",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 127,
+      "start": "2026-04-29 13:28:28.336761",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 128,
+      "start": "2026-04-29 14:24:32.729896",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 129,
+      "start": "2026-04-29 15:42:12.830398",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 130,
+      "start": "2026-04-29 15:42:21.525908",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 131,
+      "start": "2026-04-29 15:42:21.966217",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 132,
+      "start": "2026-04-29 16:02:28.436268",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 133,
+      "start": "2026-04-29 19:42:43.607693",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 134,
+      "start": "2026-04-29 19:42:43.607883",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 135,
+      "start": "2026-04-30 10:21:58.437820",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 136,
+      "start": "2026-04-30 10:21:58.444201",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 137,
+      "start": "2026-04-30 10:21:58.548718",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 138,
+      "start": "2026-04-30 13:20:43.333103",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 139,
+      "start": "2026-04-30 13:41:29.006951",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 140,
+      "start": "2026-04-30 14:55:43.656900",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 141,
+      "start": "2026-05-04 10:33:45.834009",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 142,
+      "start": "2026-05-04 10:41:17.657134",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 143,
+      "start": "2026-05-04 10:41:35.356476",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 144,
+      "start": "2026-05-04 10:54:30.473882",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 145,
+      "start": "2026-05-06 15:31:37.933860",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 146,
+      "start": "2026-05-06 22:12:02.490168",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 147,
+      "start": "2026-05-06 22:15:43.679148",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 148,
+      "start": "2026-05-06 23:09:20.259302",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 149,
+      "start": "2026-05-07 14:03:53.766928",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 150,
+      "start": "2026-05-08 12:03:45.131783",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 151,
+      "start": "2026-05-08 12:57:02.685468",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 152,
+      "start": "2026-05-08 13:19:47.034599",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 153,
+      "start": "2026-05-08 13:39:13.442396",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 154,
+      "start": "2026-05-08 14:03:29.226854",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 155,
+      "start": "2026-05-08 14:04:53.359301",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 156,
+      "start": "2026-05-08 16:13:03.748842",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 157,
+      "start": "2026-05-08 16:39:20.249108",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 158,
+      "start": "2026-05-08 17:03:10.305565",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 159,
+      "start": "2026-05-08 20:31:42.583143",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 160,
+      "start": "2026-05-08 22:22:58.197614",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 161,
+      "start": "2026-05-08 22:43:38.437186",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 162,
+      "start": "2026-05-09 02:24:47.752789",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 163,
+      "start": "2026-05-09 02:31:20.843766",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 164,
+      "start": "2026-05-09 10:57:26.908384",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 165,
+      "start": "2026-05-09 11:00:37.222457",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 166,
+      "start": "2026-05-09 11:01:26.176892",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 167,
+      "start": "2026-05-09 11:35:16.995086",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 168,
+      "start": "2026-05-09 11:58:37.091328",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 169,
+      "start": "2026-05-09 12:18:46.124918",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 170,
+      "start": "2026-05-09 13:05:04.268681",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 171,
+      "start": "2026-05-09 13:06:18.583693",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 172,
+      "start": "2026-05-09 14:06:27.882035",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 173,
+      "start": "2026-05-09 15:33:42.955845",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 174,
+      "start": "2026-05-09 16:44:29.376660",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 175,
+      "start": "2026-05-09 23:23:55.723174",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 176,
+      "start": "2026-05-09 23:29:20.896368",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 177,
+      "start": "2026-05-09 23:29:20.896375",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 178,
+      "start": "2026-05-10 11:31:13.470509",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 179,
+      "start": "2026-05-10 11:36:25.582842",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 180,
+      "start": "2026-05-10 13:36:37.490096",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 181,
+      "start": "2026-05-10 14:58:22.799060",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 182,
+      "start": "2026-05-11 00:37:02.939584",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 183,
+      "start": "2026-05-11 00:37:50.986062",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 184,
+      "start": "2026-05-11 00:47:45.777597",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 185,
+      "start": "2026-05-11 00:48:01.926459",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 186,
+      "start": "2026-05-11 00:48:38.794117",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 187,
+      "start": "2026-05-11 09:46:00.603120",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 188,
+      "start": "2026-05-11 09:52:45.051517",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 189,
+      "start": "2026-05-11 23:04:00.717092",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 190,
+      "start": "2026-05-11 23:06:43.007219",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 191,
+      "start": "2026-05-11 23:21:39.908415",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 192,
+      "start": "2026-05-11 23:46:19.853686",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 193,
+      "start": "2026-05-12 19:36:18.864332",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 194,
+      "start": "2026-05-12 20:28:00.316988",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 195,
+      "start": "2026-05-12 20:28:09.532242",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 196,
+      "start": "2026-05-12 21:53:29.158057",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 197,
+      "start": "2026-05-13 12:09:51.179624",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 198,
+      "start": "2026-05-13 12:12:04.399279",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 199,
+      "start": "2026-05-13 13:12:19.593306",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 200,
+      "start": "2026-05-13 20:46:48.871765",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 201,
+      "start": "2026-05-13 20:47:10.720436",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 202,
+      "start": "2026-05-13 22:30:46.881903",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 203,
+      "start": "2026-05-13 22:32:29.639419",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 204,
+      "start": "2026-05-13 22:35:24.215635",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 205,
+      "start": "2026-05-13 22:44:08.810816",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 206,
+      "start": "2026-05-14 00:57:39.348927",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 207,
+      "start": "2026-05-14 13:47:01.782415",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 208,
+      "start": "2026-05-14 15:19:39.192136",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 209,
+      "start": "2026-05-14 16:34:25.703343",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 210,
+      "start": "2026-05-14 21:49:56.095121",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 211,
+      "start": "2026-05-14 22:04:30.548888",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 212,
+      "start": "2026-05-14 22:05:28.025480",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 213,
+      "start": "2026-05-14 22:58:24.890249",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 214,
+      "start": "2026-05-15 03:37:28.903643",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 215,
+      "start": "2026-06-06 14:40:31.406944",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 216,
+      "start": "2026-06-06 14:43:37.256112",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 217,
+      "start": "2026-06-09 18:22:40.741893",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 218,
+      "start": "2026-06-17 09:10:56.774114",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 219,
+      "start": "2026-06-18 10:58:38.831132",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 220,
+      "start": "2026-06-19 14:17:31.689789",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 221,
+      "start": "2026-06-25 10:26:23.233847",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 222,
+      "start": "2026-06-25 10:26:43.213648",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 223,
+      "start": "2026-06-25 11:58:56.567324",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 224,
+      "start": "2026-06-25 11:59:08.262257",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 225,
+      "start": "2026-06-26 09:42:50.765287",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 226,
+      "start": "2026-06-26 09:57:05.059149",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 227,
+      "start": "2026-07-30 09:09:31.382845",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 228,
+      "start": "2026-07-30 09:14:48.140521",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 229,
+      "start": "2026-07-30 10:35:05.453411",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 230,
+      "start": "2026-07-30 10:37:05.819906",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 231,
+      "start": "2026-07-30 13:20:06.669717",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 232,
+      "start": "2026-08-27 08:09:30.164721",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 233,
+      "start": "2026-08-27 13:16:51.635339",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 234,
+      "start": "2026-08-27 15:35:46.013345",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 235,
+      "start": "2026-08-28 05:37:32.584408",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 236,
+      "start": "2026-08-29 03:32:49.542603",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 237,
+      "start": "2026-08-29 03:37:23.677771",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 238,
+      "start": "2026-08-30 03:05:51.462837",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 239,
+      "start": "2026-08-30 03:53:55.544547",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 240,
+      "start": "2026-09-01 01:07:52.666001",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 241,
+      "start": "2026-09-01 10:41:18.105011",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 242,
+      "start": "2026-09-02 06:50:46.343886",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 243,
+      "start": "2026-09-02 06:51:04.496999",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 244,
+      "start": "2026-09-06 01:57:55.845449",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 245,
+      "start": "2026-09-06 01:57:55.851616",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 246,
+      "start": "2026-09-06 02:21:39.317498",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 247,
+      "start": "2026-09-06 02:22:41.861259",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 248,
+      "start": "2026-09-07 06:32:49.815511",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 249,
+      "start": "2026-09-07 06:33:03.965576",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 250,
+      "start": "2026-09-07 06:56:33.694313",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 251,
+      "start": "2026-09-07 10:19:37.482052",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 252,
+      "start": "2026-09-07 10:32:03.707819",
+      "end": null,
+      "num_cmds": null
+    },
+    {
+      "session": 253,
+      "start": "2026-09-08 11:03:12.881295",
+      "end": null,
+      "num_cmds": null
+    }
+  ],
+  "cells_total": 3372,
+  "matched_cells": [
+    {
+      "session": 1,
+      "line": 5,
+      "session_start": "2026-03-09 11:45:59.231464",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 67
+    },
+    {
+      "session": 1,
+      "line": 6,
+      "session_start": "2026-03-09 11:45:59.231464",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 66
+    },
+    {
+      "session": 3,
+      "line": 4,
+      "session_start": "2026-03-10 09:30:50.314038",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 66
+    },
+    {
+      "session": 4,
+      "line": 4,
+      "session_start": "2026-03-10 09:56:43.218436",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 66
+    },
+    {
+      "session": 4,
+      "line": 11,
+      "session_start": "2026-03-10 09:56:43.218436",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 66
+    },
+    {
+      "session": 7,
+      "line": 4,
+      "session_start": "2026-03-11 10:35:48.876353",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 66
+    },
+    {
+      "session": 7,
+      "line": 10,
+      "session_start": "2026-03-11 10:35:48.876353",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 66
+    },
+    {
+      "session": 9,
+      "line": 4,
+      "session_start": "2026-03-11 22:08:50.892077",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 66
+    },
+    {
+      "session": 9,
+      "line": 10,
+      "session_start": "2026-03-11 22:08:50.892077",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 66
+    },
+    {
+      "session": 10,
+      "line": 4,
+      "session_start": "2026-03-11 22:34:15.626898",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 66
+    },
+    {
+      "session": 11,
+      "line": 4,
+      "session_start": "2026-03-12 09:51:50.913999",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 66
+    },
+    {
+      "session": 12,
+      "line": 4,
+      "session_start": "2026-03-13 10:47:50.784580",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 66
+    },
+    {
+      "session": 13,
+      "line": 4,
+      "session_start": "2026-03-14 10:05:48.805141",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 66
+    },
+    {
+      "session": 14,
+      "line": 4,
+      "session_start": "2026-03-14 10:30:46.125522",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 66
+    },
+    {
+      "session": 15,
+      "line": 4,
+      "session_start": "2026-03-14 10:51:25.018976",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 66
+    },
+    {
+      "session": 16,
+      "line": 4,
+      "session_start": "2026-03-14 18:11:40.545120",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 66
+    },
+    {
+      "session": 18,
+      "line": 4,
+      "session_start": "2026-03-15 00:47:25.455707",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 66
+    },
+    {
+      "session": 19,
+      "line": 4,
+      "session_start": "2026-03-15 11:30:35.671705",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 66
+    },
+    {
+      "session": 19,
+      "line": 9,
+      "session_start": "2026-03-15 11:30:35.671705",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 67
+    },
+    {
+      "session": 19,
+      "line": 13,
+      "session_start": "2026-03-15 11:30:35.671705",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 67
+    },
+    {
+      "session": 21,
+      "line": 4,
+      "session_start": "2026-03-17 10:05:30.333825",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 67
+    },
+    {
+      "session": 22,
+      "line": 4,
+      "session_start": "2026-03-18 10:14:06.872007",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 67
+    },
+    {
+      "session": 44,
+      "line": 4,
+      "session_start": "2026-03-21 12:06:09.447794",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 67
+    },
+    {
+      "session": 44,
+      "line": 5,
+      "session_start": "2026-03-21 12:06:09.447794",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 67
+    },
+    {
+      "session": 44,
+      "line": 6,
+      "session_start": "2026-03-21 12:06:09.447794",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 67
+    },
+    {
+      "session": 44,
+      "line": 7,
+      "session_start": "2026-03-21 12:06:09.447794",
+      "source_lines": [
+        [
+          18,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 68
+    },
+    {
+      "session": 44,
+      "line": 12,
+      "session_start": "2026-03-21 12:06:09.447794",
+      "source_lines": [
+        [
+          18,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 69
+    },
+    {
+      "session": 48,
+      "line": 4,
+      "session_start": "2026-03-23 01:12:26.051662",
+      "source_lines": [
+        [
+          18,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 69
+    },
+    {
+      "session": 48,
+      "line": 9,
+      "session_start": "2026-03-23 01:12:26.051662",
+      "source_lines": [
+        [
+          18,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 69
+    },
+    {
+      "session": 48,
+      "line": 14,
+      "session_start": "2026-03-23 01:12:26.051662",
+      "source_lines": [
+        [
+          18,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 69
+    },
+    {
+      "session": 48,
+      "line": 19,
+      "session_start": "2026-03-23 01:12:26.051662",
+      "source_lines": [
+        [
+          18,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 69
+    },
+    {
+      "session": 49,
+      "line": 4,
+      "session_start": "2026-03-23 01:15:28.812325",
+      "source_lines": [
+        [
+          19,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 70
+    },
+    {
+      "session": 50,
+      "line": 4,
+      "session_start": "2026-03-23 11:10:42.700734",
+      "source_lines": [
+        [
+          19,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 70
+    },
+    {
+      "session": 62,
+      "line": 4,
+      "session_start": "2026-03-24 12:55:11.754983",
+      "source_lines": [
+        [
+          19,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 70
+    },
+    {
+      "session": 62,
+      "line": 10,
+      "session_start": "2026-03-24 12:55:11.754983",
+      "source_lines": [
+        [
+          19,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 70
+    },
+    {
+      "session": 62,
+      "line": 16,
+      "session_start": "2026-03-24 12:55:11.754983",
+      "source_lines": [
+        [
+          19,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 70
+    },
+    {
+      "session": 62,
+      "line": 19,
+      "session_start": "2026-03-24 12:55:11.754983",
+      "source_lines": [
+        [
+          19,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 70
+    },
+    {
+      "session": 62,
+      "line": 22,
+      "session_start": "2026-03-24 12:55:11.754983",
+      "source_lines": [
+        [
+          19,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 70
+    },
+    {
+      "session": 62,
+      "line": 25,
+      "session_start": "2026-03-24 12:55:11.754983",
+      "source_lines": [
+        [
+          19,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 70
+    },
+    {
+      "session": 71,
+      "line": 4,
+      "session_start": "2026-03-25 16:42:14.316301",
+      "source_lines": [
+        [
+          19,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 70
+    },
+    {
+      "session": 71,
+      "line": 10,
+      "session_start": "2026-03-25 16:42:14.316301",
+      "source_lines": [
+        [
+          19,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 70
+    },
+    {
+      "session": 71,
+      "line": 14,
+      "session_start": "2026-03-25 16:42:14.316301",
+      "source_lines": [
+        [
+          19,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 55
+    },
+    {
+      "session": 71,
+      "line": 15,
+      "session_start": "2026-03-25 16:42:14.316301",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 48
+    },
+    {
+      "session": 75,
+      "line": 4,
+      "session_start": "2026-03-27 10:34:26.842420",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 48
+    },
+    {
+      "session": 83,
+      "line": 5,
+      "session_start": "2026-03-30 11:44:42.887610",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 48
+    },
+    {
+      "session": 91,
+      "line": 4,
+      "session_start": "2026-04-23 18:18:19.199627",
+      "source_lines": [
+        [
+          16,
+          "                log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 67
+    },
+    {
+      "session": 92,
+      "line": 4,
+      "session_start": "2026-04-23 18:18:46.756341",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 48
+    },
+    {
+      "session": 96,
+      "line": 4,
+      "session_start": "2026-04-25 16:07:07.870880",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 48
+    },
+    {
+      "session": 96,
+      "line": 12,
+      "session_start": "2026-04-25 16:07:07.870880",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 48
+    },
+    {
+      "session": 96,
+      "line": 24,
+      "session_start": "2026-04-25 16:07:07.870880",
+      "source_lines": [
+        [
+          13,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 46
+    },
+    {
+      "session": 96,
+      "line": 31,
+      "session_start": "2026-04-25 16:07:07.870880",
+      "source_lines": [
+        [
+          13,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 46
+    },
+    {
+      "session": 96,
+      "line": 32,
+      "session_start": "2026-04-25 16:07:07.870880",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 45
+    },
+    {
+      "session": 99,
+      "line": 4,
+      "session_start": "2026-04-26 01:27:27.792219",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 45
+    },
+    {
+      "session": 103,
+      "line": 4,
+      "session_start": "2026-04-26 14:17:46.871461",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 45
+    },
+    {
+      "session": 104,
+      "line": 4,
+      "session_start": "2026-04-26 21:12:01.379079",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 45
+    },
+    {
+      "session": 105,
+      "line": 4,
+      "session_start": "2026-04-27 16:04:24.121170",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 45
+    },
+    {
+      "session": 105,
+      "line": 13,
+      "session_start": "2026-04-27 16:04:24.121170",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 45
+    },
+    {
+      "session": 146,
+      "line": 3,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          50,
+          "            log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 62
+    },
+    {
+      "session": 146,
+      "line": 5,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          50,
+          "            log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 62
+    },
+    {
+      "session": 146,
+      "line": 10,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          50,
+          "            log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 62
+    },
+    {
+      "session": 146,
+      "line": 15,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          50,
+          "            log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 62
+    },
+    {
+      "session": 146,
+      "line": 17,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 48
+    },
+    {
+      "session": 146,
+      "line": 21,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 48
+    },
+    {
+      "session": 146,
+      "line": 26,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 48
+    },
+    {
+      "session": 146,
+      "line": 29,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 48
+    },
+    {
+      "session": 146,
+      "line": 34,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 48
+    },
+    {
+      "session": 146,
+      "line": 40,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 52
+    },
+    {
+      "session": 146,
+      "line": 53,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 48
+    },
+    {
+      "session": 146,
+      "line": 62,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 48
+    },
+    {
+      "session": 146,
+      "line": 69,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 48
+    },
+    {
+      "session": 146,
+      "line": 76,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 49
+    },
+    {
+      "session": 146,
+      "line": 82,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 49
+    },
+    {
+      "session": 146,
+      "line": 88,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 49
+    },
+    {
+      "session": 146,
+      "line": 94,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 49
+    },
+    {
+      "session": 146,
+      "line": 97,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 49
+    },
+    {
+      "session": 146,
+      "line": 101,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 49
+    },
+    {
+      "session": 146,
+      "line": 107,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 49
+    },
+    {
+      "session": 146,
+      "line": 114,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 49
+    },
+    {
+      "session": 146,
+      "line": 122,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 49
+    },
+    {
+      "session": 146,
+      "line": 126,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 146,
+      "line": 132,
+      "session_start": "2026-05-06 22:12:02.490168",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 150,
+      "line": 4,
+      "session_start": "2026-05-08 12:03:45.131783",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 161,
+      "line": 5,
+      "session_start": "2026-05-08 22:43:38.437186",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 164,
+      "line": 4,
+      "session_start": "2026-05-09 10:57:26.908384",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 175,
+      "line": 5,
+      "session_start": "2026-05-09 23:23:55.723174",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 178,
+      "line": 4,
+      "session_start": "2026-05-10 11:31:13.470509",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 180,
+      "line": 4,
+      "session_start": "2026-05-10 13:36:37.490096",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 181,
+      "line": 4,
+      "session_start": "2026-05-10 14:58:22.799060",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 183,
+      "line": 4,
+      "session_start": "2026-05-11 00:37:50.986062",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 183,
+      "line": 21,
+      "session_start": "2026-05-11 00:37:50.986062",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 183,
+      "line": 33,
+      "session_start": "2026-05-11 00:37:50.986062",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 183,
+      "line": 40,
+      "session_start": "2026-05-11 00:37:50.986062",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 183,
+      "line": 51,
+      "session_start": "2026-05-11 00:37:50.986062",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 183,
+      "line": 58,
+      "session_start": "2026-05-11 00:37:50.986062",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 183,
+      "line": 72,
+      "session_start": "2026-05-11 00:37:50.986062",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 183,
+      "line": 86,
+      "session_start": "2026-05-11 00:37:50.986062",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 183,
+      "line": 100,
+      "session_start": "2026-05-11 00:37:50.986062",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 186,
+      "line": 4,
+      "session_start": "2026-05-11 00:48:38.794117",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 187,
+      "line": 4,
+      "session_start": "2026-05-11 09:46:00.603120",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 188,
+      "line": 4,
+      "session_start": "2026-05-11 09:52:45.051517",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 189,
+      "line": 4,
+      "session_start": "2026-05-11 23:04:00.717092",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 189,
+      "line": 17,
+      "session_start": "2026-05-11 23:04:00.717092",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 189,
+      "line": 31,
+      "session_start": "2026-05-11 23:04:00.717092",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 192,
+      "line": 4,
+      "session_start": "2026-05-11 23:46:19.853686",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 196,
+      "line": 4,
+      "session_start": "2026-05-12 21:53:29.158057",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 196,
+      "line": 21,
+      "session_start": "2026-05-12 21:53:29.158057",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 198,
+      "line": 4,
+      "session_start": "2026-05-13 12:12:04.399279",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 206,
+      "line": 4,
+      "session_start": "2026-05-14 00:57:39.348927",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 206,
+      "line": 17,
+      "session_start": "2026-05-14 00:57:39.348927",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 206,
+      "line": 37,
+      "session_start": "2026-05-14 00:57:39.348927",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 206,
+      "line": 50,
+      "session_start": "2026-05-14 00:57:39.348927",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 208,
+      "line": 5,
+      "session_start": "2026-05-14 15:19:39.192136",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 208,
+      "line": 18,
+      "session_start": "2026-05-14 15:19:39.192136",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 209,
+      "line": 4,
+      "session_start": "2026-05-14 16:34:25.703343",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 209,
+      "line": 17,
+      "session_start": "2026-05-14 16:34:25.703343",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 209,
+      "line": 25,
+      "session_start": "2026-05-14 16:34:25.703343",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 212,
+      "line": 5,
+      "session_start": "2026-05-14 22:05:28.025480",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 213,
+      "line": 5,
+      "session_start": "2026-05-14 22:58:24.890249",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 213,
+      "line": 20,
+      "session_start": "2026-05-14 22:58:24.890249",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 219,
+      "line": 5,
+      "session_start": "2026-06-18 10:58:38.831132",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 220,
+      "line": 4,
+      "session_start": "2026-06-19 14:17:31.689789",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 222,
+      "line": 4,
+      "session_start": "2026-06-25 10:26:43.213648",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 222,
+      "line": 14,
+      "session_start": "2026-06-25 10:26:43.213648",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 230,
+      "line": 4,
+      "session_start": "2026-07-30 10:37:05.819906",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 232,
+      "line": 5,
+      "session_start": "2026-08-27 08:09:30.164721",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 232,
+      "line": 18,
+      "session_start": "2026-08-27 08:09:30.164721",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 232,
+      "line": 32,
+      "session_start": "2026-08-27 08:09:30.164721",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 240,
+      "line": 4,
+      "session_start": "2026-09-01 01:07:52.666001",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 241,
+      "line": 4,
+      "session_start": "2026-09-01 10:41:18.105011",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 243,
+      "line": 4,
+      "session_start": "2026-09-02 06:51:04.496999",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 243,
+      "line": 16,
+      "session_start": "2026-09-02 06:51:04.496999",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 243,
+      "line": 28,
+      "session_start": "2026-09-02 06:51:04.496999",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 243,
+      "line": 39,
+      "session_start": "2026-09-02 06:51:04.496999",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 243,
+      "line": 51,
+      "session_start": "2026-09-02 06:51:04.496999",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 243,
+      "line": 62,
+      "session_start": "2026-09-02 06:51:04.496999",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 243,
+      "line": 71,
+      "session_start": "2026-09-02 06:51:04.496999",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 243,
+      "line": 79,
+      "session_start": "2026-09-02 06:51:04.496999",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 243,
+      "line": 91,
+      "session_start": "2026-09-02 06:51:04.496999",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 243,
+      "line": 103,
+      "session_start": "2026-09-02 06:51:04.496999",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 243,
+      "line": 115,
+      "session_start": "2026-09-02 06:51:04.496999",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 243,
+      "line": 126,
+      "session_start": "2026-09-02 06:51:04.496999",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 243,
+      "line": 138,
+      "session_start": "2026-09-02 06:51:04.496999",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 249,
+      "line": 15,
+      "session_start": "2026-09-07 06:33:03.965576",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 249,
+      "line": 26,
+      "session_start": "2026-09-07 06:33:03.965576",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 249,
+      "line": 32,
+      "session_start": "2026-09-07 06:33:03.965576",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    },
+    {
+      "session": 253,
+      "line": 4,
+      "session_start": "2026-09-08 11:03:12.881295",
+      "source_lines": [
+        [
+          12,
+          "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+        ]
+      ],
+      "code_line_count": 51
+    }
+  ],
+  "output_count": 0
+}

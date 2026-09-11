@@ -1,0 +1,173 @@
+diff --git a/Makefile b/Makefile
+index a609583d9..37f048e02 100755
+--- a/Makefile
++++ b/Makefile
+@@ -18,17 +18,25 @@ INCLUDES = -I.
+ # Libraries
+ LIBS = -lnuma -lpthread -ldl
+ 
++# Expanded only for PRINT_TRAINING_DATA variants. Non-logging builds need
++# neither Python/PyArrow nor Arrow/Parquet headers or shared libraries.
++PARQUET_PYTHON ?= python3
++PARQUET_CXXFLAGS ?= $(or $(shell $(PARQUET_PYTHON) scripts/parquet_flags.py cflags),$(error Cannot find Arrow/Parquet headers))
++PARQUET_LIBS ?= $(or $(shell $(PARQUET_PYTHON) scripts/parquet_flags.py libs),$(error Cannot find Arrow/Parquet libraries))
++PARQUET_VARIANTS := train logging arms_train arms_near_train arms_near_train_all_numa arms_cxl_train
++
+ # Build directories for reusable objects
+ BUILD_DIR := build
+ OBJ_DIR := $(BUILD_DIR)/obj
+-PLATFORMS := GSL_OPTANE
+-DEFAULT_PLATFORM ?= GSL_OPTANE
++PLATFORMS := C220G5
++DEFAULT_PLATFORM ?= C220G5
+ 
+ # Compile-time configuration matrix
+-MODEL_SCORE_HISTORY_SUMMARY_VALUES := 2
++MODEL_SCORE_HISTORY_SUMMARY_VALUES := 1
+ # 0=min_max, 1=average, 2=adjusted_moving_average
+ HISTORY_LENGTH_VALUES := 10
+-SWITCH_SCALER_VALUES := 0.0625 0.125 0.25 0.5 1.0 1.5
++# SWITCH_SCALER_VALUES := 0.03125 0.0625 0.125 0.25 0.5 1.0 1.5
++SWITCH_SCALER_VALUES := 0.1
+ COMBOS := $(foreach summary,$(MODEL_SCORE_HISTORY_SUMMARY_VALUES),$(foreach hlen,$(HISTORY_LENGTH_VALUES),$(foreach scaler,$(SWITCH_SCALER_VALUES),$(summary)_$(hlen)_$(scaler))))
+ 
+ # Models and outputs
+@@ -45,6 +53,7 @@ ARMS_PLAIN_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platfo
+ LOGGING_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-logging.so)
+ ARMS_TRAIN_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_train.so)
+ ARMS_NEAR_TRAIN_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_near_train.so)
++ARMS_NEAR_TRAIN_ALL_NUMA_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_near_train_all_numa.so)
+ ARMS_CXL_TRAIN_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_cxl_train.so)
+ ARMS_TARGET_DEFAULT := $(LIB_OUTPUT_DIR)/$(DEFAULT_PLATFORM)/libhemem-arms.so
+ 
+@@ -57,9 +66,11 @@ SRCS = arms_kernel.cpp \
+ 	pagemap_scan_thread.cpp \
+ 	migration_worker.cpp \
+ 	policy_thread.cpp \
+-	timer.cpp hook/hook.cpp groups.cpp page.cpp logging.cpp model.cpp
++	timer.cpp hook/hook.cpp groups.cpp page.cpp logging.cpp logging_parquet.cpp model.cpp
+ OBJ_NAMES = $(SRCS:.cpp=.o)
+ 
++ARMS_ALL_NUMA_TRAIN_MAX_LOGGED_SAMPLES ?= 100000000
++
+ BASE_DEFINES_model := -DUSE_MODEL=true
+ BASE_DEFINES_train := -DUSE_MODEL=true -DPRINT_TRAINING_DATA=true
+ BASE_DEFINES_nomodel := -DUSE_MODEL=false
+@@ -68,6 +79,7 @@ BASE_DEFINES_logging := -DUSE_MODEL=true -DPRINT_TRAINING_DATA=true -DLOGGING_RU
+ BASE_DEFINES_arms_plain := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=false -DLOGGING_RUN=false -DNEAR_MEM_TRACING_RUN=true
+ BASE_DEFINES_arms_train := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=true
+ BASE_DEFINES_arms_near_train := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=true -DNEAR_MEM_TRACING_RUN=true
++BASE_DEFINES_arms_near_train_all_numa := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=true -DNEAR_MEM_TRACING_RUN=true -DALL_NUMA_MEMORY_DEFAULT=true -DMAX_LOGGED_SAMPLES=$(ARMS_ALL_NUMA_TRAIN_MAX_LOGGED_SAMPLES)
+ BASE_DEFINES_arms_cxl_train := -DUSE_MODEL=false -DPRINT_TRAINING_DATA=true -DNEAR_MEM_TRACING_RUN=true -DFORCE_FAR_MEMORY_DEFAULT=true -DENABLE_MIGRATION_WORKERS=false
+ 
+ combo_summary = $(word 1,$(subst _, ,$1))
+@@ -89,30 +101,36 @@ LOGGING_MAX_LOGGED_SAMPLES ?= 100000000
+ define LINK_SHARED_RECIPE
+ 	$(CXX) $(CXXFLAGS) $(INCLUDES) -shared -fPIC -g $^ -o $@ -O3 \
+ 		$(LIBS) \
++		$(if $(filter $(addsuffix /%,$(addprefix $(OBJ_DIR)/,$(PARQUET_VARIANTS))),$^),$(PARQUET_LIBS)) \
+ 		$(EXTRA_COMPILE_ARGS)
+ endef
+ 
+ define COMPILE_OBJECT_RECIPE
+ 	mkdir -p $(dir $@)
+-	$(CXX) $(CXXFLAGS) $(INCLUDES) -fPIC $(1) -c $< -o $@
++	$(CXX) $(CXXFLAGS) $(INCLUDES) -fPIC $(1) $(if $(and $(filter logging_parquet.cpp,$<),$(filter -DPRINT_TRAINING_DATA=true -DPRINT_TRAINING_DATA=1,$(1))),-std=c++20 $(PARQUET_CXXFLAGS)) -c $< -o $@
+ endef
+ 
+ # System detection
+ UNAME_M := $(shell uname -m)
+ HOSTNAME := $(shell hostname)
+ 
+-.PHONY: all clean
++.PHONY: all clean training-libraries test-parquet
++
++all: $(LIB_TARGETS) $(TRAIN_LIB_TARGETS) $(ARMS_TARGETS) $(ARMS_NOMIGRATION_TARGETS) $(ARMS_PLAIN_TARGETS) $(LOGGING_TARGETS) $(ARMS_TRAIN_TARGETS) $(ARMS_NEAR_TRAIN_TARGETS) $(ARMS_NEAR_TRAIN_ALL_NUMA_TARGETS) $(ARMS_CXL_TRAIN_TARGETS)
++
++training-libraries: $(TRAIN_LIB_TARGETS) $(LOGGING_TARGETS) $(ARMS_TRAIN_TARGETS) $(ARMS_NEAR_TRAIN_TARGETS) $(ARMS_NEAR_TRAIN_ALL_NUMA_TARGETS) $(ARMS_CXL_TRAIN_TARGETS)
+ 
+-all: $(LIB_TARGETS) $(TRAIN_LIB_TARGETS) $(ARMS_TARGETS) $(ARMS_NOMIGRATION_TARGETS) $(ARMS_PLAIN_TARGETS) $(LOGGING_TARGETS) $(ARMS_TRAIN_TARGETS) $(ARMS_NEAR_TRAIN_TARGETS) $(ARMS_CXL_TRAIN_TARGETS)
++test-parquet:
++	$(PARQUET_PYTHON) tests/test_logging_parquet.py
+ 
+ $(TARGET_LIB): $(ARMS_TARGET_DEFAULT) | $(LIB_OUTPUT_DIR)
+ 	cp -f $< $@
+ 
+ define MAKE_MODEL_SOURCE_RULES
+-$$(OBJ_DIR)/model/$(1)/$(2)/%/$(patsubst %.cpp,%.o,$(3)): $(3) | $$(OBJ_DIR)
++$$(OBJ_DIR)/model/$(1)/$(2)/%/$(patsubst %.cpp,%.o,$(3)): $(3) defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
+ 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_model) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)) $$(call model_discount_define,$$*))
+ 
+-$$(OBJ_DIR)/train/$(1)/$(2)/%/$(patsubst %.cpp,%.o,$(3)): $(3) | $$(OBJ_DIR)
++$$(OBJ_DIR)/train/$(1)/$(2)/%/$(patsubst %.cpp,%.o,$(3)): $(3) defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
+ 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_train) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)) $$(call model_discount_define,$$*))
+ endef
+ 
+@@ -145,6 +163,7 @@ ARMS_PLAIN_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_plain/$(1)/,$$(OBJ_NAMES))
+ LOGGING_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/logging/$(1)/,$$(OBJ_NAMES))
+ ARMS_TRAIN_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_train/$(1)/,$$(OBJ_NAMES))
+ ARMS_NEAR_TRAIN_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_near_train/$(1)/,$$(OBJ_NAMES))
++ARMS_NEAR_TRAIN_ALL_NUMA_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_near_train_all_numa/$(1)/,$$(OBJ_NAMES))
+ ARMS_CXL_TRAIN_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_cxl_train/$(1)/,$$(OBJ_NAMES))
+ 
+ # Build without linking a model; force USE_MODEL=false
+@@ -153,6 +172,7 @@ $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms.so: $$(NOMODEL_OBJS_$(1)) | $$(LIB_OUTPUT_
+ 
+ # Build without linking a model or starting migration workers.
+ $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_nomigrations.so: $$(NOMODEL_NOMIGRATION_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
++	$$(LINK_SHARED_RECIPE)
+ 
+ # Build explicit non-logging, non-training ARMS variant
+ $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_plain.so: $$(ARMS_PLAIN_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
+@@ -170,30 +190,37 @@ $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_train.so: $$(ARMS_TRAIN_OBJS_$(1)) | $$(LI
+ $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_near_train.so: $$(ARMS_NEAR_TRAIN_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
+ 	$$(LINK_SHARED_RECIPE)
+ 
++# Build near-training with application and trace allocations allowed across all NUMA tiers.
++$$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_near_train_all_numa.so: $$(ARMS_NEAR_TRAIN_ALL_NUMA_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
++	$$(LINK_SHARED_RECIPE)
++
+ # Build ARMS with the same non-virtual timestep path as near-train, but keep far-memory default and disable migration workers.
+ $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_cxl_train.so: $$(ARMS_CXL_TRAIN_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
+ 	$$(LINK_SHARED_RECIPE)
+ 
+ # Compile C++ sources for USE_MODEL=false variants (platform specialization)
+-$$(OBJ_DIR)/nomodel/$(1)/%.o: %.cpp | $$(OBJ_DIR)
++$$(OBJ_DIR)/nomodel/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
+ 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_nomodel) $$(call platform_defs,$(1)))
+ 
+-$$(OBJ_DIR)/nomodel_nomigrations/$(1)/%.o: %.cpp | $$(OBJ_DIR)
++$$(OBJ_DIR)/nomodel_nomigrations/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
+ 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_nomodel_nomigrations) $$(call platform_defs,$(1)))
+ 
+-$$(OBJ_DIR)/arms_plain/$(1)/%.o: %.cpp | $$(OBJ_DIR)
++$$(OBJ_DIR)/arms_plain/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
+ 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_plain) $$(call platform_defs,$(1)))
+ 
+-$$(OBJ_DIR)/logging/$(1)/%.o: %.cpp | $$(OBJ_DIR)
++$$(OBJ_DIR)/logging/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
+ 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_logging) $$(call platform_defs,$(1)) -DMODEL_DISCOUNT_PERCENT=$$(LOGGING_MODEL_DISCOUNT_PERCENT) -DMAX_LOGGED_SAMPLES=$$(LOGGING_MAX_LOGGED_SAMPLES))
+ 
+-$$(OBJ_DIR)/arms_train/$(1)/%.o: %.cpp | $$(OBJ_DIR)
++$$(OBJ_DIR)/arms_train/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
+ 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_train) $$(call platform_defs,$(1)))
+ 
+-$$(OBJ_DIR)/arms_near_train/$(1)/%.o: %.cpp | $$(OBJ_DIR)
++$$(OBJ_DIR)/arms_near_train/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
+ 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_near_train) $$(call platform_defs,$(1)))
+ 
+-$$(OBJ_DIR)/arms_cxl_train/$(1)/%.o: %.cpp | $$(OBJ_DIR)
++$$(OBJ_DIR)/arms_near_train_all_numa/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
++	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_near_train_all_numa) $$(call platform_defs,$(1)))
++
++$$(OBJ_DIR)/arms_cxl_train/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
+ 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_cxl_train) $$(call platform_defs,$(1)))
+ endef
+ 
+@@ -210,4 +237,4 @@ $(OBJ_DIR):
+ 
+ # Clean build artifacts
+ clean:
+-	rm -rf $(BUILD_DIR) $(LIB_OUTPUT_DIR)
+\ No newline at end of file
++	rm -rf $(BUILD_DIR) $(LIB_OUTPUT_DIR)

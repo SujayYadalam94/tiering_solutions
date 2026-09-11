@@ -1,0 +1,1892 @@
+[
+  {
+    "workload": "DuckDB-TPCH-sf100",
+    "group": "model",
+    "size_mib": 6032,
+    "count": 3,
+    "first_mtime_utc": "2026-05-13T17:55:32.499204+00:00",
+    "last_mtime_utc": "2026-05-13T21:13:46.308196+00:00",
+    "mean_real_seconds": 196.10233333333335,
+    "mean_user_seconds": 0.013333333333333332,
+    "mean_sys_seconds": 0.029,
+    "boot_starts": [
+      "2026-05-13T16:28:17+00:00"
+    ]
+  },
+  {
+    "workload": "DuckDB-TPCH-sf100-long",
+    "group": "arms",
+    "size_mib": 4040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-14T02:59:18.359582+00:00",
+    "last_mtime_utc": "2026-06-14T12:07:34.544281+00:00",
+    "mean_real_seconds": 743.0699999999999,
+    "mean_user_seconds": 0.02,
+    "mean_sys_seconds": 0.03766666666666667,
+    "boot_starts": [
+      "2026-06-13T22:10:24+00:00"
+    ]
+  },
+  {
+    "workload": "DuckDB-TPCH-sf100-long",
+    "group": "arms",
+    "size_mib": 4041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-22T22:14:55.131123+00:00",
+    "last_mtime_utc": "2026-06-23T08:19:51.013374+00:00",
+    "mean_real_seconds": 770.8973333333333,
+    "mean_user_seconds": 0.021,
+    "mean_sys_seconds": 0.036,
+    "boot_starts": [
+      "2026-06-22T03:55:37+00:00"
+    ]
+  },
+  {
+    "workload": "DuckDB-TPCH-sf100-long",
+    "group": "arms",
+    "size_mib": 6040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-15T11:39:03.978778+00:00",
+    "last_mtime_utc": "2026-06-15T21:27:18.659242+00:00",
+    "mean_real_seconds": 728.68,
+    "mean_user_seconds": 0.015,
+    "mean_sys_seconds": 0.04033333333333333,
+    "boot_starts": [
+      "2026-06-15T06:25:57+00:00"
+    ]
+  },
+  {
+    "workload": "DuckDB-TPCH-sf100-long",
+    "group": "arms",
+    "size_mib": 6041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-21T19:19:37.894230+00:00",
+    "last_mtime_utc": "2026-06-22T03:51:23.574621+00:00",
+    "mean_real_seconds": 711.3446666666666,
+    "mean_user_seconds": 0.015666666666666666,
+    "mean_sys_seconds": 0.04066666666666666,
+    "boot_starts": [
+      "2026-06-21T14:49:07+00:00"
+    ]
+  },
+  {
+    "workload": "DuckDB-TPCH-sf100-long",
+    "group": "arms",
+    "size_mib": 8040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-16T06:15:59.025145+00:00",
+    "last_mtime_utc": "2026-06-16T16:06:01.166506+00:00",
+    "mean_real_seconds": 672.8346666666666,
+    "mean_user_seconds": 0.020666666666666667,
+    "mean_sys_seconds": 0.038,
+    "boot_starts": [
+      "2026-06-15T21:55:35+00:00"
+    ]
+  },
+  {
+    "workload": "DuckDB-TPCH-sf100-long",
+    "group": "arms",
+    "size_mib": 8041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-20T02:17:57.013179+00:00",
+    "last_mtime_utc": "2026-06-20T11:51:04.388042+00:00",
+    "mean_real_seconds": 674.1456666666667,
+    "mean_user_seconds": 0.020666666666666667,
+    "mean_sys_seconds": 0.035333333333333335,
+    "boot_starts": [
+      "2026-06-19T21:18:58+00:00"
+    ]
+  },
+  {
+    "workload": "DuckDB-TPCH-sf100-long",
+    "group": "arms",
+    "size_mib": 10040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-17T19:45:39.261581+00:00",
+    "last_mtime_utc": "2026-06-18T05:12:02.845891+00:00",
+    "mean_real_seconds": 636.336,
+    "mean_user_seconds": 0.017,
+    "mean_sys_seconds": 0.03933333333333333,
+    "boot_starts": [
+      "2026-06-17T14:16:59+00:00"
+    ]
+  },
+  {
+    "workload": "DuckDB-TPCH-sf100-long",
+    "group": "arms",
+    "size_mib": 10041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-18T23:03:20.949677+00:00",
+    "last_mtime_utc": "2026-06-19T07:16:46.991725+00:00",
+    "mean_real_seconds": 634.1883333333333,
+    "mean_user_seconds": 0.022333333333333334,
+    "mean_sys_seconds": 0.034333333333333334,
+    "boot_starts": [
+      "2026-06-18T18:26:03+00:00"
+    ]
+  },
+  {
+    "workload": "DuckDB-TPCH-sf100-long",
+    "group": "model",
+    "size_mib": 4040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-14T02:45:38.735093+00:00",
+    "last_mtime_utc": "2026-06-14T11:53:41.347709+00:00",
+    "mean_real_seconds": 739.749,
+    "mean_user_seconds": 0.019,
+    "mean_sys_seconds": 0.03766666666666667,
+    "boot_starts": [
+      "2026-06-13T22:10:24+00:00"
+    ]
+  },
+  {
+    "workload": "DuckDB-TPCH-sf100-long",
+    "group": "model",
+    "size_mib": 4041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-22T22:01:17.069986+00:00",
+    "last_mtime_utc": "2026-06-23T08:06:20.422240+00:00",
+    "mean_real_seconds": 734.002,
+    "mean_user_seconds": 0.018666666666666668,
+    "mean_sys_seconds": 0.036333333333333336,
+    "boot_starts": [
+      "2026-06-22T03:55:37+00:00"
+    ]
+  },
+  {
+    "workload": "DuckDB-TPCH-sf100-long",
+    "group": "model",
+    "size_mib": 6040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-15T11:26:07.278440+00:00",
+    "last_mtime_utc": "2026-06-15T21:14:32.298269+00:00",
+    "mean_real_seconds": 688.929,
+    "mean_user_seconds": 0.020999999999999998,
+    "mean_sys_seconds": 0.034,
+    "boot_starts": [
+      "2026-06-15T06:25:57+00:00"
+    ]
+  },
+  {
+    "workload": "DuckDB-TPCH-sf100-long",
+    "group": "model",
+    "size_mib": 6041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-21T19:06:55.492857+00:00",
+    "last_mtime_utc": "2026-06-22T03:38:48.381157+00:00",
+    "mean_real_seconds": 703.1896666666667,
+    "mean_user_seconds": 0.019,
+    "mean_sys_seconds": 0.03766666666666667,
+    "boot_starts": [
+      "2026-06-21T14:49:07+00:00"
+    ]
+  },
+  {
+    "workload": "DuckDB-TPCH-sf100-long",
+    "group": "model",
+    "size_mib": 8040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-16T06:03:51.967392+00:00",
+    "last_mtime_utc": "2026-06-16T15:54:01.537745+00:00",
+    "mean_real_seconds": 650.74,
+    "mean_user_seconds": 0.018000000000000002,
+    "mean_sys_seconds": 0.038,
+    "boot_starts": [
+      "2026-06-15T21:55:35+00:00"
+    ]
+  },
+  {
+    "workload": "DuckDB-TPCH-sf100-long",
+    "group": "model",
+    "size_mib": 8041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-20T02:05:57.913320+00:00",
+    "last_mtime_utc": "2026-06-20T11:38:56.069138+00:00",
+    "mean_real_seconds": 657.6206666666667,
+    "mean_user_seconds": 0.019666666666666666,
+    "mean_sys_seconds": 0.034666666666666665,
+    "boot_starts": [
+      "2026-06-19T21:18:58+00:00"
+    ]
+  },
+  {
+    "workload": "DuckDB-TPCH-sf100-long",
+    "group": "model",
+    "size_mib": 10040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-17T19:34:07.572026+00:00",
+    "last_mtime_utc": "2026-06-18T05:00:38.847460+00:00",
+    "mean_real_seconds": 628.312,
+    "mean_user_seconds": 0.019333333333333334,
+    "mean_sys_seconds": 0.037,
+    "boot_starts": [
+      "2026-06-17T14:16:59+00:00"
+    ]
+  },
+  {
+    "workload": "DuckDB-TPCH-sf100-long",
+    "group": "model",
+    "size_mib": 10041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-18T22:52:05.103414+00:00",
+    "last_mtime_utc": "2026-06-19T07:05:22.453024+00:00",
+    "mean_real_seconds": 626.591,
+    "mean_user_seconds": 0.016666666666666666,
+    "mean_sys_seconds": 0.039,
+    "boot_starts": [
+      "2026-06-18T18:26:03+00:00"
+    ]
+  },
+  {
+    "workload": "XSBench",
+    "group": "model",
+    "size_mib": 6032,
+    "count": 3,
+    "first_mtime_utc": "2026-05-13T17:41:21.876553+00:00",
+    "last_mtime_utc": "2026-05-13T20:59:33.455507+00:00",
+    "mean_real_seconds": 169.02433333333335,
+    "mean_user_seconds": 0.013666666666666667,
+    "mean_sys_seconds": 0.024333333333333335,
+    "boot_starts": [
+      "2026-05-13T16:28:17+00:00"
+    ]
+  },
+  {
+    "workload": "XSBench-long",
+    "group": "arms",
+    "size_mib": 4040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-14T02:29:33.445503+00:00",
+    "last_mtime_utc": "2026-06-14T11:37:24.891107+00:00",
+    "mean_real_seconds": 1385.5,
+    "mean_user_seconds": 0.014333333333333333,
+    "mean_sys_seconds": 0.025333333333333333,
+    "boot_starts": [
+      "2026-06-13T22:10:24+00:00"
+    ]
+  },
+  {
+    "workload": "XSBench-long",
+    "group": "arms",
+    "size_mib": 4041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-22T21:46:39.414780+00:00",
+    "last_mtime_utc": "2026-06-23T07:51:53.362211+00:00",
+    "mean_real_seconds": 1394.9496666666666,
+    "mean_user_seconds": 0.014333333333333333,
+    "mean_sys_seconds": 0.023333333333333334,
+    "boot_starts": [
+      "2026-06-22T03:55:37+00:00"
+    ]
+  },
+  {
+    "workload": "XSBench-long",
+    "group": "arms",
+    "size_mib": 6040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-15T11:12:25.611336+00:00",
+    "last_mtime_utc": "2026-06-15T21:00:41.944202+00:00",
+    "mean_real_seconds": 1373.2396666666666,
+    "mean_user_seconds": 0.013666666666666667,
+    "mean_sys_seconds": 0.023333333333333334,
+    "boot_starts": [
+      "2026-06-15T06:25:57+00:00"
+    ]
+  },
+  {
+    "workload": "XSBench-long",
+    "group": "arms",
+    "size_mib": 6041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-21T18:52:50.815963+00:00",
+    "last_mtime_utc": "2026-06-22T03:24:48.038387+00:00",
+    "mean_real_seconds": 1353.466,
+    "mean_user_seconds": 0.015666666666666666,
+    "mean_sys_seconds": 0.021333333333333333,
+    "boot_starts": [
+      "2026-06-21T14:49:07+00:00"
+    ]
+  },
+  {
+    "workload": "XSBench-long",
+    "group": "arms",
+    "size_mib": 8040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-16T05:50:44.292990+00:00",
+    "last_mtime_utc": "2026-06-16T15:40:53.895346+00:00",
+    "mean_real_seconds": 1344.29,
+    "mean_user_seconds": 0.012666666666666666,
+    "mean_sys_seconds": 0.024666666666666667,
+    "boot_starts": [
+      "2026-06-15T21:55:35+00:00"
+    ]
+  },
+  {
+    "workload": "XSBench-long",
+    "group": "arms",
+    "size_mib": 8041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-20T01:52:44.253314+00:00",
+    "last_mtime_utc": "2026-06-20T11:25:34.935129+00:00",
+    "mean_real_seconds": 1369.1866666666667,
+    "mean_user_seconds": 0.014666666666666666,
+    "mean_sys_seconds": 0.024333333333333332,
+    "boot_starts": [
+      "2026-06-19T21:18:58+00:00"
+    ]
+  },
+  {
+    "workload": "XSBench-long",
+    "group": "arms",
+    "size_mib": 10040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-17T19:21:33.783449+00:00",
+    "last_mtime_utc": "2026-06-18T04:47:45.849726+00:00",
+    "mean_real_seconds": 1390.3123333333333,
+    "mean_user_seconds": 0.01566666666666667,
+    "mean_sys_seconds": 0.023666666666666666,
+    "boot_starts": [
+      "2026-06-17T14:16:59+00:00"
+    ]
+  },
+  {
+    "workload": "XSBench-long",
+    "group": "arms",
+    "size_mib": 10041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-18T22:39:28.411089+00:00",
+    "last_mtime_utc": "2026-06-19T06:52:43.070416+00:00",
+    "mean_real_seconds": 1354.965,
+    "mean_user_seconds": 0.012666666666666666,
+    "mean_sys_seconds": 0.025333333333333333,
+    "boot_starts": [
+      "2026-06-18T18:26:03+00:00"
+    ]
+  },
+  {
+    "workload": "XSBench-long",
+    "group": "model",
+    "size_mib": 4040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-14T02:05:57.866521+00:00",
+    "last_mtime_utc": "2026-06-14T11:13:05.651758+00:00",
+    "mean_real_seconds": 1422.5756666666666,
+    "mean_user_seconds": 0.01566666666666667,
+    "mean_sys_seconds": 0.022,
+    "boot_starts": [
+      "2026-06-13T22:10:24+00:00"
+    ]
+  },
+  {
+    "workload": "XSBench-long",
+    "group": "model",
+    "size_mib": 4041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-22T21:22:38.111503+00:00",
+    "last_mtime_utc": "2026-06-23T07:27:50.482001+00:00",
+    "mean_real_seconds": 1350.7616666666665,
+    "mean_user_seconds": 0.013666666666666667,
+    "mean_sys_seconds": 0.025333333333333333,
+    "boot_starts": [
+      "2026-06-22T03:55:37+00:00"
+    ]
+  },
+  {
+    "workload": "XSBench-long",
+    "group": "model",
+    "size_mib": 6040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-15T10:48:59.513954+00:00",
+    "last_mtime_utc": "2026-06-15T20:37:02.620713+00:00",
+    "mean_real_seconds": 1388.0523333333333,
+    "mean_user_seconds": 0.015666666666666666,
+    "mean_sys_seconds": 0.024333333333333332,
+    "boot_starts": [
+      "2026-06-15T06:25:57+00:00"
+    ]
+  },
+  {
+    "workload": "XSBench-long",
+    "group": "model",
+    "size_mib": 6041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-21T18:29:33.749557+00:00",
+    "last_mtime_utc": "2026-06-22T03:01:21.865712+00:00",
+    "mean_real_seconds": 1346.9613333333334,
+    "mean_user_seconds": 0.012333333333333333,
+    "mean_sys_seconds": 0.025333333333333333,
+    "boot_starts": [
+      "2026-06-21T14:49:07+00:00"
+    ]
+  },
+  {
+    "workload": "XSBench-long",
+    "group": "model",
+    "size_mib": 8040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-16T05:27:38.318477+00:00",
+    "last_mtime_utc": "2026-06-16T15:17:41.319012+00:00",
+    "mean_real_seconds": 1345.544,
+    "mean_user_seconds": 0.011333333333333334,
+    "mean_sys_seconds": 0.028,
+    "boot_starts": [
+      "2026-06-15T21:55:35+00:00"
+    ]
+  },
+  {
+    "workload": "XSBench-long",
+    "group": "model",
+    "size_mib": 8041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-20T01:29:30.646849+00:00",
+    "last_mtime_utc": "2026-06-20T11:01:26.205099+00:00",
+    "mean_real_seconds": 1352.653,
+    "mean_user_seconds": 0.012333333333333333,
+    "mean_sys_seconds": 0.025,
+    "boot_starts": [
+      "2026-06-19T21:18:58+00:00"
+    ]
+  },
+  {
+    "workload": "XSBench-long",
+    "group": "model",
+    "size_mib": 10040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-17T18:57:39.609324+00:00",
+    "last_mtime_utc": "2026-06-18T04:23:58.535126+00:00",
+    "mean_real_seconds": 1343.6043333333334,
+    "mean_user_seconds": 0.014,
+    "mean_sys_seconds": 0.025333333333333333,
+    "boot_starts": [
+      "2026-06-17T14:16:59+00:00"
+    ]
+  },
+  {
+    "workload": "XSBench-long",
+    "group": "model",
+    "size_mib": 10041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-18T22:16:09.501126+00:00",
+    "last_mtime_utc": "2026-06-19T06:29:19.374435+00:00",
+    "mean_real_seconds": 1334.5973333333334,
+    "mean_user_seconds": 0.01633333333333333,
+    "mean_sys_seconds": 0.022333333333333334,
+    "boot_starts": [
+      "2026-06-18T18:26:03+00:00"
+    ]
+  },
+  {
+    "workload": "bc-kron.sg",
+    "group": "arms",
+    "size_mib": 6032,
+    "count": 1,
+    "first_mtime_utc": "2026-05-13T16:46:29.413174+00:00",
+    "last_mtime_utc": "2026-05-13T16:46:29.413174+00:00",
+    "mean_real_seconds": 208.934,
+    "mean_user_seconds": 0.019,
+    "mean_sys_seconds": 0.021,
+    "boot_starts": [
+      "2026-05-13T16:28:17+00:00"
+    ]
+  },
+  {
+    "workload": "bc-kron.sg",
+    "group": "hybridtier",
+    "size_mib": 6032,
+    "count": 1,
+    "first_mtime_utc": "2026-05-13T16:52:55.113193+00:00",
+    "last_mtime_utc": "2026-05-13T16:52:55.113193+00:00",
+    "mean_real_seconds": 323.327,
+    "mean_user_seconds": 4018.599,
+    "mean_sys_seconds": 144.969,
+    "boot_starts": [
+      "2026-05-13T16:28:17+00:00"
+    ]
+  },
+  {
+    "workload": "bc-kron.sg",
+    "group": "model",
+    "size_mib": 6032,
+    "count": 3,
+    "first_mtime_utc": "2026-05-13T17:23:46.791896+00:00",
+    "last_mtime_utc": "2026-05-13T20:41:47.761831+00:00",
+    "mean_real_seconds": 208.11633333333333,
+    "mean_user_seconds": 0.017333333333333333,
+    "mean_sys_seconds": 0.02266666666666667,
+    "boot_starts": [
+      "2026-05-13T16:28:17+00:00"
+    ]
+  },
+  {
+    "workload": "bc-kron.sg-long",
+    "group": "arms",
+    "size_mib": 4040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-13T23:00:36.037841+00:00",
+    "last_mtime_utc": "2026-06-14T08:06:01.627922+00:00",
+    "mean_real_seconds": 889.4483333333334,
+    "mean_user_seconds": 0.015,
+    "mean_sys_seconds": 0.026000000000000002,
+    "boot_starts": [
+      "2026-06-13T22:10:24+00:00"
+    ]
+  },
+  {
+    "workload": "bc-kron.sg-long",
+    "group": "arms",
+    "size_mib": 4041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-22T17:39:35.671626+00:00",
+    "last_mtime_utc": "2026-06-23T03:48:30.909504+00:00",
+    "mean_real_seconds": 886.6163333333334,
+    "mean_user_seconds": 0.015,
+    "mean_sys_seconds": 0.027666666666666666,
+    "boot_starts": [
+      "2026-06-22T03:55:37+00:00"
+    ]
+  },
+  {
+    "workload": "bc-kron.sg-long",
+    "group": "arms",
+    "size_mib": 6040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-15T07:14:02.445555+00:00",
+    "last_mtime_utc": "2026-06-15T17:02:32.784508+00:00",
+    "mean_real_seconds": 835.3766666666667,
+    "mean_user_seconds": 0.013666666666666667,
+    "mean_sys_seconds": 0.027333333333333334,
+    "boot_starts": [
+      "2026-06-15T06:25:57+00:00"
+    ]
+  },
+  {
+    "workload": "bc-kron.sg-long",
+    "group": "arms",
+    "size_mib": 6041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-21T15:32:36.696949+00:00",
+    "last_mtime_utc": "2026-06-22T00:05:04.902968+00:00",
+    "mean_real_seconds": 833.2673333333333,
+    "mean_user_seconds": 0.01633333333333333,
+    "mean_sys_seconds": 0.02666666666666667,
+    "boot_starts": [
+      "2026-06-21T14:49:07+00:00"
+    ]
+  },
+  {
+    "workload": "bc-kron.sg-long",
+    "group": "arms",
+    "size_mib": 8040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-16T01:59:00.233312+00:00",
+    "last_mtime_utc": "2026-06-16T11:31:04.514528+00:00",
+    "mean_real_seconds": 826.8996666666667,
+    "mean_user_seconds": 0.014,
+    "mean_sys_seconds": 0.027333333333333334,
+    "boot_starts": [
+      "2026-06-15T21:55:35+00:00"
+    ]
+  },
+  {
+    "workload": "bc-kron.sg-long",
+    "group": "arms",
+    "size_mib": 8041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-19T22:00:20.514711+00:00",
+    "last_mtime_utc": "2026-06-20T07:32:58.287704+00:00",
+    "mean_real_seconds": 828.4026666666666,
+    "mean_user_seconds": 0.016666666666666666,
+    "mean_sys_seconds": 0.024,
+    "boot_starts": [
+      "2026-06-19T21:18:58+00:00"
+    ]
+  },
+  {
+    "workload": "bc-kron.sg-long",
+    "group": "arms",
+    "size_mib": 10040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-17T15:32:01.866561+00:00",
+    "last_mtime_utc": "2026-06-18T00:58:59.758804+00:00",
+    "mean_real_seconds": 876.3466666666667,
+    "mean_user_seconds": 0.014333333333333333,
+    "mean_sys_seconds": 0.027,
+    "boot_starts": [
+      "2026-06-17T14:16:59+00:00"
+    ]
+  },
+  {
+    "workload": "bc-kron.sg-long",
+    "group": "arms",
+    "size_mib": 10041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-18T19:25:32.889169+00:00",
+    "last_mtime_utc": "2026-06-19T03:38:53.535062+00:00",
+    "mean_real_seconds": 839.4963333333334,
+    "mean_user_seconds": 0.016,
+    "mean_sys_seconds": 0.026,
+    "boot_starts": [
+      "2026-06-18T18:26:03+00:00"
+    ]
+  },
+  {
+    "workload": "bc-kron.sg-long",
+    "group": "model",
+    "size_mib": 4040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-13T22:44:34.950656+00:00",
+    "last_mtime_utc": "2026-06-14T07:49:40.209445+00:00",
+    "mean_real_seconds": 911.079,
+    "mean_user_seconds": 0.013333333333333334,
+    "mean_sys_seconds": 0.028,
+    "boot_starts": [
+      "2026-06-13T22:10:24+00:00"
+    ]
+  },
+  {
+    "workload": "bc-kron.sg-long",
+    "group": "model",
+    "size_mib": 4041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-22T17:24:04.707842+00:00",
+    "last_mtime_utc": "2026-06-23T03:32:56.021240+00:00",
+    "mean_real_seconds": 885.864,
+    "mean_user_seconds": 0.015,
+    "mean_sys_seconds": 0.027333333333333334,
+    "boot_starts": [
+      "2026-06-22T03:55:37+00:00"
+    ]
+  },
+  {
+    "workload": "bc-kron.sg-long",
+    "group": "model",
+    "size_mib": 6040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-15T06:59:24.447638+00:00",
+    "last_mtime_utc": "2026-06-15T16:47:51.531157+00:00",
+    "mean_real_seconds": 838.2186666666666,
+    "mean_user_seconds": 0.012666666666666666,
+    "mean_sys_seconds": 0.028333333333333332,
+    "boot_starts": [
+      "2026-06-15T06:25:57+00:00"
+    ]
+  },
+  {
+    "workload": "bc-kron.sg-long",
+    "group": "model",
+    "size_mib": 6041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-21T15:18:00.022832+00:00",
+    "last_mtime_utc": "2026-06-21T23:50:25.548294+00:00",
+    "mean_real_seconds": 837.1843333333333,
+    "mean_user_seconds": 0.016,
+    "mean_sys_seconds": 0.024333333333333335,
+    "boot_starts": [
+      "2026-06-21T14:49:07+00:00"
+    ]
+  },
+  {
+    "workload": "bc-kron.sg-long",
+    "group": "model",
+    "size_mib": 8040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-16T01:44:29.619501+00:00",
+    "last_mtime_utc": "2026-06-16T11:16:29.777031+00:00",
+    "mean_real_seconds": 828.59,
+    "mean_user_seconds": 0.012333333333333333,
+    "mean_sys_seconds": 0.029333333333333333,
+    "boot_starts": [
+      "2026-06-15T21:55:35+00:00"
+    ]
+  },
+  {
+    "workload": "bc-kron.sg-long",
+    "group": "model",
+    "size_mib": 8041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-19T21:45:45.615624+00:00",
+    "last_mtime_utc": "2026-06-20T07:18:24.961190+00:00",
+    "mean_real_seconds": 830.6093333333333,
+    "mean_user_seconds": 0.017,
+    "mean_sys_seconds": 0.025333333333333333,
+    "boot_starts": [
+      "2026-06-19T21:18:58+00:00"
+    ]
+  },
+  {
+    "workload": "bc-kron.sg-long",
+    "group": "model",
+    "size_mib": 10040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-17T15:16:11.272451+00:00",
+    "last_mtime_utc": "2026-06-18T00:43:48.265584+00:00",
+    "mean_real_seconds": 831.2726666666667,
+    "mean_user_seconds": 0.013,
+    "mean_sys_seconds": 0.030000000000000002,
+    "boot_starts": [
+      "2026-06-17T14:16:59+00:00"
+    ]
+  },
+  {
+    "workload": "bc-kron.sg-long",
+    "group": "model",
+    "size_mib": 10041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-18T19:10:49.521617+00:00",
+    "last_mtime_utc": "2026-06-19T03:24:09.449183+00:00",
+    "mean_real_seconds": 827.0406666666667,
+    "mean_user_seconds": 0.015,
+    "mean_sys_seconds": 0.027333333333333334,
+    "boot_starts": [
+      "2026-06-18T18:26:03+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg",
+    "group": "model",
+    "size_mib": 6032,
+    "count": 3,
+    "first_mtime_utc": "2026-05-13T17:31:58.518786+00:00",
+    "last_mtime_utc": "2026-05-13T20:50:05.195682+00:00",
+    "mean_real_seconds": 101.71233333333333,
+    "mean_user_seconds": 0.011333333333333332,
+    "mean_sys_seconds": 0.02666666666666667,
+    "boot_starts": [
+      "2026-05-13T16:28:17+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "arms",
+    "size_mib": 4032,
+    "count": 3,
+    "first_mtime_utc": "2026-05-12T22:25:30.554265+00:00",
+    "last_mtime_utc": "2026-05-12T23:53:28.999033+00:00",
+    "mean_real_seconds": 711.096,
+    "mean_user_seconds": 0.018333333333333333,
+    "mean_sys_seconds": 0.027333333333333334,
+    "boot_starts": [
+      "2026-05-12T17:06:17+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "arms",
+    "size_mib": 4035,
+    "count": 3,
+    "first_mtime_utc": "2026-05-14T08:11:43.919171+00:00",
+    "last_mtime_utc": "2026-05-14T09:06:50.839137+00:00",
+    "mean_real_seconds": 808.5566666666667,
+    "mean_user_seconds": 0.014333333333333333,
+    "mean_sys_seconds": 0.032,
+    "boot_starts": [
+      "2026-05-14T07:30:49+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "arms",
+    "size_mib": 4040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-14T00:09:29.783397+00:00",
+    "last_mtime_utc": "2026-06-14T09:15:35.439751+00:00",
+    "mean_real_seconds": 625.3146666666667,
+    "mean_user_seconds": 0.016666666666666666,
+    "mean_sys_seconds": 0.029333333333333336,
+    "boot_starts": [
+      "2026-06-13T22:10:24+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "arms",
+    "size_mib": 4041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-22T18:46:14.981888+00:00",
+    "last_mtime_utc": "2026-06-23T04:55:39.297047+00:00",
+    "mean_real_seconds": 628.544,
+    "mean_user_seconds": 0.013666666666666667,
+    "mean_sys_seconds": 0.031,
+    "boot_starts": [
+      "2026-06-22T03:55:37+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "arms",
+    "size_mib": 6032,
+    "count": 3,
+    "first_mtime_utc": "2026-05-14T00:45:16.334372+00:00",
+    "last_mtime_utc": "2026-05-14T02:55:31.077171+00:00",
+    "mean_real_seconds": 709.3923333333333,
+    "mean_user_seconds": 0.01566666666666667,
+    "mean_sys_seconds": 0.028,
+    "boot_starts": [
+      "2026-05-13T16:28:17+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "arms",
+    "size_mib": 6040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-15T08:20:18.181389+00:00",
+    "last_mtime_utc": "2026-06-15T18:08:56.431573+00:00",
+    "mean_real_seconds": 607.5343333333334,
+    "mean_user_seconds": 0.014666666666666666,
+    "mean_sys_seconds": 0.030333333333333334,
+    "boot_starts": [
+      "2026-06-15T06:25:57+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "arms",
+    "size_mib": 6041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-21T16:38:34.967955+00:00",
+    "last_mtime_utc": "2026-06-22T01:11:21.679303+00:00",
+    "mean_real_seconds": 604.7083333333334,
+    "mean_user_seconds": 0.016666666666666666,
+    "mean_sys_seconds": 0.02766666666666667,
+    "boot_starts": [
+      "2026-06-21T14:49:07+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "arms",
+    "size_mib": 8040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-16T03:04:21.327328+00:00",
+    "last_mtime_utc": "2026-06-16T12:36:24.435962+00:00",
+    "mean_real_seconds": 594.4703333333333,
+    "mean_user_seconds": 0.018333333333333333,
+    "mean_sys_seconds": 0.028666666666666667,
+    "boot_starts": [
+      "2026-06-15T21:55:35+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "arms",
+    "size_mib": 8041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-19T23:05:50.211042+00:00",
+    "last_mtime_utc": "2026-06-20T08:38:26.013552+00:00",
+    "mean_real_seconds": 597.0376666666667,
+    "mean_user_seconds": 0.017333333333333333,
+    "mean_sys_seconds": 0.027333333333333334,
+    "boot_starts": [
+      "2026-06-19T21:18:58+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "arms",
+    "size_mib": 10040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-17T16:38:09.316009+00:00",
+    "last_mtime_utc": "2026-06-18T02:04:44.511080+00:00",
+    "mean_real_seconds": 591.1723333333333,
+    "mean_user_seconds": 0.017333333333333333,
+    "mean_sys_seconds": 0.02666666666666667,
+    "boot_starts": [
+      "2026-06-17T14:16:59+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "arms",
+    "size_mib": 10041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-18T20:30:23.727287+00:00",
+    "last_mtime_utc": "2026-06-19T04:43:38.989043+00:00",
+    "mean_real_seconds": 589.7283333333334,
+    "mean_user_seconds": 0.015333333333333334,
+    "mean_sys_seconds": 0.029,
+    "boot_starts": [
+      "2026-06-18T18:26:03+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "model",
+    "size_mib": 4032,
+    "count": 3,
+    "first_mtime_utc": "2026-05-12T20:35:43.614066+00:00",
+    "last_mtime_utc": "2026-05-12T23:28:32.876740+00:00",
+    "mean_real_seconds": 632.7456666666667,
+    "mean_user_seconds": 0.018666666666666665,
+    "mean_sys_seconds": 0.02666666666666667,
+    "boot_starts": [
+      "2026-05-12T17:06:17+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "model",
+    "size_mib": 4035,
+    "count": 3,
+    "first_mtime_utc": "2026-05-14T07:57:44.751503+00:00",
+    "last_mtime_utc": "2026-05-14T08:52:33.963559+00:00",
+    "mean_real_seconds": 744.401,
+    "mean_user_seconds": 0.016,
+    "mean_sys_seconds": 0.030333333333333334,
+    "boot_starts": [
+      "2026-05-14T07:30:49+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "model",
+    "size_mib": 4040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-13T23:58:03.958960+00:00",
+    "last_mtime_utc": "2026-06-14T09:03:32.276708+00:00",
+    "mean_real_seconds": 614.2376666666667,
+    "mean_user_seconds": 0.015333333333333332,
+    "mean_sys_seconds": 0.03166666666666667,
+    "boot_starts": [
+      "2026-06-13T22:10:24+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "model",
+    "size_mib": 4041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-22T18:35:05.284434+00:00",
+    "last_mtime_utc": "2026-06-23T04:44:18.070434+00:00",
+    "mean_real_seconds": 619.911,
+    "mean_user_seconds": 0.018333333333333333,
+    "mean_sys_seconds": 0.026000000000000002,
+    "boot_starts": [
+      "2026-06-22T03:55:37+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "model",
+    "size_mib": 6032,
+    "count": 3,
+    "first_mtime_utc": "2026-05-13T18:08:02.030372+00:00",
+    "last_mtime_utc": "2026-05-13T21:26:08.292216+00:00",
+    "mean_real_seconds": 692.7046666666666,
+    "mean_user_seconds": 0.012666666666666666,
+    "mean_sys_seconds": 0.033,
+    "boot_starts": [
+      "2026-05-13T16:28:17+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "model",
+    "size_mib": 6035,
+    "count": 3,
+    "first_mtime_utc": "2026-05-14T06:28:38.301525+00:00",
+    "last_mtime_utc": "2026-05-14T06:52:05.150436+00:00",
+    "mean_real_seconds": 663.461,
+    "mean_user_seconds": 0.014333333333333333,
+    "mean_sys_seconds": 0.03066666666666667,
+    "boot_starts": [
+      "2026-05-14T06:14:52+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "model",
+    "size_mib": 6040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-15T08:09:29.042551+00:00",
+    "last_mtime_utc": "2026-06-15T17:57:59.145647+00:00",
+    "mean_real_seconds": 613.3823333333333,
+    "mean_user_seconds": 0.019,
+    "mean_sys_seconds": 0.026000000000000002,
+    "boot_starts": [
+      "2026-06-15T06:25:57+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "model",
+    "size_mib": 6041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-21T16:27:46.999961+00:00",
+    "last_mtime_utc": "2026-06-22T01:00:27.554118+00:00",
+    "mean_real_seconds": 624.6656666666667,
+    "mean_user_seconds": 0.018666666666666668,
+    "mean_sys_seconds": 0.02666666666666667,
+    "boot_starts": [
+      "2026-06-21T14:49:07+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "model",
+    "size_mib": 8040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-16T02:53:41.345133+00:00",
+    "last_mtime_utc": "2026-06-16T12:25:45.239794+00:00",
+    "mean_real_seconds": 600.88,
+    "mean_user_seconds": 0.015333333333333332,
+    "mean_sys_seconds": 0.03066666666666667,
+    "boot_starts": [
+      "2026-06-15T21:55:35+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "model",
+    "size_mib": 8041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-19T22:55:08.597154+00:00",
+    "last_mtime_utc": "2026-06-20T08:27:42.838524+00:00",
+    "mean_real_seconds": 594.7616666666667,
+    "mean_user_seconds": 0.016,
+    "mean_sys_seconds": 0.029666666666666668,
+    "boot_starts": [
+      "2026-06-19T21:18:58+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "model",
+    "size_mib": 10040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-17T16:27:33.893140+00:00",
+    "last_mtime_utc": "2026-06-18T01:54:08.792137+00:00",
+    "mean_real_seconds": 593.4083333333333,
+    "mean_user_seconds": 0.016666666666666666,
+    "mean_sys_seconds": 0.03,
+    "boot_starts": [
+      "2026-06-17T14:16:59+00:00"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "model",
+    "size_mib": 10041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-18T20:19:48.363237+00:00",
+    "last_mtime_utc": "2026-06-19T04:33:06.077025+00:00",
+    "mean_real_seconds": 590.2593333333333,
+    "mean_user_seconds": 0.01633333333333333,
+    "mean_sys_seconds": 0.030333333333333334,
+    "boot_starts": [
+      "2026-06-18T18:26:03+00:00"
+    ]
+  },
+  {
+    "workload": "faiss_10M",
+    "group": "model",
+    "size_mib": 6032,
+    "count": 3,
+    "first_mtime_utc": "2026-05-13T17:46:58.692167+00:00",
+    "last_mtime_utc": "2026-05-13T21:05:11.450155+00:00",
+    "mean_real_seconds": 291.3383333333333,
+    "mean_user_seconds": 0.014,
+    "mean_sys_seconds": 0.023333333333333334,
+    "boot_starts": [
+      "2026-05-13T16:28:17+00:00"
+    ]
+  },
+  {
+    "workload": "faiss_10M-long",
+    "group": "arms",
+    "size_mib": 4040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-14T01:41:08.368694+00:00",
+    "last_mtime_utc": "2026-06-14T10:48:14.177991+00:00",
+    "mean_real_seconds": 0.33033333333333337,
+    "mean_user_seconds": 0.015333333333333332,
+    "mean_sys_seconds": 0.024333333333333332,
+    "boot_starts": [
+      "2026-06-13T22:10:24+00:00"
+    ]
+  },
+  {
+    "workload": "faiss_10M-long",
+    "group": "arms",
+    "size_mib": 4041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-22T20:59:21.960761+00:00",
+    "last_mtime_utc": "2026-06-23T07:04:32.945331+00:00",
+    "mean_real_seconds": 1203.181,
+    "mean_user_seconds": 0.014333333333333333,
+    "mean_sys_seconds": 0.023666666666666666,
+    "boot_starts": [
+      "2026-06-22T03:55:37+00:00"
+    ]
+  },
+  {
+    "workload": "faiss_10M-long",
+    "group": "arms",
+    "size_mib": 6040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-15T10:25:39.646083+00:00",
+    "last_mtime_utc": "2026-06-15T20:12:58.671083+00:00",
+    "mean_real_seconds": 1120.0916666666667,
+    "mean_user_seconds": 0.015,
+    "mean_sys_seconds": 0.023333333333333334,
+    "boot_starts": [
+      "2026-06-15T06:25:57+00:00"
+    ]
+  },
+  {
+    "workload": "faiss_10M-long",
+    "group": "arms",
+    "size_mib": 6041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-21T18:06:21.641345+00:00",
+    "last_mtime_utc": "2026-06-22T02:38:08.287189+00:00",
+    "mean_real_seconds": 0.34299999999999997,
+    "mean_user_seconds": 0.014666666666666666,
+    "mean_sys_seconds": 0.02266666666666667,
+    "boot_starts": [
+      "2026-06-21T14:49:07+00:00"
+    ]
+  },
+  {
+    "workload": "faiss_10M-long",
+    "group": "arms",
+    "size_mib": 8040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-16T05:04:28.333083+00:00",
+    "last_mtime_utc": "2026-06-16T14:54:29.287815+00:00",
+    "mean_real_seconds": 1070.3453333333334,
+    "mean_user_seconds": 0.017333333333333333,
+    "mean_sys_seconds": 0.022,
+    "boot_starts": [
+      "2026-06-15T21:55:35+00:00"
+    ]
+  },
+  {
+    "workload": "faiss_10M-long",
+    "group": "arms",
+    "size_mib": 8041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-20T01:05:54.562896+00:00",
+    "last_mtime_utc": "2026-06-20T10:38:13.810528+00:00",
+    "mean_real_seconds": 1075.472,
+    "mean_user_seconds": 0.011666666666666665,
+    "mean_sys_seconds": 0.024999999999999998,
+    "boot_starts": [
+      "2026-06-19T21:18:58+00:00"
+    ]
+  },
+  {
+    "workload": "faiss_10M-long",
+    "group": "arms",
+    "size_mib": 10040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-17T18:34:31.567843+00:00",
+    "last_mtime_utc": "2026-06-18T04:00:48.036435+00:00",
+    "mean_real_seconds": 1024.1913333333334,
+    "mean_user_seconds": 0.011333333333333332,
+    "mean_sys_seconds": 0.02666666666666667,
+    "boot_starts": [
+      "2026-06-17T14:16:59+00:00"
+    ]
+  },
+  {
+    "workload": "faiss_10M-long",
+    "group": "arms",
+    "size_mib": 10041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-19T19:55:10.532322+00:00",
+    "last_mtime_utc": "2026-06-19T21:04:00.726641+00:00",
+    "mean_real_seconds": 1017.707,
+    "mean_user_seconds": 0.014,
+    "mean_sys_seconds": 0.024666666666666667,
+    "boot_starts": [
+      "2026-06-18T18:26:03+00:00"
+    ]
+  },
+  {
+    "workload": "faiss_10M-long",
+    "group": "model",
+    "size_mib": 4040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-14T01:39:43.386499+00:00",
+    "last_mtime_utc": "2026-06-14T10:47:02.808988+00:00",
+    "mean_real_seconds": 0.251,
+    "mean_user_seconds": 0.018666666666666668,
+    "mean_sys_seconds": 0.019666666666666666,
+    "boot_starts": [
+      "2026-06-13T22:10:24+00:00"
+    ]
+  },
+  {
+    "workload": "faiss_10M-long",
+    "group": "model",
+    "size_mib": 4041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-22T20:38:26.506123+00:00",
+    "last_mtime_utc": "2026-06-23T06:43:52.875846+00:00",
+    "mean_real_seconds": 1197.3973333333333,
+    "mean_user_seconds": 0.011666666666666667,
+    "mean_sys_seconds": 0.025333333333333333,
+    "boot_starts": [
+      "2026-06-22T03:55:37+00:00"
+    ]
+  },
+  {
+    "workload": "faiss_10M-long",
+    "group": "model",
+    "size_mib": 6040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-15T10:06:14.718923+00:00",
+    "last_mtime_utc": "2026-06-15T19:53:32.232367+00:00",
+    "mean_real_seconds": 1113.826,
+    "mean_user_seconds": 0.014,
+    "mean_sys_seconds": 0.025333333333333333,
+    "boot_starts": [
+      "2026-06-15T06:25:57+00:00"
+    ]
+  },
+  {
+    "workload": "faiss_10M-long",
+    "group": "model",
+    "size_mib": 6041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-21T18:05:36.161716+00:00",
+    "last_mtime_utc": "2026-06-22T02:37:22.862554+00:00",
+    "mean_real_seconds": 0.25166666666666665,
+    "mean_user_seconds": 0.014,
+    "mean_sys_seconds": 0.025,
+    "boot_starts": [
+      "2026-06-21T14:49:07+00:00"
+    ]
+  },
+  {
+    "workload": "faiss_10M-long",
+    "group": "model",
+    "size_mib": 8040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-16T04:45:56.188919+00:00",
+    "last_mtime_utc": "2026-06-16T14:35:56.910025+00:00",
+    "mean_real_seconds": 1023.5663333333333,
+    "mean_user_seconds": 0.012666666666666666,
+    "mean_sys_seconds": 0.025666666666666667,
+    "boot_starts": [
+      "2026-06-15T21:55:35+00:00"
+    ]
+  },
+  {
+    "workload": "faiss_10M-long",
+    "group": "model",
+    "size_mib": 8041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-20T00:47:23.490559+00:00",
+    "last_mtime_utc": "2026-06-20T10:19:20.422745+00:00",
+    "mean_real_seconds": 1025.6253333333334,
+    "mean_user_seconds": 0.012,
+    "mean_sys_seconds": 0.027666666666666666,
+    "boot_starts": [
+      "2026-06-19T21:18:58+00:00"
+    ]
+  },
+  {
+    "workload": "faiss_10M-long",
+    "group": "model",
+    "size_mib": 10040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-17T18:16:40.109796+00:00",
+    "last_mtime_utc": "2026-06-18T03:43:04.904528+00:00",
+    "mean_real_seconds": 955.7803333333334,
+    "mean_user_seconds": 0.014333333333333333,
+    "mean_sys_seconds": 0.024333333333333332,
+    "boot_starts": [
+      "2026-06-17T14:16:59+00:00"
+    ]
+  },
+  {
+    "workload": "faiss_10M-long",
+    "group": "model",
+    "size_mib": 10041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-19T19:37:39.274873+00:00",
+    "last_mtime_utc": "2026-06-19T20:46:09.118731+00:00",
+    "mean_real_seconds": 951.408,
+    "mean_user_seconds": 0.014333333333333333,
+    "mean_sys_seconds": 0.024999999999999998,
+    "boot_starts": [
+      "2026-06-18T18:26:03+00:00"
+    ]
+  },
+  {
+    "workload": "mg.D.x",
+    "group": "model",
+    "size_mib": 6032,
+    "count": 3,
+    "first_mtime_utc": "2026-05-13T17:51:30.613892+00:00",
+    "last_mtime_utc": "2026-05-13T21:09:42.155864+00:00",
+    "mean_real_seconds": 224.64733333333334,
+    "mean_user_seconds": 0.014333333333333333,
+    "mean_sys_seconds": 0.025333333333333333,
+    "boot_starts": [
+      "2026-05-13T16:28:17+00:00"
+    ]
+  },
+  {
+    "workload": "pr-kron.sg",
+    "group": "arms",
+    "size_mib": 6032,
+    "count": 1,
+    "first_mtime_utc": "2026-05-13T17:04:26.859500+00:00",
+    "last_mtime_utc": "2026-05-13T17:04:26.859500+00:00",
+    "mean_real_seconds": 302.58,
+    "mean_user_seconds": 0.016,
+    "mean_sys_seconds": 0.022,
+    "boot_starts": [
+      "2026-05-13T16:28:17+00:00"
+    ]
+  },
+  {
+    "workload": "pr-kron.sg",
+    "group": "model",
+    "size_mib": 6032,
+    "count": 3,
+    "first_mtime_utc": "2026-05-13T17:29:32.939764+00:00",
+    "last_mtime_utc": "2026-05-13T20:47:36.324632+00:00",
+    "mean_real_seconds": 302.22133333333335,
+    "mean_user_seconds": 0.015000000000000001,
+    "mean_sys_seconds": 0.023,
+    "boot_starts": [
+      "2026-05-13T16:28:17+00:00"
+    ]
+  },
+  {
+    "workload": "pr-kron.sg-long",
+    "group": "arms",
+    "size_mib": 4040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-13T23:46:33.895471+00:00",
+    "last_mtime_utc": "2026-06-14T08:52:19.025363+00:00",
+    "mean_real_seconds": 1297.3120000000001,
+    "mean_user_seconds": 0.012333333333333333,
+    "mean_sys_seconds": 0.028333333333333335,
+    "boot_starts": [
+      "2026-06-13T22:10:24+00:00"
+    ]
+  },
+  {
+    "workload": "pr-kron.sg-long",
+    "group": "arms",
+    "size_mib": 4041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-22T18:24:07.095128+00:00",
+    "last_mtime_utc": "2026-06-23T04:33:09.843918+00:00",
+    "mean_real_seconds": 1285.74,
+    "mean_user_seconds": 0.015666666666666666,
+    "mean_sys_seconds": 0.024666666666666667,
+    "boot_starts": [
+      "2026-06-22T03:55:37+00:00"
+    ]
+  },
+  {
+    "workload": "pr-kron.sg-long",
+    "group": "arms",
+    "size_mib": 6040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-15T07:58:23.514439+00:00",
+    "last_mtime_utc": "2026-06-15T17:47:00.053627+00:00",
+    "mean_real_seconds": 1287.9163333333333,
+    "mean_user_seconds": 0.014333333333333333,
+    "mean_sys_seconds": 0.026333333333333334,
+    "boot_starts": [
+      "2026-06-15T06:25:57+00:00"
+    ]
+  },
+  {
+    "workload": "pr-kron.sg-long",
+    "group": "arms",
+    "size_mib": 6041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-21T16:16:53.885799+00:00",
+    "last_mtime_utc": "2026-06-22T00:49:38.655997+00:00",
+    "mean_real_seconds": 1286.2323333333334,
+    "mean_user_seconds": 0.015,
+    "mean_sys_seconds": 0.026333333333333334,
+    "boot_starts": [
+      "2026-06-21T14:49:07+00:00"
+    ]
+  },
+  {
+    "workload": "pr-kron.sg-long",
+    "group": "arms",
+    "size_mib": 8040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-16T02:42:58.995985+00:00",
+    "last_mtime_utc": "2026-06-16T12:14:59.270558+00:00",
+    "mean_real_seconds": 1275.9693333333335,
+    "mean_user_seconds": 0.015,
+    "mean_sys_seconds": 0.027333333333333334,
+    "boot_starts": [
+      "2026-06-15T21:55:35+00:00"
+    ]
+  },
+  {
+    "workload": "pr-kron.sg-long",
+    "group": "arms",
+    "size_mib": 8041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-19T22:44:26.518109+00:00",
+    "last_mtime_utc": "2026-06-20T08:17:03.665532+00:00",
+    "mean_real_seconds": 1276.787,
+    "mean_user_seconds": 0.013666666666666667,
+    "mean_sys_seconds": 0.029,
+    "boot_starts": [
+      "2026-06-19T21:18:58+00:00"
+    ]
+  },
+  {
+    "workload": "pr-kron.sg-long",
+    "group": "arms",
+    "size_mib": 10040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-17T16:16:56.777179+00:00",
+    "last_mtime_utc": "2026-06-18T01:43:30.407150+00:00",
+    "mean_real_seconds": 1283.8093333333334,
+    "mean_user_seconds": 0.01566666666666667,
+    "mean_sys_seconds": 0.028333333333333332,
+    "boot_starts": [
+      "2026-06-17T14:16:59+00:00"
+    ]
+  },
+  {
+    "workload": "pr-kron.sg-long",
+    "group": "arms",
+    "size_mib": 10041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-18T20:09:15.228177+00:00",
+    "last_mtime_utc": "2026-06-19T04:22:32.975984+00:00",
+    "mean_real_seconds": 1259.3456666666666,
+    "mean_user_seconds": 0.014,
+    "mean_sys_seconds": 0.028333333333333332,
+    "boot_starts": [
+      "2026-06-18T18:26:03+00:00"
+    ]
+  },
+  {
+    "workload": "pr-kron.sg-long",
+    "group": "model",
+    "size_mib": 4040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-13T23:23:25.170514+00:00",
+    "last_mtime_utc": "2026-06-14T08:29:05.874046+00:00",
+    "mean_real_seconds": 1302.7943333333333,
+    "mean_user_seconds": 0.011333333333333332,
+    "mean_sys_seconds": 0.03166666666666667,
+    "boot_starts": [
+      "2026-06-13T22:10:24+00:00"
+    ]
+  },
+  {
+    "workload": "pr-kron.sg-long",
+    "group": "model",
+    "size_mib": 4041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-22T18:01:57.420211+00:00",
+    "last_mtime_utc": "2026-06-23T04:10:57.430972+00:00",
+    "mean_real_seconds": 1297.762,
+    "mean_user_seconds": 0.015666666666666666,
+    "mean_sys_seconds": 0.026333333333333334,
+    "boot_starts": [
+      "2026-06-22T03:55:37+00:00"
+    ]
+  },
+  {
+    "workload": "pr-kron.sg-long",
+    "group": "model",
+    "size_mib": 6040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-15T07:36:13.247303+00:00",
+    "last_mtime_utc": "2026-06-15T17:24:46.125270+00:00",
+    "mean_real_seconds": 1287.006,
+    "mean_user_seconds": 0.01633333333333333,
+    "mean_sys_seconds": 0.025333333333333333,
+    "boot_starts": [
+      "2026-06-15T06:25:57+00:00"
+    ]
+  },
+  {
+    "workload": "pr-kron.sg-long",
+    "group": "model",
+    "size_mib": 6041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-21T15:54:47.821265+00:00",
+    "last_mtime_utc": "2026-06-22T00:27:24.022282+00:00",
+    "mean_real_seconds": 1289.3286666666668,
+    "mean_user_seconds": 0.012,
+    "mean_sys_seconds": 0.03,
+    "boot_starts": [
+      "2026-06-21T14:49:07+00:00"
+    ]
+  },
+  {
+    "workload": "pr-kron.sg-long",
+    "group": "model",
+    "size_mib": 8040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-16T02:20:58.654423+00:00",
+    "last_mtime_utc": "2026-06-16T11:53:03.297713+00:00",
+    "mean_real_seconds": 1273.655,
+    "mean_user_seconds": 0.015000000000000001,
+    "mean_sys_seconds": 0.025333333333333333,
+    "boot_starts": [
+      "2026-06-15T21:55:35+00:00"
+    ]
+  },
+  {
+    "workload": "pr-kron.sg-long",
+    "group": "model",
+    "size_mib": 8041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-19T22:22:20.362259+00:00",
+    "last_mtime_utc": "2026-06-20T07:55:01.660900+00:00",
+    "mean_real_seconds": 1276.5126666666667,
+    "mean_user_seconds": 0.013333333333333334,
+    "mean_sys_seconds": 0.02766666666666667,
+    "boot_starts": [
+      "2026-06-19T21:18:58+00:00"
+    ]
+  },
+  {
+    "workload": "pr-kron.sg-long",
+    "group": "model",
+    "size_mib": 10040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-17T15:54:52.901360+00:00",
+    "last_mtime_utc": "2026-06-18T01:21:14.939191+00:00",
+    "mean_real_seconds": 1313.256,
+    "mean_user_seconds": 0.016333333333333335,
+    "mean_sys_seconds": 0.028,
+    "boot_starts": [
+      "2026-06-17T14:16:59+00:00"
+    ]
+  },
+  {
+    "workload": "pr-kron.sg-long",
+    "group": "model",
+    "size_mib": 10041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-18T19:47:34.322684+00:00",
+    "last_mtime_utc": "2026-06-19T04:00:47.993242+00:00",
+    "mean_real_seconds": 1270.7783333333334,
+    "mean_user_seconds": 0.015333333333333334,
+    "mean_sys_seconds": 0.026333333333333334,
+    "boot_starts": [
+      "2026-06-18T18:26:03+00:00"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg",
+    "group": "model",
+    "size_mib": 6032,
+    "count": 3,
+    "first_mtime_utc": "2026-05-13T17:37:48.108613+00:00",
+    "last_mtime_utc": "2026-05-13T20:55:55.680508+00:00",
+    "mean_real_seconds": 307.7733333333333,
+    "mean_user_seconds": 0.017666666666666667,
+    "mean_sys_seconds": 0.022333333333333334,
+    "boot_starts": [
+      "2026-05-13T16:28:17+00:00"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "arms",
+    "size_mib": 4032,
+    "count": 3,
+    "first_mtime_utc": "2026-05-13T04:45:07.510806+00:00",
+    "last_mtime_utc": "2026-05-13T07:56:36.450224+00:00",
+    "mean_real_seconds": 2713.6266666666666,
+    "mean_user_seconds": 0.018,
+    "mean_sys_seconds": 0.027666666666666666,
+    "boot_starts": [
+      "2026-05-13T01:08:19+00:00"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "arms",
+    "size_mib": 4035,
+    "count": 3,
+    "first_mtime_utc": "2026-05-15T03:41:14.219841+00:00",
+    "last_mtime_utc": "2026-05-15T05:17:54.799973+00:00",
+    "mean_real_seconds": 2850.4249999999997,
+    "mean_user_seconds": 0.014333333333333333,
+    "mean_sys_seconds": 0.029666666666666668,
+    "boot_starts": [
+      "2026-05-14T07:30:49+00:00"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "arms",
+    "size_mib": 4040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-14T01:38:42.338641+00:00",
+    "last_mtime_utc": "2026-06-14T10:45:45.109894+00:00",
+    "mean_real_seconds": 2587.799,
+    "mean_user_seconds": 0.017,
+    "mean_sys_seconds": 0.028666666666666667,
+    "boot_starts": [
+      "2026-06-13T22:10:24+00:00"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "arms",
+    "size_mib": 4041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-22T20:17:38.311588+00:00",
+    "last_mtime_utc": "2026-06-23T06:23:14.944335+00:00",
+    "mean_real_seconds": 2559.891666666667,
+    "mean_user_seconds": 0.014666666666666666,
+    "mean_sys_seconds": 0.03066666666666667,
+    "boot_starts": [
+      "2026-06-22T03:55:37+00:00"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "arms",
+    "size_mib": 6032,
+    "count": 3,
+    "first_mtime_utc": "2026-05-14T01:32:33.094131+00:00",
+    "last_mtime_utc": "2026-05-14T03:42:45.907861+00:00",
+    "mean_real_seconds": 2791.2616666666668,
+    "mean_user_seconds": 0.016333333333333335,
+    "mean_sys_seconds": 0.02766666666666667,
+    "boot_starts": [
+      "2026-05-13T16:28:17+00:00"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "arms",
+    "size_mib": 6040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-15T09:46:58.040238+00:00",
+    "last_mtime_utc": "2026-06-15T19:34:08.280648+00:00",
+    "mean_real_seconds": 2482.627,
+    "mean_user_seconds": 0.013666666666666666,
+    "mean_sys_seconds": 0.03166666666666667,
+    "boot_starts": [
+      "2026-06-15T06:25:57+00:00"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "arms",
+    "size_mib": 6041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-21T18:04:49.835076+00:00",
+    "last_mtime_utc": "2026-06-22T02:36:36.720910+00:00",
+    "mean_real_seconds": 2480.3160000000003,
+    "mean_user_seconds": 0.011666666666666667,
+    "mean_sys_seconds": 0.03333333333333333,
+    "boot_starts": [
+      "2026-06-21T14:49:07+00:00"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "arms",
+    "size_mib": 8040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-16T04:28:08.060231+00:00",
+    "last_mtime_utc": "2026-06-16T14:18:04.499397+00:00",
+    "mean_real_seconds": 2412.4363333333336,
+    "mean_user_seconds": 0.013666666666666667,
+    "mean_sys_seconds": 0.03233333333333333,
+    "boot_starts": [
+      "2026-06-15T21:55:35+00:00"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "arms",
+    "size_mib": 8041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-20T00:29:28.821638+00:00",
+    "last_mtime_utc": "2026-06-20T10:01:27.639781+00:00",
+    "mean_real_seconds": 2414.5736666666667,
+    "mean_user_seconds": 0.014,
+    "mean_sys_seconds": 0.029666666666666668,
+    "boot_starts": [
+      "2026-06-19T21:18:58+00:00"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "arms",
+    "size_mib": 10040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-17T17:59:54.252650+00:00",
+    "last_mtime_utc": "2026-06-18T03:26:26.347530+00:00",
+    "mean_real_seconds": 2404.1536666666666,
+    "mean_user_seconds": 0.016,
+    "mean_sys_seconds": 0.028666666666666667,
+    "boot_starts": [
+      "2026-06-17T14:16:59+00:00"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "arms",
+    "size_mib": 10041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-18T21:51:38.175411+00:00",
+    "last_mtime_utc": "2026-06-19T06:04:57.448885+00:00",
+    "mean_real_seconds": 2387.9,
+    "mean_user_seconds": 0.017333333333333333,
+    "mean_sys_seconds": 0.027333333333333334,
+    "boot_starts": [
+      "2026-06-18T18:26:03+00:00"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "model",
+    "size_mib": 4032,
+    "count": 3,
+    "first_mtime_utc": "2026-05-13T03:59:10.792686+00:00",
+    "last_mtime_utc": "2026-05-13T07:10:40.531224+00:00",
+    "mean_real_seconds": 2897.916666666667,
+    "mean_user_seconds": 0.015666666666666666,
+    "mean_sys_seconds": 0.02666666666666667,
+    "boot_starts": [
+      "2026-05-13T01:08:19+00:00"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "model",
+    "size_mib": 4040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-14T00:54:59.125174+00:00",
+    "last_mtime_utc": "2026-06-14T10:01:01.164402+00:00",
+    "mean_real_seconds": 2692.480666666667,
+    "mean_user_seconds": 0.016,
+    "mean_sys_seconds": 0.031,
+    "boot_starts": [
+      "2026-06-13T22:10:24+00:00"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "model",
+    "size_mib": 4041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-22T19:34:15.424006+00:00",
+    "last_mtime_utc": "2026-06-23T05:39:35.290448+00:00",
+    "mean_real_seconds": 2672.1563333333334,
+    "mean_user_seconds": 0.014,
+    "mean_sys_seconds": 0.03333333333333333,
+    "boot_starts": [
+      "2026-06-22T03:55:37+00:00"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "model",
+    "size_mib": 6032,
+    "count": 3,
+    "first_mtime_utc": "2026-05-13T18:55:59.113220+00:00",
+    "last_mtime_utc": "2026-05-13T22:13:54.547087+00:00",
+    "mean_real_seconds": 2827.016666666667,
+    "mean_user_seconds": 0.015333333333333334,
+    "mean_sys_seconds": 0.028333333333333335,
+    "boot_starts": [
+      "2026-05-13T16:28:17+00:00"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "model",
+    "size_mib": 6040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-15T09:04:59.564293+00:00",
+    "last_mtime_utc": "2026-06-15T18:51:49.234037+00:00",
+    "mean_real_seconds": 2559.1323333333335,
+    "mean_user_seconds": 0.014,
+    "mean_sys_seconds": 0.031,
+    "boot_starts": [
+      "2026-06-15T06:25:57+00:00"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "model",
+    "size_mib": 6041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-21T17:22:29.423931+00:00",
+    "last_mtime_utc": "2026-06-22T01:54:31.545498+00:00",
+    "mean_real_seconds": 2557.068,
+    "mean_user_seconds": 0.014666666666666666,
+    "mean_sys_seconds": 0.03166666666666667,
+    "boot_starts": [
+      "2026-06-21T14:49:07+00:00"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "model",
+    "size_mib": 8040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-16T03:47:12.728782+00:00",
+    "last_mtime_utc": "2026-06-16T13:37:04.448111+00:00",
+    "mean_real_seconds": 2867.239666666667,
+    "mean_user_seconds": 0.015333333333333334,
+    "mean_sys_seconds": 0.028666666666666667,
+    "boot_starts": [
+      "2026-06-15T21:55:35+00:00"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "model",
+    "size_mib": 8041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-19T23:48:22.742405+00:00",
+    "last_mtime_utc": "2026-06-20T09:20:35.057675+00:00",
+    "mean_real_seconds": 2485.2870000000003,
+    "mean_user_seconds": 0.017,
+    "mean_sys_seconds": 0.028666666666666667,
+    "boot_starts": [
+      "2026-06-19T21:18:58+00:00"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "model",
+    "size_mib": 10040,
+    "count": 3,
+    "first_mtime_utc": "2026-06-17T17:19:11.007280+00:00",
+    "last_mtime_utc": "2026-06-18T02:45:41.527215+00:00",
+    "mean_real_seconds": 2414.9693333333335,
+    "mean_user_seconds": 0.016,
+    "mean_sys_seconds": 0.03233333333333333,
+    "boot_starts": [
+      "2026-06-17T14:16:59+00:00"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "model",
+    "size_mib": 10041,
+    "count": 3,
+    "first_mtime_utc": "2026-06-18T21:11:02.243810+00:00",
+    "last_mtime_utc": "2026-06-19T05:24:17.741442+00:00",
+    "mean_real_seconds": 2394.468,
+    "mean_user_seconds": 0.012333333333333333,
+    "mean_sys_seconds": 0.03266666666666667,
+    "boot_starts": [
+      "2026-06-18T18:26:03+00:00"
+    ]
+  }
+]

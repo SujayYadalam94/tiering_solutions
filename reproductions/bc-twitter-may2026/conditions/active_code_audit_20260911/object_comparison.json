@@ -1,0 +1,47 @@
+{
+  "may04_to_may14": {
+    "arms_kernel.cpp": false,
+    "pebs_scan_thread.cpp": true,
+    "pagemap_scan_thread.cpp": true,
+    "migration_worker.cpp": true,
+    "policy_thread.cpp": true,
+    "timer.cpp": true,
+    "hook/hook.cpp": true,
+    "groups.cpp": true,
+    "page.cpp": false,
+    "logging.cpp": true,
+    "model.cpp": true
+  },
+  "may14_to_current": {
+    "arms_kernel.cpp": false,
+    "pebs_scan_thread.cpp": true,
+    "pagemap_scan_thread.cpp": true,
+    "migration_worker.cpp": true,
+    "policy_thread.cpp": true,
+    "timer.cpp": true,
+    "hook/hook.cpp": false,
+    "groups.cpp": true,
+    "page.cpp": true,
+    "logging.cpp": false,
+    "model.cpp": false
+  },
+  "existing_to_fresh": {
+    "arms_kernel.cpp": true,
+    "pebs_scan_thread.cpp": true,
+    "pagemap_scan_thread.cpp": true,
+    "migration_worker.cpp": true,
+    "policy_thread.cpp": true,
+    "timer.cpp": true,
+    "hook/hook.cpp": true,
+    "groups.cpp": true,
+    "page.cpp": false,
+    "logging.cpp": true,
+    "model.cpp": true,
+    "logging_parquet.cpp": true
+  },
+  "fresh_libraries": {
+    "may04": "f845a9711cfa2744eaa135a77f9954a8b4250239b2cb431aa4b01ac093da3615",
+    "may14": "af95cb5cf7d224cc8f5cc6c1e5917bb74e1adbbae999f382810d61b3f2f65cdd",
+    "current": "286e7afc54abff2dd719adcd59b2f6cec91921c21b987be0c3b3fa0524963ca8"
+  }
+}

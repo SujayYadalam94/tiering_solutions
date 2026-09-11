@@ -1,0 +1,501 @@
+{
+  "utc": "2026-09-09T19:11:06.692284+00:00",
+  "scope": "Read-only current values and retained history; no workloads or settings changed.",
+  "controls": {
+    "/sys/kernel/mm/transparent_hugepage/hugepages-1024kB/enabled": "always inherit madvise [never]",
+    "/sys/kernel/mm/transparent_hugepage/hugepages-128kB/enabled": "always inherit madvise [never]",
+    "/sys/kernel/mm/transparent_hugepage/hugepages-16kB/enabled": "always inherit madvise [never]",
+    "/sys/kernel/mm/transparent_hugepage/hugepages-2048kB/enabled": "always [inherit] madvise never",
+    "/sys/kernel/mm/transparent_hugepage/hugepages-256kB/enabled": "always inherit madvise [never]",
+    "/sys/kernel/mm/transparent_hugepage/hugepages-32kB/enabled": "always inherit madvise [never]",
+    "/sys/kernel/mm/transparent_hugepage/hugepages-512kB/enabled": "always inherit madvise [never]",
+    "/sys/kernel/mm/transparent_hugepage/hugepages-64kB/enabled": "always inherit madvise [never]",
+    "/sys/kernel/mm/transparent_hugepage/enabled": "[always] madvise never",
+    "/sys/kernel/mm/transparent_hugepage/defrag": "[always] defer defer+madvise madvise never",
+    "/sys/kernel/mm/transparent_hugepage/shrink_underused": "1",
+    "/sys/kernel/mm/transparent_hugepage/use_zero_page": "1",
+    "/sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_none": "511",
+    "/sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_swap": "64",
+    "/sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_shared": "256"
+  },
+  "shell": [
+    {
+      "path": "/users/zimooo2/.bash_history-09434.tmp",
+      "sha256": "d574a26638fdc557daf8af266424e47b8f2209d3afa3e36ec28fed2b339738e4",
+      "matches": [
+        {
+          "line": 252,
+          "text": "sudo cat /sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_none"
+        },
+        {
+          "line": 253,
+          "text": "sudo cat /sys/kernel/mm/transparent_hugepage/shrink_underused"
+        },
+        {
+          "line": 256,
+          "text": "sudo cadt /sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_none"
+        },
+        {
+          "line": 257,
+          "text": "sudo cat /sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_none"
+        },
+        {
+          "line": 259,
+          "text": "sudo cat echo 1 | sudo tee /sys/kernel/mm/transparent_hugepage/use_zero_page"
+        },
+        {
+          "line": 260,
+          "text": "sudo cat /sys/kernel/mm/transparent_hugepage/use_zero_page"
+        },
+        {
+          "line": 261,
+          "text": "sudo cat sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_none"
+        },
+        {
+          "line": 262,
+          "text": "sudo cat /sys/kernel/mm/transparent_hugepage/shrink_underused"
+        },
+        {
+          "line": 1343,
+          "text": "ls /sys/kernel/mm/transparent_hugepage/hugepages-128kB/"
+        },
+        {
+          "line": 1344,
+          "text": "cat /sys/kernel/mm/transparent_hugepage/hugepages-128kB/enabled "
+        },
+        {
+          "line": 1345,
+          "text": "cat /sys/kernel/mm/transparent_hugepage/hugepages-2048kB/enabled "
+        }
+      ]
+    },
+    {
+      "path": "/users/zimooo2/.bash_history-05835.tmp",
+      "sha256": "4d63f488bad28262e29a54d105329399511d420947888ee7c37d972b960e253c",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.bash_history",
+      "sha256": "d2ff07f66992528f446cba1492c6c67a41d8f91decbd4d8e6623165e3098d844",
+      "matches": []
+    }
+  ],
+  "editor_hits": [
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/IlY9.sh",
+      "utc": "2026-03-13T20:27:28.171000+00:00",
+      "line": 61,
+      "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_none 1024"
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/IlY9.sh",
+      "utc": "2026-03-13T20:27:28.171000+00:00",
+      "line": 62,
+      "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_swap 1024"
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/IlY9.sh",
+      "utc": "2026-03-13T20:27:28.171000+00:00",
+      "line": 63,
+      "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_shared 1024"
+    }
+  ],
+  "editor_files_checked": 280,
+  "all_refs_matches": [
+    "8ae72487a 2022-02-04T01:23:33-05:00 initial commit (linux-5.15.19)"
+  ],
+  "study_counters": [
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T175404Z-425061/results/20260909T175404Z-425061/01-may07_arms/after.json",
+      "case": "01-may07_arms",
+      "phase": "after",
+      "knob": "none",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9738592,
+        "thp_scan_exceed_swap_pte": 2496,
+        "thp_scan_exceed_share_pte": 177591
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T175404Z-425061/results/20260909T175404Z-425061/01-may07_arms/before.json",
+      "case": "01-may07_arms",
+      "phase": "before",
+      "knob": "none",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9723979,
+        "thp_scan_exceed_swap_pte": 2424,
+        "thp_scan_exceed_share_pte": 177243
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T175404Z-425061/results/20260909T175404Z-425061/01-may07_model/after.json",
+      "case": "01-may07_model",
+      "phase": "after",
+      "knob": "none",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9748509,
+        "thp_scan_exceed_swap_pte": 2496,
+        "thp_scan_exceed_share_pte": 178415
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T175404Z-425061/results/20260909T175404Z-425061/01-may07_model/before.json",
+      "case": "01-may07_model",
+      "phase": "before",
+      "knob": "none",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9744700,
+        "thp_scan_exceed_swap_pte": 2496,
+        "thp_scan_exceed_share_pte": 177829
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T175946Z-432507/results/20260909T175946Z-432507/01-may07_arms/after.json",
+      "case": "01-may07_arms",
+      "phase": "after",
+      "knob": "lowmem32",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9761919,
+        "thp_scan_exceed_swap_pte": 2578,
+        "thp_scan_exceed_share_pte": 179152
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T175946Z-432507/results/20260909T175946Z-432507/01-may07_arms/before.json",
+      "case": "01-may07_arms",
+      "phase": "before",
+      "knob": "lowmem32",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9753512,
+        "thp_scan_exceed_swap_pte": 2496,
+        "thp_scan_exceed_share_pte": 178922
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T175946Z-432507/results/20260909T175946Z-432507/01-may07_model/after.json",
+      "case": "01-may07_model",
+      "phase": "after",
+      "knob": "lowmem32",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9768527,
+        "thp_scan_exceed_swap_pte": 2593,
+        "thp_scan_exceed_share_pte": 179694
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T175946Z-432507/results/20260909T175946Z-432507/01-may07_model/before.json",
+      "case": "01-may07_model",
+      "phase": "before",
+      "knob": "lowmem32",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9765453,
+        "thp_scan_exceed_swap_pte": 2578,
+        "thp_scan_exceed_share_pte": 179316
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T180532Z-439108/results/20260909T180533Z-439108/01-may07_arms/after.json",
+      "case": "01-may07_arms",
+      "phase": "after",
+      "knob": "lowmem4",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9798547,
+        "thp_scan_exceed_swap_pte": 2733,
+        "thp_scan_exceed_share_pte": 180342
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T180532Z-439108/results/20260909T180533Z-439108/01-may07_arms/before.json",
+      "case": "01-may07_arms",
+      "phase": "before",
+      "knob": "lowmem4",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9780596,
+        "thp_scan_exceed_swap_pte": 2593,
+        "thp_scan_exceed_share_pte": 180126
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T180532Z-439108/results/20260909T180533Z-439108/01-may07_model/after.json",
+      "case": "01-may07_model",
+      "phase": "after",
+      "knob": "lowmem4",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9816810,
+        "thp_scan_exceed_swap_pte": 2803,
+        "thp_scan_exceed_share_pte": 181218
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T180532Z-439108/results/20260909T180533Z-439108/01-may07_model/before.json",
+      "case": "01-may07_model",
+      "phase": "before",
+      "knob": "lowmem4",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9802596,
+        "thp_scan_exceed_swap_pte": 2733,
+        "thp_scan_exceed_share_pte": 180788
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T181201Z-445918/results/20260909T181201Z-445918/01-may07_arms/after.json",
+      "case": "01-may07_arms",
+      "phase": "after",
+      "knob": "watermark_boost0",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9837089,
+        "thp_scan_exceed_swap_pte": 2899,
+        "thp_scan_exceed_share_pte": 182751
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T181201Z-445918/results/20260909T181201Z-445918/01-may07_arms/before.json",
+      "case": "01-may07_arms",
+      "phase": "before",
+      "knob": "watermark_boost0",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9828208,
+        "thp_scan_exceed_swap_pte": 2803,
+        "thp_scan_exceed_share_pte": 181994
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T181201Z-445918/results/20260909T181201Z-445918/01-may07_model/after.json",
+      "case": "01-may07_model",
+      "phase": "after",
+      "knob": "watermark_boost0",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9844144,
+        "thp_scan_exceed_swap_pte": 2899,
+        "thp_scan_exceed_share_pte": 185033
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T181201Z-445918/results/20260909T181201Z-445918/01-may07_model/before.json",
+      "case": "01-may07_model",
+      "phase": "before",
+      "knob": "watermark_boost0",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9840545,
+        "thp_scan_exceed_swap_pte": 2899,
+        "thp_scan_exceed_share_pte": 183673
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T181744Z-453115/results/20260909T181745Z-453115/01-may07_arms/after.json",
+      "case": "01-may07_arms",
+      "phase": "after",
+      "knob": "min_free16m",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9863682,
+        "thp_scan_exceed_swap_pte": 2984,
+        "thp_scan_exceed_share_pte": 187303
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T181744Z-453115/results/20260909T181745Z-453115/01-may07_arms/before.json",
+      "case": "01-may07_arms",
+      "phase": "before",
+      "knob": "min_free16m",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9850705,
+        "thp_scan_exceed_swap_pte": 2899,
+        "thp_scan_exceed_share_pte": 186365
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T181744Z-453115/results/20260909T181745Z-453115/01-may07_model/after.json",
+      "case": "01-may07_model",
+      "phase": "after",
+      "knob": "min_free16m",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9869190,
+        "thp_scan_exceed_swap_pte": 2984,
+        "thp_scan_exceed_share_pte": 189347
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T181744Z-453115/results/20260909T181745Z-453115/01-may07_model/before.json",
+      "case": "01-may07_model",
+      "phase": "before",
+      "knob": "min_free16m",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9867707,
+        "thp_scan_exceed_swap_pte": 2984,
+        "thp_scan_exceed_share_pte": 187683
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T182328Z-460094/results/20260909T182328Z-460094/01-may07_arms/after.json",
+      "case": "01-may07_arms",
+      "phase": "after",
+      "knob": "khugepaged_pages4096",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9890064,
+        "thp_scan_exceed_swap_pte": 3032,
+        "thp_scan_exceed_share_pte": 191809
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T182328Z-460094/results/20260909T182328Z-460094/01-may07_arms/before.json",
+      "case": "01-may07_arms",
+      "phase": "before",
+      "knob": "khugepaged_pages4096",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9883374,
+        "thp_scan_exceed_swap_pte": 2984,
+        "thp_scan_exceed_share_pte": 191032
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T182328Z-460094/results/20260909T182328Z-460094/01-may07_model/after.json",
+      "case": "01-may07_model",
+      "phase": "after",
+      "knob": "khugepaged_pages4096",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9903933,
+        "thp_scan_exceed_swap_pte": 3032,
+        "thp_scan_exceed_share_pte": 192622
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T182328Z-460094/results/20260909T182328Z-460094/01-may07_model/before.json",
+      "case": "01-may07_model",
+      "phase": "before",
+      "knob": "khugepaged_pages4096",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9897962,
+        "thp_scan_exceed_swap_pte": 3032,
+        "thp_scan_exceed_share_pte": 192338
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T182911Z-468305/results/20260909T182911Z-468305/01-may07_arms/after.json",
+      "case": "01-may07_arms",
+      "phase": "after",
+      "knob": "none",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9930823,
+        "thp_scan_exceed_swap_pte": 3098,
+        "thp_scan_exceed_share_pte": 194158
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T182911Z-468305/results/20260909T182911Z-468305/01-may07_arms/before.json",
+      "case": "01-may07_arms",
+      "phase": "before",
+      "knob": "none",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9917807,
+        "thp_scan_exceed_swap_pte": 3032,
+        "thp_scan_exceed_share_pte": 193673
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T182911Z-468305/results/20260909T182911Z-468305/01-may07_model/after.json",
+      "case": "01-may07_model",
+      "phase": "after",
+      "knob": "none",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9952434,
+        "thp_scan_exceed_swap_pte": 3098,
+        "thp_scan_exceed_share_pte": 194941
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T182911Z-468305/results/20260909T182911Z-468305/01-may07_model/before.json",
+      "case": "01-may07_model",
+      "phase": "before",
+      "knob": "none",
+      "counters": {
+        "thp_underused_split_page": 0,
+        "thp_zero_page_alloc": 1,
+        "thp_zero_page_alloc_failed": 0,
+        "thp_scan_exceed_none_pte": 9935845,
+        "thp_scan_exceed_swap_pte": 3098,
+        "thp_scan_exceed_share_pte": 194473
+      }
+    }
+  ]
+}

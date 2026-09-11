@@ -1,0 +1,288 @@
+[
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "arms",
+    "early_size_label": 4032,
+    "late_size_label": 4040,
+    "early_mean_seconds": 711.096,
+    "late_mean_seconds": 625.3146666666667,
+    "delta_seconds": -85.78133333333335,
+    "delta_percent": -12.063256344197315,
+    "early_boot_starts": [
+      "2026-05-12T17:06:17+00:00"
+    ],
+    "late_boot_starts": [
+      "2026-06-13T22:10:24+00:00"
+    ],
+    "early_files": [
+      "times/c220g5/arms/bc-twitter.sg-long/4032MiB_run2.time",
+      "times/c220g5/arms/bc-twitter.sg-long/4032MiB_run3.time",
+      "times/c220g5/arms/bc-twitter.sg-long/4032MiB_run1.time"
+    ],
+    "late_files": [
+      "times/c220g5/arms/bc-twitter.sg-long/4040MiB_run1.time",
+      "times/c220g5/arms/bc-twitter.sg-long/4040MiB_run2.time",
+      "times/c220g5/arms/bc-twitter.sg-long/4040MiB_run3.time"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "model",
+    "early_size_label": 4032,
+    "late_size_label": 4040,
+    "early_mean_seconds": 632.7456666666667,
+    "late_mean_seconds": 614.2376666666667,
+    "delta_seconds": -18.508000000000038,
+    "delta_percent": -2.9250299093316667,
+    "early_boot_starts": [
+      "2026-05-12T17:06:17+00:00"
+    ],
+    "late_boot_starts": [
+      "2026-06-13T22:10:24+00:00"
+    ],
+    "early_files": [
+      "times/c220g5/model/bc-twitter.sg-long/4032MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "times/c220g5/model/bc-twitter.sg-long/4032MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "times/c220g5/model/bc-twitter.sg-long/4032MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time"
+    ],
+    "late_files": [
+      "times/c220g5/model/bc-twitter.sg-long/4040MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "times/c220g5/model/bc-twitter.sg-long/4040MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "times/c220g5/model/bc-twitter.sg-long/4040MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "arms",
+    "early_size_label": 4035,
+    "late_size_label": 4040,
+    "early_mean_seconds": 808.5566666666667,
+    "late_mean_seconds": 625.3146666666667,
+    "delta_seconds": -183.24200000000008,
+    "delta_percent": -22.662851913079695,
+    "early_boot_starts": [
+      "2026-05-14T07:30:49+00:00"
+    ],
+    "late_boot_starts": [
+      "2026-06-13T22:10:24+00:00"
+    ],
+    "early_files": [
+      "times/c220g5/arms/bc-twitter.sg-long/4035MiB_run1.time",
+      "times/c220g5/arms/bc-twitter.sg-long/4035MiB_run2.time",
+      "times/c220g5/arms/bc-twitter.sg-long/4035MiB_run3.time"
+    ],
+    "late_files": [
+      "times/c220g5/arms/bc-twitter.sg-long/4040MiB_run1.time",
+      "times/c220g5/arms/bc-twitter.sg-long/4040MiB_run2.time",
+      "times/c220g5/arms/bc-twitter.sg-long/4040MiB_run3.time"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "model",
+    "early_size_label": 4035,
+    "late_size_label": 4040,
+    "early_mean_seconds": 744.401,
+    "late_mean_seconds": 614.2376666666667,
+    "delta_seconds": -130.1633333333333,
+    "delta_percent": -17.4856472967303,
+    "early_boot_starts": [
+      "2026-05-14T07:30:49+00:00"
+    ],
+    "late_boot_starts": [
+      "2026-06-13T22:10:24+00:00"
+    ],
+    "early_files": [
+      "times/c220g5/model/bc-twitter.sg-long/4035MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "times/c220g5/model/bc-twitter.sg-long/4035MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "times/c220g5/model/bc-twitter.sg-long/4035MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time"
+    ],
+    "late_files": [
+      "times/c220g5/model/bc-twitter.sg-long/4040MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "times/c220g5/model/bc-twitter.sg-long/4040MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "times/c220g5/model/bc-twitter.sg-long/4040MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "arms",
+    "early_size_label": 4032,
+    "late_size_label": 4040,
+    "early_mean_seconds": 2713.6266666666666,
+    "late_mean_seconds": 2587.799,
+    "delta_seconds": -125.82766666666657,
+    "delta_percent": -4.636882007841903,
+    "early_boot_starts": [
+      "2026-05-13T01:08:19+00:00"
+    ],
+    "late_boot_starts": [
+      "2026-06-13T22:10:24+00:00"
+    ],
+    "early_files": [
+      "times/c220g5/arms/pr-twitter.sg-long/4032MiB_run1.time",
+      "times/c220g5/arms/pr-twitter.sg-long/4032MiB_run2.time",
+      "times/c220g5/arms/pr-twitter.sg-long/4032MiB_run3.time"
+    ],
+    "late_files": [
+      "times/c220g5/arms/pr-twitter.sg-long/4040MiB_run1.time",
+      "times/c220g5/arms/pr-twitter.sg-long/4040MiB_run2.time",
+      "times/c220g5/arms/pr-twitter.sg-long/4040MiB_run3.time"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "model",
+    "early_size_label": 4032,
+    "late_size_label": 4040,
+    "early_mean_seconds": 2897.916666666667,
+    "late_mean_seconds": 2692.480666666667,
+    "delta_seconds": -205.43600000000015,
+    "delta_percent": -7.089092739036673,
+    "early_boot_starts": [
+      "2026-05-13T01:08:19+00:00"
+    ],
+    "late_boot_starts": [
+      "2026-06-13T22:10:24+00:00"
+    ],
+    "early_files": [
+      "times/c220g5/model/pr-twitter.sg-long/4032MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+      "times/c220g5/model/pr-twitter.sg-long/4032MiB_run2_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+      "times/c220g5/model/pr-twitter.sg-long/4032MiB_run3_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time"
+    ],
+    "late_files": [
+      "times/c220g5/model/pr-twitter.sg-long/4040MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+      "times/c220g5/model/pr-twitter.sg-long/4040MiB_run2_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+      "times/c220g5/model/pr-twitter.sg-long/4040MiB_run3_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "arms",
+    "early_size_label": 4035,
+    "late_size_label": 4040,
+    "early_mean_seconds": 2850.4249999999997,
+    "late_mean_seconds": 2587.799,
+    "delta_seconds": -262.62599999999975,
+    "delta_percent": -9.213573414490817,
+    "early_boot_starts": [
+      "2026-05-14T07:30:49+00:00"
+    ],
+    "late_boot_starts": [
+      "2026-06-13T22:10:24+00:00"
+    ],
+    "early_files": [
+      "times/c220g5/arms/pr-twitter.sg-long/4035MiB_run1.time",
+      "times/c220g5/arms/pr-twitter.sg-long/4035MiB_run2.time",
+      "times/c220g5/arms/pr-twitter.sg-long/4035MiB_run3.time"
+    ],
+    "late_files": [
+      "times/c220g5/arms/pr-twitter.sg-long/4040MiB_run1.time",
+      "times/c220g5/arms/pr-twitter.sg-long/4040MiB_run2.time",
+      "times/c220g5/arms/pr-twitter.sg-long/4040MiB_run3.time"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "arms",
+    "early_size_label": 6032,
+    "late_size_label": 6040,
+    "early_mean_seconds": 709.3923333333333,
+    "late_mean_seconds": 607.5343333333334,
+    "delta_seconds": -101.85799999999995,
+    "delta_percent": -14.358486159750806,
+    "early_boot_starts": [
+      "2026-05-13T16:28:17+00:00"
+    ],
+    "late_boot_starts": [
+      "2026-06-15T06:25:57+00:00"
+    ],
+    "early_files": [
+      "times/c220g5/arms/bc-twitter.sg-long/6032MiB_run1.time",
+      "times/c220g5/arms/bc-twitter.sg-long/6032MiB_run2.time",
+      "times/c220g5/arms/bc-twitter.sg-long/6032MiB_run3.time"
+    ],
+    "late_files": [
+      "times/c220g5/arms/bc-twitter.sg-long/6040MiB_run1.time",
+      "times/c220g5/arms/bc-twitter.sg-long/6040MiB_run2.time",
+      "times/c220g5/arms/bc-twitter.sg-long/6040MiB_run3.time"
+    ]
+  },
+  {
+    "workload": "bc-twitter.sg-long",
+    "group": "model",
+    "early_size_label": 6032,
+    "late_size_label": 6040,
+    "early_mean_seconds": 692.7046666666666,
+    "late_mean_seconds": 613.3823333333333,
+    "delta_seconds": -79.32233333333329,
+    "delta_percent": -11.451104222386254,
+    "early_boot_starts": [
+      "2026-05-13T16:28:17+00:00"
+    ],
+    "late_boot_starts": [
+      "2026-06-15T06:25:57+00:00"
+    ],
+    "early_files": [
+      "times/c220g5/model/bc-twitter.sg-long/6032MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "times/c220g5/model/bc-twitter.sg-long/6032MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "times/c220g5/model/bc-twitter.sg-long/6032MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time"
+    ],
+    "late_files": [
+      "times/c220g5/model/bc-twitter.sg-long/6040MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "times/c220g5/model/bc-twitter.sg-long/6040MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "times/c220g5/model/bc-twitter.sg-long/6040MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "arms",
+    "early_size_label": 6032,
+    "late_size_label": 6040,
+    "early_mean_seconds": 2791.2616666666668,
+    "late_mean_seconds": 2482.627,
+    "delta_seconds": -308.6346666666668,
+    "delta_percent": -11.057174264684377,
+    "early_boot_starts": [
+      "2026-05-13T16:28:17+00:00"
+    ],
+    "late_boot_starts": [
+      "2026-06-15T06:25:57+00:00"
+    ],
+    "early_files": [
+      "times/c220g5/arms/pr-twitter.sg-long/6032MiB_run1.time",
+      "times/c220g5/arms/pr-twitter.sg-long/6032MiB_run2.time",
+      "times/c220g5/arms/pr-twitter.sg-long/6032MiB_run3.time"
+    ],
+    "late_files": [
+      "times/c220g5/arms/pr-twitter.sg-long/6040MiB_run1.time",
+      "times/c220g5/arms/pr-twitter.sg-long/6040MiB_run2.time",
+      "times/c220g5/arms/pr-twitter.sg-long/6040MiB_run3.time"
+    ]
+  },
+  {
+    "workload": "pr-twitter.sg-long",
+    "group": "model",
+    "early_size_label": 6032,
+    "late_size_label": 6040,
+    "early_mean_seconds": 2827.016666666667,
+    "late_mean_seconds": 2559.1323333333335,
+    "delta_seconds": -267.8843333333334,
+    "delta_percent": -9.475866785362664,
+    "early_boot_starts": [
+      "2026-05-13T16:28:17+00:00"
+    ],
+    "late_boot_starts": [
+      "2026-06-15T06:25:57+00:00"
+    ],
+    "early_files": [
+      "times/c220g5/model/pr-twitter.sg-long/6032MiB_run2_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+      "times/c220g5/model/pr-twitter.sg-long/6032MiB_run3_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+      "times/c220g5/model/pr-twitter.sg-long/6032MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time"
+    ],
+    "late_files": [
+      "times/c220g5/model/pr-twitter.sg-long/6040MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+      "times/c220g5/model/pr-twitter.sg-long/6040MiB_run2_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+      "times/c220g5/model/pr-twitter.sg-long/6040MiB_run3_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time"
+    ]
+  }
+]

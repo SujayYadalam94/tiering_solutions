@@ -1,0 +1,9 @@
+In file included from /users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/change_point/model_compile_check/headers/logging.h:15,
+                 from model.cpp:9:
+/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/change_point/model_compile_check/headers/defs.h:280:67: note: ‘#pragma message: BUILD INFO: BASE_MIGRATION_COST_MULTIPLIER = 1.5’
+  280 | #pragma message("BUILD INFO: BASE_MIGRATION_COST_MULTIPLIER = 1.5")
+      |                                                                   ^
+model.cpp: In function ‘void model_predict_batch_impl(std::vector<data_row>&, const std::vector<std::shared_ptr<page_info> >&, bool)’:
+model.cpp:100:18: warning: unused variable ‘discount_scale’ [-Wunused-variable]
+  100 |     const double discount_scale = model_discount_scale();
+      |                  ^~~~~~~~~~~~~~

@@ -1,0 +1,311 @@
+{
+  "captured_utc": "2026-09-09T16:52:03.199178+00:00",
+  "scope": "Read-only source/call-path audit; source contents do not establish successful historical execution.",
+  "versions": {
+    "may04_git": {
+      "revision": "8d6a8bc66",
+      "files": {
+        "run_all_measurements.sh": {
+          "exists": true,
+          "sha256": "7156c440495d247c38a3a1d6821bf280e7750315dd6f614b190a950fd0a59596",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/may04_git/run_all_measurements.sh"
+        },
+        "run_all_measurements_long.sh": {
+          "exists": false
+        },
+        "measurement_arms.sh": {
+          "exists": true,
+          "sha256": "f889b862d163ee970eb659ce63a9a98c148c097485af4c884c275aa30255b71d",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/may04_git/measurement_arms.sh"
+        },
+        "measurement_model.sh": {
+          "exists": true,
+          "sha256": "d0713e2951e7beac6a0accd0b59c9fbb55905ec09fe9955f2ebf1aaf276e4ff4",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/may04_git/measurement_model.sh"
+        },
+        "measurement_common.sh": {
+          "exists": true,
+          "sha256": "77c0f076e9b82aaf62f585fccfd41c961248fcb9ee03ab1aeb92bc2d72ffe507",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/may04_git/measurement_common.sh"
+        },
+        "measurement_settings.sh": {
+          "exists": false
+        },
+        "setup.sh": {
+          "exists": true,
+          "sha256": "3365dffcd8de8c203ef769b097181fc49e87bbbaf8cf127f5ae48b04c5d4e904",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/may04_git/setup.sh"
+        },
+        "defrag.sh": {
+          "exists": true,
+          "sha256": "2017ff1c78b30c2e4cdbda731d38930fde353f8d0e4da8e842fda5f28cc2da2e",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/may04_git/defrag.sh"
+        },
+        "unsetup.sh": {
+          "exists": true,
+          "sha256": "0b5137124566d9dd4410b1428701f71f66d80bec22ed4a405c8f6e92317767f5",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/may04_git/unsetup.sh"
+        },
+        "measurement_workloads.sh": {
+          "exists": true,
+          "sha256": "5a47e993289b5262f9f33e75439efff5199f11ce1a835e4c8e3b9f15fe43861f",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/may04_git/measurement_workloads.sh"
+        },
+        "measurement_workloads_long.sh": {
+          "exists": false
+        },
+        "workloads/bc-twitter.sg.sh": {
+          "exists": true,
+          "sha256": "c7a21c24051412d6222a8ce752b0c21523700acb27d456e4a5ac087de2a722c7",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/may04_git/workloads/bc-twitter.sg.sh"
+        },
+        "workloads/bc-twitter.sg-long.sh": {
+          "exists": false
+        }
+      }
+    },
+    "may14_git": {
+      "revision": "4da3d6c3f",
+      "files": {
+        "run_all_measurements.sh": {
+          "exists": true,
+          "sha256": "b6688b0a4a8ecae6840a64fc9fbc72673a651b482fc27f78fe6edd3adfb5cd33",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/may14_git/run_all_measurements.sh"
+        },
+        "run_all_measurements_long.sh": {
+          "exists": true,
+          "sha256": "87176a656105bc90165dc01ee4e120da1c240569f188970ea6a98f52a858cb9c",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/may14_git/run_all_measurements_long.sh"
+        },
+        "measurement_arms.sh": {
+          "exists": true,
+          "sha256": "f889b862d163ee970eb659ce63a9a98c148c097485af4c884c275aa30255b71d",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/may14_git/measurement_arms.sh"
+        },
+        "measurement_model.sh": {
+          "exists": true,
+          "sha256": "4812bed5d86312dac9dbba7cefeef1cf771fda9d02902acfdb8b0e4cfcbbfecf",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/may14_git/measurement_model.sh"
+        },
+        "measurement_common.sh": {
+          "exists": true,
+          "sha256": "77c0f076e9b82aaf62f585fccfd41c961248fcb9ee03ab1aeb92bc2d72ffe507",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/may14_git/measurement_common.sh"
+        },
+        "measurement_settings.sh": {
+          "exists": false
+        },
+        "setup.sh": {
+          "exists": true,
+          "sha256": "3365dffcd8de8c203ef769b097181fc49e87bbbaf8cf127f5ae48b04c5d4e904",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/may14_git/setup.sh"
+        },
+        "defrag.sh": {
+          "exists": true,
+          "sha256": "2017ff1c78b30c2e4cdbda731d38930fde353f8d0e4da8e842fda5f28cc2da2e",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/may14_git/defrag.sh"
+        },
+        "unsetup.sh": {
+          "exists": true,
+          "sha256": "0b5137124566d9dd4410b1428701f71f66d80bec22ed4a405c8f6e92317767f5",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/may14_git/unsetup.sh"
+        },
+        "measurement_workloads.sh": {
+          "exists": true,
+          "sha256": "cde4cccaa1ace1ed06e85daac5f720a946ec3792b150a56cf0020a85b2963abf",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/may14_git/measurement_workloads.sh"
+        },
+        "measurement_workloads_long.sh": {
+          "exists": true,
+          "sha256": "40254989d58609f39bc8250adf79f6155e6a265e2f470731e96151632229ad35",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/may14_git/measurement_workloads_long.sh"
+        },
+        "workloads/bc-twitter.sg.sh": {
+          "exists": true,
+          "sha256": "c7a21c24051412d6222a8ce752b0c21523700acb27d456e4a5ac087de2a722c7",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/may14_git/workloads/bc-twitter.sg.sh"
+        },
+        "workloads/bc-twitter.sg-long.sh": {
+          "exists": true,
+          "sha256": "954e5f0198e9cbd19bf981bc44dce364bf018b48dfeecda298a6d1aa2024ff7e",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/may14_git/workloads/bc-twitter.sg-long.sh"
+        }
+      }
+    },
+    "june_git": {
+      "revision": "d6f720be6",
+      "files": {
+        "run_all_measurements.sh": {
+          "exists": true,
+          "sha256": "2efed05d57913570d02ae71e6132841daf46aa24376ffef6ea21ea6da3db7a24",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/june_git/run_all_measurements.sh"
+        },
+        "run_all_measurements_long.sh": {
+          "exists": true,
+          "sha256": "a0da8b6187cd46d3fbbf091a60253bd1c4f7f3a12dc581121a831ea2a56f8b17",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/june_git/run_all_measurements_long.sh"
+        },
+        "measurement_arms.sh": {
+          "exists": true,
+          "sha256": "f889b862d163ee970eb659ce63a9a98c148c097485af4c884c275aa30255b71d",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/june_git/measurement_arms.sh"
+        },
+        "measurement_model.sh": {
+          "exists": true,
+          "sha256": "4812bed5d86312dac9dbba7cefeef1cf771fda9d02902acfdb8b0e4cfcbbfecf",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/june_git/measurement_model.sh"
+        },
+        "measurement_common.sh": {
+          "exists": true,
+          "sha256": "77c0f076e9b82aaf62f585fccfd41c961248fcb9ee03ab1aeb92bc2d72ffe507",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/june_git/measurement_common.sh"
+        },
+        "measurement_settings.sh": {
+          "exists": false
+        },
+        "setup.sh": {
+          "exists": true,
+          "sha256": "3365dffcd8de8c203ef769b097181fc49e87bbbaf8cf127f5ae48b04c5d4e904",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/june_git/setup.sh"
+        },
+        "defrag.sh": {
+          "exists": true,
+          "sha256": "2017ff1c78b30c2e4cdbda731d38930fde353f8d0e4da8e842fda5f28cc2da2e",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/june_git/defrag.sh"
+        },
+        "unsetup.sh": {
+          "exists": true,
+          "sha256": "0b5137124566d9dd4410b1428701f71f66d80bec22ed4a405c8f6e92317767f5",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/june_git/unsetup.sh"
+        },
+        "measurement_workloads.sh": {
+          "exists": true,
+          "sha256": "c32faf55a2760c4986fd52e2bc6b65dabd5c58c31b6a7698b2953e6d13b63869",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/june_git/measurement_workloads.sh"
+        },
+        "measurement_workloads_long.sh": {
+          "exists": true,
+          "sha256": "aafd28afa63f49a7babb37cdc4c8f688c5f35236ec140fc0c6fba1892d8108ce",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/june_git/measurement_workloads_long.sh"
+        },
+        "workloads/bc-twitter.sg.sh": {
+          "exists": true,
+          "sha256": "c7a21c24051412d6222a8ce752b0c21523700acb27d456e4a5ac087de2a722c7",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/june_git/workloads/bc-twitter.sg.sh"
+        },
+        "workloads/bc-twitter.sg-long.sh": {
+          "exists": true,
+          "sha256": "954e5f0198e9cbd19bf981bc44dce364bf018b48dfeecda298a6d1aa2024ff7e",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/june_git/workloads/bc-twitter.sg-long.sh"
+        }
+      }
+    },
+    "current": {
+      "revision": "working tree",
+      "files": {
+        "run_all_measurements.sh": {
+          "exists": true,
+          "sha256": "a38ad2daf698dac62b86c18322a18e10d6335dfcee001754e13f9d328c7248ab",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/current/run_all_measurements.sh"
+        },
+        "run_all_measurements_long.sh": {
+          "exists": true,
+          "sha256": "c9816e32f296aa2767ce453a3e2cd1f20bf23c889aec702f0c8b3a451e6e066b",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/current/run_all_measurements_long.sh"
+        },
+        "measurement_arms.sh": {
+          "exists": true,
+          "sha256": "fdb0ce68c319c3aa32c7ec0ef3d463a3f742423cf11da1ef09ee8e74a838e938",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/current/measurement_arms.sh"
+        },
+        "measurement_model.sh": {
+          "exists": true,
+          "sha256": "a3e440767d77057f960afcb57f8b553b83d01a335a99c82fcade2fae2c9898a9",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/current/measurement_model.sh"
+        },
+        "measurement_common.sh": {
+          "exists": true,
+          "sha256": "86568da28262f814c9c86e7e93766d3600b73f04585403d3a3b6a48d1199148a",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/current/measurement_common.sh"
+        },
+        "measurement_settings.sh": {
+          "exists": true,
+          "sha256": "206d6d8dbbe58a23d1b04ea5ecdcbd293860bba6735a21ee68eb472ef0c4a889",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/current/measurement_settings.sh"
+        },
+        "setup.sh": {
+          "exists": true,
+          "sha256": "2aaee86b09f147b88284ea0c4a182243b27e34ec9d7000a8f849d7fcebbd1709",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/current/setup.sh"
+        },
+        "defrag.sh": {
+          "exists": true,
+          "sha256": "26eab32ead739dc153c24d6a156cbf96a917f4c1ebdafeeaee26642767dc56ec",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/current/defrag.sh"
+        },
+        "unsetup.sh": {
+          "exists": true,
+          "sha256": "3acecada9bbefa02f00c522a4c3440ba4497ad3d2afde467d159afc133f44f50",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/current/unsetup.sh"
+        },
+        "measurement_workloads.sh": {
+          "exists": true,
+          "sha256": "232fa5bd63bcf4c316fd41262c35191f164d5513763ea091d25ca6a4c6c4f5d5",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/current/measurement_workloads.sh"
+        },
+        "measurement_workloads_long.sh": {
+          "exists": true,
+          "sha256": "8a5801686d171c290d4210e59fccc18d4ca680ad2f1f7a89c32da72db4559de7",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/current/measurement_workloads_long.sh"
+        },
+        "workloads/bc-twitter.sg.sh": {
+          "exists": true,
+          "sha256": "1e5bb622b3215244d04a0a7ac2d9a304076308c60bbfe9785e6dded6029bb35f",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/current/workloads/bc-twitter.sg.sh"
+        },
+        "workloads/bc-twitter.sg-long.sh": {
+          "exists": true,
+          "sha256": "b909605188cb8e21e84fd12b3768cb6aff4d88e667d1bf7af93872d238e44d4f",
+          "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/current/workloads/bc-twitter.sg-long.sh"
+        }
+      }
+    }
+  },
+  "editor": [
+    {
+      "resource": "vscode-remote://ssh-remote%2Bhemem16/users/zimooo2/tiering_solutions/measurement_model.sh",
+      "original": "/users/zimooo2/.vscode-server/data/User/History/3b775728/47GZ.sh",
+      "saved_utc": "2026-05-07T06:09:11.699000+00:00",
+      "sha256": "9769303a156d7ea57ee79f7bc5f04d8d44bd27010cb3231f855a09c3d38bc632",
+      "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/editor/may07_cost_model.sh"
+    },
+    {
+      "resource": "vscode-remote://ssh-remote%2Bhemem16/users/zimooo2/tiering_solutions/measurement_common.sh",
+      "original": "/users/zimooo2/.vscode-server/data/User/History/52cc6f0a/89Uc.sh",
+      "saved_utc": "2026-05-04T03:21:31.547000+00:00",
+      "sha256": "77c0f076e9b82aaf62f585fccfd41c961248fcb9ee03ab1aeb92bc2d72ffe507",
+      "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/editor/may04_common.sh"
+    },
+    {
+      "resource": "vscode-remote://ssh-remote%2Bhemem16/users/zimooo2/tiering_solutions/run_all_measurements_long.sh",
+      "original": "/users/zimooo2/.vscode-server/data/User/History/-1356624/I8Fr.sh",
+      "saved_utc": "2026-05-14T07:44:28.249000+00:00",
+      "sha256": "3ff518300df716a42c8a7f5942aa219ea9db234f5e00aab3a8d4302338284905",
+      "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/editor/may14_long.sh"
+    },
+    {
+      "resource": "vscode-remote://ssh-remote%2Bhemem16/users/zimooo2/tiering_solutions/run_all_measurements_long.sh",
+      "original": "/users/zimooo2/.vscode-server/data/User/History/-1356624/07D5.sh",
+      "saved_utc": "2026-06-13T22:27:44.262000+00:00",
+      "sha256": "62c823d39d03b0f5ebf1a94edf96b1c8e7b8d074d04bed023aea0b08b1ff049b",
+      "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/editor/june13_long.sh"
+    },
+    {
+      "resource": "vscode-remote://ssh-remote%2Bhemem16/users/zimooo2/tiering_solutions/run_all_measurements_long.sh",
+      "original": "/users/zimooo2/.vscode-server/data/User/History/-1356624/XMVM.sh",
+      "saved_utc": "2026-06-22T03:52:27.444000+00:00",
+      "sha256": "2b954160de8da7278ce2432db5da86b6abebbeebfb281a27d92b0f9bbbbcf78e",
+      "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/editor/june22_long.sh"
+    }
+  ]
+}

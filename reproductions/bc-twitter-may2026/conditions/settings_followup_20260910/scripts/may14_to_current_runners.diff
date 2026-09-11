@@ -1,0 +1,315 @@
+diff --git a/defrag.sh b/defrag.sh
+index 75f7cba0e..550574e66 100755
+--- a/defrag.sh
++++ b/defrag.sh
+@@ -1,3 +1,6 @@
++#!/bin/bash
++set -e
++
+ sudo bash -c 'echo always > /sys/kernel/mm/transparent_hugepage/enabled && echo always > /sys/kernel/mm/transparent_hugepage/defrag'
+ 
+ 
+@@ -7,4 +10,4 @@ sudo bash -c 'sync; echo 2 > /proc/sys/vm/drop_caches'
+ sudo bash -c 'echo 1 > /proc/sys/vm/compact_memory'
+ sudo sync
+ sudo bash -c 'sync; echo 3 > /proc/sys/vm/drop_caches'
+-sudo bash -c 'sync; echo 2 > /proc/sys/vm/drop_caches'
+\ No newline at end of file
++sudo bash -c 'sync; echo 2 > /proc/sys/vm/drop_caches'
+diff --git a/measurement_arms.sh b/measurement_arms.sh
+index 47370eddd..381430fbc 100755
+--- a/measurement_arms.sh
++++ b/measurement_arms.sh
+@@ -29,7 +29,7 @@ function run_workload {
+     local log_dir="${SCRIPT_DIR}/logs/${WORKLOAD_OUTPUT}"
+     local time_file="${time_dir}/${time_basename}.time"
+     local log_output_path="${log_dir}/${time_basename}_arms.log"
+-    local offcore_metrics_file="${log_dir}/${time_basename}_arms_offcore_write_l3_metrics.log"
++    local write_cas_metrics_file="${log_dir}/${time_basename}_arms_unc_m_cas_count_wr.log"
+     local max_dram_file="${time_dir}/max_dram_hugepages_${time_basename}.log"
+     local model_path="${SCRIPT_DIR}/libraries/${MEASUREMENT_LIBRARY_PROFILE_DIR}/libhemem-arms${LIB_SUFFIX}.so"
+ 
+@@ -41,8 +41,8 @@ function run_workload {
+     fi
+ 
+     cleanup_measurement_outputs "${time_file}" "${log_output_path}" "${max_dram_file}"
+-    rm -f "${offcore_metrics_file}"
+-    cleanup_offcore_write_l3_metrics_log
++    rm -f "${write_cas_metrics_file}"
++    cleanup_unc_m_cas_count_wr_log
+     run_preloaded_measurement "${WORKLOAD_COMMAND}" "${model_path}" "${log_output_path}" "${time_file}" \
+         "${NUMA_MEM_NODES}" "${TASKSET_CPUS}"
+     local status=$?
+@@ -58,7 +58,7 @@ function run_workload {
+         echo "WARNING: ${WORKLOAD_OUTPUT} run ${run} failed with status ${status}"
+     fi
+     move_max_dram_log_if_present "${max_dram_file}"
+-    copy_offcore_write_l3_metrics_log_if_present "${offcore_metrics_file}"
++    copy_unc_m_cas_count_wr_log_if_present "${write_cas_metrics_file}"
+ }
+ 
+ for workload_id in "${WORKLOAD_IDS[@]}"; do
+@@ -73,4 +73,4 @@ for workload_id in "${WORKLOAD_IDS[@]}"; do
+ done
+ 
+ #
+-mkdir -p "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}/arms"
+\ No newline at end of file
++mkdir -p "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}/arms"
+diff --git a/measurement_common.sh b/measurement_common.sh
+index a5a88fbfd..993d2985b 100755
+--- a/measurement_common.sh
++++ b/measurement_common.sh
+@@ -1,9 +1,10 @@
+ #!/bin/bash
+ 
+ MEASUREMENT_COMMON_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
++source "${MEASUREMENT_COMMON_DIR}/measurement_settings.sh"
+ 
+ MEASUREMENT_LOG_PARTS=${MEASUREMENT_LOG_PARTS:-10}
+-MEASUREMENT_TIMEOUT_SECONDS=${MEASUREMENT_TIMEOUT_SECONDS:-6000}
++MEASUREMENT_TIMEOUT_SECONDS=${MEASUREMENT_TIMEOUT_SECONDS:-12000}
+ MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS=${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS:-30}
+ 
+ measurement_validate_platform() {
+@@ -26,12 +27,14 @@ measurement_apply_platform_defaults() {
+     case "${platform}" in
+         c220g5)
+             BENCH_ROOT=${BENCH_ROOT:-/users/zimooo2}
++            GRAPH_DIR=${GRAPH_DIR:-${MEASUREMENT_COMMON_DIR}/data/graphs}
+             NUMA_MEM_NODES=${NUMA_MEM_NODES:-0,1}
+             TASKSET_CPUS=${TASKSET_CPUS:-0-9,20-29}
+             MEASUREMENT_LIBRARY_PROFILE_DIR=${MEASUREMENT_LIBRARY_PROFILE_DIR:-C220G5}
+             ;;
+         gsl_optane)
+             BENCH_ROOT=${BENCH_ROOT:-/home/freischuetz}
++            GRAPH_DIR=${GRAPH_DIR:-${BENCH_ROOT}/gapbs/benchmark/graphs}
+             NUMA_MEM_NODES=${NUMA_MEM_NODES:-0,2}
+             TASKSET_CPUS=${TASKSET_CPUS:-0-15,32-47}
+             MEASUREMENT_LIBRARY_PROFILE_DIR=${MEASUREMENT_LIBRARY_PROFILE_DIR:-GSL_OPTANE}
+@@ -126,14 +129,24 @@ measurement_build_logging_library_path() {
+ cleanup_split_log_files() {
+     local log_output_path=$1
+     local log_stem=${log_output_path%.log}
++    log_stem=${log_stem%.parquet}
+     local part
+ 
+     rm -f "${log_output_path}"
++    rm -f "${log_stem}.parquet"
+     for ((part = 0; part < MEASUREMENT_LOG_PARTS; part++)); do
+         rm -f "${log_stem}_${part}.log"
+     done
+ }
+ 
++measurement_require_training_parquet() {
++    local parquet_path=$1
++    if [[ ! -s "${parquet_path}" ]]; then
++        echo "ERROR: missing training Parquet output: ${parquet_path}. Check writer errors and rebuild the training library." >&2
++        return 1
++    fi
++}
++
+ cleanup_measurement_outputs() {
+     local time_file=$1
+     local log_output_path=$2
+@@ -256,15 +269,15 @@ move_max_dram_log_if_present() {
+     fi
+ }
+ 
+-cleanup_offcore_write_l3_metrics_log() {
+-    rm -f offcore_write_l3_metrics.log
++cleanup_unc_m_cas_count_wr_log() {
++    rm -f unc_m_cas_count_wr.log
+ }
+ 
+-copy_offcore_write_l3_metrics_log_if_present() {
++copy_unc_m_cas_count_wr_log_if_present() {
+     local destination=$1
+ 
+-    if [[ -f offcore_write_l3_metrics.log ]]; then
+-        cp -f offcore_write_l3_metrics.log "${destination}"
++    if [[ -f unc_m_cas_count_wr.log ]]; then
++        cp -f unc_m_cas_count_wr.log "${destination}"
+     fi
+ }
+ 
+@@ -281,25 +294,24 @@ measurement_apply_tpp_settings() {
+     sudo sysctl -w vm.demote_scale_factor=200 >/dev/null
+ }
+ 
+-measurement_apply_baseline_default_migration_settings() {
+-    echo 1 | sudo tee /proc/sys/kernel/numa_balancing >/dev/null
+-    echo 0 | sudo tee /proc/sys/vm/zone_reclaim_mode >/dev/null
+-    echo false | sudo tee /sys/kernel/mm/numa/demotion_enabled >/dev/null
+-}
+-
+ run_measurement_setup() {
+     local size_mib=$1
+     local measurement_system=${2:-default}
+     local measurement_platform=${MEASUREMENT_PLATFORM:-c220g5}
+ 
+     sudo bash "${MEASUREMENT_COMMON_DIR}/unsetup.sh" || true
+-    sudo bash "${MEASUREMENT_COMMON_DIR}/setup.sh" "${size_mib}" "${measurement_system}" "${measurement_platform}"
++    sudo bash "${MEASUREMENT_COMMON_DIR}/setup.sh" "${size_mib}" "${measurement_system}" "${measurement_platform}" || return $?
++    if [[ "${measurement_system}" == "memtis" || "${measurement_system}" == "memtis_near" ]]; then
++        # Prepare once, like all DRAM, but retain artifact NUMA controls:
++        # AutoNUMA off and no write to the generic demotion switch.
++        return 0
++    fi
+     if [[ "${measurement_system}" == "nomad" ]]; then
+         measurement_apply_nomad_settings
+     elif [[ "${measurement_system}" == "tpp" ]]; then
+         measurement_apply_tpp_settings
+     fi
+-    bash "${MEASUREMENT_COMMON_DIR}/defrag.sh"
++    bash "${MEASUREMENT_COMMON_DIR}/defrag.sh" "${measurement_system}"
+ }
+ 
+ run_measurement_setup_baseline_default() {
+@@ -307,7 +319,7 @@ run_measurement_setup_baseline_default() {
+     local measurement_platform=${MEASUREMENT_PLATFORM:-c220g5}
+ 
+     sudo bash "${MEASUREMENT_COMMON_DIR}/unsetup.sh" || true
+-    sudo bash "${MEASUREMENT_COMMON_DIR}/setup.sh" "${size_mib}" default "${measurement_platform}"
++    sudo bash "${MEASUREMENT_COMMON_DIR}/setup.sh" "${size_mib}" default "${measurement_platform}" || return $?
+     measurement_apply_baseline_default_migration_settings || return 1
+ }
+ 
+@@ -368,4 +380,4 @@ measurement_ensure_nomad_ready() {
+         echo "ERROR: NOMAD module '${nomad_module_name}' is still not active after insmod" >&2
+         return 1
+     fi
+-}
+\ No newline at end of file
++}
+diff --git a/measurement_model.sh b/measurement_model.sh
+index 55dea55d4..616ee3c44 100755
+--- a/measurement_model.sh
++++ b/measurement_model.sh
+@@ -113,8 +113,11 @@ for workload_id in "${WORKLOAD_IDS[@]}"; do
+         continue
+     fi
+ 
+-    echo "Running workload: ${WORKLOAD_ID}"
+-    run_model_sweep "${WORKLOAD_COMMAND}" "${WORKLOAD_MODEL_BASE}" "${WORKLOAD_OUTPUT}" "${RUN_ID}"
++    model_base=${MODEL_BASE_OVERRIDE:-${WORKLOAD_MODEL_BASE}}
++    output=${MODEL_OUTPUT_OVERRIDE:-${WORKLOAD_OUTPUT}}
++
++    echo "Running workload: ${WORKLOAD_ID} with model base: ${model_base}; output: ${output}"
++    run_model_sweep "${WORKLOAD_COMMAND}" "${model_base}" "${output}" "${RUN_ID}"
+ done
+ 
+-mkdir -p "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}/model"
+\ No newline at end of file
++mkdir -p "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}/model"
+diff --git a/setup.sh b/setup.sh
+index 9269f544c..62222163a 100755
+--- a/setup.sh
++++ b/setup.sh
+@@ -1,3 +1,7 @@
++#!/bin/bash
++
++SETUP_SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
++source "${SETUP_SCRIPT_DIR}/measurement_settings.sh" || exit 1
+ 
+ SIZE_MIB=${1:-}
+ if [[ -z "${SIZE_MIB}" ]]; then
+@@ -58,57 +62,9 @@ migrate_all_processes_to_slow_tier() {
+ 	done
+ }
+ 
+-apply_cpu_slowdown_if_needed() {
+-	if [[ "${MEASUREMENT_PLATFORM}" != "c220g5" ]]; then
+-		echo "Skipping CPU slowdown for platform ${MEASUREMENT_PLATFORM}"
+-		return
+-	fi
+-
+-	local cpu
+-	for cpu in ${CPU_SLOWDOWN_CPUS//,/ }; do
+-		if [[ "${cpu}" == *-* ]]; then
+-			local start=${cpu%-*}
+-			local end=${cpu#*-}
+-			for ((i = start; i <= end; i++)); do
+-				sudo wrmsr --processor "$i" 0x620 0x707
+-			done
+-		else
+-			sudo wrmsr --processor "$cpu" 0x620 0x707
+-		fi
+-	done
+-}
++measurement_apply_common_settings write_sysfs_value 1000000 0 "${MEASUREMENT_SYSTEM}" || exit 1
+ 
+-write_sysctl_value vm.overcommit_memory 1
+-write_sysctl_value vm.watermark_scale_factor 10
+-write_sysctl_value vm.watermark_boost_factor 10000
+-# Shrink kernel reserves so nearly all RAM is usable by memeater and later apps.
+-write_sysctl_value vm.min_free_kbytes 1048576
+-write_sysctl_value vm.user_reserve_kbytes 16384
+-write_sysctl_value vm.admin_reserve_kbytes 16384
+-sudo sysctl -w vm.lowmem_reserve_ratio="256 256 32"
+-#sudo sysctl -w vm.zone_reclaim_mode=0
+-#sudo sysctl -w vm.dirty_background_ratio=1
+-#sudo sysctl -w vm.dirty_ratio=20
+-write_sysctl_value kernel.numa_balancing 0
+-write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0
+-write_sysfs_value /proc/sys/kernel/numa_balancing 0
+-write_sysfs_value /sys/kernel/mm/numa/demotion_enabled 0
+-write_sysfs_value /sys/kernel/mm/lru_gen/enabled 0x0000
+-echo "Turning huge page ON"
+-write_sysfs_value /sys/kernel/mm/transparent_hugepage/enabled always
+-write_sysfs_value /sys/kernel/mm/transparent_hugepage/defrag always
+-write_sysfs_value /sys/kernel/mm/transparent_hugepage/shmem_enabled force
+-write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/defrag 1
+-write_sysfs_value /proc/sys/vm/compaction_proactiveness 80
+-echo 8192 | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan
+-echo 0    | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs
+-echo 1    | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs
+-echo 1000000 | sudo tee /proc/sys/kernel/perf_event_max_sample_rate
+-echo 0 | sudo tee /proc/sys/kernel/perf_cpu_time_max_percent
+-
+-write_sysfs_value /sys/kernel/mm/ksm/run 0
+-
+-apply_cpu_slowdown_if_needed
++measurement_apply_uncore_settings || exit 1
+ sudo swapoff -a
+ 
+ if [[ "${MEASUREMENT_SYSTEM}" == "nomad" ]]; then
+@@ -128,11 +84,14 @@ fi
+ # existing IRQs
+ set_irq_affinity
+ 
+-# Migrate memory of all running user processes to NUMA node 1
+-migrate_all_processes_to_slow_tier
+-
+-# Free page cache and reclaimable slab so allocations match the requested headroom.
+-write_sysctl_value vm.vfs_cache_pressure 2000 >/dev/null
++# All-NUMA workloads need both tiers and should not move or re-affine the SSH,
++# tmux, and system processes that launched the experiment.
++if [[ "${MEASUREMENT_SYSTEM}" == "all_numa" ]]; then
++	echo "Skipping global process migration for all-NUMA workload"
++else
++	# Migrate memory of all running user processes to the slow tier.
++	migrate_all_processes_to_slow_tier
++fi
+ 
+ #bash defrag.sh
+ 
+@@ -149,4 +108,4 @@ write_sysctl_value vm.vfs_cache_pressure 2000 >/dev/null
+ #sudo insmod memeater.ko sizeMiB=${alloc_mib} 
+ #popd
+ 
+-bash defrag.sh
+\ No newline at end of file
++bash "${SETUP_SCRIPT_DIR}/defrag.sh" "${MEASUREMENT_SYSTEM}"
+diff --git a/unsetup.sh b/unsetup.sh
+index 8d7958ffa..9ef3b9b92 100755
+--- a/unsetup.sh
++++ b/unsetup.sh
+@@ -1,3 +1,5 @@
+ sudo pkill -f jupyter-notebook
+ sudo pkill python
+-sudo rmmod memeater.ko
+\ No newline at end of file
++if [[ -d /sys/module/memeater ]]; then
++    sudo rmmod memeater
++fi

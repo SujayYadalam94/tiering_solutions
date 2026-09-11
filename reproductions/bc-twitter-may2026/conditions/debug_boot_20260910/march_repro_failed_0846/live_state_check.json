@@ -1,0 +1,34 @@
+[
+  {
+    "interface": "eno1",
+    "state_lines": [
+      "State: routable (configured)"
+    ],
+    "configured": true,
+    "networkctl_returncode": 0
+  },
+  {
+    "interface": "eno2",
+    "state_lines": [
+      "State: off (unmanaged)"
+    ],
+    "configured": false,
+    "networkctl_returncode": 0
+  },
+  {
+    "interface": "enp94s0f0np0",
+    "state_lines": [
+      "State: degraded (unmanaged)"
+    ],
+    "configured": false,
+    "networkctl_returncode": 0
+  },
+  {
+    "interface": "enp94s0f1np1",
+    "state_lines": [
+      "State: degraded (unmanaged)"
+    ],
+    "configured": false,
+    "networkctl_returncode": 0
+  }
+]

@@ -1,0 +1,33 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-44a11d91/SKdv.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-44a11d91/fH1x.cpp
+@@ -1722,8 +1722,8 @@
+     const double boundary_score_cost = dram_boundary_score_moving_average_count > 0
+                                            ? dram_boundary_score_moving_average * HF_SAMPLE_PERIOD * latency_diff
+                                            : 0.0;
+-    std::cout << "[ARMS] Boundary score cost: " << boundary_score_cost << " max_hugepages: " << max_hugepages
+-              << std::endl;
++    // std::cout << "[ARMS] Boundary score cost: " << boundary_score_cost << " max_hugepages: " << max_hugepages
++    //           << std::endl;
+ #endif
+ 
+     while (promote_idx < static_cast<size_t>(demote_idx))
+@@ -1752,8 +1752,8 @@
+ 
+         double cost = 1 * get_promotion_cost_multiplier() * promotion_cost_avg;
+ #if USE_MODEL == (true)
+-        cost += boundary_score_cost;
+-        // float benefit = SWITCH_SCALER * hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
++        // cost += boundary_score_cost;
++        //  float benefit = SWITCH_SCALER * hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
+         double benefit = (hot_page->score) * HF_SAMPLE_PERIOD * latency_diff;
+         // std::cout << "cost: " << cost << " PROMOTION_COST_MULTIPLIER: " << get_promotion_cost_multiplier()
+         //           << " MODEL_DISCOUNT_PERCENT: " << MODEL_DISCOUNT_PERCENT
+@@ -1795,7 +1795,7 @@
+                     cost += 1 * get_demotion_cost_multiplier() * demotion_cost_avg;
+ 
+ #if USE_MODEL == (true)
+-                    cost += boundary_score_cost;
++                    // cost += boundary_score_cost;
+                     benefit -= (cold_page->score) * HF_SAMPLE_PERIOD * latency_diff;
+ #else
+                     benefit -= cold_page->score * hot_page->hot_age * HF_SAMPLE_PERIOD * latency_diff;

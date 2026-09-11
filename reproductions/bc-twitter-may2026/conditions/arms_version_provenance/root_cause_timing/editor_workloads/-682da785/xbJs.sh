@@ -1,0 +1,9 @@
+#!/bin/bash
+
+WORKLOAD_ID="lulesh2.0_s400-long"
+WORKLOAD_OUTPUT="lulesh2.0_s400-long"
+WORKLOAD_COMMAND="OMP_NUM_THREADS=16 ${BENCH_ROOT}/LULESH/build/lulesh2.0 -i 50 -s 400"
+WORKLOAD_EXE_NAME="lulesh2.0"
+WORKLOAD_MODEL_BASE="lulesh2.0_s400"
+WORKLOAD_VIRTUAL_STEP_SAMPLES="31622"
+WORKLOAD_SYSTEMS="arms hybridtier model logging"

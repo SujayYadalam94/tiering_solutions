@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-5db2003a/7NV4.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-5db2003a/0Od1.sh
+@@ -11,7 +11,7 @@
+ 
+ echo "Using measurement platform: ${MEASUREMENT_PLATFORM}"
+ 
+-SIZES=(4005)
++SIZES=(10009)
+ RUNS=1
+ 
+ mapfile -t WORKLOAD_IDS < <(measurement_list_default_workloads)

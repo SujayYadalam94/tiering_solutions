@@ -1,0 +1,27 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-2c506191/0l54.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-2c506191/0ylG.sh
+@@ -71,7 +71,7 @@
+         ' memtis-batch "${SCRIPT_DIR}" "${MEASUREMENT_PLATFORM}" "$1" "$2" "$3"
+ }
+ 
+-SIZES=(6073)
++SIZES=(40)
+ RUNS=3
+ 
+ ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}
+@@ -95,8 +95,13 @@
+             #fi
+ 
+             # ARMS
+-            run_measurement_setup "${size}"
+-            "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
++            measurement_load_workload "${workload_id}" || exit 1
++            if measurement_workload_supports_system arms; then
++                run_measurement_setup "${size}"
++                "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
++            else
++                echo "Skipping ${workload_id}: not supported by ARMS"
++            fi
+ 
+ 
+             # NOMAD

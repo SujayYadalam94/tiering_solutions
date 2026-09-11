@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/WLzG
++++ /users/zimooo2/.vscode-server/data/User/History/-73c3a42b/UxoN
+@@ -29,7 +29,7 @@
+ # 0=min_max, 1=average, 2=adjusted_moving_average
+ HISTORY_LENGTH_VALUES := 10
+ # SWITCH_SCALER_VALUES := 0.03125 0.0625 0.125 0.25 0.5 1.0 1.5
+-SWITCH_SCALER_VALUES := 0.05
++SWITCH_SCALER_VALUES := 0.1
+ COMBOS := $(foreach summary,$(MODEL_SCORE_HISTORY_SUMMARY_VALUES),$(foreach hlen,$(HISTORY_LENGTH_VALUES),$(foreach scaler,$(SWITCH_SCALER_VALUES),$(summary)_$(hlen)_$(scaler))))
+ 
+ # Models and outputs

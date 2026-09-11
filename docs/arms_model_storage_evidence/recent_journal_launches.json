@@ -1,0 +1,1920 @@
+[
+  {
+    "timestamp_utc": "2026-09-06T06:08:21.048983+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "8465",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=2458c14b;b=e633350156074a7980d4d3564751b6a7;m=5c75229;t=65aca54187e97;x=a15f26c92558c7b3",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-06T06:08:21.085644+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "8469",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=2458c14f;b=e633350156074a7980d4d3564751b6a7;m=5c7e15d;t=65aca54190dcc;x=3060341af828ae2b",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-06T06:08:21.118499+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "8473",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=2458c153;b=e633350156074a7980d4d3564751b6a7;m=5c861b5;t=65aca54198e23;x=1a3bed131841d56d",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-06T06:08:21.156271+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "8477",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=2458c157;b=e633350156074a7980d4d3564751b6a7;m=5c8f541;t=65aca541a21af;x=a03cb33a78b434d4",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-06T06:08:21.278571+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "8485",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=2458c15b;b=e633350156074a7980d4d3564751b6a7;m=5cad2fd;t=65aca541bff6b;x=ea07cc4b26f53364",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-06T06:08:21.304345+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "8489",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=2458c15e;b=e633350156074a7980d4d3564751b6a7;m=5cb37ab;t=65aca541c6419;x=679fff677d7c4066",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-06T06:08:21.405699+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "8521",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=2458c169;b=e633350156074a7980d4d3564751b6a7;m=5ccc395;t=65aca541df003;x=2549b8e9b714baaa",
+    "command": "/usr/bin/mount /dev/sdc /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-06T06:21:43.830260+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "23470",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=2458e20e;b=e633350156074a7980d4d3564751b6a7;m=35a0ca86;t=65aca83f1f6f4;x=fa5b014d71a3672a",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-kron.sg/100102MiB_run7_train_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms_near_train.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T06:28:24.982507+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "34605",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=2458f1f9;b=e633350156074a7980d4d3564751b6a7;m=4d89e37d;t=65aca9bdb0feb;x=6e82180c4a86a0c8",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-kron.sg/100102MiB_run7_train_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms_near_train.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T06:36:48.708977+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "39283",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245901e9;b=e633350156074a7980d4d3564751b6a7;m=6b902502;t=65acab9e15171;x=d784d03ea7c898d8",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/100102MiB_run7_train_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms_near_train.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T06:40:03.738003+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "43838",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=2459118e;b=e633350156074a7980d4d3564751b6a7;m=77300d24;t=65acac5813993;x=c891b0bbb5181e4d",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-twitter.sg/100102MiB_run7_train_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms_near_train.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T07:17:07.349612+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "72236",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=24596090;b=e633350156074a7980d4d3564751b6a7;m=fbb9abfe;t=65acb4a0ad86c;x=4257919bfed4d5ed",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-kron.sg/100102MiB_run8_train_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms_near_train.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T07:23:31.952487+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "78210",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=24597023;b=e633350156074a7980d4d3564751b6a7;m=112a63ef9;t=65acb60f76b67;x=9bc9a9a8fcbb6359",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-kron.sg/100102MiB_run8_train_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms_near_train.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T07:31:51.465954+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "83181",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=24597f91;b=e633350156074a7980d4d3564751b6a7;m=1306c3774;t=65acb7ebd63e2;x=70fb93f779777d1a",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/100102MiB_run8_train_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms_near_train.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T07:35:02.524289+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "87823",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=24598efa;b=e633350156074a7980d4d3564751b6a7;m=13bcf8913;t=65acb8a20b581;x=4d59dbe19b70ce96",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-twitter.sg/100102MiB_run8_train_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms_near_train.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T08:11:41.418567+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "114560",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=2459dbe2;b=e633350156074a7980d4d3564751b6a7;m=1bedfffd9;t=65acc0d312c47;x=92ec6196af68e4eb",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-kron.sg/100102MiB_run9_train_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms_near_train.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T08:17:58.471763+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "118973",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=2459eb05;b=e633350156074a7980d4d3564751b6a7;m=1d5595fe5;t=65acc23aa8c53;x=6083723dcf1cc87c",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-kron.sg/100102MiB_run9_train_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms_near_train.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T08:26:12.334457+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "123408",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=2459fa2b;b=e633350156074a7980d4d3564751b6a7;m=1f2c91f0b;t=65acc411a4b79;x=922293634c5df400",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/100102MiB_run9_train_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms_near_train.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T08:29:22.036757+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "127785",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245a0942;b=e633350156074a7980d4d3564751b6a7;m=1fe17bfa8;t=65acc4c68ec15;x=e1e4093e6ff574b5",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-twitter.sg/100102MiB_run9_train_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms_near_train.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T09:05:55.895582+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "152092",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245a54e0;b=e633350156074a7980d4d3564751b6a7;m=280db60b0;t=65acccf2c8d1e;x=34475bd51553e99f",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-kron.sg/100102MiB_run10_train_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms_near_train.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T09:12:14.560279+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "156519",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245a63fc;b=e633350156074a7980d4d3564751b6a7;m=2976d57a9;t=65acce5be8417;x=a920bbac4b86803e",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-kron.sg/100102MiB_run10_train_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms_near_train.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T09:20:33.706046+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "160948",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245a7317;b=e633350156074a7980d4d3564751b6a7;m=2b52db3d0;t=65acd037ee03e;x=e1f27d95ffa40a97",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/100102MiB_run10_train_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms_near_train.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T09:23:43.357648+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "165356",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245a8234;b=e633350156074a7980d4d3564751b6a7;m=2c07b8e63;t=65acd0eccbad0;x=1f7c8231c14e6147",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-twitter.sg/100102MiB_run10_train_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms_near_train.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T10:01:34.278179+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "184153",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245abefd;b=e633350156074a7980d4d3564751b6a7;m=347d70db5;t=65acd96283a23;x=5b7aa6ea106107a9",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/run1.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T12:01:32.500138+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "189024",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245ac24e;b=e633350156074a7980d4d3564751b6a7;m=4f4e3343c;t=65acf433460aa;x=96e97d2f80549e1d",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB.sg/run1.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T12:59:46.824979+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "201322",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245ad288;b=e633350156074a7980d4d3564751b6a7;m=5c52a5ea5;t=65ad0137b8b13;x=96150836d8864b56",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/run1.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T13:39:06.074025+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "205588",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245ad343;b=e633350156074a7980d4d3564751b6a7;m=651c9a73c;t=65ad0a01ad3a9;x=2ec90d30fbd53df3",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB.sg/run1.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T14:19:59.097346+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "212466",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245ad38d;b=e633350156074a7980d4d3564751b6a7;m=6e3ffd195;t=65ad13250fe02;x=f3a383f4d5fa9a1",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/run2.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T14:38:02.102604+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "225004",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245ae332;b=e633350156074a7980d4d3564751b6a7;m=7248d2ade;t=65ad172de574c;x=c77caa892bdee403",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/run2.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T16:08:51.240716+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "243328",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245af4fe;b=e633350156074a7980d4d3564751b6a7;m=869586a9d;t=65ad2b7a9970c;x=d98ae3f6b098b627",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/run2.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T16:41:43.411665+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "248472",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245af56e;b=e633350156074a7980d4d3564751b6a7;m=8dee55b63;t=65ad32d3687d1;x=508780a2786fdef2",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB.sg/run2.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T16:54:29.038913+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "261241",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245b0522;b=e633350156074a7980d4d3564751b6a7;m=90c87e6d3;t=65ad35ad91341;x=7792a0e031087938",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/run2.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T17:27:57.294260+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "264539",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245b0597;b=e633350156074a7980d4d3564751b6a7;m=9843b7247;t=65ad3d28c9eb4;x=632a3661912404ae",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB.sg/run2.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T17:50:42.006135+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "267329",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245b060b;b=e633350156074a7980d4d3564751b6a7;m=9d5934c0a;t=65ad423e47877;x=a7bb146b86934b14",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/run3.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T18:18:11.768922+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "270439",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245b075f;b=e633350156074a7980d4d3564751b6a7;m=a37e8aded;t=65ad48639da5a;x=87a0a957946ae78d",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB.sg/run3.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T18:39:22.124245+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "272669",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245b086f;b=e633350156074a7980d4d3564751b6a7;m=a83a0c368;t=65ad4d1f1efd5;x=1afa87057c9ca161",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/run4.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T19:06:47.433491+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "275513",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245b094d;b=e633350156074a7980d4d3564751b6a7;m=ae5b230a5;t=65ad534035d13;x=e1b44785648e1246",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB.sg/run4.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T19:28:37.623038+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "277819",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245b0a22;b=e633350156074a7980d4d3564751b6a7;m=b33ca1890;t=65ad5821b44fe;x=432b9ba73dd8062",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/run5.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T19:55:58.822086+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "280657",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245b0c90;b=e633350156074a7980d4d3564751b6a7;m=b959cce59;t=65ad5e3edfac6;x=2a70d4a3509be5ce",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB.sg/run5.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T20:17:42.827018+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "282842",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245b0e40;b=e633350156074a7980d4d3564751b6a7;m=be356579d;t=65ad631a7840a;x=ac5eca60257f0eb2",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/run6.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T20:45:40.489565+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "284823",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245b0ef0;b=e633350156074a7980d4d3564751b6a7;m=c475570ef;t=65ad695a69d5d;x=6cdec7e7ad9d99ed",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB.sg/run6.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T21:07:11.727152+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "287053",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245b0f14;b=e633350156074a7980d4d3564751b6a7;m=c944c29c2;t=65ad6e29d5630;x=d97c16fbc577eacd",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/run7.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T21:34:39.947509+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "288962",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245b0f46;b=e633350156074a7980d4d3564751b6a7;m=cf68a0287;t=65ad744db2ef5;x=d1356215423a27e7",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB.sg/run7.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T21:56:55.544826+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "290446",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245b0f68;b=e633350156074a7980d4d3564751b6a7;m=d46259b8c;t=65ad79476c7fa;x=bb296bdd0bb35f1d",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/run8.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T22:24:51.367649+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "290892",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245b0fd8;b=e633350156074a7980d4d3564751b6a7;m=daa08a273;t=65ad7f859cee1;x=9d2c3756e1a241b0",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB.sg/run8.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T22:47:09.710929+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "291313",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245b1104;b=e633350156074a7980d4d3564751b6a7;m=df9ce21e4;t=65ad8481f4e51;x=2d6433b83b09dbbb",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/run9.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T23:15:00.935299+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "291804",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245b125c;b=e633350156074a7980d4d3564751b6a7;m=e5d6afe15;t=65ad8abbc2a83;x=b57cad0f8c06e59c",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB.sg/run9.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-06T23:37:08.318594+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "292077",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245b12b5;b=e633350156074a7980d4d3564751b6a7;m=eac894114;t=65ad8fada6d82;x=50e451bcef2f23b8",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/run10.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-07T00:05:16.449401+00:00",
+    "boot_id": "e633350156074a7980d4d3564751b6a7",
+    "pid": "292333",
+    "cursor": "s=9001f341ccdb49bfb4c9043f557baea8;i=245b12e7;b=e633350156074a7980d4d3564751b6a7;m=f1128160b;t=65ad95f794279;x=ed034dfd0b444b59",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB.sg/run10.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-logging.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-07T08:22:24.555017+00:00",
+    "boot_id": "2536aeeef2f34e4c88b0a2916cd27b44",
+    "pid": "42670",
+    "cursor": "s=50bedf9332e845e885dff5db913f5a06;i=245b2547;b=2536aeeef2f34e4c88b0a2916cd27b44;m=12721379d;t=65ae0515e0809;x=59b38fa620f246d6",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-07T08:22:24.595063+00:00",
+    "boot_id": "2536aeeef2f34e4c88b0a2916cd27b44",
+    "pid": "42673",
+    "cursor": "s=50bedf9332e845e885dff5db913f5a06;i=245b254b;b=2536aeeef2f34e4c88b0a2916cd27b44;m=12721d40b;t=65ae0515ea477;x=24b754522e96632d",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-07T08:22:24.634839+00:00",
+    "boot_id": "2536aeeef2f34e4c88b0a2916cd27b44",
+    "pid": "42676",
+    "cursor": "s=50bedf9332e845e885dff5db913f5a06;i=245b254f;b=2536aeeef2f34e4c88b0a2916cd27b44;m=127226f6b;t=65ae0515f3fd7;x=339ca17d3c17ec33",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-07T08:22:24.670646+00:00",
+    "boot_id": "2536aeeef2f34e4c88b0a2916cd27b44",
+    "pid": "42679",
+    "cursor": "s=50bedf9332e845e885dff5db913f5a06;i=245b2553;b=2536aeeef2f34e4c88b0a2916cd27b44;m=12722fb4a;t=65ae0515fcbb6;x=587ff6bb5c85d70f",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-07T08:22:24.744986+00:00",
+    "boot_id": "2536aeeef2f34e4c88b0a2916cd27b44",
+    "pid": "42685",
+    "cursor": "s=50bedf9332e845e885dff5db913f5a06;i=245b2557;b=2536aeeef2f34e4c88b0a2916cd27b44;m=127241dae;t=65ae05160ee1a;x=5dc8a84f18f9141c",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-07T08:22:24.782595+00:00",
+    "boot_id": "2536aeeef2f34e4c88b0a2916cd27b44",
+    "pid": "42688",
+    "cursor": "s=50bedf9332e845e885dff5db913f5a06;i=245b255a;b=2536aeeef2f34e4c88b0a2916cd27b44;m=12724b097;t=65ae051618103;x=7ba50bcf143bb909",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-07T08:22:24.890311+00:00",
+    "boot_id": "2536aeeef2f34e4c88b0a2916cd27b44",
+    "pid": "42697",
+    "cursor": "s=50bedf9332e845e885dff5db913f5a06;i=245b2565;b=2536aeeef2f34e4c88b0a2916cd27b44;m=12726555b;t=65ae0516325c7;x=4d0461ea9a7be5c3",
+    "command": "/usr/bin/mount /dev/sdc /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-07T15:14:52.404250+00:00",
+    "boot_id": "2536aeeef2f34e4c88b0a2916cd27b44",
+    "pid": "1199642",
+    "cursor": "s=50bedf9332e845e885dff5db913f5a06;i=245b2ab6;b=2536aeeef2f34e4c88b0a2916cd27b44;m=6ea376daf;t=65ae614743e1a;x=f8debdd1117d0439",
+    "command": "/usr/bin/mount /dev/sdc /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-07T15:32:24.881508+00:00",
+    "boot_id": "1ee18c8173864e06891024d1256541a0",
+    "pid": "5342",
+    "cursor": "s=ad80d8e85c8c47849f017dc60abc4afb;i=245b3f9f;b=1ee18c8173864e06891024d1256541a0;m=12880fda;t=65ae6532fc564;x=af868f6cb6efcde0",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-07T15:32:24.909682+00:00",
+    "boot_id": "1ee18c8173864e06891024d1256541a0",
+    "pid": "5345",
+    "cursor": "s=ad80d8e85c8c47849f017dc60abc4afb;i=245b3fa2;b=1ee18c8173864e06891024d1256541a0;m=12887de7;t=65ae653303372;x=e17a94ee3c926068",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-07T15:32:24.938392+00:00",
+    "boot_id": "1ee18c8173864e06891024d1256541a0",
+    "pid": "5348",
+    "cursor": "s=ad80d8e85c8c47849f017dc60abc4afb;i=245b3fa5;b=1ee18c8173864e06891024d1256541a0;m=1288ee0e;t=65ae65330a398;x=27306794415572a3",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-07T15:32:24.967821+00:00",
+    "boot_id": "1ee18c8173864e06891024d1256541a0",
+    "pid": "5351",
+    "cursor": "s=ad80d8e85c8c47849f017dc60abc4afb;i=245b3fa8;b=1ee18c8173864e06891024d1256541a0;m=12896102;t=65ae65331168d;x=9de4964202498ef7",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-07T15:32:25.098289+00:00",
+    "boot_id": "1ee18c8173864e06891024d1256541a0",
+    "pid": "5357",
+    "cursor": "s=ad80d8e85c8c47849f017dc60abc4afb;i=245b3fad;b=1ee18c8173864e06891024d1256541a0;m=128b5ea7;t=65ae653331431;x=c3e8fa27aba0c089",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-07T15:32:25.126254+00:00",
+    "boot_id": "1ee18c8173864e06891024d1256541a0",
+    "pid": "5361",
+    "cursor": "s=ad80d8e85c8c47849f017dc60abc4afb;i=245b3fb0;b=1ee18c8173864e06891024d1256541a0;m=128bcbe4;t=65ae65333816e;x=b56b83a54f068284",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-07T15:32:25.201769+00:00",
+    "boot_id": "1ee18c8173864e06891024d1256541a0",
+    "pid": "5370",
+    "cursor": "s=ad80d8e85c8c47849f017dc60abc4afb;i=245b3fb9;b=1ee18c8173864e06891024d1256541a0;m=128cf2de;t=65ae65334a869;x=31c3cccea5da441a",
+    "command": "/usr/bin/mount /dev/sdc /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-07T16:11:49.239435+00:00",
+    "boot_id": "98191d8e4d6d4efcb44bdb91949f0405",
+    "pid": "9706",
+    "cursor": "s=67de6275ff2f4adb8aba4484e7c367f0;i=245bc33c;b=98191d8e4d6d4efcb44bdb91949f0405;m=c06a948;t=65ae6e01d028b;x=eb95d8ced70ab93a",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-07T16:11:49.283562+00:00",
+    "boot_id": "98191d8e4d6d4efcb44bdb91949f0405",
+    "pid": "9709",
+    "cursor": "s=67de6275ff2f4adb8aba4484e7c367f0;i=245bc340;b=98191d8e4d6d4efcb44bdb91949f0405;m=c0755a8;t=65ae6e01daeea;x=9ebfa51d2debd28b",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-07T16:11:49.325054+00:00",
+    "boot_id": "98191d8e4d6d4efcb44bdb91949f0405",
+    "pid": "9712",
+    "cursor": "s=67de6275ff2f4adb8aba4484e7c367f0;i=245bc344;b=98191d8e4d6d4efcb44bdb91949f0405;m=c07f7bc;t=65ae6e01e50fe;x=4295507a4121f102",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-07T16:11:49.366479+00:00",
+    "boot_id": "98191d8e4d6d4efcb44bdb91949f0405",
+    "pid": "9715",
+    "cursor": "s=67de6275ff2f4adb8aba4484e7c367f0;i=245bc348;b=98191d8e4d6d4efcb44bdb91949f0405;m=c08998c;t=65ae6e01ef2cf;x=f68ec32b5aa09320",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-07T16:11:49.590434+00:00",
+    "boot_id": "98191d8e4d6d4efcb44bdb91949f0405",
+    "pid": "9721",
+    "cursor": "s=67de6275ff2f4adb8aba4484e7c367f0;i=245bc34d;b=98191d8e4d6d4efcb44bdb91949f0405;m=c0c045f;t=65ae6e0225da2;x=44d135b215db8b1c",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-07T16:11:49.629179+00:00",
+    "boot_id": "98191d8e4d6d4efcb44bdb91949f0405",
+    "pid": "9724",
+    "cursor": "s=67de6275ff2f4adb8aba4484e7c367f0;i=245bc350;b=98191d8e4d6d4efcb44bdb91949f0405;m=c0c9bb9;t=65ae6e022f4fb;x=6c8d1adc67acb999",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-07T16:11:49.738455+00:00",
+    "boot_id": "98191d8e4d6d4efcb44bdb91949f0405",
+    "pid": "9733",
+    "cursor": "s=67de6275ff2f4adb8aba4484e7c367f0;i=245bc35b;b=98191d8e4d6d4efcb44bdb91949f0405;m=c0e4694;t=65ae6e0249fd7;x=105e61580e27c651",
+    "command": "/usr/bin/mount /dev/sdc /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-07T19:14:59.975139+00:00",
+    "boot_id": "e775d948fd20446b94e9d00dc2951818",
+    "pid": "5125",
+    "cursor": "s=2ac8ff0f08824496a8b1fec268e1de45;i=245bd0af;b=e775d948fd20446b94e9d00dc2951818;m=18de5bd9;t=65ae96f3653e3;x=6c65cde84d3d315",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-07T19:15:00.008410+00:00",
+    "boot_id": "e775d948fd20446b94e9d00dc2951818",
+    "pid": "5128",
+    "cursor": "s=2ac8ff0f08824496a8b1fec268e1de45;i=245bd0b2;b=e775d948fd20446b94e9d00dc2951818;m=18deddd0;t=65ae96f36d5da;x=cde03cb13b8db6cc",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-07T19:15:00.038060+00:00",
+    "boot_id": "e775d948fd20446b94e9d00dc2951818",
+    "pid": "5131",
+    "cursor": "s=2ac8ff0f08824496a8b1fec268e1de45;i=245bd0b5;b=e775d948fd20446b94e9d00dc2951818;m=18df51a1;t=65ae96f3749ac;x=5842c090e78980bb",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-07T19:15:00.069497+00:00",
+    "boot_id": "e775d948fd20446b94e9d00dc2951818",
+    "pid": "5134",
+    "cursor": "s=2ac8ff0f08824496a8b1fec268e1de45;i=245bd0b8;b=e775d948fd20446b94e9d00dc2951818;m=18dfcc6e;t=65ae96f37c479;x=59224387c76c1499",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-07T19:15:00.203439+00:00",
+    "boot_id": "e775d948fd20446b94e9d00dc2951818",
+    "pid": "5140",
+    "cursor": "s=2ac8ff0f08824496a8b1fec268e1de45;i=245bd0bc;b=e775d948fd20446b94e9d00dc2951818;m=18e1d7a5;t=65ae96f39cfaf;x=fc11e8c4fbb59af3",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-07T19:15:00.232667+00:00",
+    "boot_id": "e775d948fd20446b94e9d00dc2951818",
+    "pid": "5143",
+    "cursor": "s=2ac8ff0f08824496a8b1fec268e1de45;i=245bd0bf;b=e775d948fd20446b94e9d00dc2951818;m=18e249d0;t=65ae96f3a41db;x=2da820a2b7c301a0",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-07T19:15:00.312050+00:00",
+    "boot_id": "e775d948fd20446b94e9d00dc2951818",
+    "pid": "5152",
+    "cursor": "s=2ac8ff0f08824496a8b1fec268e1de45;i=245bd0c8;b=e775d948fd20446b94e9d00dc2951818;m=18e37fe8;t=65ae96f3b77f2;x=a39718d4ddf8f6f8",
+    "command": "/usr/bin/mount /dev/sdc /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-07T21:10:26.441987+00:00",
+    "boot_id": "e30de8fc829f44c2a20c69bc6f9395f1",
+    "pid": "6286",
+    "cursor": "s=7ceb01698e2c4177af333f9d20f7615b;i=245c78e1;b=e30de8fc829f44c2a20c69bc6f9395f1;m=1ebca723;t=65aeb0c0fd303;x=1d3c680091d87429",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-07T21:10:26.475677+00:00",
+    "boot_id": "e30de8fc829f44c2a20c69bc6f9395f1",
+    "pid": "6289",
+    "cursor": "s=7ceb01698e2c4177af333f9d20f7615b;i=245c78e4;b=e30de8fc829f44c2a20c69bc6f9395f1;m=1ebd2abc;t=65aeb0c10569d;x=87ec77a3e69e7669",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-07T21:10:26.505460+00:00",
+    "boot_id": "e30de8fc829f44c2a20c69bc6f9395f1",
+    "pid": "6292",
+    "cursor": "s=7ceb01698e2c4177af333f9d20f7615b;i=245c78e7;b=e30de8fc829f44c2a20c69bc6f9395f1;m=1ebd9f14;t=65aeb0c10caf4;x=d9c374a10ebc484e",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-07T21:10:26.536770+00:00",
+    "boot_id": "e30de8fc829f44c2a20c69bc6f9395f1",
+    "pid": "6295",
+    "cursor": "s=7ceb01698e2c4177af333f9d20f7615b;i=245c78ea;b=e30de8fc829f44c2a20c69bc6f9395f1;m=1ebe1962;t=65aeb0c114542;x=a9dcf4262a4f6c43",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-07T21:10:26.643588+00:00",
+    "boot_id": "e30de8fc829f44c2a20c69bc6f9395f1",
+    "pid": "6301",
+    "cursor": "s=7ceb01698e2c4177af333f9d20f7615b;i=245c78ee;b=e30de8fc829f44c2a20c69bc6f9395f1;m=1ebfbaa3;t=65aeb0c12e684;x=810cb89a08515542",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-07T21:10:26.670698+00:00",
+    "boot_id": "e30de8fc829f44c2a20c69bc6f9395f1",
+    "pid": "6320",
+    "cursor": "s=7ceb01698e2c4177af333f9d20f7615b;i=245c78f1;b=e30de8fc829f44c2a20c69bc6f9395f1;m=1ec02489;t=65aeb0c13506a;x=bb1f45ec4ee49aa7",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-07T21:10:26.751834+00:00",
+    "boot_id": "e30de8fc829f44c2a20c69bc6f9395f1",
+    "pid": "6329",
+    "cursor": "s=7ceb01698e2c4177af333f9d20f7615b;i=245c78fa;b=e30de8fc829f44c2a20c69bc6f9395f1;m=1ec1617a;t=65aeb0c148d5a;x=ca08c4049edbd24c",
+    "command": "/usr/bin/mount /dev/sdc /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T07:02:38.288816+00:00",
+    "boot_id": "d87710787fdf4d5389d79daaef4933c4",
+    "pid": "12036",
+    "cursor": "s=685ee9124b0544dd9e430d3b7e23d158;i=245cd211;b=d87710787fdf4d5389d79daaef4933c4;m=f77c928;t=65af351ecc7b0;x=5f0e0aa9a0aaa62c",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T07:02:38.318388+00:00",
+    "boot_id": "d87710787fdf4d5389d79daaef4933c4",
+    "pid": "12039",
+    "cursor": "s=685ee9124b0544dd9e430d3b7e23d158;i=245cd214;b=d87710787fdf4d5389d79daaef4933c4;m=f783cab;t=65af351ed3b34;x=41f659b57bdab65b",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T07:02:38.348310+00:00",
+    "boot_id": "d87710787fdf4d5389d79daaef4933c4",
+    "pid": "12042",
+    "cursor": "s=685ee9124b0544dd9e430d3b7e23d158;i=245cd217;b=d87710787fdf4d5389d79daaef4933c4;m=f78b18e;t=65af351edb016;x=20e54a49c9cc7ccc",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T07:02:38.380118+00:00",
+    "boot_id": "d87710787fdf4d5389d79daaef4933c4",
+    "pid": "12045",
+    "cursor": "s=685ee9124b0544dd9e430d3b7e23d158;i=245cd21a;b=d87710787fdf4d5389d79daaef4933c4;m=f792dce;t=65af351ee2c56;x=1b682ca6a7ed4487",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T07:02:38.452451+00:00",
+    "boot_id": "d87710787fdf4d5389d79daaef4933c4",
+    "pid": "12051",
+    "cursor": "s=685ee9124b0544dd9e430d3b7e23d158;i=245cd21e;b=d87710787fdf4d5389d79daaef4933c4;m=f7a485b;t=65af351ef46e3;x=af368d6b96bfc6e9",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T07:02:38.481630+00:00",
+    "boot_id": "d87710787fdf4d5389d79daaef4933c4",
+    "pid": "12054",
+    "cursor": "s=685ee9124b0544dd9e430d3b7e23d158;i=245cd221;b=d87710787fdf4d5389d79daaef4933c4;m=f7aba56;t=65af351efb8de;x=80c9e0acd3dc0284",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T07:02:38.559057+00:00",
+    "boot_id": "d87710787fdf4d5389d79daaef4933c4",
+    "pid": "12063",
+    "cursor": "s=685ee9124b0544dd9e430d3b7e23d158;i=245cd22a;b=d87710787fdf4d5389d79daaef4933c4;m=f7be8c9;t=65af351f0e751;x=258a308a2f4c191b",
+    "command": "/usr/bin/mount /dev/sdc /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T09:02:54.962781+00:00",
+    "boot_id": "a1bd6a703cf843f094c4ee5fb0a50761",
+    "pid": "4785",
+    "cursor": "s=af8fd15d39804c14993728d3f4841415;i=245d2e5d;b=a1bd6a703cf843f094c4ee5fb0a50761;m=cd02199;t=65af500127c5d;x=d451eed1abf53127",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T09:02:54.993694+00:00",
+    "boot_id": "a1bd6a703cf843f094c4ee5fb0a50761",
+    "pid": "4788",
+    "cursor": "s=af8fd15d39804c14993728d3f4841415;i=245d2e60;b=a1bd6a703cf843f094c4ee5fb0a50761;m=cd09a5a;t=65af50012f51e;x=dafed8ee8e908820",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T09:02:55.023516+00:00",
+    "boot_id": "a1bd6a703cf843f094c4ee5fb0a50761",
+    "pid": "4791",
+    "cursor": "s=af8fd15d39804c14993728d3f4841415;i=245d2e63;b=a1bd6a703cf843f094c4ee5fb0a50761;m=cd10ed9;t=65af50013699c;x=ae362791b40ef713",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T09:02:55.053501+00:00",
+    "boot_id": "a1bd6a703cf843f094c4ee5fb0a50761",
+    "pid": "4794",
+    "cursor": "s=af8fd15d39804c14993728d3f4841415;i=245d2e66;b=a1bd6a703cf843f094c4ee5fb0a50761;m=cd183fa;t=65af50013debd;x=f5bf2c728ba033d9",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T09:02:55.185660+00:00",
+    "boot_id": "a1bd6a703cf843f094c4ee5fb0a50761",
+    "pid": "4800",
+    "cursor": "s=af8fd15d39804c14993728d3f4841415;i=245d2e6a;b=a1bd6a703cf843f094c4ee5fb0a50761;m=cd38838;t=65af50015e2fc;x=6896a0cf1c5ba4ae",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T09:02:55.214753+00:00",
+    "boot_id": "a1bd6a703cf843f094c4ee5fb0a50761",
+    "pid": "4803",
+    "cursor": "s=af8fd15d39804c14993728d3f4841415;i=245d2e6d;b=a1bd6a703cf843f094c4ee5fb0a50761;m=cd3f9de;t=65af5001654a1;x=ddf176d926cfcb4e",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T09:02:55.286143+00:00",
+    "boot_id": "a1bd6a703cf843f094c4ee5fb0a50761",
+    "pid": "4812",
+    "cursor": "s=af8fd15d39804c14993728d3f4841415;i=245d2e76;b=a1bd6a703cf843f094c4ee5fb0a50761;m=cd510bc;t=65af500176b7f;x=d82b9be84d92e92a",
+    "command": "/usr/bin/mount /dev/sdc /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T09:48:59.273887+00:00",
+    "boot_id": "7e34868460204965b9885bae6b59b941",
+    "pid": "5104",
+    "cursor": "s=5c2cd298bbdb458cb3303fbef6ca255e;i=245d965f;b=7e34868460204965b9885bae6b59b941;m=ea23c0e;t=65af5a4d6869f;x=3e5bcf73d83bff30",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T09:48:59.304500+00:00",
+    "boot_id": "7e34868460204965b9885bae6b59b941",
+    "pid": "5107",
+    "cursor": "s=5c2cd298bbdb458cb3303fbef6ca255e;i=245d9662;b=7e34868460204965b9885bae6b59b941;m=ea2b3a3;t=65af5a4d6fe34;x=1327a17206b32654",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T09:48:59.334810+00:00",
+    "boot_id": "7e34868460204965b9885bae6b59b941",
+    "pid": "5110",
+    "cursor": "s=5c2cd298bbdb458cb3303fbef6ca255e;i=245d9665;b=7e34868460204965b9885bae6b59b941;m=ea32a08;t=65af5a4d7749a;x=701f3801513f23e0",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T09:48:59.366065+00:00",
+    "boot_id": "7e34868460204965b9885bae6b59b941",
+    "pid": "5113",
+    "cursor": "s=5c2cd298bbdb458cb3303fbef6ca255e;i=245d9668;b=7e34868460204965b9885bae6b59b941;m=ea3a420;t=65af5a4d7eeb1;x=95925ae5b7791989",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T09:48:59.485027+00:00",
+    "boot_id": "7e34868460204965b9885bae6b59b941",
+    "pid": "5119",
+    "cursor": "s=5c2cd298bbdb458cb3303fbef6ca255e;i=245d966c;b=7e34868460204965b9885bae6b59b941;m=ea574d1;t=65af5a4d9bf63;x=15f0f5e13fb4c942",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T09:48:59.507251+00:00",
+    "boot_id": "7e34868460204965b9885bae6b59b941",
+    "pid": "5122",
+    "cursor": "s=5c2cd298bbdb458cb3303fbef6ca255e;i=245d966f;b=7e34868460204965b9885bae6b59b941;m=ea5cba1;t=65af5a4da1633;x=f2dc30e500100a90",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T09:48:59.575820+00:00",
+    "boot_id": "7e34868460204965b9885bae6b59b941",
+    "pid": "5131",
+    "cursor": "s=5c2cd298bbdb458cb3303fbef6ca255e;i=245d9678;b=7e34868460204965b9885bae6b59b941;m=ea6d77b;t=65af5a4db220c;x=205879ae174352a4",
+    "command": "/usr/bin/mount /dev/sdc /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T11:51:47.647518+00:00",
+    "boot_id": "1125e4bc0a104100a6d9182beda6127b",
+    "pid": "10297",
+    "cursor": "s=69636ea6485142038145454b8df73287;i=245e2e08;b=1125e4bc0a104100a6d9182beda6127b;m=2a8ecf67;t=65af75c06fc1e;x=d5b59dead16951ad",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T11:51:47.675380+00:00",
+    "boot_id": "1125e4bc0a104100a6d9182beda6127b",
+    "pid": "10300",
+    "cursor": "s=69636ea6485142038145454b8df73287;i=245e2e0b;b=1125e4bc0a104100a6d9182beda6127b;m=2a8f3c3c;t=65af75c0768f4;x=659d57c45c53dd9c",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T11:51:47.704057+00:00",
+    "boot_id": "1125e4bc0a104100a6d9182beda6127b",
+    "pid": "10303",
+    "cursor": "s=69636ea6485142038145454b8df73287;i=245e2e0e;b=1125e4bc0a104100a6d9182beda6127b;m=2a8fac41;t=65af75c07d8f9;x=78037388c617384a",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T11:51:47.733975+00:00",
+    "boot_id": "1125e4bc0a104100a6d9182beda6127b",
+    "pid": "10306",
+    "cursor": "s=69636ea6485142038145454b8df73287;i=245e2e11;b=1125e4bc0a104100a6d9182beda6127b;m=2a90211f;t=65af75c084dd7;x=addba7a8b2559b4b",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T11:51:47.842186+00:00",
+    "boot_id": "1125e4bc0a104100a6d9182beda6127b",
+    "pid": "10312",
+    "cursor": "s=69636ea6485142038145454b8df73287;i=245e2e15;b=1125e4bc0a104100a6d9182beda6127b;m=2a91c7d2;t=65af75c09f48a;x=b630fdf90127880c",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T11:51:47.868461+00:00",
+    "boot_id": "1125e4bc0a104100a6d9182beda6127b",
+    "pid": "10315",
+    "cursor": "s=69636ea6485142038145454b8df73287;i=245e2e18;b=1125e4bc0a104100a6d9182beda6127b;m=2a922e75;t=65af75c0a5b2d;x=263a59051c40525d",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T11:51:47.941118+00:00",
+    "boot_id": "1125e4bc0a104100a6d9182beda6127b",
+    "pid": "10324",
+    "cursor": "s=69636ea6485142038145454b8df73287;i=245e2e21;b=1125e4bc0a104100a6d9182beda6127b;m=2a934a46;t=65af75c0b76fe;x=98a4a35d09096fa8",
+    "command": "/usr/bin/mount /dev/sdc /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T14:02:41.991376+00:00",
+    "boot_id": "90bfdd6b6fe24814a538e6b785103072",
+    "pid": "2861",
+    "cursor": "s=67ff9845e4774d50872e5abcc43c48f2;i=245f0bab;b=90bfdd6b6fe24814a538e6b785103072;m=365f93d;t=65af9302ec2d0;x=45e0c7e57ea9d3cb",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T14:02:42.023924+00:00",
+    "boot_id": "90bfdd6b6fe24814a538e6b785103072",
+    "pid": "2864",
+    "cursor": "s=67ff9845e4774d50872e5abcc43c48f2;i=245f0bae;b=90bfdd6b6fe24814a538e6b785103072;m=3667861;t=65af9302f41f4;x=54dbfc8e1fdb5386",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T14:02:42.053386+00:00",
+    "boot_id": "90bfdd6b6fe24814a538e6b785103072",
+    "pid": "2867",
+    "cursor": "s=67ff9845e4774d50872e5abcc43c48f2;i=245f0bb1;b=90bfdd6b6fe24814a538e6b785103072;m=366eb77;t=65af9302fb50a;x=2f963c1ae1628091",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T14:02:42.084675+00:00",
+    "boot_id": "90bfdd6b6fe24814a538e6b785103072",
+    "pid": "2870",
+    "cursor": "s=67ff9845e4774d50872e5abcc43c48f2;i=245f0bb4;b=90bfdd6b6fe24814a538e6b785103072;m=36765b0;t=65af930302f43;x=ad55ea6f3f5edadd",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T14:02:42.325998+00:00",
+    "boot_id": "90bfdd6b6fe24814a538e6b785103072",
+    "pid": "2876",
+    "cursor": "s=67ff9845e4774d50872e5abcc43c48f2;i=245f0bb9;b=90bfdd6b6fe24814a538e6b785103072;m=36b145b;t=65af93033ddee;x=fab8fdf979b9d5d9",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T14:02:42.354842+00:00",
+    "boot_id": "90bfdd6b6fe24814a538e6b785103072",
+    "pid": "2879",
+    "cursor": "s=67ff9845e4774d50872e5abcc43c48f2;i=245f0bbc;b=90bfdd6b6fe24814a538e6b785103072;m=36b8507;t=65af930344e9a;x=59be84a622e31c32",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T14:02:42.433728+00:00",
+    "boot_id": "90bfdd6b6fe24814a538e6b785103072",
+    "pid": "2888",
+    "cursor": "s=67ff9845e4774d50872e5abcc43c48f2;i=245f0bc5;b=90bfdd6b6fe24814a538e6b785103072;m=36cb92e;t=65af9303582c0;x=8b9966ebcc038211",
+    "command": "/usr/bin/mount /dev/sdc /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T15:20:03.895292+00:00",
+    "boot_id": "d279ae290e214372a62743be0ffc6b8c",
+    "pid": "4457",
+    "cursor": "s=0e05d84e918d4a188a05ef8461d828aa;i=245f84c0;b=d279ae290e214372a62743be0ffc6b8c;m=7942041;t=65afa44dc97fc;x=68c39436bc2db646",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T15:20:03.925731+00:00",
+    "boot_id": "d279ae290e214372a62743be0ffc6b8c",
+    "pid": "4460",
+    "cursor": "s=0e05d84e918d4a188a05ef8461d828aa;i=245f84c4;b=d279ae290e214372a62743be0ffc6b8c;m=7949727;t=65afa44dd0ee3;x=1ea2205b155c0b67",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T15:20:03.953965+00:00",
+    "boot_id": "d279ae290e214372a62743be0ffc6b8c",
+    "pid": "4465",
+    "cursor": "s=0e05d84e918d4a188a05ef8461d828aa;i=245f84c9;b=d279ae290e214372a62743be0ffc6b8c;m=7950571;t=65afa44dd7d2d;x=f55c848f01a3a472",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T15:20:03.983903+00:00",
+    "boot_id": "d279ae290e214372a62743be0ffc6b8c",
+    "pid": "4468",
+    "cursor": "s=0e05d84e918d4a188a05ef8461d828aa;i=245f84cc;b=d279ae290e214372a62743be0ffc6b8c;m=7957a63;t=65afa44ddf21f;x=bbbfb0dc9f640e4d",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T15:20:04.053469+00:00",
+    "boot_id": "d279ae290e214372a62743be0ffc6b8c",
+    "pid": "4474",
+    "cursor": "s=0e05d84e918d4a188a05ef8461d828aa;i=245f84d0;b=d279ae290e214372a62743be0ffc6b8c;m=7968a22;t=65afa44df01dd;x=6c3287fcecd18feb",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T15:20:04.081118+00:00",
+    "boot_id": "d279ae290e214372a62743be0ffc6b8c",
+    "pid": "4477",
+    "cursor": "s=0e05d84e918d4a188a05ef8461d828aa;i=245f84d3;b=d279ae290e214372a62743be0ffc6b8c;m=796f623;t=65afa44df6dde;x=512c3fcce5ce183f",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T15:20:04.152001+00:00",
+    "boot_id": "d279ae290e214372a62743be0ffc6b8c",
+    "pid": "4486",
+    "cursor": "s=0e05d84e918d4a188a05ef8461d828aa;i=245f84dc;b=d279ae290e214372a62743be0ffc6b8c;m=7980b06;t=65afa44e082c1;x=2f9d456f45549e0f",
+    "command": "/usr/bin/mount /dev/sdc /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T16:41:28.946391+00:00",
+    "boot_id": "d279ae290e214372a62743be0ffc6b8c",
+    "pid": "105129",
+    "cursor": "s=0e05d84e918d4a188a05ef8461d828aa;i=24603ffe;b=d279ae290e214372a62743be0ffc6b8c;m=12ac0171b;t=65afb68088ed7;x=ae09bf7fde30cab0",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/6073MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:01:46.003450+00:00",
+    "boot_id": "e79ea3efd7984057b0ed5e0a13fe0528",
+    "pid": "2750",
+    "cursor": "s=bdf762edbe7544cebf5bc72574765dda;i=24604bc7;b=e79ea3efd7984057b0ed5e0a13fe0528;m=25b9c80;t=65afbb0935ffa;x=77e3e1711e3b67f",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:01:46.044699+00:00",
+    "boot_id": "e79ea3efd7984057b0ed5e0a13fe0528",
+    "pid": "2753",
+    "cursor": "s=bdf762edbe7544cebf5bc72574765dda;i=24604bcb;b=e79ea3efd7984057b0ed5e0a13fe0528;m=25c3da1;t=65afbb094011b;x=10fda5dc632b9da9",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:01:46.087444+00:00",
+    "boot_id": "e79ea3efd7984057b0ed5e0a13fe0528",
+    "pid": "2756",
+    "cursor": "s=bdf762edbe7544cebf5bc72574765dda;i=24604bcf;b=e79ea3efd7984057b0ed5e0a13fe0528;m=25ce499;t=65afbb094a814;x=6f36cc2bd05b0923",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:01:46.129918+00:00",
+    "boot_id": "e79ea3efd7984057b0ed5e0a13fe0528",
+    "pid": "2759",
+    "cursor": "s=bdf762edbe7544cebf5bc72574765dda;i=24604bd3;b=e79ea3efd7984057b0ed5e0a13fe0528;m=25d8a83;t=65afbb0954dfe;x=a81981a701c0e47e",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:01:46.493501+00:00",
+    "boot_id": "e79ea3efd7984057b0ed5e0a13fe0528",
+    "pid": "2765",
+    "cursor": "s=bdf762edbe7544cebf5bc72574765dda;i=24604bd8;b=e79ea3efd7984057b0ed5e0a13fe0528;m=26316c3;t=65afbb09ada3d;x=1f56c2e88cbe911",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:01:46.528929+00:00",
+    "boot_id": "e79ea3efd7984057b0ed5e0a13fe0528",
+    "pid": "2768",
+    "cursor": "s=bdf762edbe7544cebf5bc72574765dda;i=24604bdb;b=e79ea3efd7984057b0ed5e0a13fe0528;m=263a126;t=65afbb09b64a1;x=e6159138371af90b",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:01:46.638416+00:00",
+    "boot_id": "e79ea3efd7984057b0ed5e0a13fe0528",
+    "pid": "2777",
+    "cursor": "s=bdf762edbe7544cebf5bc72574765dda;i=24604be6;b=e79ea3efd7984057b0ed5e0a13fe0528;m=2654cd6;t=65afbb09d1050;x=8f4bcd1bfc5809ff",
+    "command": "/usr/bin/mount /dev/sdc /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:02:36.344389+00:00",
+    "boot_id": "e79ea3efd7984057b0ed5e0a13fe0528",
+    "pid": "7176",
+    "cursor": "s=bdf762edbe7544cebf5bc72574765dda;i=24605bc0;b=e79ea3efd7984057b0ed5e0a13fe0528;m=55bc0ca;t=65afbb3938445;x=4dd21d0feadda3af",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/6073MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:04:39.654947+00:00",
+    "boot_id": "e79ea3efd7984057b0ed5e0a13fe0528",
+    "pid": "7338",
+    "cursor": "s=bdf762edbe7544cebf5bc72574765dda;i=24605d48;b=e79ea3efd7984057b0ed5e0a13fe0528;m=cb552a9;t=65afbbaed1623;x=2d283142094af7e6",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-twitter.sg/6073MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:09:34.864562+00:00",
+    "boot_id": "e79ea3efd7984057b0ed5e0a13fe0528",
+    "pid": "38885",
+    "cursor": "s=bdf762edbe7544cebf5bc72574765dda;i=24606ce5;b=e79ea3efd7984057b0ed5e0a13fe0528;m=1e4ddd37;t=65afbcc85a0b2;x=8c64a6aa65f041d8",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/6073MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:15:55.501362+00:00",
+    "boot_id": "e79ea3efd7984057b0ed5e0a13fe0528",
+    "pid": "41174",
+    "cursor": "s=bdf762edbe7544cebf5bc72574765dda;i=24606cf5;b=e79ea3efd7984057b0ed5e0a13fe0528;m=34fdebb8;t=65afbe335af32;x=2147f3c95db81722",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:15:55.553090+00:00",
+    "boot_id": "e79ea3efd7984057b0ed5e0a13fe0528",
+    "pid": "41177",
+    "cursor": "s=bdf762edbe7544cebf5bc72574765dda;i=24606cf9;b=e79ea3efd7984057b0ed5e0a13fe0528;m=34feb5c8;t=65afbe3367942;x=818285e8e7f5e2f",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:15:55.602067+00:00",
+    "boot_id": "e79ea3efd7984057b0ed5e0a13fe0528",
+    "pid": "41180",
+    "cursor": "s=bdf762edbe7544cebf5bc72574765dda;i=24606cfd;b=e79ea3efd7984057b0ed5e0a13fe0528;m=34ff7518;t=65afbe3373893;x=955aede71ba8a566",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:15:55.651524+00:00",
+    "boot_id": "e79ea3efd7984057b0ed5e0a13fe0528",
+    "pid": "41183",
+    "cursor": "s=bdf762edbe7544cebf5bc72574765dda;i=24606d01;b=e79ea3efd7984057b0ed5e0a13fe0528;m=35003649;t=65afbe337f9c4;x=16d409b516ced985",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:15:55.822111+00:00",
+    "boot_id": "e79ea3efd7984057b0ed5e0a13fe0528",
+    "pid": "41186",
+    "cursor": "s=bdf762edbe7544cebf5bc72574765dda;i=24606d04;b=e79ea3efd7984057b0ed5e0a13fe0528;m=3502d0a4;t=65afbe33a941f;x=672a6a64f7d265d6",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:15:55.862953+00:00",
+    "boot_id": "e79ea3efd7984057b0ed5e0a13fe0528",
+    "pid": "41189",
+    "cursor": "s=bdf762edbe7544cebf5bc72574765dda;i=24606d07;b=e79ea3efd7984057b0ed5e0a13fe0528;m=3503702e;t=65afbe33b33a9;x=46867c474232109d",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:15:55.986651+00:00",
+    "boot_id": "e79ea3efd7984057b0ed5e0a13fe0528",
+    "pid": "41198",
+    "cursor": "s=bdf762edbe7544cebf5bc72574765dda;i=24606d12;b=e79ea3efd7984057b0ed5e0a13fe0528;m=35055360;t=65afbe33d16db;x=933619965b2f5eff",
+    "command": "/usr/bin/mount /dev/sdc /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:25:59.814111+00:00",
+    "boot_id": "e79ea3efd7984057b0ed5e0a13fe0528",
+    "pid": "59314",
+    "cursor": "s=bdf762edbe7544cebf5bc72574765dda;i=24607cab;b=e79ea3efd7984057b0ed5e0a13fe0528;m=59030064;t=65afc073ac3df;x=e5ad26cb713dc28a",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/6073MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:26:48.426619+00:00",
+    "boot_id": "e79ea3efd7984057b0ed5e0a13fe0528",
+    "pid": "59884",
+    "cursor": "s=bdf762edbe7544cebf5bc72574765dda;i=24607d76;b=e79ea3efd7984057b0ed5e0a13fe0528;m=5be8c500;t=65afc0a20887b;x=74b5aefccf5c53a1",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-twitter.sg/6073MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:32:09.007462+00:00",
+    "boot_id": "4a165569e4294354ad90c10dc6a2b6d3",
+    "pid": "12839",
+    "cursor": "s=6740fc89c8564fc5ac471282cee90e30;i=2460883c;b=4a165569e4294354ad90c10dc6a2b6d3;m=a3535b6;t=65afc1d3c3566;x=a287405c756f7b2b",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:32:09.040312+00:00",
+    "boot_id": "4a165569e4294354ad90c10dc6a2b6d3",
+    "pid": "12842",
+    "cursor": "s=6740fc89c8564fc5ac471282cee90e30;i=2460883f;b=4a165569e4294354ad90c10dc6a2b6d3;m=a35b608;t=65afc1d3cb5b8;x=3e13955dfaa009ad",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:32:09.069164+00:00",
+    "boot_id": "4a165569e4294354ad90c10dc6a2b6d3",
+    "pid": "12845",
+    "cursor": "s=6740fc89c8564fc5ac471282cee90e30;i=24608842;b=4a165569e4294354ad90c10dc6a2b6d3;m=a3626bc;t=65afc1d3d266c;x=ae9d9e2a19760770",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:32:09.099637+00:00",
+    "boot_id": "4a165569e4294354ad90c10dc6a2b6d3",
+    "pid": "12848",
+    "cursor": "s=6740fc89c8564fc5ac471282cee90e30;i=24608845;b=4a165569e4294354ad90c10dc6a2b6d3;m=a369dc5;t=65afc1d3d9d75;x=a699f02b7018e750",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:32:09.216398+00:00",
+    "boot_id": "4a165569e4294354ad90c10dc6a2b6d3",
+    "pid": "12898",
+    "cursor": "s=6740fc89c8564fc5ac471282cee90e30;i=24608849;b=4a165569e4294354ad90c10dc6a2b6d3;m=a3865dd;t=65afc1d3f658e;x=b5cbd3019751330f",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:32:09.235016+00:00",
+    "boot_id": "4a165569e4294354ad90c10dc6a2b6d3",
+    "pid": "12901",
+    "cursor": "s=6740fc89c8564fc5ac471282cee90e30;i=2460884c;b=4a165569e4294354ad90c10dc6a2b6d3;m=a38ae98;t=65afc1d3fae48;x=925c67fdf7af71",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:32:09.300116+00:00",
+    "boot_id": "4a165569e4294354ad90c10dc6a2b6d3",
+    "pid": "12911",
+    "cursor": "s=6740fc89c8564fc5ac471282cee90e30;i=24608855;b=4a165569e4294354ad90c10dc6a2b6d3;m=a39ace4;t=65afc1d40ac94;x=d88c569f92aefa83",
+    "command": "/usr/bin/mount /dev/sdc /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:33:03.671123+00:00",
+    "boot_id": "4a165569e4294354ad90c10dc6a2b6d3",
+    "pid": "17680",
+    "cursor": "s=6740fc89c8564fc5ac471282cee90e30;i=246098c4;b=4a165569e4294354ad90c10dc6a2b6d3;m=d774fa2;t=65afc207e4f53;x=1cb1c80cbc06d778",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/6073MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:58:13.730038+00:00",
+    "boot_id": "2a8df903c7d14419b1e97c801cf7497e",
+    "pid": "18829",
+    "cursor": "s=def52f5cebaf4bbdac3517baea422e93;i=2460f3b8;b=2a8df903c7d14419b1e97c801cf7497e;m=c4b82c4;t=65afc7a7ffaf6;x=5142009faa83cb51",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/6073MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T17:59:57.009862+00:00",
+    "boot_id": "2a8df903c7d14419b1e97c801cf7497e",
+    "pid": "20194",
+    "cursor": "s=def52f5cebaf4bbdac3517baea422e93;i=2460f5c9;b=2a8df903c7d14419b1e97c801cf7497e;m=12736f94;t=65afc80a7e7c6;x=43329a05d61b6960",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-twitter.sg/6073MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:01:59.381271+00:00",
+    "boot_id": "2a8df903c7d14419b1e97c801cf7497e",
+    "pid": "21423",
+    "cursor": "s=def52f5cebaf4bbdac3517baea422e93;i=2460f5d3;b=2a8df903c7d14419b1e97c801cf7497e;m=19beace5;t=65afc87f32517;x=d08bcad0d0d40ddc",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:01:59.431009+00:00",
+    "boot_id": "2a8df903c7d14419b1e97c801cf7497e",
+    "pid": "21426",
+    "cursor": "s=def52f5cebaf4bbdac3517baea422e93;i=2460f5d7;b=2a8df903c7d14419b1e97c801cf7497e;m=19bf6f2e;t=65afc87f3e761;x=a929338ffc61a70c",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:01:59.476858+00:00",
+    "boot_id": "2a8df903c7d14419b1e97c801cf7497e",
+    "pid": "21429",
+    "cursor": "s=def52f5cebaf4bbdac3517baea422e93;i=2460f5db;b=2a8df903c7d14419b1e97c801cf7497e;m=19c02248;t=65afc87f49a7a;x=2dd66ae24755fc03",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:01:59.524105+00:00",
+    "boot_id": "2a8df903c7d14419b1e97c801cf7497e",
+    "pid": "21432",
+    "cursor": "s=def52f5cebaf4bbdac3517baea422e93;i=2460f5df;b=2a8df903c7d14419b1e97c801cf7497e;m=19c0dad7;t=65afc87f55309;x=663c2b86d251c8f4",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:01:59.810930+00:00",
+    "boot_id": "2a8df903c7d14419b1e97c801cf7497e",
+    "pid": "21438",
+    "cursor": "s=def52f5cebaf4bbdac3517baea422e93;i=2460f5e3;b=2a8df903c7d14419b1e97c801cf7497e;m=19c53b3f;t=65afc87f9b372;x=2ca71518defe602b",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:01:59.851988+00:00",
+    "boot_id": "2a8df903c7d14419b1e97c801cf7497e",
+    "pid": "21441",
+    "cursor": "s=def52f5cebaf4bbdac3517baea422e93;i=2460f5e6;b=2a8df903c7d14419b1e97c801cf7497e;m=19c5dba2;t=65afc87fa53d4;x=672452b4490d0349",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:01:59.973474+00:00",
+    "boot_id": "2a8df903c7d14419b1e97c801cf7497e",
+    "pid": "21450",
+    "cursor": "s=def52f5cebaf4bbdac3517baea422e93;i=2460f5f1;b=2a8df903c7d14419b1e97c801cf7497e;m=19c7b62f;t=65afc87fc2e62;x=f015b6f9da9dc303",
+    "command": "/usr/bin/mount /dev/sdc /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:02:10.535432+00:00",
+    "boot_id": "2a8df903c7d14419b1e97c801cf7497e",
+    "pid": "21529",
+    "cursor": "s=def52f5cebaf4bbdac3517baea422e93;i=2460f5f5;b=2a8df903c7d14419b1e97c801cf7497e;m=1a68dfd6;t=65afc889d5808;x=cf77d11e472039bf",
+    "command": "/usr/bin/mount -t ext4 UUID=2eb6e6d1-ff94-4ab9-bc79-9c26aa2ef327 /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:03:42.626693+00:00",
+    "boot_id": "2a8df903c7d14419b1e97c801cf7497e",
+    "pid": "26798",
+    "cursor": "s=def52f5cebaf4bbdac3517baea422e93;i=246105c7;b=2a8df903c7d14419b1e97c801cf7497e;m=1fe61353;t=65afc8e1a8b85;x=9dc51e05e2f384ad",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/6073MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:06:30.572674+00:00",
+    "boot_id": "2a8df903c7d14419b1e97c801cf7497e",
+    "pid": "32493",
+    "cursor": "s=def52f5cebaf4bbdac3517baea422e93;i=24611575;b=2a8df903c7d14419b1e97c801cf7497e;m=29e8ba50;t=65afc981d3282;x=cd2e6e48d98cfcc6",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-twitter.sg/6073MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:15:51.393350+00:00",
+    "boot_id": "481c7716b93e4b079ca7d0beeacd4b41",
+    "pid": "8487",
+    "cursor": "s=6162feb1dc3d485f955b3b4f9a40d505;i=24612bb6;b=481c7716b93e4b079ca7d0beeacd4b41;m=3ce5016;t=65afcb98aa446;x=6df7630993ab422f",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:15:51.440026+00:00",
+    "boot_id": "481c7716b93e4b079ca7d0beeacd4b41",
+    "pid": "8490",
+    "cursor": "s=6162feb1dc3d485f955b3b4f9a40d505;i=24612bba;b=481c7716b93e4b079ca7d0beeacd4b41;m=3cf0669;t=65afcb98b5a9a;x=c26c4ad835607959",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:15:51.486586+00:00",
+    "boot_id": "481c7716b93e4b079ca7d0beeacd4b41",
+    "pid": "8493",
+    "cursor": "s=6162feb1dc3d485f955b3b4f9a40d505;i=24612bbe;b=481c7716b93e4b079ca7d0beeacd4b41;m=3cfbc4a;t=65afcb98c107a;x=5edf4e61b5cbf7e4",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:15:51.533866+00:00",
+    "boot_id": "481c7716b93e4b079ca7d0beeacd4b41",
+    "pid": "8501",
+    "cursor": "s=6162feb1dc3d485f955b3b4f9a40d505;i=24612bc2;b=481c7716b93e4b079ca7d0beeacd4b41;m=3d074fa;t=65afcb98cc92a;x=abcbc64c6b66baec",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:15:51.697983+00:00",
+    "boot_id": "481c7716b93e4b079ca7d0beeacd4b41",
+    "pid": "8510",
+    "cursor": "s=6162feb1dc3d485f955b3b4f9a40d505;i=24612bc6;b=481c7716b93e4b079ca7d0beeacd4b41;m=3d2f60e;t=65afcb98f4a3f;x=2f2541122d768ab0",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:15:51.740702+00:00",
+    "boot_id": "481c7716b93e4b079ca7d0beeacd4b41",
+    "pid": "8513",
+    "cursor": "s=6162feb1dc3d485f955b3b4f9a40d505;i=24612bc9;b=481c7716b93e4b079ca7d0beeacd4b41;m=3d39cee;t=65afcb98ff11e;x=fe8e179337b14a88",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:15:51.862676+00:00",
+    "boot_id": "481c7716b93e4b079ca7d0beeacd4b41",
+    "pid": "8525",
+    "cursor": "s=6162feb1dc3d485f955b3b4f9a40d505;i=24612bd4;b=481c7716b93e4b079ca7d0beeacd4b41;m=3d57963;t=65afcb991cd94;x=22461aa277473e30",
+    "command": "/usr/bin/mount /dev/sdc /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:16:45.648151+00:00",
+    "boot_id": "481c7716b93e4b079ca7d0beeacd4b41",
+    "pid": "13130",
+    "cursor": "s=6162feb1dc3d485f955b3b4f9a40d505;i=24613b8b;b=481c7716b93e4b079ca7d0beeacd4b41;m=70a2ce7;t=65afcbcc68117;x=ae8782df09ad2e74",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/6073MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:18:30.665601+00:00",
+    "boot_id": "481c7716b93e4b079ca7d0beeacd4b41",
+    "pid": "13832",
+    "cursor": "s=6162feb1dc3d485f955b3b4f9a40d505;i=24613c4f;b=481c7716b93e4b079ca7d0beeacd4b41;m=d4c9d51;t=65afcc308f181;x=33d08b77735dacb4",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-twitter.sg/6073MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:24:48.264942+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "13050",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=24614dce;b=f8439f05fcfa40deae87c4f51e71b03b;m=3ce2b6b;t=65afcd98aa6ee;x=7cee6bc81a255628",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:24:48.304572+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "13078",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=24614dd1;b=f8439f05fcfa40deae87c4f51e71b03b;m=3cec639;t=65afcd98b41bc;x=37e934e024d214c8",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:24:48.346228+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "13107",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=24614dd4;b=f8439f05fcfa40deae87c4f51e71b03b;m=3cf68f0;t=65afcd98be474;x=f41258fea3f98e35",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:24:48.387306+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "13136",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=24614dd7;b=f8439f05fcfa40deae87c4f51e71b03b;m=3d00966;t=65afcd98c84ea;x=9d682b61cc2f88c4",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:24:48.565177+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "13286",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=24614ddb;b=f8439f05fcfa40deae87c4f51e71b03b;m=3d2c036;t=65afcd98f3bb9;x=2c5ef1aebc8ab8d3",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:24:48.595230+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "13316",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=24614dde;b=f8439f05fcfa40deae87c4f51e71b03b;m=3d3359a;t=65afcd98fb11e;x=19fcbf698055c484",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:24:49.045784+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "13654",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=24614def;b=f8439f05fcfa40deae87c4f51e71b03b;m=3da1594;t=65afcd9969118;x=673f4a09bcae6e12",
+    "command": "/usr/bin/mount /dev/sdc /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:26:18.176147+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "23749",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=24616657;b=f8439f05fcfa40deae87c4f51e71b03b;m=92a1b0f;t=65afcdee69693;x=73eb2997f7f4313c",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/6073MiB_run1_model_discounted_reward_99_pr-graph-80GB.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-graph-80GB.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:30:37.230960+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "24283",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=2461668b;b=f8439f05fcfa40deae87c4f51e71b03b;m=189af7ec;t=65afcee577370;x=50ca738e70dc4583",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB.sg/6073MiB_run1_model_discounted_reward_99_bc-graph-80GB.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-graph-80GB.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:30:48.885293+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "24905",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=246167bf;b=f8439f05fcfa40deae87c4f51e71b03b;m=194ccca9;t=65afcef09482d;x=1791af00f8847959",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/6073MiB_run1_model_discounted_reward_99_pr-graph-80GB.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-graph-80GB.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:30:49.317100+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "24961",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=246167d1;b=f8439f05fcfa40deae87c4f51e71b03b;m=19536368;t=65afcef0fdeec;x=4acf00983df76b8e",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB.sg/6073MiB_run1_model_discounted_reward_99_bc-graph-80GB.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-graph-80GB.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:30:49.737340+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "25021",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=246167e3;b=f8439f05fcfa40deae87c4f51e71b03b;m=1959ccf8;t=65afcef16487c;x=7b819027cb7a8ff6",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/6073MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:30:50.190321+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "25077",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=246167f8;b=f8439f05fcfa40deae87c4f51e71b03b;m=1960b66d;t=65afcef1d31f1;x=d062613d831302a6",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-twitter.sg/6073MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:30:53.194774+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "25437",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=246168da;b=f8439f05fcfa40deae87c4f51e71b03b;m=198e8e92;t=65afcef4b0a16;x=c414670575b40032",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-kron.sg/6073MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:32:17.630143+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "32208",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=24618065;b=f8439f05fcfa40deae87c4f51e71b03b;m=1e96f03b;t=65afcf4536bbf;x=2a473e6a4014a7db",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/6073MiB_run1_model_discounted_reward_99_pr-graph-80GB.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-graph-80GB.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:37:45.234837+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "41717",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=24619890;b=f8439f05fcfa40deae87c4f51e71b03b;m=321dca12;t=65afd07da4595;x=2f3bd90b0e222465",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/6073MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:41:14.279588+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "49760",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=2461b11c;b=f8439f05fcfa40deae87c4f51e71b03b;m=3e938f20;t=65afd14500aa4;x=9286801243ff2a4f",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-twitter.sg/6073MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:48:07.844569+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "58483",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=24643ddb;b=f8439f05fcfa40deae87c4f51e71b03b;m=573a0f55;t=65afd2cf68ad9;x=e6649b6b199a9a20",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-kron.sg/6073MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T18:54:00.009712+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "67004",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=2470a895;b=f8439f05fcfa40deae87c4f51e71b03b;m=6c37ac6c;t=65afd41f427f0;x=5eaba9ff187e891b",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-kron.sg/6073MiB_run1_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T19:34:52.417290+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "105253",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=24790d33;b=f8439f05fcfa40deae87c4f51e71b03b;m=fe647187;t=65afdd420ed0a;x=4f90e3d08f39f7ff",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/6073MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T19:38:21.328141+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "111794",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=24792558;b=f8439f05fcfa40deae87c4f51e71b03b;m=10ad82b89;t=65afde094a70d;x=3d0069edbddb5e14",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-twitter.sg/6073MiB_run2_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T19:45:05.971006+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "118290",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=2479ae57;b=f8439f05fcfa40deae87c4f51e71b03b;m=122f687ba;t=65afdf8b3033e;x=cb7f936abfc48974",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-kron.sg/6073MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T19:50:51.075911+00:00",
+    "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+    "pid": "124858",
+    "cursor": "s=4ef7952eb39c44f0aeb4e857e8dfcda3;i=247f6d28;b=f8439f05fcfa40deae87c4f51e71b03b;m=1378869c3;t=65afe0d44e547;x=7f8ac5d34d4012",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-kron.sg/6073MiB_run2_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T20:38:36.984700+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "12136",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=248fc116;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=425db70d;t=65afeb817317c;x=98a5249cab903e0b",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T20:38:37.025777+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "12139",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=248fc11a;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=425e5782;t=65afeb817d1f1;x=97c8a20f02b38911",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T20:38:37.067784+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "12142",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=248fc11e;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=425efb99;t=65afeb8187608;x=c164b099b46c2e39",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T20:38:37.107306+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "12145",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=248fc122;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=425f95fb;t=65afeb819106a;x=886beb06b6f99bf4",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-08T20:38:37.271950+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "12151",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=248fc126;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=4262191f;t=65afeb81b938e;x=ccb3338d9a7d58f1",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-08T20:38:37.307299+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "12154",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=248fc129;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=4262a334;t=65afeb81c1da3;x=b944c6fb0d2149d3",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T20:38:37.420498+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "12163",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=248fc134;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=42645d63;t=65afeb81dd7d2;x=40d714bf8eada2d5",
+    "command": "/usr/bin/mount /dev/sdc /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-08T20:39:32.962262+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "16495",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=248fcff5;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=45b3dd67;t=65afebb6d57d6;x=99760580feb04eda",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/4077MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T21:19:28.195330+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "24667",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=24900d0a;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=d4783893;t=65aff4a31b302;x=6ff846bba58dd527",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/4077MiB_run1_model_discounted_reward_99_pr-graph-80GB.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-graph-80GB.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T21:54:06.769980+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "30747",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=24902918;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=1505cc0cd;t=65affc6163b3c;x=e77223bd8a11e1ab",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB.sg/4077MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T22:25:56.250055+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "35363",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=24905871;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=1c22d1b58;t=65b0037e695c7;x=8ae9d9f315a3b18f",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB.sg/4077MiB_run1_model_discounted_reward_99_bc-graph-80GB.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-graph-80GB.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T22:55:35.964966+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "39872",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=24907932;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=22c4166b7;t=65b00a1fae126;x=c3765cae2ebf0317",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB-swap.sg/4077MiB_run1_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T23:28:22.326906+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "44455",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=249089a2;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=2a175b40b;t=65b01172f2e7a;x=170ed71e6efdefa1",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB-swap.sg/4077MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T23:56:55.730248+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "49233",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=2490a0b5;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=3079629d9;t=65b017d4fa448;x=10d7d5c156f4ce97",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4077MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-08T23:59:27.594034+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "53794",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=2490b11b;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=310a36bc2;t=65b01865ce632;x=ce89fff21b1e0269",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4077MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T00:02:02.464202+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "58356",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=2490c0cc;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=319de8d5b;t=65b018f9807ca;x=9d3772fc8bf21e51",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-twitter.sg/4077MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T00:07:50.863662+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "63040",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=2490d471;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=32ea2b4bf;t=65b01a45c2f2e;x=30adbb9ac0f6f02",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-twitter.sg/4077MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T00:13:48.314172+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "67746",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=2490e8ab;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=343f0f7cd;t=65b01b9aa723c;x=39bb9dfe5cce041e",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-kron.sg/4077MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T00:18:32.944079+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "72385",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=2490fc87;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=354e81360;t=65b01caa18dcf;x=cb0a8e3bff3ed328",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-kron.sg/4077MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T00:23:04.560100+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "76698",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=24910be0;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=365189b75;t=65b01dad215e4;x=bc6079855309acc8",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-kron.sg/4077MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T00:28:58.190843+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "80961",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=24911d5f;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=37a2c958c;t=65b01efe60ffb;x=14f8c06ba3e65864",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-kron.sg/4077MiB_run1_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T01:45:07.256197+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "157948",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=2492634b;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=48a82fd16;t=65b03003c7785;x=8dbfc4f27e8a498a",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/4077MiB_run2_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T02:24:43.585818+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "162769",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=2492a065;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=51826e6ab;t=65b038de0611a;x=ac58a51c5e587f02",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/4077MiB_run2_model_discounted_reward_99_pr-graph-80GB.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-graph-80GB.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T02:58:36.376079+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "167346",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=2492b9e7;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=59150d1a0;t=65b04070a4c0f;x=f748a2b42db46618",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB.sg/4077MiB_run2_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T03:30:21.027963+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "171806",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=2492e91e;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=602d7800c;t=65b047890fa7b;x=52dc32e012c8c84a",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB.sg/4077MiB_run2_model_discounted_reward_99_bc-graph-80GB.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-graph-80GB.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T04:00:04.262035+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "176109",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=24930806;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=66d217e24;t=65b04e2daf893;x=7aeefd2704d38cb6",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB-swap.sg/4077MiB_run2_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T04:33:04.647383+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "180395",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=24931c69;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=6e32bc668;t=65b0558e540d7;x=3b925e2f39706110",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB-swap.sg/4077MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T05:01:24.289419+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "184764",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=24933616;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=7487a411c;t=65b05be33bb8b;x=81803a5a89b09a19",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4077MiB_run2_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T05:03:54.284639+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "188951",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=249345b2;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=7516affef;t=65b05c7247a5f;x=dbdbe21e4fc373b5",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4077MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T05:06:22.818681+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "193153",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=249354bc;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=75a457309;t=65b05cffeed79;x=48e4a34671cba35f",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-twitter.sg/4077MiB_run2_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T05:12:03.996904+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "197336",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=2493683d;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=76e9b6a79;t=65b05e454e4e8;x=3df83ee63049775c",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-twitter.sg/4077MiB_run2_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T05:17:48.325487+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "201474",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=24937c73;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=783217400;t=65b05f8daee6f;x=2a003894a9abe131",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-kron.sg/4077MiB_run2_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T05:22:26.143152+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "205710",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=24938fb8;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=793b09d41;t=65b06096a17b0;x=4a89657f5b46b106",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-kron.sg/4077MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T05:26:54.654454+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "209848",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=24939e7c;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=7a3b1c587;t=65b06196b3ff6;x=266b1c85ea90771f",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-kron.sg/4077MiB_run2_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T05:32:43.934025+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "213975",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=2493afc2;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=7b8835ada;t=65b062e3cd549;x=d75ecf7c95e3276b",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-kron.sg/4077MiB_run2_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T06:49:04.186624+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "294453",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=2494f706;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=8c9847690;t=65b073f3df100;x=c55e5588e5e4d101",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/4077MiB_run3_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T07:28:25.376433+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "302190",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=2495332b;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=956415c41;t=65b07cbfad6b1;x=7f7d0fede55720e2",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB.sg/4077MiB_run3_model_discounted_reward_99_pr-graph-80GB.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-graph-80GB.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T08:05:27.093393+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "309554",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=249553e6;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=9daae1222;t=65b0850678c91;x=fd152e9dd06d8bb4",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB.sg/4077MiB_run3_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T08:37:20.593210+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "316737",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=249583b0;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=a4cbbc2cb;t=65b08c2753d3a;x=70859da5e19e5192",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB.sg/4077MiB_run3_model_discounted_reward_99_bc-graph-80GB.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-graph-80GB.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T09:07:07.953456+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "323523",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=2495a4d3;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=ab744b6c0;t=65b092cfe3130;x=677886da7365b1e6",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-graph-80GB-swap.sg/4077MiB_run3_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T09:40:12.417328+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "330885",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=2495b67b;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=b2d8d3ac1;t=65b09a346b530;x=ff7b015ef929e89c",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-graph-80GB-swap.sg/4077MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/kron-80GB.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T10:09:26.489238+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "341108",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=2495d300;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=b961a3e26;t=65b0a0bd3b896;x=bbb06a9a06a01059",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4077MiB_run3_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T10:12:01.638810+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "346116",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=2495e30c;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=b9f59a32b;t=65b0a15131d9a;x=f70a9366d32e8d2d",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4077MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T10:19:49.614951+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "357401",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=2495f49b;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=bbb3e62f8;t=65b0a30f7dd67;x=a8ebff3941980287",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T10:21:21.157289+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "362244",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=24960430;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=bc0b33639;t=65b0a366cb0a9;x=1d8926dc33184684",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T10:24:20.652733+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "367332",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=249614ba;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=bcb66184e;t=65b0a411f92bd;x=bc0bb30691c2b099",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T10:27:17.141097+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "372283",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=2496244c;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=bd5eb17fa;t=65b0a4ba49269;x=3a4ec2cb5d34edf8",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-twitter.sg/4078MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T10:33:31.317642+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "378027",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=24963926;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=bec38931b;t=65b0a61f20d8a;x=ba9342d0a0065797",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/pr-twitter.sg/4078MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/pr -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T10:39:47.668040+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "383535",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=24964be7;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=c02a739d9;t=65b0a7860b448;x=2c6f81a2abc66606",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-kron.sg/4078MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T10:45:24.804186+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "390457",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=24965fc0;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=c16bf83eb;t=65b0a8c78fe5a;x=a03912183a8fa763",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-kron.sg/4078MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/kron.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T10:53:25.890245+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "403079",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=24966fcf;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=c336c4e56;t=65b0aa925c8c5;x=fece665a6a92f37f",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T10:55:49.280641+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "405521",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=2496758e;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=c3bf84512;t=65b0ab1b1bf81;x=6eb1e26719bacee8",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:01:13.714590+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "412649",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=24967b4f;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=c4f4ebd2f;t=65b0ac508379e;x=9b1f1ede6540acff",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:02:18.322405+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "417325",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=24968a99;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=c53289376;t=65b0ac8e20de5;x=8b01bf031b787ac0",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:04:28.285234+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "418155",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=24968b79;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=c5ae7a6c3;t=65b0ad0a12132;x=f5a8bb8f4137c37",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:09:46.028723+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "431729",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=24969ab6;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=c6dd80844;t=65b0ae39182b3;x=d81f7275445bf0c6",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:12:03.693378+00:00",
+    "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+    "pid": "433405",
+    "cursor": "s=d94ba471f1074dea830f1e9443174916;i=24969d57;b=8d89477fa10d420cb3fb6ef5f44ea07e;m=c760ca0d2;t=65b0aebc61b42;x=b55e97dec5c5c225",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:16:25.483834+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "8583",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496a7ba;b=09bab7b7ee024496b131e20399b88193;m=53e8f3a;t=65b0afb60b63a;x=a4fdb322b78e7bcc",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:16:25.529440+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "8586",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496a7be;b=09bab7b7ee024496b131e20399b88193;m=53f415f;t=65b0afb616860;x=cab73c1285de98d3",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:16:25.572335+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "8589",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496a7c2;b=09bab7b7ee024496b131e20399b88193;m=53fe8ef;t=65b0afb620fef;x=f301f59827373a6c",
+    "command": "/usr/bin/mount /dev/sda /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:16:25.618793+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "8592",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496a7c6;b=09bab7b7ee024496b131e20399b88193;m=5409e69;t=65b0afb62c569;x=f2971b63ad052ccc",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:16:25.777187+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "8598",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496a7ca;b=09bab7b7ee024496b131e20399b88193;m=5430922;t=65b0afb653023;x=1190dda86cc899ba",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:16:25.814012+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "8601",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496a7cd;b=09bab7b7ee024496b131e20399b88193;m=54398fb;t=65b0afb65bffc;x=f5181038ff6f6861",
+    "command": "/usr/bin/mount /dev/sdb /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:16:25.920843+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "8610",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496a7d8;b=09bab7b7ee024496b131e20399b88193;m=5453a4b;t=65b0afb67614b;x=248679b934abdab1",
+    "command": "/usr/bin/mount /dev/sdc /users/zimooo2/gapbs/benchmark"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:17:24.547905+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "13470",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496b807;b=09bab7b7ee024496b131e20399b88193;m=8c3ce41;t=65b0afee5f541;x=c5301415c96ff7d",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:19:36.146149+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "15211",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496b92a;b=09bab7b7ee024496b131e20399b88193;m=109bd5e5;t=65b0b06bdfce5;x=237ec3cebdc3ae1d",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:22:06.475812+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "20750",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496c8c4;b=09bab7b7ee024496b131e20399b88193;m=1991af23;t=65b0b0fb3d624;x=c558c569006da480",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:24:32.588767+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "23974",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496cef6;b=09bab7b7ee024496b131e20399b88193;m=224730df;t=65b0b186957df;x=fda4c03ef69e315f",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:34:58.874447+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "30123",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496dec9;b=09bab7b7ee024496b131e20399b88193;m=479b8d4e;t=65b0b3dbdb44f;x=ca8e6243cd2c4ce7",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:36:42.465239+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "31350",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496e1c8;b=09bab7b7ee024496b131e20399b88193;m=4dc838d7;t=65b0b43ea5fd7;x=1a50818e697e7ee3",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:38:00.265465+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "32019",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496e1d9;b=09bab7b7ee024496b131e20399b88193;m=526b5bf9;t=65b0b488d82f9;x=6f870d3e8a5faf6f",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/tmp/bc-twitter-618-ssd-check/model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:53:21.586127+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "76696",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496e3c4;b=09bab7b7ee024496b131e20399b88193;m=895598cf;t=65b0b7f77bfcf;x=12c541e0f10aa087",
+    "command": "/usr/bin/env OMP_NUM_THREADS=16 WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LOG_OUTPUT_PATH=/tmp/arms-source-audit-jraqd_s5/may09/run/access.log LD_PRELOAD=/tmp/arms-source-audit-jraqd_s5/may09/libarms-audit.so /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:54:09.162400+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "81297",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496f272;b=09bab7b7ee024496b131e20399b88193;m=8c2b8d9f;t=65b0b824db4a0;x=15e8f9d459ac960",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:56:38.090955+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "87569",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=249703a0;b=09bab7b7ee024496b131e20399b88193;m=950c05cb;t=65b0b8b2e2ccb;x=c3bd5abe671ab208",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:59:02.980359+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "93213",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=24971364;b=09bab7b7ee024496b131e20399b88193;m=9daedc06;t=65b0b93d10307;x=6d52e3001940f85c",
+    "command": "/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run2_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  }
+]

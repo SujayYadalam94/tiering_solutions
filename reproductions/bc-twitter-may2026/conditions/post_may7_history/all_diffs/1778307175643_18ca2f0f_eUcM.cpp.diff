@@ -1,0 +1,24 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/18ca2f0f/iMTY.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/18ca2f0f/eUcM.cpp
+@@ -408,8 +408,8 @@
+ 
+         if (task.promote_pages.size() > 0)
+         {
+-            float time_per_page_us = static_cast<float>(promotion_time.count()) /
+-                                     static_cast<float>(task.promote_pages.size() - initial_failed_promotions);
++            float time_per_page_us =
++                static_cast<float>(promotion_time.count()) / static_cast<float>(task.promote_pages.size());
+ 
+             promotion_cost_avg =
+                 std::max((double)MIN_PROMOTION_COST,
+@@ -417,8 +417,8 @@
+         }
+         if (task.demote_pages.size() > 0)
+         {
+-            float time_per_page_us = static_cast<float>(demotion_time.count()) /
+-                                     static_cast<float>(task.demote_pages.size() - initial_failed_demotions);
++            float time_per_page_us =
++                static_cast<float>(demotion_time.count()) / static_cast<float>(task.demote_pages.size());
+             demotion_cost_avg = std::max((double)MIN_DEMOTION_COST, MIGRATION_COST_ALPHA * time_per_page_us +
+                                                                         (1 - MIGRATION_COST_ALPHA) * demotion_cost_avg);
+         }

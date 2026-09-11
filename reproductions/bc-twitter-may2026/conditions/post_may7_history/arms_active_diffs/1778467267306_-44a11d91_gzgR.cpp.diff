@@ -1,0 +1,20 @@
+--- /users/zimooo2/.vscode-server/data/User/History/-44a11d91/v8PL.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-44a11d91/gzgR.cpp
+@@ -1290,7 +1290,7 @@
+ {
+ continue;
+ }
+-double cost = 1 * get_promotion_cost_multiplier() * promotion_cost_avg;
++double cost = get_promotion_cost_multiplier() * promotion_cost_avg;
+ double benefit = hot_page->score * hot_page->hot_age * (5003) * latency_diff;
+ if (benefit < cost)
+ {
+@@ -1315,7 +1315,7 @@
+ if (cold_page->in_dram && cold_page->can_demote)
+ {
+ selected_cold_page = cold_page;
+-cost += 1 * get_demotion_cost_multiplier() * demotion_cost_avg;
++cost += get_demotion_cost_multiplier() * demotion_cost_avg;
+ benefit -= cold_page->score * hot_page->hot_age * (5003) * latency_diff;
+ break;
+ }

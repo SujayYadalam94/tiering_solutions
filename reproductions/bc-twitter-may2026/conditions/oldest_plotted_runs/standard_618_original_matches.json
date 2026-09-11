@@ -1,0 +1,2732 @@
+[
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/faiss_10M/10028MiB_run1_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "faiss_10M",
+      "MiB_bucket": 10000.0,
+      "run": 1.0,
+      "real": 260.878,
+      "git_blob": "8bd9885dfbce8e6cc5b0ca4c73cf35b5871be66b"
+    },
+    "path": "times/c220g5/model_6.18_new/faiss_10M/10028MiB_run1_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T19:25:31.453557+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/faiss_10M/10028MiB_run2_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "faiss_10M",
+      "MiB_bucket": 10000.0,
+      "run": 2.0,
+      "real": 261.151,
+      "git_blob": "b0d306e21bc50e364f9f02ab89dac982809ada91"
+    },
+    "path": "times/c220g5/model_6.18_new/faiss_10M/10028MiB_run2_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T17:35:27.640399+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/faiss_10M/10028MiB_run3_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "faiss_10M",
+      "MiB_bucket": 10000.0,
+      "run": 3.0,
+      "real": 260.364,
+      "git_blob": "79e3b240ba3d10071123bcb042bfc6ebec9bb7aa"
+    },
+    "path": "times/c220g5/model_6.18_new/faiss_10M/10028MiB_run3_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T18:09:43.632108+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/faiss_10M/4028MiB_run1_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "faiss_10M",
+      "MiB_bucket": 4000.0,
+      "run": 1.0,
+      "real": 306.878,
+      "git_blob": "9b0ef36084fd5c98a19d48bcf99539b9be6127ae"
+    },
+    "path": "times/c220g5/model_6.18_new/faiss_10M/4028MiB_run1_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T02:55:57.921135+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/faiss_10M/4028MiB_run2_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "faiss_10M",
+      "MiB_bucket": 4000.0,
+      "run": 2.0,
+      "real": 306.285,
+      "git_blob": "262f037b929a23138d858c188183cc39ebbd0ec0"
+    },
+    "path": "times/c220g5/model_6.18_new/faiss_10M/4028MiB_run2_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T03:33:02.341316+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/faiss_10M/4028MiB_run3_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "faiss_10M",
+      "MiB_bucket": 4000.0,
+      "run": 3.0,
+      "real": 307.69,
+      "git_blob": "a6f98f0e58a85739fc28cd61c5c16f84736fd67f"
+    },
+    "path": "times/c220g5/model_6.18_new/faiss_10M/4028MiB_run3_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T04:09:51.759194+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/faiss_10M/6032MiB_run1_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "faiss_10M",
+      "MiB_bucket": 6000.0,
+      "run": 1.0,
+      "real": 291.388,
+      "git_blob": "4adf7cf1d32e5d42e8dec821e13d0b5602398d9f"
+    },
+    "path": "times/c220g5/model/faiss_10M/6032MiB_run1_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T21:05:11.450155+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/faiss_10M/6032MiB_run2_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "faiss_10M",
+      "MiB_bucket": 6000.0,
+      "run": 2.0,
+      "real": 291.987,
+      "git_blob": "0ac337ad8b21ed130dda7d390e3db77f55c8f36b"
+    },
+    "path": "times/c220g5/model/faiss_10M/6032MiB_run2_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T17:46:58.692167+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/faiss_10M/6032MiB_run3_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "faiss_10M",
+      "MiB_bucket": 6000.0,
+      "run": 3.0,
+      "real": 290.64,
+      "git_blob": "58f067f1b06ebc0b04e060db73c0e8edca724936"
+    },
+    "path": "times/c220g5/model/faiss_10M/6032MiB_run3_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T19:23:52.275319+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/faiss_10M/8028MiB_run1_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "faiss_10M",
+      "MiB_bucket": 8000.0,
+      "run": 1.0,
+      "real": 272.275,
+      "git_blob": "01505f0c3f71c44aeabdfb5e6266d07e5097d9f3"
+    },
+    "path": "times/c220g5/model_6.18_new/faiss_10M/8028MiB_run1_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T05:03:30.163556+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/faiss_10M/8028MiB_run2_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "faiss_10M",
+      "MiB_bucket": 8000.0,
+      "run": 2.0,
+      "real": 274.052,
+      "git_blob": "bb0a19710f91ce9c7dee4033a2f633a311168490"
+    },
+    "path": "times/c220g5/model_6.18_new/faiss_10M/8028MiB_run2_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T05:38:15.146875+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/faiss_10M/8028MiB_run3_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "faiss_10M",
+      "MiB_bucket": 8000.0,
+      "run": 3.0,
+      "real": 272.72,
+      "git_blob": "a4ece622d54bf401f4bf33890b0af9e69ef8c958"
+    },
+    "path": "times/c220g5/model_6.18_new/faiss_10M/8028MiB_run3_model_discounted_reward_99_faiss_10M_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T06:12:48.640575+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/faiss_10M/10009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "faiss_10M",
+      "MiB_bucket": 10000.0,
+      "run": 1.0,
+      "real": 305.166,
+      "git_blob": "cdfd40e40183c256e602d8e6fe9443ea1b5c9cd9"
+    },
+    "path": "times/c220g5/arms-6.18_new/faiss_10M/10009MiB_run1.time",
+    "mtime_utc": "2026-05-09T07:50:06.716249+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/faiss_10M/10009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "faiss_10M",
+      "MiB_bucket": 10000.0,
+      "run": 2.0,
+      "real": 306.697,
+      "git_blob": "68e4e7e60450c18241041c8668e773afd94609ae"
+    },
+    "path": "times/c220g5/arms-6.18_new/faiss_10M/10009MiB_run2.time",
+    "mtime_utc": "2026-05-09T09:00:30.580953+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/faiss_10M/10009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "faiss_10M",
+      "MiB_bucket": 10000.0,
+      "run": 3.0,
+      "real": 305.55,
+      "git_blob": "a1279aa14665289c545b4f8d3fb4e79329cc784b"
+    },
+    "path": "times/c220g5/arms-6.18_new/faiss_10M/10009MiB_run3.time",
+    "mtime_utc": "2026-05-09T10:10:42.996407+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/faiss_10M/4009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "faiss_10M",
+      "MiB_bucket": 4000.0,
+      "run": 1.0,
+      "real": 321.9,
+      "git_blob": "6dd621e8af3b01123e2d809eb1c25d2953f7c8da"
+    },
+    "path": "times/c220g5/arms-6.18_new/faiss_10M/4009MiB_run1.time",
+    "mtime_utc": "2026-05-07T06:15:34.367975+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/faiss_10M/4009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "faiss_10M",
+      "MiB_bucket": 4000.0,
+      "run": 2.0,
+      "real": 311.261,
+      "git_blob": "5b4521c53ab13c75bbe1890f8401c1e518db95d0"
+    },
+    "path": "times/c220g5/arms-6.18_new/faiss_10M/4009MiB_run2.time",
+    "mtime_utc": "2026-05-07T10:01:49.795926+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/faiss_10M/4009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "faiss_10M",
+      "MiB_bucket": 4000.0,
+      "run": 3.0,
+      "real": 311.689,
+      "git_blob": "3c7b9db204623ab0c31eea49d1946808ae1728f2"
+    },
+    "path": "times/c220g5/arms-6.18_new/faiss_10M/4009MiB_run3.time",
+    "mtime_utc": "2026-05-07T13:48:13.505623+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/faiss_10M/6009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "faiss_10M",
+      "MiB_bucket": 6000.0,
+      "run": 1.0,
+      "real": 316.474,
+      "git_blob": "8fef05f1c9b4a415170355565b025ba10da46d35"
+    },
+    "path": "times/c220g5/arms-6.18_new/faiss_10M/6009MiB_run1.time",
+    "mtime_utc": "2026-05-07T19:16:32.864911+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/faiss_10M/6009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "faiss_10M",
+      "MiB_bucket": 6000.0,
+      "run": 2.0,
+      "real": 306.862,
+      "git_blob": "50db6f7cac2b0b08aae361b0f43f9cb16345b23c"
+    },
+    "path": "times/c220g5/arms-6.18_new/faiss_10M/6009MiB_run2.time",
+    "mtime_utc": "2026-05-07T22:53:45.429896+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/faiss_10M/6009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "faiss_10M",
+      "MiB_bucket": 6000.0,
+      "run": 3.0,
+      "real": 306.984,
+      "git_blob": "7b7cf876443798df30d291a870a21b40d73abfd0"
+    },
+    "path": "times/c220g5/arms-6.18_new/faiss_10M/6009MiB_run3.time",
+    "mtime_utc": "2026-05-08T02:31:41.843678+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/faiss_10M/8009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "faiss_10M",
+      "MiB_bucket": 8000.0,
+      "run": 1.0,
+      "real": 306.023,
+      "git_blob": "d12b6601ff1b5786f110705c87c44d48c854101c"
+    },
+    "path": "times/c220g5/arms-6.18_new/faiss_10M/8009MiB_run1.time",
+    "mtime_utc": "2026-05-08T06:17:26.097739+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/faiss_10M/8009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "faiss_10M",
+      "MiB_bucket": 8000.0,
+      "run": 2.0,
+      "real": 303.752,
+      "git_blob": "ec6d3260ffb9f01be4a0ec99efaf043dbf2f37db"
+    },
+    "path": "times/c220g5/arms-6.18_new/faiss_10M/8009MiB_run2.time",
+    "mtime_utc": "2026-05-08T09:53:03.180211+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/faiss_10M/8009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "faiss_10M",
+      "MiB_bucket": 8000.0,
+      "run": 3.0,
+      "real": 311.465,
+      "git_blob": "79b90ef6613a6a80dfb550855406532aa5af94e0"
+    },
+    "path": "times/c220g5/arms-6.18_new/faiss_10M/8009MiB_run3.time",
+    "mtime_utc": "2026-05-08T13:28:59.864001+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/DuckDB-TPCH-sf100/10028MiB_run1_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 10000.0,
+      "run": 1.0,
+      "real": 190.926,
+      "git_blob": "9f50603f2770909ff11ce21ab3ee660de9de875c"
+    },
+    "path": "times/c220g5/model_6.18_new/DuckDB-TPCH-sf100/10028MiB_run1_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T19:41:02.232340+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/DuckDB-TPCH-sf100/10028MiB_run2_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 10000.0,
+      "run": 2.0,
+      "real": 191.598,
+      "git_blob": "27744054e28470233c3df5a3f7e088b0fa1ed8db"
+    },
+    "path": "times/c220g5/model_6.18_new/DuckDB-TPCH-sf100/10028MiB_run2_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T17:43:17.665735+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/DuckDB-TPCH-sf100/10028MiB_run3_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 10000.0,
+      "run": 3.0,
+      "real": 190.426,
+      "git_blob": "f5504cffbed1913c42ab489871516a5d48c3a678"
+    },
+    "path": "times/c220g5/model_6.18_new/DuckDB-TPCH-sf100/10028MiB_run3_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T18:17:30.217393+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/DuckDB-TPCH-sf100/4028MiB_run1_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 4000.0,
+      "run": 1.0,
+      "real": 205.353,
+      "git_blob": "8e21132bea2fc4c43a37153d960c7a53b51ec772"
+    },
+    "path": "times/c220g5/model_6.18_new/DuckDB-TPCH-sf100/4028MiB_run1_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T03:04:48.319661+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/DuckDB-TPCH-sf100/4028MiB_run2_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 4000.0,
+      "run": 2.0,
+      "real": 202.298,
+      "git_blob": "c742da26f3410a317f8cf6c4427f280db341599c"
+    },
+    "path": "times/c220g5/model_6.18_new/DuckDB-TPCH-sf100/4028MiB_run2_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T03:41:48.769701+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/DuckDB-TPCH-sf100/4028MiB_run3_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 4000.0,
+      "run": 3.0,
+      "real": 203.496,
+      "git_blob": "7abd81726a7c27ffd9a862dd5315f6f79f1cdfc8"
+    },
+    "path": "times/c220g5/model_6.18_new/DuckDB-TPCH-sf100/4028MiB_run3_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T04:18:41.703560+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/DuckDB-TPCH-sf100/6032MiB_run1_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 6000.0,
+      "run": 1.0,
+      "real": 197.254,
+      "git_blob": "6d09e7e7f2c425af34ca8d53aad654d28475d08a"
+    },
+    "path": "times/c220g5/model/DuckDB-TPCH-sf100/6032MiB_run1_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T21:13:46.308196+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/DuckDB-TPCH-sf100/6032MiB_run2_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 6000.0,
+      "run": 2.0,
+      "real": 196.568,
+      "git_blob": "fb3a1cf577b7a668707fb73b9dcd300ee708738b"
+    },
+    "path": "times/c220g5/model/DuckDB-TPCH-sf100/6032MiB_run2_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T17:55:32.499204+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/DuckDB-TPCH-sf100/6032MiB_run3_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 6000.0,
+      "run": 3.0,
+      "real": 194.485,
+      "git_blob": "521e4e3e32d014e4d369869b8190a7830ae2dcf1"
+    },
+    "path": "times/c220g5/model/DuckDB-TPCH-sf100/6032MiB_run3_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T19:32:22.134342+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/DuckDB-TPCH-sf100/8028MiB_run1_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 8000.0,
+      "run": 1.0,
+      "real": 189.998,
+      "git_blob": "062523a1200c83bf96c581fd7bc9bb9e4a0ca14f"
+    },
+    "path": "times/c220g5/model_6.18_new/DuckDB-TPCH-sf100/8028MiB_run1_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T05:11:24.463192+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/DuckDB-TPCH-sf100/8028MiB_run2_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 8000.0,
+      "run": 2.0,
+      "real": 192.106,
+      "git_blob": "b9513088bedd7104454582ee8f35bc0759c6da01"
+    },
+    "path": "times/c220g5/model_6.18_new/DuckDB-TPCH-sf100/8028MiB_run2_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T05:46:11.012218+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/DuckDB-TPCH-sf100/8028MiB_run3_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 8000.0,
+      "run": 3.0,
+      "real": 188.745,
+      "git_blob": "95e89d16fb00798535674f7a0d0d760de16edbf8"
+    },
+    "path": "times/c220g5/model_6.18_new/DuckDB-TPCH-sf100/8028MiB_run3_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T06:20:41.401898+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/DuckDB-TPCH-sf100/10009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 10000.0,
+      "run": 1.0,
+      "real": 189.327,
+      "git_blob": "b6abaf048ff0461c13ea4ad0a7ec1cef19f1a2fa"
+    },
+    "path": "times/c220g5/arms-6.18_new/DuckDB-TPCH-sf100/10009MiB_run1.time",
+    "mtime_utc": "2026-05-09T08:07:42.813813+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/DuckDB-TPCH-sf100/10009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 10000.0,
+      "run": 2.0,
+      "real": 190.215,
+      "git_blob": "79186bcb72d3ad421231dc2a892555e5193e49e2"
+    },
+    "path": "times/c220g5/arms-6.18_new/DuckDB-TPCH-sf100/10009MiB_run2.time",
+    "mtime_utc": "2026-05-09T09:18:03.847332+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/DuckDB-TPCH-sf100/10009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 10000.0,
+      "run": 3.0,
+      "real": 189.748,
+      "git_blob": "9acd2e5a1aacfcc487be31740a51d5da50de4319"
+    },
+    "path": "times/c220g5/arms-6.18_new/DuckDB-TPCH-sf100/10009MiB_run3.time",
+    "mtime_utc": "2026-05-09T10:28:19.477902+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/DuckDB-TPCH-sf100/4009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 4000.0,
+      "run": 1.0,
+      "real": 217.413,
+      "git_blob": "dec8413703fb4fc21e0650a0369b476e396de1df"
+    },
+    "path": "times/c220g5/arms-6.18_new/DuckDB-TPCH-sf100/4009MiB_run1.time",
+    "mtime_utc": "2026-05-07T07:18:18.373139+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/DuckDB-TPCH-sf100/4009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 4000.0,
+      "run": 2.0,
+      "real": 219.728,
+      "git_blob": "01523ceb6dfe192cbe4c229474d5a9b09b474c92"
+    },
+    "path": "times/c220g5/arms-6.18_new/DuckDB-TPCH-sf100/4009MiB_run2.time",
+    "mtime_utc": "2026-05-07T11:04:38.983958+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/DuckDB-TPCH-sf100/4009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 4000.0,
+      "run": 3.0,
+      "real": 218.339,
+      "git_blob": "0503acbb64ea300e6e3f2f4b2f9c8d9df80f1572"
+    },
+    "path": "times/c220g5/arms-6.18_new/DuckDB-TPCH-sf100/4009MiB_run3.time",
+    "mtime_utc": "2026-05-07T14:51:02.798656+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/DuckDB-TPCH-sf100/6009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 6000.0,
+      "run": 1.0,
+      "real": 197.48,
+      "git_blob": "c6c6b603ac078bf73c21e33e703ec12459bbf90b"
+    },
+    "path": "times/c220g5/arms-6.18_new/DuckDB-TPCH-sf100/6009MiB_run1.time",
+    "mtime_utc": "2026-05-07T20:17:24.909575+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/DuckDB-TPCH-sf100/6009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 6000.0,
+      "run": 2.0,
+      "real": 196.446,
+      "git_blob": "be1c81ed19314068656c52b3e7b23f9f8a9cad96"
+    },
+    "path": "times/c220g5/arms-6.18_new/DuckDB-TPCH-sf100/6009MiB_run2.time",
+    "mtime_utc": "2026-05-07T23:54:35.596240+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/DuckDB-TPCH-sf100/6009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 6000.0,
+      "run": 3.0,
+      "real": 199.357,
+      "git_blob": "edc2265be1a14930d58379c7a421384b6c97288c"
+    },
+    "path": "times/c220g5/arms-6.18_new/DuckDB-TPCH-sf100/6009MiB_run3.time",
+    "mtime_utc": "2026-05-08T03:32:57.514026+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/DuckDB-TPCH-sf100/8009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 8000.0,
+      "run": 1.0,
+      "real": 191.128,
+      "git_blob": "c0fdfc124144a28e11ea3aa98dd112a41140d81d"
+    },
+    "path": "times/c220g5/arms-6.18_new/DuckDB-TPCH-sf100/8009MiB_run1.time",
+    "mtime_utc": "2026-05-08T07:16:43.653934+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/DuckDB-TPCH-sf100/8009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 8000.0,
+      "run": 2.0,
+      "real": 193.165,
+      "git_blob": "e57f3c7282b735be02eb0d01e7e3b08123d4188b"
+    },
+    "path": "times/c220g5/arms-6.18_new/DuckDB-TPCH-sf100/8009MiB_run2.time",
+    "mtime_utc": "2026-05-08T10:52:27.600291+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/DuckDB-TPCH-sf100/8009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "DuckDB-TPCH-sf100",
+      "MiB_bucket": 8000.0,
+      "run": 3.0,
+      "real": 191.462,
+      "git_blob": "d7175824065c71f1046012dba5772b19dd7cd7bf"
+    },
+    "path": "times/c220g5/arms-6.18_new/DuckDB-TPCH-sf100/8009MiB_run3.time",
+    "mtime_utc": "2026-05-08T14:28:20.107365+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/mg.D.x/10028MiB_run1_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "mg.D.x",
+      "MiB_bucket": 10000.0,
+      "run": 1.0,
+      "real": 184.446,
+      "git_blob": "64c5fd7ee464a25331fc8529581dc5041ec7a7b3"
+    },
+    "path": "times/c220g5/model_6.18_new/mg.D.x/10028MiB_run1_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T19:33:08.315834+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/mg.D.x/10028MiB_run2_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "mg.D.x",
+      "MiB_bucket": 10000.0,
+      "run": 2.0,
+      "real": 187.56,
+      "git_blob": "ec791cefd352a1966e784d05a326b0f303f90213"
+    },
+    "path": "times/c220g5/model_6.18_new/mg.D.x/10028MiB_run2_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T17:39:21.344548+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/mg.D.x/10028MiB_run3_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "mg.D.x",
+      "MiB_bucket": 10000.0,
+      "run": 3.0,
+      "real": 185.934,
+      "git_blob": "6a456fe619296506a85a9646fc5c0fb0f62f52e7"
+    },
+    "path": "times/c220g5/model_6.18_new/mg.D.x/10028MiB_run3_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T18:13:34.798218+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/mg.D.x/4028MiB_run1_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "mg.D.x",
+      "MiB_bucket": 4000.0,
+      "run": 1.0,
+      "real": 233.454,
+      "git_blob": "a62bd262825d3e7b2af4bd39add6dabe4770beed"
+    },
+    "path": "times/c220g5/model_6.18_new/mg.D.x/4028MiB_run1_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T03:00:37.421096+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/mg.D.x/4028MiB_run2_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "mg.D.x",
+      "MiB_bucket": 4000.0,
+      "run": 2.0,
+      "real": 233.078,
+      "git_blob": "3ad14920cd5a6f873086e4128f029dd8ecabc1ee"
+    },
+    "path": "times/c220g5/model_6.18_new/mg.D.x/4028MiB_run2_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T03:37:40.931206+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/mg.D.x/4028MiB_run3_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "mg.D.x",
+      "MiB_bucket": 4000.0,
+      "run": 3.0,
+      "real": 235.811,
+      "git_blob": "5d821fa0cc8c96572e5d7b2c14088d914f5cfc6c"
+    },
+    "path": "times/c220g5/model_6.18_new/mg.D.x/4028MiB_run3_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T04:14:32.474085+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/mg.D.x/6032MiB_run1_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "mg.D.x",
+      "MiB_bucket": 6000.0,
+      "run": 1.0,
+      "real": 224.19299999999998,
+      "git_blob": "42747124be18d2f7c0f34e1497b83da2dc9697c1"
+    },
+    "path": "times/c220g5/model/mg.D.x/6032MiB_run1_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T21:09:42.155864+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/mg.D.x/6032MiB_run2_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "mg.D.x",
+      "MiB_bucket": 6000.0,
+      "run": 2.0,
+      "real": 227.038,
+      "git_blob": "1567004ce576b62d661c51b59c6ca982fa4dac55"
+    },
+    "path": "times/c220g5/model/mg.D.x/6032MiB_run2_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T17:51:30.613892+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/mg.D.x/6032MiB_run3_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "mg.D.x",
+      "MiB_bucket": 6000.0,
+      "run": 3.0,
+      "real": 222.711,
+      "git_blob": "5dbc5765aefd8e50dfc38fd85391424454b3382e"
+    },
+    "path": "times/c220g5/model/mg.D.x/6032MiB_run3_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T19:28:21.157022+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/mg.D.x/8028MiB_run1_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "mg.D.x",
+      "MiB_bucket": 8000.0,
+      "run": 1.0,
+      "real": 194.13400000000001,
+      "git_blob": "2cf72fe479e831749381c56b207b4f854490a587"
+    },
+    "path": "times/c220g5/model_6.18_new/mg.D.x/8028MiB_run1_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T05:07:29.607875+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/mg.D.x/8028MiB_run2_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "mg.D.x",
+      "MiB_bucket": 8000.0,
+      "run": 2.0,
+      "real": 194.155,
+      "git_blob": "b758886344b2e99ce11a52478c7fe91ebcda9a88"
+    },
+    "path": "times/c220g5/model_6.18_new/mg.D.x/8028MiB_run2_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T05:42:14.273053+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/mg.D.x/8028MiB_run3_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "mg.D.x",
+      "MiB_bucket": 8000.0,
+      "run": 3.0,
+      "real": 194.969,
+      "git_blob": "b251af2cc68eaeb2f4d2536fc5aba8ffc410d2a4"
+    },
+    "path": "times/c220g5/model_6.18_new/mg.D.x/8028MiB_run3_model_discounted_reward_99_mg.D.x_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T06:16:48.353769+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/mg.D.x/10009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "mg.D.x",
+      "MiB_bucket": 10000.0,
+      "run": 1.0,
+      "real": 181.553,
+      "git_blob": "13b1ba9c90b8699d80f9ead4865f57953a71a4b0"
+    },
+    "path": "times/c220g5/arms-6.18_new/mg.D.x/10009MiB_run1.time",
+    "mtime_utc": "2026-05-09T07:59:14.748833+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/mg.D.x/10009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "mg.D.x",
+      "MiB_bucket": 10000.0,
+      "run": 2.0,
+      "real": 181.321,
+      "git_blob": "30d520cb3f0372217680c31b156b4f79f7ef86e0"
+    },
+    "path": "times/c220g5/arms-6.18_new/mg.D.x/10009MiB_run2.time",
+    "mtime_utc": "2026-05-09T09:09:37.421449+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/mg.D.x/10009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "mg.D.x",
+      "MiB_bucket": 10000.0,
+      "run": 3.0,
+      "real": 178.302,
+      "git_blob": "d78b767ed6965b337e712398f00dcd04c855485b"
+    },
+    "path": "times/c220g5/arms-6.18_new/mg.D.x/10009MiB_run3.time",
+    "mtime_utc": "2026-05-09T10:19:53.112966+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/mg.D.x/4009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "mg.D.x",
+      "MiB_bucket": 4000.0,
+      "run": 1.0,
+      "real": 233.64,
+      "git_blob": "f6390340e461b064e4b44f60ff48a81debf24e8d"
+    },
+    "path": "times/c220g5/arms-6.18_new/mg.D.x/4009MiB_run1.time",
+    "mtime_utc": "2026-05-07T06:50:25.000863+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/mg.D.x/4009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "mg.D.x",
+      "MiB_bucket": 4000.0,
+      "run": 2.0,
+      "real": 235.656,
+      "git_blob": "05533d577b3531c0b7df7ea71aef5cc9932749b7"
+    },
+    "path": "times/c220g5/arms-6.18_new/mg.D.x/4009MiB_run2.time",
+    "mtime_utc": "2026-05-07T10:36:42.519901+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/mg.D.x/4009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "mg.D.x",
+      "MiB_bucket": 4000.0,
+      "run": 3.0,
+      "real": 233.145,
+      "git_blob": "e484062d4305b5038a8f559b9da581a09cd488fc"
+    },
+    "path": "times/c220g5/arms-6.18_new/mg.D.x/4009MiB_run3.time",
+    "mtime_utc": "2026-05-07T14:23:05.924383+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/mg.D.x/6009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "mg.D.x",
+      "MiB_bucket": 6000.0,
+      "run": 1.0,
+      "real": 210.339,
+      "git_blob": "c3bcb9f660096bb224edc793c84b26fa4e075c5b"
+    },
+    "path": "times/c220g5/arms-6.18_new/mg.D.x/6009MiB_run1.time",
+    "mtime_utc": "2026-05-07T19:50:47.250463+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/mg.D.x/6009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "mg.D.x",
+      "MiB_bucket": 6000.0,
+      "run": 2.0,
+      "real": 213.527,
+      "git_blob": "b7fad749bfa2bb51f817ef94b7b685dd5a5c15f4"
+    },
+    "path": "times/c220g5/arms-6.18_new/mg.D.x/6009MiB_run2.time",
+    "mtime_utc": "2026-05-07T23:27:45.977061+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/mg.D.x/6009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "mg.D.x",
+      "MiB_bucket": 6000.0,
+      "run": 3.0,
+      "real": 210.88,
+      "git_blob": "77cec72e4c10f2f08bacc8fbee9ad526b80152bf"
+    },
+    "path": "times/c220g5/arms-6.18_new/mg.D.x/6009MiB_run3.time",
+    "mtime_utc": "2026-05-08T03:05:42.405729+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/mg.D.x/8009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "mg.D.x",
+      "MiB_bucket": 8000.0,
+      "run": 1.0,
+      "real": 196.889,
+      "git_blob": "f394b5936d11fc1451238539fcfe922e296305c1"
+    },
+    "path": "times/c220g5/arms-6.18_new/mg.D.x/8009MiB_run1.time",
+    "mtime_utc": "2026-05-08T06:50:51.539442+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/mg.D.x/8009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "mg.D.x",
+      "MiB_bucket": 8000.0,
+      "run": 2.0,
+      "real": 192.734,
+      "git_blob": "b3b0dac1f66e686a61e3926d811dbab16e4b34be"
+    },
+    "path": "times/c220g5/arms-6.18_new/mg.D.x/8009MiB_run2.time",
+    "mtime_utc": "2026-05-08T10:26:27.423777+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/mg.D.x/8009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "mg.D.x",
+      "MiB_bucket": 8000.0,
+      "run": 3.0,
+      "real": 193.558,
+      "git_blob": "821b08851fb45dc46c8fbb1d0400f40bba80e4bf"
+    },
+    "path": "times/c220g5/arms-6.18_new/mg.D.x/8009MiB_run3.time",
+    "mtime_utc": "2026-05-08T14:02:19.686688+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/XSBench/10028MiB_run1_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "XSBench",
+      "MiB_bucket": 10000.0,
+      "run": 1.0,
+      "real": 168.845,
+      "git_blob": "d0bd761c0740f845489fe4b500c95ebc16ee8fdd"
+    },
+    "path": "times/c220g5/model_6.18_new/XSBench/10028MiB_run1_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T19:48:08.768102+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/XSBench/10028MiB_run2_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "XSBench",
+      "MiB_bucket": 10000.0,
+      "run": 2.0,
+      "real": 168.81,
+      "git_blob": "7e37ead6db223e3d087cd40298d4e8076b78e5de"
+    },
+    "path": "times/c220g5/model_6.18_new/XSBench/10028MiB_run2_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T17:46:54.094660+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/XSBench/10028MiB_run3_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "XSBench",
+      "MiB_bucket": 10000.0,
+      "run": 3.0,
+      "real": 169.078,
+      "git_blob": "0c11a2cf7a8a1039181485fb56707eb8e6cdc2bc"
+    },
+    "path": "times/c220g5/model_6.18_new/XSBench/10028MiB_run3_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T18:21:08.807350+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/XSBench/4028MiB_run1_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "XSBench",
+      "MiB_bucket": 4000.0,
+      "run": 1.0,
+      "real": 169.785,
+      "git_blob": "39e1873809d62cdaaf2b7e19ade8de8351020c11"
+    },
+    "path": "times/c220g5/model_6.18_new/XSBench/4028MiB_run1_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T03:08:28.249781+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/XSBench/4028MiB_run2_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "XSBench",
+      "MiB_bucket": 4000.0,
+      "run": 2.0,
+      "real": 168.905,
+      "git_blob": "fb8d3c2ab0c688bf7b516b3fb8115835bd973e2f"
+    },
+    "path": "times/c220g5/model_6.18_new/XSBench/4028MiB_run2_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T03:45:27.048825+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/XSBench/4028MiB_run3_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "XSBench",
+      "MiB_bucket": 4000.0,
+      "run": 3.0,
+      "real": 167.279,
+      "git_blob": "6310bbdf0e978c88b12bdec20988c241cbdbe90a"
+    },
+    "path": "times/c220g5/model_6.18_new/XSBench/4028MiB_run3_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T04:22:18.329608+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/XSBench/6032MiB_run1_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "XSBench",
+      "MiB_bucket": 6000.0,
+      "run": 1.0,
+      "real": 169.791,
+      "git_blob": "93baa4e168c7fa7eda4055fd253df2a5858ac746"
+    },
+    "path": "times/c220g5/model/XSBench/6032MiB_run1_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T20:59:33.455507+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/XSBench/6032MiB_run2_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "XSBench",
+      "MiB_bucket": 6000.0,
+      "run": 2.0,
+      "real": 168.883,
+      "git_blob": "25ccdf36949a425b4b3fefe26055608e17117733"
+    },
+    "path": "times/c220g5/model/XSBench/6032MiB_run2_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T17:41:21.876553+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/XSBench/6032MiB_run3_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "XSBench",
+      "MiB_bucket": 6000.0,
+      "run": 3.0,
+      "real": 168.399,
+      "git_blob": "3521eb168040c00c506c7c5e6ff58f95e16c7db9"
+    },
+    "path": "times/c220g5/model/XSBench/6032MiB_run3_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T19:18:14.861670+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/XSBench/8028MiB_run1_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "XSBench",
+      "MiB_bucket": 8000.0,
+      "run": 1.0,
+      "real": 167.905,
+      "git_blob": "f4d80f23c8d06e1be4da0b6b969949bd5487bb07"
+    },
+    "path": "times/c220g5/model_6.18_new/XSBench/8028MiB_run1_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T05:15:02.951255+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/XSBench/8028MiB_run2_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "XSBench",
+      "MiB_bucket": 8000.0,
+      "run": 2.0,
+      "real": 167.43,
+      "git_blob": "a85c639e45c71e024a7ca1f6b1896886b587792e"
+    },
+    "path": "times/c220g5/model_6.18_new/XSBench/8028MiB_run2_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T05:49:46.690130+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/XSBench/8028MiB_run3_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "XSBench",
+      "MiB_bucket": 8000.0,
+      "run": 3.0,
+      "real": 167.34300000000002,
+      "git_blob": "92226ef0a8de6659009cbda82eced2d44f8e28dd"
+    },
+    "path": "times/c220g5/model_6.18_new/XSBench/8028MiB_run3_model_discounted_reward_99_XSBench_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T06:24:16.751845+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/XSBench/10009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "XSBench",
+      "MiB_bucket": 10000.0,
+      "run": 1.0,
+      "real": 184.006,
+      "git_blob": "9a590ac35285b4efa6a11b734d67562bc0809077"
+    },
+    "path": "times/c220g5/arms-6.18_new/XSBench/10009MiB_run1.time",
+    "mtime_utc": "2026-05-09T08:15:48.930434+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/XSBench/10009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "XSBench",
+      "MiB_bucket": 10000.0,
+      "run": 2.0,
+      "real": 182.968,
+      "git_blob": "0e1e3e874642740f5523d53c07a2a057e106b3de"
+    },
+    "path": "times/c220g5/arms-6.18_new/XSBench/10009MiB_run2.time",
+    "mtime_utc": "2026-05-09T09:26:01.487836+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/XSBench/10009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "XSBench",
+      "MiB_bucket": 10000.0,
+      "run": 3.0,
+      "real": 180.594,
+      "git_blob": "64225e1d3608078f512f24982dc0e796fc2b0e29"
+    },
+    "path": "times/c220g5/arms-6.18_new/XSBench/10009MiB_run3.time",
+    "mtime_utc": "2026-05-09T10:36:14.627404+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/XSBench/4009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "XSBench",
+      "MiB_bucket": 4000.0,
+      "run": 1.0,
+      "real": 196.486,
+      "git_blob": "e080e062bfaa266badc574ff837d3ab9c754c298"
+    },
+    "path": "times/c220g5/arms-6.18_new/XSBench/4009MiB_run1.time",
+    "mtime_utc": "2026-05-07T08:12:24.080863+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/XSBench/4009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "XSBench",
+      "MiB_bucket": 4000.0,
+      "run": 2.0,
+      "real": 195.039,
+      "git_blob": "d55a2311e9f43da35e7bf0b5adadf8f7818b5539"
+    },
+    "path": "times/c220g5/arms-6.18_new/XSBench/4009MiB_run2.time",
+    "mtime_utc": "2026-05-07T11:58:32.104432+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/XSBench/4009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "XSBench",
+      "MiB_bucket": 4000.0,
+      "run": 3.0,
+      "real": 193.251,
+      "git_blob": "a1b019bad84b331c57c54df9a87ead573b05e3f4"
+    },
+    "path": "times/c220g5/arms-6.18_new/XSBench/4009MiB_run3.time",
+    "mtime_utc": "2026-05-07T15:45:11.284622+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/XSBench/6009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "XSBench",
+      "MiB_bucket": 6000.0,
+      "run": 1.0,
+      "real": 185.1,
+      "git_blob": "486902cead8f0e899e170e57acbeea2b2214daf0"
+    },
+    "path": "times/c220g5/arms-6.18_new/XSBench/6009MiB_run1.time",
+    "mtime_utc": "2026-05-07T21:07:17.559828+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/XSBench/6009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "XSBench",
+      "MiB_bucket": 6000.0,
+      "run": 2.0,
+      "real": 186.177,
+      "git_blob": "73570a94861909325a7874932e863221c055dfb8"
+    },
+    "path": "times/c220g5/arms-6.18_new/XSBench/6009MiB_run2.time",
+    "mtime_utc": "2026-05-08T00:44:42.625430+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/XSBench/6009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "XSBench",
+      "MiB_bucket": 6000.0,
+      "run": 3.0,
+      "real": 181.284,
+      "git_blob": "d874862dcd15cbfe21460362768c2ebe7083913a"
+    },
+    "path": "times/c220g5/arms-6.18_new/XSBench/6009MiB_run3.time",
+    "mtime_utc": "2026-05-08T04:22:53.802318+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/XSBench/8009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "XSBench",
+      "MiB_bucket": 8000.0,
+      "run": 1.0,
+      "real": 178.072,
+      "git_blob": "d9ea128c2bd28d3ffabb9a61f1a66b82ea7e19f7"
+    },
+    "path": "times/c220g5/arms-6.18_new/XSBench/8009MiB_run1.time",
+    "mtime_utc": "2026-05-08T08:06:31.921243+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/XSBench/8009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "XSBench",
+      "MiB_bucket": 8000.0,
+      "run": 2.0,
+      "real": 177.378,
+      "git_blob": "3bd7d2d5d2aded8a587108c62d5ffca944b4de56"
+    },
+    "path": "times/c220g5/arms-6.18_new/XSBench/8009MiB_run2.time",
+    "mtime_utc": "2026-05-08T11:42:11.179543+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/XSBench/8009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "XSBench",
+      "MiB_bucket": 8000.0,
+      "run": 3.0,
+      "real": 180.522,
+      "git_blob": "e1be8219f432ea958aeca7610bd3e8cc67a70535"
+    },
+    "path": "times/c220g5/arms-6.18_new/XSBench/8009MiB_run3.time",
+    "mtime_utc": "2026-05-08T15:18:03.292501+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-kron.sg/10028MiB_run1_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 10000.0,
+      "run": 1.0,
+      "real": 304.599,
+      "git_blob": "87b82a09a2e3f50522ae2282e41429496df0d032"
+    },
+    "path": "times/c220g5/model_6.18_new/pr-kron.sg/10028MiB_run1_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T18:58:24.353124+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-kron.sg/10028MiB_run2_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 10000.0,
+      "run": 2.0,
+      "real": 303.77,
+      "git_blob": "82609f3349103c47a7bfb2cefd43e419cba05708"
+    },
+    "path": "times/c220g5/model_6.18_new/pr-kron.sg/10028MiB_run2_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T17:22:32.229899+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-kron.sg/10028MiB_run3_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 10000.0,
+      "run": 3.0,
+      "real": 302.083,
+      "git_blob": "9271e2e4bdae9ec190acab9ad3befe1d29b780f3"
+    },
+    "path": "times/c220g5/model_6.18_new/pr-kron.sg/10028MiB_run3_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T17:56:50.888740+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-kron.sg/4028MiB_run1_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 4000.0,
+      "run": 1.0,
+      "real": 304.537,
+      "git_blob": "b718d04b511cb0d5b7e17bc9a85ca1aee1a2d6b4"
+    },
+    "path": "times/c220g5/model_6.18_new/pr-kron.sg/4028MiB_run1_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T02:41:39.932373+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-kron.sg/4028MiB_run2_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 4000.0,
+      "run": 2.0,
+      "real": 303.003,
+      "git_blob": "685b7ec16baf92993d687c9dc1fe56476ea3c46a"
+    },
+    "path": "times/c220g5/model_6.18_new/pr-kron.sg/4028MiB_run2_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T03:18:43.633415+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-kron.sg/4028MiB_run3_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 4000.0,
+      "run": 3.0,
+      "real": 303.293,
+      "git_blob": "fcb655df55d35e7c4cddd04d6bc622337b06066d"
+    },
+    "path": "times/c220g5/model_6.18_new/pr-kron.sg/4028MiB_run3_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T03:55:44.418522+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-kron.sg/6032MiB_run1_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 6000.0,
+      "run": 1.0,
+      "real": 302.06,
+      "git_blob": "50365dc659f52b9f4a5b10648acd30f72549d93f"
+    },
+    "path": "times/c220g5/model/pr-kron.sg/6032MiB_run1_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T20:47:36.324632+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-kron.sg/6032MiB_run2_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 6000.0,
+      "run": 2.0,
+      "real": 301.066,
+      "git_blob": "00df399c4d7373812648b69a1d8c42d704e264a1"
+    },
+    "path": "times/c220g5/model/pr-kron.sg/6032MiB_run2_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T17:29:32.939764+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-kron.sg/6032MiB_run3_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 6000.0,
+      "run": 3.0,
+      "real": 303.538,
+      "git_blob": "7d703135049c0f67f5e31c55373532ed2d181d5f"
+    },
+    "path": "times/c220g5/model/pr-kron.sg/6032MiB_run3_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T19:06:08.207631+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-kron.sg/8028MiB_run1_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 8000.0,
+      "run": 1.0,
+      "real": 303.857,
+      "git_blob": "d5297e8a5c6b6be8fdf3f898dbb0f35a3485f297"
+    },
+    "path": "times/c220g5/model_6.18_new/pr-kron.sg/8028MiB_run1_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T04:50:21.673989+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-kron.sg/8028MiB_run2_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 8000.0,
+      "run": 2.0,
+      "real": 303.225,
+      "git_blob": "c4dd2c64d83a234fc31e9c932d54ac59a752b47a"
+    },
+    "path": "times/c220g5/model_6.18_new/pr-kron.sg/8028MiB_run2_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T05:25:02.158381+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-kron.sg/8028MiB_run3_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 8000.0,
+      "run": 3.0,
+      "real": 303.476,
+      "git_blob": "e57256fad533d6811e5d1ed29df83e03a5bada99"
+    },
+    "path": "times/c220g5/model_6.18_new/pr-kron.sg/8028MiB_run3_model_discounted_reward_99_pr-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T05:59:43.552170+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-kron.sg/10009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 10000.0,
+      "run": 1.0,
+      "real": 304.459,
+      "git_blob": "3eb4ea5b6b593022d462630543ad14538338f421"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-kron.sg/10009MiB_run1.time",
+    "mtime_utc": "2026-05-09T08:25:10.770962+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-kron.sg/10009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 10000.0,
+      "run": 2.0,
+      "real": 298.735,
+      "git_blob": "03721550aefbdd6f43d8dd17819f7bf2f15e9ddc"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-kron.sg/10009MiB_run2.time",
+    "mtime_utc": "2026-05-09T09:35:19.549337+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-kron.sg/10009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 10000.0,
+      "run": 3.0,
+      "real": 302.101,
+      "git_blob": "6d5f74b59aad7110306c2d00e7b40ae5008da31f"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-kron.sg/10009MiB_run3.time",
+    "mtime_utc": "2026-05-09T10:45:33.682890+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-kron.sg/4009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 4000.0,
+      "run": 1.0,
+      "real": 321.688,
+      "git_blob": "1a8659ca8473935e479d66d1d14ac3efcf3c7f55"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-kron.sg/4009MiB_run1.time",
+    "mtime_utc": "2026-05-07T08:36:12.322306+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-kron.sg/4009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 4000.0,
+      "run": 2.0,
+      "real": 323.182,
+      "git_blob": "e94617246925ce14b39dffa109b03aaad9c85ab8"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-kron.sg/4009MiB_run2.time",
+    "mtime_utc": "2026-05-07T12:22:25.259980+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-kron.sg/4009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 4000.0,
+      "run": 3.0,
+      "real": 316.719,
+      "git_blob": "23fbcc59bf23470b198017e03b76c37ed0c2f0d7"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-kron.sg/4009MiB_run3.time",
+    "mtime_utc": "2026-05-07T16:08:56.670849+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-kron.sg/6009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 6000.0,
+      "run": 1.0,
+      "real": 297.932,
+      "git_blob": "db60eebb4db42672916437caad8b064da9c4df60"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-kron.sg/6009MiB_run1.time",
+    "mtime_utc": "2026-05-07T21:30:44.174214+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-kron.sg/6009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 6000.0,
+      "run": 2.0,
+      "real": 296.71,
+      "git_blob": "2ff15a70c8470ff0b8a3e7e6cb94bd35612c5ef7"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-kron.sg/6009MiB_run2.time",
+    "mtime_utc": "2026-05-08T01:08:11.793895+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-kron.sg/6009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 6000.0,
+      "run": 3.0,
+      "real": 296.248,
+      "git_blob": "b58cf4feb2453ebee8defbcea5714cdf2f667bf6"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-kron.sg/6009MiB_run3.time",
+    "mtime_utc": "2026-05-08T04:46:23.856467+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-kron.sg/8005MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 8000.0,
+      "run": 1.0,
+      "real": 298.861,
+      "git_blob": "11fab768bbf2b761e9ca37c60e1236a3546b5523"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-kron.sg/8005MiB_run1.time",
+    "mtime_utc": "2026-05-06T02:07:21.586315+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-kron.sg/8005MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 8000.0,
+      "run": 2.0,
+      "real": 300.999,
+      "git_blob": "86e3dbdb6f1e49bbcf126a120530bc70eb4d9738"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-kron.sg/8005MiB_run2.time",
+    "mtime_utc": "2026-05-06T05:51:22.771394+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-kron.sg/8005MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 8000.0,
+      "run": 3.0,
+      "real": 300.666,
+      "git_blob": "a33c25167f36ed57339ebd6640006a44e1ddb1e5"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-kron.sg/8005MiB_run3.time",
+    "mtime_utc": "2026-05-06T09:35:05.151346+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-kron.sg/8009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 8000.0,
+      "run": 1.0,
+      "real": 298.153,
+      "git_blob": "17cc93b340746676bf7f5a41ab4c0a5d645f047e"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-kron.sg/8009MiB_run1.time",
+    "mtime_utc": "2026-05-08T08:30:01.072041+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-kron.sg/8009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 8000.0,
+      "run": 2.0,
+      "real": 299.493,
+      "git_blob": "9885be6f2693669d00f458406d420e5ae95629f8"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-kron.sg/8009MiB_run2.time",
+    "mtime_utc": "2026-05-08T12:05:42.601795+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-kron.sg/8009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "pr-kron.sg",
+      "MiB_bucket": 8000.0,
+      "run": 3.0,
+      "real": 300.688,
+      "git_blob": "b2aedea1ba1a5b1235868ec4b21404a5a1be0495"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-kron.sg/8009MiB_run3.time",
+    "mtime_utc": "2026-05-08T15:41:32.263872+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-twitter.sg/10028MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 10000.0,
+      "run": 1.0,
+      "real": 276.381,
+      "git_blob": "5aa1dc5a955c311c4b8aa4473e64b34d030515ed"
+    },
+    "path": "times/c220g5/model_6.18_new/pr-twitter.sg/10028MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T20:17:08.929981+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-twitter.sg/10028MiB_run2_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 10000.0,
+      "run": 2.0,
+      "real": 278.073,
+      "git_blob": "a10d805be31d8374918ba0b16e2e72981ac9af9d"
+    },
+    "path": "times/c220g5/model_6.18_new/pr-twitter.sg/10028MiB_run2_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T17:30:21.865272+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-twitter.sg/10028MiB_run3_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 10000.0,
+      "run": 3.0,
+      "real": 279.547,
+      "git_blob": "2c4070d00ef7905c24215adf9b69611db354e9c7"
+    },
+    "path": "times/c220g5/model_6.18_new/pr-twitter.sg/10028MiB_run3_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T18:04:38.137009+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-twitter.sg/4028MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 4000.0,
+      "run": 1.0,
+      "real": 314.148,
+      "git_blob": "40c34ebae289363c8415d1c50497097fb55b63d8"
+    },
+    "path": "times/c220g5/model_6.18_new/pr-twitter.sg/4028MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T02:50:05.268256+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-twitter.sg/4028MiB_run2_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 4000.0,
+      "run": 2.0,
+      "real": 316.17,
+      "git_blob": "a89034bbe6d27b2920dc4ae666ac9e1a86159b7c"
+    },
+    "path": "times/c220g5/model_6.18_new/pr-twitter.sg/4028MiB_run2_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T03:27:09.312420+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-twitter.sg/4028MiB_run3_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 4000.0,
+      "run": 3.0,
+      "real": 306.232,
+      "git_blob": "ee5c70c73e130ee17b7a17d036e514ec5fa17353"
+    },
+    "path": "times/c220g5/model_6.18_new/pr-twitter.sg/4028MiB_run3_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T04:03:58.809320+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-twitter.sg/6032MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 6000.0,
+      "run": 1.0,
+      "real": 303.457,
+      "git_blob": "a918d6b3d3c79235f00f6b73977a3080fe14b56b"
+    },
+    "path": "times/c220g5/model/pr-twitter.sg/6032MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T20:55:55.680508+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-twitter.sg/6032MiB_run2_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 6000.0,
+      "run": 2.0,
+      "real": 304.641,
+      "git_blob": "3e8119c272693b5d86431428d6f546ff31cfa1da"
+    },
+    "path": "times/c220g5/model/pr-twitter.sg/6032MiB_run2_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T17:37:48.108613+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-twitter.sg/6032MiB_run3_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 6000.0,
+      "run": 3.0,
+      "real": 315.222,
+      "git_blob": "cab8a3fd8a7c0e083dc653ea8e27016ea878fbbc"
+    },
+    "path": "times/c220g5/model/pr-twitter.sg/6032MiB_run3_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T19:14:39.283697+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-twitter.sg/8028MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 8000.0,
+      "run": 1.0,
+      "real": 284.021,
+      "git_blob": "53de4b5768f3f58ff9a55ef03c4e254e18ef73be"
+    },
+    "path": "times/c220g5/model_6.18_new/pr-twitter.sg/8028MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T04:58:13.115272+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-twitter.sg/8028MiB_run2_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 8000.0,
+      "run": 2.0,
+      "real": 283.865,
+      "git_blob": "29bc31fe0dfdb69907083384bfdeb68f617ea1e7"
+    },
+    "path": "times/c220g5/model_6.18_new/pr-twitter.sg/8028MiB_run2_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T05:32:55.147645+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/pr-twitter.sg/8028MiB_run3_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 8000.0,
+      "run": 3.0,
+      "real": 280.497,
+      "git_blob": "cc8043843558136e93f92636181ba34cb6b1e09a"
+    },
+    "path": "times/c220g5/model_6.18_new/pr-twitter.sg/8028MiB_run3_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T06:07:30.979373+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-twitter.sg/10009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 10000.0,
+      "run": 1.0,
+      "real": 277.13,
+      "git_blob": "87bd0abc4a9e1cf08707d01b52bcdde1ad4aa924"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-twitter.sg/10009MiB_run1.time",
+    "mtime_utc": "2026-05-09T08:41:03.945748+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-twitter.sg/10009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 10000.0,
+      "run": 2.0,
+      "real": 277.789,
+      "git_blob": "2acea5f317457cbd3dc92add5999832cf78212f3"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-twitter.sg/10009MiB_run2.time",
+    "mtime_utc": "2026-05-09T09:51:11.157219+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-twitter.sg/10009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 10000.0,
+      "run": 3.0,
+      "real": 277.629,
+      "git_blob": "850978648643e07b5d27f223eb732facbdf5ba04"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-twitter.sg/10009MiB_run3.time",
+    "mtime_utc": "2026-05-09T11:01:26.662715+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-twitter.sg/4009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 4000.0,
+      "run": 1.0,
+      "real": 323.116,
+      "git_blob": "95834c0550412b67cbb55b1065583f23bbf32935"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-twitter.sg/4009MiB_run1.time",
+    "mtime_utc": "2026-05-07T09:26:21.683403+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-twitter.sg/4009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 4000.0,
+      "run": 2.0,
+      "real": 319.207,
+      "git_blob": "616f041775b58633d64ff62a04671bea77003d1b"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-twitter.sg/4009MiB_run2.time",
+    "mtime_utc": "2026-05-07T13:12:37.052500+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-twitter.sg/4009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 4000.0,
+      "run": 3.0,
+      "real": 318.356,
+      "git_blob": "f9f9d0cb547c719968d3f88f505650e772e7e974"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-twitter.sg/4009MiB_run3.time",
+    "mtime_utc": "2026-05-07T16:59:04.987586+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-twitter.sg/6009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 6000.0,
+      "run": 1.0,
+      "real": 287.815,
+      "git_blob": "9586600efd2c1937d37fa29238be70ee09ba9749"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-twitter.sg/6009MiB_run1.time",
+    "mtime_utc": "2026-05-07T22:19:26.039540+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-twitter.sg/6009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 6000.0,
+      "run": 2.0,
+      "real": 286.502,
+      "git_blob": "4d1f6421d88d4625f4ab8b23feb46682c37ab638"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-twitter.sg/6009MiB_run2.time",
+    "mtime_utc": "2026-05-08T01:57:01.977233+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-twitter.sg/6009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 6000.0,
+      "run": 3.0,
+      "real": 293.429,
+      "git_blob": "dbd39ab4af621ae1184c22fb92199f4638471ca7"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-twitter.sg/6009MiB_run3.time",
+    "mtime_utc": "2026-05-08T05:35:18.179315+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-twitter.sg/8009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 8000.0,
+      "run": 1.0,
+      "real": 285.577,
+      "git_blob": "da8160fbef664157b092541515b5abf14e4ba212"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-twitter.sg/8009MiB_run1.time",
+    "mtime_utc": "2026-05-08T09:18:48.867045+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-twitter.sg/8009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 8000.0,
+      "run": 2.0,
+      "real": 283.04,
+      "git_blob": "b25918bd2564635708ca2cd536b8e058e9fb1cfe"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-twitter.sg/8009MiB_run2.time",
+    "mtime_utc": "2026-05-08T12:54:28.925351+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/pr-twitter.sg/8009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "pr-twitter.sg",
+      "MiB_bucket": 8000.0,
+      "run": 3.0,
+      "real": 287.278,
+      "git_blob": "a2d1183838f4fc6dabc6098d1387570b3fa41b71"
+    },
+    "path": "times/c220g5/arms-6.18_new/pr-twitter.sg/8009MiB_run3.time",
+    "mtime_utc": "2026-05-08T16:30:18.219241+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-kron.sg/10028MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 10000.0,
+      "run": 1.0,
+      "real": 204.571,
+      "git_blob": "699972fc561587b11b8a75ef725b4d77c26dbe9d"
+    },
+    "path": "times/c220g5/model_6.18_new/bc-kron.sg/10028MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T18:46:36.052687+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-kron.sg/10028MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 10000.0,
+      "run": 2.0,
+      "real": 205.197,
+      "git_blob": "6d96f95733ee35ac717831b87b6c15fa1d90ecce"
+    },
+    "path": "times/c220g5/model_6.18_new/bc-kron.sg/10028MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T17:16:43.617100+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-kron.sg/10028MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 10000.0,
+      "run": 3.0,
+      "real": 204.517,
+      "git_blob": "dfc0c9c01b117baec55652ed8a032d1fce619090"
+    },
+    "path": "times/c220g5/model_6.18_new/bc-kron.sg/10028MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T17:51:04.272049+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-kron.sg/4028MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 4000.0,
+      "run": 1.0,
+      "real": 219.827,
+      "git_blob": "4a1d7ef21593b111cef067387aac5249b95b251c"
+    },
+    "path": "times/c220g5/model_6.18_new/bc-kron.sg/4028MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T02:35:50.179616+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-kron.sg/4028MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 4000.0,
+      "run": 2.0,
+      "real": 221.003,
+      "git_blob": "772b67e4a876931b5fd5735ea667927760574ad0"
+    },
+    "path": "times/c220g5/model_6.18_new/bc-kron.sg/4028MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T03:12:55.118544+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-kron.sg/4028MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 4000.0,
+      "run": 3.0,
+      "real": 222.175,
+      "git_blob": "59084bd62d6fe85c2053b29ef5198ff08492c319"
+    },
+    "path": "times/c220g5/model_6.18_new/bc-kron.sg/4028MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T03:49:54.144614+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-kron.sg/6032MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 6000.0,
+      "run": 1.0,
+      "real": 208.078,
+      "git_blob": "1e963890b3b9d99a947227922b77d9eb73d2f8cd"
+    },
+    "path": "times/c220g5/model/bc-kron.sg/6032MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T20:41:47.761831+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-kron.sg/6032MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 6000.0,
+      "run": 2.0,
+      "real": 207.39600000000002,
+      "git_blob": "9279a9f6239426985a147aa38fc2a39c7d341d72"
+    },
+    "path": "times/c220g5/model/bc-kron.sg/6032MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T17:23:46.791896+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-kron.sg/6032MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 6000.0,
+      "run": 3.0,
+      "real": 208.875,
+      "git_blob": "5f93e199dd6ebf35ae66deb253de970080d453e7"
+    },
+    "path": "times/c220g5/model/bc-kron.sg/6032MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T19:00:18.026782+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-kron.sg/8028MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 8000.0,
+      "run": 1.0,
+      "real": 205.219,
+      "git_blob": "fc984e384c7ecff0f0a3d1b3799f8729df1e74b9"
+    },
+    "path": "times/c220g5/model_6.18_new/bc-kron.sg/8028MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T04:44:32.919424+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-kron.sg/8028MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 8000.0,
+      "run": 2.0,
+      "real": 205.406,
+      "git_blob": "c6bf6847199a5c8a07e2da6463b6a4a094f6059f"
+    },
+    "path": "times/c220g5/model_6.18_new/bc-kron.sg/8028MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T05:19:13.516684+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-kron.sg/8028MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 8000.0,
+      "run": 3.0,
+      "real": 205.275,
+      "git_blob": "98bae60c617e8aed3dd99b42101613c55c27def6"
+    },
+    "path": "times/c220g5/model_6.18_new/bc-kron.sg/8028MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T05:53:55.911498+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-kron.sg/10009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 10000.0,
+      "run": 1.0,
+      "real": 203.333,
+      "git_blob": "8b8d2b2a92619d0db9017b983f6b4468f7b19bac"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-kron.sg/10009MiB_run1.time",
+    "mtime_utc": "2026-05-09T07:40:08.147273+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-kron.sg/10009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 10000.0,
+      "run": 2.0,
+      "real": 202.642,
+      "git_blob": "3c504a367be312cb0113d2ee136e4d32ee8aff35"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-kron.sg/10009MiB_run2.time",
+    "mtime_utc": "2026-05-09T08:50:32.242626+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-kron.sg/10009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 10000.0,
+      "run": 3.0,
+      "real": 202.613,
+      "git_blob": "0fa34c01482b0c3e235a9efc6f0d286ac1919bb9"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-kron.sg/10009MiB_run3.time",
+    "mtime_utc": "2026-05-09T10:00:44.610092+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-kron.sg/4009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 4000.0,
+      "run": 1.0,
+      "real": 239.635,
+      "git_blob": "30bf58ff5082ddfbfae6695b24145897ad0a953e"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-kron.sg/4009MiB_run1.time",
+    "mtime_utc": "2026-05-07T07:44:22.855162+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-kron.sg/4009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 4000.0,
+      "run": 2.0,
+      "real": 243.843,
+      "git_blob": "4eeac936c54e47b83ff958f6183c670033478a86"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-kron.sg/4009MiB_run2.time",
+    "mtime_utc": "2026-05-07T11:30:44.305409+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-kron.sg/4009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 4000.0,
+      "run": 3.0,
+      "real": 241.574,
+      "git_blob": "0afb66db1ab34d178df226ffd727dafafa2ab9b2"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-kron.sg/4009MiB_run3.time",
+    "mtime_utc": "2026-05-07T15:17:02.929524+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-kron.sg/6009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 6000.0,
+      "run": 1.0,
+      "real": 204.773,
+      "git_blob": "975a93f004742f6f8698c682c4422ffd27e64eae"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-kron.sg/6009MiB_run1.time",
+    "mtime_utc": "2026-05-07T20:42:22.149557+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-kron.sg/6009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 6000.0,
+      "run": 2.0,
+      "real": 206.448,
+      "git_blob": "f0ebc4ae75f70d35e4c77f0079fe7e997cc7ff68"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-kron.sg/6009MiB_run2.time",
+    "mtime_utc": "2026-05-08T00:19:44.032158+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-kron.sg/6009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 6000.0,
+      "run": 3.0,
+      "real": 205.386,
+      "git_blob": "6fb5150aad0e83d848592a281e2dc850e890d9b9"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-kron.sg/6009MiB_run3.time",
+    "mtime_utc": "2026-05-08T03:57:54.709622+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-kron.sg/8009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 8000.0,
+      "run": 1.0,
+      "real": 203.85399999999998,
+      "git_blob": "9f1ec0b94504a5e6af253d6e58752ea8e58d1b1e"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-kron.sg/8009MiB_run1.time",
+    "mtime_utc": "2026-05-08T07:41:39.019738+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-kron.sg/8009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 8000.0,
+      "run": 2.0,
+      "real": 203.778,
+      "git_blob": "33d0d3a90c8ffd57d34681fe9ec37a1854e5a2b1"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-kron.sg/8009MiB_run2.time",
+    "mtime_utc": "2026-05-08T11:17:15.937272+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-kron.sg/8009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "bc-kron.sg",
+      "MiB_bucket": 8000.0,
+      "run": 3.0,
+      "real": 204.59199999999998,
+      "git_blob": "171acce440095ae446437713534e9e17a710dc8b"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-kron.sg/8009MiB_run3.time",
+    "mtime_utc": "2026-05-08T14:53:09.375500+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-twitter.sg/10028MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 10000.0,
+      "run": 1.0,
+      "real": 99.049,
+      "git_blob": "3f74af4314ee62b3f62ddddd2fc2780eb5f6fd19"
+    },
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10028MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T19:03:12.401057+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-twitter.sg/10028MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 10000.0,
+      "run": 2.0,
+      "real": 101.463,
+      "git_blob": "2cf9b5729253b50c17f125d06ffeb0ed21aa98f0"
+    },
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10028MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T17:24:58.490889+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-twitter.sg/10028MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 10000.0,
+      "run": 3.0,
+      "real": 96.962,
+      "git_blob": "ab33524fe3c162e0882bec79ab7212e29cd05ee7"
+    },
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10028MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T17:59:13.820666+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-twitter.sg/4028MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 4000.0,
+      "run": 1.0,
+      "real": 97.911,
+      "git_blob": "ac06901e4ba1dc7402936fcfe2a239226d253859"
+    },
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4028MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T02:44:03.962330+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-twitter.sg/4028MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 4000.0,
+      "run": 2.0,
+      "real": 98.48599999999999,
+      "git_blob": "8f538b659582cff966c62384532de32018d03e0e"
+    },
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4028MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T03:21:07.722419+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-twitter.sg/4028MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 4000.0,
+      "run": 3.0,
+      "real": 97.981,
+      "git_blob": "ec548e0fb2720ecdd9e0b94ebb098ab64b9b15cd"
+    },
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4028MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T03:58:06.929490+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-twitter.sg/6032MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 6000.0,
+      "run": 1.0,
+      "real": 101.799,
+      "git_blob": "56aa33bd16131c8159d2d685d78d202dba95d05d"
+    },
+    "path": "times/c220g5/model/bc-twitter.sg/6032MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T20:50:05.195682+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-twitter.sg/6032MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 6000.0,
+      "run": 2.0,
+      "real": 100.634,
+      "git_blob": "fb0127127a5369d4c80c9f2f0a2e8c10b4e3cf78"
+    },
+    "path": "times/c220g5/model/bc-twitter.sg/6032MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T17:31:58.518786+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-twitter.sg/6032MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 6000.0,
+      "run": 3.0,
+      "real": 102.70400000000001,
+      "git_blob": "186ecd84514ebc97655d4dda54fd6bf803c9227c"
+    },
+    "path": "times/c220g5/model/bc-twitter.sg/6032MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-13T19:08:37.626702+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-twitter.sg/8028MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 8000.0,
+      "run": 1.0,
+      "real": 98.071,
+      "git_blob": "0c15d0dd57e6c27d3b9201c7ff94d851f485f80b"
+    },
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8028MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T04:52:43.976880+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-twitter.sg/8028MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 8000.0,
+      "run": 2.0,
+      "real": 99.062,
+      "git_blob": "bdbfc30e95d3d19aeeef181d5955523000be303e"
+    },
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8028MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T05:27:26.250304+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/model_6.18/bc-twitter.sg/8028MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "policy": "MANTA",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 8000.0,
+      "run": 3.0,
+      "real": 97.477,
+      "git_blob": "34499f4679ccbaaf2dace3225246f89a6f4a5c9d"
+    },
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8028MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "mtime_utc": "2026-05-10T06:02:05.794070+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-twitter.sg/10009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 10000.0,
+      "run": 1.0,
+      "real": 98.709,
+      "git_blob": "e65e004eb4f5e685c710af0df971ccb8a6085338"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/10009MiB_run1.time",
+    "mtime_utc": "2026-05-09T08:33:20.270496+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-twitter.sg/10009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 10000.0,
+      "run": 2.0,
+      "real": 96.997,
+      "git_blob": "f97c8dc501d236d572c5611219900d4bccb4727f"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/10009MiB_run2.time",
+    "mtime_utc": "2026-05-09T09:43:26.535907+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-twitter.sg/10009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 10000.0,
+      "run": 3.0,
+      "real": 96.55199999999999,
+      "git_blob": "0a70b66ba07dc2765342ce1ce1156680a9ad28cb"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/10009MiB_run3.time",
+    "mtime_utc": "2026-05-09T10:53:42.954439+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-twitter.sg/4009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 4000.0,
+      "run": 1.0,
+      "real": 112.781,
+      "git_blob": "a5cc49f2c9cecece76bbd0fd253c114f0c52691d"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/4009MiB_run1.time",
+    "mtime_utc": "2026-05-07T09:07:49.182845+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-twitter.sg/4009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 4000.0,
+      "run": 2.0,
+      "real": 118.35499999999999,
+      "git_blob": "0b072f383046ef4b084e15272aa1f28aa9e225be"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/4009MiB_run2.time",
+    "mtime_utc": "2026-05-07T12:54:13.790302+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-twitter.sg/4009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 4000.0,
+      "run": 3.0,
+      "real": 116.275,
+      "git_blob": "0c1b8b403448a51de28ac5b64e53565da1630241"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/4009MiB_run3.time",
+    "mtime_utc": "2026-05-07T16:40:42.857317+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-twitter.sg/6009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 6000.0,
+      "run": 1.0,
+      "real": 98.632,
+      "git_blob": "11fc6dd22c0a63873fb27eabea170f244bf4d7cb"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/6009MiB_run1.time",
+    "mtime_utc": "2026-05-07T22:01:47.320929+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-twitter.sg/6009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 6000.0,
+      "run": 2.0,
+      "real": 98.745,
+      "git_blob": "35c71cb9516bd5a349d53b0cb9f6cbde81a70ee2"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/6009MiB_run2.time",
+    "mtime_utc": "2026-05-08T01:39:22.782482+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-twitter.sg/6009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 6000.0,
+      "run": 3.0,
+      "real": 98.73400000000001,
+      "git_blob": "0b1ea1018355e2edd6fa9f6b49e938ec9c0f4acb"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/6009MiB_run3.time",
+    "mtime_utc": "2026-05-08T05:17:36.392465+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-twitter.sg/8009MiB_run1.time",
+      "policy": "ARMS",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 8000.0,
+      "run": 1.0,
+      "real": 98.35300000000001,
+      "git_blob": "16ad199a03e121ae0fe99e5788e41ae81d868c68"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/8009MiB_run1.time",
+    "mtime_utc": "2026-05-08T09:01:17.486506+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-twitter.sg/8009MiB_run2.time",
+      "policy": "ARMS",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 8000.0,
+      "run": 2.0,
+      "real": 98.074,
+      "git_blob": "77a696a740fcd253c67c41287869c257b7aa354e"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/8009MiB_run2.time",
+    "mtime_utc": "2026-05-08T12:37:00.075808+00:00"
+  },
+  {
+    "selected": {
+      "plot": "6_18",
+      "path": "/users/zimooo2/tiering_solutions/times/c220g5_final/arms_6.18/bc-twitter.sg/8009MiB_run3.time",
+      "policy": "ARMS",
+      "workload": "bc-twitter.sg",
+      "MiB_bucket": 8000.0,
+      "run": 3.0,
+      "real": 98.094,
+      "git_blob": "5e99b0c4d23ab18ebba98e3af5097ba7605bf20a"
+    },
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/8009MiB_run3.time",
+    "mtime_utc": "2026-05-08T16:12:47.388755+00:00"
+  }
+]

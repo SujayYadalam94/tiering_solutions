@@ -1,0 +1,20 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-44a11d91/wPbZ.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-44a11d91/VBKE.cpp
+@@ -1725,7 +1725,7 @@
+         auto max_hugepages = max_dram_hugepages(scores);
+         if (scores.size() >= max_hugepages)
+         {
+-            cost += 5 * scores[max_hugepages - 1].page->score * HF_SAMPLE_PERIOD * latency_diff;
++            cost += 10 * scores[max_hugepages - 1].page->score * HF_SAMPLE_PERIOD * latency_diff;
+         }
+         // float benefit = SWITCH_SCALER * hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
+         double benefit = hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
+@@ -1772,7 +1772,7 @@
+                     auto max_hugepages = max_dram_hugepages(scores);
+                     if (scores.size() >= max_hugepages)
+                     {
+-                        cost += 5 * scores[max_hugepages - 1].page->score * HF_SAMPLE_PERIOD * latency_diff;
++                        cost += 10 * scores[max_hugepages - 1].page->score * HF_SAMPLE_PERIOD * latency_diff;
+                     }
+                     benefit -= cold_page->score * HF_SAMPLE_PERIOD * latency_diff;
+ #else

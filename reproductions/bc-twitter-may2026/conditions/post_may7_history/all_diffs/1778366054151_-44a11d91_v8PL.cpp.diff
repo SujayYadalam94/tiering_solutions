@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-44a11d91/GPEH.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-44a11d91/v8PL.cpp
+@@ -1630,7 +1630,7 @@
+ 
+     for (size_t i = 0; i < plan.candidate_window; i++)
+     {
+-        scores[i].page->update_can_promote(dram_pages + free_hugepages, scores.size() i);
++        scores[i].page->update_can_promote(dram_pages + free_hugepages, scores.size(), i);
+     }
+ 
+     return plan;

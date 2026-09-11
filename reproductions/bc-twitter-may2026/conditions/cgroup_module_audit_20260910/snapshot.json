@@ -1,0 +1,805 @@
+{
+  "observed_at": "2026-09-10T15:30:20.024973+00:00",
+  "kernel": "6.18.1-061801-generic",
+  "cmdline": "BOOT_IMAGE=/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS0,115200 emulabcnet=00:5d:73:ef:d9:ee console=ttyS0,115200 earlycon=uart,io,0x3f8,115200 loglevel=7 ignore_loglevel debug rd.shell rd.break memmap=92G!2G",
+  "cgroups": {
+    "user.slice/user-20020.slice/session-3.scope": {
+      "cgroup.type": "domain",
+      "cgroup.controllers": "cpu memory pids",
+      "cgroup.subtree_control": "",
+      "memory.max": "max",
+      "memory.high": "max",
+      "memory.low": "0",
+      "memory.min": "0",
+      "memory.swap.max": "max",
+      "memory.current": "4519890944",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+      "memory.stat": "anon 2226651136\nfile 2049114112\nkernel 239972352\nkernel_stack 5423104\npagetables 0\nsec_pagetables 0\npercpu 20832\nsock 4096\nvmalloc 0\nshmem 8192\nzswap 0\nzswapped 0\nfile_mapped 429871104\nfile_dirty 131072\nfile_writeback 0\nswapcached 0\nanon_thp 945815552\nfile_thp 0\nshmem_thp 0\ninactive_anon 2226327552\nactive_anon 114688\ninactive_file 1163247616\nactive_file 886009856\nunevictable 65536\nslab_reclaimable 184887160\nslab_unreclaimable 8031920\nslab 192919080\nworkingset_refault_anon 0\nworkingset_refault_file 163\nworkingset_activate_anon 0\nworkingset_activate_file 2\nworkingset_restore_anon 0\nworkingset_restore_file 2\nworkingset_nodereclaim 0\npgdemote_kswapd 0\npgdemote_direct 0\npgdemote_khugepaged 0\npgdemote_proactive 0\npgpromote_success 0\npgscan 18\npgsteal 17\npswpin 0\npswpout 0\npgscan_kswapd 0\npgscan_direct 18\npgscan_khugepaged 0\npgscan_proactive 0\npgsteal_kswapd 0\npgsteal_direct 17\npgsteal_khugepaged 0\npgsteal_proactive 0\npgfault 6308806\npgmajfault 13439\npgrefill 31\npgactivate 268137\npgdeactivate 1189\npglazyfree 1734\npglazyfreed 0\nswpin_zero 0\nswpout_zero 0\nzswpin 0\nzswpout 0\nzswpwb 0\nthp_fault_alloc 690\nthp_collapse_alloc 14973\nthp_swpout 0\nthp_swpout_fallback 0\nnuma_pages_migrated 0\nnuma_pte_updates 0\nnuma_hint_faults 0",
+      "memory.numa_stat": "anon N0=0 N1=2226651136\nfile N0=0 N1=2049114112\nkernel_stack N0=49152 N1=5373952\npagetables N0=0 N1=0\nsec_pagetables N0=0 N1=0\nshmem N0=0 N1=8192\nfile_mapped N0=0 N1=429871104\nfile_dirty N0=0 N1=131072\nfile_writeback N0=0 N1=0\nswapcached N0=0 N1=0\nanon_thp N0=0 N1=945815552\nfile_thp N0=0 N1=0\nshmem_thp N0=0 N1=0\ninactive_anon N0=0 N1=2226327552\nactive_anon N0=0 N1=114688\ninactive_file N0=0 N1=1163247616\nactive_file N0=0 N1=886009856\nunevictable N0=0 N1=65536\nslab_reclaimable N0=1743672 N1=183143488\nslab_unreclaimable N0=630144 N1=7401776\nhugetlb N0=0 N1=0\nworkingset_refault_anon N0=0 N1=0\nworkingset_refault_file N0=0 N1=163\nworkingset_activate_anon N0=0 N1=0\nworkingset_activate_file N0=0 N1=2\nworkingset_restore_anon N0=0 N1=0\nworkingset_restore_file N0=0 N1=2\nworkingset_nodereclaim N0=0 N1=0\npgdemote_kswapd N0=0 N1=0\npgdemote_direct N0=0 N1=0\npgdemote_khugepaged N0=0 N1=0\npgdemote_proactive N0=0 N1=0\npgpromote_success N0=0 N1=0",
+      "cpu.max": "max 100000",
+      "cpu.weight": "100",
+      "cpu.stat": "usage_usec 840350409\nuser_usec 590349873\nsystem_usec 250000535\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+      "pids.max": "max"
+    },
+    "user.slice/user-20020.slice": {
+      "cgroup.type": "domain",
+      "cgroup.controllers": "cpu memory pids",
+      "cgroup.subtree_control": "cpu memory pids",
+      "memory.max": "max",
+      "memory.high": "max",
+      "memory.low": "0",
+      "memory.min": "0",
+      "memory.swap.max": "max",
+      "memory.current": "17314156544",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+      "memory.stat": "anon 2243923968\nfile 14814482432\nkernel 246906880\nkernel_stack 5537792\npagetables 0\nsec_pagetables 0\npercpu 957096\nsock 4096\nvmalloc 4096\nshmem 24576\nzswap 0\nzswapped 0\nfile_mapped 431685632\nfile_dirty 131072\nfile_writeback 0\nswapcached 0\nanon_thp 950009856\nfile_thp 12727615488\nshmem_thp 0\ninactive_anon 2233384960\nactive_anon 10346496\ninactive_file 13905027072\nactive_file 909582336\nunevictable 65536\nslab_reclaimable 189939488\nslab_unreclaimable 9570584\nslab 199510072\nworkingset_refault_anon 0\nworkingset_refault_file 2075\nworkingset_activate_anon 0\nworkingset_activate_file 144\nworkingset_restore_anon 0\nworkingset_restore_file 120\nworkingset_nodereclaim 0\npgdemote_kswapd 0\npgdemote_direct 0\npgdemote_khugepaged 0\npgdemote_proactive 0\npgpromote_success 0\npgscan 89839710\npgsteal 2662\npswpin 0\npswpout 0\npgscan_kswapd 131130\npgscan_direct 83641898\npgscan_khugepaged 6066682\npgscan_proactive 0\npgsteal_kswapd 160\npgsteal_direct 2059\npgsteal_khugepaged 443\npgsteal_proactive 0\npgfault 21545460\npgmajfault 16363\npgrefill 89837099\npgactivate 90125079\npgdeactivate 89838104\npglazyfree 1734\npglazyfreed 0\nswpin_zero 0\nswpout_zero 0\nzswpin 0\nzswpout 0\nzswpwb 0\nthp_fault_alloc 120397\nthp_collapse_alloc 86926\nthp_swpout 0\nthp_swpout_fallback 0\nnuma_pages_migrated 0\nnuma_pte_updates 0\nnuma_hint_faults 0",
+      "memory.numa_stat": "anon N0=0 N1=2243923968\nfile N0=2793472 N1=14811688960\nkernel_stack N0=131072 N1=5406720\npagetables N0=0 N1=0\nsec_pagetables N0=0 N1=0\nshmem N0=12288 N1=12288\nfile_mapped N0=0 N1=431685632\nfile_dirty N0=0 N1=131072\nfile_writeback N0=0 N1=0\nswapcached N0=0 N1=0\nanon_thp N0=0 N1=950009856\nfile_thp N0=0 N1=12727615488\nshmem_thp N0=0 N1=0\ninactive_anon N0=12288 N1=2233372672\nactive_anon N0=0 N1=10346496\ninactive_file N0=1622016 N1=13903405056\nactive_file N0=1159168 N1=908423168\nunevictable N0=0 N1=65536\nslab_reclaimable N0=3473016 N1=186466472\nslab_unreclaimable N0=1010488 N1=8560096\nhugetlb N0=0 N1=0\nworkingset_refault_anon N0=0 N1=0\nworkingset_refault_file N0=177 N1=1898\nworkingset_activate_anon N0=0 N1=0\nworkingset_activate_file N0=0 N1=144\nworkingset_restore_anon N0=0 N1=0\nworkingset_restore_file N0=0 N1=120\nworkingset_nodereclaim N0=0 N1=0\npgdemote_kswapd N0=0 N1=0\npgdemote_direct N0=0 N1=0\npgdemote_khugepaged N0=0 N1=0\npgdemote_proactive N0=0 N1=0\npgpromote_success N0=0 N1=0",
+      "cpu.max": "max 100000",
+      "cpu.weight": "100",
+      "cpu.stat": "usage_usec 12215877939\nuser_usec 9883527813\nsystem_usec 2332350125\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+      "pids.max": "267451"
+    },
+    "user.slice": {
+      "cgroup.type": "domain",
+      "cgroup.controllers": "cpu memory pids",
+      "cgroup.subtree_control": "cpu memory pids",
+      "memory.max": "max",
+      "memory.high": "max",
+      "memory.low": "0",
+      "memory.min": "0",
+      "memory.swap.max": "max",
+      "memory.current": "17314254848",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+      "memory.stat": "anon 2243923968\nfile 14814482432\nkernel 246992896\nkernel_stack 5537792\npagetables 0\nsec_pagetables 0\npercpu 1049832\nsock 0\nvmalloc 4096\nshmem 24576\nzswap 0\nzswapped 0\nfile_mapped 431685632\nfile_dirty 131072\nfile_writeback 0\nswapcached 0\nanon_thp 950009856\nfile_thp 12727615488\nshmem_thp 0\ninactive_anon 2233384960\nactive_anon 10346496\ninactive_file 13905027072\nactive_file 909582336\nunevictable 65536\nslab_reclaimable 189943824\nslab_unreclaimable 9557512\nslab 199501336\nworkingset_refault_anon 0\nworkingset_refault_file 2075\nworkingset_activate_anon 0\nworkingset_activate_file 144\nworkingset_restore_anon 0\nworkingset_restore_file 120\nworkingset_nodereclaim 0\npgdemote_kswapd 0\npgdemote_direct 0\npgdemote_khugepaged 0\npgdemote_proactive 0\npgpromote_success 0\npgscan 89839710\npgsteal 2662\npswpin 0\npswpout 0\npgscan_kswapd 131130\npgscan_direct 83641898\npgscan_khugepaged 6066682\npgscan_proactive 0\npgsteal_kswapd 160\npgsteal_direct 2059\npgsteal_khugepaged 443\npgsteal_proactive 0\npgfault 21545474\npgmajfault 16363\npgrefill 89837099\npgactivate 90125079\npgdeactivate 89838104\npglazyfree 1734\npglazyfreed 0\nswpin_zero 0\nswpout_zero 0\nzswpin 0\nzswpout 0\nzswpwb 0\nthp_fault_alloc 120397\nthp_collapse_alloc 86926\nthp_swpout 0\nthp_swpout_fallback 0\nnuma_pages_migrated 0\nnuma_pte_updates 0\nnuma_hint_faults 0",
+      "memory.numa_stat": "anon N0=0 N1=2243923968\nfile N0=2793472 N1=14811688960\nkernel_stack N0=131072 N1=5406720\npagetables N0=0 N1=0\nsec_pagetables N0=0 N1=0\nshmem N0=12288 N1=12288\nfile_mapped N0=0 N1=431685632\nfile_dirty N0=0 N1=131072\nfile_writeback N0=0 N1=0\nswapcached N0=0 N1=0\nanon_thp N0=0 N1=950009856\nfile_thp N0=0 N1=12727615488\nshmem_thp N0=0 N1=0\ninactive_anon N0=12288 N1=2233372672\nactive_anon N0=0 N1=10346496\ninactive_file N0=1622016 N1=13903405056\nactive_file N0=1159168 N1=908423168\nunevictable N0=0 N1=65536\nslab_reclaimable N0=3473016 N1=186470808\nslab_unreclaimable N0=1001024 N1=8556488\nhugetlb N0=0 N1=0\nworkingset_refault_anon N0=0 N1=0\nworkingset_refault_file N0=177 N1=1898\nworkingset_activate_anon N0=0 N1=0\nworkingset_activate_file N0=0 N1=144\nworkingset_restore_anon N0=0 N1=0\nworkingset_restore_file N0=0 N1=120\nworkingset_nodereclaim N0=0 N1=0\npgdemote_kswapd N0=0 N1=0\npgdemote_direct N0=0 N1=0\npgdemote_khugepaged N0=0 N1=0\npgdemote_proactive N0=0 N1=0\npgpromote_success N0=0 N1=0",
+      "cpu.max": "max 100000",
+      "cpu.weight": "100",
+      "cpu.stat": "usage_usec 12215881941\nuser_usec 9883530815\nsystem_usec 2332351126\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+      "pids.max": "max"
+    },
+    ".": {
+      "cgroup.controllers": "cpuset cpu io memory hugetlb pids rdma misc dmem",
+      "cgroup.subtree_control": "cpu memory pids",
+      "memory.stat": "anon 2354597888\nfile 15006334976\nkernel 269393920\nkernel_stack 6553600\npagetables 0\nsec_pagetables 0\npercpu 6237168\nsock 4096\nvmalloc 987136\nshmem 7254016\nzswap 0\nzswapped 0\nfile_mapped 526884864\nfile_dirty 831488\nfile_writeback 0\nswapcached 0\nanon_thp 952107008\nfile_thp 12727615488\nshmem_thp 2097152\ninactive_anon 2250993664\nactive_anon 78983168\ninactive_file 13955903488\nactive_file 1031577600\nunevictable 43474944\nslab_reclaimable 196911888\nslab_unreclaimable 14391288\nslab 211303176\nworkingset_refault_anon 0\nworkingset_refault_file 3155\nworkingset_activate_anon 0\nworkingset_activate_file 145\nworkingset_restore_anon 0\nworkingset_restore_file 121\nworkingset_nodereclaim 6\npgdemote_kswapd 0\npgdemote_direct 0\npgdemote_khugepaged 0\npgdemote_proactive 0\npgpromote_success 0\npgscan 107167333\npgsteal 3713\npswpin 0\npswpout 0\npgscan_kswapd 156969\npgscan_direct 99730125\npgscan_khugepaged 7280239\npgscan_proactive 0\npgsteal_kswapd 244\npgsteal_direct 2336\npgsteal_khugepaged 1133\npgsteal_proactive 0\npgfault 22465432\npgmajfault 18744\npgrefill 107163339\npgactivate 107623009\npgdeactivate 107171023\npglazyfree 1734\npglazyfreed 0\nswpin_zero 0\nswpout_zero 0\nzswpin 0\nzswpout 0\nzswpwb 0\nthp_fault_alloc 120397\nthp_collapse_alloc 86954\nthp_swpout 0\nthp_swpout_fallback 0\nnuma_pages_migrated 1020\nnuma_pte_updates 8411\nnuma_hint_faults 2522",
+      "memory.numa_stat": "anon N0=0 N1=2354597888\nfile N0=6311936 N1=15000023040\nkernel_stack N0=688128 N1=5865472\npagetables N0=0 N1=0\nsec_pagetables N0=0 N1=0\nshmem N0=3366912 N1=3887104\nfile_mapped N0=0 N1=526884864\nfile_dirty N0=12288 N1=819200\nfile_writeback N0=0 N1=0\nswapcached N0=0 N1=0\nanon_thp N0=0 N1=952107008\nfile_thp N0=0 N1=12727615488\nshmem_thp N0=0 N1=2097152\ninactive_anon N0=208896 N1=2250784768\nactive_anon N0=12288 N1=78970880\ninactive_file N0=1662976 N1=13954240512\nactive_file N0=1282048 N1=1030295552\nunevictable N0=3145728 N1=40329216\nslab_reclaimable N0=5120216 N1=191791672\nslab_unreclaimable N0=3313920 N1=11077368\nhugetlb N0=0 N1=0\nworkingset_refault_anon N0=0 N1=0\nworkingset_refault_file N0=190 N1=2965\nworkingset_activate_anon N0=0 N1=0\nworkingset_activate_file N0=1 N1=144\nworkingset_restore_anon N0=0 N1=0\nworkingset_restore_file N0=1 N1=120\nworkingset_nodereclaim N0=6 N1=0\npgdemote_kswapd N0=0 N1=0\npgdemote_direct N0=0 N1=0\npgdemote_khugepaged N0=0 N1=0\npgdemote_proactive N0=0 N1=0\npgpromote_success N0=0 N1=0",
+      "cpu.stat": "usage_usec 15364621000\nuser_usec 10057198000\nsystem_usec 5307423000\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+      "cpuset.cpus.effective": "0-39",
+      "cpuset.mems.effective": "0-1"
+    },
+    "user.slice/user-20020.slice/session-1.scope": {
+      "cgroup.type": "domain",
+      "cgroup.controllers": "cpu memory pids",
+      "cgroup.subtree_control": "",
+      "memory.max": "max",
+      "memory.high": "max",
+      "memory.low": "0",
+      "memory.min": "0",
+      "memory.swap.max": "max",
+      "memory.current": "16982016",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+      "memory.stat": "anon 12214272\nfile 2744320\nkernel 819200\nkernel_stack 81920\npagetables 0\nsec_pagetables 0\npercpu 3360\nsock 0\nvmalloc 0\nshmem 0\nzswap 0\nzswapped 0\nfile_mapped 1232896\nfile_dirty 0\nfile_writeback 0\nswapcached 0\nanon_thp 4194304\nfile_thp 0\nshmem_thp 0\ninactive_anon 6688768\nactive_anon 5525504\ninactive_file 0\nactive_file 2744320\nunevictable 0\nslab_reclaimable 67720\nslab_unreclaimable 274888\nslab 342608\nworkingset_refault_anon 0\nworkingset_refault_file 0\nworkingset_activate_anon 0\nworkingset_activate_file 0\nworkingset_restore_anon 0\nworkingset_restore_file 0\nworkingset_nodereclaim 0\npgdemote_kswapd 0\npgdemote_direct 0\npgdemote_khugepaged 0\npgdemote_proactive 0\npgpromote_success 0\npgscan 89835314\npgsteal 0\npswpin 0\npswpout 0\npgscan_kswapd 130953\npgscan_direct 83638307\npgscan_khugepaged 6066054\npgscan_proactive 0\npgsteal_kswapd 0\npgsteal_direct 0\npgsteal_khugepaged 0\npgsteal_proactive 0\npgfault 68310\npgmajfault 389\npgrefill 89834537\npgactivate 89835378\npgdeactivate 89835169\npglazyfree 0\npglazyfreed 0\nswpin_zero 0\nswpout_zero 0\nzswpin 0\nzswpout 0\nzswpwb 0\nthp_fault_alloc 0\nthp_collapse_alloc 2\nthp_swpout 0\nthp_swpout_fallback 0\nnuma_pages_migrated 0\nnuma_pte_updates 0\nnuma_hint_faults 0",
+      "memory.numa_stat": "anon N0=0 N1=12214272\nfile N0=581632 N1=2162688\nkernel_stack N0=65536 N1=16384\npagetables N0=0 N1=0\nsec_pagetables N0=0 N1=0\nshmem N0=0 N1=0\nfile_mapped N0=0 N1=1232896\nfile_dirty N0=0 N1=0\nfile_writeback N0=0 N1=0\nswapcached N0=0 N1=0\nanon_thp N0=0 N1=4194304\nfile_thp N0=0 N1=0\nshmem_thp N0=0 N1=0\ninactive_anon N0=0 N1=6688768\nactive_anon N0=0 N1=5525504\ninactive_file N0=0 N1=0\nactive_file N0=581632 N1=2162688\nunevictable N0=0 N1=0\nslab_reclaimable N0=37264 N1=30456\nslab_unreclaimable N0=84248 N1=190640\nhugetlb N0=0 N1=0\nworkingset_refault_anon N0=0 N1=0\nworkingset_refault_file N0=0 N1=0\nworkingset_activate_anon N0=0 N1=0\nworkingset_activate_file N0=0 N1=0\nworkingset_restore_anon N0=0 N1=0\nworkingset_restore_file N0=0 N1=0\nworkingset_nodereclaim N0=0 N1=0\npgdemote_kswapd N0=0 N1=0\npgdemote_direct N0=0 N1=0\npgdemote_khugepaged N0=0 N1=0\npgdemote_proactive N0=0 N1=0\npgpromote_success N0=0 N1=0",
+      "cpu.max": "max 100000",
+      "cpu.weight": "100",
+      "cpu.stat": "usage_usec 15283789\nuser_usec 11631027\nsystem_usec 3652761\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+      "pids.max": "max"
+    },
+    "user.slice/user-20020.slice/user@20020.service/tmux-spawn-baa84965-f14b-4cb0-b686-3f30f8d5bff6.scope": {
+      "cgroup.type": "domain",
+      "cgroup.controllers": "cpu memory pids",
+      "cgroup.subtree_control": "",
+      "memory.max": "max",
+      "memory.high": "max",
+      "memory.low": "0",
+      "memory.min": "0",
+      "memory.swap.max": "max",
+      "memory.current": "12770848768",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+      "memory.stat": "anon 544768\nfile 12762607616\nkernel 4505600\nkernel_stack 0\npagetables 0\nsec_pagetables 0\npercpu 2016\nsock 0\nvmalloc 0\nshmem 0\nzswap 0\nzswapped 0\nfile_mapped 581632\nfile_dirty 0\nfile_writeback 0\nswapcached 0\nanon_thp 0\nfile_thp 12727615488\nshmem_thp 0\ninactive_anon 339968\nactive_anon 204800\ninactive_file 12741779456\nactive_file 20828160\nunevictable 0\nslab_reclaimable 4932488\nslab_unreclaimable 941952\nslab 5874440\nworkingset_refault_anon 0\nworkingset_refault_file 1912\nworkingset_activate_anon 0\nworkingset_activate_file 142\nworkingset_restore_anon 0\nworkingset_restore_file 118\nworkingset_nodereclaim 0\npgdemote_kswapd 0\npgdemote_direct 0\npgdemote_khugepaged 0\npgdemote_proactive 0\npgpromote_success 0\npgscan 4378\npgsteal 2645\npswpin 0\npswpout 0\npgscan_kswapd 177\npgscan_direct 3573\npgscan_khugepaged 628\npgscan_proactive 0\npgsteal_kswapd 160\npgsteal_direct 2042\npgsteal_khugepaged 443\npgsteal_proactive 0\npgfault 15161716\npgmajfault 2533\npgrefill 2531\npgactivate 21561\npgdeactivate 1743\npglazyfree 0\npglazyfreed 0\nswpin_zero 0\nswpout_zero 0\nzswpin 0\nzswpout 0\nzswpwb 0\nthp_fault_alloc 119707\nthp_collapse_alloc 71951\nthp_swpout 0\nthp_swpout_fallback 0\nnuma_pages_migrated 0\nnuma_pte_updates 0\nnuma_hint_faults 0",
+      "memory.numa_stat": "anon N0=0 N1=544768\nfile N0=2199552 N1=12760408064\nkernel_stack N0=0 N1=0\npagetables N0=0 N1=0\nsec_pagetables N0=0 N1=0\nshmem N0=0 N1=0\nfile_mapped N0=0 N1=581632\nfile_dirty N0=0 N1=0\nfile_writeback N0=0 N1=0\nswapcached N0=0 N1=0\nanon_thp N0=0 N1=0\nfile_thp N0=0 N1=12727615488\nshmem_thp N0=0 N1=0\ninactive_anon N0=0 N1=339968\nactive_anon N0=0 N1=204800\ninactive_file N0=1622016 N1=12740157440\nactive_file N0=577536 N1=20250624\nunevictable N0=0 N1=0\nslab_reclaimable N0=1665136 N1=3267352\nslab_unreclaimable N0=73056 N1=868896\nhugetlb N0=0 N1=0\nworkingset_refault_anon N0=0 N1=0\nworkingset_refault_file N0=177 N1=1735\nworkingset_activate_anon N0=0 N1=0\nworkingset_activate_file N0=0 N1=142\nworkingset_restore_anon N0=0 N1=0\nworkingset_restore_file N0=0 N1=118\nworkingset_nodereclaim N0=0 N1=0\npgdemote_kswapd N0=0 N1=0\npgdemote_direct N0=0 N1=0\npgdemote_khugepaged N0=0 N1=0\npgdemote_proactive N0=0 N1=0\npgpromote_success N0=0 N1=0",
+      "cpu.max": "max 100000",
+      "cpu.weight": "100",
+      "cpu.stat": "usage_usec 11359362034\nuser_usec 9279199542\nsystem_usec 2080162492\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+      "pids.max": "121568"
+    },
+    "user.slice/user-20020.slice/user@20020.service": {
+      "cgroup.type": "domain",
+      "cgroup.controllers": "cpu memory pids",
+      "cgroup.subtree_control": "cpu memory pids",
+      "memory.max": "max",
+      "memory.high": "max",
+      "memory.low": "0",
+      "memory.min": "0",
+      "memory.swap.max": "max",
+      "memory.current": "12776984576",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+      "memory.stat": "anon 5058560\nfile 12762624000\nkernel 5816320\nkernel_stack 32768\npagetables 0\nsec_pagetables 0\npercpu 654696\nsock 0\nvmalloc 4096\nshmem 16384\nzswap 0\nzswapped 0\nfile_mapped 581632\nfile_dirty 0\nfile_writeback 0\nswapcached 0\nanon_thp 0\nfile_thp 12727615488\nshmem_thp 0\ninactive_anon 368640\nactive_anon 4706304\ninactive_file 12741779456\nactive_file 20828160\nunevictable 0\nslab_reclaimable 4984208\nslab_unreclaimable 1247008\nslab 6231216\nworkingset_refault_anon 0\nworkingset_refault_file 1912\nworkingset_activate_anon 0\nworkingset_activate_file 142\nworkingset_restore_anon 0\nworkingset_restore_file 118\nworkingset_nodereclaim 0\npgdemote_kswapd 0\npgdemote_direct 0\npgdemote_khugepaged 0\npgdemote_proactive 0\npgpromote_success 0\npgscan 4378\npgsteal 2645\npswpin 0\npswpout 0\npgscan_kswapd 177\npgscan_direct 3573\npgscan_khugepaged 628\npgscan_proactive 0\npgsteal_kswapd 160\npgsteal_direct 2042\npgsteal_khugepaged 443\npgsteal_proactive 0\npgfault 15167436\npgmajfault 2534\npgrefill 2531\npgactivate 21564\npgdeactivate 1746\npglazyfree 0\npglazyfreed 0\nswpin_zero 0\nswpout_zero 0\nzswpin 0\nzswpout 0\nzswpwb 0\nthp_fault_alloc 119707\nthp_collapse_alloc 71951\nthp_swpout 0\nthp_swpout_fallback 0\nnuma_pages_migrated 0\nnuma_pte_updates 0\nnuma_hint_faults 0",
+      "memory.numa_stat": "anon N0=0 N1=5058560\nfile N0=2211840 N1=12760412160\nkernel_stack N0=16384 N1=16384\npagetables N0=0 N1=0\nsec_pagetables N0=0 N1=0\nshmem N0=12288 N1=4096\nfile_mapped N0=0 N1=581632\nfile_dirty N0=0 N1=0\nfile_writeback N0=0 N1=0\nswapcached N0=0 N1=0\nanon_thp N0=0 N1=0\nfile_thp N0=0 N1=12727615488\nshmem_thp N0=0 N1=0\ninactive_anon N0=12288 N1=356352\nactive_anon N0=0 N1=4706304\ninactive_file N0=1622016 N1=12740157440\nactive_file N0=577536 N1=20250624\nunevictable N0=0 N1=0\nslab_reclaimable N0=1691680 N1=3292528\nslab_unreclaimable N0=286536 N1=960472\nhugetlb N0=0 N1=0\nworkingset_refault_anon N0=0 N1=0\nworkingset_refault_file N0=177 N1=1735\nworkingset_activate_anon N0=0 N1=0\nworkingset_activate_file N0=0 N1=142\nworkingset_restore_anon N0=0 N1=0\nworkingset_restore_file N0=0 N1=118\nworkingset_nodereclaim N0=0 N1=0\npgdemote_kswapd N0=0 N1=0\npgdemote_direct N0=0 N1=0\npgdemote_khugepaged N0=0 N1=0\npgdemote_proactive N0=0 N1=0\npgpromote_success N0=0 N1=0",
+      "cpu.max": "max 100000",
+      "cpu.weight": "100",
+      "cpu.stat": "usage_usec 11360217920\nuser_usec 9279861139\nsystem_usec 2080356780\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+      "pids.max": "max"
+    }
+  },
+  "processes": {
+    "69451": {
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope",
+      "comm": "python3",
+      "status_affinity": [
+        "Cpus_allowed_list:\t10-19,30-39",
+        "Mems_allowed_list:\t0-1"
+      ]
+    },
+    "2724": {
+      "cgroup": "0::/user.slice/user-20020.slice/session-1.scope",
+      "comm": "tmux: server",
+      "status_affinity": [
+        "Cpus_allowed_list:\t10-19,30-39",
+        "Mems_allowed_list:\t0-1"
+      ]
+    },
+    "2725": {
+      "cgroup": "0::/user.slice/user-20020.slice/user@20020.service/tmux-spawn-baa84965-f14b-4cb0-b686-3f30f8d5bff6.scope",
+      "comm": "bash",
+      "status_affinity": [
+        "Cpus_allowed_list:\t10-19,30-39",
+        "Mems_allowed_list:\t0-1"
+      ]
+    }
+  },
+  "loaded_modules": [
+    {
+      "name": "nfsv3",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/fs/nfs/nfsv3.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500ce7d1246819ebacc2a7789c165b18dcf7174211d"
+    },
+    {
+      "name": "nfs_acl",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/fs/nfs_common/nfs_acl.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550009499b2cfffe654772c5a3ab4d64b913376f4be4"
+    },
+    {
+      "name": "nfs",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/fs/nfs/nfs.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500c9f6875dbbe2738a29e8007e8d0eea5131005692"
+    },
+    {
+      "name": "lockd",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/fs/lockd/lockd.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550070a876940c7f550b48d1f53d721f9b63bece7050"
+    },
+    {
+      "name": "grace",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/fs/nfs_common/grace.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e55002bd3b04f8194246af554c09e367d2247f4c6769c"
+    },
+    {
+      "name": "netfs",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/fs/netfs/netfs.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550071373af132f8cfba79ca982cd4547dcd9038c345"
+    },
+    {
+      "name": "cfg80211",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/net/wireless/cfg80211.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500b11561a61e2576e6ed9a1e8fa3a78fcdf8bda9c7"
+    },
+    {
+      "name": "intel_rapl_msr",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/powercap/intel_rapl_msr.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500554641451f0bd57df463a08cf4da6e8a0bbac349"
+    },
+    {
+      "name": "intel_rapl_common",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/powercap/intel_rapl_common.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500d44414788ccf18c8d1d3bad709a876bcaaf7f729"
+    },
+    {
+      "name": "intel_uncore_frequency",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/platform/x86/intel/uncore-frequency/intel-uncore-frequency.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500eb22bc2812577dadc806e40520c1b6de776db160"
+    },
+    {
+      "name": "intel_uncore_frequency_common",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/platform/x86/intel/uncore-frequency/intel-uncore-frequency-common.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500976fb3b98af4a367691922dc76753ca3b8f0bbca"
+    },
+    {
+      "name": "sunrpc",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/net/sunrpc/sunrpc.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550073ea435994405b426b0c725b5403b29cb6c0edb0"
+    },
+    {
+      "name": "binfmt_misc",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/fs/binfmt_misc.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550033d7ba91cbff43e8872902f5d5a1ad6396a3a24f"
+    },
+    {
+      "name": "skx_edac",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/edac/skx_edac.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500c538f98524d06af91646c01bb04361a662c8415f"
+    },
+    {
+      "name": "skx_edac_common",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/edac/skx_edac_common.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550027c5e7fe20271d4447b783998c79534a8c69aaf8"
+    },
+    {
+      "name": "nfit",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/acpi/nfit/nfit.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e55006b9420f45881a72feb1c2155770fe662c006b2af"
+    },
+    {
+      "name": "x86_pkg_temp_thermal",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/thermal/intel/x86_pkg_temp_thermal.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500d60c84c093eb64d542f5eed6b52accb9b548e3a6"
+    },
+    {
+      "name": "intel_powerclamp",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/thermal/intel/intel_powerclamp.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e55006edb28e759166feebc674f8ab41f683474bdf956"
+    },
+    {
+      "name": "coretemp",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/hwmon/coretemp.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500a52c93d399652afba62b9b129a670d5f90fd9d23"
+    },
+    {
+      "name": "cmdlinepart",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/mtd/parsers/cmdlinepart.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500f0caf7af52b6bd34465346f9eabb26683c860b18"
+    },
+    {
+      "name": "kvm_intel",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/arch/x86/kvm/kvm-intel.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e55003237c8970515788bac82ed24dbe8e5a8d58ee690"
+    },
+    {
+      "name": "spi_nor",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/mtd/spi-nor/spi-nor.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550004f017cea9e8872d8bfdc72ff9eb0d84e6ba531d"
+    },
+    {
+      "name": "mtd",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/mtd/mtd.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500ff8ce66af307f90b22bb4a72df70eb8a3fe7a090"
+    },
+    {
+      "name": "kvm",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/arch/x86/kvm/kvm.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500664d6b548fb65d90fc13f5a9ded0fcad4c72c287"
+    },
+    {
+      "name": "irqbypass",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/virt/lib/irqbypass.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e55003e45966e0c84f0f693e0da449eff2d77c8a0ce7b"
+    },
+    {
+      "name": "polyval_clmulni",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/arch/x86/crypto/polyval-clmulni.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500e1f60e0b0189747e51887ce2288306a29b3abd29"
+    },
+    {
+      "name": "ghash_clmulni_intel",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/arch/x86/crypto/ghash-clmulni-intel.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500fc0505fe66ebf9bb4896c4daf844041946c23a0c"
+    },
+    {
+      "name": "rapl",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/arch/x86/events/rapl.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e55003c49b7138857dcb7f074d2a6e5c8e223c41d9bda"
+    },
+    {
+      "name": "intel_cstate",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/arch/x86/events/intel/intel-cstate.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550092702b88597adcd0d88facba9a22e7eec7920984"
+    },
+    {
+      "name": "nd_pmem",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/nvdimm/nd_pmem.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500b908b8c313fe5be6257419405a8e8da6260df23d"
+    },
+    {
+      "name": "nd_btt",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/nvdimm/nd_btt.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550026c38f99f56712d19dbd2dab8467ff5c4a226830"
+    },
+    {
+      "name": "dax_pmem",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/dax/dax_pmem.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550097443e5d7cd71d8c87a476f4ca907d011f5ba630"
+    },
+    {
+      "name": "i40e",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/net/ethernet/intel/i40e/i40e.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500456e4aa33139348b5e0f765e5938ab51cd846f8a"
+    },
+    {
+      "name": "libie",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/net/ethernet/intel/libie/libie.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e55001c8880c7675fa090c1257c07b7a6de12a5894577"
+    },
+    {
+      "name": "libie_adminq",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/net/ethernet/intel/libie/libie_adminq.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500df0e99b0fe9fe5e14607396620e1804c4c84fdbe"
+    },
+    {
+      "name": "ixgbe",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/net/ethernet/intel/ixgbe/ixgbe.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e55000bade8adff71afa190825cdcb4d7bb2568a7743b"
+    },
+    {
+      "name": "libie_fwlog",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/net/ethernet/intel/libie/libie_fwlog.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500b3aa697e1693232ee468b18d33b567cb482db8bb"
+    },
+    {
+      "name": "xfrm_algo",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/net/xfrm/xfrm_algo.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500c9e96c48e3a16a2340af1c21fe725592684530d8"
+    },
+    {
+      "name": "mdio",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/net/mdio.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550075dd2687f515f47eb86f338a8991b38d0fad46c8"
+    },
+    {
+      "name": "spi_intel_pci",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/spi/spi-intel-pci.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e55009e20df3ab15344b82b06892158ce0ebcc1e77df2"
+    },
+    {
+      "name": "spi_intel",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/spi/spi-intel.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550012dacd586ec93ccbdec2d153f81ab8642b8db0d3"
+    },
+    {
+      "name": "lpc_ich",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/mfd/lpc_ich.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500909e60e1b0f0932a1996931a40e9adab8610436e"
+    },
+    {
+      "name": "mei_me",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/misc/mei/mei-me.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500bbdef997da93c37a241f9d90f8e46e7f53314741"
+    },
+    {
+      "name": "ipmi_ssif",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/char/ipmi/ipmi_ssif.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e55002f82f310ae482e947d826d5a3d5cd452c607f9ab"
+    },
+    {
+      "name": "mei",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/misc/mei/mei.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500a82a9f30b67951c3673a661cbe8bb944c9f81309"
+    },
+    {
+      "name": "intel_pch_thermal",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/thermal/intel/intel_pch_thermal.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e55007ebf75cbe8d06ad7204492773575329afbf9b114"
+    },
+    {
+      "name": "nls_iso8859_1",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/fs/nls/nls_iso8859-1.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500962163cf532c05c38b04920d5c7f255af96eb549"
+    },
+    {
+      "name": "ioatdma",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/dma/ioat/ioatdma.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500d0020c7023ecda91fce2b358c9917a20600f1a25"
+    },
+    {
+      "name": "dca",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/dca/dca.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500ee7821e2e8996d6d5e01147638453a079298c37a"
+    },
+    {
+      "name": "wmi",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/platform/x86/wmi.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550039053e8d2c77c4bfa870f972539ead800e861664"
+    },
+    {
+      "name": "ipmi_si",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/char/ipmi/ipmi_si.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500d461a3a26fa05e1be4e8f4157bc7a889a60aada6"
+    },
+    {
+      "name": "acpi_power_meter",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/hwmon/acpi_power_meter.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500b34d7b21f968e6aabb501c486c9a62b2ab05a901"
+    },
+    {
+      "name": "acpi_ipmi",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/acpi/acpi_ipmi.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550027bb948e3b4fe1799b66a9c802b909043cc1f45b"
+    },
+    {
+      "name": "ipmi_devintf",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/char/ipmi/ipmi_devintf.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550044502faeb1a729d52fb915dd42e253fddc3040c7"
+    },
+    {
+      "name": "ipmi_msghandler",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/char/ipmi/ipmi_msghandler.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e55005707ddc7622fb44f8a633b1fa1cda6697e6ffbe0"
+    },
+    {
+      "name": "acpi_pad",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/acpi/acpi_pad.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500ba9631cabd0daab5a2f11d8eb3bbb85d1b07c604"
+    },
+    {
+      "name": "joydev",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/input/joydev.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550068aa728d7246aceabe21602aa45bc9431080c398"
+    },
+    {
+      "name": "sch_fq_codel",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/net/sched/sch_fq_codel.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500c455e36bd48b42dc296d548a19c2af81ea44f7b5"
+    },
+    {
+      "name": "dm_multipath",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/md/dm-multipath.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500d274b51ef72c6c75c34a12d371ed4940e0919ceb"
+    },
+    {
+      "name": "msr",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/arch/x86/kernel/msr.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500a3225414202960d250d52f9bff8bb184fab13b8c"
+    },
+    {
+      "name": "efi_pstore",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/firmware/efi/efi-pstore.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e55000f6e0412c679c7c4531de7150e09b1d5fa7e3331"
+    },
+    {
+      "name": "nfnetlink",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/net/netfilter/nfnetlink.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e55008d4293625b907158a5fdb71e1f6f4dd4ff8da316"
+    },
+    {
+      "name": "dmi_sysfs",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/firmware/dmi-sysfs.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500536697a317445ebfa8fc7188ed90dbc2924fa140"
+    },
+    {
+      "name": "ip_tables",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/net/ipv4/netfilter/ip_tables.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500aa0918bb5879e4bc00ae06b0db49290fde38ea55"
+    },
+    {
+      "name": "x_tables",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/net/netfilter/x_tables.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e55002a74801a7e6915f7f018c57551da1063fd8881a6"
+    },
+    {
+      "name": "autofs4",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/fs/autofs/autofs4.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e55008d7a3d587984dded0f232c4c59bb76373a4fb8fb"
+    },
+    {
+      "name": "raid10",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/md/raid10.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550074cb9c72f508862f5f254f09eef6fb71e6767ede"
+    },
+    {
+      "name": "raid456",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/md/raid456.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500b781eed145ddbbb46203a7fb6f55adc1aafd3366"
+    },
+    {
+      "name": "async_raid6_recov",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/crypto/async_tx/async_raid6_recov.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500b16ca6576fa562654a92f65def22c2a99579c6c7"
+    },
+    {
+      "name": "async_memcpy",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/crypto/async_tx/async_memcpy.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500b439bb48e1b72000ba7cd4e7e05983620d549a18"
+    },
+    {
+      "name": "async_pq",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/crypto/async_tx/async_pq.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e55009234c3ee79d8fd6ce14793b2ecc18ec54b28afab"
+    },
+    {
+      "name": "async_xor",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/crypto/async_tx/async_xor.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550055939fdaa36dad0643cb9caeee0ad683e2896711"
+    },
+    {
+      "name": "xor",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/crypto/xor.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550013b060795ba99df8917e274440941cf5d185fbf6"
+    },
+    {
+      "name": "async_tx",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/crypto/async_tx/async_tx.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500db1fab483ae4f171975c0b55b234937e62190c20"
+    },
+    {
+      "name": "raid6_pq",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/lib/raid6/raid6_pq.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500eec5b055355d8e7d2440f8b1a005751298562aca"
+    },
+    {
+      "name": "raid1",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/md/raid1.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500a46c9f54aa731b486a0061b98cf0908cb231b003"
+    },
+    {
+      "name": "raid0",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/md/raid0.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500ccaae099ec1bda6818019b379ee16e9570d203f3"
+    },
+    {
+      "name": "linear",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/md/linear.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500e82f83d07f2984ac6c600de53e94848c25cbca8d"
+    },
+    {
+      "name": "input_leds",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/input/input-leds.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550028870f04d9af3417954abb9b38eb97fb9a4652c6"
+    },
+    {
+      "name": "hid_generic",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/hid/hid-generic.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500571b2550877b53c1dc760c3572be9d535168e9b2"
+    },
+    {
+      "name": "usbhid",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/hid/usbhid/usbhid.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550012fd032e2fcb7fceaf3a887330ee79ceffe10712"
+    },
+    {
+      "name": "mpt3sas",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/scsi/mpt3sas/mpt3sas.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550072139c79ac6ac83196c2e1655e8e5c7a89521416"
+    },
+    {
+      "name": "hid",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/hid/hid.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500fc43d7976668729634eb906e8fb7039acc0034d5"
+    },
+    {
+      "name": "ahci",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/ata/ahci.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e55000dbc48ee94d4dda0926bdf16faa39cdf9ffe8775"
+    },
+    {
+      "name": "raid_class",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/scsi/raid_class.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500a71f81596f75afb5c8d071efbbc6c5fc338bfedb"
+    },
+    {
+      "name": "mgag200",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/gpu/drm/mgag200/mgag200.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550076967ae0f7c9a36651e3d9b45abeebd8c7ad2577"
+    },
+    {
+      "name": "scsi_transport_sas",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/scsi/scsi_transport_sas.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500b86d152ab036553ad105be860b461fed7d5c4e04"
+    },
+    {
+      "name": "i2c_algo_bit",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/i2c/algos/i2c-algo-bit.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e55005e363b10869b1f6ecd58b201bf14d70a80072386"
+    },
+    {
+      "name": "libahci",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/ata/libahci.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e550010832ccfc8cdb90a52a7f990e21818fc14aba4df"
+    },
+    {
+      "name": "mac_hid",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/drivers/macintosh/mac_hid.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e55000b18346bd8d2a23e2ba2cc07bd75baf02b84a75a"
+    },
+    {
+      "name": "aesni_intel",
+      "file": "/lib/modules/6.18.1-061801-generic/kernel/arch/x86/crypto/aesni-intel.ko.zst",
+      "loaded_build_note_matches_disk": true,
+      "loaded_build_note_hex": "040000001400000003000000474e5500bf251e127a5b16fe0c4befbfbcaf56d049c68ca6"
+    }
+  ],
+  "module_inventory": {
+    "count": 6812,
+    "unlisted": [],
+    "latest_ctime": 1772738974.4789279
+  },
+  "package_verification": {
+    "command": "sudo -n dpkg --verify linux-modules-6.18.1-061801-generic linux-image-unsigned-6.18.1-061801-generic",
+    "exit_code": 0,
+    "stdout": "",
+    "note": "Executed and completed earlier in this audit; no mismatches reported."
+  },
+  "host_file_metadata": {
+    "/usr/bin/tmux": {
+      "ctime_utc": "2024-09-17T20:13:39.364833+00:00",
+      "mtime_utc": "2024-07-10T21:57:26+00:00"
+    },
+    "/usr/lib/systemd/systemd": {
+      "ctime_utc": "2026-02-23T15:03:10.489486+00:00",
+      "mtime_utc": "2025-11-25T18:16:31+00:00"
+    },
+    "/usr/lib/x86_64-linux-gnu/security/pam_systemd.so": {
+      "ctime_utc": "2026-02-23T15:03:12.088484+00:00",
+      "mtime_utc": "2025-11-25T18:16:31+00:00"
+    },
+    "/etc/pam.d/common-session": {
+      "ctime_utc": "2026-02-23T15:04:02.166408+00:00",
+      "mtime_utc": "2026-02-23T15:04:02.166408+00:00"
+    },
+    "/etc/pam.d/sshd": {
+      "ctime_utc": "2024-06-22T10:39:57.484879+00:00",
+      "mtime_utc": "2024-04-05T19:30:31+00:00"
+    },
+    "/etc/systemd/system.conf": {
+      "ctime_utc": "2024-06-22T10:27:44.789412+00:00",
+      "mtime_utc": "2024-04-19T14:24:36+00:00"
+    },
+    "/etc/systemd/user.conf": {
+      "ctime_utc": "2024-06-22T10:27:44.789412+00:00",
+      "mtime_utc": "2024-04-19T14:24:36+00:00"
+    }
+  },
+  "package_history": [
+    {
+      "file": "/var/log/apt/history.log.10.gz",
+      "date": "Start-Date: 2024-04-23  09:40:18",
+      "packages": [
+        "libpam-systemd:amd64 (255.4-1ubuntu8)",
+        "systemd:amd64 (255.4-1ubuntu8)"
+      ]
+    },
+    {
+      "file": "/var/log/apt/history.log.10.gz",
+      "date": "Start-Date: 2024-04-23  09:42:24",
+      "packages": [
+        "tmux:amd64 (3.4-1build1)"
+      ]
+    },
+    {
+      "file": "/var/log/apt/history.log.4.gz",
+      "date": "Start-Date: 2026-02-23  08:02:56",
+      "packages": [
+        "libpam-systemd:amd64 (255.4-1ubuntu8.10, 255.4-1ubuntu8.12)",
+        "systemd:amd64 (255.4-1ubuntu8.10, 255.4-1ubuntu8.12)"
+      ]
+    },
+    {
+      "file": "/var/log/apt/history.log.5.gz",
+      "date": "Start-Date: 2025-08-08  14:01:17",
+      "packages": [
+        "libpam-systemd:amd64 (255.4-1ubuntu8.6, 255.4-1ubuntu8.10)",
+        "systemd:amd64 (255.4-1ubuntu8.6, 255.4-1ubuntu8.10)"
+      ]
+    },
+    {
+      "file": "/var/log/apt/history.log.6.gz",
+      "date": "Start-Date: 2025-05-05  14:17:38",
+      "packages": [
+        "libpam-systemd:amd64 (255.4-1ubuntu8.5, 255.4-1ubuntu8.6)",
+        "systemd:amd64 (255.4-1ubuntu8.5, 255.4-1ubuntu8.6)"
+      ]
+    },
+    {
+      "file": "/var/log/apt/history.log.7.gz",
+      "date": "Start-Date: 2025-02-13  13:12:29",
+      "packages": [
+        "libpam-systemd:amd64 (255.4-1ubuntu8.4, 255.4-1ubuntu8.5)",
+        "systemd:amd64 (255.4-1ubuntu8.4, 255.4-1ubuntu8.5)"
+      ]
+    },
+    {
+      "file": "/var/log/apt/history.log.8.gz",
+      "date": "Start-Date: 2024-09-17  14:13:00",
+      "packages": [
+        "libpam-systemd:amd64 (255.4-1ubuntu8.1, 255.4-1ubuntu8.4)",
+        "systemd:amd64 (255.4-1ubuntu8.1, 255.4-1ubuntu8.4)",
+        "tmux:amd64 (3.4-1build1, 3.4-1ubuntu0.1)"
+      ]
+    },
+    {
+      "file": "/var/log/apt/history.log.9.gz",
+      "date": "Start-Date: 2024-07-09  18:24:08",
+      "packages": [
+        "libpam-systemd:amd64 (255.4-1ubuntu8, 255.4-1ubuntu8.1)",
+        "systemd:amd64 (255.4-1ubuntu8, 255.4-1ubuntu8.1)"
+      ]
+    }
+  ]
+}

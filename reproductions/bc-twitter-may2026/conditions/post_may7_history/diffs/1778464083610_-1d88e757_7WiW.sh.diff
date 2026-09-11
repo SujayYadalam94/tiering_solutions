@@ -1,0 +1,9 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-1d88e757/IhCs.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-1d88e757/7WiW.sh
+@@ -5,5 +5,5 @@
+ WORKLOAD_COMMAND="OMP_NUM_THREADS=16 ${BENCH_ROOT}/duckdb/build/release/benchmark/benchmark_runner benchmark/large/tpcds-sf100/.*benchmark --threads=16 --nruns=10"
+ WORKLOAD_EXE_NAME="benchmark_runner"
+ WORKLOAD_MODEL_BASE="DuckDB-TPCDS-sf100"
+-WORKLOAD_VIRTUAL_STEP_SAMPLES="1000000"
++WORKLOAD_VIRTUAL_STEP_SAMPLES="100000"
+ WORKLOAD_SYSTEMS="arms hybridtier model logging"

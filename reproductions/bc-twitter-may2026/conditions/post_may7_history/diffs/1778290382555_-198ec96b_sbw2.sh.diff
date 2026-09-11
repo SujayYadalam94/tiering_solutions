@@ -1,0 +1,21 @@
+--- git:8d6a8bc66:measurement_workloads.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-198ec96b/sbw2.sh
+@@ -5,13 +5,13 @@
+ 
+ declare -ar MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
+     "faiss_10M"
+-    #"mg.D.x"
+-    #DuckDB-TPCH-sf100"
++    "mg.D.x"
++    "DuckDB-TPCH-sf100"
+     "bc-kron.sg"
+-    "XSBench"
+-    "pr-kron.sg"
++    #"XSBench"
++    #"pr-kron.sg"
+     "bc-twitter.sg"
+-    "pr-twitter.sg"
++    #"pr-twitter.sg"
+     #"lulesh2.0_s400"
+ 
+ 

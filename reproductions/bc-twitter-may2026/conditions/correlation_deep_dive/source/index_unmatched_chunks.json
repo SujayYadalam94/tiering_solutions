@@ -1,0 +1,50 @@
+[
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/local-index.1.db",
+    "resource": "migration_worker.cpp",
+    "version": "12518-1773116831149",
+    "source_mtime": "2026-03-10T04:27:11.149000+00:00",
+    "chunks": 12,
+    "unmatched_chunks": 4,
+    "git_variants": 15,
+    "other_candidates": 50,
+    "unmatched": [
+      {
+        "start": 45,
+        "end": 82,
+        "characters": 972,
+        "matches": [],
+        "matching_sources": 0,
+        "sha256": "4cd6262f9b7ee9c5592348eb2507b1896ad12c71f4d4ab256f6e4e705acb851a",
+        "text": "            ref.page = it->second;\n        }\n    }\n    if (ref.page)\n    {\n        ref.expected_hugepages = 1;\n    }\n    return ref;\n}\nstatic void apply_hugepage_state_update(const migration_task::page_ref &ref, int target_node, int status)\n{\n    if (!ref.page || status != target_node)\n    {\n        return;\n    }\n    std::lock_guard<std::mutex> plock(ref.page->page_lock);\n    ref.page->in_dram = (target_node == FAST_TIER);\n#if USE_MODEL == (true) || LOGGING_RUN == (true)\n    ref.page->promote_backoff = BACKOFF_PERIOD;\n#endif\n}\nstatic int migrate_pages_to_node(const std::vector<migration_task::page_ref> &promote_pages,\n                                 const std::vector<migration_task::page_ref> &demote_pages, int &promoted_pages,\n                                 int &demoted_pages, int &numa_ret)\n{\n    if (promote_pages.empty() && demote_pages.empty())\n        return 0;\n    auto start = std::chrono::high_resolution_clock::now();\n    std::vector<void *> pages;"
+      },
+      {
+        "start": 118,
+        "end": 140,
+        "characters": 916,
+        "matches": [],
+        "matching_sources": 0,
+        "sha256": "36907c1a9b0e534825720aaa8eb5aa7c586572775d35bd5b9e87e8a1b041ddab",
+        "text": "    else if (status[i] != nodes[i] && status[i] != -EFAULT && status[i] != -ENOENT)\n    {\n        std::cout << \"[ARMS] Warning: Page migration failed for VA \" << pages[i] << \", target node: \" << std::dec\n                  << nodes[i] << \", status: \" << status[i] << std::endl;\n    }\n}\npromoted_pages = successful_promotions;\ndemoted_pages = successful_demotions;\nauto end = std::chrono::high_resolution_clock::now();\nauto duration_us = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();\nfloat time_per_page_us = pages.empty() ? 0.0f : static_cast<float>(duration_us) / static_cast<float>(pages.size());\n{\n    size_t status_offset = 0;\n    for (const auto &ref : promote_pages)\n    {\n        apply_hugepage_state_update(ref, FAST_TIER, status[status_offset++]);\n    }\n    for (const auto &ref : demote_pages)\n    {\n        apply_hugepage_state_update(ref, SLOW_TIER, status[status_offset++]);"
+      },
+      {
+        "start": 141,
+        "end": 168,
+        "characters": 1058,
+        "matches": [],
+        "matching_sources": 0,
+        "sha256": "663cac3c5e0de0d8a5feaf038bbccfcee70ee1637d0ca168df2552c59e54ffc6",
+        "text": "        }\n    }\n    // Update migration cost estimates for both directions if present\n    if (promoted_pages > 0)\n    {\n        promotion_cost_avg = std::max((double)MIN_PROMOTION_COST, MIGRATION_COST_ALPHA * time_per_page_us +\n                                                                      (1 - MIGRATION_COST_ALPHA) * promotion_cost_avg);\n    }\n    if (demoted_pages > 0)\n    {\n        demotion_cost_avg = std::max((double)MIN_DEMOTION_COST, MIGRATION_COST_ALPHA * time_per_page_us +\n                                                                    (1 - MIGRATION_COST_ALPHA) * demotion_cost_avg);\n    }\n    return static_cast<int>(pages.size());\n}\nvoid enqueue_migration_task(const std::vector<uint64_t> &promote_vas, const std::vector<uint64_t> &demote_vas)\n{\n    if (promote_vas.empty() && demote_vas.empty())\n        return;\n    constexpr size_t TASK_COUNT = MIGRATION_WORKER_COUNT;\n    std::vector<migration_task> tasks;\n    tasks.reserve(TASK_COUNT);\n    // Evenly split promotions and demotions across worker threads to keep load balanced."
+      },
+      {
+        "start": 293,
+        "end": 319,
+        "characters": 1034,
+        "matches": [],
+        "matching_sources": 0,
+        "sha256": "e6685394e59e1a4178d3c5f97ee15a120dfb8c4bd6f883c5e0fa61b65b3bbf2c",
+        "text": "bool retry_error = false;\nstd::vector<migration_task::page_ref> pending_promotions = task.promote_pages;\nconstexpr int MAX_PROMOTION_RETRY_PASSES = 2;\nfor (int pass = 0; pass < MAX_PROMOTION_RETRY_PASSES && !pending_promotions.empty(); pass++)\n{\n    std::vector<migration_task::page_ref> failed_this_pass;\n    failed_this_pass.reserve(pending_promotions.size());\n    for (const auto &page : pending_promotions)\n    {\n        const int expected_for_hugepage = page.expected_hugepages;\n        if (expected_for_hugepage == 0)\n        {\n            continue;\n        }\n        promoted_pages = 0;\n        demoted_pages_unused = 0;\n        int retry_ret =\n            migrate_pages_to_node({page}, {}, promoted_pages, demoted_pages_unused, numa_ret);\n        if (retry_ret > 0 && promoted_pages > 0)\n        {\n            migrations_up.fetch_add(promoted_pages, std::memory_order_relaxed);\n            migrations_up_period.fetch_add(promoted_pages, std::memory_order_relaxed);\n            total_retry_promoted += promoted_pages;\n        }"
+      }
+    ]
+  }
+]

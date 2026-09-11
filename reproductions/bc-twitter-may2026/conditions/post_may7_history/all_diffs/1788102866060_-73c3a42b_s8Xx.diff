@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/yGC6
++++ /users/zimooo2/.vscode-server/data/User/History/-73c3a42b/s8Xx
+@@ -62,7 +62,7 @@
+ 	timer.cpp hook/hook.cpp groups.cpp page.cpp logging.cpp model.cpp
+ OBJ_NAMES = $(SRCS:.cpp=.o)
+ 
+-ARMS_ALL_NUMA_TRAIN_MAX_LOGGED_SAMPLES ?= 20000000
++ARMS_ALL_NUMA_TRAIN_MAX_LOGGED_SAMPLES ?= 10000000
+ 
+ BASE_DEFINES_model := -DUSE_MODEL=true
+ BASE_DEFINES_train := -DUSE_MODEL=true -DPRINT_TRAINING_DATA=true

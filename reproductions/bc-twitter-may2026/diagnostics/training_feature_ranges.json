@@ -1,0 +1,82 @@
+[
+  {
+    "feature": "ewma_2",
+    "trace_min": -0.0,
+    "trace_max": 592.752808,
+    "model_min": 0.0,
+    "model_max": 365.308716,
+    "matches": false
+  },
+  {
+    "feature": "ewma_5",
+    "trace_min": -0.0,
+    "trace_max": 306.524841,
+    "model_min": 0.0,
+    "model_max": 268.036804,
+    "matches": false
+  },
+  {
+    "feature": "ewma_20",
+    "trace_min": -0.0,
+    "trace_max": 154.96402,
+    "model_min": 0.0,
+    "model_max": 130.964294,
+    "matches": false
+  },
+  {
+    "feature": "ewma_100",
+    "trace_min": -0.0,
+    "trace_max": 146.651627,
+    "model_min": 0.0,
+    "model_max": 123.41362,
+    "matches": false
+  },
+  {
+    "feature": "global_avg_accesses_model",
+    "trace_min": -0.0,
+    "trace_max": 224.0,
+    "model_min": 0.0,
+    "model_max": 154.5,
+    "matches": false
+  },
+  {
+    "feature": "group_neg_mean",
+    "trace_min": -0.0,
+    "trace_max": 695.5,
+    "model_min": 0.0,
+    "model_max": 452.25,
+    "matches": false
+  },
+  {
+    "feature": "group_pos_mean",
+    "trace_min": -0.0,
+    "trace_max": 582.0,
+    "model_min": 0.0,
+    "model_max": 471.875,
+    "matches": false
+  },
+  {
+    "feature": "group_0_mean",
+    "trace_min": -0.0,
+    "trace_max": 470.0,
+    "model_min": 0.0,
+    "model_max": 274.625,
+    "matches": false
+  },
+  {
+    "feature": "age",
+    "trace_min": 0,
+    "trace_max": 219,
+    "model_min": 0.0,
+    "model_max": 219.0,
+    "matches": true
+  },
+  {
+    "feature": "group_ewma5_var",
+    "trace_min": -0.0,
+    "trace_max": 1642.779053,
+    "model_min": 0.0,
+    "model_max": 1553.52124,
+    "matches": false
+  }
+]

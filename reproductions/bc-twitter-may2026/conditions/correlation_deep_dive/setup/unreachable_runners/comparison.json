@@ -1,0 +1,79 @@
+{
+  "candidate_count": 88,
+  "results": [
+    {
+      "blob": "995f537eb79ae2306fa3eb5ceebdc268b17d3bc0",
+      "parse_returncode": 2,
+      "parse_stderr": "reproductions/bc-twitter-may2026/conditions/correlation_deep_dive/setup/unreachable_runners/995f537eb79ae2306fa3eb5ceebdc268b17d3bc0.sh: line 59: syntax error near unexpected token `<<<'\nreproductions/bc-twitter-may2026/conditions/correlation_deep_dive/setup/unreachable_runners/995f537eb79ae2306fa3eb5ceebdc268b17d3bc0.sh: line 59: `<<<<<<< HEAD'\n",
+      "conflict_count": 1,
+      "nearest": {
+        "source": "git:4494a8ebb29f22aea16d062096d9e3090fa4068e:run_all_measurements.sh",
+        "date": "2026-05-04T20:40:38-05:00",
+        "line_similarity": 0.9859154929577465
+      },
+      "exact_resolved_matches": [
+        {
+          "resolution_index": 0,
+          "source": "git:4494a8ebb29f22aea16d062096d9e3090fa4068e:run_all_measurements.sh",
+          "date": "2026-05-04T20:40:38-05:00"
+        },
+        {
+          "resolution_index": 1,
+          "source": "git:1b5facfc442060395761569789cf032646478c32:run_all_measurements.sh",
+          "date": "2026-05-05T01:39:50+00:00"
+        }
+      ]
+    },
+    {
+      "blob": "9e9da65570411d9ddc316a2f0c35a634b3c8e646",
+      "parse_returncode": 2,
+      "parse_stderr": "reproductions/bc-twitter-may2026/conditions/correlation_deep_dive/setup/unreachable_runners/9e9da65570411d9ddc316a2f0c35a634b3c8e646.sh: line 59: syntax error near unexpected token `<<<'\nreproductions/bc-twitter-may2026/conditions/correlation_deep_dive/setup/unreachable_runners/9e9da65570411d9ddc316a2f0c35a634b3c8e646.sh: line 59: `<<<<<<< HEAD'\n",
+      "conflict_count": 2,
+      "nearest": {
+        "source": "git:6b1bc11ddde993c4e365c9d65ac96fb0a6e8b677:run_all_measurements.sh",
+        "date": "2026-05-03T22:01:18-05:00",
+        "line_similarity": 0.9722222222222222
+      },
+      "exact_resolved_matches": [
+        {
+          "resolution_index": 1,
+          "source": "git:29e225954a5244b7d9d1e97ca3ca78350f859fe3:run_all_measurements.sh",
+          "date": "2026-05-03T22:00:24-05:00"
+        },
+        {
+          "resolution_index": 2,
+          "source": "git:e10786f6747fb8b0fda1ebe061cedc2ba029c02a:run_all_measurements.sh",
+          "date": "2026-05-04T03:01:52+00:00"
+        }
+      ]
+    },
+    {
+      "blob": "5484a4e62d2ea72438ab6d0e304800bb5c092b4c",
+      "parse_returncode": 2,
+      "parse_stderr": "reproductions/bc-twitter-may2026/conditions/correlation_deep_dive/setup/unreachable_runners/5484a4e62d2ea72438ab6d0e304800bb5c092b4c.sh: line 59: syntax error near unexpected token `<<<'\nreproductions/bc-twitter-may2026/conditions/correlation_deep_dive/setup/unreachable_runners/5484a4e62d2ea72438ab6d0e304800bb5c092b4c.sh: line 59: `<<<<<<< HEAD'\n",
+      "conflict_count": 1,
+      "nearest": {
+        "source": "/users/zimooo2/.vscode-server/data/User/History/-2c506191/wE1V.sh",
+        "date": "2026-05-14T01:42:58.004000+00:00",
+        "line_similarity": 0.9859154929577465
+      },
+      "exact_resolved_matches": [
+        {
+          "resolution_index": 0,
+          "source": "/users/zimooo2/.vscode-server/data/User/History/-2c506191/wE1V.sh",
+          "date": "2026-05-14T01:42:58.004000+00:00"
+        },
+        {
+          "resolution_index": 0,
+          "source": "/users/zimooo2/.vscode-server/data/User/History/-2c506191/9xCi.sh",
+          "date": "2026-05-14T06:17:46.400000+00:00"
+        },
+        {
+          "resolution_index": 0,
+          "source": "git:890a2449c725305d4665fcd16a50a532956edfb2:run_all_measurements.sh",
+          "date": "2026-05-14T01:17:14-05:00"
+        }
+      ]
+    }
+  ]
+}

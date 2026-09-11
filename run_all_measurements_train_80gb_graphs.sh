@@ -17,11 +17,11 @@ print_usage() {
 Usage: $0 [--platform c220g5|gsl_optane]
 
 Runs BC and PR on the approximately 80 GB GAPBS graph with the ARMS
-all-NUMA training library, converts the generated training traces to parquet,
+all-NUMA training library, writes the training traces directly to parquet,
 and collects each trace with its timing and peak-DRAM artifacts.
 
 The graph defaults to:
-  \${BENCH_ROOT}/gapbs/benchmark/graph-80GB.sg
+  \${BENCH_ROOT}/gapbs/benchmark/kron-80GB.sg
 
 Environment overrides:
   GAPBS_80GB_GRAPH       graph path
@@ -48,7 +48,7 @@ if [[ ${#MEASUREMENT_REMAINING_ARGS[@]} -ne 0 ]]; then
     exit 1
 fi
 
-GAPBS_80GB_GRAPH=${GAPBS_80GB_GRAPH:-${BENCH_ROOT}/gapbs/benchmark/graph-80GB.sg}
+GAPBS_80GB_GRAPH=${GAPBS_80GB_GRAPH:-${BENCH_ROOT}/gapbs/benchmark/kron-80GB.sg}
 export GAPBS_80GB_GRAPH
 
 TRAIN_SIZE_MIB=${TRAIN_SIZE_MIB:-100101}
@@ -59,8 +59,6 @@ RUN_LABEL_SUFFIX=${RUN_LABEL_SUFFIX:-_train}
 ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_near_train_all_numa}
 COLLECT_TIMESTAMP=$(date '+%Y%m%d_%H%M%S')
 COLLECT_LOGS_DIR=${COLLECT_LOGS_DIR:-"${SCRIPT_DIR}/collected_logs/${MEASUREMENT_PLATFORM}/arms_near_train_80gb_graphs_${COLLECT_TIMESTAMP}"}
-LOG_CONVERTER_SCRIPT=${LOG_CONVERTER_SCRIPT:-"${SCRIPT_DIR}/logs/filter_v3_split_runs.py"}
-LOG_CONVERTER_VENV_PYTHON=${LOG_CONVERTER_VENV_PYTHON:-"${SCRIPT_DIR}/../tiering_models/process_data/data/.venv/bin/python"}
 
 WORKLOAD_IDS=(
     "bc-graph-80GB.sg"
@@ -87,13 +85,6 @@ copy_optional_artifact() {
     else
         echo "WARNING: missing optional artifact ${source_file}"
     fi
-}
-
-convert_logs_to_parquet() {
-    local workload_output=$1
-    local log_dir="${SCRIPT_DIR}/logs/${workload_output}"
-
-    "${LOG_CONVERTER_PYTHON}" "${LOG_CONVERTER_SCRIPT}" "${log_dir}"
 }
 
 cleanup_stale_training_temps() {
@@ -179,25 +170,6 @@ if [[ ! "${TRAIN_SIZE_MIB}" =~ ^[0-9]+$ || ! "${TRAIN_RUNS}" =~ ^[0-9]+$ ||
     exit 1
 fi
 
-if [[ ! -f "${LOG_CONVERTER_SCRIPT}" ]]; then
-    echo "ERROR: converter script not found at ${LOG_CONVERTER_SCRIPT}" >&2
-    exit 1
-fi
-
-if [[ -x "${LOG_CONVERTER_VENV_PYTHON}" ]]; then
-    LOG_CONVERTER_PYTHON=${LOG_CONVERTER_VENV_PYTHON}
-elif command -v python3 >/dev/null 2>&1; then
-    LOG_CONVERTER_PYTHON=$(command -v python3)
-else
-    echo "ERROR: no Python interpreter found for trace conversion" >&2
-    exit 1
-fi
-
-if ! "${LOG_CONVERTER_PYTHON}" -c 'import pandas; import pyarrow' >/dev/null 2>&1; then
-    echo "ERROR: ${LOG_CONVERTER_PYTHON} needs pandas and pyarrow for trace conversion" >&2
-    exit 1
-fi
-
 mkdir -p "${COLLECT_LOGS_DIR}"
 
 echo "Using measurement platform: ${MEASUREMENT_PLATFORM}"
@@ -236,7 +208,7 @@ for run in $(seq "${TRAIN_START_RUN}" "${last_run}"); do
             cleanup_stale_training_temps "${TRAIN_SIZE_MIB}" "${run_label}" "${WORKLOAD_OUTPUT}"
             exit 1
         fi
-        convert_logs_to_parquet "${WORKLOAD_OUTPUT}" || exit 1
+        measurement_require_training_parquet "${SCRIPT_DIR}/logs/${WORKLOAD_OUTPUT}/${TRAIN_SIZE_MIB}MiB_run${run_label}_arms.parquet" || exit 1
         collect_training_artifacts "${TRAIN_SIZE_MIB}" "${run_label}" "${WORKLOAD_OUTPUT}" || exit 1
     done
 done

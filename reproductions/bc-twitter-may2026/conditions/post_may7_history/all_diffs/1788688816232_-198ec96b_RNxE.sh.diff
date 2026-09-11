@@ -1,0 +1,27 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-198ec96b/YqYf.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-198ec96b/RNxE.sh
+@@ -7,15 +7,15 @@
+     #"pr-graph-80GB.sg"
+     #"bc-graph-80GB.sg"
+ 
+-    "DuckDB-TPCH-sf100-original"
+-    "bc-kron.sg"
+-    "pr-kron.sg"
+-    "bc-twitter.sg"
+-    "pr-twitter.sg"
+-    "XSBench"
+-    #
+-    "faiss_10M-original"
+-    "mg.D.x-original"
++    #"DuckDB-TPCH-sf100-original"
++    #"bc-kron.sg"
++    #"pr-kron.sg"
++    #"bc-twitter.sg"
++    #"pr-twitter.sg"
++    #"XSBench"
++    ##
++    #"faiss_10M-original"
++    #"mg.D.x-original"
+     #"bc-twitter.sg-long"
+     #"pr-twitter.sg-long"
+ 

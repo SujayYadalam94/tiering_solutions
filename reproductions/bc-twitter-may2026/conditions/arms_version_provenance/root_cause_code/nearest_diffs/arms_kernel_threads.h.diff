@@ -1,0 +1,11 @@
+--- 4da3d6c3f/arms_kernel_threads.h
++++ /users/zimooo2/.vscode-server/data/User/History/-1bc24de2/RhrU.h
+@@ -88,8 +88,6 @@
+ 
+ void enqueue_migration_task(const std::vector<page_ptr> &promote_vas, const std::vector<page_ptr> &demote_vas);
+ void clear_migration_queue();
+-void register_tiering_runtime_tid();
+-bool is_tiering_runtime_tid(pid_t tid);
+ bool is_migration_worker_tid(pid_t tid);
+ 
+ void change_sampling_frequency();

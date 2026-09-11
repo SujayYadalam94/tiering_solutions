@@ -1,0 +1,57 @@
+{
+  "compiler": "g++ (GCC) 15.1.0",
+  "objects": [
+    {
+      "version": "may14",
+      "command": [
+        "g++",
+        "-std=c++17",
+        "-Wall",
+        "-Wextra",
+        "-pthread",
+        "-O3",
+        "-DNDEBUG",
+        "-fPIC",
+        "-DC220G5",
+        "-DUSE_MODEL=false",
+        "-I",
+        "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/change_point/model_compile_check/headers",
+        "-c",
+        "model.cpp",
+        "-o",
+        "model.o"
+      ],
+      "status": 0,
+      "source_sha256": "f7075bf8d95b12d8bffaa9829e33ad70d4e0ac47f41fef71f01a5e7881fffed7",
+      "object_sha256": "e6b739a28e46c6a17a6d6bbf2b02a59a9199efe7253fc0d8656a63e6fdec074a",
+      "object_size": 12784
+    },
+    {
+      "version": "june13",
+      "command": [
+        "g++",
+        "-std=c++17",
+        "-Wall",
+        "-Wextra",
+        "-pthread",
+        "-O3",
+        "-DNDEBUG",
+        "-fPIC",
+        "-DC220G5",
+        "-DUSE_MODEL=false",
+        "-I",
+        "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/change_point/model_compile_check/headers",
+        "-c",
+        "model.cpp",
+        "-o",
+        "model.o"
+      ],
+      "status": 0,
+      "source_sha256": "68d82d08d39154eaf7fc0a3aea85c9131c6f39989f68c13f1d5de51b06263e99",
+      "object_sha256": "e6b739a28e46c6a17a6d6bbf2b02a59a9199efe7253fc0d8656a63e6fdec074a",
+      "object_size": 12784
+    }
+  ],
+  "same_object": true,
+  "limitation": "Isolated normal C220G5 ARMS compilation with recovered May headers; not a historical loaded-binary manifest or a model-policy compilation."
+}

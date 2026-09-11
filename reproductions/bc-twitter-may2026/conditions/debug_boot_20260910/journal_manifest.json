@@ -1,0 +1,32 @@
+[
+  {
+    "name": "debug_0741",
+    "boot_id": "67c01cb53cbe4293b892a4d10270ed3f",
+    "path": "reproductions/bc-twitter-may2026/conditions/debug_boot_20260910/debug_0741.journal.log",
+    "bytes": 5629265,
+    "lines": 47725,
+    "sha256": "c54b38cb17b6e0382bc3639d2c564e4cf8665d1ba98c27a019968ae67fb1828f",
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "name": "debug_0749",
+    "boot_id": "e54e071f0844462ba11d076ba0a1459d",
+    "path": "reproductions/bc-twitter-may2026/conditions/debug_boot_20260910/debug_0749.journal.log",
+    "bytes": 5144361,
+    "lines": 44529,
+    "sha256": "45ae393eb83c07a10aa1cb8764e474221ef5be513059470b9100f3f348abb38f",
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "name": "working_0758",
+    "boot_id": "346718dc15a54e8ab3e51534bed46801",
+    "path": "reproductions/bc-twitter-may2026/conditions/debug_boot_20260910/working_0758.journal.log",
+    "bytes": 4049500,
+    "lines": 26584,
+    "sha256": "1f1d4b81926eaa89b25ef5920a5c22f67dfe55921d18498c8e247a69475a674f",
+    "returncode": 0,
+    "stderr": ""
+  }
+]

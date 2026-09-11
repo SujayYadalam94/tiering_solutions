@@ -1,0 +1,23 @@
+--- git:8d6a8bc66:migration_worker.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/18ca2f0f/iMTY.cpp
+@@ -344,16 +344,16 @@
+ }
+ if (task.promote_pages.size() > 0)
+ {
+-float time_per_page_us =
+-static_cast<float>(promotion_time.count()) / static_cast<float>(task.promote_pages.size());
++float time_per_page_us = static_cast<float>(promotion_time.count()) /
++static_cast<float>(task.promote_pages.size() - initial_failed_promotions);
+ promotion_cost_avg =
+ std::max((double)((((2UL * 1024UL * 1024UL)) / ((15) * 1024)) + (500)),
+ (2. / (double)((20) + 1)) * time_per_page_us + (1 - (2. / (double)((20) + 1))) * promotion_cost_avg);
+ }
+ if (task.demote_pages.size() > 0)
+ {
+-float time_per_page_us =
+-static_cast<float>(demotion_time.count()) / static_cast<float>(task.demote_pages.size());
++float time_per_page_us = static_cast<float>(demotion_time.count()) /
++static_cast<float>(task.demote_pages.size() - initial_failed_demotions);
+ demotion_cost_avg = std::max((double)((((2UL * 1024UL * 1024UL)) / ((15) * 1024)) + (500)), (2. / (double)((20) + 1)) * time_per_page_us +
+ (1 - (2. / (double)((20) + 1))) * demotion_cost_avg);
+ }

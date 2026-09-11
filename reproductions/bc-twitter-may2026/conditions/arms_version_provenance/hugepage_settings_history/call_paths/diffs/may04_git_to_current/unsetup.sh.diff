@@ -1,0 +1,8 @@
+--- may04_git/unsetup.sh
++++ current/unsetup.sh
+@@ -1,3 +1,5 @@
+ sudo pkill -f jupyter-notebook
+ sudo pkill python
+-sudo rmmod memeater.ko+if [[ -d /sys/module/memeater ]]; then
++    sudo rmmod memeater
++fi

@@ -1,0 +1,1585 @@
+{
+  "collected_utc": "2026-09-10T07:08:12.895148+00:00",
+  "scope": "Read-only; PMEM performance results excluded. File dates are not execution records.",
+  "running_cmdline": "BOOT_IMAGE=/boot/vmlinuz-6.2.0-060200-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+  "versions": [
+    {
+      "path": "/etc/default/grub",
+      "bytes": 1543,
+      "mtime_utc": "2026-09-09T22:10:36.970232+00:00",
+      "ctime_utc": "2026-09-09T22:10:36.972232+00:00",
+      "sha256": "fc05d1da6d0de0f8fa8799998d992fbf3590657c04d4b1ebd18d1613b833830e",
+      "selected_lines": [
+        {
+          "line": 6,
+          "text": "GRUB_DEFAULT=0"
+        },
+        {
+          "line": 7,
+          "text": "GRUB_TIMEOUT_STYLE=hidden"
+        },
+        {
+          "line": 8,
+          "text": "GRUB_HIDDEN_TIMEOUT_QUIET=false"
+        },
+        {
+          "line": 9,
+          "text": "GRUB_TIMEOUT=10"
+        },
+        {
+          "line": 10,
+          "text": "GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`"
+        },
+        {
+          "line": 11,
+          "text": "GRUB_CMDLINE_LINUX_DEFAULT=\"\""
+        },
+        {
+          "line": 12,
+          "text": "GRUB_CMDLINE_LINUX=\"console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G\""
+        },
+        {
+          "line": 20,
+          "text": "GRUB_TERMINAL=\"serial console\""
+        },
+        {
+          "line": 37,
+          "text": "GRUB_SERIAL_COMMAND=\"serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1\""
+        }
+      ],
+      "unique_memmap_arguments": [
+        "memmap=90G!2G"
+      ],
+      "assignments": {
+        "GRUB_DEFAULT": [
+          {
+            "line": 6,
+            "literal_value": "0"
+          }
+        ],
+        "GRUB_TIMEOUT_STYLE": [
+          {
+            "line": 7,
+            "literal_value": "hidden"
+          }
+        ],
+        "GRUB_HIDDEN_TIMEOUT_QUIET": [
+          {
+            "line": 8,
+            "literal_value": "false"
+          }
+        ],
+        "GRUB_TIMEOUT": [
+          {
+            "line": 9,
+            "literal_value": "10"
+          }
+        ],
+        "GRUB_DISTRIBUTOR": [
+          {
+            "line": 10,
+            "literal_value": "`lsb_release -i -s 2> /dev/null || echo Debian`"
+          }
+        ],
+        "GRUB_CMDLINE_LINUX_DEFAULT": [
+          {
+            "line": 11,
+            "literal_value": "\"\""
+          }
+        ],
+        "GRUB_CMDLINE_LINUX": [
+          {
+            "line": 12,
+            "literal_value": "\"console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G\""
+          }
+        ],
+        "GRUB_TERMINAL": [
+          {
+            "line": 20,
+            "literal_value": "\"serial console\""
+          }
+        ],
+        "GRUB_SERIAL_COMMAND": [
+          {
+            "line": 37,
+            "literal_value": "\"serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1\""
+          }
+        ]
+      },
+      "duplicate_assignments": {}
+    },
+    {
+      "path": "/etc/default/grub.bak",
+      "bytes": 1815,
+      "mtime_utc": "2026-03-16T22:06:09.786291+00:00",
+      "ctime_utc": "2026-03-16T22:06:09.786291+00:00",
+      "sha256": "f92f3b64241ccb6f47864f0fc2e3cbda7aedb279bc3cb0b1159c46ee9e2b1e30",
+      "selected_lines": [
+        {
+          "line": 6,
+          "text": "GRUB_DEFAULT=0"
+        },
+        {
+          "line": 8,
+          "text": "GRUB_HIDDEN_TIMEOUT_QUIET=false"
+        },
+        {
+          "line": 9,
+          "text": "GRUB_TIMEOUT=5"
+        },
+        {
+          "line": 10,
+          "text": "GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`"
+        },
+        {
+          "line": 11,
+          "text": "GRUB_CMDLINE_LINUX_DEFAULT=\"console=ttyS0,115200 earlycon=uart,io,0x3f8,115200 loglevel=7 ignore_loglevel debug rd.shell rd.break memmap=90G!2G\""
+        },
+        {
+          "line": 12,
+          "text": "GRUB_CMDLINE_LINUX=\"console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G\""
+        },
+        {
+          "line": 20,
+          "text": "GRUB_TERMINAL=\"serial console\""
+        },
+        {
+          "line": 37,
+          "text": "GRUB_SERIAL_COMMAND=\"serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1\""
+        },
+        {
+          "line": 41,
+          "text": "GRUB_CMDLINE_LINUX=\"console=ttyS0,115200 emulabcnet=00:5d:73:ef:d9:ee\""
+        },
+        {
+          "line": 42,
+          "text": "GRUB_TERMINAL=serial"
+        },
+        {
+          "line": 43,
+          "text": "GRUB_SERIAL_COMMAND=\"serial --unit=0 --port=0x3F8 --speed=115200\""
+        }
+      ],
+      "unique_memmap_arguments": [
+        "memmap=90G!2G"
+      ],
+      "assignments": {
+        "GRUB_DEFAULT": [
+          {
+            "line": 6,
+            "literal_value": "0"
+          }
+        ],
+        "GRUB_HIDDEN_TIMEOUT_QUIET": [
+          {
+            "line": 8,
+            "literal_value": "false"
+          }
+        ],
+        "GRUB_TIMEOUT": [
+          {
+            "line": 9,
+            "literal_value": "5"
+          }
+        ],
+        "GRUB_DISTRIBUTOR": [
+          {
+            "line": 10,
+            "literal_value": "`lsb_release -i -s 2> /dev/null || echo Debian`"
+          }
+        ],
+        "GRUB_CMDLINE_LINUX_DEFAULT": [
+          {
+            "line": 11,
+            "literal_value": "\"console=ttyS0,115200 earlycon=uart,io,0x3f8,115200 loglevel=7 ignore_loglevel debug rd.shell rd.break memmap=90G!2G\""
+          }
+        ],
+        "GRUB_CMDLINE_LINUX": [
+          {
+            "line": 12,
+            "literal_value": "\"console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G\""
+          },
+          {
+            "line": 41,
+            "literal_value": "\"console=ttyS0,115200 emulabcnet=00:5d:73:ef:d9:ee\""
+          }
+        ],
+        "GRUB_TERMINAL": [
+          {
+            "line": 20,
+            "literal_value": "\"serial console\""
+          },
+          {
+            "line": 42,
+            "literal_value": "serial"
+          }
+        ],
+        "GRUB_SERIAL_COMMAND": [
+          {
+            "line": 37,
+            "literal_value": "\"serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1\""
+          },
+          {
+            "line": 43,
+            "literal_value": "\"serial --unit=0 --port=0x3F8 --speed=115200\""
+          }
+        ]
+      },
+      "duplicate_assignments": {
+        "GRUB_CMDLINE_LINUX": [
+          {
+            "line": 12,
+            "literal_value": "\"console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G\""
+          },
+          {
+            "line": 41,
+            "literal_value": "\"console=ttyS0,115200 emulabcnet=00:5d:73:ef:d9:ee\""
+          }
+        ],
+        "GRUB_TERMINAL": [
+          {
+            "line": 20,
+            "literal_value": "\"serial console\""
+          },
+          {
+            "line": 42,
+            "literal_value": "serial"
+          }
+        ],
+        "GRUB_SERIAL_COMMAND": [
+          {
+            "line": 37,
+            "literal_value": "\"serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1\""
+          },
+          {
+            "line": 43,
+            "literal_value": "\"serial --unit=0 --port=0x3F8 --speed=115200\""
+          }
+        ]
+      }
+    },
+    {
+      "path": "/etc/default/grub.dist",
+      "bytes": 1571,
+      "mtime_utc": "2024-06-22T10:29:57.993875+00:00",
+      "ctime_utc": "2024-06-22T11:41:42.193326+00:00",
+      "sha256": "eea96088b49d77f199fafbbacb57d67f4ffed6306bf39503f8889ba9f2e89118",
+      "selected_lines": [
+        {
+          "line": 6,
+          "text": "GRUB_DEFAULT=0"
+        },
+        {
+          "line": 7,
+          "text": "GRUB_TIMEOUT_STYLE=hidden"
+        },
+        {
+          "line": 8,
+          "text": "GRUB_TIMEOUT=0"
+        },
+        {
+          "line": 9,
+          "text": "GRUB_DISTRIBUTOR=`( . /etc/os-release; echo ${NAME:-Ubuntu} ) 2>/dev/null || echo Ubuntu`"
+        },
+        {
+          "line": 10,
+          "text": "GRUB_CMDLINE_LINUX_DEFAULT=\"console=tty0 console=ttyS1,115200\""
+        },
+        {
+          "line": 11,
+          "text": "GRUB_CMDLINE_LINUX=\"\""
+        }
+      ],
+      "unique_memmap_arguments": [],
+      "assignments": {
+        "GRUB_DEFAULT": [
+          {
+            "line": 6,
+            "literal_value": "0"
+          }
+        ],
+        "GRUB_TIMEOUT_STYLE": [
+          {
+            "line": 7,
+            "literal_value": "hidden"
+          }
+        ],
+        "GRUB_TIMEOUT": [
+          {
+            "line": 8,
+            "literal_value": "0"
+          }
+        ],
+        "GRUB_DISTRIBUTOR": [
+          {
+            "line": 9,
+            "literal_value": "`( . /etc/os-release; echo ${NAME:-Ubuntu} ) 2>/dev/null || echo Ubuntu`"
+          }
+        ],
+        "GRUB_CMDLINE_LINUX_DEFAULT": [
+          {
+            "line": 10,
+            "literal_value": "\"console=tty0 console=ttyS1,115200\""
+          }
+        ],
+        "GRUB_CMDLINE_LINUX": [
+          {
+            "line": 11,
+            "literal_value": "\"\""
+          }
+        ]
+      },
+      "duplicate_assignments": {}
+    },
+    {
+      "path": "/etc/default/grub.ucf-dist",
+      "bytes": 1587,
+      "mtime_utc": "2025-05-05T20:18:44.190758+00:00",
+      "ctime_utc": "2025-05-05T20:18:44.311758+00:00",
+      "sha256": "1b138a248bdfaf7d452c8538d064c172ab826806175946b7ebef3ac4de7ce4bd",
+      "selected_lines": [
+        {
+          "line": 6,
+          "text": "GRUB_DEFAULT=0"
+        },
+        {
+          "line": 7,
+          "text": "GRUB_TIMEOUT_STYLE=hidden"
+        },
+        {
+          "line": 8,
+          "text": "GRUB_TIMEOUT=0"
+        },
+        {
+          "line": 9,
+          "text": "GRUB_DISTRIBUTOR=`( . /etc/os-release; echo ${NAME:-Ubuntu} ) 2>/dev/null || echo Ubuntu`"
+        },
+        {
+          "line": 10,
+          "text": "GRUB_CMDLINE_LINUX_DEFAULT=\"\""
+        },
+        {
+          "line": 11,
+          "text": "GRUB_CMDLINE_LINUX=\"console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b\""
+        }
+      ],
+      "unique_memmap_arguments": [],
+      "assignments": {
+        "GRUB_DEFAULT": [
+          {
+            "line": 6,
+            "literal_value": "0"
+          }
+        ],
+        "GRUB_TIMEOUT_STYLE": [
+          {
+            "line": 7,
+            "literal_value": "hidden"
+          }
+        ],
+        "GRUB_TIMEOUT": [
+          {
+            "line": 8,
+            "literal_value": "0"
+          }
+        ],
+        "GRUB_DISTRIBUTOR": [
+          {
+            "line": 9,
+            "literal_value": "`( . /etc/os-release; echo ${NAME:-Ubuntu} ) 2>/dev/null || echo Ubuntu`"
+          }
+        ],
+        "GRUB_CMDLINE_LINUX_DEFAULT": [
+          {
+            "line": 10,
+            "literal_value": "\"\""
+          }
+        ],
+        "GRUB_CMDLINE_LINUX": [
+          {
+            "line": 11,
+            "literal_value": "\"console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b\""
+          }
+        ]
+      },
+      "duplicate_assignments": {}
+    },
+    {
+      "path": "/var/lib/ucf/cache/:etc:default:grub",
+      "bytes": 1587,
+      "mtime_utc": "2025-05-05T20:18:44.190758+00:00",
+      "ctime_utc": "2025-05-05T20:18:44.310758+00:00",
+      "sha256": "1b138a248bdfaf7d452c8538d064c172ab826806175946b7ebef3ac4de7ce4bd",
+      "selected_lines": [
+        {
+          "line": 6,
+          "text": "GRUB_DEFAULT=0"
+        },
+        {
+          "line": 7,
+          "text": "GRUB_TIMEOUT_STYLE=hidden"
+        },
+        {
+          "line": 8,
+          "text": "GRUB_TIMEOUT=0"
+        },
+        {
+          "line": 9,
+          "text": "GRUB_DISTRIBUTOR=`( . /etc/os-release; echo ${NAME:-Ubuntu} ) 2>/dev/null || echo Ubuntu`"
+        },
+        {
+          "line": 10,
+          "text": "GRUB_CMDLINE_LINUX_DEFAULT=\"\""
+        },
+        {
+          "line": 11,
+          "text": "GRUB_CMDLINE_LINUX=\"console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b\""
+        }
+      ],
+      "unique_memmap_arguments": [],
+      "assignments": {
+        "GRUB_DEFAULT": [
+          {
+            "line": 6,
+            "literal_value": "0"
+          }
+        ],
+        "GRUB_TIMEOUT_STYLE": [
+          {
+            "line": 7,
+            "literal_value": "hidden"
+          }
+        ],
+        "GRUB_TIMEOUT": [
+          {
+            "line": 8,
+            "literal_value": "0"
+          }
+        ],
+        "GRUB_DISTRIBUTOR": [
+          {
+            "line": 9,
+            "literal_value": "`( . /etc/os-release; echo ${NAME:-Ubuntu} ) 2>/dev/null || echo Ubuntu`"
+          }
+        ],
+        "GRUB_CMDLINE_LINUX_DEFAULT": [
+          {
+            "line": 10,
+            "literal_value": "\"\""
+          }
+        ],
+        "GRUB_CMDLINE_LINUX": [
+          {
+            "line": 11,
+            "literal_value": "\"console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b\""
+          }
+        ]
+      },
+      "duplicate_assignments": {}
+    },
+    {
+      "path": "/boot/grub/grub.cfg",
+      "bytes": 44662,
+      "mtime_utc": "2026-09-09T22:12:32.980841+00:00",
+      "ctime_utc": "2026-09-09T22:12:32.980841+00:00",
+      "sha256": "24c2e7e0042c28b0adf085d4511bbbc26831f0045d967f856b6ceaa1d744b1ef",
+      "selected_lines": [
+        {
+          "line": 50,
+          "text": "    saved_entry=\"${chosen}\""
+        },
+        {
+          "line": 149,
+          "text": "\tlinux\t/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 168,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 186,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 205,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.8.0-101-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 223,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.8.0-101-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 242,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.3.0-dirty root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 260,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.3.0-dirty root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 279,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.3.0-dirty.old root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 297,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.3.0-dirty.old root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 316,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.2.0-hybridtier+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 334,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.2.0-hybridtier+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 353,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.2.0-hybridtier+.old root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 371,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.2.0-hybridtier+.old root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 390,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.2.0-060200-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 408,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.2.0-060200-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 427,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.18.0+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 445,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.18.0+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 464,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix8-workers root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 482,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix8-workers root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 501,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix7-baseline root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 519,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix7-baseline root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 538,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix6 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 556,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix6 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 575,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix5 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 593,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix5 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 612,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix4 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 630,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix4 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 649,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix3 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 667,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix3 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 686,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix2 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 704,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix2 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 723,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix1 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 741,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix1 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 760,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 778,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 797,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 815,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 834,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.0+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 852,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.0+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 871,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.13.0-rc6+ root=/dev/sdb3 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 887,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.13.0-rc6+ root=/dev/sdb3 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        }
+      ],
+      "unique_memmap_arguments": [
+        "memmap=90G!2G"
+      ]
+    },
+    {
+      "path": "/boot/grub/grub.cfg.preemulab",
+      "bytes": 7040,
+      "mtime_utc": "2026-02-23T15:06:17.619783+00:00",
+      "ctime_utc": "2026-03-02T00:06:29.619783+00:00",
+      "sha256": "8a2dac94048c02deb17159e389995483959da125f7ef2c3f7c5466b15fc9d425",
+      "selected_lines": [
+        {
+          "line": 50,
+          "text": "    saved_entry=\"${chosen}\""
+        },
+        {
+          "line": 149,
+          "text": "\tlinux\t/boot/vmlinuz-6.8.0-101-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=14:18:77:26:6a:50 "
+        },
+        {
+          "line": 168,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.8.0-101-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=14:18:77:26:6a:50 "
+        },
+        {
+          "line": 186,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.8.0-101-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=14:18:77:26:6a:50"
+        }
+      ],
+      "unique_memmap_arguments": []
+    },
+    {
+      "path": "/boot/grub/grubenv",
+      "bytes": 1024,
+      "mtime_utc": "2026-09-09T22:23:56.526316+00:00",
+      "ctime_utc": "2026-09-09T22:23:56.526316+00:00",
+      "sha256": "b6400e6fc4e25c2f3a566de350166aaad537540932cf805348a3d0058d7f4ca5",
+      "selected_lines": [
+        {
+          "line": 3,
+          "text": "saved_entry=1>12"
+        },
+        {
+          "line": 4,
+          "text": "next_entry="
+        }
+      ],
+      "unique_memmap_arguments": []
+    },
+    {
+      "path": "/boot/efi/EFI/ubuntu/grub.cfg",
+      "bytes": 126,
+      "mtime_utc": "2025-05-05T20:18:52+00:00",
+      "ctime_utc": "2025-05-05T20:18:52+00:00",
+      "sha256": "c91efe519cff0ccdf85cd9d41f0529fcd7a2244cf3f9d02c934933756e34ff48",
+      "selected_lines": [
+        {
+          "line": 3,
+          "text": "configfile $prefix/grub.cfg"
+        }
+      ],
+      "unique_memmap_arguments": []
+    },
+    {
+      "path": "/var/backups/linux-stock-6.2-20260908-124802/grub",
+      "bytes": 1543,
+      "mtime_utc": "2026-09-07T15:19:57.693042+00:00",
+      "ctime_utc": "2026-09-08T17:48:02.625575+00:00",
+      "sha256": "fc05d1da6d0de0f8fa8799998d992fbf3590657c04d4b1ebd18d1613b833830e",
+      "selected_lines": [
+        {
+          "line": 6,
+          "text": "GRUB_DEFAULT=0"
+        },
+        {
+          "line": 7,
+          "text": "GRUB_TIMEOUT_STYLE=hidden"
+        },
+        {
+          "line": 8,
+          "text": "GRUB_HIDDEN_TIMEOUT_QUIET=false"
+        },
+        {
+          "line": 9,
+          "text": "GRUB_TIMEOUT=10"
+        },
+        {
+          "line": 10,
+          "text": "GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`"
+        },
+        {
+          "line": 11,
+          "text": "GRUB_CMDLINE_LINUX_DEFAULT=\"\""
+        },
+        {
+          "line": 12,
+          "text": "GRUB_CMDLINE_LINUX=\"console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G\""
+        },
+        {
+          "line": 20,
+          "text": "GRUB_TERMINAL=\"serial console\""
+        },
+        {
+          "line": 37,
+          "text": "GRUB_SERIAL_COMMAND=\"serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1\""
+        }
+      ],
+      "unique_memmap_arguments": [
+        "memmap=90G!2G"
+      ],
+      "assignments": {
+        "GRUB_DEFAULT": [
+          {
+            "line": 6,
+            "literal_value": "0"
+          }
+        ],
+        "GRUB_TIMEOUT_STYLE": [
+          {
+            "line": 7,
+            "literal_value": "hidden"
+          }
+        ],
+        "GRUB_HIDDEN_TIMEOUT_QUIET": [
+          {
+            "line": 8,
+            "literal_value": "false"
+          }
+        ],
+        "GRUB_TIMEOUT": [
+          {
+            "line": 9,
+            "literal_value": "10"
+          }
+        ],
+        "GRUB_DISTRIBUTOR": [
+          {
+            "line": 10,
+            "literal_value": "`lsb_release -i -s 2> /dev/null || echo Debian`"
+          }
+        ],
+        "GRUB_CMDLINE_LINUX_DEFAULT": [
+          {
+            "line": 11,
+            "literal_value": "\"\""
+          }
+        ],
+        "GRUB_CMDLINE_LINUX": [
+          {
+            "line": 12,
+            "literal_value": "\"console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G\""
+          }
+        ],
+        "GRUB_TERMINAL": [
+          {
+            "line": 20,
+            "literal_value": "\"serial console\""
+          }
+        ],
+        "GRUB_SERIAL_COMMAND": [
+          {
+            "line": 37,
+            "literal_value": "\"serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1\""
+          }
+        ]
+      },
+      "duplicate_assignments": {}
+    },
+    {
+      "path": "/var/backups/linux-stock-6.2-20260908-124802/grub.cfg",
+      "bytes": 42666,
+      "mtime_utc": "2026-09-08T14:54:40.010948+00:00",
+      "ctime_utc": "2026-09-08T17:48:02.625575+00:00",
+      "sha256": "686c7da41d9c2b89bd757bd04943397d9aa5eb1a84deb3b10ea01047251257c2",
+      "selected_lines": [
+        {
+          "line": 50,
+          "text": "    saved_entry=\"${chosen}\""
+        },
+        {
+          "line": 149,
+          "text": "\tlinux\t/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 168,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 186,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 205,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.8.0-101-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 223,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.8.0-101-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 242,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.3.0-dirty root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 260,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.3.0-dirty root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 279,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.3.0-dirty.old root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 297,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.3.0-dirty.old root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 316,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.2.0-hybridtier+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 334,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.2.0-hybridtier+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 353,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.2.0-hybridtier+.old root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 371,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.2.0-hybridtier+.old root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 390,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.18.0+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 408,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.18.0+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 427,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix8-workers root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 445,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix8-workers root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 464,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix7-baseline root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 482,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix7-baseline root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 501,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix6 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 519,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix6 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 538,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix5 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 556,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix5 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 575,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix4 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 593,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix4 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 612,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix3 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 630,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix3 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 649,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix2 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 667,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix2 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 686,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix1 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 704,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix1 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 723,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 741,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 760,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 778,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 797,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.0+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 815,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.0+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 834,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.13.0-rc6+ root=/dev/sda3 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 850,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.13.0-rc6+ root=/dev/sda3 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        }
+      ],
+      "unique_memmap_arguments": [
+        "memmap=90G!2G"
+      ]
+    },
+    {
+      "path": "/var/backups/linux-stock-6.2-20260908-124802/grubenv",
+      "bytes": 1024,
+      "mtime_utc": "2026-09-08T17:29:32.613148+00:00",
+      "ctime_utc": "2026-09-08T17:48:02.625575+00:00",
+      "sha256": "9088778bc8a6fc5099428d09ef0d618feb903c1db1d23e839b1e16dcaf4d6a5e",
+      "selected_lines": [
+        {
+          "line": 3,
+          "text": "saved_entry=1>14"
+        },
+        {
+          "line": 4,
+          "text": "next_entry="
+        }
+      ],
+      "unique_memmap_arguments": []
+    },
+    {
+      "path": "/users/zimooo2/memtis-incident-2026-09-07/crash-only-20260908T075953Z/grub-fix4-entry.txt",
+      "bytes": 1002,
+      "mtime_utc": "2026-09-08T08:10:01.748303+00:00",
+      "ctime_utc": "2026-09-08T08:10:01.748303+00:00",
+      "sha256": "df31060583723ed8df8d76d712cc6aa7c301aa587964600e22889cef6ae7a752",
+      "selected_lines": [
+        {
+          "line": 16,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix4 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        }
+      ],
+      "unique_memmap_arguments": [
+        "memmap=90G!2G"
+      ]
+    },
+    {
+      "path": "/users/zimooo2/memtis-incident-2026-09-07/crash-only-20260908T075953Z/grub.before.cfg",
+      "bytes": 32366,
+      "mtime_utc": "2026-09-08T08:05:19.826531+00:00",
+      "ctime_utc": "2026-09-08T08:05:19.826531+00:00",
+      "sha256": "80bed02741d765cba6caed18317c57ee576090453d82888af494a5893bd3d9f9",
+      "selected_lines": [
+        {
+          "line": 50,
+          "text": "    saved_entry=\"${chosen}\""
+        },
+        {
+          "line": 149,
+          "text": "\tlinux\t/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 168,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 186,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 205,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.8.0-101-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 223,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.8.0-101-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 242,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.3.0-dirty root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 260,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.3.0-dirty root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 279,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.3.0-dirty.old root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 297,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.3.0-dirty.old root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 316,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.2.0-hybridtier+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 334,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.2.0-hybridtier+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 353,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.2.0-hybridtier+.old root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 371,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.2.0-hybridtier+.old root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 390,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.18.0+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 408,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.18.0+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 427,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix3 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 445,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix3 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 464,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix2 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 482,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix2 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 501,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix1 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 519,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix1 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 538,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 556,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 575,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 593,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 612,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.0+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 630,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.0+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 649,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.13.0-rc6+ root=/dev/sda3 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 665,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.13.0-rc6+ root=/dev/sda3 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        }
+      ],
+      "unique_memmap_arguments": [
+        "memmap=90G!2G"
+      ]
+    },
+    {
+      "path": "/users/zimooo2/memtis-incident-2026-09-07/fresh-cgroup-minimal-20260908T081727Z/grub-fix5-entry.txt",
+      "bytes": 1002,
+      "mtime_utc": "2026-09-08T08:47:40.378073+00:00",
+      "ctime_utc": "2026-09-08T08:47:40.378073+00:00",
+      "sha256": "3db7e633989ac5bf15edcfcd83bbc3a8293e4c9d51ee6e4a30b7be5dc0c9775a",
+      "selected_lines": [
+        {
+          "line": 16,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix5 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        }
+      ],
+      "unique_memmap_arguments": [
+        "memmap=90G!2G"
+      ]
+    },
+    {
+      "path": "/users/zimooo2/memtis-incident-2026-09-07/minimal-baseline-20260907T214249Z/grub-fix3-entry.txt",
+      "bytes": 1002,
+      "mtime_utc": "2026-09-07T21:51:08.886899+00:00",
+      "ctime_utc": "2026-09-07T21:51:08.886899+00:00",
+      "sha256": "8ead7587d5ac9baaa227fc64dc927bcebf7ff61adaa23df02e28d2e1a82d5b46",
+      "selected_lines": [
+        {
+          "line": 16,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix3 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        }
+      ],
+      "unique_memmap_arguments": [
+        "memmap=90G!2G"
+      ]
+    },
+    {
+      "path": "/users/zimooo2/memtis-incident-2026-09-07/node0-workers-fresh-cgroup-20260908T144240Z/after-grub.cfg",
+      "bytes": 42666,
+      "mtime_utc": "2026-09-08T14:55:01.391239+00:00",
+      "ctime_utc": "2026-09-08T14:55:01.391239+00:00",
+      "sha256": "686c7da41d9c2b89bd757bd04943397d9aa5eb1a84deb3b10ea01047251257c2",
+      "selected_lines": [
+        {
+          "line": 50,
+          "text": "    saved_entry=\"${chosen}\""
+        },
+        {
+          "line": 149,
+          "text": "\tlinux\t/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 168,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 186,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 205,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.8.0-101-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 223,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.8.0-101-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 242,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.3.0-dirty root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 260,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.3.0-dirty root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 279,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.3.0-dirty.old root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 297,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.3.0-dirty.old root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 316,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.2.0-hybridtier+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 334,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.2.0-hybridtier+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 353,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.2.0-hybridtier+.old root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 371,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.2.0-hybridtier+.old root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 390,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.18.0+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 408,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.18.0+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 427,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix8-workers root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 445,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix8-workers root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 464,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix7-baseline root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 482,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix7-baseline root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 501,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix6 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 519,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix6 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 538,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix5 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 556,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix5 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 575,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix4 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 593,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix4 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 612,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix3 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 630,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix3 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 649,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix2 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 667,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix2 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 686,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix1 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 704,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix1 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 723,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 741,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 760,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 778,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 797,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.0+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 815,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.0+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 834,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.13.0-rc6+ root=/dev/sda3 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 850,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.13.0-rc6+ root=/dev/sda3 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        }
+      ],
+      "unique_memmap_arguments": [
+        "memmap=90G!2G"
+      ]
+    },
+    {
+      "path": "/users/zimooo2/memtis-incident-2026-09-07/node0-workers-fresh-cgroup-20260908T144240Z/before-grub.cfg",
+      "bytes": 40560,
+      "mtime_utc": "2026-09-08T14:44:51.777928+00:00",
+      "ctime_utc": "2026-09-08T14:44:51.777928+00:00",
+      "sha256": "33bbb164f7978b5b3c846ee17d447f19b619863e7e8ac539e1b42fe1a5b7e963",
+      "selected_lines": [
+        {
+          "line": 50,
+          "text": "    saved_entry=\"${chosen}\""
+        },
+        {
+          "line": 149,
+          "text": "\tlinux\t/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 168,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 186,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 205,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.8.0-101-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 223,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.8.0-101-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 242,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.3.0-dirty root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 260,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.3.0-dirty root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 279,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.3.0-dirty.old root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 297,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.3.0-dirty.old root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 316,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.2.0-hybridtier+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 334,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.2.0-hybridtier+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 353,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.2.0-hybridtier+.old root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 371,
+          "text": "\t\tlinux\t/boot/vmlinuz-6.2.0-hybridtier+.old root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 390,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.18.0+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 408,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.18.0+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 427,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix7-baseline root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 445,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix7-baseline root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 464,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix6 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 482,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix6 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 501,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix5 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 519,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix5 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 538,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix4 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 556,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix4 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 575,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix3 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 593,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix3 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 612,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix2 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 630,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix2 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 649,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix1 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 667,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0-fix1 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 686,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 704,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm-node0 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 723,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 741,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.19-htmm root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 760,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.0+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 778,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.15.0+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        },
+        {
+          "line": 797,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.13.0-rc6+ root=/dev/sda3 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G "
+        },
+        {
+          "line": 813,
+          "text": "\t\tlinux\t/boot/vmlinuz-5.13.0-rc6+ root=/dev/sda3 ro recovery nomodeset dis_ucode_ldr console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G"
+        }
+      ],
+      "unique_memmap_arguments": [
+        "memmap=90G!2G"
+      ]
+    }
+  ],
+  "boot_components": [
+    {
+      "path": "/boot/vmlinuz-6.18.1-061801-generic",
+      "bytes": 17232064,
+      "mtime_utc": "2025-12-12T18:39:08+00:00",
+      "ctime_utc": "2026-03-05T19:29:31.446885+00:00"
+    },
+    {
+      "path": "/boot/initrd.img-6.18.1-061801-generic",
+      "bytes": 20978747,
+      "mtime_utc": "2026-03-05T19:29:53.568194+00:00",
+      "ctime_utc": "2026-03-05T19:29:53.637195+00:00"
+    },
+    {
+      "path": "/boot/config-6.18.1-061801-generic",
+      "bytes": 303679,
+      "mtime_utc": "2025-12-12T18:39:08+00:00",
+      "ctime_utc": "2026-03-05T19:29:33.314912+00:00"
+    },
+    {
+      "module_tree": "6.18.1-061801-generic",
+      "file_ctime_dates": {
+        "2026-03-05": 6827
+      },
+      "may14_june13_files": []
+    },
+    {
+      "path": "/boot/vmlinuz-6.2.0-hybridtier+",
+      "bytes": 82363264,
+      "mtime_utc": "2026-03-07T15:55:48.888735+00:00",
+      "ctime_utc": "2026-03-07T15:55:48.888735+00:00"
+    },
+    {
+      "path": "/boot/initrd.img-6.2.0-hybridtier+",
+      "bytes": 96146768,
+      "mtime_utc": "2026-03-07T15:56:19.122145+00:00",
+      "ctime_utc": "2026-03-07T15:56:19.247147+00:00"
+    },
+    {
+      "path": "/boot/config-6.2.0-hybridtier+",
+      "bytes": 274974,
+      "mtime_utc": "2026-03-07T15:55:48.984736+00:00",
+      "ctime_utc": "2026-03-07T15:55:48.984736+00:00"
+    },
+    {
+      "module_tree": "6.2.0-hybridtier+",
+      "file_ctime_dates": {
+        "2026-03-07": 13
+      },
+      "may14_june13_files": []
+    }
+  ],
+  "etc_files_checked": 1038,
+  "etc_files_with_interval_ctime": [],
+  "empty_etc_default_boot": true
+}

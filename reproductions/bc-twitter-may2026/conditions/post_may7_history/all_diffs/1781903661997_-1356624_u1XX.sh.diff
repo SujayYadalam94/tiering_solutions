@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-1356624/qW96.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-1356624/u1XX.sh
+@@ -56,7 +56,7 @@
+     fi
+ }
+ 
+-SIZES=(10041)
++SIZES=(8041)
+ RUNS=3
+ 
+ ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}

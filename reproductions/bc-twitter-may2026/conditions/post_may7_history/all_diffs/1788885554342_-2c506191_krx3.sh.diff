@@ -1,0 +1,66 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-2c506191/UAeV.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-2c506191/krx3.sh
+@@ -56,6 +56,21 @@
+     fi
+ }
+ 
++# Own setup/cache policy here; standalone MEMTIS launches do not flush caches.
++# Hold the same lock used by the standalone runner across setup and teardown.
++run_memtis_measurement() {
++    sudo -E flock --exclusive --nonblock "${MEMTIS_LOCK_FILE:-/run/lock/measurement_memtis.lock}" \
++        bash -c '
++            set -o pipefail
++            source "$1/measurement_common.sh" || exit 1
++            MEASUREMENT_PLATFORM=$2
++            trap run_measurement_teardown EXIT
++            run_measurement_setup "$3" memtis || exit $?
++            MEMTIS_LOCK_HELD=1 MEMTIS_RUN_SETUP=0 MEMTIS_CACHE_FLUSH=batch-setup \
++                "$1/measurement_memtis.sh" --platform "$2" "$3" "$4" "$5"
++        ' memtis-batch "${SCRIPT_DIR}" "${MEASUREMENT_PLATFORM}" "$1" "$2" "$3"
++}
++
+ SIZES=(6073)
+ RUNS=3
+ 
+@@ -94,19 +109,19 @@
+             #fi
+ 
+             # MEMTIS
+-            if [[ -x "${SCRIPT_DIR}/measurement_memtis.sh" ]]; then
+-                # The runner holds its lock across setup, measurement, and teardown.
+-                if sudo -E env MEMTIS_RUN_SETUP=1 "${SCRIPT_DIR}/measurement_memtis.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"; then
+-                    :
+-                else
+-                    status=$?
+-                    echo "ERROR: MEMTIS ${workload_id} failed (status ${status}); stopping measurements" >&2
+-                    exit "${status}"
+-                fi
+-            else
+-                echo "ERROR: ./measurement_memtis.sh not found or not executable" >&2
+-                exit 1
+-            fi
++            #if [[ -x "${SCRIPT_DIR}/measurement_memtis.sh" ]]; then
++            #    # Batch setup, cache flushing, and measurement share one lock.
++            #    if run_memtis_measurement "${size}" "${run}" "${workload_id}"; then
++            #        :
++            #    else
++            #        status=$?
++            #        echo "ERROR: MEMTIS ${workload_id} failed (status ${status}); stopping measurements" >&2
++            #        exit "${status}"
++            #    fi
++            #else
++            #    echo "ERROR: ./measurement_memtis.sh not found or not executable" >&2
++            #    exit 1
++            #fi
+ 
+             # Model
+             #if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
+@@ -142,7 +157,7 @@
+             #    echo "WARNING: ./measurement_cxl_only.sh not found or not executable; skipping CXL-only"
+             #fi
+ 
+-            # MEMTIS teardown is performed by the runner while its lock is held.
++            # MEMTIS teardown is performed by the batch helper while its lock is held.
+         done
+     done
+ done

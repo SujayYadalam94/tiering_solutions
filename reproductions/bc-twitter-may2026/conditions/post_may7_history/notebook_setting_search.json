@@ -1,0 +1,55 @@
+{
+  "snapshots_examined": 62,
+  "matches": [
+    {
+      "resource": "/users/zimooo2/tiering_solutions/times/c220g5/graph.ipynb",
+      "snapshot": "/users/zimooo2/.vscode-server/data/User/History/-4440e87a/SA64.ipynb",
+      "timestamp": 1778342245213,
+      "cell": 3,
+      "kind": "source",
+      "matches": [
+        "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+      ]
+    },
+    {
+      "resource": "/users/zimooo2/tiering_solutions/times/c220g5_final/graph.ipynb",
+      "snapshot": "/users/zimooo2/.vscode-server/data/User/History/-335f5c3/KAl1.ipynb",
+      "timestamp": 1778478046798,
+      "cell": 3,
+      "kind": "source",
+      "matches": [
+        "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+      ]
+    },
+    {
+      "resource": "/users/zimooo2/tiering_solutions/times/c220g5_final/graph.ipynb",
+      "snapshot": "/users/zimooo2/.vscode-server/data/User/History/-335f5c3/jaif.ipynb",
+      "timestamp": 1778478165529,
+      "cell": 3,
+      "kind": "source",
+      "matches": [
+        "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+      ]
+    },
+    {
+      "resource": "/users/zimooo2/tiering_solutions/times/c220g5_final/graph.ipynb",
+      "snapshot": "/users/zimooo2/.vscode-server/data/User/History/-335f5c3/rCtR.ipynb",
+      "timestamp": 1778478233373,
+      "cell": 3,
+      "kind": "source",
+      "matches": [
+        "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+      ]
+    },
+    {
+      "resource": "/users/zimooo2/tiering_solutions/times/c220g5_final/graph.ipynb",
+      "snapshot": "/users/zimooo2/.vscode-server/data/User/History/-335f5c3/1vRY.ipynb",
+      "timestamp": 1778478485273,
+      "cell": 3,
+      "kind": "source",
+      "matches": [
+        "                    log_metrics = parse_log_file(Path(f\"{path.parent}/max_dram_hugepages_{path.stem}.log\"))"
+      ]
+    }
+  ]
+}

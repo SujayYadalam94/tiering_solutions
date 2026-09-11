@@ -1,0 +1,65 @@
+[
+  {
+    "path": "/users/zimooo2/gapbs/bc",
+    "bytes": 121808,
+    "mtime_utc": "2026-03-05T19:40:17.215888+00:00",
+    "ctime_utc": "2026-03-05T19:40:17.215888+00:00",
+    "sha256": "744d57aee15e1bb6af4a796d725f4b686a1f2063c335dc7facb0327316b18449"
+  },
+  {
+    "path": "/users/zimooo2/gapbs/pr",
+    "bytes": 112368,
+    "mtime_utc": "2026-03-05T19:40:16.558879+00:00",
+    "ctime_utc": "2026-03-05T19:40:16.558879+00:00",
+    "sha256": "934daf39f25441341d544dfe4e900d5a513dbcb6c260b92df5bdd20398df10cc"
+  },
+  {
+    "path": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+    "bytes": 2125328,
+    "mtime_utc": "2026-01-30T08:27:54+00:00",
+    "ctime_utc": "2026-02-23T15:03:03.852496+00:00",
+    "sha256": "d8db8739a1633c972cec6a4fe0566bdcec6fd088f98723492ab0361f66238f75"
+  },
+  {
+    "path": "/usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0",
+    "bytes": 352304,
+    "mtime_utc": "2025-12-18T21:36:50+00:00",
+    "ctime_utc": "2026-02-23T15:02:57.719506+00:00",
+    "sha256": "135f3c8f006d2fe5e68e51281c7974cb991a03de3bfb3593d68d174dfcf854d1"
+  },
+  {
+    "path": "/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33",
+    "bytes": 2592224,
+    "mtime_utc": "2025-12-18T21:36:50+00:00",
+    "ctime_utc": "2026-02-23T15:03:02.675498+00:00",
+    "sha256": "1fd75fe70354a416d75aef22bcae68c47bd25d20e2d0568c30b1a9838cf62f11"
+  },
+  {
+    "path": "/etc/fstab",
+    "bytes": 717,
+    "mtime_utc": "2026-03-02T00:09:10.725703+00:00",
+    "ctime_utc": "2026-03-02T00:09:13.746702+00:00",
+    "sha256": "76dfa4452d3457be0b36d82e6f9b42c99cf820cba514bb1a11dc8a15e8717f55"
+  },
+  {
+    "path": "/users/zimooo2/.bashrc",
+    "bytes": 4262,
+    "mtime_utc": "2026-04-24T07:37:09.640108+00:00",
+    "ctime_utc": "2026-04-24T07:37:09.640108+00:00",
+    "sha256": "a283571a19b7ed8f7feeeff15fc3371192c8a4a47304c5122393ce360bf5ffe4"
+  },
+  {
+    "path": "/users/zimooo2/.profile",
+    "bytes": 807,
+    "mtime_utc": "2024-03-31T08:41:03+00:00",
+    "ctime_utc": "2026-03-02T00:09:26.150634+00:00",
+    "sha256": "28b4a453b68dde64f814e94bab14ee651f4f162e15dd9920490aa1d49f05d2a4"
+  },
+  {
+    "path": "/usr/libexec/emulab/emulab-networkd.sh",
+    "bytes": 7041,
+    "mtime_utc": "2025-04-30T14:52:17+00:00",
+    "ctime_utc": "2025-05-05T20:17:57.334884+00:00",
+    "sha256": "72ca10caa90ff0eee59b485840b90b11c33f82656a29a888a37f13fedfb6d2dc"
+  }
+]

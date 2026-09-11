@@ -1,0 +1,54 @@
+[
+  {
+    "path": "/var/log/dpkg.log",
+    "size": 3106,
+    "sha256": "3089c8a7582e452c1f3afa3dafdbd9dda66bbd2585feba88bc8d05951f3f6569",
+    "dates": [
+      "2026-09-08"
+    ],
+    "may_june_entries": []
+  },
+  {
+    "path": "/var/log/dpkg.log.1",
+    "size": 2976,
+    "sha256": "9cc5eaff4af658765ae9d84c95762fecffda0aeb791b987edd82c588a3db9f53",
+    "dates": [
+      "2026-09-07"
+    ],
+    "may_june_entries": []
+  },
+  {
+    "path": "/var/log/dpkg.log.2.gz",
+    "size": 8303,
+    "sha256": "c104226b498a93b38fef20e5ffe16a3fdda9bc0adc45c554930402a3026eefd6",
+    "dates": [
+      "2026-04-18",
+      "2026-04-25"
+    ],
+    "may_june_entries": []
+  },
+  {
+    "path": "/var/log/dpkg.log.3.gz",
+    "size": 8642,
+    "sha256": "d82d052e4ec79a078ed64b3f55b1e82397cdf9b421fc7197b7e8c77ceb9ad4d8",
+    "dates": [
+      "2026-03-02",
+      "2026-03-03",
+      "2026-03-05",
+      "2026-03-06",
+      "2026-03-07",
+      "2026-03-09",
+      "2026-03-17"
+    ],
+    "may_june_entries": []
+  },
+  {
+    "path": "/var/log/dpkg.log.4.gz",
+    "size": 830,
+    "sha256": "bf583f250ac795d240a248afb959518f34131dabc295061bab2a7f51d359245b",
+    "dates": [
+      "2026-03-01"
+    ],
+    "may_june_entries": []
+  }
+]

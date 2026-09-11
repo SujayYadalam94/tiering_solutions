@@ -1,0 +1,490 @@
+[
+  {
+    "path": "/users/zimooo2/.bash_history",
+    "mtime": "2026-09-09T22:21:20.528028+00:00",
+    "lines_total": 2000,
+    "matches": [
+      {
+        "line": 124,
+        "text": "vim build_v3.sh "
+      },
+      {
+        "line": 127,
+        "text": "bash build_v3.sh "
+      },
+      {
+        "line": 129,
+        "text": "bash build_v3.sh "
+      },
+      {
+        "line": 216,
+        "text": "bash build_v3.sh "
+      },
+      {
+        "line": 218,
+        "text": "bash build_v3.sh "
+      },
+      {
+        "line": 234,
+        "text": "bash build_v3.sh "
+      },
+      {
+        "line": 236,
+        "text": "bash build_v3.sh "
+      },
+      {
+        "line": 957,
+        "text": "OMP_NUM_THREADS=\"$(nproc)\" ./converter -u 28 -k 36 -m -b graph-80GB.sg"
+      },
+      {
+        "line": 1022,
+        "text": "bash build_v3.sh "
+      },
+      {
+        "line": 1023,
+        "text": "time bash build_v3.sh "
+      },
+      {
+        "line": 1045,
+        "text": "bash build_v3.sh "
+      },
+      {
+        "line": 1067,
+        "text": "bash build_streaming.sh "
+      },
+      {
+        "line": 1126,
+        "text": "./scripts/config --enable TRANSPARENT_HUGEPAGE"
+      },
+      {
+        "line": 1129,
+        "text": "grep -E '^CONFIG_(MIGRATION|TRANSPARENT_HUGEPAGE|HTMM)=' .config"
+      },
+      {
+        "line": 1197,
+        "text": "sudo wrmsr --processor 11 0x620 0x707"
+      },
+      {
+        "line": 1324,
+        "text": "bash build_streaming.sh "
+      },
+      {
+        "line": 1437,
+        "text": "OMP_NUM_THREADS=\"$(nproc)\" ./converter -g 29 -k 18 -m -b benchmark/kron-80GB.sg"
+      },
+      {
+        "line": 1438,
+        "text": "OMP_NUM_THREADS=\"$(nproc)\" ./converter -g 29 -k 18 -m -b benchmark/kron-80GB.sg ; cd ~/tiering_solutions/ ; bash run_all_measurements_train_dram_only.sh"
+      },
+      {
+        "line": 1620,
+        "text": "./build_streaming_no_virtual_step.sh ; ./build_streaming.sh "
+      },
+      {
+        "line": 1624,
+        "text": "/users/zimooo2/memtis/rebuild_kernel.sh"
+      },
+      {
+        "line": 1938,
+        "text": "sudo turbostat --debug --interval 1 --num_iterations 1"
+      },
+      {
+        "line": 1940,
+        "text": "sudo turbostat --debug --interval 1 --num_iterations 1"
+      }
+    ]
+  },
+  {
+    "path": "/users/zimooo2/.bash_history-05835.tmp",
+    "mtime": "2026-05-11T20:55:24.719324+00:00",
+    "lines_total": 2000,
+    "matches": [
+      {
+        "line": 559,
+        "text": "cat /proc/sys/kernel/numa_balancing"
+      },
+      {
+        "line": 742,
+        "text": "cd /users/zimooo2/duckdb && make clean && GEN=ninja BUILD_BENCHMARK=1 BUILD_TPCH=1 BUILD_TPCDS=1 make -j\"$(nproc)\""
+      },
+      {
+        "line": 743,
+        "text": "cd /users/zimooo2/duckdb && make clean && BUILD_BENCHMARK=1 BUILD_TPCH=1 BUILD_TPCDS=1 make -j\"$(nproc)\""
+      },
+      {
+        "line": 744,
+        "text": "BUILD_BENCHMARK=1 BUILD_TPCH=1 BUILD_TPCDS=1 make -j\"$(nproc)\""
+      },
+      {
+        "line": 745,
+        "text": "BUILD_BENCHMARK=1 BUILD_TPCH=1 BUILD_TPCDS=1 make -j20"
+      },
+      {
+        "line": 806,
+        "text": "sudo wrmsr --processor 39  0x620 0x707"
+      },
+      {
+        "line": 880,
+        "text": "numactl -m 1 -N 0 ./mlc --idle_latency"
+      },
+      {
+        "line": 881,
+        "text": "sudo numactl -m 1 -N 0 ./mlc --idle_latency"
+      },
+      {
+        "line": 882,
+        "text": "sudo numactl -m 1 -N 0 ./mlc --help"
+      },
+      {
+        "line": 883,
+        "text": "sudo numactl -m 1 -N 0 ./mlc --loaded_latency -W6"
+      },
+      {
+        "line": 884,
+        "text": "sudo numactl -m 1 -N 0 ./mlc --loaded_latency -W6 -h"
+      },
+      {
+        "line": 885,
+        "text": "sudo numactl -m 1 -N 0 ./mlc --loaded_latency -W6 -L"
+      },
+      {
+        "line": 886,
+        "text": "sudo numactl -m 1 -N 0 ./mlc --loaded_latency -W6"
+      },
+      {
+        "line": 903,
+        "text": "sudo modprobe msr && numactl -m 1 -N 1 sudo ./mlc --c2c_latency"
+      },
+      {
+        "line": 917,
+        "text": "numactl -m 0 -N 0 sudo ./mlc --c2c_latency -C10"
+      },
+      {
+        "line": 918,
+        "text": "numactl -m 1 -N 1 sudo ./mlc --c2c_latency -C10"
+      },
+      {
+        "line": 941,
+        "text": "bash build_v3.sh "
+      },
+      {
+        "line": 1037,
+        "text": "bash build_v3.sh "
+      },
+      {
+        "line": 1039,
+        "text": "bash build_v3.sh "
+      },
+      {
+        "line": 1041,
+        "text": "sleep 2400 ; bash build_v3.sh "
+      },
+      {
+        "line": 1042,
+        "text": "bash build_v3.sh "
+      },
+      {
+        "line": 1274,
+        "text": "bash build_v3.sh "
+      },
+      {
+        "line": 1481,
+        "text": "bash build_v3.sh "
+      },
+      {
+        "line": 1483,
+        "text": "bash build_v3.sh "
+      }
+    ]
+  },
+  {
+    "path": "/users/zimooo2/.bash_history-09434.tmp",
+    "mtime": "2026-03-26T05:28:10.017581+00:00",
+    "lines_total": 2000,
+    "matches": [
+      {
+        "line": 13,
+        "text": "sudo wrmsr --processor 39 0x620 0x707"
+      },
+      {
+        "line": 22,
+        "text": "sudo wrmsr --processor 39 0x620 0x707"
+      },
+      {
+        "line": 59,
+        "text": "taskset: failed to set pid 239's affinity: Invalid argument"
+      },
+      {
+        "line": 63,
+        "text": "numactl"
+      },
+      {
+        "line": 78,
+        "text": "numactl -H"
+      },
+      {
+        "line": 83,
+        "text": "numactl -H"
+      },
+      {
+        "line": 94,
+        "text": "numactl -M"
+      },
+      {
+        "line": 95,
+        "text": "numactl -H"
+      },
+      {
+        "line": 97,
+        "text": "numactl -M"
+      },
+      {
+        "line": 98,
+        "text": "numactl -m"
+      },
+      {
+        "line": 122,
+        "text": "numactl -H"
+      },
+      {
+        "line": 204,
+        "text": "sudo cat /sys/kernel/mm/transparent_hugepage/khugepaged/defrag "
+      },
+      {
+        "line": 205,
+        "text": "sudo cat /sys/kernel/mm/transparent_hugepage/khugepaged/pages_"
+      },
+      {
+        "line": 206,
+        "text": "sudo cat /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan "
+      },
+      {
+        "line": 207,
+        "text": "sudo cat /sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs "
+      },
+      {
+        "line": 237,
+        "text": "numactl -m"
+      },
+      {
+        "line": 238,
+        "text": "numactl -M"
+      },
+      {
+        "line": 252,
+        "text": "sudo cat /sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_none"
+      },
+      {
+        "line": 253,
+        "text": "sudo cat /sys/kernel/mm/transparent_hugepage/shrink_underused"
+      },
+      {
+        "line": 254,
+        "text": "sudo cat /sys/kernel/mm/transparent_hugepage/*"
+      },
+      {
+        "line": 255,
+        "text": "sudo cat /sys/kernel/mm/transparent_hugepage/defrag "
+      },
+      {
+        "line": 256,
+        "text": "sudo cadt /sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_none"
+      },
+      {
+        "line": 257,
+        "text": "sudo cat /sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_none"
+      },
+      {
+        "line": 258,
+        "text": "sudo cat /sys/kernel/mm/transparent_hugepage/khugepaged/*"
+      },
+      {
+        "line": 259,
+        "text": "sudo cat echo 1 | sudo tee /sys/kernel/mm/transparent_hugepage/use_zero_page"
+      },
+      {
+        "line": 260,
+        "text": "sudo cat /sys/kernel/mm/transparent_hugepage/use_zero_page"
+      },
+      {
+        "line": 261,
+        "text": "sudo cat sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_none"
+      },
+      {
+        "line": 262,
+        "text": "sudo cat /sys/kernel/mm/transparent_hugepage/shrink_underused"
+      },
+      {
+        "line": 263,
+        "text": "sudo cat /sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs "
+      },
+      {
+        "line": 394,
+        "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+      },
+      {
+        "line": 443,
+        "text": "capsh --print | grep -E 'cap_sys_nice|cap_sys_ptrace'"
+      },
+      {
+        "line": 445,
+        "text": "capsh --print | grep -E 'cap_sys_nice|cap_sys_ptrace'"
+      },
+      {
+        "line": 452,
+        "text": "echo 1 | sudo tee /proc/sys/vm/compact_memory"
+      },
+      {
+        "line": 454,
+        "text": "sudo vim /proc/sys/vm/compaction_proactiveness"
+      },
+      {
+        "line": 455,
+        "text": "echo 50 | sudo tee /proc/sys/vm/compaction_proactiveness"
+      },
+      {
+        "line": 456,
+        "text": "sudo cat /proc/sys/vm/compact"
+      },
+      {
+        "line": 457,
+        "text": "sudo cat /proc/sys/vm/compaction_proactiveness "
+      },
+      {
+        "line": 458,
+        "text": "echo 100 | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs"
+      },
+      {
+        "line": 469,
+        "text": "write_sysfs_value /proc/sys/vm/compaction_proactiveness 20"
+      },
+      {
+        "line": 472,
+        "text": "grep -E 'AnonHugePages|ShmemPmdMapped|FilePmdMapped|KernelPageSize|MMUPageSize|Shared_Hugetlb|Private_Hugetlb' /proc/$PID/smaps"
+      },
+      {
+        "line": 486,
+        "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"256 256 32\""
+      },
+      {
+        "line": 494,
+        "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"256 256 32\""
+      },
+      {
+        "line": 496,
+        "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"32 32 16\""
+      },
+      {
+        "line": 511,
+        "text": "echo 1000 | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs"
+      },
+      {
+        "line": 512,
+        "text": "sudo -E bash measurement_arms.sh 7 1echo 1000 | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs"
+      },
+      {
+        "line": 524,
+        "text": "echo 10 | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs"
+      },
+      {
+        "line": 564,
+        "text": "cat /proc/sys/kernel/perf_event_mlock_kb"
+      },
+      {
+        "line": 573,
+        "text": "echo '=== cpufreq ==='"
+      },
+      {
+        "line": 574,
+        "text": "grep . /sys/devices/system/cpu/cpufreq/policy*/scaling_governor 2>/dev/null"
+      },
+      {
+        "line": 575,
+        "text": "grep . /sys/devices/system/cpu/cpufreq/policy*/scaling_min_freq 2>/dev/null"
+      },
+      {
+        "line": 576,
+        "text": "grep . /sys/devices/system/cpu/cpufreq/policy*/scaling_max_freq 2>/dev/null"
+      },
+      {
+        "line": 577,
+        "text": "grep . /sys/devices/system/cpu/cpufreq/policy*/scaling_cur_freq 2>/dev/null"
+      },
+      {
+        "line": 585,
+        "text": "grep . /sys/devices/system/cpu/cpufreq/policy*/scaling_max_freq 2>/dev/null"
+      },
+      {
+        "line": 586,
+        "text": "grep . /sys/devices/system/cpu/cpufreq/policy*/cpuinfo_max_freq 2>/dev/null"
+      },
+      {
+        "line": 627,
+        "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"4 4 4\""
+      },
+      {
+        "line": 859,
+        "text": "numactl -,"
+      },
+      {
+        "line": 860,
+        "text": "numactl -m"
+      },
+      {
+        "line": 976,
+        "text": "numactl -m"
+      },
+      {
+        "line": 1083,
+        "text": "numactl -m"
+      },
+      {
+        "line": 1343,
+        "text": "ls /sys/kernel/mm/transparent_hugepage/hugepages-128kB/"
+      },
+      {
+        "line": 1344,
+        "text": "cat /sys/kernel/mm/transparent_hugepage/hugepages-128kB/enabled "
+      },
+      {
+        "line": 1345,
+        "text": "cat /sys/kernel/mm/transparent_hugepage/hugepages-2048kB/enabled "
+      },
+      {
+        "line": 1346,
+        "text": "cat /sys/kernel/mm/transparent_hugepage/hugepages-*/enabled "
+      },
+      {
+        "line": 1459,
+        "text": "numactl -m"
+      }
+    ]
+  },
+  {
+    "path": "/users/zimooo2/.viminfo",
+    "mtime": "2026-09-09T22:10:36.974232+00:00",
+    "lines_total": 727,
+    "matches": [
+      {
+        "line": 485,
+        "text": "> ~/tiering_models/process_data/build_v3.sh"
+      },
+      {
+        "line": 584,
+        "text": "> /proc/sys/vm/compaction_proactiveness"
+      }
+    ]
+  },
+  {
+    "path": "/users/zimooo2/.bashrc",
+    "mtime": "2026-04-24T07:37:09.640108+00:00",
+    "lines_total": 133,
+    "matches": []
+  },
+  {
+    "path": "/users/zimooo2/.profile",
+    "mtime": "2024-03-31T08:41:03+00:00",
+    "lines_total": 27,
+    "matches": []
+  }
+]

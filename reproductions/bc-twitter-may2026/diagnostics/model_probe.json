@@ -1,0 +1,34 @@
+{
+  "trace": "logs/bc-twitter.sg/bc-twitter.sg.parquet",
+  "trace_rows": 14691964,
+  "row_groups_sampled": [
+    0,
+    4,
+    7,
+    10,
+    14
+  ],
+  "sample_rows": 20480,
+  "sample_seed": 20260909,
+  "sample_age_above100": 10878,
+  "age_cap_changes": 10514,
+  "age_cap_changed_fraction_of_older_rows": 0.9665379665379665,
+  "age_cap_median_absolute_prediction_change_on_older_rows": 1.5936880222272718,
+  "age_cap_max_absolute_prediction_change": 3799.3319913161445,
+  "training_sample_r2_not_heldout": {
+    "may03_raw_age": 0.9744364255372554,
+    "may03_clipped_age": 0.8119453847940254,
+    "may14_clipped_age": 0.9156605220559906,
+    "june18_clipped_age": 0.9070714808250493
+  },
+  "notes": [
+    "This is a sampled training trace, not a held-out accuracy or runtime experiment.",
+    "No virtual missed-access correction or history smoothing is included."
+  ],
+  "max_compiled_vs_text_error_32_rows": 2.2737367544323206e-13,
+  "live_library_forest_max_error": {
+    "may03": 264.8556483158641,
+    "may14": 213.93688227757445,
+    "june18": 0.0
+  }
+}

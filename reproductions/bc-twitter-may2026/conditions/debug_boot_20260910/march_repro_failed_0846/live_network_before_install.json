@@ -1,0 +1,5 @@
+{
+  "address": "[{\"ifindex\":4,\"ifname\":\"eno1\",\"flags\":[\"BROADCAST\",\"MULTICAST\",\"UP\",\"LOWER_UP\"],\"mtu\":1500,\"qdisc\":\"mq\",\"operstate\":\"UP\",\"group\":\"default\",\"txqlen\":1000,\"link_type\":\"ether\",\"address\":\"00:5d:73:ef:d9:ee\",\"broadcast\":\"ff:ff:ff:ff:ff:ff\",\"altnames\":[\"enp59s0f0\"],\"addr_info\":[{\"family\":\"inet\",\"local\":\"128.105.144.28\",\"prefixlen\":22,\"metric\":1024,\"broadcast\":\"128.105.147.255\",\"scope\":\"global\",\"label\":\"eno1\",\"valid_life_time\":4294967295,\"preferred_life_time\":4294967295},{\"family\":\"inet6\",\"local\":\"fe80::25d:73ff:feef:d9ee\",\"prefixlen\":64,\"scope\":\"link\",\"valid_life_time\":4294967295,\"preferred_life_time\":4294967295}]}]\n",
+  "default_route": "[{\"dst\":\"default\",\"gateway\":\"128.105.144.1\",\"dev\":\"eno1\",\"protocol\":\"dhcp\",\"prefsrc\":\"128.105.144.28\",\"metric\":1024,\"flags\":[]}]\n",
+  "networkd_pid": "1903\n"
+}

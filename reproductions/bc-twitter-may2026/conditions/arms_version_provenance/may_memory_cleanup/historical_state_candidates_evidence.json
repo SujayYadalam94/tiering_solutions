@@ -1,0 +1,235 @@
+{
+  "utc": "2026-09-09T19:32:50.941619+00:00",
+  "scope": "Focused retained history and current configuration readback only; no device or host changes.",
+  "shell_matches": [
+    {
+      "path": "/users/zimooo2/.bash_history-09434.tmp",
+      "sha256": "d574a26638fdc557daf8af266424e47b8f2209d3afa3e36ec28fed2b339738e4",
+      "matches": [
+        {
+          "line": 14,
+          "text": "sudo modprobe intel-uncore-frequency"
+        },
+        {
+          "line": 871,
+          "text": "memmap=86G\\$8G"
+        },
+        {
+          "line": 914,
+          "text": "print(f\"memmap={reserve_gib}G\\\\$0x{reserve_start_phys:x}\")"
+        },
+        {
+          "line": 948,
+          "text": "sudo journalctl -b -3 --since \"2026-03-19 12:21:30\" --until \"2026-03-19 12:22:10\" --no-pager | egrep -i \"panic|oom|bug|fail|failed|assert|reboot|shutdown|watchdog|segfault|systemd-shutdown|dracut|initramfs|emergency\""
+        },
+        {
+          "line": 1638,
+          "text": "sudo insmod async_promote"
+        },
+        {
+          "line": 1639,
+          "text": "sudo insmod async_promote.ko"
+        },
+        {
+          "line": 1669,
+          "text": "sudo insmod async_promote.ko"
+        },
+        {
+          "line": 1670,
+          "text": "sudo rmmod async_promote"
+        },
+        {
+          "line": 1702,
+          "text": "sudo insmod *.ko"
+        },
+        {
+          "line": 1786,
+          "text": "sudo insmod *.ko"
+        },
+        {
+          "line": 1807,
+          "text": "sudo insmod *.ko"
+        }
+      ]
+    },
+    {
+      "path": "/users/zimooo2/.bash_history-05835.tmp",
+      "sha256": "4d63f488bad28262e29a54d105329399511d420947888ee7c37d972b960e253c",
+      "matches": [
+        {
+          "line": 10,
+          "text": "sudo insmod async_promote"
+        },
+        {
+          "line": 11,
+          "text": "sudo insmod async_promote.ko"
+        },
+        {
+          "line": 41,
+          "text": "sudo insmod async_promote.ko"
+        },
+        {
+          "line": 42,
+          "text": "sudo rmmod async_promote"
+        },
+        {
+          "line": 74,
+          "text": "sudo insmod *.ko"
+        },
+        {
+          "line": 158,
+          "text": "sudo insmod *.ko"
+        },
+        {
+          "line": 179,
+          "text": "sudo insmod *.ko"
+        },
+        {
+          "line": 901,
+          "text": "sudo modprobe msr && ./mlc --c2c_latency"
+        },
+        {
+          "line": 902,
+          "text": "sudo modprobe msr && sudo ./mlc --c2c_latency"
+        },
+        {
+          "line": 903,
+          "text": "sudo modprobe msr && numactl -m 1 -N 1 sudo ./mlc --c2c_latency"
+        }
+      ]
+    },
+    {
+      "path": "/users/zimooo2/.bash_history",
+      "sha256": "d2ff07f66992528f446cba1492c6c67a41d8f91decbd4d8e6623165e3098d844",
+      "matches": [
+        {
+          "line": 1215,
+          "text": "test -e \"/boot/initrd.img-$KREL\" || sudo update-initramfs -c -k \"$KREL\""
+        }
+      ]
+    }
+  ],
+  "editor_matches": [
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/52cc6f0a/uPO2.sh",
+      "utc": "2026-05-04T02:37:16.148000+00:00",
+      "line": 364,
+      "text": "    if ! sudo insmod \"${nomad_module_ko}\"; then"
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/52cc6f0a/uPO2.sh",
+      "utc": "2026-05-04T02:37:16.148000+00:00",
+      "line": 370,
+      "text": "        echo \"ERROR: NOMAD module '${nomad_module_name}' is still not active after insmod\" >&2"
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/52cc6f0a/89Uc.sh",
+      "utc": "2026-05-04T03:21:31.547000+00:00",
+      "line": 362,
+      "text": "    if ! sudo insmod \"${nomad_module_ko}\"; then"
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/52cc6f0a/89Uc.sh",
+      "utc": "2026-05-04T03:21:31.547000+00:00",
+      "line": 368,
+      "text": "        echo \"ERROR: NOMAD module '${nomad_module_name}' is still not active after insmod\" >&2"
+    }
+  ],
+  "current_config": [
+    {
+      "path": "/etc/modules",
+      "mtime_utc": "2024-04-23T09:40:28+00:00",
+      "sha256": "c0d37c5c430cb5c978a4ea00e42ddc4551b04f76352d149d6be5d5b65346df65",
+      "relevant_matches": []
+    },
+    {
+      "path": "/etc/initramfs-tools/modules",
+      "mtime_utc": "2026-03-02T20:59:22.593169+00:00",
+      "sha256": "a69546e0c6da78483ac183657de6d284b5291abf3d81f26449ef5932439e1d3a",
+      "relevant_matches": []
+    },
+    {
+      "path": "/etc/modprobe.d/amd64-microcode-blacklist.conf",
+      "mtime_utc": "2024-04-08T15:54:09+00:00",
+      "sha256": "f17b12aa7a202bb4f0ed09cbb45561417986fded2cfcf861364f84c8f3d42fb8",
+      "relevant_matches": []
+    },
+    {
+      "path": "/etc/modprobe.d/blacklist-ath_pci.conf",
+      "mtime_utc": "2024-04-18T10:06:53+00:00",
+      "sha256": "1bca34650bd5b96b3b0a5c880f04e01e8151cae85af7d69c9a00adfaaca6c5bd",
+      "relevant_matches": []
+    },
+    {
+      "path": "/etc/modprobe.d/blacklist-firewire.conf",
+      "mtime_utc": "2024-04-18T10:06:53+00:00",
+      "sha256": "37c8be8a4b292b28bf683edf18ca2ad77467d0384b6c5c030c11f8d1de4e822d",
+      "relevant_matches": []
+    },
+    {
+      "path": "/etc/modprobe.d/blacklist-framebuffer.conf",
+      "mtime_utc": "2024-04-18T10:06:53+00:00",
+      "sha256": "383278f65de289767c8c0564fa31038a3980e76223160c4c3fb70ddc6fcf403a",
+      "relevant_matches": []
+    },
+    {
+      "path": "/etc/modprobe.d/blacklist-rare-network.conf",
+      "mtime_utc": "2024-04-18T10:06:53+00:00",
+      "sha256": "d63190beb14c3ab0ad848d9ad17cf7eafecf3df9814fe390107ce68659d4d73c",
+      "relevant_matches": []
+    },
+    {
+      "path": "/etc/modprobe.d/blacklist.conf",
+      "mtime_utc": "2024-09-17T20:05:58+00:00",
+      "sha256": "3f1bd2a3886cbcd07a519fb8bac3fffbf1affb92b41868fb2a3c447fb81a1d3b",
+      "relevant_matches": []
+    },
+    {
+      "path": "/etc/modprobe.d/dkms.conf",
+      "mtime_utc": "2023-04-27T16:12:51+00:00",
+      "sha256": "4593302665ccbab8ea21bcf161360880f6071f6260363f2d76111cc980a881e4",
+      "relevant_matches": []
+    },
+    {
+      "path": "/etc/modprobe.d/intel-microcode-blacklist.conf",
+      "mtime_utc": "2024-05-15T03:57:08+00:00",
+      "sha256": "f17b12aa7a202bb4f0ed09cbb45561417986fded2cfcf861364f84c8f3d42fb8",
+      "relevant_matches": []
+    },
+    {
+      "path": "/etc/modprobe.d/iwlwifi.conf",
+      "mtime_utc": "2024-04-18T10:06:53+00:00",
+      "sha256": "ff7191f16a3d71e46b980fccabae0b20cfefe9254119e84e4fd6b85ebf3e8170",
+      "relevant_matches": []
+    },
+    {
+      "path": "/etc/modprobe.d/mdadm.conf",
+      "mtime_utc": "2024-02-26T17:10:15+00:00",
+      "sha256": "f1e2f3f7d12a9401012b9acb8324f949eb623a58f786536845fd5c70888107be",
+      "relevant_matches": []
+    },
+    {
+      "path": "/etc/modules-load.d/modules.conf",
+      "mtime_utc": "2024-04-23T09:40:28+00:00",
+      "sha256": "c0d37c5c430cb5c978a4ea00e42ddc4551b04f76352d149d6be5d5b65346df65",
+      "relevant_matches": []
+    },
+    {
+      "path": "/etc/udev/rules.d/01-disable-bluefield-nvme.rules",
+      "mtime_utc": "2024-06-22T11:13:31+00:00",
+      "sha256": "59e24d6a6a5f09a1521e3a6f1b076ee3b55bdf055184e3074c56d9667caad46d",
+      "relevant_matches": []
+    },
+    {
+      "path": "/etc/udev/rules.d/99-emulab-networkd.rules",
+      "mtime_utc": "2024-06-22T11:13:31+00:00",
+      "sha256": "868933b801df37b622bead07b7e6c090022679c1ef1e55a51257bfff7ad7458f",
+      "relevant_matches": []
+    }
+  ],
+  "may_june_editor_files_checked": 230,
+  "allrefs_march_june_matches": [
+    "2cb2ac9cf 2026-03-24T09:59:53-05:00 times and model fix",
+    "6b2f5ddf7 2026-03-09T16:40:05-05:00 merge"
+  ]
+}

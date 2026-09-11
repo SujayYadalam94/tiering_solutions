@@ -1,0 +1,5805 @@
+{
+  "current_parameters": {
+    "missing_delay": "-1,-1",
+    "host_tagset_enable": "1",
+    "max_sgl_entries": "-1",
+    "max_lun": "16895",
+    "irqpoll_weight": "-1",
+    "msix_disable": "-1",
+    "logging_level": "0",
+    "disable_discovery": "-1",
+    "poll_queues": "0",
+    "smp_affinity_enable": "1",
+    "max_queue_depth": "-1",
+    "enable_sdev_max_qd": "N",
+    "max_msix_vectors": "-1",
+    "perf_mode": "-1",
+    "max_sectors": "65535",
+    "diag_buffer_enable": "-1",
+    "mpt3sas_fwfault_debug": "0",
+    "prot_mask": "-1",
+    "hbas_to_enumerate": "0"
+  },
+  "init_records": 75,
+  "vector_counts": {
+    "40": 75
+  },
+  "sessions": [
+    {
+      "start": "2026-08-18T04:33:10.106944-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.3.gz",
+          "line": 1424,
+          "text": "2026-08-18T04:33:10.106944-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.3.gz",
+          "line": 1425,
+          "text": "2026-08-18T04:33:10.106947-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.3.gz",
+          "line": 1427,
+          "text": "2026-08-18T04:33:10.106951-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.3.gz",
+          "line": 1482,
+          "text": "2026-08-18T04:33:10.107314-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.3.gz",
+          "line": 1486,
+          "text": "2026-08-18T04:33:10.107332-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log.3.gz",
+          "line": 1489,
+          "text": "2026-08-18T04:33:10.107340-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-08-21T05:27:31.129946-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.3.gz",
+          "line": 28949,
+          "text": "2026-08-21T05:27:31.129946-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.3.gz",
+          "line": 28950,
+          "text": "2026-08-21T05:27:31.129959-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.3.gz",
+          "line": 28952,
+          "text": "2026-08-21T05:27:31.129968-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.3.gz",
+          "line": 29007,
+          "text": "2026-08-21T05:27:31.130627-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.3.gz",
+          "line": 29011,
+          "text": "2026-08-21T05:27:31.130683-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log.3.gz",
+          "line": 29014,
+          "text": "2026-08-21T05:27:31.130699-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-08-21T05:41:11.924082-05:00",
+      "vector_irqs": {
+        "0": 35,
+        "1": 36,
+        "2": 37,
+        "3": 38,
+        "4": 39,
+        "5": 40,
+        "6": 41,
+        "7": 42,
+        "8": 43,
+        "9": 44,
+        "10": 45,
+        "11": 46,
+        "12": 47,
+        "13": 48,
+        "14": 49,
+        "15": 50,
+        "16": 51,
+        "17": 52,
+        "18": 53,
+        "19": 54,
+        "20": 55,
+        "21": 56,
+        "22": 57,
+        "23": 58,
+        "24": 59,
+        "25": 60,
+        "26": 61,
+        "27": 62,
+        "28": 63,
+        "29": 64,
+        "30": 65,
+        "31": 66,
+        "32": 67,
+        "33": 68,
+        "34": 69,
+        "35": 70,
+        "36": 71,
+        "37": 72,
+        "38": 73,
+        "39": 74
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.3.gz",
+          "line": 30754,
+          "text": "2026-08-21T05:41:11.924082-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.3.gz",
+          "line": 30755,
+          "text": "2026-08-21T05:41:11.924085-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.3.gz",
+          "line": 30759,
+          "text": "2026-08-21T05:41:11.924110-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.3.gz",
+          "line": 30812,
+          "text": "2026-08-21T05:41:11.924565-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.3.gz",
+          "line": 30816,
+          "text": "2026-08-21T05:41:11.924590-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log.3.gz",
+          "line": 30819,
+          "text": "2026-08-21T05:41:11.924600-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-08-24T05:01:29.690705-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 8213,
+          "text": "2026-08-24T05:01:29.690705-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 8214,
+          "text": "2026-08-24T05:01:29.690709-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 8216,
+          "text": "2026-08-24T05:01:29.690717-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 8270,
+          "text": "2026-08-24T05:01:29.691233-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 8274,
+          "text": "2026-08-24T05:01:29.691255-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 8277,
+          "text": "2026-08-24T05:01:29.691271-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-08-25T02:16:29.785625-05:00",
+      "vector_irqs": {
+        "0": 35,
+        "1": 36,
+        "2": 37,
+        "3": 38,
+        "4": 39,
+        "5": 40,
+        "6": 41,
+        "7": 42,
+        "8": 43,
+        "9": 44,
+        "10": 45,
+        "11": 46,
+        "12": 47,
+        "13": 48,
+        "14": 49,
+        "15": 50,
+        "16": 51,
+        "17": 52,
+        "18": 53,
+        "19": 54,
+        "20": 55,
+        "21": 56,
+        "22": 57,
+        "23": 58,
+        "24": 59,
+        "25": 60,
+        "26": 61,
+        "27": 62,
+        "28": 63,
+        "29": 64,
+        "30": 65,
+        "31": 66,
+        "32": 67,
+        "33": 68,
+        "34": 69,
+        "35": 70,
+        "36": 71,
+        "37": 72,
+        "38": 73,
+        "39": 74
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 10014,
+          "text": "2026-08-25T02:16:29.785625-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 10015,
+          "text": "2026-08-25T02:16:29.785629-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 10017,
+          "text": "2026-08-25T02:16:29.785636-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 10070,
+          "text": "2026-08-25T02:16:29.786211-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 10074,
+          "text": "2026-08-25T02:16:29.786226-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 10077,
+          "text": "2026-08-25T02:16:29.786254-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-08-25T11:52:29.894291-05:00",
+      "vector_irqs": {
+        "0": 35,
+        "1": 36,
+        "2": 37,
+        "3": 38,
+        "4": 39,
+        "5": 40,
+        "6": 41,
+        "7": 42,
+        "8": 43,
+        "9": 44,
+        "10": 45,
+        "11": 46,
+        "12": 47,
+        "13": 48,
+        "14": 49,
+        "15": 50,
+        "16": 51,
+        "17": 52,
+        "18": 53,
+        "19": 54,
+        "20": 55,
+        "21": 56,
+        "22": 57,
+        "23": 58,
+        "24": 59,
+        "25": 60,
+        "26": 61,
+        "27": 62,
+        "28": 63,
+        "29": 64,
+        "30": 65,
+        "31": 66,
+        "32": 67,
+        "33": 68,
+        "34": 69,
+        "35": 70,
+        "36": 71,
+        "37": 72,
+        "38": 73,
+        "39": 74
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 56179,
+          "text": "2026-08-25T11:52:29.894291-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 56180,
+          "text": "2026-08-25T11:52:29.894294-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 56182,
+          "text": "2026-08-25T11:52:29.894300-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 56235,
+          "text": "2026-08-25T11:52:29.894759-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 56239,
+          "text": "2026-08-25T11:52:29.894784-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 56242,
+          "text": "2026-08-25T11:52:29.894793-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-08-26T08:17:47.918057-05:00",
+      "vector_irqs": {
+        "0": 35,
+        "1": 36,
+        "2": 37,
+        "3": 38,
+        "4": 39,
+        "5": 40,
+        "6": 41,
+        "7": 42,
+        "8": 43,
+        "9": 44,
+        "10": 45,
+        "11": 46,
+        "12": 47,
+        "13": 48,
+        "14": 49,
+        "15": 50,
+        "16": 51,
+        "17": 52,
+        "18": 53,
+        "19": 54,
+        "20": 55,
+        "21": 56,
+        "22": 57,
+        "23": 58,
+        "24": 59,
+        "25": 60,
+        "26": 61,
+        "27": 62,
+        "28": 63,
+        "29": 64,
+        "30": 65,
+        "31": 66,
+        "32": 67,
+        "33": 68,
+        "34": 69,
+        "35": 70,
+        "36": 71,
+        "37": 72,
+        "38": 73,
+        "39": 74
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 102774,
+          "text": "2026-08-26T08:17:47.918057-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 102775,
+          "text": "2026-08-26T08:17:47.918061-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 102777,
+          "text": "2026-08-26T08:17:47.918069-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 102830,
+          "text": "2026-08-26T08:17:47.918451-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 102834,
+          "text": "2026-08-26T08:17:47.918464-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 102837,
+          "text": "2026-08-26T08:17:47.918474-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-08-27T05:40:27.123441-05:00",
+      "vector_irqs": {
+        "0": 35,
+        "1": 36,
+        "2": 37,
+        "3": 38,
+        "4": 39,
+        "5": 40,
+        "6": 41,
+        "7": 42,
+        "8": 43,
+        "9": 44,
+        "10": 45,
+        "11": 46,
+        "12": 47,
+        "13": 48,
+        "14": 49,
+        "15": 50,
+        "16": 51,
+        "17": 52,
+        "18": 53,
+        "19": 54,
+        "20": 55,
+        "21": 56,
+        "22": 57,
+        "23": 58,
+        "24": 59,
+        "25": 60,
+        "26": 61,
+        "27": 62,
+        "28": 63,
+        "29": 64,
+        "30": 65,
+        "31": 66,
+        "32": 67,
+        "33": 68,
+        "34": 69,
+        "35": 70,
+        "36": 71,
+        "37": 72,
+        "38": 73,
+        "39": 74
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 184849,
+          "text": "2026-08-27T05:40:27.123441-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 184850,
+          "text": "2026-08-27T05:40:27.123456-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 184852,
+          "text": "2026-08-27T05:40:27.123462-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 184905,
+          "text": "2026-08-27T05:40:27.123866-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 184909,
+          "text": "2026-08-27T05:40:27.123894-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 184912,
+          "text": "2026-08-27T05:40:27.123902-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-08-27T13:15:04.615961-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 194649,
+          "text": "2026-08-27T13:15:04.615961-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 194650,
+          "text": "2026-08-27T13:15:04.615964-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 194652,
+          "text": "2026-08-27T13:15:04.615972-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 194717,
+          "text": "2026-08-27T13:15:04.616216-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 194722,
+          "text": "2026-08-27T13:15:04.616424-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log.2.gz",
+          "line": 194725,
+          "text": "2026-08-27T13:15:04.616436-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-08-30T03:22:13.445282-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 1393,
+          "text": "2026-08-30T03:22:13.445282-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 1394,
+          "text": "2026-08-30T03:22:13.445283-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 1396,
+          "text": "2026-08-30T03:22:13.445285-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 1455,
+          "text": "2026-08-30T03:22:13.445440-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 1465,
+          "text": "2026-08-30T03:22:13.445527-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 1468,
+          "text": "2026-08-30T03:22:13.445531-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-08-31T05:07:32.256130-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 3822,
+          "text": "2026-08-31T05:07:32.256130-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 3823,
+          "text": "2026-08-31T05:07:32.256132-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 3825,
+          "text": "2026-08-31T05:07:32.256134-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 3879,
+          "text": "2026-08-31T05:07:32.256311-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 3883,
+          "text": "2026-08-31T05:07:32.256316-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 3886,
+          "text": "2026-08-31T05:07:32.256326-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-08-31T07:08:23.173467-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 7383,
+          "text": "2026-08-31T07:08:23.173467-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 7384,
+          "text": "2026-08-31T07:08:23.173484-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 7386,
+          "text": "2026-08-31T07:08:23.173492-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 7441,
+          "text": "2026-08-31T07:08:23.174022-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 7445,
+          "text": "2026-08-31T07:08:23.174037-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 7448,
+          "text": "2026-08-31T07:08:23.174062-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-08-31T08:40:50.452725-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 10693,
+          "text": "2026-08-31T08:40:50.452725-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 10694,
+          "text": "2026-08-31T08:40:50.452727-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 10696,
+          "text": "2026-08-31T08:40:50.452732-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 10756,
+          "text": "2026-08-31T08:40:50.452895-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 10765,
+          "text": "2026-08-31T08:40:50.452919-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 10768,
+          "text": "2026-08-31T08:40:50.453051-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-08-31T10:44:05.984668-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 12318,
+          "text": "2026-08-31T10:44:05.984668-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 12319,
+          "text": "2026-08-31T10:44:05.984672-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 12321,
+          "text": "2026-08-31T10:44:05.984679-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 12381,
+          "text": "2026-08-31T10:44:05.984928-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 12390,
+          "text": "2026-08-31T10:44:05.985157-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 12393,
+          "text": "2026-08-31T10:44:05.985170-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-08-31T10:52:43.733553-05:00",
+      "vector_irqs": {
+        "0": 37,
+        "1": 38,
+        "2": 39,
+        "3": 40,
+        "4": 41,
+        "5": 42,
+        "6": 43,
+        "7": 44,
+        "8": 45,
+        "9": 46,
+        "10": 47,
+        "11": 48,
+        "12": 49,
+        "13": 50,
+        "14": 51,
+        "15": 52,
+        "16": 53,
+        "17": 54,
+        "18": 55,
+        "19": 56,
+        "20": 57,
+        "21": 58,
+        "22": 59,
+        "23": 60,
+        "24": 61,
+        "25": 62,
+        "26": 63,
+        "27": 64,
+        "28": 65,
+        "29": 66,
+        "30": 67,
+        "31": 68,
+        "32": 69,
+        "33": 70,
+        "34": 71,
+        "35": 72,
+        "36": 73,
+        "37": 74,
+        "38": 75,
+        "39": 76
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 13948,
+          "text": "2026-08-31T10:52:43.733553-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 13949,
+          "text": "2026-08-31T10:52:43.733555-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 13951,
+          "text": "2026-08-31T10:52:43.733569-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 14022,
+          "text": "2026-08-31T10:52:43.734047-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 14027,
+          "text": "2026-08-31T10:52:43.734068-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 14030,
+          "text": "2026-08-31T10:52:43.734077-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-08-31T11:33:05.044906-05:00",
+      "vector_irqs": {
+        "0": 37,
+        "1": 38,
+        "2": 39,
+        "3": 40,
+        "4": 41,
+        "5": 42,
+        "6": 43,
+        "7": 44,
+        "8": 45,
+        "9": 46,
+        "10": 47,
+        "11": 48,
+        "12": 49,
+        "13": 50,
+        "14": 51,
+        "15": 52,
+        "16": 53,
+        "17": 54,
+        "18": 55,
+        "19": 56,
+        "20": 57,
+        "21": 58,
+        "22": 59,
+        "23": 60,
+        "24": 61,
+        "25": 62,
+        "26": 63,
+        "27": 64,
+        "28": 65,
+        "29": 66,
+        "30": 67,
+        "31": 68,
+        "32": 69,
+        "33": 70,
+        "34": 71,
+        "35": 72,
+        "36": 73,
+        "37": 74,
+        "38": 75,
+        "39": 76
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 15602,
+          "text": "2026-08-31T11:33:05.044906-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 15603,
+          "text": "2026-08-31T11:33:05.044907-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 15605,
+          "text": "2026-08-31T11:33:05.044910-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 15669,
+          "text": "2026-08-31T11:33:05.045009-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 15673,
+          "text": "2026-08-31T11:33:05.045101-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 15676,
+          "text": "2026-08-31T11:33:05.045106-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-01T10:22:49.765784-05:00",
+      "vector_irqs": {
+        "0": 37,
+        "1": 38,
+        "2": 39,
+        "3": 40,
+        "4": 41,
+        "5": 42,
+        "6": 43,
+        "7": 44,
+        "8": 45,
+        "9": 46,
+        "10": 47,
+        "11": 48,
+        "12": 49,
+        "13": 50,
+        "14": 51,
+        "15": 52,
+        "16": 53,
+        "17": 54,
+        "18": 55,
+        "19": 56,
+        "20": 57,
+        "21": 58,
+        "22": 59,
+        "23": 60,
+        "24": 61,
+        "25": 62,
+        "26": 63,
+        "27": 64,
+        "28": 65,
+        "29": 66,
+        "30": 67,
+        "31": 68,
+        "32": 69,
+        "33": 70,
+        "34": 71,
+        "35": 72,
+        "36": 73,
+        "37": 74,
+        "38": 75,
+        "39": 76
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 96300,
+          "text": "2026-09-01T10:22:49.765784-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 96301,
+          "text": "2026-09-01T10:22:49.765786-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 96303,
+          "text": "2026-09-01T10:22:49.765790-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 96366,
+          "text": "2026-09-01T10:22:49.765922-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 96375,
+          "text": "2026-09-01T10:22:49.766081-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 96380,
+          "text": "2026-09-01T10:22:49.766092-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-01T10:27:16.783343-05:00",
+      "vector_irqs": {
+        "0": 37,
+        "1": 38,
+        "2": 39,
+        "3": 40,
+        "4": 41,
+        "5": 42,
+        "6": 43,
+        "7": 44,
+        "8": 45,
+        "9": 46,
+        "10": 47,
+        "11": 48,
+        "12": 49,
+        "13": 50,
+        "14": 51,
+        "15": 52,
+        "16": 53,
+        "17": 54,
+        "18": 55,
+        "19": 56,
+        "20": 57,
+        "21": 58,
+        "22": 59,
+        "23": 60,
+        "24": 61,
+        "25": 62,
+        "26": 63,
+        "27": 64,
+        "28": 65,
+        "29": 66,
+        "30": 67,
+        "31": 68,
+        "32": 69,
+        "33": 70,
+        "34": 71,
+        "35": 72,
+        "36": 73,
+        "37": 74,
+        "38": 75,
+        "39": 76
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 98031,
+          "text": "2026-09-01T10:27:16.783343-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 98032,
+          "text": "2026-09-01T10:27:16.783349-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 98034,
+          "text": "2026-09-01T10:27:16.783351-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 98097,
+          "text": "2026-09-01T10:27:16.783468-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 98101,
+          "text": "2026-09-01T10:27:16.783551-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 98104,
+          "text": "2026-09-01T10:27:16.783562-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-02T01:59:34.956392-05:00",
+      "vector_irqs": {
+        "0": 37,
+        "1": 38,
+        "2": 39,
+        "3": 40,
+        "4": 41,
+        "5": 42,
+        "6": 43,
+        "7": 44,
+        "8": 45,
+        "9": 46,
+        "10": 47,
+        "11": 48,
+        "12": 49,
+        "13": 50,
+        "14": 51,
+        "15": 52,
+        "16": 53,
+        "17": 54,
+        "18": 55,
+        "19": 56,
+        "20": 57,
+        "21": 58,
+        "22": 59,
+        "23": 60,
+        "24": 61,
+        "25": 62,
+        "26": 63,
+        "27": 64,
+        "28": 65,
+        "29": 66,
+        "30": 67,
+        "31": 68,
+        "32": 69,
+        "33": 70,
+        "34": 71,
+        "35": 72,
+        "36": 73,
+        "37": 74,
+        "38": 75,
+        "39": 76
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 101480,
+          "text": "2026-09-02T01:59:34.956392-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 101481,
+          "text": "2026-09-02T01:59:34.956400-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 101483,
+          "text": "2026-09-02T01:59:34.956406-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 101564,
+          "text": "2026-09-02T01:59:34.957078-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 101570,
+          "text": "2026-09-02T01:59:34.957104-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 101573,
+          "text": "2026-09-02T01:59:34.957138-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-02T07:24:52.885553-05:00",
+      "vector_irqs": {
+        "0": 37,
+        "1": 38,
+        "2": 39,
+        "3": 40,
+        "4": 41,
+        "5": 42,
+        "6": 43,
+        "7": 44,
+        "8": 45,
+        "9": 46,
+        "10": 47,
+        "11": 48,
+        "12": 49,
+        "13": 50,
+        "14": 51,
+        "15": 52,
+        "16": 53,
+        "17": 54,
+        "18": 55,
+        "19": 56,
+        "20": 57,
+        "21": 58,
+        "22": 59,
+        "23": 60,
+        "24": 61,
+        "25": 62,
+        "26": 63,
+        "27": 64,
+        "28": 65,
+        "29": 66,
+        "30": 67,
+        "31": 68,
+        "32": 69,
+        "33": 70,
+        "34": 71,
+        "35": 72,
+        "36": 73,
+        "37": 74,
+        "38": 75,
+        "39": 76
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 104244,
+          "text": "2026-09-02T07:24:52.885553-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 104245,
+          "text": "2026-09-02T07:24:52.885556-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 104247,
+          "text": "2026-09-02T07:24:52.885561-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 104330,
+          "text": "2026-09-02T07:24:52.885953-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 104334,
+          "text": "2026-09-02T07:24:52.885964-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 104337,
+          "text": "2026-09-02T07:24:52.885972-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-02T13:31:06.677635-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 107127,
+          "text": "2026-09-02T13:31:06.677635-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 107128,
+          "text": "2026-09-02T13:31:06.677638-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 107130,
+          "text": "2026-09-02T13:31:06.677645-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 107189,
+          "text": "2026-09-02T13:31:06.677854-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 107199,
+          "text": "2026-09-02T13:31:06.677888-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 107202,
+          "text": "2026-09-02T13:31:06.678203-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-04T15:14:25.333110-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 108958,
+          "text": "2026-09-04T15:14:25.333110-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 108959,
+          "text": "2026-09-04T15:14:25.333111-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 108961,
+          "text": "2026-09-04T15:14:25.333118-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 109020,
+          "text": "2026-09-04T15:14:25.333338-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 109024,
+          "text": "2026-09-04T15:14:25.333349-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 109027,
+          "text": "2026-09-04T15:14:25.333353-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-05T02:04:32.316977-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 126849,
+          "text": "2026-09-05T02:04:32.316977-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 126850,
+          "text": "2026-09-05T02:04:32.316979-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 126852,
+          "text": "2026-09-05T02:04:32.316984-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 126911,
+          "text": "2026-09-05T02:04:32.317284-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 126915,
+          "text": "2026-09-05T02:04:32.317303-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 126918,
+          "text": "2026-09-05T02:04:32.317311-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-05T09:33:45.244327-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 157837,
+          "text": "2026-09-05T09:33:45.244327-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 157838,
+          "text": "2026-09-05T09:33:45.244328-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 157840,
+          "text": "2026-09-05T09:33:45.244331-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 157895,
+          "text": "2026-09-05T09:33:45.244555-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 157899,
+          "text": "2026-09-05T09:33:45.244566-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 157902,
+          "text": "2026-09-05T09:33:45.244570-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-05T14:06:17.177426-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 196054,
+          "text": "2026-09-05T14:06:17.177426-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 196055,
+          "text": "2026-09-05T14:06:17.177430-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 196057,
+          "text": "2026-09-05T14:06:17.177437-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 196112,
+          "text": "2026-09-05T14:06:17.177838-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 196116,
+          "text": "2026-09-05T14:06:17.177853-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 196119,
+          "text": "2026-09-05T14:06:17.177864-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-05T14:11:41.486335-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 197680,
+          "text": "2026-09-05T14:11:41.486335-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 197681,
+          "text": "2026-09-05T14:11:41.486338-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 197683,
+          "text": "2026-09-05T14:11:41.486343-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 197747,
+          "text": "2026-09-05T14:11:41.486518-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 197752,
+          "text": "2026-09-05T14:11:41.486657-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log.1",
+          "line": 197755,
+          "text": "2026-09-05T14:11:41.486665-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-06T01:06:53.415295-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 1497,
+          "text": "2026-09-06T01:06:53.415295-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 1498,
+          "text": "2026-09-06T01:06:53.415298-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 1500,
+          "text": "2026-09-06T01:06:53.415302-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 1559,
+          "text": "2026-09-06T01:06:53.415553-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 1569,
+          "text": "2026-09-06T01:06:53.415706-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 1572,
+          "text": "2026-09-06T01:06:53.415721-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-07T02:00:02.794048-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 3569,
+          "text": "2026-09-07T02:00:02.794048-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 3570,
+          "text": "2026-09-07T02:00:02.794052-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 3572,
+          "text": "2026-09-07T02:00:02.794066-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 3636,
+          "text": "2026-09-07T02:00:02.794509-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 3641,
+          "text": "2026-09-07T02:00:02.794654-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 3644,
+          "text": "2026-09-07T02:00:02.794671-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-07T10:18:25.901897-05:00",
+      "vector_irqs": {
+        "0": 37,
+        "1": 38,
+        "2": 39,
+        "3": 40,
+        "4": 41,
+        "5": 42,
+        "6": 43,
+        "7": 44,
+        "8": 45,
+        "9": 46,
+        "10": 47,
+        "11": 48,
+        "12": 49,
+        "13": 50,
+        "14": 51,
+        "15": 52,
+        "16": 53,
+        "17": 54,
+        "18": 55,
+        "19": 56,
+        "20": 57,
+        "21": 58,
+        "22": 59,
+        "23": 60,
+        "24": 61,
+        "25": 62,
+        "26": 63,
+        "27": 64,
+        "28": 65,
+        "29": 66,
+        "30": 67,
+        "31": 68,
+        "32": 69,
+        "33": 70,
+        "34": 71,
+        "35": 72,
+        "36": 73,
+        "37": 74,
+        "38": 75,
+        "39": 76
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 5213,
+          "text": "2026-09-07T10:18:25.901897-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 5214,
+          "text": "2026-09-07T10:18:25.901898-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 5216,
+          "text": "2026-09-07T10:18:25.901901-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 5282,
+          "text": "2026-09-07T10:18:25.902069-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 5289,
+          "text": "2026-09-07T10:18:25.902077-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 5292,
+          "text": "2026-09-07T10:18:25.902081-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-07T10:27:30.492217-05:00",
+      "vector_irqs": {
+        "0": 37,
+        "1": 38,
+        "2": 39,
+        "3": 40,
+        "4": 41,
+        "5": 42,
+        "6": 43,
+        "7": 44,
+        "8": 45,
+        "9": 46,
+        "10": 47,
+        "11": 48,
+        "12": 49,
+        "13": 50,
+        "14": 51,
+        "15": 52,
+        "16": 53,
+        "17": 54,
+        "18": 55,
+        "19": 56,
+        "20": 57,
+        "21": 58,
+        "22": 59,
+        "23": 60,
+        "24": 61,
+        "25": 62,
+        "26": 63,
+        "27": 64,
+        "28": 65,
+        "29": 66,
+        "30": 67,
+        "31": 68,
+        "32": 69,
+        "33": 70,
+        "34": 71,
+        "35": 72,
+        "36": 73,
+        "37": 74,
+        "38": 75,
+        "39": 76
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 6879,
+          "text": "2026-09-07T10:27:30.492217-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 6880,
+          "text": "2026-09-07T10:27:30.492219-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 6882,
+          "text": "2026-09-07T10:27:30.492222-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 6945,
+          "text": "2026-09-07T10:27:30.492323-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 6949,
+          "text": "2026-09-07T10:27:30.492439-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 6952,
+          "text": "2026-09-07T10:27:30.492444-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-07T11:08:42.649051-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 9814,
+          "text": "2026-09-07T11:08:42.649051-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 9815,
+          "text": "2026-09-07T11:08:42.649055-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 9817,
+          "text": "2026-09-07T11:08:42.649085-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 9871,
+          "text": "2026-09-07T11:08:42.649623-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 9875,
+          "text": "2026-09-07T11:08:42.649642-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 9878,
+          "text": "2026-09-07T11:08:42.649662-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-07T14:08:17.164061-05:00",
+      "vector_irqs": {
+        "0": 37,
+        "1": 38,
+        "2": 39,
+        "3": 40,
+        "4": 41,
+        "5": 42,
+        "6": 43,
+        "7": 44,
+        "8": 45,
+        "9": 46,
+        "10": 47,
+        "11": 48,
+        "12": 49,
+        "13": 50,
+        "14": 51,
+        "15": 52,
+        "16": 53,
+        "17": 54,
+        "18": 55,
+        "19": 56,
+        "20": 57,
+        "21": 58,
+        "22": 59,
+        "23": 60,
+        "24": 61,
+        "25": 62,
+        "26": 63,
+        "27": 64,
+        "28": 65,
+        "29": 66,
+        "30": 67,
+        "31": 68,
+        "32": 69,
+        "33": 70,
+        "34": 71,
+        "35": 72,
+        "36": 73,
+        "37": 74,
+        "38": 75,
+        "39": 76
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 11454,
+          "text": "2026-09-07T14:08:17.164061-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 11455,
+          "text": "2026-09-07T14:08:17.164062-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 11457,
+          "text": "2026-09-07T14:08:17.164064-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 11539,
+          "text": "2026-09-07T14:08:17.164328-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 11543,
+          "text": "2026-09-07T14:08:17.164332-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 11546,
+          "text": "2026-09-07T14:08:17.164335-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-07T16:02:04.723681-05:00",
+      "vector_irqs": {
+        "0": 37,
+        "1": 38,
+        "2": 39,
+        "3": 40,
+        "4": 41,
+        "5": 42,
+        "6": 43,
+        "7": 44,
+        "8": 45,
+        "9": 46,
+        "10": 47,
+        "11": 48,
+        "12": 49,
+        "13": 50,
+        "14": 51,
+        "15": 52,
+        "16": 53,
+        "17": 54,
+        "18": 55,
+        "19": 56,
+        "20": 57,
+        "21": 58,
+        "22": 59,
+        "23": 60,
+        "24": 61,
+        "25": 62,
+        "26": 63,
+        "27": 64,
+        "28": 65,
+        "29": 66,
+        "30": 67,
+        "31": 68,
+        "32": 69,
+        "33": 70,
+        "34": 71,
+        "35": 72,
+        "36": 73,
+        "37": 74,
+        "38": 75,
+        "39": 76
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 13413,
+          "text": "2026-09-07T16:02:04.723681-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 13414,
+          "text": "2026-09-07T16:02:04.723683-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 13416,
+          "text": "2026-09-07T16:02:04.723688-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 13485,
+          "text": "2026-09-07T16:02:04.724143-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 13494,
+          "text": "2026-09-07T16:02:04.724242-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 13497,
+          "text": "2026-09-07T16:02:04.724251-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-08T01:58:32.787492-05:00",
+      "vector_irqs": {
+        "0": 37,
+        "1": 38,
+        "2": 39,
+        "3": 40,
+        "4": 41,
+        "5": 42,
+        "6": 43,
+        "7": 44,
+        "8": 45,
+        "9": 46,
+        "10": 47,
+        "11": 48,
+        "12": 49,
+        "13": 50,
+        "14": 51,
+        "15": 52,
+        "16": 53,
+        "17": 54,
+        "18": 55,
+        "19": 56,
+        "20": 57,
+        "21": 58,
+        "22": 59,
+        "23": 60,
+        "24": 61,
+        "25": 62,
+        "26": 63,
+        "27": 64,
+        "28": 65,
+        "29": 66,
+        "30": 67,
+        "31": 68,
+        "32": 69,
+        "33": 70,
+        "34": 71,
+        "35": 72,
+        "36": 73,
+        "37": 74,
+        "38": 75,
+        "39": 76
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 15333,
+          "text": "2026-09-08T01:58:32.787492-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 15334,
+          "text": "2026-09-08T01:58:32.787494-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 15336,
+          "text": "2026-09-08T01:58:32.787497-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 15418,
+          "text": "2026-09-08T01:58:32.787865-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 15422,
+          "text": "2026-09-08T01:58:32.787877-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 15425,
+          "text": "2026-09-08T01:58:32.787882-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-08T03:59:37.139959-05:00",
+      "vector_irqs": {
+        "0": 37,
+        "1": 38,
+        "2": 39,
+        "3": 40,
+        "4": 41,
+        "5": 42,
+        "6": 43,
+        "7": 44,
+        "8": 45,
+        "9": 46,
+        "10": 47,
+        "11": 48,
+        "12": 49,
+        "13": 50,
+        "14": 51,
+        "15": 52,
+        "16": 53,
+        "17": 54,
+        "18": 55,
+        "19": 56,
+        "20": 57,
+        "21": 58,
+        "22": 59,
+        "23": 60,
+        "24": 61,
+        "25": 62,
+        "26": 63,
+        "27": 64,
+        "28": 65,
+        "29": 66,
+        "30": 67,
+        "31": 68,
+        "32": 69,
+        "33": 70,
+        "34": 71,
+        "35": 72,
+        "36": 73,
+        "37": 74,
+        "38": 75,
+        "39": 76
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 17311,
+          "text": "2026-09-08T03:59:37.139959-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 17312,
+          "text": "2026-09-08T03:59:37.139961-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 17314,
+          "text": "2026-09-08T03:59:37.139966-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 17396,
+          "text": "2026-09-08T03:59:37.140472-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 17400,
+          "text": "2026-09-08T03:59:37.140491-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 17403,
+          "text": "2026-09-08T03:59:37.140499-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-08T04:45:07.949773-05:00",
+      "vector_irqs": {
+        "0": 37,
+        "1": 38,
+        "2": 39,
+        "3": 40,
+        "4": 41,
+        "5": 42,
+        "6": 43,
+        "7": 44,
+        "8": 45,
+        "9": 46,
+        "10": 47,
+        "11": 48,
+        "12": 49,
+        "13": 50,
+        "14": 51,
+        "15": 52,
+        "16": 53,
+        "17": 54,
+        "18": 55,
+        "19": 56,
+        "20": 57,
+        "21": 58,
+        "22": 59,
+        "23": 60,
+        "24": 61,
+        "25": 62,
+        "26": 63,
+        "27": 64,
+        "28": 65,
+        "29": 66,
+        "30": 67,
+        "31": 68,
+        "32": 69,
+        "33": 70,
+        "34": 71,
+        "35": 72,
+        "36": 73,
+        "37": 74,
+        "38": 75,
+        "39": 76
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 19427,
+          "text": "2026-09-08T04:45:07.949773-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 19428,
+          "text": "2026-09-08T04:45:07.949775-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 19430,
+          "text": "2026-09-08T04:45:07.949780-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 19513,
+          "text": "2026-09-08T04:45:07.950221-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 19517,
+          "text": "2026-09-08T04:45:07.950231-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 19520,
+          "text": "2026-09-08T04:45:07.950240-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-08T06:40:07.615250-05:00",
+      "vector_irqs": {
+        "0": 37,
+        "1": 38,
+        "2": 39,
+        "3": 40,
+        "4": 41,
+        "5": 42,
+        "6": 43,
+        "7": 44,
+        "8": 45,
+        "9": 46,
+        "10": 47,
+        "11": 48,
+        "12": 49,
+        "13": 50,
+        "14": 51,
+        "15": 52,
+        "16": 53,
+        "17": 54,
+        "18": 55,
+        "19": 56,
+        "20": 57,
+        "21": 58,
+        "22": 59,
+        "23": 60,
+        "24": 61,
+        "25": 62,
+        "26": 63,
+        "27": 64,
+        "28": 65,
+        "29": 66,
+        "30": 67,
+        "31": 68,
+        "32": 69,
+        "33": 70,
+        "34": 71,
+        "35": 72,
+        "36": 73,
+        "37": 74,
+        "38": 75,
+        "39": 76
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 21944,
+          "text": "2026-09-08T06:40:07.615250-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 21945,
+          "text": "2026-09-08T06:40:07.615250-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 21947,
+          "text": "2026-09-08T06:40:07.615255-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 22011,
+          "text": "2026-09-08T06:40:07.615345-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 22015,
+          "text": "2026-09-08T06:40:07.615408-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 22019,
+          "text": "2026-09-08T06:40:07.615411-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-08T08:50:57.337005-05:00",
+      "vector_irqs": {
+        "0": 37,
+        "1": 38,
+        "2": 39,
+        "3": 40,
+        "4": 41,
+        "5": 42,
+        "6": 43,
+        "7": 44,
+        "8": 45,
+        "9": 46,
+        "10": 47,
+        "11": 48,
+        "12": 49,
+        "13": 50,
+        "14": 51,
+        "15": 52,
+        "16": 53,
+        "17": 54,
+        "18": 55,
+        "19": 56,
+        "20": 57,
+        "21": 58,
+        "22": 59,
+        "23": 60,
+        "24": 61,
+        "25": 62,
+        "26": 63,
+        "27": 64,
+        "28": 65,
+        "29": 66,
+        "30": 67,
+        "31": 68,
+        "32": 69,
+        "33": 70,
+        "34": 71,
+        "35": 72,
+        "36": 73,
+        "37": 74,
+        "38": 75,
+        "39": 76
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 25175,
+          "text": "2026-09-08T08:50:57.337005-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 25176,
+          "text": "2026-09-08T08:50:57.337007-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 25178,
+          "text": "2026-09-08T08:50:57.337015-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 25259,
+          "text": "2026-09-08T08:50:57.337321-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 25265,
+          "text": "2026-09-08T08:50:57.337335-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 25268,
+          "text": "2026-09-08T08:50:57.337344-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-08T08:58:17.283933-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 26916,
+          "text": "2026-09-08T08:58:17.283933-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 26917,
+          "text": "2026-09-08T08:58:17.283953-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 26919,
+          "text": "2026-09-08T08:58:17.283975-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 26974,
+          "text": "2026-09-08T08:58:17.284528-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 26978,
+          "text": "2026-09-08T08:58:17.284554-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 26981,
+          "text": "2026-09-08T08:58:17.284578-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-08T09:02:02.083362-05:00",
+      "vector_irqs": {
+        "0": 37,
+        "1": 38,
+        "2": 39,
+        "3": 40,
+        "4": 41,
+        "5": 42,
+        "6": 43,
+        "7": 44,
+        "8": 45,
+        "9": 46,
+        "10": 47,
+        "11": 48,
+        "12": 49,
+        "13": 50,
+        "14": 51,
+        "15": 52,
+        "16": 53,
+        "17": 54,
+        "18": 55,
+        "19": 56,
+        "20": 57,
+        "21": 58,
+        "22": 59,
+        "23": 60,
+        "24": 61,
+        "25": 62,
+        "26": 63,
+        "27": 64,
+        "28": 65,
+        "29": 66,
+        "30": 67,
+        "31": 68,
+        "32": 69,
+        "33": 70,
+        "34": 71,
+        "35": 72,
+        "36": 73,
+        "37": 74,
+        "38": 75,
+        "39": 76
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 28547,
+          "text": "2026-09-08T09:02:02.083362-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 28548,
+          "text": "2026-09-08T09:02:02.083364-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 28550,
+          "text": "2026-09-08T09:02:02.083367-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 28629,
+          "text": "2026-09-08T09:02:02.083629-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 28636,
+          "text": "2026-09-08T09:02:02.083671-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 28640,
+          "text": "2026-09-08T09:02:02.083678-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-08T10:18:10.952585-05:00",
+      "vector_irqs": {
+        "0": 37,
+        "1": 38,
+        "2": 39,
+        "3": 40,
+        "4": 41,
+        "5": 42,
+        "6": 43,
+        "7": 44,
+        "8": 45,
+        "9": 46,
+        "10": 47,
+        "11": 48,
+        "12": 49,
+        "13": 50,
+        "14": 51,
+        "15": 52,
+        "16": 53,
+        "17": 54,
+        "18": 55,
+        "19": 56,
+        "20": 57,
+        "21": 58,
+        "22": 59,
+        "23": 60,
+        "24": 61,
+        "25": 62,
+        "26": 63,
+        "27": 64,
+        "28": 65,
+        "29": 66,
+        "30": 67,
+        "31": 68,
+        "32": 69,
+        "33": 70,
+        "34": 71,
+        "35": 72,
+        "36": 73,
+        "37": 74,
+        "38": 75,
+        "39": 76
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 30601,
+          "text": "2026-09-08T10:18:10.952585-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 30602,
+          "text": "2026-09-08T10:18:10.952586-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 30604,
+          "text": "2026-09-08T10:18:10.952589-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 30669,
+          "text": "2026-09-08T10:18:10.952758-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 30673,
+          "text": "2026-09-08T10:18:10.952879-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 30676,
+          "text": "2026-09-08T10:18:10.952884-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-08T12:01:21.310543-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 33649,
+          "text": "2026-09-08T12:01:21.310543-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 33650,
+          "text": "2026-09-08T12:01:21.310546-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 33652,
+          "text": "2026-09-08T12:01:21.310551-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 33706,
+          "text": "2026-09-08T12:01:21.310951-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 33710,
+          "text": "2026-09-08T12:01:21.310962-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 33713,
+          "text": "2026-09-08T12:01:21.310971-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-08T12:29:32.617050-05:00",
+      "vector_irqs": {
+        "0": 37,
+        "1": 38,
+        "2": 39,
+        "3": 40,
+        "4": 41,
+        "5": 42,
+        "6": 43,
+        "7": 44,
+        "8": 45,
+        "9": 46,
+        "10": 47,
+        "11": 48,
+        "12": 49,
+        "13": 50,
+        "14": 51,
+        "15": 52,
+        "16": 53,
+        "17": 54,
+        "18": 55,
+        "19": 56,
+        "20": 57,
+        "21": 58,
+        "22": 59,
+        "23": 60,
+        "24": 61,
+        "25": 62,
+        "26": 63,
+        "27": 64,
+        "28": 65,
+        "29": 66,
+        "30": 67,
+        "31": 68,
+        "32": 69,
+        "33": 70,
+        "34": 71,
+        "35": 72,
+        "36": 73,
+        "37": 74,
+        "38": 75,
+        "39": 76
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 35672,
+          "text": "2026-09-08T12:29:32.617050-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 35673,
+          "text": "2026-09-08T12:29:32.617052-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 35675,
+          "text": "2026-09-08T12:29:32.617065-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 35739,
+          "text": "2026-09-08T12:29:32.617297-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 35748,
+          "text": "2026-09-08T12:29:32.617482-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 35752,
+          "text": "2026-09-08T12:29:32.617500-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-08T12:55:02.185296-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 37781,
+          "text": "2026-09-08T12:55:02.185296-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 37782,
+          "text": "2026-09-08T12:55:02.185300-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 37784,
+          "text": "2026-09-08T12:55:02.185307-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 37839,
+          "text": "2026-09-08T12:55:02.185855-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 37843,
+          "text": "2026-09-08T12:55:02.185872-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 37846,
+          "text": "2026-09-08T12:55:02.185891-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-08T13:10:37.364272-05:00",
+      "vector_irqs": {
+        "0": 37,
+        "1": 38,
+        "2": 39,
+        "3": 40,
+        "4": 41,
+        "5": 42,
+        "6": 43,
+        "7": 44,
+        "8": 45,
+        "9": 46,
+        "10": 47,
+        "11": 48,
+        "12": 49,
+        "13": 50,
+        "14": 51,
+        "15": 52,
+        "16": 53,
+        "17": 54,
+        "18": 55,
+        "19": 56,
+        "20": 57,
+        "21": 58,
+        "22": 59,
+        "23": 60,
+        "24": 61,
+        "25": 62,
+        "26": 63,
+        "27": 64,
+        "28": 65,
+        "29": 66,
+        "30": 67,
+        "31": 68,
+        "32": 69,
+        "33": 70,
+        "34": 71,
+        "35": 72,
+        "36": 73,
+        "37": 74,
+        "38": 75,
+        "39": 76
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 39283,
+          "text": "2026-09-08T13:10:37.364272-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 39284,
+          "text": "2026-09-08T13:10:37.364276-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 39286,
+          "text": "2026-09-08T13:10:37.364284-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 39361,
+          "text": "2026-09-08T13:10:37.364566-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 39365,
+          "text": "2026-09-08T13:10:37.364581-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 39368,
+          "text": "2026-09-08T13:10:37.364590-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-08T13:15:06.137219-05:00",
+      "vector_irqs": {
+        "0": 37,
+        "1": 38,
+        "2": 39,
+        "3": 40,
+        "4": 41,
+        "5": 42,
+        "6": 43,
+        "7": 44,
+        "8": 45,
+        "9": 46,
+        "10": 47,
+        "11": 48,
+        "12": 49,
+        "13": 50,
+        "14": 51,
+        "15": 52,
+        "16": 53,
+        "17": 54,
+        "18": 55,
+        "19": 56,
+        "20": 57,
+        "21": 58,
+        "22": 59,
+        "23": 60,
+        "24": 61,
+        "25": 62,
+        "26": 63,
+        "27": 64,
+        "28": 65,
+        "29": 66,
+        "30": 67,
+        "31": 68,
+        "32": 69,
+        "33": 70,
+        "34": 71,
+        "35": 72,
+        "36": 73,
+        "37": 74,
+        "38": 75,
+        "39": 76
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 40815,
+          "text": "2026-09-08T13:15:06.137219-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 40816,
+          "text": "2026-09-08T13:15:06.137223-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 40818,
+          "text": "2026-09-08T13:15:06.137232-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 40890,
+          "text": "2026-09-08T13:15:06.137748-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 40896,
+          "text": "2026-09-08T13:15:06.137795-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 40900,
+          "text": "2026-09-08T13:15:06.137837-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-08T13:24:18.782535-05:00",
+      "vector_irqs": {
+        "0": 35,
+        "1": 36,
+        "2": 37,
+        "3": 38,
+        "4": 39,
+        "5": 40,
+        "6": 41,
+        "7": 42,
+        "8": 43,
+        "9": 44,
+        "10": 45,
+        "11": 46,
+        "12": 47,
+        "13": 48,
+        "14": 49,
+        "15": 50,
+        "16": 51,
+        "17": 52,
+        "18": 53,
+        "19": 54,
+        "20": 55,
+        "21": 56,
+        "22": 57,
+        "23": 58,
+        "24": 59,
+        "25": 60,
+        "26": 61,
+        "27": 62,
+        "28": 63,
+        "29": 64,
+        "30": 65,
+        "31": 66,
+        "32": 67,
+        "33": 68,
+        "34": 69,
+        "35": 70,
+        "36": 71,
+        "37": 72,
+        "38": 73,
+        "39": 74
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 42724,
+          "text": "2026-09-08T13:24:18.782535-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 42725,
+          "text": "2026-09-08T13:24:18.782538-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 42727,
+          "text": "2026-09-08T13:24:18.782545-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 42780,
+          "text": "2026-09-08T13:24:18.783045-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 42784,
+          "text": "2026-09-08T13:24:18.783058-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 42787,
+          "text": "2026-09-08T13:24:18.783068-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-08T15:20:22.390437-05:00",
+      "vector_irqs": {
+        "0": 37,
+        "1": 38,
+        "2": 39,
+        "3": 40,
+        "4": 41,
+        "5": 42,
+        "6": 43,
+        "7": 44,
+        "8": 45,
+        "9": 46,
+        "10": 47,
+        "11": 48,
+        "12": 49,
+        "13": 50,
+        "14": 51,
+        "15": 52,
+        "16": 53,
+        "17": 54,
+        "18": 55,
+        "19": 56,
+        "20": 57,
+        "21": 58,
+        "22": 59,
+        "23": 60,
+        "24": 61,
+        "25": 62,
+        "26": 63,
+        "27": 64,
+        "28": 65,
+        "29": 66,
+        "30": 67,
+        "31": 68,
+        "32": 69,
+        "33": 70,
+        "34": 71,
+        "35": 72,
+        "36": 73,
+        "37": 74,
+        "38": 75,
+        "39": 76
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 67451,
+          "text": "2026-09-08T15:20:22.390437-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 67452,
+          "text": "2026-09-08T15:20:22.390441-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 67454,
+          "text": "2026-09-08T15:20:22.390449-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 67529,
+          "text": "2026-09-08T15:20:22.391021-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 67533,
+          "text": "2026-09-08T15:20:22.391037-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 67536,
+          "text": "2026-09-08T15:20:22.391049-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-09T06:15:12.153959-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 222380,
+          "text": "2026-09-09T06:15:12.153959-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 222381,
+          "text": "2026-09-09T06:15:12.153960-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 222383,
+          "text": "2026-09-09T06:15:12.153968-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 222438,
+          "text": "2026-09-09T06:15:12.154163-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 222442,
+          "text": "2026-09-09T06:15:12.154176-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 222445,
+          "text": "2026-09-09T06:15:12.154180-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-09T15:56:47.202506-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 233114,
+          "text": "2026-09-09T15:56:47.202506-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 233115,
+          "text": "2026-09-09T15:56:47.202509-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 233117,
+          "text": "2026-09-09T15:56:47.202526-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 233171,
+          "text": "2026-09-09T15:56:47.202942-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 233175,
+          "text": "2026-09-09T15:56:47.202959-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 233178,
+          "text": "2026-09-09T15:56:47.202967-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-09T16:20:49.848377-05:00",
+      "vector_irqs": {
+        "0": 35,
+        "1": 36,
+        "2": 37,
+        "3": 38,
+        "4": 39,
+        "5": 40,
+        "6": 41,
+        "7": 42,
+        "8": 43,
+        "9": 44,
+        "10": 45,
+        "11": 46,
+        "12": 47,
+        "13": 48,
+        "14": 49,
+        "15": 50,
+        "16": 51,
+        "17": 52,
+        "18": 53,
+        "19": 54,
+        "20": 55,
+        "21": 56,
+        "22": 57,
+        "23": 58,
+        "24": 59,
+        "25": 60,
+        "26": 61,
+        "27": 62,
+        "28": 63,
+        "29": 64,
+        "30": 65,
+        "31": 66,
+        "32": 67,
+        "33": 68,
+        "34": 69,
+        "35": 70,
+        "36": 71,
+        "37": 72,
+        "38": 73,
+        "39": 74
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 236576,
+          "text": "2026-09-09T16:20:49.848377-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 236577,
+          "text": "2026-09-09T16:20:49.848380-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 236579,
+          "text": "2026-09-09T16:20:49.848385-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 236632,
+          "text": "2026-09-09T16:20:49.848681-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 236636,
+          "text": "2026-09-09T16:20:49.848692-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 236639,
+          "text": "2026-09-09T16:20:49.848699-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-09T17:19:57.157875-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 240585,
+          "text": "2026-09-09T17:19:57.157875-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 240586,
+          "text": "2026-09-09T17:19:57.157876-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 240588,
+          "text": "2026-09-09T17:19:57.157879-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 240642,
+          "text": "2026-09-09T17:19:57.158025-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 240646,
+          "text": "2026-09-09T17:19:57.158030-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 240649,
+          "text": "2026-09-09T17:19:57.158037-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-09T17:23:56.367961-05:00",
+      "vector_irqs": {
+        "0": 37,
+        "1": 38,
+        "2": 39,
+        "3": 40,
+        "4": 41,
+        "5": 42,
+        "6": 43,
+        "7": 44,
+        "8": 45,
+        "9": 46,
+        "10": 47,
+        "11": 48,
+        "12": 49,
+        "13": 50,
+        "14": 51,
+        "15": 52,
+        "16": 53,
+        "17": 54,
+        "18": 55,
+        "19": 56,
+        "20": 57,
+        "21": 58,
+        "22": 59,
+        "23": 60,
+        "24": 61,
+        "25": 62,
+        "26": 63,
+        "27": 64,
+        "28": 65,
+        "29": 66,
+        "30": 67,
+        "31": 68,
+        "32": 69,
+        "33": 70,
+        "34": 71,
+        "35": 72,
+        "36": 73,
+        "37": 74,
+        "38": 75,
+        "39": 76
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 242024,
+          "text": "2026-09-09T17:23:56.367961-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 242025,
+          "text": "2026-09-09T17:23:56.367963-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 242027,
+          "text": "2026-09-09T17:23:56.368133-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 242112,
+          "text": "2026-09-09T17:23:56.368556-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 242120,
+          "text": "2026-09-09T17:23:56.368590-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01), BiosVersion(09.39.01.00)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 242123,
+          "text": "2026-09-09T17:23:56.368597-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-10T02:50:46.806530-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 339377,
+          "text": "2026-09-10T02:50:46.806530-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 339380,
+          "text": "2026-09-10T02:50:46.806551-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 339382,
+          "text": "2026-09-10T02:50:46.806561-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 339441,
+          "text": "2026-09-10T02:50:46.806956-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 339445,
+          "text": "2026-09-10T02:50:46.806966-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 339448,
+          "text": "2026-09-10T02:50:46.806979-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-10T02:58:59.627340-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 341058,
+          "text": "2026-09-10T02:58:59.627340-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 341059,
+          "text": "2026-09-10T02:58:59.627344-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 341061,
+          "text": "2026-09-10T02:58:59.627351-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 341115,
+          "text": "2026-09-10T02:58:59.627785-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 341119,
+          "text": "2026-09-10T02:58:59.627800-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 341122,
+          "text": "2026-09-10T02:58:59.627812-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-10T03:07:53.084902-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 342728,
+          "text": "2026-09-10T03:07:53.084902-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 342729,
+          "text": "2026-09-10T03:07:53.084905-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 342731,
+          "text": "2026-09-10T03:07:53.084934-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 342786,
+          "text": "2026-09-10T03:07:53.085413-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 342790,
+          "text": "2026-09-10T03:07:53.085452-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 342793,
+          "text": "2026-09-10T03:07:53.085462-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-10T03:46:45.201685-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 344391,
+          "text": "2026-09-10T03:46:45.201685-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 344392,
+          "text": "2026-09-10T03:46:45.201689-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 344394,
+          "text": "2026-09-10T03:46:45.201710-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 344450,
+          "text": "2026-09-10T03:46:45.202264-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 344454,
+          "text": "2026-09-10T03:46:45.202293-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 344457,
+          "text": "2026-09-10T03:46:45.202317-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-10T04:08:31.121752-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 346439,
+          "text": "2026-09-10T04:08:31.121752-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 346440,
+          "text": "2026-09-10T04:08:31.121755-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 346442,
+          "text": "2026-09-10T04:08:31.121762-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 346497,
+          "text": "2026-09-10T04:08:31.122082-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 346501,
+          "text": "2026-09-10T04:08:31.122292-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 346504,
+          "text": "2026-09-10T04:08:31.122303-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-10T04:39:16.610227-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 348124,
+          "text": "2026-09-10T04:39:16.610227-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 348125,
+          "text": "2026-09-10T04:39:16.610230-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 348127,
+          "text": "2026-09-10T04:39:16.610259-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 348183,
+          "text": "2026-09-10T04:39:16.610835-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 348187,
+          "text": "2026-09-10T04:39:16.610855-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 348190,
+          "text": "2026-09-10T04:39:16.610872-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-10T05:17:26.684285-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 349792,
+          "text": "2026-09-10T05:17:26.684285-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 349793,
+          "text": "2026-09-10T05:17:26.684289-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 349795,
+          "text": "2026-09-10T05:17:26.684296-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 349851,
+          "text": "2026-09-10T05:17:26.684776-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 349855,
+          "text": "2026-09-10T05:17:26.684791-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 349858,
+          "text": "2026-09-10T05:17:26.684802-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-10T05:55:38.284188-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 351453,
+          "text": "2026-09-10T05:55:38.284188-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 351454,
+          "text": "2026-09-10T05:55:38.284190-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 351456,
+          "text": "2026-09-10T05:55:38.284193-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 351511,
+          "text": "2026-09-10T05:55:38.284399-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 351515,
+          "text": "2026-09-10T05:55:38.284404-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 351518,
+          "text": "2026-09-10T05:55:38.284408-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-10T06:46:19.686516-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 353117,
+          "text": "2026-09-10T06:46:19.686516-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 353118,
+          "text": "2026-09-10T06:46:19.686528-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 353120,
+          "text": "2026-09-10T06:46:19.686534-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 353174,
+          "text": "2026-09-10T06:46:19.687062-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 353178,
+          "text": "2026-09-10T06:46:19.687080-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 353181,
+          "text": "2026-09-10T06:46:19.687106-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-10T06:54:22.237408-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 354783,
+          "text": "2026-09-10T06:54:22.237408-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 354784,
+          "text": "2026-09-10T06:54:22.237410-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 354786,
+          "text": "2026-09-10T06:54:22.237412-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 354841,
+          "text": "2026-09-10T06:54:22.237647-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 354845,
+          "text": "2026-09-10T06:54:22.237664-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 354848,
+          "text": "2026-09-10T06:54:22.237670-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-10T07:04:51.193329-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 356446,
+          "text": "2026-09-10T07:04:51.193329-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 356447,
+          "text": "2026-09-10T07:04:51.193333-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 356449,
+          "text": "2026-09-10T07:04:51.193341-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 356504,
+          "text": "2026-09-10T07:04:51.193792-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 356508,
+          "text": "2026-09-10T07:04:51.193806-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 356511,
+          "text": "2026-09-10T07:04:51.193816-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-10T07:12:54.351146-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 358111,
+          "text": "2026-09-10T07:12:54.351146-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 358112,
+          "text": "2026-09-10T07:12:54.351162-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 358114,
+          "text": "2026-09-10T07:12:54.351189-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 358169,
+          "text": "2026-09-10T07:12:54.351653-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 358173,
+          "text": "2026-09-10T07:12:54.351669-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 358176,
+          "text": "2026-09-10T07:12:54.351703-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-10T07:28:48.013045-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 359770,
+          "text": "2026-09-10T07:28:48.013045-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 359771,
+          "text": "2026-09-10T07:28:48.013046-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 359773,
+          "text": "2026-09-10T07:28:48.013061-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 359828,
+          "text": "2026-09-10T07:28:48.013268-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 359832,
+          "text": "2026-09-10T07:28:48.013273-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 359835,
+          "text": "2026-09-10T07:28:48.013277-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-10T07:32:30.205094-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 361430,
+          "text": "2026-09-10T07:32:30.205094-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 361431,
+          "text": "2026-09-10T07:32:30.205102-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 361433,
+          "text": "2026-09-10T07:32:30.205105-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 361488,
+          "text": "2026-09-10T07:32:30.205348-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 361492,
+          "text": "2026-09-10T07:32:30.205355-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 361495,
+          "text": "2026-09-10T07:32:30.205366-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-10T07:36:21.467221-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 363089,
+          "text": "2026-09-10T07:36:21.467221-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 363090,
+          "text": "2026-09-10T07:36:21.467224-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 363092,
+          "text": "2026-09-10T07:36:21.467239-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 363147,
+          "text": "2026-09-10T07:36:21.467626-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 363151,
+          "text": "2026-09-10T07:36:21.467648-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 363154,
+          "text": "2026-09-10T07:36:21.467657-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-10T07:41:32.419859-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 364750,
+          "text": "2026-09-10T07:41:32.419859-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 364751,
+          "text": "2026-09-10T07:41:32.419864-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 364753,
+          "text": "2026-09-10T07:41:32.419876-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 364808,
+          "text": "2026-09-10T07:41:32.420604-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 364812,
+          "text": "2026-09-10T07:41:32.420625-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 364815,
+          "text": "2026-09-10T07:41:32.420647-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-10T07:49:36.487679-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 366413,
+          "text": "2026-09-10T07:49:36.487679-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 366414,
+          "text": "2026-09-10T07:49:36.487682-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 366416,
+          "text": "2026-09-10T07:49:36.487688-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 366471,
+          "text": "2026-09-10T07:49:36.488119-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 366475,
+          "text": "2026-09-10T07:49:36.488132-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 366478,
+          "text": "2026-09-10T07:49:36.488142-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-10T07:58:53.536337-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 368074,
+          "text": "2026-09-10T07:58:53.536337-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 368075,
+          "text": "2026-09-10T07:58:53.536340-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 368077,
+          "text": "2026-09-10T07:58:53.536363-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 368132,
+          "text": "2026-09-10T07:58:53.536877-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 368136,
+          "text": "2026-09-10T07:58:53.536890-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 368139,
+          "text": "2026-09-10T07:58:53.536922-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-10T08:46:43.269210-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 371045,
+          "text": "2026-09-10T08:46:43.269210-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 371046,
+          "text": "2026-09-10T08:46:43.269211-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 371048,
+          "text": "2026-09-10T08:46:43.269214-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 371103,
+          "text": "2026-09-10T08:46:43.269425-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 371107,
+          "text": "2026-09-10T08:46:43.269435-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 371110,
+          "text": "2026-09-10T08:46:43.269439-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-10T09:07:58.597773-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 372707,
+          "text": "2026-09-10T09:07:58.597773-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 372708,
+          "text": "2026-09-10T09:07:58.597777-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 372710,
+          "text": "2026-09-10T09:07:58.597782-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 372765,
+          "text": "2026-09-10T09:07:58.598110-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 372769,
+          "text": "2026-09-10T09:07:58.598122-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 372772,
+          "text": "2026-09-10T09:07:58.598131-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-10T09:25:16.302007-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 374372,
+          "text": "2026-09-10T09:25:16.302007-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 374373,
+          "text": "2026-09-10T09:25:16.302012-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 374375,
+          "text": "2026-09-10T09:25:16.302020-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 374430,
+          "text": "2026-09-10T09:25:16.302473-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 374434,
+          "text": "2026-09-10T09:25:16.302488-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 374437,
+          "text": "2026-09-10T09:25:16.302500-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    },
+    {
+      "start": "2026-09-10T09:29:07.818964-05:00",
+      "vector_irqs": {
+        "0": 48,
+        "1": 49,
+        "2": 50,
+        "3": 51,
+        "4": 52,
+        "5": 53,
+        "6": 54,
+        "7": 55,
+        "8": 56,
+        "9": 57,
+        "10": 58,
+        "11": 59,
+        "12": 60,
+        "13": 61,
+        "14": 62,
+        "15": 63,
+        "16": 64,
+        "17": 65,
+        "18": 66,
+        "19": 67,
+        "20": 68,
+        "21": 69,
+        "22": 70,
+        "23": 71,
+        "24": 72,
+        "25": 73,
+        "26": 74,
+        "27": 75,
+        "28": 76,
+        "29": 77,
+        "30": 78,
+        "31": 79,
+        "32": 80,
+        "33": 81,
+        "34": 82,
+        "35": 83,
+        "36": 84,
+        "37": 85,
+        "38": 86,
+        "39": 87
+      },
+      "selected_lines": [
+        {
+          "path": "/var/log/kern.log",
+          "line": 376034,
+          "text": "2026-09-10T09:29:07.818964-05:00 localhost kernel: mpt3sas_cm0: MSI-X vectors supported: 128"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 376035,
+          "text": "2026-09-10T09:29:07.818967-05:00 localhost kernel: \t no of cores: 40, max_msix_vectors: -1"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 376037,
+          "text": "2026-09-10T09:29:07.818999-05:00 localhost kernel: mpt3sas_cm0: High IOPs queues : disabled"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 376092,
+          "text": "2026-09-10T09:29:07.819473-05:00 localhost kernel: mpt3sas_cm0: Current Controller Queue Depth(8596),Max Controller Queue Depth(8704)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 376096,
+          "text": "2026-09-10T09:29:07.819486-05:00 localhost kernel: mpt3sas_cm0: LSISAS3516: FWVersion(20.00.02.00), ChipRevision(0x01)"
+        },
+        {
+          "path": "/var/log/kern.log",
+          "line": 376099,
+          "text": "2026-09-10T09:29:07.819496-05:00 localhost kernel: mpt3sas 0000:3c:00.0: Max SCSIIO MPT commands: 8596 shared with nr_hw_queues = 40"
+        }
+      ]
+    }
+  ],
+  "note": "Driver initializations are grouped by MSI-X-supported log line; this is not an independent complete boot ledger. Log timestamps include UTC offset. No May kernel logs survive in this inventory. IRQ number changes do not establish CPU-affinity changes, which these startup logs do not record."
+}

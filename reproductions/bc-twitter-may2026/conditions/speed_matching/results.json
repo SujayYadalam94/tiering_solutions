@@ -1,0 +1,118 @@
+{
+  "targets": {
+    "source_cohort": "Original c220g5 May7 paired standard/cost-ablation executions; exact source verification in ../arms_version_provenance/may_memory_cleanup/speed_match_targets.json",
+    "arms": {
+      "mean_seconds": 115.80366666666667,
+      "min_seconds": 112.781,
+      "max_seconds": 118.355,
+      "n": 3
+    },
+    "model": {
+      "configuration": [
+        2,
+        10,
+        0.5
+      ],
+      "mean_seconds": 100.12666666666667,
+      "min_seconds": 99.587,
+      "max_seconds": 100.399,
+      "n": 3
+    },
+    "gap_seconds": 15.677,
+    "practical_target_bands_seconds": {
+      "arms": [
+        113,
+        119
+      ],
+      "model": [
+        99,
+        102
+      ],
+      "gap": [
+        13,
+        18
+      ]
+    },
+    "band_interpretation": "Engineering acceptance target for one reconstructed pair, not confidence intervals; original read/iteration splits are absent."
+  },
+  "pairs": [
+    {
+      "knob": "lowmem8",
+      "session": "20260909T192149Z-500236",
+      "arms_seconds": 123.6,
+      "model_seconds": 109.33,
+      "gap_seconds": 14.269999999999996,
+      "arms_error_percent": 6.73237174413015,
+      "model_error_percent": 9.191690525334572,
+      "joint_rms_error_percent": 8.056426131191404,
+      "inside_practical_target_bands": false,
+      "controls": [
+        {
+          "case": "may07_arms",
+          "before": [
+            8,
+            8,
+            8,
+            0,
+            0
+          ],
+          "after": [
+            8,
+            8,
+            8,
+            0,
+            0
+          ]
+        },
+        {
+          "case": "may07_model",
+          "before": [
+            8,
+            8,
+            8,
+            0,
+            0
+          ],
+          "after": [
+            8,
+            8,
+            8,
+            0,
+            0
+          ]
+        }
+      ],
+      "executions": [
+        {
+          "case": "may07_arms",
+          "repetition": 1,
+          "returncode": 0,
+          "elapsed_seconds": 123.6,
+          "read_seconds": 41.37079,
+          "average_iteration_seconds": 8.18184,
+          "trial_count": 10,
+          "interference": null,
+          "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T192149Z-500236/results/20260909T192149Z-500236/01-may07_arms",
+          "valid": true
+        },
+        {
+          "case": "may07_model",
+          "repetition": 1,
+          "returncode": 0,
+          "elapsed_seconds": 109.33,
+          "read_seconds": 39.69854,
+          "average_iteration_seconds": 6.92849,
+          "trial_count": 10,
+          "interference": null,
+          "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T192149Z-500236/results/20260909T192149Z-500236/01-may07_model",
+          "valid": true
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "One execution per policy/setting; no estimate of repeatability.",
+    "A speed match does not establish the historical setting.",
+    "Original loading/compute breakdowns are absent; total-time comparison is primary."
+  ]
+}

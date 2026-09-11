@@ -1,0 +1,32 @@
+{
+  "source_snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T173344Z-414920/results/20260909T173344Z-414920/01-may07_arms/before.json",
+  "kernel": "v6.18 source formula",
+  "base_page_bytes": 4096,
+  "migration_highest_gfp_zone": "Movable",
+  "node0_movable_managed_pages": 0,
+  "zone_interpretation": "With no populated Movable zone, DMA32 protection for Movable equals the Normal-class protection computed below; same-node lower-zone fallback remains possible.",
+  "rows": [
+    {
+      "ratio_vector": "256 256 32",
+      "dma32_ratio": 256,
+      "normal_managed_pages": 765246,
+      "dma32_protection_for_normal_pages": 2989,
+      "dma32_protection_for_normal_mib": 11.67578125
+    },
+    {
+      "ratio_vector": "32 32 16",
+      "dma32_ratio": 32,
+      "normal_managed_pages": 765246,
+      "dma32_protection_for_normal_pages": 23913,
+      "dma32_protection_for_normal_mib": 93.41015625
+    },
+    {
+      "ratio_vector": "4 4 4",
+      "dma32_ratio": 4,
+      "normal_managed_pages": 765246,
+      "dma32_protection_for_normal_pages": 191311,
+      "dma32_protection_for_normal_mib": 747.30859375
+    }
+  ],
+  "interpretation": "Calculated lower-zone allocation protection, not a measured reserved allocation or a historical readback. No settings changed."
+}

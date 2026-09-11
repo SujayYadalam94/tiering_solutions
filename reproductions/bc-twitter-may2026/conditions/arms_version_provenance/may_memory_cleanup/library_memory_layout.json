@@ -1,0 +1,62 @@
+{
+  "may07_arms": {
+    "command": [
+      "g++",
+      "-std=c++17",
+      "-DC220G5",
+      "-DUSE_MODEL=false",
+      "-I/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/source/may04",
+      "-c",
+      "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/arms_version_provenance/may_memory_cleanup/layout_probe.cpp",
+      "-o",
+      "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/arms_version_provenance/may_memory_cleanup/may07_arms_layout.o"
+    ],
+    "sizes": {
+      "layout_access_log": 208,
+      "layout_data_row": 320,
+      "layout_group_tracker": 96,
+      "layout_page_group": 64,
+      "layout_page_info": 800,
+      "layout_page_ptr": 16,
+      "layout_score_entry": 24,
+      "perf_rings": 40,
+      "ring_pages_including_metadata": 2049,
+      "ring_payload_bytes": 8388608,
+      "all_ring_backing_bytes": 335708160,
+      "all_ring_backing_mib": 320.15625
+    },
+    "object_sha256": "e10a6c3f52028aaeb2eea4ab40cee99ea467064cd9cc85153cf56bae9282541c"
+  },
+  "may07_model": {
+    "command": [
+      "g++",
+      "-std=c++17",
+      "-DC220G5",
+      "-DUSE_MODEL=true",
+      "-DMODEL_SCORE_HISTORY_SUMMARY=2",
+      "-DHISTORY_LENGTH=10",
+      "-DSWITCH_SCALER=0.5",
+      "-DMODEL_DISCOUNT_PERCENT=99",
+      "-I/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/source/may04",
+      "-c",
+      "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/arms_version_provenance/may_memory_cleanup/layout_probe.cpp",
+      "-o",
+      "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/arms_version_provenance/may_memory_cleanup/may07_model_layout.o"
+    ],
+    "sizes": {
+      "layout_access_log": 208,
+      "layout_data_row": 320,
+      "layout_group_tracker": 96,
+      "layout_page_group": 64,
+      "layout_page_info": 824,
+      "layout_page_ptr": 16,
+      "layout_score_entry": 24,
+      "perf_rings": 40,
+      "ring_pages_including_metadata": 1025,
+      "ring_payload_bytes": 4194304,
+      "all_ring_backing_bytes": 167936000,
+      "all_ring_backing_mib": 160.15625
+    },
+    "object_sha256": "69442d4c49b2db1d868784ec66d847c0083833307ea4ddfa0024578d0db78fcd"
+  }
+}

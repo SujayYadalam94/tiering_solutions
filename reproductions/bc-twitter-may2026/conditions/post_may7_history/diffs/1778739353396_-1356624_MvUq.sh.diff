@@ -1,0 +1,22 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-1356624/GF8N.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-1356624/MvUq.sh
+@@ -56,7 +56,7 @@
+     fi
+ }
+ 
+-SIZES=(4032)
++SIZES=(6035)
+ RUNS=3
+ 
+ ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}
+@@ -81,8 +81,8 @@
+             fi
+ 
+             # ARMS
+-            run_measurement_setup "${size}"
+-            "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
++            #run_measurement_setup "${size}"
++            #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+ 
+ 
+             # NOMAD

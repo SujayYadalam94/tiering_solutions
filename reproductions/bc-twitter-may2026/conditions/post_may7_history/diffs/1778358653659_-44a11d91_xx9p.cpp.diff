@@ -1,0 +1,12 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-44a11d91/xBlq.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-44a11d91/xx9p.cpp
+@@ -1722,7 +1722,8 @@
+     const double boundary_score_cost = dram_boundary_score_moving_average_count > 0
+                                            ? dram_boundary_score_moving_average * HF_SAMPLE_PERIOD * latency_diff
+                                            : 0.0;
+-    std::cout << "[ARMS] Boundary score cost: " << boundary_score_cost << std::endl;
++    std::cout << "[ARMS] Boundary score cost: " << boundary_score_cost << " max_hugepages: " << max_hugepages
++              << std::endl;
+ #endif
+ 
+     while (promote_idx < static_cast<size_t>(demote_idx))

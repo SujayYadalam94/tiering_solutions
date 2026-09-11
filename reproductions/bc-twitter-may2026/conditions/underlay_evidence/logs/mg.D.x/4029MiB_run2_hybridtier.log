@@ -1,0 +1,1609 @@
+!!!!!!!!!!!!!!!!!!!!Overridden __libc_start_main called!
+executable name mg.D.x
+Target executable name is mg.D.x
+found process mg.D.x
+Hybridtier. huge page
+[DEBUG] fast memory size = 4294967296
+[DEBUG] number of pages in fast memory = 2048
+[DEBUG] perf_pages = 2048
+ perf_pages 33, sample_batch_size 100000 
+pid: 154082
+==== debug info
+[INFO] Calculating CBF size = 10459
+Actual LFU table size 16384 
+block mask 7ff 
+Blocked CBF + sample batch. 
+vector start 0x7509a0000900, 
+[INFO] Creating CBF with capacity = 16384 (each 8B), sample size (W) = 131072000
+Actual LFU table size 2048 
+block mask ff 
+Blocked CBF + sample batch. 
+vector start 0x7509a0020940, 
+[INFO] Creating CBF with capacity = 2048 (each 8B), sample size (W) = 1100000
+Starting hot threshold = 1000
+Momentum threshold = 200
+Stable fast mem hit ratio slope threshold = -0.02
+False positive rate = 0.001
+perf stat period = 60s 
+allocation watermark = 53687091, demotion watermark = 214748364
+[INFO] Starting perf stat monitoring.
+/usr/bin/perf stat -I 60000 -e mem_load_l3_miss_retired.local_dram -e mem_load_l3_miss_retired.remote_dram -x , --output perf_stat_file &
+!!!!!!!!!!!!!!!!!!!!Overridden __libc_start_main called!
+executable name sh
+Target executable name is mg.D.x
+executable not target app. just run 
+[INFO] perf stat command return code: 0
+start perf recording.
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+Perf mmap size 135168, page size 4096 
+[INFO] Hybridtier perf sampling freq: 100000
+!!!!!!!!!!!!!!!!!!!!Overridden __libc_start_main called!
+executable name bash
+Target executable name is mg.D.x
+executable not target app. just run 
+!!!!!!!!!!!!!!!!!!!!Overridden __libc_start_main called!
+executable name dpkg
+Target executable name is mg.D.x
+executable not target app. just run 
+dpkg: error: version '!!!!!!!!!!!!!!!!!!!!Overridden __libc_start_main called!
+executable name uname
+Target executable name is mg.D.x
+executable not target app. just run 
+6.18.1-061801' has bad syntax: version string has embedded spaces
+!!!!!!!!!!!!!!!!!!!!Overridden __libc_start_main called!
+executable name dpkg
+Target executable name is mg.D.x
+executable not target app. just run 
+dpkg: error: version '!!!!!!!!!!!!!!!!!!!!Overridden __libc_start_main called!
+executable name uname
+Target executable name is mg.D.x
+executable not target app. just run 
+6.18.1-061801' has bad syntax: version string has embedded spaces
+/usr/bin/lsb_release: 2: eval: executable: not found
+WARNING: !!!!!!!!!!!!!!!!!!!!Overridden __libc_start_main called!
+executable name basename
+Target executable name is mg.D.x
+executable not target app. just run 
+perf not found for kernel !!!!!!!!!!!!!!!!!!!!Overridden __libc_start_main called!
+executable name uname
+Target executable name is mg.D.x
+executable not target app. just run 
+6.18.1-061801
+
+  You may need to install the following packages for this specific kernel:
+    linux-tools-!!!!!!!!!!!!!!!!!!!!Overridden __libc_start_main called!
+executable name uname
+Target executable name is mg.D.x
+executable not target app. just run 
+6.18.1-061801-generic
+
+  You may also want to install one of the following packages to keep up to date:
+    linux-tools-generic
+Perf mmap size 135168, page size 4096 
+collected one batch of samples. pages to migrate = 127 
+start promoting 64 pages
+pages migrated: 64, lfu # items: 2797, lfu sample size: 100000, samples: 100000, node 0 mem 1045536
+CBF freq dist: (1) 220, (1-100) 2615, (100-1000) 181, (1k-2k) 1, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+CBF freq dist: (1) 152, (1-100) 2301, (100-1000) 181, (1k-2k) 1, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 293 
+start promoting 160 pages
+pages migrated: 224, lfu # items: 3019, lfu sample size: 200000, samples: 200000, node 0 mem 1062508
+CBF freq dist: (1) 214, (1-100) 2524, (100-1000) 494, (1k-2k) 1, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+CBF freq dist: (1) 131, (1-100) 2131, (100-1000) 495, (1k-2k) 1, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 240 
+start promoting 188 pages
+pages migrated: 412, lfu # items: 3231, lfu sample size: 300000, samples: 300000, node 0 mem 1060964
+CBF freq dist: (1) 192, (1-100) 2461, (100-1000) 767, (1k-2k) 3, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+CBF freq dist: (1) 106, (1-100) 1981, (100-1000) 763, (1k-2k) 4, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 229 
+start promoting 200 pages
+pages migrated: 612, lfu # items: 3414, lfu sample size: 400000, samples: 400000, node 0 mem 1058028
+CBF freq dist: (1) 178, (1-100) 2398, (100-1000) 1005, (1k-2k) 10, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+CBF freq dist: (1) 86, (1-100) 1850, (100-1000) 988, (1k-2k) 12, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 238 
+start promoting 201 pages
+pages migrated: 813, lfu # items: 3630, lfu sample size: 500000, samples: 500000, node 0 mem 1057816
+CBF freq dist: (1) 169, (1-100) 2367, (100-1000) 1243, (1k-2k) 19, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+CBF freq dist: (1) 79, (1-100) 1716, (100-1000) 1214, (1k-2k) 24, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 350 
+start promoting 308 pages
+pages migrated: 1121, lfu # items: 5559, lfu sample size: 600000, samples: 600000, node 0 mem 1054100
+CBF freq dist: (1) 179, (1-100) 4094, (100-1000) 1443, (1k-2k) 21, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+CBF freq dist: (1) 34, (1-100) 2184, (100-1000) 1411, (1k-2k) 27, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 245 
+start promoting 189 pages
+pages migrated: 1310, lfu # items: 5799, lfu sample size: 700000, samples: 700000, node 0 mem 1055108
+CBF freq dist: (1) 185, (1-100) 4086, (100-1000) 1677, (1k-2k) 35, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+CBF freq dist: (1) 31, (1-100) 2010, (100-1000) 1631, (1k-2k) 43, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 185 
+start promoting 128 pages
+pages migrated: 1438, lfu # items: 5986, lfu sample size: 800000, samples: 800000, node 0 mem 481960
+CBF freq dist: (1) 167, (1-100) 4158, (100-1000) 1748, (1k-2k) 79, (2k-3k) 0, (3k-5k) 1, (5k-65534) 0, (65k) 0 
+CBF freq dist: (1) 26, (1-100) 1951, (100-1000) 1683, (1k-2k) 93, (2k-3k) 2, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 311 
+start promoting 47 pages
+pages migrated: 1485, lfu # items: 6105, lfu sample size: 900000, samples: 900000, node 0 mem 108564
+CBF freq dist: (1) 167, (1-100) 4194, (100-1000) 1782, (1k-2k) 116, (2k-3k) 12, (3k-5k) 1, (5k-65534) 0, (65k) 0 
+CBF freq dist: (1) 26, (1-100) 1912, (100-1000) 1696, (1k-2k) 130, (2k-3k) 15, (3k-5k) 1, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 395 
+start promoting 246 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 49 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 6488, lfu sample size: 1000000, samples: 1000000, node 0 mem 69884
+CBF freq dist: (1) 159, (1-100) 4213, (100-1000) 2138, (1k-2k) 120, (2k-3k) 16, (3k-5k) 1, (5k-65534) 0, (65k) 0 
+CBF freq dist: (1) 21, (1-100) 1676, (100-1000) 1978, (1k-2k) 135, (2k-3k) 20, (3k-5k) 1, (5k-65534) 0, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 418 
+start promoting 187 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 37 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 6690, lfu sample size: 1100000, samples: 1100000, node 0 mem 69884
+CBF freq dist: (1) 153, (1-100) 4172, (100-1000) 2356, (1k-2k) 145, (2k-3k) 16, (3k-5k) 1, (5k-65534) 0, (65k) 0 
+CBF freq dist: (1) 85, (1-100) 1999, (100-1000) 1798, (1k-2k) 20, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 220 
+start promoting 66 pages
+move page ret 63 
+move page error: 12
+got ENOMEM. trying against with 13 pages 
+second promote attempt return 0
+pages migrated: 1485, lfu # items: 6766, lfu sample size: 1200000, samples: 1200000, node 0 mem 72140
+CBF freq dist: (1) 148, (1-100) 4148, (100-1000) 2402, (1k-2k) 185, (2k-3k) 30, (3k-5k) 1, (5k-65534) 0, (65k) 0 
+CBF freq dist: (1) 85, (1-100) 1914, (100-1000) 1844, (1k-2k) 72, (2k-3k) 2, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 291 
+start promoting 123 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 24 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 6855, lfu sample size: 1300000, samples: 1300000, node 0 mem 70032
+CBF freq dist: (1) 145, (1-100) 4136, (100-1000) 2470, (1k-2k) 200, (2k-3k) 48, (3k-5k) 1, (5k-65534) 0, (65k) 0 
+CBF freq dist: (1) 84, (1-100) 1831, (100-1000) 1905, (1k-2k) 101, (2k-3k) 7, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 318 
+start promoting 158 pages
+move page ret 158 
+move page error: 12
+got ENOMEM. trying against with 31 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 6983, lfu sample size: 1400000, samples: 1400000, node 0 mem 69096
+CBF freq dist: (1) 139, (1-100) 4100, (100-1000) 2608, (1k-2k) 226, (2k-3k) 48, (3k-5k) 1, (5k-65534) 0, (65k) 0 
+CBF freq dist: (1) 78, (1-100) 1724, (100-1000) 2009, (1k-2k) 120, (2k-3k) 8, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+num_perf_record_lost count 100
+collected one batch of samples. pages to migrate = 544 
+start promoting 183 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 36 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 8045, lfu sample size: 1500000, samples: 1500000, node 0 mem 69096
+CBF freq dist: (1) 588, (1-100) 4987, (100-1000) 2758, (1k-2k) 251, (2k-3k) 48, (3k-5k) 1, (5k-65534) 0, (65k) 0 
+CBF freq dist: (1) 82, (1-100) 1690, (100-1000) 2127, (1k-2k) 141, (2k-3k) 8, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 327 
+start promoting 306 pages
+move page ret 306 
+move page error: 12
+got ENOMEM. trying against with 61 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 8178, lfu sample size: 1600000, samples: 1600000, node 0 mem 68156
+CBF freq dist: (1) 587, (1-100) 4887, (100-1000) 2991, (1k-2k) 251, (2k-3k) 48, (3k-5k) 1, (5k-65534) 0, (65k) 0 
+CBF freq dist: (1) 78, (1-100) 1548, (100-1000) 2278, (1k-2k) 145, (2k-3k) 8, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 1013 
+start promoting 536 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 107 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 8505, lfu sample size: 1700000, samples: 1700000, node 0 mem 68888
+CBF freq dist: (1) 592, (1-100) 5096, (100-1000) 3077, (1k-2k) 278, (2k-3k) 53, (3k-5k) 1, (5k-65534) 0, (65k) 0 
+CBF freq dist: (1) 182, (1-100) 2188, (100-1000) 1733, (1k-2k) 15, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 232 
+start promoting 215 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 43 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 8521, lfu sample size: 1800000, samples: 1800000, node 0 mem 68888
+CBF freq dist: (1) 592, (1-100) 4982, (100-1000) 3177, (1k-2k) 308, (2k-3k) 53, (3k-5k) 1, (5k-65534) 0, (65k) 0 
+CBF freq dist: (1) 180, (1-100) 2071, (100-1000) 1823, (1k-2k) 44, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 243 
+start promoting 217 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 43 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 8553, lfu sample size: 1900000, samples: 1900000, node 0 mem 68916
+CBF freq dist: (1) 585, (1-100) 4906, (100-1000) 3255, (1k-2k) 338, (2k-3k) 53, (3k-5k) 1, (5k-65534) 0, (65k) 0 
+CBF freq dist: (1) 178, (1-100) 1976, (100-1000) 1891, (1k-2k) 75, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 467 
+start promoting 184 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 36 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 8580, lfu sample size: 2000000, samples: 2000000, node 0 mem 68916
+CBF freq dist: (1) 577, (1-100) 4836, (100-1000) 3336, (1k-2k) 338, (2k-3k) 67, (3k-5k) 3, (5k-65534) 0, (65k) 0 
+CBF freq dist: (1) 176, (1-100) 1905, (100-1000) 1920, (1k-2k) 119, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 301 
+start promoting 70 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 14 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 8580, lfu sample size: 2100000, samples: 2100000, node 0 mem 68916
+CBF freq dist: (1) 577, (1-100) 4794, (100-1000) 3315, (1k-2k) 387, (2k-3k) 80, (3k-5k) 3, (5k-65534) 1, (65k) 0 
+CBF freq dist: (1) 176, (1-100) 1844, (100-1000) 1921, (1k-2k) 179, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 197 
+start promoting 54 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 10 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 8598, lfu sample size: 2200000, samples: 2200000, node 0 mem 68916
+CBF freq dist: (1) 578, (1-100) 4777, (100-1000) 3267, (1k-2k) 465, (2k-3k) 85, (3k-5k) 3, (5k-65534) 1, (65k) 0 
+CBF freq dist: (1) 176, (1-100) 1807, (100-1000) 1875, (1k-2k) 262, (2k-3k) 2, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 196 
+start promoting 87 pages
+move page ret 87 
+move page error: 12
+got ENOMEM. trying against with 17 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 8642, lfu sample size: 2300000, samples: 2300000, node 0 mem 69208
+CBF freq dist: (1) 577, (1-100) 4761, (100-1000) 3273, (1k-2k) 504, (2k-3k) 100, (3k-5k) 3, (5k-65534) 1, (65k) 0 
+CBF freq dist: (1) 137, (1-100) 2135, (100-1000) 1601, (1k-2k) 42, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 211 
+start promoting 118 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 23 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 8668, lfu sample size: 2400000, samples: 2400000, node 0 mem 69208
+CBF freq dist: (1) 578, (1-100) 4749, (100-1000) 3274, (1k-2k) 512, (2k-3k) 127, (3k-5k) 5, (5k-65534) 1, (65k) 0 
+CBF freq dist: (1) 135, (1-100) 2096, (100-1000) 1597, (1k-2k) 90, (2k-3k) 3, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 217 
+start promoting 168 pages
+move page ret 166 
+move page error: 12
+got ENOMEM. trying against with 33 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 8704, lfu sample size: 2500000, samples: 2500000, node 0 mem 69608
+CBF freq dist: (1) 577, (1-100) 4698, (100-1000) 3303, (1k-2k) 568, (2k-3k) 129, (3k-5k) 5, (5k-65534) 1, (65k) 0 
+CBF freq dist: (1) 133, (1-100) 1985, (100-1000) 1684, (1k-2k) 115, (2k-3k) 4, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 297 
+start promoting 204 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 40 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 8757, lfu sample size: 2600000, samples: 2600000, node 0 mem 69648
+CBF freq dist: (1) 574, (1-100) 4664, (100-1000) 3336, (1k-2k) 618, (2k-3k) 133, (3k-5k) 5, (5k-65534) 1, (65k) 0 
+CBF freq dist: (1) 126, (1-100) 1899, (100-1000) 1744, (1k-2k) 150, (2k-3k) 5, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 390 
+start promoting 340 pages
+move page ret 340 
+move page error: 12
+got ENOMEM. trying against with 68 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 8778, lfu sample size: 2700000, samples: 2700000, node 0 mem 68556
+CBF freq dist: (1) 571, (1-100) 4553, (100-1000) 3414, (1k-2k) 672, (2k-3k) 133, (3k-5k) 5, (5k-65534) 1, (65k) 0 
+CBF freq dist: (1) 124, (1-100) 1759, (100-1000) 1881, (1k-2k) 157, (2k-3k) 5, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 1174 
+start promoting 993 pages
+move page ret 987 
+move page error: 12
+got ENOMEM. trying against with 198 pages 
+second promote attempt return 0
+pages migrated: 1485, lfu # items: 9276, lfu sample size: 2800000, samples: 2800000, node 0 mem 70708
+CBF freq dist: (1) 628, (1-100) 4968, (100-1000) 3494, (1k-2k) 670, (2k-3k) 137, (3k-5k) 6, (5k-65534) 1, (65k) 0 
+CBF freq dist: (1) 193, (1-100) 2031, (100-1000) 1757, (1k-2k) 6, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 365 
+start promoting 125 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 25 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 9292, lfu sample size: 2900000, samples: 2900000, node 0 mem 69912
+CBF freq dist: (1) 627, (1-100) 4924, (100-1000) 3534, (1k-2k) 687, (2k-3k) 125, (3k-5k) 20, (5k-65534) 2, (65k) 0 
+CBF freq dist: (1) 192, (1-100) 1913, (100-1000) 1868, (1k-2k) 16, (2k-3k) 0, (3k-5k) 1, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 273 
+start promoting 103 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 20 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 9334, lfu sample size: 3000000, samples: 3000000, node 0 mem 69912
+CBF freq dist: (1) 628, (1-100) 4933, (100-1000) 3544, (1k-2k) 685, (2k-3k) 133, (3k-5k) 37, (5k-65534) 2, (65k) 0 
+CBF freq dist: (1) 190, (1-100) 1844, (100-1000) 1903, (1k-2k) 58, (2k-3k) 0, (3k-5k) 1, (5k-65534) 0, (65k) 0 
+num_perf_record_lost count 200
+collected one batch of samples. pages to migrate = 635 
+start promoting 192 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 38 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 9442, lfu sample size: 3100000, samples: 3100000, node 0 mem 69912
+CBF freq dist: (1) 624, (1-100) 4962, (100-1000) 3586, (1k-2k) 692, (2k-3k) 155, (3k-5k) 45, (5k-65534) 2, (65k) 0 
+CBF freq dist: (1) 184, (1-100) 1737, (100-1000) 1993, (1k-2k) 84, (2k-3k) 0, (3k-5k) 1, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 621 
+start promoting 397 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 79 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 9524, lfu sample size: 3200000, samples: 3200000, node 0 mem 69912
+CBF freq dist: (1) 620, (1-100) 4983, (100-1000) 3613, (1k-2k) 720, (2k-3k) 160, (3k-5k) 46, (5k-65534) 2, (65k) 0 
+CBF freq dist: (1) 183, (1-100) 1566, (100-1000) 2148, (1k-2k) 108, (2k-3k) 1, (3k-5k) 1, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 425 
+start promoting 197 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 39 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 9547, lfu sample size: 3300000, samples: 3300000, node 0 mem 69912
+CBF freq dist: (1) 620, (1-100) 4968, (100-1000) 3594, (1k-2k) 766, (2k-3k) 156, (3k-5k) 61, (5k-65534) 2, (65k) 0 
+CBF freq dist: (1) 183, (1-100) 1495, (100-1000) 2181, (1k-2k) 145, (2k-3k) 3, (3k-5k) 0, (5k-65534) 1, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 287 
+start promoting 102 pages
+move page ret 102 
+move page error: 12
+got ENOMEM. trying against with 20 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 9547, lfu sample size: 3400000, samples: 3400000, node 0 mem 69912
+CBF freq dist: (1) 620, (1-100) 4962, (100-1000) 3535, (1k-2k) 817, (2k-3k) 164, (3k-5k) 66, (5k-65534) 3, (65k) 0 
+CBF freq dist: (1) -7, (1-100) 1754, (100-1000) 1841, (1k-2k) 47, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 292 
+start promoting 132 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 26 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 9556, lfu sample size: 3500000, samples: 3500000, node 0 mem 69912
+CBF freq dist: (1) 619, (1-100) 4944, (100-1000) 3516, (1k-2k) 845, (2k-3k) 181, (3k-5k) 67, (5k-65534) 3, (65k) 0 
+CBF freq dist: (1) -10, (1-100) 1661, (100-1000) 1914, (1k-2k) 68, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 244 
+start promoting 160 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 32 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 9579, lfu sample size: 3600000, samples: 3600000, node 0 mem 69912
+CBF freq dist: (1) 586, (1-100) 4906, (100-1000) 3532, (1k-2k) 884, (2k-3k) 184, (3k-5k) 70, (5k-65534) 3, (65k) 0 
+CBF freq dist: (1) -1, (1-100) 1570, (100-1000) 1991, (1k-2k) 99, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 269 
+start promoting 178 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 35 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 9581, lfu sample size: 3700000, samples: 3700000, node 0 mem 69912
+CBF freq dist: (1) 586, (1-100) 4861, (100-1000) 3529, (1k-2k) 909, (2k-3k) 204, (3k-5k) 75, (5k-65534) 3, (65k) 0 
+CBF freq dist: (1) -1, (1-100) 1491, (100-1000) 2029, (1k-2k) 138, (2k-3k) 4, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 394 
+start promoting 198 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 39 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 9589, lfu sample size: 3800000, samples: 3800000, node 0 mem 69912
+CBF freq dist: (1) 579, (1-100) 4797, (100-1000) 3547, (1k-2k) 951, (2k-3k) 216, (3k-5k) 75, (5k-65534) 3, (65k) 0 
+CBF freq dist: (1) -13, (1-100) 1364, (100-1000) 2160, (1k-2k) 151, (2k-3k) 4, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 583 
+start promoting 339 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 67 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 9606, lfu sample size: 3900000, samples: 3900000, node 0 mem 69912
+CBF freq dist: (1) 574, (1-100) 4741, (100-1000) 3579, (1k-2k) 988, (2k-3k) 220, (3k-5k) 75, (5k-65534) 3, (65k) 0 
+CBF freq dist: (1) -50, (1-100) 1907, (100-1000) 1797, (1k-2k) 5, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 468 
+start promoting 192 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 38 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 9607, lfu sample size: 4000000, samples: 4000000, node 0 mem 69912
+CBF freq dist: (1) 574, (1-100) 4628, (100-1000) 3642, (1k-2k) 1032, (2k-3k) 227, (3k-5k) 75, (5k-65534) 3, (65k) 0 
+CBF freq dist: (1) -59, (1-100) 1790, (100-1000) 1895, (1k-2k) 27, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 270 
+start promoting 185 pages
+move page ret 185 
+move page error: 12
+got ENOMEM. trying against with 37 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 9607, lfu sample size: 4100000, samples: 4100000, node 0 mem 70088
+CBF freq dist: (1) 574, (1-100) 4539, (100-1000) 3683, (1k-2k) 1078, (2k-3k) 228, (3k-5k) 76, (5k-65534) 3, (65k) 0 
+CBF freq dist: (1) -58, (1-100) 1722, (100-1000) 1917, (1k-2k) 75, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 593 
+start promoting 234 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 46 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 9737, lfu sample size: 4200000, samples: 4200000, node 0 mem 70088
+CBF freq dist: (1) 414, (1-100) 4566, (100-1000) 3736, (1k-2k) 1119, (2k-3k) 236, (3k-5k) 77, (5k-65534) 3, (65k) 0 
+CBF freq dist: (1) -31, (1-100) 1695, (100-1000) 1969, (1k-2k) 116, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 434 
+start promoting 344 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 68 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 9737, lfu sample size: 4300000, samples: 4300000, node 0 mem 70088
+CBF freq dist: (1) 414, (1-100) 4454, (100-1000) 3786, (1k-2k) 1175, (2k-3k) 242, (3k-5k) 77, (5k-65534) 3, (65k) 0 
+CBF freq dist: (1) -34, (1-100) 1561, (100-1000) 2092, (1k-2k) 133, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 374 
+start promoting 308 pages
+move page ret 308 
+move page error: 12
+got ENOMEM. trying against with 61 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 9740, lfu sample size: 4400000, samples: 4400000, node 0 mem 70132
+CBF freq dist: (1) 414, (1-100) 4251, (100-1000) 3990, (1k-2k) 1177, (2k-3k) 242, (3k-5k) 77, (5k-65534) 3, (65k) 0 
+CBF freq dist: (1) -41, (1-100) 1422, (100-1000) 2228, (1k-2k) 140, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 612 
+start promoting 244 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 48 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 9967, lfu sample size: 4500000, samples: 4500000, node 0 mem 70132
+CBF freq dist: (1) 414, (1-100) 4402, (100-1000) 4052, (1k-2k) 1164, (2k-3k) 264, (3k-5k) 75, (5k-65534) 10, (65k) 0 
+CBF freq dist: (1) 189, (1-100) 1910, (100-1000) 1938, (1k-2k) 14, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 374 
+start promoting 241 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 48 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 9989, lfu sample size: 4600000, samples: 4600000, node 0 mem 70132
+CBF freq dist: (1) 415, (1-100) 4326, (100-1000) 4075, (1k-2k) 1228, (2k-3k) 275, (3k-5k) 74, (5k-65534) 11, (65k) 0 
+CBF freq dist: (1) 187, (1-100) 1793, (100-1000) 2051, (1k-2k) 20, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+num_perf_record_lost count 300
+collected one batch of samples. pages to migrate = 389 
+start promoting 323 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 64 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 10025, lfu sample size: 4700000, samples: 4700000, node 0 mem 70132
+CBF freq dist: (1) 413, (1-100) 4245, (100-1000) 4142, (1k-2k) 1278, (2k-3k) 275, (3k-5k) 74, (5k-65534) 11, (65k) 0 
+CBF freq dist: (1) 186, (1-100) 1578, (100-1000) 2273, (1k-2k) 21, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 1473 
+start promoting 1081 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 216 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 10322, lfu sample size: 4800000, samples: 4800000, node 0 mem 70132
+CBF freq dist: (1) 326, (1-100) 4452, (100-1000) 4177, (1k-2k) 1322, (2k-3k) 285, (3k-5k) 75, (5k-65534) 11, (65k) 0 
+CBF freq dist: (1) 160, (1-100) 1503, (100-1000) 2404, (1k-2k) 39, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 178 
+start promoting 161 pages
+move page ret 161 
+move page error: 12
+got ENOMEM. trying against with 32 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 10345, lfu sample size: 4900000, samples: 4900000, node 0 mem 70132
+CBF freq dist: (1) 326, (1-100) 4432, (100-1000) 4176, (1k-2k) 1335, (2k-3k) 307, (3k-5k) 84, (5k-65534) 11, (65k) 0 
+CBF freq dist: (1) 160, (1-100) 1486, (100-1000) 2359, (1k-2k) 99, (2k-3k) 7, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Number of hot pages promoted in 50 batches = 1485 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 485 
+start promoting 245 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 49 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 10388, lfu sample size: 5000000, samples: 5000000, node 0 mem 70132
+CBF freq dist: (1) 308, (1-100) 4328, (100-1000) 4300, (1k-2k) 1341, (2k-3k) 323, (3k-5k) 85, (5k-65534) 11, (65k) 0 
+CBF freq dist: (1) 265, (1-100) 1863, (100-1000) 1911, (1k-2k) 27, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 337 
+start promoting 179 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 35 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 10484, lfu sample size: 5100000, samples: 5100000, node 0 mem 70132
+CBF freq dist: (1) 308, (1-100) 4291, (100-1000) 4399, (1k-2k) 1375, (2k-3k) 323, (3k-5k) 85, (5k-65534) 11, (65k) 0 
+CBF freq dist: (1) 259, (1-100) 1703, (100-1000) 2058, (1k-2k) 52, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 349 
+start promoting 172 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 34 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 10553, lfu sample size: 5200000, samples: 5200000, node 0 mem 70132
+CBF freq dist: (1) 331, (1-100) 4322, (100-1000) 4407, (1k-2k) 1379, (2k-3k) 330, (3k-5k) 104, (5k-65534) 11, (65k) 0 
+CBF freq dist: (1) 255, (1-100) 1632, (100-1000) 2081, (1k-2k) 106, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 254 
+start promoting 149 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 29 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 10568, lfu sample size: 5300000, samples: 5300000, node 0 mem 70132
+CBF freq dist: (1) 331, (1-100) 4295, (100-1000) 4401, (1k-2k) 1397, (2k-3k) 355, (3k-5k) 109, (5k-65534) 11, (65k) 0 
+CBF freq dist: (1) 253, (1-100) 1593, (100-1000) 2051, (1k-2k) 162, (2k-3k) 13, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 655 
+start promoting 247 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 49 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 10648, lfu sample size: 5400000, samples: 5400000, node 0 mem 70132
+CBF freq dist: (1) 333, (1-100) 4322, (100-1000) 4427, (1k-2k) 1414, (2k-3k) 355, (3k-5k) 117, (5k-65534) 13, (65k) 0 
+CBF freq dist: (1) 253, (1-100) 1483, (100-1000) 2143, (1k-2k) 185, (2k-3k) 18, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 626 
+start promoting 384 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 76 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 10705, lfu sample size: 5500000, samples: 5500000, node 0 mem 70132
+CBF freq dist: (1) 332, (1-100) 4308, (100-1000) 4469, (1k-2k) 1416, (2k-3k) 373, (3k-5k) 126, (5k-65534) 13, (65k) 0 
+CBF freq dist: (1) 251, (1-100) 1346, (100-1000) 2257, (1k-2k) 200, (2k-3k) 28, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 539 
+start promoting 443 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 88 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 10777, lfu sample size: 5600000, samples: 5600000, node 0 mem 70132
+CBF freq dist: (1) 333, (1-100) 4296, (100-1000) 4501, (1k-2k) 1465, (2k-3k) 375, (3k-5k) 127, (5k-65534) 13, (65k) 0 
+CBF freq dist: (1) 25, (1-100) 1706, (100-1000) 1853, (1k-2k) 35, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 420 
+start promoting 286 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 57 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 10857, lfu sample size: 5700000, samples: 5700000, node 0 mem 70132
+CBF freq dist: (1) 332, (1-100) 4265, (100-1000) 4586, (1k-2k) 1477, (2k-3k) 381, (3k-5k) 126, (5k-65534) 22, (65k) 0 
+CBF freq dist: (1) 19, (1-100) 1539, (100-1000) 2012, (1k-2k) 50, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 361 
+start promoting 140 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 28 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 10940, lfu sample size: 5800000, samples: 5800000, node 0 mem 69676
+CBF freq dist: (1) 365, (1-100) 4275, (100-1000) 4622, (1k-2k) 1506, (2k-3k) 366, (3k-5k) 145, (5k-65534) 26, (65k) 0 
+CBF freq dist: (1) 17, (1-100) 1465, (100-1000) 2065, (1k-2k) 85, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 350 
+start promoting 184 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 36 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 10969, lfu sample size: 5900000, samples: 5900000, node 0 mem 69676
+CBF freq dist: (1) 366, (1-100) 4236, (100-1000) 4663, (1k-2k) 1506, (2k-3k) 386, (3k-5k) 152, (5k-65534) 26, (65k) 0 
+CBF freq dist: (1) 13, (1-100) 1370, (100-1000) 2137, (1k-2k) 110, (2k-3k) 2, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 594 
+start promoting 333 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 66 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 11022, lfu sample size: 6000000, samples: 6000000, node 0 mem 69676
+CBF freq dist: (1) 323, (1-100) 4202, (100-1000) 4700, (1k-2k) 1548, (2k-3k) 392, (3k-5k) 154, (5k-65534) 26, (65k) 0 
+CBF freq dist: (1) 13, (1-100) 1309, (100-1000) 2223, (1k-2k) 123, (2k-3k) 2, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 382 
+start promoting 314 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 62 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 11051, lfu sample size: 6100000, samples: 6100000, node 0 mem 69740
+CBF freq dist: (1) 323, (1-100) 4159, (100-1000) 4703, (1k-2k) 1616, (2k-3k) 393, (3k-5k) 154, (5k-65534) 26, (65k) 0 
+CBF freq dist: (1) 24, (1-100) 1879, (100-1000) 1768, (1k-2k) 3, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 794 
+start promoting 678 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 135 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 11522, lfu sample size: 6200000, samples: 6200000, node 0 mem 69740
+CBF freq dist: (1) 358, (1-100) 4543, (100-1000) 4760, (1k-2k) 1644, (2k-3k) 393, (3k-5k) 155, (5k-65534) 27, (65k) 0 
+CBF freq dist: (1) 5, (1-100) 1738, (100-1000) 1949, (1k-2k) 9, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 653 
+start promoting 192 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 38 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 11580, lfu sample size: 6300000, samples: 6300000, node 0 mem 69740
+CBF freq dist: (1) 335, (1-100) 4537, (100-1000) 4801, (1k-2k) 1639, (2k-3k) 413, (3k-5k) 163, (5k-65534) 27, (65k) 0 
+CBF freq dist: (1) 4, (1-100) 1650, (100-1000) 2037, (1k-2k) 41, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 196 
+start promoting 180 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 36 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 11600, lfu sample size: 6400000, samples: 6400000, node 0 mem 69740
+CBF freq dist: (1) 332, (1-100) 4498, (100-1000) 4806, (1k-2k) 1689, (2k-3k) 416, (3k-5k) 164, (5k-65534) 27, (65k) 0 
+CBF freq dist: (1) 3, (1-100) 1589, (100-1000) 2047, (1k-2k) 90, (2k-3k) 3, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+num_perf_record_lost count 400
+collected one batch of samples. pages to migrate = 326 
+start promoting 245 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 49 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 11618, lfu sample size: 6500000, samples: 6500000, node 0 mem 69992
+CBF freq dist: (1) 322, (1-100) 4451, (100-1000) 4806, (1k-2k) 1750, (2k-3k) 419, (3k-5k) 165, (5k-65534) 27, (65k) 0 
+CBF freq dist: (1) 3, (1-100) 1509, (100-1000) 2083, (1k-2k) 134, (2k-3k) 3, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 430 
+start promoting 358 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 71 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 11627, lfu sample size: 6600000, samples: 6600000, node 0 mem 69992
+CBF freq dist: (1) 300, (1-100) 4332, (100-1000) 4890, (1k-2k) 1785, (2k-3k) 427, (3k-5k) 166, (5k-65534) 27, (65k) 0 
+CBF freq dist: (1) 3, (1-100) 1388, (100-1000) 2175, (1k-2k) 163, (2k-3k) 3, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 450 
+start promoting 439 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 87 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 11627, lfu sample size: 6700000, samples: 6700000, node 0 mem 70000
+CBF freq dist: (1) 275, (1-100) 4222, (100-1000) 4977, (1k-2k) 1808, (2k-3k) 427, (3k-5k) 166, (5k-65534) 27, (65k) 0 
+CBF freq dist: (1) 32, (1-100) 1719, (100-1000) 2005, (1k-2k) 3, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 1347 
+start promoting 969 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 193 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 11786, lfu sample size: 6800000, samples: 6800000, node 0 mem 70000
+CBF freq dist: (1) 273, (1-100) 4308, (100-1000) 5021, (1k-2k) 1831, (2k-3k) 428, (3k-5k) 171, (5k-65534) 27, (65k) 0 
+CBF freq dist: (1) 18, (1-100) 1581, (100-1000) 2150, (1k-2k) 5, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 227 
+start promoting 33 pages
+move page ret 33 
+move page error: 12
+got ENOMEM. trying against with 6 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 11808, lfu sample size: 6900000, samples: 6900000, node 0 mem 70000
+CBF freq dist: (1) 272, (1-100) 4282, (100-1000) 5050, (1k-2k) 1833, (2k-3k) 432, (3k-5k) 180, (5k-65534) 31, (65k) 0 
+CBF freq dist: (1) 18, (1-100) 1532, (100-1000) 2119, (1k-2k) 85, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 249 
+start promoting 76 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 15 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 11847, lfu sample size: 7000000, samples: 7000000, node 0 mem 70000
+CBF freq dist: (1) 271, (1-100) 4270, (100-1000) 5075, (1k-2k) 1823, (2k-3k) 463, (3k-5k) 185, (5k-65534) 31, (65k) 0 
+CBF freq dist: (1) 18, (1-100) 1462, (100-1000) 2139, (1k-2k) 138, (2k-3k) 2, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 241 
+start promoting 159 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 31 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 11879, lfu sample size: 7100000, samples: 7100000, node 0 mem 70000
+CBF freq dist: (1) 272, (1-100) 4227, (100-1000) 5130, (1k-2k) 1832, (2k-3k) 464, (3k-5k) 193, (5k-65534) 33, (65k) 0 
+CBF freq dist: (1) 16, (1-100) 1376, (100-1000) 2192, (1k-2k) 169, (2k-3k) 6, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 262 
+start promoting 157 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 31 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 11903, lfu sample size: 7200000, samples: 7200000, node 0 mem 70000
+CBF freq dist: (1) 270, (1-100) 4197, (100-1000) 5161, (1k-2k) 1829, (2k-3k) 473, (3k-5k) 206, (5k-65534) 37, (65k) 0 
+CBF freq dist: (1) 172, (1-100) 1866, (100-1000) 1842, (1k-2k) 25, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 217 
+start promoting 171 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 34 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 11920, lfu sample size: 7300000, samples: 7300000, node 0 mem 70000
+CBF freq dist: (1) 270, (1-100) 4182, (100-1000) 5167, (1k-2k) 1819, (2k-3k) 489, (3k-5k) 226, (5k-65534) 37, (65k) 0 
+CBF freq dist: (1) 170, (1-100) 1772, (100-1000) 1904, (1k-2k) 58, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 225 
+start promoting 208 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 41 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 11953, lfu sample size: 7400000, samples: 7400000, node 0 mem 70000
+CBF freq dist: (1) 268, (1-100) 4143, (100-1000) 5195, (1k-2k) 1843, (2k-3k) 505, (3k-5k) 230, (5k-65534) 37, (65k) 0 
+CBF freq dist: (1) 170, (1-100) 1634, (100-1000) 2018, (1k-2k) 84, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 234 
+start promoting 212 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 42 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 12004, lfu sample size: 7500000, samples: 7500000, node 0 mem 70000
+CBF freq dist: (1) 262, (1-100) 4107, (100-1000) 5246, (1k-2k) 1864, (2k-3k) 505, (3k-5k) 245, (5k-65534) 37, (65k) 0 
+CBF freq dist: (1) 165, (1-100) 1500, (100-1000) 2135, (1k-2k) 106, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 292 
+start promoting 283 pages
+move page ret 283 
+move page error: 12
+got ENOMEM. trying against with 56 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 12041, lfu sample size: 7600000, samples: 7600000, node 0 mem 70140
+CBF freq dist: (1) 258, (1-100) 4062, (100-1000) 5281, (1k-2k) 1896, (2k-3k) 520, (3k-5k) 245, (5k-65534) 37, (65k) 0 
+CBF freq dist: (1) 157, (1-100) 1342, (100-1000) 2281, (1k-2k) 120, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 529 
+start promoting 454 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 90 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 12274, lfu sample size: 7700000, samples: 7700000, node 0 mem 70140
+CBF freq dist: (1) 259, (1-100) 4209, (100-1000) 5322, (1k-2k) 1924, (2k-3k) 537, (3k-5k) 245, (5k-65534) 37, (65k) 0 
+CBF freq dist: (1) 149, (1-100) 1215, (100-1000) 2423, (1k-2k) 128, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 391 
+start promoting 286 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 57 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 12319, lfu sample size: 7800000, samples: 7800000, node 0 mem 70140
+CBF freq dist: (1) 258, (1-100) 4167, (100-1000) 5367, (1k-2k) 1949, (2k-3k) 553, (3k-5k) 246, (5k-65534) 37, (65k) 0 
+CBF freq dist: (1) 52, (1-100) 1534, (100-1000) 2076, (1k-2k) 15, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 375 
+start promoting 170 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 34 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 12381, lfu sample size: 7900000, samples: 7900000, node 0 mem 70140
+CBF freq dist: (1) 257, (1-100) 4206, (100-1000) 5356, (1k-2k) 1965, (2k-3k) 549, (3k-5k) 262, (5k-65534) 43, (65k) 0 
+CBF freq dist: (1) 52, (1-100) 1445, (100-1000) 2133, (1k-2k) 60, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 683 
+start promoting 389 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 77 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 12468, lfu sample size: 8000000, samples: 8000000, node 0 mem 70140
+CBF freq dist: (1) 254, (1-100) 4249, (100-1000) 5375, (1k-2k) 1969, (2k-3k) 549, (3k-5k) 273, (5k-65534) 53, (65k) 0 
+CBF freq dist: (1) 47, (1-100) 1362, (100-1000) 2197, (1k-2k) 80, (2k-3k) 4, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 668 
+start promoting 585 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 117 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 12531, lfu sample size: 8100000, samples: 8100000, node 0 mem 70140
+CBF freq dist: (1) 253, (1-100) 4231, (100-1000) 5405, (1k-2k) 1993, (2k-3k) 572, (3k-5k) 277, (5k-65534) 53, (65k) 0 
+CBF freq dist: (1) 44, (1-100) 1222, (100-1000) 2330, (1k-2k) 93, (2k-3k) 6, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 348 
+start promoting 193 pages
+move page ret 193 
+move page error: 12
+got ENOMEM. trying against with 38 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 12598, lfu sample size: 8200000, samples: 8200000, node 0 mem 70144
+CBF freq dist: (1) 253, (1-100) 4220, (100-1000) 5471, (1k-2k) 1989, (2k-3k) 585, (3k-5k) 274, (5k-65534) 59, (65k) 0 
+CBF freq dist: (1) 42, (1-100) 1111, (100-1000) 2403, (1k-2k) 137, (2k-3k) 6, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 343 
+start promoting 176 pages
+move page ret 176 
+move page error: 12
+got ENOMEM. trying against with 35 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 12647, lfu sample size: 8300000, samples: 8300000, node 0 mem 70144
+CBF freq dist: (1) 255, (1-100) 4197, (100-1000) 5505, (1k-2k) 2021, (2k-3k) 580, (3k-5k) 279, (5k-65534) 65, (65k) 0 
+CBF freq dist: (1) 113, (1-100) 1737, (100-1000) 1871, (1k-2k) 14, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+num_perf_record_lost count 500
+collected one batch of samples. pages to migrate = 286 
+start promoting 212 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 42 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 12685, lfu sample size: 8400000, samples: 8400000, node 0 mem 70144
+CBF freq dist: (1) 254, (1-100) 4167, (100-1000) 5541, (1k-2k) 2024, (2k-3k) 594, (3k-5k) 287, (5k-65534) 72, (65k) 0 
+CBF freq dist: (1) 102, (1-100) 1642, (100-1000) 1946, (1k-2k) 38, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 532 
+start promoting 489 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 97 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 12690, lfu sample size: 8500000, samples: 8500000, node 0 mem 70144
+CBF freq dist: (1) 253, (1-100) 4119, (100-1000) 5571, (1k-2k) 2034, (2k-3k) 607, (3k-5k) 287, (5k-65534) 72, (65k) 0 
+CBF freq dist: (1) 95, (1-100) 1459, (100-1000) 2137, (1k-2k) 40, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 938 
+start promoting 571 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 114 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 12939, lfu sample size: 8600000, samples: 8600000, node 0 mem 70144
+CBF freq dist: (1) 249, (1-100) 4330, (100-1000) 5565, (1k-2k) 2056, (2k-3k) 622, (3k-5k) 293, (5k-65534) 73, (65k) 0 
+CBF freq dist: (1) 83, (1-100) 1337, (100-1000) 2290, (1k-2k) 47, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 273 
+start promoting 236 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 47 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 12947, lfu sample size: 8700000, samples: 8700000, node 0 mem 70144
+CBF freq dist: (1) 249, (1-100) 4289, (100-1000) 5563, (1k-2k) 2084, (2k-3k) 645, (3k-5k) 293, (5k-65534) 73, (65k) 0 
+CBF freq dist: (1) 82, (1-100) 1267, (100-1000) 2321, (1k-2k) 88, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 405 
+start promoting 384 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 76 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 12966, lfu sample size: 8800000, samples: 8800000, node 0 mem 70144
+CBF freq dist: (1) 249, (1-100) 4251, (100-1000) 5549, (1k-2k) 2139, (2k-3k) 660, (3k-5k) 294, (5k-65534) 73, (65k) 0 
+CBF freq dist: (1) 79, (1-100) 1192, (100-1000) 2368, (1k-2k) 117, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 534 
+start promoting 457 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 91 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 12998, lfu sample size: 8900000, samples: 8900000, node 0 mem 70144
+CBF freq dist: (1) 248, (1-100) 4174, (100-1000) 5608, (1k-2k) 2188, (2k-3k) 661, (3k-5k) 294, (5k-65534) 73, (65k) 0 
+CBF freq dist: (1) 201, (1-100) 1687, (100-1000) 1916, (1k-2k) 0, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 879 
+start promoting 658 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 131 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13056, lfu sample size: 9000000, samples: 9000000, node 0 mem 70144
+CBF freq dist: (1) 242, (1-100) 4106, (100-1000) 5699, (1k-2k) 2222, (2k-3k) 661, (3k-5k) 295, (5k-65534) 73, (65k) 0 
+CBF freq dist: (1) 188, (1-100) 1526, (100-1000) 2087, (1k-2k) 3, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 988 
+start promoting 611 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 122 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13144, lfu sample size: 9100000, samples: 9100000, node 0 mem 70144
+CBF freq dist: (1) 252, (1-100) 4138, (100-1000) 5727, (1k-2k) 2235, (2k-3k) 665, (3k-5k) 305, (5k-65534) 74, (65k) 0 
+CBF freq dist: (1) 176, (1-100) 1459, (100-1000) 2142, (1k-2k) 37, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 232 
+start promoting 93 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 18 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13173, lfu sample size: 9200000, samples: 9200000, node 0 mem 70148
+CBF freq dist: (1) 252, (1-100) 4119, (100-1000) 5735, (1k-2k) 2257, (2k-3k) 663, (3k-5k) 324, (5k-65534) 75, (65k) 0 
+CBF freq dist: (1) 175, (1-100) 1399, (100-1000) 2163, (1k-2k) 80, (2k-3k) 5, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 305 
+start promoting 146 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 29 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13203, lfu sample size: 9300000, samples: 9300000, node 0 mem 70148
+CBF freq dist: (1) 254, (1-100) 4121, (100-1000) 5739, (1k-2k) 2263, (2k-3k) 667, (3k-5k) 335, (5k-65534) 78, (65k) 0 
+CBF freq dist: (1) 175, (1-100) 1354, (100-1000) 2167, (1k-2k) 117, (2k-3k) 12, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 220 
+start promoting 151 pages
+move page ret 151 
+move page error: 12
+got ENOMEM. trying against with 30 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13231, lfu sample size: 9400000, samples: 9400000, node 0 mem 70148
+CBF freq dist: (1) 259, (1-100) 4098, (100-1000) 5772, (1k-2k) 2268, (2k-3k) 662, (3k-5k) 353, (5k-65534) 78, (65k) 0 
+CBF freq dist: (1) -59, (1-100) 1562, (100-1000) 1887, (1k-2k) 28, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 303 
+start promoting 212 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 42 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13259, lfu sample size: 9500000, samples: 9500000, node 0 mem 70148
+CBF freq dist: (1) 257, (1-100) 4072, (100-1000) 5810, (1k-2k) 2276, (2k-3k) 650, (3k-5k) 368, (5k-65534) 83, (65k) 0 
+CBF freq dist: (1) -67, (1-100) 1468, (100-1000) 1959, (1k-2k) 62, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 391 
+start promoting 345 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 69 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13295, lfu sample size: 9600000, samples: 9600000, node 0 mem 70148
+CBF freq dist: (1) 257, (1-100) 4025, (100-1000) 5862, (1k-2k) 2290, (2k-3k) 667, (3k-5k) 368, (5k-65534) 83, (65k) 0 
+CBF freq dist: (1) -73, (1-100) 1279, (100-1000) 2153, (1k-2k) 64, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 1388 
+start promoting 1352 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 270 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13326, lfu sample size: 9700000, samples: 9700000, node 0 mem 70080
+CBF freq dist: (1) 256, (1-100) 4007, (100-1000) 5828, (1k-2k) 2360, (2k-3k) 674, (3k-5k) 372, (5k-65534) 85, (65k) 0 
+CBF freq dist: (1) -83, (1-100) 1161, (100-1000) 2277, (1k-2k) 79, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 438 
+start promoting 155 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 31 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13329, lfu sample size: 9800000, samples: 9800000, node 0 mem 70084
+CBF freq dist: (1) 256, (1-100) 3985, (100-1000) 5814, (1k-2k) 2373, (2k-3k) 682, (3k-5k) 388, (5k-65534) 87, (65k) 0 
+CBF freq dist: (1) -87, (1-100) 1061, (100-1000) 2345, (1k-2k) 112, (2k-3k) 2, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+num_perf_record_lost count 600
+collected one batch of samples. pages to migrate = 310 
+start promoting 174 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 34 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13383, lfu sample size: 9900000, samples: 9900000, node 0 mem 70084
+CBF freq dist: (1) 256, (1-100) 3990, (100-1000) 5834, (1k-2k) 2382, (2k-3k) 682, (3k-5k) 404, (5k-65534) 91, (65k) 0 
+CBF freq dist: (1) -88, (1-100) 1016, (100-1000) 2353, (1k-2k) 157, (2k-3k) 3, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Number of hot pages promoted in 50 batches = 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 220 
+start promoting 219 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 43 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13417, lfu sample size: 10000000, samples: 10000000, node 0 mem 70084
+CBF freq dist: (1) 255, (1-100) 4002, (100-1000) 5832, (1k-2k) 2371, (2k-3k) 699, (3k-5k) 420, (5k-65534) 93, (65k) 0 
+CBF freq dist: (1) 12, (1-100) 1735, (100-1000) 1848, (1k-2k) 39, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 233 
+start promoting 226 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 45 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13439, lfu sample size: 10100000, samples: 10100000, node 0 mem 70084
+CBF freq dist: (1) 254, (1-100) 4008, (100-1000) 5806, (1k-2k) 2388, (2k-3k) 706, (3k-5k) 438, (5k-65534) 93, (65k) 0 
+CBF freq dist: (1) 12, (1-100) 1691, (100-1000) 1839, (1k-2k) 95, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 298 
+start promoting 274 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 54 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13479, lfu sample size: 10200000, samples: 10200000, node 0 mem 70084
+CBF freq dist: (1) 252, (1-100) 4010, (100-1000) 5806, (1k-2k) 2382, (2k-3k) 743, (3k-5k) 445, (5k-65534) 93, (65k) 0 
+CBF freq dist: (1) 10, (1-100) 1627, (100-1000) 1866, (1k-2k) 135, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 449 
+start promoting 434 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 86 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13489, lfu sample size: 10300000, samples: 10300000, node 0 mem 70084
+CBF freq dist: (1) 246, (1-100) 3983, (100-1000) 5800, (1k-2k) 2415, (2k-3k) 753, (3k-5k) 445, (5k-65534) 93, (65k) 0 
+CBF freq dist: (1) 8, (1-100) 1516, (100-1000) 1980, (1k-2k) 137, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 451 
+start promoting 442 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 88 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13489, lfu sample size: 10400000, samples: 10400000, node 0 mem 70084
+CBF freq dist: (1) 246, (1-100) 3970, (100-1000) 5723, (1k-2k) 2494, (2k-3k) 764, (3k-5k) 445, (5k-65534) 93, (65k) 0 
+CBF freq dist: (1) 7, (1-100) 1463, (100-1000) 2028, (1k-2k) 144, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 439 
+start promoting 430 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 86 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13489, lfu sample size: 10500000, samples: 10500000, node 0 mem 70084
+CBF freq dist: (1) 246, (1-100) 3966, (100-1000) 5667, (1k-2k) 2544, (2k-3k) 774, (3k-5k) 445, (5k-65534) 93, (65k) 0 
+CBF freq dist: (1) 104, (1-100) 1848, (100-1000) 1780, (1k-2k) 0, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 1470 
+start promoting 1092 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 218 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13586, lfu sample size: 10600000, samples: 10600000, node 0 mem 70084
+CBF freq dist: (1) 245, (1-100) 4033, (100-1000) 5653, (1k-2k) 2575, (2k-3k) 781, (3k-5k) 450, (5k-65534) 94, (65k) 0 
+CBF freq dist: (1) 94, (1-100) 1692, (100-1000) 1947, (1k-2k) 1, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 245 
+start promoting 38 pages
+move page ret 38 
+move page error: 12
+got ENOMEM. trying against with 7 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13627, lfu sample size: 10700000, samples: 10700000, node 0 mem 70084
+CBF freq dist: (1) 245, (1-100) 4037, (100-1000) 5680, (1k-2k) 2566, (2k-3k) 794, (3k-5k) 445, (5k-65534) 105, (65k) 0 
+CBF freq dist: (1) 93, (1-100) 1603, (100-1000) 2004, (1k-2k) 37, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 268 
+start promoting 95 pages
+move page ret 95 
+move page error: 12
+got ENOMEM. trying against with 19 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13662, lfu sample size: 10800000, samples: 10800000, node 0 mem 70084
+CBF freq dist: (1) 244, (1-100) 4037, (100-1000) 5680, (1k-2k) 2581, (2k-3k) 798, (3k-5k) 457, (5k-65534) 109, (65k) 0 
+CBF freq dist: (1) 91, (1-100) 1526, (100-1000) 2039, (1k-2k) 84, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 308 
+start promoting 153 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 30 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13684, lfu sample size: 10900000, samples: 10900000, node 0 mem 70084
+CBF freq dist: (1) 245, (1-100) 4024, (100-1000) 5686, (1k-2k) 2593, (2k-3k) 804, (3k-5k) 462, (5k-65534) 115, (65k) 0 
+CBF freq dist: (1) 87, (1-100) 1462, (100-1000) 2067, (1k-2k) 126, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 216 
+start promoting 159 pages
+move page ret 159 
+move page error: 12
+got ENOMEM. trying against with 31 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13697, lfu sample size: 11000000, samples: 11000000, node 0 mem 70084
+CBF freq dist: (1) 245, (1-100) 3994, (100-1000) 5716, (1k-2k) 2588, (2k-3k) 803, (3k-5k) 471, (5k-65534) 125, (65k) 0 
+CBF freq dist: (1) 87, (1-100) 1424, (100-1000) 2062, (1k-2k) 170, (2k-3k) 3, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 300 
+start promoting 185 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 37 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13711, lfu sample size: 11100000, samples: 11100000, node 0 mem 70084
+CBF freq dist: (1) 243, (1-100) 3981, (100-1000) 5720, (1k-2k) 2585, (2k-3k) 818, (3k-5k) 471, (5k-65534) 136, (65k) 0 
+CBF freq dist: (1) 116, (1-100) 1596, (100-1000) 1939, (1k-2k) 39, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 310 
+start promoting 290 pages
+move page ret 290 
+move page error: 12
+got ENOMEM. trying against with 58 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13727, lfu sample size: 11200000, samples: 11200000, node 0 mem 70084
+CBF freq dist: (1) 243, (1-100) 3958, (100-1000) 5719, (1k-2k) 2582, (2k-3k) 860, (3k-5k) 472, (5k-65534) 136, (65k) 0 
+CBF freq dist: (1) 110, (1-100) 1390, (100-1000) 2156, (1k-2k) 40, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 774 
+start promoting 694 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 138 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 13869, lfu sample size: 11300000, samples: 11300000, node 0 mem 70088
+CBF freq dist: (1) 241, (1-100) 4078, (100-1000) 5705, (1k-2k) 2589, (2k-3k) 882, (3k-5k) 479, (5k-65534) 136, (65k) 0 
+CBF freq dist: (1) 103, (1-100) 1270, (100-1000) 2283, (1k-2k) 47, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 793 
+start promoting 478 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 95 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14378, lfu sample size: 11400000, samples: 11400000, node 0 mem 70088
+CBF freq dist: (1) 676, (1-100) 4539, (100-1000) 5681, (1k-2k) 2646, (2k-3k) 891, (3k-5k) 485, (5k-65534) 136, (65k) 0 
+CBF freq dist: (1) 115, (1-100) 1235, (100-1000) 2360, (1k-2k) 56, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 281 
+start promoting 191 pages
+move page ret 191 
+move page error: 12
+got ENOMEM. trying against with 38 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14416, lfu sample size: 11500000, samples: 11500000, node 0 mem 70088
+CBF freq dist: (1) 674, (1-100) 4539, (100-1000) 5690, (1k-2k) 2656, (2k-3k) 898, (3k-5k) 496, (5k-65534) 137, (65k) 0 
+CBF freq dist: (1) 113, (1-100) 1151, (100-1000) 2399, (1k-2k) 105, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+num_perf_record_lost count 700
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 373 
+start promoting 143 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 28 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14420, lfu sample size: 11600000, samples: 11600000, node 0 mem 70088
+CBF freq dist: (1) 673, (1-100) 4531, (100-1000) 5678, (1k-2k) 2650, (2k-3k) 915, (3k-5k) 500, (5k-65534) 146, (65k) 0 
+CBF freq dist: (1) 96, (1-100) 1573, (100-1000) 1941, (1k-2k) 31, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 490 
+start promoting 248 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 49 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14421, lfu sample size: 11700000, samples: 11700000, node 0 mem 70088
+CBF freq dist: (1) 673, (1-100) 4517, (100-1000) 5657, (1k-2k) 2673, (2k-3k) 910, (3k-5k) 513, (5k-65534) 151, (65k) 0 
+CBF freq dist: (1) 89, (1-100) 1453, (100-1000) 2048, (1k-2k) 44, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 267 
+start promoting 50 pages
+move page ret 50 
+move page error: 12
+got ENOMEM. trying against with 10 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14429, lfu sample size: 11800000, samples: 11800000, node 0 mem 70088
+CBF freq dist: (1) 673, (1-100) 4505, (100-1000) 5646, (1k-2k) 2684, (2k-3k) 918, (3k-5k) 515, (5k-65534) 161, (65k) 0 
+CBF freq dist: (1) 88, (1-100) 1414, (100-1000) 2025, (1k-2k) 107, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 297 
+start promoting 143 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 28 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14446, lfu sample size: 11900000, samples: 11900000, node 0 mem 70088
+CBF freq dist: (1) 672, (1-100) 4499, (100-1000) 5630, (1k-2k) 2700, (2k-3k) 924, (3k-5k) 529, (5k-65534) 164, (65k) 0 
+CBF freq dist: (1) 90, (1-100) 1358, (100-1000) 2055, (1k-2k) 138, (2k-3k) 2, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 238 
+start promoting 188 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 37 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14471, lfu sample size: 12000000, samples: 12000000, node 0 mem 70088
+CBF freq dist: (1) 671, (1-100) 4464, (100-1000) 5667, (1k-2k) 2703, (2k-3k) 933, (3k-5k) 533, (5k-65534) 171, (65k) 0 
+CBF freq dist: (1) 85, (1-100) 1259, (100-1000) 2132, (1k-2k) 160, (2k-3k) 5, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 292 
+start promoting 181 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 36 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14479, lfu sample size: 12100000, samples: 12100000, node 0 mem 70088
+CBF freq dist: (1) 671, (1-100) 4453, (100-1000) 5671, (1k-2k) 2698, (2k-3k) 941, (3k-5k) 534, (5k-65534) 182, (65k) 0 
+CBF freq dist: (1) 84, (1-100) 1213, (100-1000) 2122, (1k-2k) 215, (2k-3k) 7, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 219 
+start promoting 191 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 38 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14502, lfu sample size: 12200000, samples: 12200000, node 0 mem 70092
+CBF freq dist: (1) 671, (1-100) 4428, (100-1000) 5699, (1k-2k) 2700, (2k-3k) 946, (3k-5k) 541, (5k-65534) 188, (65k) 0 
+CBF freq dist: (1) 141, (1-100) 1659, (100-1000) 1779, (1k-2k) 40, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 307 
+start promoting 225 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 45 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14521, lfu sample size: 12300000, samples: 12300000, node 0 mem 70092
+CBF freq dist: (1) 670, (1-100) 4406, (100-1000) 5722, (1k-2k) 2698, (2k-3k) 953, (3k-5k) 550, (5k-65534) 192, (65k) 0 
+CBF freq dist: (1) 138, (1-100) 1527, (100-1000) 1899, (1k-2k) 59, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 1536 
+start promoting 1471 pages
+move page ret 1471 
+move page error: 12
+got ENOMEM. trying against with 294 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14522, lfu sample size: 12400000, samples: 12400000, node 0 mem 69740
+CBF freq dist: (1) 671, (1-100) 4378, (100-1000) 5682, (1k-2k) 2749, (2k-3k) 963, (3k-5k) 556, (5k-65534) 194, (65k) 0 
+CBF freq dist: (1) 108, (1-100) 1369, (100-1000) 2077, (1k-2k) 60, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 517 
+start promoting 121 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 24 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14522, lfu sample size: 12500000, samples: 12500000, node 0 mem 69740
+CBF freq dist: (1) 671, (1-100) 4376, (100-1000) 5674, (1k-2k) 2732, (2k-3k) 967, (3k-5k) 566, (5k-65534) 207, (65k) 0 
+CBF freq dist: (1) 108, (1-100) 1324, (100-1000) 2069, (1k-2k) 113, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 430 
+start promoting 95 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 19 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14532, lfu sample size: 12600000, samples: 12600000, node 0 mem 69740
+CBF freq dist: (1) 674, (1-100) 4372, (100-1000) 5671, (1k-2k) 2734, (2k-3k) 960, (3k-5k) 584, (5k-65534) 211, (65k) 0 
+CBF freq dist: (1) 105, (1-100) 1278, (100-1000) 2067, (1k-2k) 165, (2k-3k) 5, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 174 
+start promoting 86 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 17 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14541, lfu sample size: 12700000, samples: 12700000, node 0 mem 69740
+CBF freq dist: (1) 676, (1-100) 4379, (100-1000) 5657, (1k-2k) 2729, (2k-3k) 965, (3k-5k) 580, (5k-65534) 231, (65k) 0 
+CBF freq dist: (1) 46, (1-100) 1795, (100-1000) 1587, (1k-2k) 31, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 168 
+start promoting 101 pages
+move page ret 101 
+move page error: 12
+got ENOMEM. trying against with 20 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14549, lfu sample size: 12800000, samples: 12800000, node 0 mem 69992
+CBF freq dist: (1) 675, (1-100) 4381, (100-1000) 5646, (1k-2k) 2717, (2k-3k) 976, (3k-5k) 596, (5k-65534) 233, (65k) 0 
+CBF freq dist: (1) 43, (1-100) 1765, (100-1000) 1570, (1k-2k) 83, (2k-3k) 4, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 253 
+start promoting 163 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 32 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14563, lfu sample size: 12900000, samples: 12900000, node 0 mem 69992
+CBF freq dist: (1) 675, (1-100) 4371, (100-1000) 5659, (1k-2k) 2711, (2k-3k) 974, (3k-5k) 601, (5k-65534) 247, (65k) 0 
+CBF freq dist: (1) 40, (1-100) 1729, (100-1000) 1557, (1k-2k) 134, (2k-3k) 9, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 286 
+start promoting 230 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 46 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14596, lfu sample size: 13000000, samples: 13000000, node 0 mem 69992
+CBF freq dist: (1) 675, (1-100) 4364, (100-1000) 5672, (1k-2k) 2728, (2k-3k) 972, (3k-5k) 607, (5k-65534) 253, (65k) 0 
+CBF freq dist: (1) 32, (1-100) 1616, (100-1000) 1654, (1k-2k) 168, (2k-3k) 9, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 306 
+start promoting 277 pages
+move page ret 277 
+move page error: 12
+got ENOMEM. trying against with 55 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14675, lfu sample size: 13100000, samples: 13100000, node 0 mem 69992
+CBF freq dist: (1) 673, (1-100) 4382, (100-1000) 5682, (1k-2k) 2755, (2k-3k) 991, (3k-5k) 612, (5k-65534) 253, (65k) 0 
+CBF freq dist: (1) 19, (1-100) 1442, (100-1000) 1843, (1k-2k) 176, (2k-3k) 9, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+num_perf_record_lost count 800
+collected one batch of samples. pages to migrate = 681 
+start promoting 376 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 75 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14680, lfu sample size: 13200000, samples: 13200000, node 0 mem 69992
+CBF freq dist: (1) 672, (1-100) 4335, (100-1000) 5671, (1k-2k) 2804, (2k-3k) 999, (3k-5k) 616, (5k-65534) 255, (65k) 0 
+CBF freq dist: (1) 16, (1-100) 1307, (100-1000) 1984, (1k-2k) 187, (2k-3k) 9, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 251 
+start promoting 181 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 36 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14680, lfu sample size: 13300000, samples: 13300000, node 0 mem 69992
+CBF freq dist: (1) 672, (1-100) 4291, (100-1000) 5644, (1k-2k) 2875, (2k-3k) 994, (3k-5k) 620, (5k-65534) 256, (65k) 0 
+CBF freq dist: (1) 119, (1-100) 1731, (100-1000) 1697, (1k-2k) 47, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 241 
+start promoting 190 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 38 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14680, lfu sample size: 13400000, samples: 13400000, node 0 mem 69992
+CBF freq dist: (1) 672, (1-100) 4261, (100-1000) 5635, (1k-2k) 2886, (2k-3k) 1020, (3k-5k) 621, (5k-65534) 257, (65k) 0 
+CBF freq dist: (1) 118, (1-100) 1670, (100-1000) 1691, (1k-2k) 118, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 226 
+start promoting 189 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 37 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14681, lfu sample size: 13500000, samples: 13500000, node 0 mem 70000
+CBF freq dist: (1) 673, (1-100) 4227, (100-1000) 5638, (1k-2k) 2876, (2k-3k) 1056, (3k-5k) 627, (5k-65534) 257, (65k) 0 
+CBF freq dist: (1) 118, (1-100) 1613, (100-1000) 1692, (1k-2k) 181, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 219 
+start promoting 197 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 39 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14681, lfu sample size: 13600000, samples: 13600000, node 0 mem 70000
+CBF freq dist: (1) 673, (1-100) 4208, (100-1000) 5629, (1k-2k) 2867, (2k-3k) 1074, (3k-5k) 646, (5k-65534) 257, (65k) 0 
+CBF freq dist: (1) 116, (1-100) 1548, (100-1000) 1700, (1k-2k) 241, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 216 
+start promoting 181 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 36 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14681, lfu sample size: 13700000, samples: 13700000, node 0 mem 70108
+CBF freq dist: (1) 673, (1-100) 4191, (100-1000) 5593, (1k-2k) 2903, (2k-3k) 1080, (3k-5k) 657, (5k-65534) 257, (65k) 0 
+CBF freq dist: (1) 116, (1-100) 1489, (100-1000) 1700, (1k-2k) 304, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 237 
+start promoting 199 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 39 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14681, lfu sample size: 13800000, samples: 13800000, node 0 mem 70108
+CBF freq dist: (1) 673, (1-100) 4174, (100-1000) 5570, (1k-2k) 2921, (2k-3k) 1095, (3k-5k) 664, (5k-65534) 257, (65k) 0 
+CBF freq dist: (1) -103, (1-100) 1853, (100-1000) 1496, (1k-2k) 29, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 237 
+start promoting 217 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 43 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14681, lfu sample size: 13900000, samples: 13900000, node 0 mem 70108
+CBF freq dist: (1) 673, (1-100) 4147, (100-1000) 5565, (1k-2k) 2936, (2k-3k) 1094, (3k-5k) 676, (5k-65534) 263, (65k) 0 
+CBF freq dist: (1) -104, (1-100) 1751, (100-1000) 1560, (1k-2k) 70, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 234 
+start promoting 224 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 44 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14681, lfu sample size: 14000000, samples: 14000000, node 0 mem 70108
+CBF freq dist: (1) 673, (1-100) 4123, (100-1000) 5552, (1k-2k) 2965, (2k-3k) 1085, (3k-5k) 685, (5k-65534) 271, (65k) 0 
+CBF freq dist: (1) -106, (1-100) 1672, (100-1000) 1609, (1k-2k) 105, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 367 
+start promoting 325 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 65 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14681, lfu sample size: 14100000, samples: 14100000, node 0 mem 70108
+CBF freq dist: (1) 673, (1-100) 4073, (100-1000) 5562, (1k-2k) 2987, (2k-3k) 1086, (3k-5k) 700, (5k-65534) 273, (65k) 0 
+CBF freq dist: (1) -107, (1-100) 1553, (100-1000) 1713, (1k-2k) 129, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 456 
+start promoting 444 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 88 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14681, lfu sample size: 14200000, samples: 14200000, node 0 mem 70108
+CBF freq dist: (1) 673, (1-100) 4065, (100-1000) 5482, (1k-2k) 3051, (2k-3k) 1106, (3k-5k) 704, (5k-65534) 273, (65k) 0 
+CBF freq dist: (1) -108, (1-100) 1363, (100-1000) 1914, (1k-2k) 130, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 543 
+start promoting 499 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 99 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14690, lfu sample size: 14300000, samples: 14300000, node 0 mem 70112
+CBF freq dist: (1) 675, (1-100) 4065, (100-1000) 5433, (1k-2k) 3070, (2k-3k) 1143, (3k-5k) 706, (5k-65534) 273, (65k) 0 
+CBF freq dist: (1) -114, (1-100) 1201, (100-1000) 2087, (1k-2k) 138, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 1234 
+start promoting 841 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 168 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14693, lfu sample size: 14400000, samples: 14400000, node 0 mem 70112
+CBF freq dist: (1) 675, (1-100) 4044, (100-1000) 5447, (1k-2k) 3053, (2k-3k) 1159, (3k-5k) 708, (5k-65534) 282, (65k) 0 
+CBF freq dist: (1) 25, (1-100) 1709, (100-1000) 1846, (1k-2k) 8, (2k-3k) 1, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 232 
+start promoting 108 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 21 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14695, lfu sample size: 14500000, samples: 14500000, node 0 mem 70112
+CBF freq dist: (1) 675, (1-100) 4043, (100-1000) 5424, (1k-2k) 3076, (2k-3k) 1139, (3k-5k) 727, (5k-65534) 286, (65k) 0 
+CBF freq dist: (1) 25, (1-100) 1658, (100-1000) 1853, (1k-2k) 52, (2k-3k) 2, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 193 
+start promoting 137 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 27 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14697, lfu sample size: 14600000, samples: 14600000, node 0 mem 70112
+CBF freq dist: (1) 674, (1-100) 4039, (100-1000) 5425, (1k-2k) 3068, (2k-3k) 1129, (3k-5k) 732, (5k-65534) 304, (65k) 0 
+CBF freq dist: (1) 26, (1-100) 1619, (100-1000) 1840, (1k-2k) 99, (2k-3k) 10, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 239 
+start promoting 148 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 29 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14698, lfu sample size: 14700000, samples: 14700000, node 0 mem 70112
+CBF freq dist: (1) 674, (1-100) 4034, (100-1000) 5415, (1k-2k) 3077, (2k-3k) 1109, (3k-5k) 747, (5k-65534) 316, (65k) 0 
+CBF freq dist: (1) 25, (1-100) 1565, (100-1000) 1848, (1k-2k) 144, (2k-3k) 13, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+collected one batch of samples. pages to migrate = 221 
+start promoting 183 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 36 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14710, lfu sample size: 14800000, samples: 14800000, node 0 mem 70112
+CBF freq dist: (1) 674, (1-100) 4027, (100-1000) 5401, (1k-2k) 3096, (2k-3k) 1115, (3k-5k) 749, (5k-65534) 322, (65k) 0 
+CBF freq dist: (1) 22, (1-100) 1501, (100-1000) 1880, (1k-2k) 179, (2k-3k) 13, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Halving CBF counters.
+collected one batch of samples. pages to migrate = 304 
+start promoting 228 pages
+move page ret -1 
+move page error: 12
+got ENOMEM. trying against with 45 pages 
+second promote attempt return -1
+pages migrated: 1485, lfu # items: 14722, lfu sample size: 14900000, samples: 14900000, node 0 mem 70112
+CBF freq dist: (1) 674, (1-100) 4002, (100-1000) 5394, (1k-2k) 3128, (2k-3k) 1123, (3k-5k) 746, (5k-65534) 329, (65k) 0 
+CBF freq dist: (1) 225, (1-100) 1602, (100-1000) 1939, (1k-2k) 23, (2k-3k) 0, (3k-5k) 0, (5k-65534) 0, (65k) 0 
+[DEBUG] Number of hot pages promoted in 50 batches = 0 
+[INFO] Reached promotion plateau. cur hot page size 11169431552, fast mem 80% 3435973836
+[INFO] Go to monitor mode from promotion plateau.
+[INFO] Starting low overhead perf stat monitoring.
+closing perf counters
+munmap done 0
+close fd done 0
+munmap done 1
+close fd done 1
+munmap done 0
+close fd done 0
+munmap done 1
+close fd done 1
+munmap done 0
+close fd done 0
+munmap done 1
+close fd done 1
+munmap done 0
+close fd done 0
+munmap done 1
+close fd done 1
+munmap done 0
+close fd done 0
+munmap done 1
+close fd done 1
+munmap done 0
+close fd done 0
+munmap done 1
+close fd done 1
+munmap done 0
+close fd done 0
+munmap done 1
+close fd done 1
+munmap done 0
+close fd done 0
+munmap done 1
+close fd done 1
+munmap done 0
+close fd done 0
+munmap done 1
+close fd done 1
+munmap done 0
+close fd done 0
+munmap done 1
+close fd done 1
+munmap done 0
+close fd done 0
+munmap done 1
+close fd done 1
+munmap done 0
+close fd done 0
+munmap done 1
+close fd done 1
+munmap done 0
+close fd done 0
+munmap done 1
+close fd done 1
+munmap done 0
+close fd done 0
+munmap done 1
+close fd done 1
+munmap done 0
+close fd done 0
+munmap done 1
+close fd done 1
+munmap done 0
+close fd done 0
+munmap done 1
+close fd done 1
+[INFO] Sleep for 120s for fast memory hit ratio to stablize.
+return freq 0 
+[INFO] node 0 free memory in kB : 71824
+return freq 0 
+
+
+ NAS Parallel Benchmarks (NPB3.4-OMP) - MG Benchmark
+
+ Reading from input file mg.input
+ Size: 1024x1024x1024  (class U)
+ Iterations:                     20
+ Number of available threads:    16
+
+ Initialization time:          28.949 seconds
+
+  iter   1
+  iter   5
+  iter  10
+  iter  15
+  iter  20
+
+ Benchmark completed 
+ Problem size unknown
+ NO VERIFICATION PERFORMED
+ L2 Norm is  0.2275298950205E-06
+
+
+ MG Benchmark Completed.
+ Class           =                        U
+ Size            =           1024x1024x1024
+ Iterations      =                       20
+ Time in seconds =                   199.06
+ Total threads   =                       16
+ Avail threads   =                       16
+ Mop/s total     =                  6257.24
+ Mop/s/thread    =                   391.08
+ Operation type  =           floating point
+ Verification    =             UNSUCCESSFUL
+ Version         =                    3.4.3
+ Compile date    =              05 Mar 2026
+
+ Compile options:
+    FC           = gfortran
+    FLINK        = $(FC)
+    F_LIB        = (none)
+    F_INC        = (none)
+    FFLAGS       = -O3 -fopenmp
+    FLINKFLAGS   = $(FFLAGS)
+    RAND         = randi8
+
+
+ Please send all errors/feedbacks to:
+
+ NPB Development Team
+ npb@nas.nasa.gov
+
+

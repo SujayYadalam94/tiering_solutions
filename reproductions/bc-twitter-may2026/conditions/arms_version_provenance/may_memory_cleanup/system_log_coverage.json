@@ -1,0 +1,17 @@
+{
+  "investigation_date": "2026-09-09",
+  "scope": "Read-only examination of retained system log coverage; no full unrelated log content copied.",
+  "rotated_kern_syslog_earliest_utc": "2026-08-09",
+  "journal_list_boots_count": 22,
+  "journal_list_boots_earliest_utc": "2026-09-07",
+  "older_journal_files": {
+    "/var/log/journal/2f935fab58c64eaeb060266d5b992857/system.journal": {
+      "bytes": 0
+    },
+    "/var/log/journal/2f935fab58c64eaeb060266d5b992857/user-30817.journal": {
+      "bytes": 0
+    }
+  },
+  "historical_may_june_kernel_log_coverage_found": false,
+  "interpretation": "No May/June errors found is a retention limitation, not evidence that such errors did not occur."
+}

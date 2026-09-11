@@ -1,0 +1,17 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-198ec96b/2RL5.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-198ec96b/Ym9F.sh
+@@ -4,10 +4,10 @@
+ MEASUREMENT_WORKLOADS_PATH="${MEASUREMENT_WORKLOADS_DIR}/workloads"
+ 
+ declare -ar MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
+-    "bc-kron.sg"
+-    "pr-kron.sg"
+-    "bc-twitter.sg"
+-    "pr-twitter.sg"
++    #"bc-kron.sg"
++    #"pr-kron.sg"
++    #"bc-twitter.sg"
++    #"pr-twitter.sg"
+     "faiss_10M"
+     "mg.D.x"
+     "DuckDB-TPCH-sf100"

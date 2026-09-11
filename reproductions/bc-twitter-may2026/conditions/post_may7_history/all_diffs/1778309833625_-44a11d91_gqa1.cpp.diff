@@ -1,0 +1,20 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-44a11d91/0JhP.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-44a11d91/gqa1.cpp
+@@ -1725,7 +1725,7 @@
+         auto max_hugepages = max_dram_hugepages(scores);
+         if (scores.size() >= max_hugepages)
+         {
+-            cost += 1 * scores[max_hugepages - 1].page->score * HF_SAMPLE_PERIOD * latency_diff;
++            cost += 15 * scores[max_hugepages - 1].page->score * HF_SAMPLE_PERIOD * latency_diff;
+         }
+         // float benefit = SWITCH_SCALER * hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
+         double benefit = hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
+@@ -1766,7 +1766,7 @@
+                 if (cold_page->in_dram)
+                 {
+                     selected_cold_page = cold_page;
+-                    cost += 1 * get_demotion_cost_multiplier() * demotion_cost_avg;
++                    cost += 15 * get_demotion_cost_multiplier() * demotion_cost_avg;
+ 
+ #if USE_MODEL == (true)
+                     auto max_hugepages = max_dram_hugepages(scores);

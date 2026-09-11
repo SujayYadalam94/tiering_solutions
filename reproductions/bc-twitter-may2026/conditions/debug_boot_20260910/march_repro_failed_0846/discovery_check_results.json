@@ -1,0 +1,53 @@
+[
+  {
+    "source": "emulab-networkd.original.sh",
+    "debug": true,
+    "all_configured": false,
+    "claims": [
+      "eno1",
+      "enp94s0f0np0",
+      "enp94s0f1np1"
+    ],
+    "winner": "eno1",
+    "downed": [
+      "eno1",
+      "eno1",
+      "enp94s0f0np0",
+      "enp94s0f1np1"
+    ]
+  },
+  {
+    "source": "emulab-networkd.fixed.sh",
+    "debug": false,
+    "all_configured": false,
+    "claims": [
+      "eno1"
+    ],
+    "winner": "eno1",
+    "downed": [
+      "eno2"
+    ]
+  },
+  {
+    "source": "emulab-networkd.fixed.sh",
+    "debug": true,
+    "all_configured": false,
+    "claims": [
+      "eno1"
+    ],
+    "winner": "eno1",
+    "downed": [
+      "eno2"
+    ]
+  },
+  {
+    "source": "emulab-networkd.fixed.sh",
+    "debug": true,
+    "all_configured": true,
+    "claims": [
+      "eno2"
+    ],
+    "winner": "eno2",
+    "downed": []
+  }
+]

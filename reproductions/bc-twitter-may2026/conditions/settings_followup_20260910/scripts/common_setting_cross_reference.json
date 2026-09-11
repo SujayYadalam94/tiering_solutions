@@ -1,0 +1,234 @@
+[
+  {
+    "path": "/proc/sys/vm/overcommit_memory",
+    "current_requested_value": "1",
+    "current_line": 48,
+    "may14_source_matches": [
+      {
+        "line": 81,
+        "text": "write_sysctl_value vm.overcommit_memory 1"
+      }
+    ]
+  },
+  {
+    "path": "/proc/sys/vm/watermark_scale_factor",
+    "current_requested_value": "10",
+    "current_line": 49,
+    "may14_source_matches": [
+      {
+        "line": 82,
+        "text": "write_sysctl_value vm.watermark_scale_factor 10"
+      }
+    ]
+  },
+  {
+    "path": "/proc/sys/vm/watermark_boost_factor",
+    "current_requested_value": "10000",
+    "current_line": 50,
+    "may14_source_matches": [
+      {
+        "line": 83,
+        "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+      }
+    ]
+  },
+  {
+    "path": "/proc/sys/vm/user_reserve_kbytes",
+    "current_requested_value": "16384",
+    "current_line": 51,
+    "may14_source_matches": [
+      {
+        "line": 86,
+        "text": "write_sysctl_value vm.user_reserve_kbytes 16384"
+      }
+    ]
+  },
+  {
+    "path": "/proc/sys/vm/admin_reserve_kbytes",
+    "current_requested_value": "16384",
+    "current_line": 52,
+    "may14_source_matches": [
+      {
+        "line": 87,
+        "text": "write_sysctl_value vm.admin_reserve_kbytes 16384"
+      }
+    ]
+  },
+  {
+    "path": "/proc/sys/vm/min_free_kbytes",
+    "current_requested_value": "1048576",
+    "current_line": 53,
+    "may14_source_matches": [
+      {
+        "line": 85,
+        "text": "write_sysctl_value vm.min_free_kbytes 1048576"
+      }
+    ]
+  },
+  {
+    "path": "/proc/sys/vm/lowmem_reserve_ratio",
+    "current_requested_value": "256 256 32",
+    "current_line": 54,
+    "may14_source_matches": [
+      {
+        "line": 88,
+        "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"256 256 32\""
+      }
+    ]
+  },
+  {
+    "path": "/proc/sys/vm/zone_reclaim_mode",
+    "current_requested_value": "0",
+    "current_line": 55,
+    "may14_source_matches": [
+      {
+        "line": 93,
+        "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+      }
+    ]
+  },
+  {
+    "path": "/proc/sys/vm/vfs_cache_pressure",
+    "current_requested_value": "2000",
+    "current_line": 56,
+    "may14_source_matches": [
+      {
+        "line": 135,
+        "text": "write_sysctl_value vm.vfs_cache_pressure 2000 >/dev/null"
+      }
+    ]
+  },
+  {
+    "path": "/proc/sys/kernel/numa_balancing",
+    "current_requested_value": "0",
+    "current_line": 57,
+    "may14_source_matches": [
+      {
+        "line": 92,
+        "text": "write_sysctl_value kernel.numa_balancing 0"
+      },
+      {
+        "line": 94,
+        "text": "write_sysfs_value /proc/sys/kernel/numa_balancing 0"
+      },
+      {
+        "line": 117,
+        "text": "\twrite_sysfs_value /proc/sys/kernel/numa_balancing 2"
+      }
+    ]
+  },
+  {
+    "path": "/sys/kernel/mm/numa/demotion_enabled",
+    "current_requested_value": "0",
+    "current_line": 58,
+    "may14_source_matches": [
+      {
+        "line": 95,
+        "text": "write_sysfs_value /sys/kernel/mm/numa/demotion_enabled 0"
+      },
+      {
+        "line": 116,
+        "text": "\twrite_sysfs_value /sys/kernel/mm/numa/demotion_enabled 1"
+      }
+    ]
+  },
+  {
+    "path": "/sys/kernel/mm/transparent_hugepage/enabled",
+    "current_requested_value": "always",
+    "current_line": 59,
+    "may14_source_matches": [
+      {
+        "line": 98,
+        "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/enabled always"
+      }
+    ]
+  },
+  {
+    "path": "/sys/kernel/mm/transparent_hugepage/defrag",
+    "current_requested_value": "always",
+    "current_line": 60,
+    "may14_source_matches": [
+      {
+        "line": 99,
+        "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/defrag always"
+      }
+    ]
+  },
+  {
+    "path": "/sys/kernel/mm/transparent_hugepage/shmem_enabled",
+    "current_requested_value": "force",
+    "current_line": 61,
+    "may14_source_matches": [
+      {
+        "line": 100,
+        "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/shmem_enabled force"
+      }
+    ]
+  },
+  {
+    "path": "/sys/kernel/mm/transparent_hugepage/khugepaged/defrag",
+    "current_requested_value": "1",
+    "current_line": 62,
+    "may14_source_matches": [
+      {
+        "line": 101,
+        "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/defrag 1"
+      }
+    ]
+  },
+  {
+    "path": "/proc/sys/vm/compaction_proactiveness",
+    "current_requested_value": "80",
+    "current_line": 63,
+    "may14_source_matches": [
+      {
+        "line": 102,
+        "text": "write_sysfs_value /proc/sys/vm/compaction_proactiveness 80"
+      }
+    ]
+  },
+  {
+    "path": "/sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan",
+    "current_requested_value": "8192",
+    "current_line": 64,
+    "may14_source_matches": [
+      {
+        "line": 103,
+        "text": "echo 8192 | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan"
+      }
+    ]
+  },
+  {
+    "path": "/sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs",
+    "current_requested_value": "0",
+    "current_line": 65,
+    "may14_source_matches": [
+      {
+        "line": 104,
+        "text": "echo 0    | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs"
+      }
+    ]
+  },
+  {
+    "path": "/sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs",
+    "current_requested_value": "1",
+    "current_line": 66,
+    "may14_source_matches": [
+      {
+        "line": 105,
+        "text": "echo 1    | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs"
+      }
+    ]
+  },
+  {
+    "path": "/sys/kernel/mm/ksm/run",
+    "current_requested_value": "0",
+    "current_line": 67,
+    "may14_source_matches": [
+      {
+        "line": 109,
+        "text": "write_sysfs_value /sys/kernel/mm/ksm/run 0"
+      }
+    ]
+  }
+]

@@ -1,0 +1,427 @@
+diff --git a/logging.cpp b/logging.cpp
+index caa2b5a0b..87c1239d5 100755
+--- a/logging.cpp
++++ b/logging.cpp
+@@ -1,15 +1,13 @@
+ #include "logging.h"
++#include "logging_parquet.h"
+ #include "arms_kernel_threads.h"
+ #include <atomic>
+ #include <cstdio>
+ #include <cstdlib>
+ #include <filesystem>
+-#include <fstream>
+-#include <iomanip>
++#include <stdexcept>
+ #include <numa.h>
+ #include <string>
+-#include <thread>
+-#include <vector>
+ 
+ extern std::atomic<bool> terminated; // defined in arms_kernel.cpp
+ 
+@@ -31,7 +29,11 @@ access_log::access_log() : logged_samples(-SKIP_UNTIL_SAMPLE), scores_log(nullpt
+ 
+         if (numa_available() >= 0)
+         {
++#if defined(ALL_NUMA_MEMORY_DEFAULT) && ALL_NUMA_MEMORY_DEFAULT
++            void *log_mem = numa_alloc_interleaved(log_bytes);
++#else
+             void *log_mem = numa_alloc_onnode(log_bytes, LOG_NUMA_NODE);
++#endif
+             if (log_mem != nullptr)
+             {
+                 scores_log = static_cast<struct data_row *>(log_mem);
+@@ -47,7 +49,11 @@ access_log::access_log() : logged_samples(-SKIP_UNTIL_SAMPLE), scores_log(nullpt
+ 
+         if (numa_available() >= 0)
+         {
++#if defined(ALL_NUMA_MEMORY_DEFAULT) && ALL_NUMA_MEMORY_DEFAULT
++            numa_interleave_memory(scores_log, log_bytes, numa_all_nodes_ptr);
++#else
+             numa_tonode_memory(scores_log, log_bytes, LOG_NUMA_NODE);
++#endif
+         }
+     }
+ }
+@@ -173,11 +179,7 @@ void access_log::update_proc_stats()
+ 
+ namespace
+ {
+-constexpr std::size_t LOG_BUFFER_BYTES = 100ULL * 1024ULL * 1024ULL;
+-constexpr std::size_t LOG_FILE_COUNT = 10;
+-constexpr std::size_t LOG_PARTS_PER_FILE = 10;
+-constexpr int GROUP_WINDOW_RADIUS = 7;
+-constexpr int GROUP_WINDOW_SIZE = GROUP_WINDOW_RADIUS * 2 + 1;
++#if PRINT_TRAINING_DATA
+ constexpr const char *DEFAULT_LOG_OUTPUT_PATH = "/home/freischuetz/memory_tiering/tiering_solutions/output.log";
+ 
+ std::string build_log_output_base_path()
+@@ -190,38 +192,19 @@ std::string build_log_output_base_path()
+         output_path.erase(output_path.size() - 4);
+     }
+ 
++    else if (output_path.size() >= 8 && output_path.compare(output_path.size() - 8, 8, ".parquet") == 0)
++    {
++        output_path.erase(output_path.size() - 8);
++    }
+     return output_path;
+ }
++#endif
+ 
+ inline bool ranges_overlap(uint64_t a_start, uint64_t a_end, uint64_t b_start, uint64_t b_end)
+ {
+     return a_start < b_end && b_start < a_end;
+ }
+ 
+-template <typename T> inline void print_cell(std::ostream &os, const T &value, const char *header, bool print_header)
+-{
+-    if (print_header)
+-    {
+-        os << header;
+-    }
+-    else
+-    {
+-        os << value;
+-    }
+-    os << ',';
+-}
+-
+-template <typename T>
+-void print_group_window(std::ostream &os, const T (&values)[GROUP_WINDOW_SIZE], const char *suffix, bool print_header)
+-{
+-    for (int offset = -GROUP_WINDOW_RADIUS; offset <= GROUP_WINDOW_RADIUS; offset++)
+-    {
+-        char group_header[64];
+-        snprintf(group_header, sizeof(group_header), "group_%d_%s", offset, suffix);
+-        print_cell(os, values[offset + GROUP_WINDOW_RADIUS], group_header, print_header);
+-    }
+-}
+-
+ inline void propagate_discounted_rewards(data_row *previous_row, const data_row *current_row)
+ {
+     float immediate_reward = static_cast<float>(current_row->count);
+@@ -245,17 +228,7 @@ inline void apply_age_gap_penalty(data_row *row, int age_diff)
+     }
+ }
+ 
+-std::vector<size_t> build_part_boundaries(size_t sample_count)
+-{
+-    const size_t total_parts = LOG_FILE_COUNT * LOG_PARTS_PER_FILE;
+-    std::vector<size_t> boundaries(total_parts + 1, 0);
+-    for (size_t i = 0; i <= total_parts; ++i)
+-    {
+-        boundaries[i] = (sample_count * i) / total_parts;
+-    }
+-    return boundaries;
+-}
+-
++#if PRINT_TRAINING_DATA
+ void ensure_log_output_directory(const std::string &output_base)
+ {
+     const std::filesystem::path output_base_path(output_base);
+@@ -264,146 +237,16 @@ void ensure_log_output_directory(const std::string &output_base)
+     {
+         std::error_code ec;
+         std::filesystem::create_directories(output_dir, ec);
++        if (ec)
++        {
++            throw std::system_error(ec, "create log output directory");
++        }
+     }
+ }
+ 
+-std::string build_part_path(const std::string &output_base, size_t file_idx, size_t part_idx)
+-{
+-    return output_base + "_" + std::to_string(file_idx) + "_part_" + std::to_string(part_idx) + "_" +
+-           std::to_string(getpid()) + ".tmp";
+-}
+-
+-std::string build_final_log_path(const std::string &output_base, size_t file_idx)
+-{
+-    return output_base + "_" + std::to_string(file_idx) + ".log";
+-}
+-
+-void append_part_file(std::ofstream &final_ofs, const std::string &part_path)
+-{
+-    std::ifstream part_ifs(part_path);
+-    if (part_ifs.is_open())
+-    {
+-        final_ofs << part_ifs.rdbuf();
+-        part_ifs.close();
+-    }
+-    std::remove(part_path.c_str());
+-}
+-} // namespace
+-
+-#define PRINT_CELL_AUTO(var) print_cell(os, row->var, #var, header)
+-
+-void access_log::print_row(std::ostream &os, struct data_row *row, bool header)
+-{
+-    // Keep floating-point output consistent with previous fprintf %f usage.
+-    auto original_flags = os.flags();
+-    auto original_precision = os.precision();
+-    os << std::fixed << std::setprecision(6);
+-
+-    // Base fields (always present)
+-    PRINT_CELL_AUTO(step);
+-    PRINT_CELL_AUTO(page);
+-    PRINT_CELL_AUTO(read);
+-    PRINT_CELL_AUTO(write);
+-    PRINT_CELL_AUTO(count);
+-    PRINT_CELL_AUTO(global_avg_accesses);
+-    PRINT_CELL_AUTO(global_avg_accesses_model);
+-    PRINT_CELL_AUTO(ewma_2);
+-    PRINT_CELL_AUTO(ewma_2_r);
+-    PRINT_CELL_AUTO(ewma_2_w);
+-    PRINT_CELL_AUTO(ewma_5);
+-    PRINT_CELL_AUTO(ewma_5_r);
+-    PRINT_CELL_AUTO(ewma_5_w);
+-    PRINT_CELL_AUTO(ewma_20);
+-    PRINT_CELL_AUTO(ewma_20_r);
+-    PRINT_CELL_AUTO(ewma_20_w);
+-    PRINT_CELL_AUTO(ewma_100);
+-    PRINT_CELL_AUTO(ewma_100_r);
+-    PRINT_CELL_AUTO(ewma_100_w);
+-    PRINT_CELL_AUTO(virtual_missed_ewma_100);
+-    PRINT_CELL_AUTO(gap4);
+-    PRINT_CELL_AUTO(read_write_gap3);
+-    PRINT_CELL_AUTO(ewma_var_2);
+-    PRINT_CELL_AUTO(ewma_var_5);
+-    PRINT_CELL_AUTO(ewma_var_20);
+-    PRINT_CELL_AUTO(ewma_var_100);
+-
+-#if FULL_LOGS
+-    PRINT_CELL_AUTO(global_count_since_top1_percent_ewma5);
+-    PRINT_CELL_AUTO(global_count_since_top50_percent_ewma5);
+-#endif
+-
+-    // Group EWMA5 percentages are always present
+-    print_group_window(os, row->group_ewma5, "mean_ewma5", header);
+-    print_group_window(os, row->groups, "mean", header);
+-
+-    PRINT_CELL_AUTO(group_ewma5_var);
+-
+-    PRINT_CELL_AUTO(age_count_total);
+-
+-#if FULL_LOGS
+-    PRINT_CELL_AUTO(prot);
+-    PRINT_CELL_AUTO(flags);
+-
+-    PRINT_CELL_AUTO(ewma_2_abs);
+-    PRINT_CELL_AUTO(ewma_2_r_abs);
+-    PRINT_CELL_AUTO(ewma_2_w_abs);
+-
+-    PRINT_CELL_AUTO(ewma_5_abs);
+-    PRINT_CELL_AUTO(ewma_5_r_abs);
+-    PRINT_CELL_AUTO(ewma_5_w_abs);
+-
+-    PRINT_CELL_AUTO(ewma_20_abs);
+-    PRINT_CELL_AUTO(ewma_20_r_abs);
+-    PRINT_CELL_AUTO(ewma_20_w_abs);
+-
+-    PRINT_CELL_AUTO(ewma_100_abs);
+-    PRINT_CELL_AUTO(ewma_100_r_abs);
+-    PRINT_CELL_AUTO(ewma_100_w_abs);
+-
+-    PRINT_CELL_AUTO(rank);
+-    PRINT_CELL_AUTO(rank_perc);
+-    PRINT_CELL_AUTO(rank_ewma_2);
+-    PRINT_CELL_AUTO(rank_ewma_5);
+-    PRINT_CELL_AUTO(rank_ewma_20);
+-    PRINT_CELL_AUTO(rank_ewma_100);
+-
+-    PRINT_CELL_AUTO(count_total);
+-    PRINT_CELL_AUTO(global_count_similar);
+-    PRINT_CELL_AUTO(diff);
+-    PRINT_CELL_AUTO(cpu_usage);
+-    PRINT_CELL_AUTO(disk_read_bytes);
+-    PRINT_CELL_AUTO(disk_write_bytes);
+-    PRINT_CELL_AUTO(syscr);
+-    PRINT_CELL_AUTO(syscw);
+-
+-    print_group_window(os, row->groups_abs, "mean_abs", header);
+-    print_group_window(os, row->group_ewma5_abs, "mean_ewma5_abs", header);
+-
+-    PRINT_CELL_AUTO(model_selection);
+-    PRINT_CELL_AUTO(read_bytes);
+-    PRINT_CELL_AUTO(write_bytes);
+ #endif
+ 
+-    PRINT_CELL_AUTO(model_score);
+-    PRINT_CELL_AUTO(arms_score);
+-    PRINT_CELL_AUTO(score);
+-    PRINT_CELL_AUTO(in_dram);
+-
+-    PRINT_CELL_AUTO(age);
+-
+-    PRINT_CELL_AUTO(num_demotions);
+-    PRINT_CELL_AUTO(num_promotions);
+-
+-    PRINT_CELL_AUTO(discounted_reward_90);
+-    PRINT_CELL_AUTO(discounted_reward_95);
+-    PRINT_CELL_AUTO(discounted_reward_99);
+-    PRINT_CELL_AUTO(step_offcore_write_l3_miss_rate);
+-
+-    os << "\n";
+-
+-    os.flags(original_flags);
+-    os.precision(original_precision);
+-}
++} // namespace
+ 
+ void access_log::finalize_log()
+ {
+@@ -436,124 +279,33 @@ void build_model()
+ 
+ void access_log::pebs_write_log()
+ {
+-    if (PRINT_TRAINING_DATA)
++#if PRINT_TRAINING_DATA
++    static std::atomic<bool> prev_called{false};
++    if (prev_called.exchange(true))
+     {
+-        static bool prev_called = false;
+-        if (prev_called)
+-        {
+-            return;
+-        }
+-        prev_called = true;
+-
+-        std::cout << "[ARMS] Finalizing training data log..." << std::endl;
+-        finalize_log();
+-
+-        std::cout << "[ARMS] Build Model..." << std::endl;
+-        build_model();
++        return;
++    }
+ 
+-        std::cout << "[ARMS] Writing training data log into 10 files (10 threaded parts each)..." << std::endl;
++    std::cout << "[ARMS] Finalizing training data log..." << std::endl;
++    finalize_log();
++    std::cout << "[ARMS] Build Model..." << std::endl;
++    build_model();
+ 
+-        const size_t sample_count = std::min(std::max(logged_samples, 0l), static_cast<int64_t>(MAX_LOGGED_SAMPLES));
++    const size_t sample_count = std::min(std::max(logged_samples, 0l), static_cast<int64_t>(MAX_LOGGED_SAMPLES));
++    try
++    {
+         const std::string output_base = build_log_output_base_path();
+         ensure_log_output_directory(output_base);
+-        std::vector<size_t> boundaries = build_part_boundaries(sample_count);
+-
+-        auto write_part = [this](const std::string &part_path, size_t begin_idx, size_t end_idx) -> bool {
+-            std::vector<char> part_buffer(LOG_BUFFER_BYTES);
+-            std::ofstream part_ofs;
+-            std::filebuf *part_buf = part_ofs.rdbuf();
+-            part_buf->pubsetbuf(part_buffer.data(), part_buffer.size());
+-            part_ofs.open(part_path);
+-            if (!part_ofs.is_open())
+-            {
+-                return false;
+-            }
+-
+-            for (size_t i = begin_idx; i < end_idx; ++i)
+-            {
+-                print_row(part_ofs, &scores_log[i], false);
+-            }
+-            return true;
+-        };
+-
+-        std::atomic<bool> write_failed{false};
+-
+-        auto write_file_group = [&](size_t file_idx) {
+-            if (write_failed.load())
+-            {
+-                return;
+-            }
+-
+-            {
+-                std::vector<std::thread> threads;
+-                std::vector<char> part_ok(LOG_PARTS_PER_FILE, 1);
+-                std::vector<std::string> part_paths(LOG_PARTS_PER_FILE);
+-                threads.reserve(LOG_PARTS_PER_FILE);
+-
+-                for (size_t part_idx = 0; part_idx < LOG_PARTS_PER_FILE; ++part_idx)
+-                {
+-                    const size_t global_part_idx = file_idx * LOG_PARTS_PER_FILE + part_idx;
+-                    const size_t begin_idx = boundaries[global_part_idx];
+-                    const size_t end_idx = boundaries[global_part_idx + 1];
+-                    part_paths[part_idx] = build_part_path(output_base, file_idx, part_idx);
+-
+-                    threads.emplace_back([&, part_idx, begin_idx, end_idx] {
+-                        part_ok[part_idx] = write_part(part_paths[part_idx], begin_idx, end_idx) ? 1 : 0;
+-                    });
+-                }
+-
+-                for (auto &th : threads)
+-                {
+-                    th.join();
+-                }
+-
+-                std::vector<char> final_buffer(LOG_BUFFER_BYTES);
+-                const std::string final_path = build_final_log_path(output_base, file_idx);
+-                std::ofstream final_ofs;
+-                std::filebuf *final_buf = final_ofs.rdbuf();
+-                final_buf->pubsetbuf(final_buffer.data(), final_buffer.size());
+-                final_ofs.open(final_path);
+-                if (!final_ofs.is_open())
+-                {
+-                    perror("open final output log");
+-                    write_failed.store(true);
+-                    return;
+-                }
+-
+-                print_row(final_ofs, scores_log, true);
+-                for (size_t part_idx = 0; part_idx < LOG_PARTS_PER_FILE; ++part_idx)
+-                {
+-                    if (!part_ok[part_idx])
+-                    {
+-                        continue;
+-                    }
+-
+-                    append_part_file(final_ofs, part_paths[part_idx]);
+-                }
+-            }
+-        };
+-
+-        std::vector<std::thread> file_group_threads;
+-        file_group_threads.reserve(LOG_FILE_COUNT);
+-        for (size_t file_idx = 0; file_idx < LOG_FILE_COUNT; ++file_idx)
+-        {
+-            file_group_threads.emplace_back([&, file_idx] { write_file_group(file_idx); });
+-        }
+-
+-        for (auto &th : file_group_threads)
+-        {
+-            th.join();
+-        }
+-
+-        if (write_failed.load())
+-        {
+-            std::cout << "[ARMS] Failed writing one or more output log files." << std::endl;
+-            return;
+-        }
+-
+-        std::cout << "[ARMS] Training data log written to " << output_base << "_0.log ... " << output_base << "_9.log."
+-                  << std::endl;
++        const std::string path = output_base + ".parquet";
++        std::cout << "[ARMS] Writing " << sample_count << " training rows to " << path << "..." << std::endl;
++        write_training_parquet(path, scores_log, sample_count);
++        std::cout << "[ARMS] Training data log written to " << path << std::endl;
++    }
++    catch (const std::exception &error)
++    {
++        std::cerr << "[ARMS] Failed writing training Parquet log: " << error.what() << std::endl;
+     }
++#endif
+ }
+ 
+ struct data_row access_log::extract_row(size_t step, const page_ptr &page, struct group_tracker *grp_tracker,
+@@ -793,4 +545,4 @@ bool access_log::overlaps_with_logging_region(uint64_t addr, uint64_t length) co
+     }
+ 
+     return false;
+-}
+\ No newline at end of file
++}

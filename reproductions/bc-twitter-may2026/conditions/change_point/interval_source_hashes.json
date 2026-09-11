@@ -1,0 +1,98 @@
+[
+  {
+    "path": "arms_kernel.cpp",
+    "may14_blob": "f8750b79f5428a6815343afa96baa4409740a786",
+    "june13_head_blob": "f8750b79f5428a6815343afa96baa4409740a786",
+    "equal": true
+  },
+  {
+    "path": "pebs_scan_thread.cpp",
+    "may14_blob": "57e15a06985e92aac42ec30c7822601d3dd5ed37",
+    "june13_head_blob": "57e15a06985e92aac42ec30c7822601d3dd5ed37",
+    "equal": true
+  },
+  {
+    "path": "pagemap_scan_thread.cpp",
+    "may14_blob": "9f9e3f4a242a8d4ab102feaa116fbb169c01126f",
+    "june13_head_blob": "9f9e3f4a242a8d4ab102feaa116fbb169c01126f",
+    "equal": true
+  },
+  {
+    "path": "migration_worker.cpp",
+    "may14_blob": "8f8a879b3a98a69340356def955a94f3d14b1a21",
+    "june13_head_blob": "8f8a879b3a98a69340356def955a94f3d14b1a21",
+    "equal": true
+  },
+  {
+    "path": "policy_thread.cpp",
+    "may14_blob": "446fbd195e526c7bbca5212affba501593fe61c3",
+    "june13_head_blob": "446fbd195e526c7bbca5212affba501593fe61c3",
+    "equal": true
+  },
+  {
+    "path": "page.cpp",
+    "may14_blob": "0ccb977736405ccf003baa10f18baa4339003cf0",
+    "june13_head_blob": "0ccb977736405ccf003baa10f18baa4339003cf0",
+    "equal": true
+  },
+  {
+    "path": "page.h",
+    "may14_blob": "18f829497fe4ee1cee0f5fc8bdde04bd18134785",
+    "june13_head_blob": "18f829497fe4ee1cee0f5fc8bdde04bd18134785",
+    "equal": true
+  },
+  {
+    "path": "defs.h",
+    "may14_blob": "83bfc8ceb970596b5489b15e586892fcf969fd42",
+    "june13_head_blob": "83bfc8ceb970596b5489b15e586892fcf969fd42",
+    "equal": true
+  },
+  {
+    "path": "hook/hook.cpp",
+    "may14_blob": "50eeec1dc0c064a01158d2401b4271cd6ab38cc1",
+    "june13_head_blob": "50eeec1dc0c064a01158d2401b4271cd6ab38cc1",
+    "equal": true
+  },
+  {
+    "path": "Makefile",
+    "may14_blob": "732d5fe73c64d2f8cf6ccf28e707d4f691174708",
+    "june13_head_blob": "732d5fe73c64d2f8cf6ccf28e707d4f691174708",
+    "equal": true
+  },
+  {
+    "path": "setup.sh",
+    "may14_blob": "9269f544c753641578e44d8709ec815d031f7770",
+    "june13_head_blob": "9269f544c753641578e44d8709ec815d031f7770",
+    "equal": true
+  },
+  {
+    "path": "defrag.sh",
+    "may14_blob": "75f7cba0e88d2af97e53c5cd600959c5cd3e48d8",
+    "june13_head_blob": "75f7cba0e88d2af97e53c5cd600959c5cd3e48d8",
+    "equal": true
+  },
+  {
+    "path": "measurement_common.sh",
+    "may14_blob": "a5a88fbfd9ca5635ae93bab233cd5ef677e400db",
+    "june13_head_blob": "a5a88fbfd9ca5635ae93bab233cd5ef677e400db",
+    "equal": true
+  },
+  {
+    "path": "measurement_arms.sh",
+    "may14_blob": "47370eddde20b900575f37f62c78646fafc7f603",
+    "june13_head_blob": "47370eddde20b900575f37f62c78646fafc7f603",
+    "equal": true
+  },
+  {
+    "path": "measurement_model.sh",
+    "may14_blob": "55dea55d4f595eead5a4abecee2949c042aff2e3",
+    "june13_head_blob": "55dea55d4f595eead5a4abecee2949c042aff2e3",
+    "equal": true
+  },
+  {
+    "path": "workloads/bc-twitter.sg-long.sh",
+    "may14_blob": "4cf6fc274132e905e39aaa801981b852e4d6d069",
+    "june13_head_blob": "4cf6fc274132e905e39aaa801981b852e4d6d069",
+    "equal": true
+  }
+]

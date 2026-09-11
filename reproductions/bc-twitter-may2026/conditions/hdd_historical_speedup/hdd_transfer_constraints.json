@@ -1,0 +1,22 @@
+{
+  "captured_utc": "2026-09-09T20:28:36.710541+00:00",
+  "graph_path": "/users/zimooo2/gapbs/benchmark/graphs/twitter.sg",
+  "graph_size_bytes": 12732173745,
+  "graph_mtime_utc": "2026-08-21T15:17:06.891084+00:00",
+  "drive_model": "ST1200MM0088",
+  "datasheet_url": "https://www.seagate.com/www-content/datasheets/pdfs/enterprise-performance-10k-hddDS1785-8C-1607US-en_US.pdf",
+  "datasheet_page_1based": 2,
+  "datasheet_sustained_MB_per_second_outer_inner": [
+    215,
+    108
+  ],
+  "graph_transfer_seconds_at_215MBps": 59.21941276744186,
+  "old_total_minus_current_compute_ARMS": 52.41376666666666,
+  "old_total_minus_current_compute_model_0p5": 41.39126666666667,
+  "limits": [
+    "Published sustained transfer rate is a hardware reference, not a measured hard bound on every run.",
+    "Transfer estimate assumes this full graph was read cold from this same disk; historical graph hash/device identity and cache state are unrecorded.",
+    "Read phase includes graph allocation and index construction as well as I/O.",
+    "Subtracting current compute from historical total assumes unchanged computation; it is diagnostic arithmetic, not recovered historical timings."
+  ]
+}

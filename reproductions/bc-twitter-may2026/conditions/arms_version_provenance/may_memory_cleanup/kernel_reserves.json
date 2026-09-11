@@ -1,0 +1,5242 @@
+{
+  "scope": "Retained before/after snapshots, not in-workload peak sampling; no host controls written.",
+  "config_source": "/boot/config-6.18.1-061801-generic",
+  "config_sha256": "1616bd0122b02046cbb4033e48ed1e789a305e1b22939308efda49b12bab4e72",
+  "config_relevant_lines": [
+    "CONFIG_COMPACTION=y",
+    "CONFIG_PCP_BATCH_SCALE_MAX=5",
+    "CONFIG_TRANSPARENT_HUGEPAGE=y",
+    "# CONFIG_TRANSPARENT_HUGEPAGE_ALWAYS is not set",
+    "CONFIG_TRANSPARENT_HUGEPAGE_MADVISE=y",
+    "# CONFIG_TRANSPARENT_HUGEPAGE_NEVER is not set",
+    "CONFIG_CMA=y",
+    "CONFIG_CMA_DEBUGFS=y",
+    "CONFIG_CMA_SYSFS=y",
+    "CONFIG_CMA_AREAS=20",
+    "CONFIG_ZONE_DMA=y",
+    "CONFIG_ZONE_DMA32=y",
+    "CONFIG_HUGETLBFS=y",
+    "# CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP_DEFAULT_ON is not set",
+    "CONFIG_HUGETLB_PAGE=y",
+    "CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP=y",
+    "CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING=y",
+    "CONFIG_CMA_SIZE_MBYTES=0",
+    "CONFIG_CMA_SIZE_SEL_MBYTES=y",
+    "# CONFIG_CMA_SIZE_SEL_PERCENTAGE is not set",
+    "# CONFIG_CMA_SIZE_SEL_MIN is not set",
+    "# CONFIG_CMA_SIZE_SEL_MAX is not set",
+    "CONFIG_CMA_ALIGNMENT=8"
+  ],
+  "rows": [
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T175404Z-425061/results/20260909T175404Z-425061/01-may07_arms/after.json",
+      "source_sha256": "ba40c140d5d20fefd31e2b7ec11045af9b1699e6191007b85fbfbe619305d76d",
+      "session": "20260909T175404Z-425061",
+      "knob": "none",
+      "case": "01-may07_arms",
+      "phase": "after",
+      "utc": "2026-09-09T17:57:23.349269+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            1622,
+            4611,
+            4611,
+            4611
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 410788,
+          "protection": [
+            0,
+            0,
+            2989,
+            2989,
+            2989
+          ],
+          "pcp_count_pages_sum": 2124,
+          "pcp_high_pages_sum": 21843,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 245987,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 4019,
+          "pcp_high_pages_sum": 25218,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 393216,
+        "Normal": 67584
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T175404Z-425061/results/20260909T175404Z-425061/01-may07_arms/before.json",
+      "source_sha256": "c4729edd5d91b1c1fb5ddf7a40244ae8e54fe277590dfa22fe8f16ad5919e760",
+      "session": "20260909T175404Z-425061",
+      "knob": "none",
+      "case": "01-may07_arms",
+      "phase": "before",
+      "utc": "2026-09-09T17:55:36.939181+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            1622,
+            4611,
+            4611,
+            4611
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 412908,
+          "protection": [
+            0,
+            0,
+            2989,
+            2989,
+            2989
+          ],
+          "pcp_count_pages_sum": 4,
+          "pcp_high_pages_sum": 10480,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 227960,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 22475,
+          "pcp_high_pages_sum": 67928,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 395264,
+        "Normal": 59392
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T175404Z-425061/results/20260909T175404Z-425061/01-may07_model/after.json",
+      "source_sha256": "34627af30bfd5c692f97673afde120452078f777b28f428bbe4830156408df26",
+      "session": "20260909T175404Z-425061",
+      "knob": "none",
+      "case": "01-may07_model",
+      "phase": "after",
+      "utc": "2026-09-09T17:59:45.810194+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            1622,
+            4611,
+            4611,
+            4611
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 404720,
+          "protection": [
+            0,
+            0,
+            2989,
+            2989,
+            2989
+          ],
+          "pcp_count_pages_sum": 8192,
+          "pcp_high_pages_sum": 29429,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 240627,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 2758,
+          "pcp_high_pages_sum": 22936,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 387072,
+        "Normal": 68608
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T175404Z-425061/results/20260909T175404Z-425061/01-may07_model/before.json",
+      "source_sha256": "270d4405a77c5fbac48c2d1bbd460d6a0b8e7d17282bec8df6091042e97adda7",
+      "session": "20260909T175404Z-425061",
+      "knob": "none",
+      "case": "01-may07_model",
+      "phase": "before",
+      "utc": "2026-09-09T17:58:07.809108+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            1622,
+            4611,
+            4611,
+            4611
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 411888,
+          "protection": [
+            0,
+            0,
+            2989,
+            2989,
+            2989
+          ],
+          "pcp_count_pages_sum": 1024,
+          "pcp_high_pages_sum": 15941,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 229416,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 21197,
+          "pcp_high_pages_sum": 35855,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 394240,
+        "Normal": 68096
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T175946Z-432507/results/20260909T175946Z-432507/01-may07_arms/after.json",
+      "source_sha256": "0d3558969e6a1cb78d5058284a4c6602e08898ac9733343fb4aa003f998d16ba",
+      "session": "20260909T175946Z-432507",
+      "knob": "lowmem32",
+      "case": "01-may07_arms",
+      "phase": "after",
+      "utc": "2026-09-09T18:03:09.218083+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            12981,
+            36895,
+            36895,
+            36895
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 410683,
+          "protection": [
+            0,
+            0,
+            23913,
+            23913,
+            23913
+          ],
+          "pcp_count_pages_sum": 2229,
+          "pcp_high_pages_sum": 17559,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 245311,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 5358,
+          "pcp_high_pages_sum": 22893,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 393728,
+        "Normal": 70144
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T175946Z-432507/results/20260909T175946Z-432507/01-may07_arms/before.json",
+      "source_sha256": "4288178a6eaa93506ff634f13a2c0a9967db333dc9c44397daa311222fb10e6f",
+      "session": "20260909T175946Z-432507",
+      "knob": "lowmem32",
+      "case": "01-may07_arms",
+      "phase": "before",
+      "utc": "2026-09-09T18:01:20.046438+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            12981,
+            36895,
+            36895,
+            36895
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 412912,
+          "protection": [
+            0,
+            0,
+            23913,
+            23913,
+            23913
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 10480,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 238750,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 11878,
+          "pcp_high_pages_sum": 64507,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 395264,
+        "Normal": 70144
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T175946Z-432507/results/20260909T175946Z-432507/01-may07_model/after.json",
+      "source_sha256": "2e55575810761f8d5e185777d926e4c823e9c48485b8572b39a9c232ad5bcab2",
+      "session": "20260909T175946Z-432507",
+      "knob": "lowmem32",
+      "case": "01-may07_model",
+      "phase": "after",
+      "utc": "2026-09-09T18:05:32.443233+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            12981,
+            36895,
+            36895,
+            36895
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 410864,
+          "protection": [
+            0,
+            0,
+            23913,
+            23913,
+            23913
+          ],
+          "pcp_count_pages_sum": 2048,
+          "pcp_high_pages_sum": 28148,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 207830,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 1083,
+          "pcp_high_pages_sum": 22966,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 393216,
+        "Normal": 71168
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T175946Z-432507/results/20260909T175946Z-432507/01-may07_model/before.json",
+      "source_sha256": "31677c19a46704bb1740c999021dec09322338f0cdb4f6b367dbb523dcd70b06",
+      "session": "20260909T175946Z-432507",
+      "knob": "lowmem32",
+      "case": "01-may07_model",
+      "phase": "before",
+      "utc": "2026-09-09T18:03:52.958245+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            12981,
+            36895,
+            36895,
+            36895
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 411294,
+          "protection": [
+            0,
+            0,
+            23913,
+            23913,
+            23913
+          ],
+          "pcp_count_pages_sum": 1618,
+          "pcp_high_pages_sum": 15216,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 238762,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 12012,
+          "pcp_high_pages_sum": 26599,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 394240,
+        "Normal": 71168
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T180532Z-439108/results/20260909T180533Z-439108/01-may07_arms/after.json",
+      "source_sha256": "7cff903e7aef2d3e77318da78c50f6830e41145e346476f7ee025d1be9908786",
+      "session": "20260909T180532Z-439108",
+      "knob": "lowmem4",
+      "case": "01-may07_arms",
+      "phase": "after",
+      "utc": "2026-09-09T18:09:24.661929+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            103852,
+            295164,
+            295164,
+            295164
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 411881,
+          "protection": [
+            0,
+            0,
+            191311,
+            191311,
+            191311
+          ],
+          "pcp_count_pages_sum": 1031,
+          "pcp_high_pages_sum": 13284,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 247762,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 3069,
+          "pcp_high_pages_sum": 24725,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 394240,
+        "Normal": 71168
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T180532Z-439108/results/20260909T180533Z-439108/01-may07_arms/before.json",
+      "source_sha256": "840a28ade08633cb428c1f2a15a538e7e4cf37e6d0cd4cb79b97915f31cbca34",
+      "session": "20260909T180532Z-439108",
+      "knob": "lowmem4",
+      "case": "01-may07_arms",
+      "phase": "before",
+      "utc": "2026-09-09T18:07:07.705880+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            103852,
+            295164,
+            295164,
+            295164
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 412912,
+          "protection": [
+            0,
+            0,
+            191311,
+            191311,
+            191311
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 10480,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 233271,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 17577,
+          "pcp_high_pages_sum": 69655,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 395264,
+        "Normal": 71680
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T180532Z-439108/results/20260909T180533Z-439108/01-may07_model/after.json",
+      "source_sha256": "116c0b08907a0e96811c8517f3bf78852234c70ab91f00821e40b19b97d5f4f3",
+      "session": "20260909T180532Z-439108",
+      "knob": "lowmem4",
+      "case": "01-may07_model",
+      "phase": "after",
+      "utc": "2026-09-09T18:12:00.667090+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            103852,
+            295164,
+            295164,
+            295164
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 411888,
+          "protection": [
+            0,
+            0,
+            191311,
+            191311,
+            191311
+          ],
+          "pcp_count_pages_sum": 1024,
+          "pcp_high_pages_sum": 16837,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 248266,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 2592,
+          "pcp_high_pages_sum": 24570,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 394240,
+        "Normal": 72192
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T180532Z-439108/results/20260909T180533Z-439108/01-may07_model/before.json",
+      "source_sha256": "a9268bd2d95b9e93163e30bd12adfefff0499fb44bf20b9c86730138bf09277e",
+      "session": "20260909T180532Z-439108",
+      "knob": "lowmem4",
+      "case": "01-may07_model",
+      "phase": "before",
+      "utc": "2026-09-09T18:10:08.161208+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            103852,
+            295164,
+            295164,
+            295164
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 412393,
+          "protection": [
+            0,
+            0,
+            191311,
+            191311,
+            191311
+          ],
+          "pcp_count_pages_sum": 519,
+          "pcp_high_pages_sum": 12129,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 248893,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 2029,
+          "pcp_high_pages_sum": 20843,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 394752,
+        "Normal": 73216
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T181201Z-445918/results/20260909T181201Z-445918/01-may07_arms/after.json",
+      "source_sha256": "f6fda265d07bdb90708d666930dc62100fec40bab7f44fcba5a43946c165038d",
+      "session": "20260909T181201Z-445918",
+      "knob": "watermark_boost0",
+      "case": "01-may07_arms",
+      "phase": "after",
+      "utc": "2026-09-09T18:15:22.172672+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            1622,
+            4611,
+            4611,
+            4611
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 410352,
+          "protection": [
+            0,
+            0,
+            2989,
+            2989,
+            2989
+          ],
+          "pcp_count_pages_sum": 2560,
+          "pcp_high_pages_sum": 17754,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 167522,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 678,
+          "pcp_high_pages_sum": 23293,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 392704,
+        "Normal": 36352
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T181201Z-445918/results/20260909T181201Z-445918/01-may07_arms/before.json",
+      "source_sha256": "7929a6a2cab4a4bbee66719f35c7629a050d34634ce6b03d6004c36d30e83693",
+      "session": "20260909T181201Z-445918",
+      "knob": "watermark_boost0",
+      "case": "01-may07_arms",
+      "phase": "before",
+      "utc": "2026-09-09T18:13:33.289276+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            1622,
+            4611,
+            4611,
+            4611
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 412912,
+          "protection": [
+            0,
+            0,
+            2989,
+            2989,
+            2989
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 10480,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 231965,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 18895,
+          "pcp_high_pages_sum": 64192,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 395264,
+        "Normal": 72704
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T181201Z-445918/results/20260909T181201Z-445918/01-may07_model/after.json",
+      "source_sha256": "dfe2feb9915587a9d68c49dc66e1829171fa979d623342b5d92883b2516a4d1e",
+      "session": "20260909T181201Z-445918",
+      "knob": "watermark_boost0",
+      "case": "01-may07_model",
+      "phase": "after",
+      "utc": "2026-09-09T18:17:44.370953+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            1622,
+            4611,
+            4611,
+            4611
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 409840,
+          "protection": [
+            0,
+            0,
+            2989,
+            2989,
+            2989
+          ],
+          "pcp_count_pages_sum": 3072,
+          "pcp_high_pages_sum": 28435,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 207417,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 1154,
+          "pcp_high_pages_sum": 21655,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 392192,
+        "Normal": 73728
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T181201Z-445918/results/20260909T181201Z-445918/01-may07_model/before.json",
+      "source_sha256": "b6fc33f03d0bde3f87eb4574ea8135f9f4f3036a3089ee4a43da14c107366bec",
+      "session": "20260909T181201Z-445918",
+      "knob": "watermark_boost0",
+      "case": "01-may07_model",
+      "phase": "before",
+      "utc": "2026-09-09T18:16:06.210429+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            1622,
+            4611,
+            4611,
+            4611
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 411888,
+          "protection": [
+            0,
+            0,
+            2989,
+            2989,
+            2989
+          ],
+          "pcp_count_pages_sum": 1024,
+          "pcp_high_pages_sum": 13095,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 237909,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 13125,
+          "pcp_high_pages_sum": 26801,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 394240,
+        "Normal": 73216
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T181744Z-453115/results/20260909T181745Z-453115/01-may07_arms/after.json",
+      "source_sha256": "d077c4a24f774d6d90dfbda72828a5b5872101f2e42a2ff9108c31e4833154a6",
+      "session": "20260909T181744Z-453115",
+      "knob": "min_free16m",
+      "case": "01-may07_arms",
+      "phase": "after",
+      "utc": "2026-09-09T18:21:06.539947+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 3,
+          "high": 6,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            1622,
+            4611,
+            4611,
+            4611
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 65,
+          "low": 480,
+          "high": 895,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 410352,
+          "protection": [
+            0,
+            0,
+            2989,
+            2989,
+            2989
+          ],
+          "pcp_count_pages_sum": 2560,
+          "pcp_high_pages_sum": 23657,
+          "pcp_high_min_pages_sum": 10080,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 120,
+          "low": 885,
+          "high": 1650,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 210484,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 5396,
+          "pcp_high_pages_sum": 21213,
+          "pcp_high_min_pages_sum": 10080,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 392704,
+        "Normal": 36864
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T181744Z-453115/results/20260909T181745Z-453115/01-may07_arms/before.json",
+      "source_sha256": "5281cf4afa6ae51a28378a84e59cd3df41de76487671ffba4aa515613c10b712",
+      "session": "20260909T181744Z-453115",
+      "knob": "min_free16m",
+      "case": "01-may07_arms",
+      "phase": "before",
+      "utc": "2026-09-09T18:19:18.445273+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 3,
+          "high": 6,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            1622,
+            4611,
+            4611,
+            4611
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 65,
+          "low": 480,
+          "high": 895,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 412912,
+          "protection": [
+            0,
+            0,
+            2989,
+            2989,
+            2989
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 10992,
+          "pcp_high_min_pages_sum": 10080,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 120,
+          "low": 885,
+          "high": 1650,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 237232,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 13727,
+          "pcp_high_pages_sum": 59868,
+          "pcp_high_min_pages_sum": 10080,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 395264,
+        "Normal": 72192
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T181744Z-453115/results/20260909T181745Z-453115/01-may07_model/after.json",
+      "source_sha256": "0613ead05ba1c511eb9dea6f59a373f876da514a6c231d08e414e371434ed3fe",
+      "session": "20260909T181744Z-453115",
+      "knob": "min_free16m",
+      "case": "01-may07_model",
+      "phase": "after",
+      "utc": "2026-09-09T18:23:28.036915+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 3,
+          "high": 6,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            1622,
+            4611,
+            4611,
+            4611
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 65,
+          "low": 480,
+          "high": 895,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 407792,
+          "protection": [
+            0,
+            0,
+            2989,
+            2989,
+            2989
+          ],
+          "pcp_count_pages_sum": 5120,
+          "pcp_high_pages_sum": 25667,
+          "pcp_high_min_pages_sum": 10080,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 120,
+          "low": 885,
+          "high": 1650,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 246759,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 3530,
+          "pcp_high_pages_sum": 16087,
+          "pcp_high_min_pages_sum": 10080,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 390144,
+        "Normal": 72192
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T181744Z-453115/results/20260909T181745Z-453115/01-may07_model/before.json",
+      "source_sha256": "03813f5463d11922733b2a7bdbfd332ea10161aee4103fbf54ccf42e4900d719",
+      "session": "20260909T181744Z-453115",
+      "knob": "min_free16m",
+      "case": "01-may07_model",
+      "phase": "before",
+      "utc": "2026-09-09T18:21:50.171894+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 3,
+          "high": 6,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            1622,
+            4611,
+            4611,
+            4611
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 65,
+          "low": 480,
+          "high": 895,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 410864,
+          "protection": [
+            0,
+            0,
+            2989,
+            2989,
+            2989
+          ],
+          "pcp_count_pages_sum": 2048,
+          "pcp_high_pages_sum": 18273,
+          "pcp_high_min_pages_sum": 10080,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 120,
+          "low": 885,
+          "high": 1650,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 237237,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 13806,
+          "pcp_high_pages_sum": 31009,
+          "pcp_high_min_pages_sum": 10080,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 393216,
+        "Normal": 72704
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T182328Z-460094/results/20260909T182328Z-460094/01-may07_arms/after.json",
+      "source_sha256": "2522559adba31a3d85ff805abad9109ac52d887da8ce670ecea04a4860ae1422",
+      "session": "20260909T182328Z-460094",
+      "knob": "khugepaged_pages4096",
+      "case": "01-may07_arms",
+      "phase": "after",
+      "utc": "2026-09-09T18:26:48.442727+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            1622,
+            4611,
+            4611,
+            4611
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 412400,
+          "protection": [
+            0,
+            0,
+            2989,
+            2989,
+            2989
+          ],
+          "pcp_count_pages_sum": 512,
+          "pcp_high_pages_sum": 22151,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 230585,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 716,
+          "pcp_high_pages_sum": 20916,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 394752,
+        "Normal": 38912
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T182328Z-460094/results/20260909T182328Z-460094/01-may07_arms/before.json",
+      "source_sha256": "00de3b42d10028c721ea04bae54e6909d1c149021831a7cdda56154bc8c3feb9",
+      "session": "20260909T182328Z-460094",
+      "knob": "khugepaged_pages4096",
+      "case": "01-may07_arms",
+      "phase": "before",
+      "utc": "2026-09-09T18:25:00.972676+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            1622,
+            4611,
+            4611,
+            4611
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 412912,
+          "protection": [
+            0,
+            0,
+            2989,
+            2989,
+            2989
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 10300,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 232243,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 18416,
+          "pcp_high_pages_sum": 62316,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 395264,
+        "Normal": 72704
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T182328Z-460094/results/20260909T182328Z-460094/01-may07_model/after.json",
+      "source_sha256": "800cd27698ab681f83e6e98fcbe2226b9275ae0e4e6139e3c0357e71f583aa4e",
+      "session": "20260909T182328Z-460094",
+      "knob": "khugepaged_pages4096",
+      "case": "01-may07_model",
+      "phase": "after",
+      "utc": "2026-09-09T18:29:11.356492+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            1622,
+            4611,
+            4611,
+            4611
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 407280,
+          "protection": [
+            0,
+            0,
+            2989,
+            2989,
+            2989
+          ],
+          "pcp_count_pages_sum": 5632,
+          "pcp_high_pages_sum": 27668,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 224560,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 5507,
+          "pcp_high_pages_sum": 26811,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 389632,
+        "Normal": 74752
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T182328Z-460094/results/20260909T182328Z-460094/01-may07_model/before.json",
+      "source_sha256": "fc614113b228e88c96770a97f44b270123bfb411e51af7262cefa3a64633c69e",
+      "session": "20260909T182328Z-460094",
+      "knob": "khugepaged_pages4096",
+      "case": "01-may07_model",
+      "phase": "before",
+      "utc": "2026-09-09T18:27:33.120068+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            1622,
+            4611,
+            4611,
+            4611
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 412912,
+          "protection": [
+            0,
+            0,
+            2989,
+            2989,
+            2989
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 10844,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 232600,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 18333,
+          "pcp_high_pages_sum": 30480,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 395264,
+        "Normal": 71168
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T182911Z-468305/results/20260909T182911Z-468305/01-may07_arms/after.json",
+      "source_sha256": "9fc2d89f9382f74cc5c2058552e146b5604327457c6286aca0c58411d77bc484",
+      "session": "20260909T182911Z-468305",
+      "knob": "none",
+      "case": "01-may07_arms",
+      "phase": "after",
+      "utc": "2026-09-09T18:32:38.503688+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            1622,
+            4611,
+            4611,
+            4611
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 408393,
+          "protection": [
+            0,
+            0,
+            2989,
+            2989,
+            2989
+          ],
+          "pcp_count_pages_sum": 4519,
+          "pcp_high_pages_sum": 18967,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 243425,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 7013,
+          "pcp_high_pages_sum": 22579,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 394752,
+        "Normal": 74752
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T182911Z-468305/results/20260909T182911Z-468305/01-may07_arms/before.json",
+      "source_sha256": "c3a8573edb4f4d766d9c058638539d99da46dbc94460433700e8ae872f077026",
+      "session": "20260909T182911Z-468305",
+      "knob": "none",
+      "case": "01-may07_arms",
+      "phase": "before",
+      "utc": "2026-09-09T18:30:46.962347+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            1622,
+            4611,
+            4611,
+            4611
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 412912,
+          "protection": [
+            0,
+            0,
+            2989,
+            2989,
+            2989
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 10420,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 229480,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 21377,
+          "pcp_high_pages_sum": 76070,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 395264,
+        "Normal": 72192
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T182911Z-468305/results/20260909T182911Z-468305/01-may07_model/after.json",
+      "source_sha256": "0af633b44db7fa37cf3a589854acd778c95f65d2bcd1575f78a76eab311b6c01",
+      "session": "20260909T182911Z-468305",
+      "knob": "none",
+      "case": "01-may07_model",
+      "phase": "after",
+      "utc": "2026-09-09T18:35:00.515394+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            1622,
+            4611,
+            4611,
+            4611
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 403545,
+          "protection": [
+            0,
+            0,
+            2989,
+            2989,
+            2989
+          ],
+          "pcp_count_pages_sum": 9367,
+          "pcp_high_pages_sum": 29085,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 205141,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 4081,
+          "pcp_high_pages_sum": 23324,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 386560,
+        "Normal": 72704
+      }
+    },
+    {
+      "source": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T182911Z-468305/results/20260909T182911Z-468305/01-may07_model/before.json",
+      "source_sha256": "f32d0c39231b47b036f6773bd9e0b56114017c186304a6c2d04b9f74eb8eff1c",
+      "session": "20260909T182911Z-468305",
+      "knob": "none",
+      "case": "01-may07_model",
+      "phase": "before",
+      "utc": "2026-09-09T18:33:22.750804+00:00",
+      "meminfo": {
+        "CmaTotal": 0,
+        "CmaFree": 0,
+        "HugePages_Total": 0,
+        "HugePages_Free": 0,
+        "HugePages_Rsvd": 0,
+        "Hugetlb": 0
+      },
+      "zones": [
+        {
+          "boost": 0,
+          "min": 38,
+          "low": 47,
+          "high": 56,
+          "spanned": 4095,
+          "present": 3996,
+          "managed": 3840,
+          "cma": 0,
+          "zone": "DMA",
+          "free_pages": 2816,
+          "protection": [
+            0,
+            1622,
+            4611,
+            4611,
+            4611
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 160,
+          "pcp_high_max_pages_sum": 960
+        },
+        {
+          "boost": 0,
+          "min": 4197,
+          "low": 5246,
+          "high": 6295,
+          "spanned": 1044480,
+          "present": 431795,
+          "managed": 415411,
+          "cma": 0,
+          "zone": "DMA32",
+          "free_pages": 409793,
+          "protection": [
+            0,
+            0,
+            2989,
+            2989,
+            2989
+          ],
+          "pcp_count_pages_sum": 3119,
+          "pcp_high_pages_sum": 13812,
+          "pcp_high_min_pages_sum": 10480,
+          "pcp_high_max_pages_sum": 103840
+        },
+        {
+          "boost": 0,
+          "min": 7732,
+          "low": 9665,
+          "high": 11598,
+          "spanned": 24379392,
+          "present": 786432,
+          "managed": 765246,
+          "cma": 0,
+          "zone": "Normal",
+          "free_pages": 239393,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 11634,
+          "pcp_high_pages_sum": 25634,
+          "pcp_high_min_pages_sum": 19320,
+          "pcp_high_max_pages_sum": 191280
+        },
+        {
+          "boost": 0,
+          "min": 32,
+          "low": 32,
+          "high": 32,
+          "spanned": 0,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Movable",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        },
+        {
+          "boost": 0,
+          "min": 0,
+          "low": 0,
+          "high": 0,
+          "spanned": 23597056,
+          "present": 0,
+          "managed": 0,
+          "cma": 0,
+          "zone": "Device",
+          "free_pages": 0,
+          "protection": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "pcp_count_pages_sum": 0,
+          "pcp_high_pages_sum": 0,
+          "pcp_high_min_pages_sum": 0,
+          "pcp_high_max_pages_sum": 0
+        }
+      ],
+      "special_free": [
+        {
+          "zone": "DMA",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "DMA32",
+          "type": "Isolate",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "HighAtomic",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "CMA",
+          "free_pages": 0
+        },
+        {
+          "zone": "Normal",
+          "type": "Isolate",
+          "free_pages": 0
+        }
+      ],
+      "ordinary_buddy_order9plus_pages": {
+        "DMA": 2560,
+        "DMA32": 395264,
+        "Normal": 75776
+      }
+    }
+  ],
+  "all_zero_cma_hugetlb": true,
+  "all_zero_highatomic_cma_isolate_free": true
+}

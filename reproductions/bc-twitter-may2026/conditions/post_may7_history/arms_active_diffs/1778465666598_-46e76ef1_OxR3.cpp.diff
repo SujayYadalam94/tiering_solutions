@@ -1,0 +1,10 @@
+--- /users/zimooo2/.vscode-server/data/User/History/-46e76ef1/szjq.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-46e76ef1/OxR3.cpp
+@@ -91,6 +91,7 @@
+ this->num_demotions = 0;
+ this->num_promotions = 0;
+ this->can_promote = true;
++this->can_demote = true;
+ this->last_logged_row =
+ __null
+ ;

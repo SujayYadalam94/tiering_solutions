@@ -1,0 +1,632 @@
+[
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/arms_kernel_threads.h",
+    "size": 3336,
+    "mtime_raw": 1785174304076,
+    "indexed_mtime": "2026-07-27T17:45:04.076000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/pagemap_scan_thread.cpp",
+    "size": 13623,
+    "mtime_raw": 1776987623046,
+    "indexed_mtime": "2026-04-23T23:40:23.046000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/Makefile",
+    "size": 12705,
+    "mtime_raw": 1788712946538,
+    "indexed_mtime": "2026-09-06T16:42:26.538000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/groups.cpp",
+    "size": 5394,
+    "mtime_raw": 1775936542534,
+    "indexed_mtime": "2026-04-11T19:42:22.534000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/logging.h",
+    "size": 5464,
+    "mtime_raw": 1788704021098,
+    "indexed_mtime": "2026-09-06T14:13:41.098000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/arms_kernel.h",
+    "size": 1651,
+    "mtime_raw": 1777945240067,
+    "indexed_mtime": "2026-05-05T01:40:40.067000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/model.h",
+    "size": 597,
+    "mtime_raw": 1776987623045,
+    "indexed_mtime": "2026-04-23T23:40:23.045000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/migration_worker.cpp",
+    "size": 13748,
+    "mtime_raw": 1778307175643,
+    "indexed_mtime": "2026-05-09T06:12:55.643000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/defs.h",
+    "size": 12913,
+    "mtime_raw": 1788985602677,
+    "indexed_mtime": "2026-09-09T20:26:42.677000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/hook/hook.cpp",
+    "size": 10312,
+    "mtime_raw": 1788887221769,
+    "indexed_mtime": "2026-09-08T17:07:01.769000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/timer.h",
+    "size": 807,
+    "mtime_raw": 1772742020532,
+    "indexed_mtime": "2026-03-05T20:20:20.532000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/page.cpp",
+    "size": 14270,
+    "mtime_raw": 1788967716192,
+    "indexed_mtime": "2026-09-09T15:28:36.192000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/groups.h",
+    "size": 1667,
+    "mtime_raw": 1775936542534,
+    "indexed_mtime": "2026-04-11T19:42:22.534000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/timer.cpp",
+    "size": 1678,
+    "mtime_raw": 1772742020532,
+    "indexed_mtime": "2026-03-05T20:20:20.532000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/policy_thread.cpp",
+    "size": 4174,
+    "mtime_raw": 1785174320102,
+    "indexed_mtime": "2026-07-27T17:45:20.102000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/model.cpp",
+    "size": 5484,
+    "mtime_raw": 1788952768510,
+    "indexed_mtime": "2026-09-09T11:19:28.510000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/logging.cpp",
+    "size": 16732,
+    "mtime_raw": 1788704020644,
+    "indexed_mtime": "2026-09-06T14:13:40.644000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/page.h",
+    "size": 4656,
+    "mtime_raw": 1778366067511,
+    "indexed_mtime": "2026-05-09T22:34:27.511000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/arms_kernel.cpp",
+    "size": 62295,
+    "mtime_raw": 1788887221769,
+    "indexed_mtime": "2026-09-08T17:07:01.769000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/pebs_scan_thread.cpp",
+    "size": 16127,
+    "mtime_raw": 1777945240068,
+    "indexed_mtime": "2026-05-05T01:40:40.068000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/logging_parquet.cpp",
+    "size": 8744,
+    "mtime_raw": 1788713082245,
+    "indexed_mtime": "2026-09-06T16:44:42.245000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/logging_parquet.h",
+    "size": 315,
+    "mtime_raw": 1788704019849,
+    "indexed_mtime": "2026-09-06T14:13:39.849000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/tests/parquet_preload_fixture.cpp",
+    "size": 1260,
+    "mtime_raw": 1788712890305,
+    "indexed_mtime": "2026-09-06T16:41:30.305000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/tests/parquet_preload_main.cpp",
+    "size": 547,
+    "mtime_raw": 1788709965868,
+    "indexed_mtime": "2026-09-06T15:52:45.868000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/e21ffc6d5c3ba8a03e32a48f184de721/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/tests/logging_parquet_fixture.cpp",
+    "size": 6305,
+    "mtime_raw": 1788704322625,
+    "indexed_mtime": "2026-09-06T14:18:42.625000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/arms_kernel.cpp",
+    "size": 62295,
+    "mtime_raw": 1788116224841,
+    "indexed_mtime": "2026-08-30T18:57:04.841000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/pebs_scan_thread.cpp",
+    "size": 16127,
+    "mtime_raw": 1777945240068,
+    "indexed_mtime": "2026-05-05T01:40:40.068000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/model.cpp",
+    "size": 5484,
+    "mtime_raw": 1781799022524,
+    "indexed_mtime": "2026-06-18T16:10:22.524000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/page.h",
+    "size": 4656,
+    "mtime_raw": 1778366067511,
+    "indexed_mtime": "2026-05-09T22:34:27.511000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/logging.cpp",
+    "size": 16732,
+    "mtime_raw": 1788704020644,
+    "indexed_mtime": "2026-09-06T14:13:40.644000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/arms_kernel.h",
+    "size": 1651,
+    "mtime_raw": 1777945240067,
+    "indexed_mtime": "2026-05-05T01:40:40.067000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/model.h",
+    "size": 597,
+    "mtime_raw": 1776987623045,
+    "indexed_mtime": "2026-04-23T23:40:23.045000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/migration_worker.cpp",
+    "size": 13748,
+    "mtime_raw": 1778307175643,
+    "indexed_mtime": "2026-05-09T06:12:55.643000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/defs.h",
+    "size": 12913,
+    "mtime_raw": 1788705285778,
+    "indexed_mtime": "2026-09-06T14:34:45.778000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/policy_thread.cpp",
+    "size": 4174,
+    "mtime_raw": 1785174320102,
+    "indexed_mtime": "2026-07-27T17:45:20.102000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/timer.cpp",
+    "size": 1678,
+    "mtime_raw": 1772742020532,
+    "indexed_mtime": "2026-03-05T20:20:20.532000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/Makefile",
+    "size": 12705,
+    "mtime_raw": 1788712946538,
+    "indexed_mtime": "2026-09-06T16:42:26.538000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/groups.cpp",
+    "size": 5394,
+    "mtime_raw": 1775936542534,
+    "indexed_mtime": "2026-04-11T19:42:22.534000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/logging.h",
+    "size": 5464,
+    "mtime_raw": 1788704021098,
+    "indexed_mtime": "2026-09-06T14:13:41.098000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/groups.h",
+    "size": 1667,
+    "mtime_raw": 1775936542534,
+    "indexed_mtime": "2026-04-11T19:42:22.534000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/timer.h",
+    "size": 807,
+    "mtime_raw": 1772742020532,
+    "indexed_mtime": "2026-03-05T20:20:20.532000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/page.cpp",
+    "size": 14270,
+    "mtime_raw": 1778465666598,
+    "indexed_mtime": "2026-05-11T02:14:26.598000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/arms_kernel_threads.h",
+    "size": 3336,
+    "mtime_raw": 1785174304076,
+    "indexed_mtime": "2026-07-27T17:45:04.076000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/pagemap_scan_thread.cpp",
+    "size": 13623,
+    "mtime_raw": 1776987623046,
+    "indexed_mtime": "2026-04-23T23:40:23.046000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/hook/hook.cpp",
+    "size": 10312,
+    "mtime_raw": 1788712889866,
+    "indexed_mtime": "2026-09-06T16:41:29.866000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/tests/parquet_preload_fixture.cpp",
+    "size": 1260,
+    "mtime_raw": 1788712890305,
+    "indexed_mtime": "2026-09-06T16:41:30.305000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/tests/parquet_preload_main.cpp",
+    "size": 547,
+    "mtime_raw": 1788709965868,
+    "indexed_mtime": "2026-09-06T15:52:45.868000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/tests/logging_parquet_fixture.cpp",
+    "size": 6305,
+    "mtime_raw": 1788704322625,
+    "indexed_mtime": "2026-09-06T14:18:42.625000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/logging_parquet.cpp",
+    "size": 8744,
+    "mtime_raw": 1788713082245,
+    "indexed_mtime": "2026-09-06T16:44:42.245000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/logging_parquet.h",
+    "size": 315,
+    "mtime_raw": 1788704019849,
+    "indexed_mtime": "2026-09-06T14:13:39.849000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/arms_kernel.cpp",
+    "size": 61921,
+    "mtime_raw": 1785174287224,
+    "indexed_mtime": "2026-07-27T17:44:47.224000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/pebs_scan_thread.cpp",
+    "size": 16127,
+    "mtime_raw": 1777945240068,
+    "indexed_mtime": "2026-05-05T01:40:40.068000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/model.cpp",
+    "size": 5484,
+    "mtime_raw": 1781799022524,
+    "indexed_mtime": "2026-06-18T16:10:22.524000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/page.h",
+    "size": 4656,
+    "mtime_raw": 1778366067511,
+    "indexed_mtime": "2026-05-09T22:34:27.511000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/logging.cpp",
+    "size": 24726,
+    "mtime_raw": 1785174305276,
+    "indexed_mtime": "2026-07-27T17:45:05.276000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/arms_kernel.h",
+    "size": 1651,
+    "mtime_raw": 1777945240067,
+    "indexed_mtime": "2026-05-05T01:40:40.067000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/model.h",
+    "size": 597,
+    "mtime_raw": 1776987623045,
+    "indexed_mtime": "2026-04-23T23:40:23.045000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/migration_worker.cpp",
+    "size": 13748,
+    "mtime_raw": 1778307175643,
+    "indexed_mtime": "2026-05-09T06:12:55.643000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/defs.h",
+    "size": 12914,
+    "mtime_raw": 1785365338294,
+    "indexed_mtime": "2026-07-29T22:48:58.294000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/policy_thread.cpp",
+    "size": 4174,
+    "mtime_raw": 1785174320102,
+    "indexed_mtime": "2026-07-27T17:45:20.102000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/timer.cpp",
+    "size": 1678,
+    "mtime_raw": 1772742020532,
+    "indexed_mtime": "2026-03-05T20:20:20.532000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/Makefile",
+    "size": 10317,
+    "mtime_raw": 1778379086596,
+    "indexed_mtime": "2026-05-10T02:11:26.596000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/groups.cpp",
+    "size": 5394,
+    "mtime_raw": 1775936542534,
+    "indexed_mtime": "2026-04-11T19:42:22.534000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/logging.h",
+    "size": 5519,
+    "mtime_raw": 1785174304689,
+    "indexed_mtime": "2026-07-27T17:45:04.689000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/groups.h",
+    "size": 1667,
+    "mtime_raw": 1775936542534,
+    "indexed_mtime": "2026-04-11T19:42:22.534000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/timer.h",
+    "size": 807,
+    "mtime_raw": 1772742020532,
+    "indexed_mtime": "2026-03-05T20:20:20.532000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/page.cpp",
+    "size": 14270,
+    "mtime_raw": 1778465666598,
+    "indexed_mtime": "2026-05-11T02:14:26.598000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/arms_kernel_threads.h",
+    "size": 3336,
+    "mtime_raw": 1785174304076,
+    "indexed_mtime": "2026-07-27T17:45:04.076000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/pagemap_scan_thread.cpp",
+    "size": 13623,
+    "mtime_raw": 1776987623046,
+    "indexed_mtime": "2026-04-23T23:40:23.046000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/codebase-external.sqlite",
+    "path": "file:///users/zimooo2/tiering_solutions/hook/hook.cpp",
+    "size": 8670,
+    "mtime_raw": 1776987623043,
+    "indexed_mtime": "2026-04-23T23:40:23.043000+00:00",
+    "doc_sha": "",
+    "should_ingest": 0
+  }
+]

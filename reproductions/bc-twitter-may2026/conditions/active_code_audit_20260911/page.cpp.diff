@@ -1,0 +1,49 @@
+diff --git a/page.cpp b/page.cpp
+index 3330825da..0ccb97773 100755
+--- a/page.cpp
++++ b/page.cpp
+@@ -105,6 +105,7 @@ void page_info::reset_page_access_fields()
+     this->num_promotions = 0;
+ 
+     this->can_promote = true;
++    this->can_demote = true;
+ 
+     this->last_logged_row = NULL;
+ }
+@@ -418,10 +419,9 @@ void page_info::update_derivative_features(size_t rank, size_t num_sorted_pages,
+ #endif
+ }
+ 
+-void page_info::update_can_promote(size_t num_dram_pages, size_t rank)
++void page_info::update_can_promote(size_t num_dram_pages, size_t total_scores, size_t rank)
+ {
+-    (void)num_dram_pages;
+-    (void)rank;
++    (void)total_scores;
+ #if USE_MODEL == (false)
+     if (rank < num_dram_pages)
+     {
+@@ -439,6 +439,23 @@ void page_info::update_can_promote(size_t num_dram_pages, size_t rank)
+         this->hot_age = 0;
+         this->can_promote = false;
+     }
++#else
++    if (rank < (num_dram_pages * 0.5))
++    {
++        this->can_promote = true;
++    }
++    else
++    {
++        this->can_promote = false;
++    }
++    if (rank > total_scores - (0.5 * (total_scores - num_dram_pages)))
++    {
++        this->can_demote = true;
++    }
++    else
++    {
++        this->can_demote = false;
++    }
+ #endif
+ }
+ 

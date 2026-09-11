@@ -1,0 +1,1088 @@
+[
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/4008MiB_run1.time",
+    "group": "arms-6.18_new",
+    "size_mib": 4008,
+    "run": 1,
+    "variant": "",
+    "seconds": 121.201,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-04T06:27:30.738794+00:00",
+    "mtime_ns": 1777876050738794249,
+    "sha256": "6911b5cfca6d37c8fac8f26afe70430f09137d4d19887c767c33b8237d9ddc01",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "6b1bc11ddde993c4e365c9d65ac96fb0a6e8b677",
+      "timestamp_utc": "2026-05-04T03:01:18+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-05T01:40:38+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/4008MiB_run2.time",
+    "group": "arms-6.18_new",
+    "size_mib": 4008,
+    "run": 2,
+    "variant": "",
+    "seconds": 114.783,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-04T10:14:31.497047+00:00",
+    "mtime_ns": 1777889671497047321,
+    "sha256": "12c63c6d39899d8ea1c4b590b04912735eb69d64adef15d87a17ece9cb9c9e1a",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "6b1bc11ddde993c4e365c9d65ac96fb0a6e8b677",
+      "timestamp_utc": "2026-05-04T03:01:18+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-05T01:40:38+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/4008MiB_run3.time",
+    "group": "arms-6.18_new",
+    "size_mib": 4008,
+    "run": 3,
+    "variant": "",
+    "seconds": 115.013,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-04T14:00:57.014450+00:00",
+    "mtime_ns": 1777903257014449497,
+    "sha256": "2af774805409b1ea29343d19a98677d4f3e5f31f20848656bdadc9c0a7566ae5",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "6b1bc11ddde993c4e365c9d65ac96fb0a6e8b677",
+      "timestamp_utc": "2026-05-04T03:01:18+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-05T01:40:38+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/6005MiB_run1.time",
+    "group": "arms-6.18_new",
+    "size_mib": 6005,
+    "run": 1,
+    "variant": "",
+    "seconds": 100.681,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T04:18:22.707130+00:00",
+    "mtime_ns": 1777954702707130057,
+    "sha256": "162ef9c04fb4fc64c0dfb9df0d36ee6763517922eb67253e2533b095938da89e",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "8d6a8bc66b230f2d77580f00f63dab61fa25ec6e",
+      "timestamp_utc": "2026-05-05T01:41:13+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-10T04:39:59+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/6005MiB_run2.time",
+    "group": "arms-6.18_new",
+    "size_mib": 6005,
+    "run": 2,
+    "variant": "",
+    "seconds": 100.172,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T07:32:01.636537+00:00",
+    "mtime_ns": 1777966321636536593,
+    "sha256": "fc4602750d671fcf835aedfbd35dd997476c2a0b49f8dc355af2c44769f30146",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "8d6a8bc66b230f2d77580f00f63dab61fa25ec6e",
+      "timestamp_utc": "2026-05-05T01:41:13+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-10T04:39:59+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/6005MiB_run3.time",
+    "group": "arms-6.18_new",
+    "size_mib": 6005,
+    "run": 3,
+    "variant": "",
+    "seconds": 99.89699999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T10:45:30.788278+00:00",
+    "mtime_ns": 1777977930788278102,
+    "sha256": "c749d8f2cdabc24a7278fed442bfadb827f811bdefab94ba72fbcec552936a89",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "8d6a8bc66b230f2d77580f00f63dab61fa25ec6e",
+      "timestamp_utc": "2026-05-05T01:41:13+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-10T04:39:59+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/8005MiB_run1.time",
+    "group": "arms-6.18_new",
+    "size_mib": 8005,
+    "run": 1,
+    "variant": "",
+    "seconds": 98.843,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T02:44:41.834086+00:00",
+    "mtime_ns": 1778035481834085865,
+    "sha256": "1df495d4422e67717d648352fc6c1e96518b49a948a31239fcfdc3ac7a262feb",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "8d6a8bc66b230f2d77580f00f63dab61fa25ec6e",
+      "timestamp_utc": "2026-05-05T01:41:13+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-10T04:39:59+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/8005MiB_run2.time",
+    "group": "arms-6.18_new",
+    "size_mib": 8005,
+    "run": 2,
+    "variant": "",
+    "seconds": 99.887,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T06:28:46.755347+00:00",
+    "mtime_ns": 1778048926755347537,
+    "sha256": "72d28d2e64cebedc999b33eba7167d40e7fd01133565f7911553262e9dc61a0d",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "8d6a8bc66b230f2d77580f00f63dab61fa25ec6e",
+      "timestamp_utc": "2026-05-05T01:41:13+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-10T04:39:59+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/8005MiB_run3.time",
+    "group": "arms-6.18_new",
+    "size_mib": 8005,
+    "run": 3,
+    "variant": "",
+    "seconds": 99.125,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T10:12:19.991415+00:00",
+    "mtime_ns": 1778062339991415081,
+    "sha256": "cf04e3bc699d21d5800990ff95aa4e18eaca5a51c28971465327a69147e4ff0b",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "8d6a8bc66b230f2d77580f00f63dab61fa25ec6e",
+      "timestamp_utc": "2026-05-05T01:41:13+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-10T04:39:59+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/10005MiB_run1.time",
+    "group": "arms-6.18_new",
+    "size_mib": 10005,
+    "run": 1,
+    "variant": "",
+    "seconds": 98.048,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T18:38:06.205043+00:00",
+    "mtime_ns": 1778092686205043170,
+    "sha256": "770ea35f10cd39e05e29b9fd12e7e0dfc1a7cb78843305b34e0481432d2e4ade",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "8d6a8bc66b230f2d77580f00f63dab61fa25ec6e",
+      "timestamp_utc": "2026-05-05T01:41:13+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-10T04:39:59+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/10005MiB_run2.time",
+    "group": "arms-6.18_new",
+    "size_mib": 10005,
+    "run": 2,
+    "variant": "",
+    "seconds": 97.97,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T22:20:06.665892+00:00",
+    "mtime_ns": 1778106006665892175,
+    "sha256": "3df59e49b9a576bef499ee1e68975b54803ad956156888455f865cf2ede99ce7",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "8d6a8bc66b230f2d77580f00f63dab61fa25ec6e",
+      "timestamp_utc": "2026-05-05T01:41:13+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-10T04:39:59+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/10005MiB_run3.time",
+    "group": "arms-6.18_new",
+    "size_mib": 10005,
+    "run": 3,
+    "variant": "",
+    "seconds": 97.576,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T02:01:49.768584+00:00",
+    "mtime_ns": 1778119309768584520,
+    "sha256": "6648a2f4ad6c07042917dfc7d1601a3ab825f7973ea3b95804f3e7f6ff383537",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "8d6a8bc66b230f2d77580f00f63dab61fa25ec6e",
+      "timestamp_utc": "2026-05-05T01:41:13+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-10T04:39:59+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/4009MiB_run1.time",
+    "group": "arms-6.18_new",
+    "size_mib": 4009,
+    "run": 1,
+    "variant": "",
+    "seconds": 112.781,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T09:07:49.182845+00:00",
+    "mtime_ns": 1778144869182845273,
+    "sha256": "0fa3245410764fa5fa16e61b5834adeb9eaa5645f80e1e8b48ef63d39e6d4df7",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/4009MiB_run1.time",
+        "mtime_utc": "2026-05-11T05:34:04.787807+00:00"
+      }
+    ],
+    "checkout_at_result_mtime": {
+      "revision": "8d6a8bc66b230f2d77580f00f63dab61fa25ec6e",
+      "timestamp_utc": "2026-05-05T01:41:13+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-10T04:39:59+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/4009MiB_run2.time",
+    "group": "arms-6.18_new",
+    "size_mib": 4009,
+    "run": 2,
+    "variant": "",
+    "seconds": 118.35499999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T12:54:13.790302+00:00",
+    "mtime_ns": 1778158453790301500,
+    "sha256": "d3e73e405ad1a78984c99f32701ef805843721ef30f5a0c887d6fb66e41e1ff4",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/4009MiB_run2.time",
+        "mtime_utc": "2026-05-11T05:34:04.788807+00:00"
+      }
+    ],
+    "checkout_at_result_mtime": {
+      "revision": "8d6a8bc66b230f2d77580f00f63dab61fa25ec6e",
+      "timestamp_utc": "2026-05-05T01:41:13+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-10T04:39:59+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/4009MiB_run3.time",
+    "group": "arms-6.18_new",
+    "size_mib": 4009,
+    "run": 3,
+    "variant": "",
+    "seconds": 116.275,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T16:40:42.857317+00:00",
+    "mtime_ns": 1778172042857316875,
+    "sha256": "1e8d4a39370c92c0a131b709378989e8e550e473492f0e3072f0513916743be5",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/4009MiB_run3.time",
+        "mtime_utc": "2026-05-11T05:34:04.788807+00:00"
+      }
+    ],
+    "checkout_at_result_mtime": {
+      "revision": "8d6a8bc66b230f2d77580f00f63dab61fa25ec6e",
+      "timestamp_utc": "2026-05-05T01:41:13+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-10T04:39:59+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/6009MiB_run1.time",
+    "group": "arms-6.18_new",
+    "size_mib": 6009,
+    "run": 1,
+    "variant": "",
+    "seconds": 98.632,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T22:01:47.320929+00:00",
+    "mtime_ns": 1778191307320928539,
+    "sha256": "71105ebcac88fff5c4b907f6660da193ee5c98d07ea068dedb29315caa1657e5",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/6009MiB_run1.time",
+        "mtime_utc": "2026-05-11T05:34:04.791807+00:00"
+      }
+    ],
+    "checkout_at_result_mtime": {
+      "revision": "8d6a8bc66b230f2d77580f00f63dab61fa25ec6e",
+      "timestamp_utc": "2026-05-05T01:41:13+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-10T04:39:59+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/6009MiB_run2.time",
+    "group": "arms-6.18_new",
+    "size_mib": 6009,
+    "run": 2,
+    "variant": "",
+    "seconds": 98.745,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T01:39:22.782482+00:00",
+    "mtime_ns": 1778204362782482044,
+    "sha256": "8b84dcd781273acf88b3badee2d1f46bfb4d698550be8e2c744e358c40e3f97f",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/6009MiB_run2.time",
+        "mtime_utc": "2026-05-11T05:34:04.792807+00:00"
+      }
+    ],
+    "checkout_at_result_mtime": {
+      "revision": "8d6a8bc66b230f2d77580f00f63dab61fa25ec6e",
+      "timestamp_utc": "2026-05-05T01:41:13+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-10T04:39:59+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/6009MiB_run3.time",
+    "group": "arms-6.18_new",
+    "size_mib": 6009,
+    "run": 3,
+    "variant": "",
+    "seconds": 98.73400000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T05:17:36.392465+00:00",
+    "mtime_ns": 1778217456392464596,
+    "sha256": "6e7d5347fba473ec23ccbd4dfeaa850b3c242eee99b1d458281cf761e7af939d",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/6009MiB_run3.time",
+        "mtime_utc": "2026-05-11T05:34:04.792807+00:00"
+      }
+    ],
+    "checkout_at_result_mtime": {
+      "revision": "8d6a8bc66b230f2d77580f00f63dab61fa25ec6e",
+      "timestamp_utc": "2026-05-05T01:41:13+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-10T04:39:59+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/8009MiB_run1.time",
+    "group": "arms-6.18_new",
+    "size_mib": 8009,
+    "run": 1,
+    "variant": "",
+    "seconds": 98.35300000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T09:01:17.486506+00:00",
+    "mtime_ns": 1778230877486505803,
+    "sha256": "222ffada79f040797578cefc200943b805b5ceeaba058763fa63e81689c65357",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/8009MiB_run1.time",
+        "mtime_utc": "2026-05-11T05:34:04.795807+00:00"
+      }
+    ],
+    "checkout_at_result_mtime": {
+      "revision": "8d6a8bc66b230f2d77580f00f63dab61fa25ec6e",
+      "timestamp_utc": "2026-05-05T01:41:13+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-10T04:39:59+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/8009MiB_run2.time",
+    "group": "arms-6.18_new",
+    "size_mib": 8009,
+    "run": 2,
+    "variant": "",
+    "seconds": 98.074,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T12:37:00.075808+00:00",
+    "mtime_ns": 1778243820075808068,
+    "sha256": "50a8e014d62eb01bb224cfa00d4fba6a60cbb2ebf1c7d1d60d4ee4df09a97f63",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/8009MiB_run2.time",
+        "mtime_utc": "2026-05-11T05:34:04.795807+00:00"
+      }
+    ],
+    "checkout_at_result_mtime": {
+      "revision": "8d6a8bc66b230f2d77580f00f63dab61fa25ec6e",
+      "timestamp_utc": "2026-05-05T01:41:13+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-10T04:39:59+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/8009MiB_run3.time",
+    "group": "arms-6.18_new",
+    "size_mib": 8009,
+    "run": 3,
+    "variant": "",
+    "seconds": 98.094,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T16:12:47.388755+00:00",
+    "mtime_ns": 1778256767388755098,
+    "sha256": "6deded226a02b13e093250105795fc6fd89e95d2fa52ec2c4304d7e575c0aa50",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/8009MiB_run3.time",
+        "mtime_utc": "2026-05-11T05:34:04.796807+00:00"
+      }
+    ],
+    "checkout_at_result_mtime": {
+      "revision": "8d6a8bc66b230f2d77580f00f63dab61fa25ec6e",
+      "timestamp_utc": "2026-05-05T01:41:13+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-10T04:39:59+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/10009MiB_run1.time",
+    "group": "arms-6.18_new",
+    "size_mib": 10009,
+    "run": 1,
+    "variant": "",
+    "seconds": 98.709,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-09T08:33:20.270496+00:00",
+    "mtime_ns": 1778315600270496056,
+    "sha256": "7c60f55e59682f3f2283131dd68e95a2e8ddb2e7e7103c51b35be0a2f0df62ec",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/10009MiB_run1.time",
+        "mtime_utc": "2026-05-11T05:34:04.783807+00:00"
+      }
+    ],
+    "checkout_at_result_mtime": {
+      "revision": "8d6a8bc66b230f2d77580f00f63dab61fa25ec6e",
+      "timestamp_utc": "2026-05-05T01:41:13+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-10T04:39:59+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/10009MiB_run2.time",
+    "group": "arms-6.18_new",
+    "size_mib": 10009,
+    "run": 2,
+    "variant": "",
+    "seconds": 96.997,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-09T09:43:26.535907+00:00",
+    "mtime_ns": 1778319806535907038,
+    "sha256": "f4b3addbda30147a09fc00d0d1b0ae759627471c4c9f10933c7c7c7df606774c",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/10009MiB_run2.time",
+        "mtime_utc": "2026-05-11T05:34:04.783807+00:00"
+      }
+    ],
+    "checkout_at_result_mtime": {
+      "revision": "8d6a8bc66b230f2d77580f00f63dab61fa25ec6e",
+      "timestamp_utc": "2026-05-05T01:41:13+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-10T04:39:59+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/10009MiB_run3.time",
+    "group": "arms-6.18_new",
+    "size_mib": 10009,
+    "run": 3,
+    "variant": "",
+    "seconds": 96.55199999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-09T10:53:42.954439+00:00",
+    "mtime_ns": 1778324022954439007,
+    "sha256": "109cb98f61c8ca14395207286789793dbfb637f79cfeac0cf19edaca4f12629d",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/10009MiB_run3.time",
+        "mtime_utc": "2026-05-11T05:34:04.784807+00:00"
+      }
+    ],
+    "checkout_at_result_mtime": {
+      "revision": "8d6a8bc66b230f2d77580f00f63dab61fa25ec6e",
+      "timestamp_utc": "2026-05-05T01:41:13+00:00",
+      "event": "commit (merge): merge",
+      "next_event_utc": "2026-05-10T04:39:59+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/10028MiB_run1.time",
+    "group": "arms-6.18_new",
+    "size_mib": 10028,
+    "run": 1,
+    "variant": "",
+    "seconds": 99.09100000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-10T19:00:48.133082+00:00",
+    "mtime_ns": 1778439648133081902,
+    "sha256": "7dd635ee1d70f98f921fa7da809174f973012fa53de6deab2653bac45a0c87eb",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "41e8adedd10a4afd521881170b10708b8f634fb9",
+      "timestamp_utc": "2026-05-10T04:39:59+00:00",
+      "event": "commit: new version",
+      "next_event_utc": "2026-05-14T06:17:14+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100050MiB_run1_train.time",
+    "group": "arms",
+    "size_mib": 100050,
+    "run": 1,
+    "variant": "_train",
+    "seconds": 150.025,
+    "exit_status": 0,
+    "mtime_utc": "2026-06-06T17:45:31.100228+00:00",
+    "mtime_ns": 1780767931100227956,
+    "sha256": "fcdb1ce7bd50ec18138cd24e059f2f86f16804286bb0bfdf5fab66edee820d81",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "d6f720be6ef0f6344265588a2c4b5280b3e0e399",
+      "timestamp_utc": "2026-05-30T19:26:56+00:00",
+      "event": "commit: final paper",
+      "next_event_utc": "2026-07-17T05:01:55+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100100MiB_run1_train.time",
+    "group": "arms",
+    "size_mib": 100100,
+    "run": 1,
+    "variant": "_train",
+    "seconds": 165.077,
+    "exit_status": 0,
+    "mtime_utc": "2026-07-17T05:34:45.881894+00:00",
+    "mtime_ns": 1784266485881894181,
+    "sha256": "2a1c2a3b3053d6fc56e4e9a3654d944b833ac9a9704b837060b6a6d2449e05ea",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "272fdc005d1ce6b957f2bb0adbedd2e55f7c66d5",
+      "timestamp_utc": "2026-07-17T05:01:55+00:00",
+      "event": "commit: merge",
+      "next_event_utc": "2026-07-29T02:51:30+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100101MiB_run1_train.time",
+    "group": "arms",
+    "size_mib": 100101,
+    "run": 1,
+    "variant": "_train",
+    "seconds": 166.34300000000002,
+    "exit_status": 0,
+    "mtime_utc": "2026-07-27T18:08:45.599104+00:00",
+    "mtime_ns": 1785175725599104365,
+    "sha256": "05b5fdf9e541c6cb99b812aa26c08dd8029df0544a9ff666bc46550e9bfa1c6f",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "272fdc005d1ce6b957f2bb0adbedd2e55f7c66d5",
+      "timestamp_utc": "2026-07-17T05:01:55+00:00",
+      "event": "commit: merge",
+      "next_event_utc": "2026-07-29T02:51:30+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/8053MiB_run1.time",
+    "group": "arms",
+    "size_mib": 8053,
+    "run": 1,
+    "variant": "",
+    "seconds": 121.319,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-22T12:40:59.959359+00:00",
+    "mtime_ns": 1787402459959359381,
+    "sha256": "54831df5e8531010d68d29987fb3f37ab75f86ab7aa7e28640e524b94a0c8621",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "2caec5ede80def1bf4c1b6c9abfcc6e8b5b62347",
+      "timestamp_utc": "2026-07-29T02:51:30+00:00",
+      "event": "commit: merge",
+      "next_event_utc": "2026-09-03T13:53:26+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/8053MiB_run2.time",
+    "group": "arms",
+    "size_mib": 8053,
+    "run": 2,
+    "variant": "",
+    "seconds": 121.378,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-22T14:29:44.725746+00:00",
+    "mtime_ns": 1787408984725746471,
+    "sha256": "2b78f2dc15949aa80dfa1655ccc348bf55011a6385882d12af4ad55d27ea642f",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "2caec5ede80def1bf4c1b6c9abfcc6e8b5b62347",
+      "timestamp_utc": "2026-07-29T02:51:30+00:00",
+      "event": "commit: merge",
+      "next_event_utc": "2026-09-03T13:53:26+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/8053MiB_run3.time",
+    "group": "arms",
+    "size_mib": 8053,
+    "run": 3,
+    "variant": "",
+    "seconds": 121.359,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-22T16:17:02.306888+00:00",
+    "mtime_ns": 1787415422306888412,
+    "sha256": "706a1d69276d57cab4b2019406585b57fffa2d6c31308567e45a526b56821f10",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "2caec5ede80def1bf4c1b6c9abfcc6e8b5b62347",
+      "timestamp_utc": "2026-07-29T02:51:30+00:00",
+      "event": "commit: merge",
+      "next_event_utc": "2026-09-03T13:53:26+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/10053MiB_run1.time",
+    "group": "arms",
+    "size_mib": 10053,
+    "run": 1,
+    "variant": "",
+    "seconds": 123.459,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-25T08:20:02.648707+00:00",
+    "mtime_ns": 1787646002648706655,
+    "sha256": "6b88b6c718fae88be3f937cd29fd00184f3c314a1003e42b6780162e390d9171",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "2caec5ede80def1bf4c1b6c9abfcc6e8b5b62347",
+      "timestamp_utc": "2026-07-29T02:51:30+00:00",
+      "event": "commit: merge",
+      "next_event_utc": "2026-09-03T13:53:26+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/10053MiB_run2.time",
+    "group": "arms",
+    "size_mib": 10053,
+    "run": 2,
+    "variant": "",
+    "seconds": 126.44200000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-25T10:04:49.913186+00:00",
+    "mtime_ns": 1787652289913186316,
+    "sha256": "24745541139971fafb046a4ee8bf45248c05415977940aad43e4f4f2fd5f1cf4",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "2caec5ede80def1bf4c1b6c9abfcc6e8b5b62347",
+      "timestamp_utc": "2026-07-29T02:51:30+00:00",
+      "event": "commit: merge",
+      "next_event_utc": "2026-09-03T13:53:26+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/10053MiB_run3.time",
+    "group": "arms",
+    "size_mib": 10053,
+    "run": 3,
+    "variant": "",
+    "seconds": 129.417,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-25T11:51:03.041740+00:00",
+    "mtime_ns": 1787658663041740243,
+    "sha256": "d54f7370965c61b87939e8a53f5de67f0869c7ec981450e1b8f1a9435ef70958",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "2caec5ede80def1bf4c1b6c9abfcc6e8b5b62347",
+      "timestamp_utc": "2026-07-29T02:51:30+00:00",
+      "event": "commit: merge",
+      "next_event_utc": "2026-09-03T13:53:26+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/4053MiB_run1.time",
+    "group": "arms",
+    "size_mib": 4053,
+    "run": 1,
+    "variant": "",
+    "seconds": 134.192,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-27T08:07:42.409720+00:00",
+    "mtime_ns": 1787818062409719837,
+    "sha256": "6ba061b17b2d2e64190e0f0c4e1ff019ab9ea101924eb29ce971b94a423eda0b",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "2caec5ede80def1bf4c1b6c9abfcc6e8b5b62347",
+      "timestamp_utc": "2026-07-29T02:51:30+00:00",
+      "event": "commit: merge",
+      "next_event_utc": "2026-09-03T13:53:26+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/4053MiB_run2.time",
+    "group": "arms",
+    "size_mib": 4053,
+    "run": 2,
+    "variant": "",
+    "seconds": 128.651,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-27T08:55:44.649886+00:00",
+    "mtime_ns": 1787820944649885543,
+    "sha256": "f3a126e68b2d5c019977e5802e303f82c0582d804068e407a4330cdd6dbd45bf",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "2caec5ede80def1bf4c1b6c9abfcc6e8b5b62347",
+      "timestamp_utc": "2026-07-29T02:51:30+00:00",
+      "event": "commit: merge",
+      "next_event_utc": "2026-09-03T13:53:26+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/4053MiB_run3.time",
+    "group": "arms",
+    "size_mib": 4053,
+    "run": 3,
+    "variant": "",
+    "seconds": 126.669,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-27T09:42:32.924319+00:00",
+    "mtime_ns": 1787823752924318991,
+    "sha256": "6dbff94d75655a58577d25bda177643fc89058a03d74e7726fcec2a4d1bb6f0f",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "2caec5ede80def1bf4c1b6c9abfcc6e8b5b62347",
+      "timestamp_utc": "2026-07-29T02:51:30+00:00",
+      "event": "commit: merge",
+      "next_event_utc": "2026-09-03T13:53:26+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/6053MiB_run1.time",
+    "group": "arms",
+    "size_mib": 6053,
+    "run": 1,
+    "variant": "",
+    "seconds": 121.915,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-27T11:09:25.249904+00:00",
+    "mtime_ns": 1787828965249903927,
+    "sha256": "441b05e11e57a677d1a18ac370eb6330276450bb732f7e1b8935378b434547b7",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "2caec5ede80def1bf4c1b6c9abfcc6e8b5b62347",
+      "timestamp_utc": "2026-07-29T02:51:30+00:00",
+      "event": "commit: merge",
+      "next_event_utc": "2026-09-03T13:53:26+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/6053MiB_run2.time",
+    "group": "arms",
+    "size_mib": 6053,
+    "run": 2,
+    "variant": "",
+    "seconds": 121.827,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-27T11:54:13.623183+00:00",
+    "mtime_ns": 1787831653623183123,
+    "sha256": "063ff2a758f5f2c528739aa3c3f72104156c92525e84bed77cb576c76ddf4360",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "2caec5ede80def1bf4c1b6c9abfcc6e8b5b62347",
+      "timestamp_utc": "2026-07-29T02:51:30+00:00",
+      "event": "commit: merge",
+      "next_event_utc": "2026-09-03T13:53:26+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/6053MiB_run3.time",
+    "group": "arms",
+    "size_mib": 6053,
+    "run": 3,
+    "variant": "",
+    "seconds": 123.944,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-27T12:40:28.170912+00:00",
+    "mtime_ns": 1787834428170911826,
+    "sha256": "f112c76ae4637372a001c1ad7682a3785d42b3357f6046df58ea0cc6819529c0",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "2caec5ede80def1bf4c1b6c9abfcc6e8b5b62347",
+      "timestamp_utc": "2026-07-29T02:51:30+00:00",
+      "event": "commit: merge",
+      "next_event_utc": "2026-09-03T13:53:26+00:00"
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100102MiB_run1_train.time",
+    "group": "arms",
+    "size_mib": 100102,
+    "run": 1,
+    "variant": "_train",
+    "seconds": 132.995,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-06T00:29:40.472743+00:00",
+    "mtime_ns": 1788654580472742469,
+    "sha256": "9b7bdbda2d3cb4b2c961e14cfc9210fd0a917ec7108e29be4bdfb83cbb0a5bdb",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "671e0e64423d586c82b91dc6c9681946d54043e7",
+      "timestamp_utc": "2026-09-03T13:53:26+00:00",
+      "event": "commit: more times",
+      "next_event_utc": null
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100102MiB_run2_train.time",
+    "group": "arms",
+    "size_mib": 100102,
+    "run": 2,
+    "variant": "_train",
+    "seconds": 132.86599999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-06T01:23:56.035154+00:00",
+    "mtime_ns": 1788657836035153575,
+    "sha256": "8214f64b07edbf721301e3a3cd952aedf68642725083d889a4fcf20892522669",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "671e0e64423d586c82b91dc6c9681946d54043e7",
+      "timestamp_utc": "2026-09-03T13:53:26+00:00",
+      "event": "commit: more times",
+      "next_event_utc": null
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100102MiB_run3_train.time",
+    "group": "arms",
+    "size_mib": 100102,
+    "run": 3,
+    "variant": "_train",
+    "seconds": 132.622,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-06T02:18:10.454104+00:00",
+    "mtime_ns": 1788661090454104125,
+    "sha256": "69f49ddfcc7197feeb5fd7c5bd54f88e2bf5f846e4903c0be082d459d87002d5",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "671e0e64423d586c82b91dc6c9681946d54043e7",
+      "timestamp_utc": "2026-09-03T13:53:26+00:00",
+      "event": "commit: more times",
+      "next_event_utc": null
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100102MiB_run4_train.time",
+    "group": "arms",
+    "size_mib": 100102,
+    "run": 4,
+    "variant": "_train",
+    "seconds": 132.74099999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-06T03:12:25.092814+00:00",
+    "mtime_ns": 1788664345092814119,
+    "sha256": "8c2e54ca3a1268edc363455c5ad3cf312a6b50bfec7963c7313ece0ba2c754f6",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "671e0e64423d586c82b91dc6c9681946d54043e7",
+      "timestamp_utc": "2026-09-03T13:53:26+00:00",
+      "event": "commit: more times",
+      "next_event_utc": null
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100102MiB_run5_train.time",
+    "group": "arms",
+    "size_mib": 100102,
+    "run": 5,
+    "variant": "_train",
+    "seconds": 132.868,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-06T04:06:43.576887+00:00",
+    "mtime_ns": 1788667603576887364,
+    "sha256": "5083872d3c0e11fa1a6aba9f127cbfcbb52bae9a67377ad4787a3dbc86371e62",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "671e0e64423d586c82b91dc6c9681946d54043e7",
+      "timestamp_utc": "2026-09-03T13:53:26+00:00",
+      "event": "commit: more times",
+      "next_event_utc": null
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100102MiB_run6_train.time",
+    "group": "arms",
+    "size_mib": 100102,
+    "run": 6,
+    "variant": "_train",
+    "seconds": 132.23,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-06T05:00:43.890834+00:00",
+    "mtime_ns": 1788670843890834409,
+    "sha256": "f624919f91954848e6cdf241de8d70c7bdb29cc1d9c2a59d29dc253c31518b1e",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "671e0e64423d586c82b91dc6c9681946d54043e7",
+      "timestamp_utc": "2026-09-03T13:53:26+00:00",
+      "event": "commit: more times",
+      "next_event_utc": null
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100102MiB_run7_train.time",
+    "group": "arms",
+    "size_mib": 100102,
+    "run": 7,
+    "variant": "_train",
+    "seconds": 133.973,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-06T06:39:02.650595+00:00",
+    "mtime_ns": 1788676742650594733,
+    "sha256": "bcae56c225b678574c0dc8db0a59b44ccd26eed80572774cf58c9a3424fc81d8",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "671e0e64423d586c82b91dc6c9681946d54043e7",
+      "timestamp_utc": "2026-09-03T13:53:26+00:00",
+      "event": "commit: more times",
+      "next_event_utc": null
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100102MiB_run8_train.time",
+    "group": "arms",
+    "size_mib": 100102,
+    "run": 8,
+    "variant": "_train",
+    "seconds": 132.814,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-06T07:34:04.249224+00:00",
+    "mtime_ns": 1788680044249224264,
+    "sha256": "957aed38143191954f07848ffd509a7c0201c59f388d080ba0d0e1ceed8f0ad7",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "671e0e64423d586c82b91dc6c9681946d54043e7",
+      "timestamp_utc": "2026-09-03T13:53:26+00:00",
+      "event": "commit: more times",
+      "next_event_utc": null
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100102MiB_run9_train.time",
+    "group": "arms",
+    "size_mib": 100102,
+    "run": 9,
+    "variant": "_train",
+    "seconds": 132.75,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-06T08:28:25.055153+00:00",
+    "mtime_ns": 1788683305055152758,
+    "sha256": "548791b1aafa8a4bd3fd7755d974550a98d5c57951b415150ebc4375aad53a92",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "671e0e64423d586c82b91dc6c9681946d54043e7",
+      "timestamp_utc": "2026-09-03T13:53:26+00:00",
+      "event": "commit: more times",
+      "next_event_utc": null
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100102MiB_run10_train.time",
+    "group": "arms",
+    "size_mib": 100102,
+    "run": 10,
+    "variant": "_train",
+    "seconds": 132.597,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-06T09:22:46.273343+00:00",
+    "mtime_ns": 1788686566273342822,
+    "sha256": "927316b419dfa1f8d17c54f1e8c44746830d18a6699020cfe3238cba9ae811b8",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "671e0e64423d586c82b91dc6c9681946d54043e7",
+      "timestamp_utc": "2026-09-03T13:53:26+00:00",
+      "event": "commit: more times",
+      "next_event_utc": null
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/4077MiB_run1.time",
+    "group": "arms",
+    "size_mib": 4077,
+    "run": 1,
+    "variant": "",
+    "seconds": 102.475,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-08T23:58:38.171501+00:00",
+    "mtime_ns": 1788911918171500826,
+    "sha256": "e764e4bd60f03948bc3bfbec28176bb36ca369b629c44e5c0351eb91b250dddb",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "671e0e64423d586c82b91dc6c9681946d54043e7",
+      "timestamp_utc": "2026-09-03T13:53:26+00:00",
+      "event": "commit: more times",
+      "next_event_utc": null
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/4077MiB_run2.time",
+    "group": "arms",
+    "size_mib": 4077,
+    "run": 2,
+    "variant": "",
+    "seconds": 102.64500000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-09T05:03:06.900790+00:00",
+    "mtime_ns": 1788930186900790088,
+    "sha256": "c13cb55630902b0bf0b57465bc9c8b05cd5b19e8d3afba35773f6c6c652820ee",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "671e0e64423d586c82b91dc6c9681946d54043e7",
+      "timestamp_utc": "2026-09-03T13:53:26+00:00",
+      "event": "commit: more times",
+      "next_event_utc": null
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/4077MiB_run3.time",
+    "group": "arms",
+    "size_mib": 4077,
+    "run": 3,
+    "variant": "",
+    "seconds": 104.011,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-09T10:11:10.463995+00:00",
+    "mtime_ns": 1788948670463995529,
+    "sha256": "6f87da2e1858a78002c7dfb0dadae85ee62756ac869eaeccf22d474def4df262",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "671e0e64423d586c82b91dc6c9681946d54043e7",
+      "timestamp_utc": "2026-09-03T13:53:26+00:00",
+      "event": "commit: more times",
+      "next_event_utc": null
+    }
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/4078MiB_run1.time",
+    "group": "arms",
+    "size_mib": 4078,
+    "run": 1,
+    "variant": "",
+    "seconds": 100.48599999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-09T15:35:23.293003+00:00",
+    "mtime_ns": 1788968123293002883,
+    "sha256": "99de6c941a50278f82aaf655c8cb246af064c816065adf904fbc9957097af3e2",
+    "final_copies": [],
+    "checkout_at_result_mtime": {
+      "revision": "671e0e64423d586c82b91dc6c9681946d54043e7",
+      "timestamp_utc": "2026-09-03T13:53:26+00:00",
+      "event": "commit: more times",
+      "next_event_utc": null
+    }
+  }
+]

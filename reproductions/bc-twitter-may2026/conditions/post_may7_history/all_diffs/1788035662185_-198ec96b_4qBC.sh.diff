@@ -1,0 +1,14 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-198ec96b/xe5u.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-198ec96b/4qBC.sh
+@@ -4,7 +4,10 @@
+ MEASUREMENT_WORKLOADS_PATH="${MEASUREMENT_WORKLOADS_DIR}/workloads"
+ 
+ declare -ar MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
+-    
++    "pr-graph-80GB.sg"
++    "bc-graph-80GB.sg"
++
++
+     #"bc-kron.sg"
+     #"pr-kron.sg"
+     #"bc-twitter.sg"

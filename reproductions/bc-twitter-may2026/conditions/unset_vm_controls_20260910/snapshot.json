@@ -1,0 +1,111 @@
+{
+  "observed_at_utc": "2026-09-10T15:01:15.121924+00:00",
+  "kernel": "6.18.1-061801-generic",
+  "cmdline": "BOOT_IMAGE=/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS0,115200 emulabcnet=00:5d:73:ef:d9:ee console=ttyS0,115200 earlycon=uart,io,0x3f8,115200 loglevel=7 ignore_loglevel debug rd.shell rd.break memmap=92G!2G",
+  "controls": {
+    "/proc/sys/vm/lowmem_reserve_ratio": "256\t256\t32\t0\t0",
+    "/proc/sys/vm/defrag_mode": "0",
+    "/proc/sys/vm/extfrag_threshold": "500",
+    "/proc/sys/vm/compact_unevictable_allowed": "1",
+    "/proc/sys/vm/percpu_pagelist_high_fraction": "0",
+    "/proc/sys/vm/min_free_kbytes": "1048576",
+    "/proc/sys/vm/watermark_scale_factor": "10",
+    "/proc/sys/vm/watermark_boost_factor": "10000",
+    "/proc/sys/vm/compaction_proactiveness": "100",
+    "/proc/sys/vm/zone_reclaim_mode": "0",
+    "/proc/sys/vm/nr_hugepages": "0",
+    "/proc/sys/vm/nr_overcommit_hugepages": "0",
+    "/proc/sys/vm/vfs_cache_pressure_denom": "100",
+    "/sys/kernel/mm/transparent_hugepage/enabled": "[always] madvise never",
+    "/sys/kernel/mm/transparent_hugepage/defrag": "[always] defer defer+madvise madvise never",
+    "/sys/kernel/mm/transparent_hugepage/shrink_underused": "1",
+    "/sys/kernel/mm/transparent_hugepage/use_zero_page": "1",
+    "/sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_none": "511",
+    "/sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_swap": "64",
+    "/sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_shared": "256",
+    "/sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs": "0",
+    "/sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs": "1",
+    "/sys/kernel/mm/transparent_hugepage/hugepages-32kB/enabled": "always inherit madvise [never]",
+    "/sys/kernel/mm/transparent_hugepage/hugepages-512kB/enabled": "always inherit madvise [never]",
+    "/sys/kernel/mm/transparent_hugepage/hugepages-2048kB/enabled": "always [inherit] madvise never",
+    "/sys/kernel/mm/transparent_hugepage/hugepages-1024kB/enabled": "always inherit madvise [never]",
+    "/sys/kernel/mm/transparent_hugepage/hugepages-64kB/enabled": "always inherit madvise [never]",
+    "/sys/kernel/mm/transparent_hugepage/hugepages-16kB/enabled": "always inherit madvise [never]",
+    "/sys/kernel/mm/transparent_hugepage/hugepages-256kB/enabled": "always inherit madvise [never]",
+    "/sys/kernel/mm/transparent_hugepage/hugepages-128kB/enabled": "always inherit madvise [never]"
+  },
+  "source_and_boot_files": {
+    "/boot/vmlinuz-6.18.1-061801-generic": {
+      "mtime_utc": "2025-12-12T18:39:08+00:00",
+      "sha256": "1dae1dd9ae8a0ede1b31467e7667d69256bc63e007848c4e51a2cf848b1bac8a"
+    },
+    "/boot/initrd.img-6.18.1-061801-generic": {
+      "mtime_utc": "2026-03-05T19:29:53.568194+00:00",
+      "sha256": "57787d6a4890327740434bb86c26e19635a1c8942b7dfe12cebff178366db2e1"
+    },
+    "/boot/config-6.18.1-061801-generic": {
+      "mtime_utc": "2025-12-12T18:39:08+00:00",
+      "sha256": "1616bd0122b02046cbb4033e48ed1e789a305e1b22939308efda49b12bab4e72"
+    },
+    "/users/zimooo2/tiering_solutions/measurement_settings.sh": {
+      "mtime_utc": "2026-09-10T15:00:32.200056+00:00",
+      "sha256": "7e61f012dd70b5a6dc954b45846ff70a4bbec679fd7e73a8b81e59c060a29ce4"
+    }
+  },
+  "selected_kernel_config": [
+    "# CONFIG_PREEMPT_RT is not set",
+    "CONFIG_INIT_ON_ALLOC_DEFAULT_ON=y",
+    "# CONFIG_INIT_ON_FREE_DEFAULT_ON is not set",
+    "# CONFIG_PAGE_EXTENSION is not set",
+    "# CONFIG_DEBUG_PAGEALLOC is not set",
+    "CONFIG_SLUB_DEBUG=y",
+    "# CONFIG_SLUB_DEBUG_ON is not set",
+    "# CONFIG_PAGE_OWNER is not set",
+    "CONFIG_PAGE_POISONING=y",
+    "# CONFIG_MEM_ALLOC_PROFILING is not set"
+  ],
+  "vmstat_boot_cumulative_not_per_run": {
+    "allocstall_dma": 0,
+    "allocstall_dma32": 0,
+    "allocstall_normal": 0,
+    "allocstall_movable": 1247114,
+    "allocstall_device": 0,
+    "thp_migration_success": 21405,
+    "thp_migration_fail": 72239,
+    "thp_migration_split": 72168,
+    "compact_migrate_scanned": 70767078,
+    "compact_free_scanned": 8285878,
+    "compact_isolated": 1653105,
+    "compact_stall": 5705,
+    "compact_fail": 5620,
+    "compact_success": 85,
+    "compact_daemon_wake": 15,
+    "compact_daemon_migrate_scanned": 6859900,
+    "compact_daemon_free_scanned": 2480382,
+    "thp_deferred_split_page": 7953,
+    "thp_underused_split_page": 0
+  },
+  "persistent_config_search": {
+    "roots": [
+      "/etc/sysctl.conf",
+      "/etc/sysctl.d",
+      "/usr/lib/sysctl.d",
+      "/etc/modprobe.d",
+      "/etc/modules-load.d",
+      "/etc/systemd/system",
+      "/etc/udev/rules.d",
+      "/etc/initramfs-tools",
+      "/etc/tmpfiles.d",
+      "/usr/lib/tmpfiles.d"
+    ],
+    "pattern": "lowmem|extfrag|compact|hugepage|hugetlb|numa|watermark|reserve|percpu|memtis|memmap|movable|ksm|swappiness|init_on_alloc|init_on_free|page_poison|defrag_mode|max_ptes|shrink_underused",
+    "returncode": 1,
+    "matches": "",
+    "errors": ""
+  },
+  "limitations": [
+    "Current lowmem ratio is user-selected 4 4 4 in both source and live state; this is not historical baseline.",
+    "No host settings or benchmarks changed.",
+    "Current readbacks and file dates are not May accepted-value or binary manifests."
+  ]
+}

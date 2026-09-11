@@ -1,0 +1,1670 @@
+[
+  {
+    "epoch": 1772410149,
+    "utc": "2026-03-02T00:09:09+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772421651,
+    "utc": "2026-03-02T03:20:51+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772438524,
+    "utc": "2026-03-02T08:02:04+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772438960,
+    "utc": "2026-03-02T08:09:20+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772439142,
+    "utc": "2026-03-02T08:12:22+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772439873,
+    "utc": "2026-03-02T08:24:33+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772440962,
+    "utc": "2026-03-02T08:42:42+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772472022,
+    "utc": "2026-03-02T17:20:22+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772481590,
+    "utc": "2026-03-02T19:59:50+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772482851,
+    "utc": "2026-03-02T20:20:51+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772484149,
+    "utc": "2026-03-02T20:42:29+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772486074,
+    "utc": "2026-03-02T21:14:34+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772487644,
+    "utc": "2026-03-02T21:40:44+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772489600,
+    "utc": "2026-03-02T22:13:20+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772490757,
+    "utc": "2026-03-02T22:32:37+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772491138,
+    "utc": "2026-03-02T22:38:58+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772494459,
+    "utc": "2026-03-02T23:34:19+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772496935,
+    "utc": "2026-03-03T00:15:35+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772497468,
+    "utc": "2026-03-03T00:24:28+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772498028,
+    "utc": "2026-03-03T00:33:48+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772498356,
+    "utc": "2026-03-03T00:39:16+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772499689,
+    "utc": "2026-03-03T01:01:29+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772514818,
+    "utc": "2026-03-03T05:13:38+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772515396,
+    "utc": "2026-03-03T05:23:16+00:00",
+    "kernel": "6.8.0-101-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772515604,
+    "utc": "2026-03-03T05:26:44+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772515920,
+    "utc": "2026-03-03T05:32:00+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772817437,
+    "utc": "2026-03-06T17:17:17+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772817927,
+    "utc": "2026-03-06T17:25:27+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772818410,
+    "utc": "2026-03-06T17:33:30+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772818891,
+    "utc": "2026-03-06T17:41:31+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772820336,
+    "utc": "2026-03-06T18:05:36+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772821593,
+    "utc": "2026-03-06T18:26:33+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772824726,
+    "utc": "2026-03-06T19:18:46+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772825208,
+    "utc": "2026-03-06T19:26:48+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772825575,
+    "utc": "2026-03-06T19:32:55+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772857298,
+    "utc": "2026-03-07T04:21:38+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772859065,
+    "utc": "2026-03-07T04:51:05+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772859483,
+    "utc": "2026-03-07T04:58:03+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1772899267,
+    "utc": "2026-03-07T16:01:07+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773008013,
+    "utc": "2026-03-08T22:13:33+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773008603,
+    "utc": "2026-03-08T22:23:23+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773008900,
+    "utc": "2026-03-08T22:28:20+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773009599,
+    "utc": "2026-03-08T22:39:59+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773117921,
+    "utc": "2026-03-10T04:45:21+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773416446,
+    "utc": "2026-03-13T15:40:46+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773434375,
+    "utc": "2026-03-13T20:39:35+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773692792,
+    "utc": "2026-03-16T20:26:32+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773693282,
+    "utc": "2026-03-16T20:34:42+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773694489,
+    "utc": "2026-03-16T20:54:49+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773695336,
+    "utc": "2026-03-16T21:08:56+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773695818,
+    "utc": "2026-03-16T21:16:58+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773697914,
+    "utc": "2026-03-16T21:51:54+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773699111,
+    "utc": "2026-03-16T22:11:51+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773699839,
+    "utc": "2026-03-16T22:23:59+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773847195,
+    "utc": "2026-03-18T15:19:55+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773847666,
+    "utc": "2026-03-18T15:27:46+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773848013,
+    "utc": "2026-03-18T15:33:33+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773877291,
+    "utc": "2026-03-18T23:41:31+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773877608,
+    "utc": "2026-03-18T23:46:48+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773932475,
+    "utc": "2026-03-19T15:01:15+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773932776,
+    "utc": "2026-03-19T15:06:16+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773933263,
+    "utc": "2026-03-19T15:14:23+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773933798,
+    "utc": "2026-03-19T15:23:18+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773934939,
+    "utc": "2026-03-19T15:42:19+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773935423,
+    "utc": "2026-03-19T15:50:23+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773935909,
+    "utc": "2026-03-19T15:58:29+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773936393,
+    "utc": "2026-03-19T16:06:33+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773936658,
+    "utc": "2026-03-19T16:10:58+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773936987,
+    "utc": "2026-03-19T16:16:27+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773937721,
+    "utc": "2026-03-19T16:28:41+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773938219,
+    "utc": "2026-03-19T16:36:59+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773938657,
+    "utc": "2026-03-19T16:44:17+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773939344,
+    "utc": "2026-03-19T16:55:44+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773940095,
+    "utc": "2026-03-19T17:08:15+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773940809,
+    "utc": "2026-03-19T17:20:09+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773941159,
+    "utc": "2026-03-19T17:25:59+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773941532,
+    "utc": "2026-03-19T17:32:12+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773942039,
+    "utc": "2026-03-19T17:40:39+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773943129,
+    "utc": "2026-03-19T17:58:49+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773943379,
+    "utc": "2026-03-19T18:02:59+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773944021,
+    "utc": "2026-03-19T18:13:41+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773944926,
+    "utc": "2026-03-19T18:28:46+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773956369,
+    "utc": "2026-03-19T21:39:29+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773956706,
+    "utc": "2026-03-19T21:45:06+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773958728,
+    "utc": "2026-03-19T22:18:48+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773959529,
+    "utc": "2026-03-19T22:32:09+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773966683,
+    "utc": "2026-03-20T00:31:23+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773967245,
+    "utc": "2026-03-20T00:40:45+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773976439,
+    "utc": "2026-03-20T03:13:59+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773980569,
+    "utc": "2026-03-20T04:22:49+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773981804,
+    "utc": "2026-03-20T04:43:24+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1773982163,
+    "utc": "2026-03-20T04:49:23+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774022901,
+    "utc": "2026-03-20T16:08:21+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774023365,
+    "utc": "2026-03-20T16:16:05+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774023907,
+    "utc": "2026-03-20T16:25:07+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774029957,
+    "utc": "2026-03-20T18:05:57+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774041784,
+    "utc": "2026-03-20T21:23:04+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774078022,
+    "utc": "2026-03-21T07:27:02+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774119255,
+    "utc": "2026-03-21T18:54:15+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774139246,
+    "utc": "2026-03-22T00:27:26+00:00",
+    "kernel": "5.13.0-rc6+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774139653,
+    "utc": "2026-03-22T00:34:13+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774141419,
+    "utc": "2026-03-22T01:03:39+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774141954,
+    "utc": "2026-03-22T01:12:34+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774142314,
+    "utc": "2026-03-22T01:18:34+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774142550,
+    "utc": "2026-03-22T01:22:30+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774143662,
+    "utc": "2026-03-22T01:41:02+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774144628,
+    "utc": "2026-03-22T01:57:08+00:00",
+    "kernel": "5.13.0-rc6+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774151441,
+    "utc": "2026-03-22T03:50:41+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774151883,
+    "utc": "2026-03-22T03:58:03+00:00",
+    "kernel": "5.13.0-rc6+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774196740,
+    "utc": "2026-03-22T16:25:40+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774197439,
+    "utc": "2026-03-22T16:37:19+00:00",
+    "kernel": "5.13.0-rc6+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774212499,
+    "utc": "2026-03-22T20:48:19+00:00",
+    "kernel": "5.13.0-rc6+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774228581,
+    "utc": "2026-03-23T01:16:21+00:00",
+    "kernel": "5.13.0-rc6+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774245798,
+    "utc": "2026-03-23T06:03:18+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774326906,
+    "utc": "2026-03-24T04:35:06+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774353989,
+    "utc": "2026-03-24T12:06:29+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774366519,
+    "utc": "2026-03-24T15:35:19+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774379195,
+    "utc": "2026-03-24T19:06:35+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774475932,
+    "utc": "2026-03-25T21:58:52+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774491499,
+    "utc": "2026-03-26T02:18:19+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774503053,
+    "utc": "2026-03-26T05:30:53+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774537695,
+    "utc": "2026-03-26T15:08:15+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774548658,
+    "utc": "2026-03-26T18:10:58+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774569884,
+    "utc": "2026-03-27T00:04:44+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774626610,
+    "utc": "2026-03-27T15:50:10+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774736513,
+    "utc": "2026-03-28T22:21:53+00:00",
+    "kernel": "5.15.0+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774749075,
+    "utc": "2026-03-29T01:51:15+00:00",
+    "kernel": "5.15.0+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774763750,
+    "utc": "2026-03-29T05:55:50+00:00",
+    "kernel": "5.15.0+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774805114,
+    "utc": "2026-03-29T17:25:14+00:00",
+    "kernel": "5.15.0+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774820681,
+    "utc": "2026-03-29T21:44:41+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774823383,
+    "utc": "2026-03-29T22:29:43+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774839944,
+    "utc": "2026-03-30T03:05:44+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774855413,
+    "utc": "2026-03-30T07:23:33+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774906003,
+    "utc": "2026-03-30T21:26:43+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774906991,
+    "utc": "2026-03-30T21:43:11+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774923471,
+    "utc": "2026-03-31T02:17:51+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1774935148,
+    "utc": "2026-03-31T05:32:28+00:00",
+    "kernel": "5.15.0+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1775278307,
+    "utc": "2026-04-04T04:51:47+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1776790361,
+    "utc": "2026-04-21T16:52:41+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1776897005,
+    "utc": "2026-04-22T22:30:05+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777080226,
+    "utc": "2026-04-25T01:23:46+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777096186,
+    "utc": "2026-04-25T05:49:46+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777101075,
+    "utc": "2026-04-25T07:11:15+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777137849,
+    "utc": "2026-04-25T17:24:09+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777150895,
+    "utc": "2026-04-25T21:01:35+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777156368,
+    "utc": "2026-04-25T22:32:48+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777172604,
+    "utc": "2026-04-26T03:03:24+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777180134,
+    "utc": "2026-04-26T05:08:54+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777185242,
+    "utc": "2026-04-26T06:34:02+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777221627,
+    "utc": "2026-04-26T16:40:27+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777226679,
+    "utc": "2026-04-26T18:04:39+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777252101,
+    "utc": "2026-04-27T01:08:21+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777260588,
+    "utc": "2026-04-27T03:29:48+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777272487,
+    "utc": "2026-04-27T06:48:07+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777279266,
+    "utc": "2026-04-27T08:41:06+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777306979,
+    "utc": "2026-04-27T16:22:59+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777317647,
+    "utc": "2026-04-27T19:20:47+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777331143,
+    "utc": "2026-04-27T23:05:43+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777337753,
+    "utc": "2026-04-28T00:55:53+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777410940,
+    "utc": "2026-04-28T21:15:40+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777440309,
+    "utc": "2026-04-29T05:25:09+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777446729,
+    "utc": "2026-04-29T07:12:09+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777487077,
+    "utc": "2026-04-29T18:24:37+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777491467,
+    "utc": "2026-04-29T19:37:47+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777563540,
+    "utc": "2026-04-30T15:39:00+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777574454,
+    "utc": "2026-04-30T18:40:54+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777735436,
+    "utc": "2026-05-02T15:23:56+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777831656,
+    "utc": "2026-05-03T18:07:36+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1777918754,
+    "utc": "2026-05-04T18:19:14+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778019366,
+    "utc": "2026-05-05T22:16:06+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778081893,
+    "utc": "2026-05-06T15:38:13+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778126498,
+    "utc": "2026-05-07T04:01:38+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778133589,
+    "utc": "2026-05-07T05:59:49+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778180822,
+    "utc": "2026-05-07T19:07:02+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778220617,
+    "utc": "2026-05-08T06:10:17+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778260424,
+    "utc": "2026-05-08T17:13:44+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778289834,
+    "utc": "2026-05-09T01:23:54+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778311036,
+    "utc": "2026-05-09T07:17:16+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778344371,
+    "utc": "2026-05-09T16:32:51+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778387281,
+    "utc": "2026-05-10T04:28:01+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778430901,
+    "utc": "2026-05-10T16:35:01+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778442968,
+    "utc": "2026-05-10T19:56:08+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778443461,
+    "utc": "2026-05-10T20:04:21+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778444420,
+    "utc": "2026-05-10T20:20:20+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778453811,
+    "utc": "2026-05-10T22:56:51+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778471938,
+    "utc": "2026-05-11T03:58:58+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778511120,
+    "utc": "2026-05-11T14:52:00+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778532507,
+    "utc": "2026-05-11T20:48:27+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778533116,
+    "utc": "2026-05-11T20:58:36+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778543751,
+    "utc": "2026-05-11T23:55:51+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778549467,
+    "utc": "2026-05-12T01:31:07+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778550917,
+    "utc": "2026-05-12T01:55:17+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778557162,
+    "utc": "2026-05-12T03:39:22+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778605577,
+    "utc": "2026-05-12T17:06:17+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778633191,
+    "utc": "2026-05-13T00:46:31+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778634499,
+    "utc": "2026-05-13T01:08:19+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778689697,
+    "utc": "2026-05-13T16:28:17+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778735409,
+    "utc": "2026-05-14T05:10:09+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778739292,
+    "utc": "2026-05-14T06:14:52+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1778743849,
+    "utc": "2026-05-14T07:30:49+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1780178251,
+    "utc": "2026-05-30T21:57:31+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1780195120,
+    "utc": "2026-05-31T02:38:40+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1781388624,
+    "utc": "2026-06-13T22:10:24+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1781504757,
+    "utc": "2026-06-15T06:25:57+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1781560535,
+    "utc": "2026-06-15T21:55:35+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1781705819,
+    "utc": "2026-06-17T14:16:59+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1781799370,
+    "utc": "2026-06-18T16:16:10+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1781807163,
+    "utc": "2026-06-18T18:26:03+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1781903938,
+    "utc": "2026-06-19T21:18:58+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1781994496,
+    "utc": "2026-06-20T22:28:16+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1782052198,
+    "utc": "2026-06-21T14:29:58+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1782053347,
+    "utc": "2026-06-21T14:49:07+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1782100537,
+    "utc": "2026-06-22T03:55:37+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1782405523,
+    "utc": "2026-06-25T16:38:43+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1782485227,
+    "utc": "2026-06-26T14:47:07+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1784264251,
+    "utc": "2026-07-17T04:57:31+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1784265084,
+    "utc": "2026-07-17T05:11:24+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1785357096,
+    "utc": "2026-07-29T20:31:36+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1785365968,
+    "utc": "2026-07-29T22:59:28+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1785384054,
+    "utc": "2026-07-30T04:00:54+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1785420851,
+    "utc": "2026-07-30T14:14:11+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1785435568,
+    "utc": "2026-07-30T18:19:28+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1785460906,
+    "utc": "2026-07-31T01:21:46+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1785513675,
+    "utc": "2026-07-31T16:01:15+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1785709969,
+    "utc": "2026-08-02T22:32:49+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1785790949,
+    "utc": "2026-08-03T21:02:29+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1786224581,
+    "utc": "2026-08-08T21:29:41+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1787045584,
+    "utc": "2026-08-18T09:33:04+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1787308045,
+    "utc": "2026-08-21T10:27:25+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1787308865,
+    "utc": "2026-08-21T10:41:05+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1787565683,
+    "utc": "2026-08-24T10:01:23+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1787642183,
+    "utc": "2026-08-25T07:16:23+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1787676743,
+    "utc": "2026-08-25T16:52:23+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1787750261,
+    "utc": "2026-08-26T13:17:41+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1787827220,
+    "utc": "2026-08-27T10:40:20+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1787854500,
+    "utc": "2026-08-27T18:15:00+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788078128,
+    "utc": "2026-08-30T08:22:08+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788170846,
+    "utc": "2026-08-31T10:07:26+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788178097,
+    "utc": "2026-08-31T12:08:17+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788183646,
+    "utc": "2026-08-31T13:40:46+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788191041,
+    "utc": "2026-08-31T15:44:01+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788191559,
+    "utc": "2026-08-31T15:52:39+00:00",
+    "kernel": "5.15.19-htmm",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788193979,
+    "utc": "2026-08-31T16:32:59+00:00",
+    "kernel": "5.15.19-htmm",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788276163,
+    "utc": "2026-09-01T15:22:43+00:00",
+    "kernel": "5.15.19-htmm",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788276431,
+    "utc": "2026-09-01T15:27:11+00:00",
+    "kernel": "5.15.19-htmm",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788332369,
+    "utc": "2026-09-02T06:59:29+00:00",
+    "kernel": "5.15.19-htmm",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788351887,
+    "utc": "2026-09-02T12:24:47+00:00",
+    "kernel": "5.15.19-htmm",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788373862,
+    "utc": "2026-09-02T18:31:02+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788552859,
+    "utc": "2026-09-04T20:14:19+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788591866,
+    "utc": "2026-09-05T07:04:26+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788618819,
+    "utc": "2026-09-05T14:33:39+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788635171,
+    "utc": "2026-09-05T19:06:11+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788635496,
+    "utc": "2026-09-05T19:11:36+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788674808,
+    "utc": "2026-09-06T06:06:48+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788764398,
+    "utc": "2026-09-07T06:59:58+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788794301,
+    "utc": "2026-09-07T15:18:21+00:00",
+    "kernel": "5.15.19-htmm-node0",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788794844,
+    "utc": "2026-09-07T15:27:24+00:00",
+    "kernel": "5.15.19-htmm-node0",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788797316,
+    "utc": "2026-09-07T16:08:36+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788808091,
+    "utc": "2026-09-07T19:08:11+00:00",
+    "kernel": "5.15.19-htmm-node0-fix1",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788814918,
+    "utc": "2026-09-07T21:01:58+00:00",
+    "kernel": "5.15.19-htmm-node0-fix2",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788850707,
+    "utc": "2026-09-08T06:58:27+00:00",
+    "kernel": "5.15.19-htmm-node0-fix3",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788857971,
+    "utc": "2026-09-08T08:59:31+00:00",
+    "kernel": "5.15.19-htmm-node0-fix5",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788860702,
+    "utc": "2026-09-08T09:45:02+00:00",
+    "kernel": "5.15.19-htmm-node0-fix6",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788867601,
+    "utc": "2026-09-08T11:40:01+00:00",
+    "kernel": "5.15.19-htmm-node0-fix7-baseline",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788875451,
+    "utc": "2026-09-08T13:50:51+00:00",
+    "kernel": "5.15.19-htmm-node0-fix7-baseline",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788875891,
+    "utc": "2026-09-08T13:58:11+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788876116,
+    "utc": "2026-09-08T14:01:56+00:00",
+    "kernel": "5.15.19-htmm-node0-fix7-baseline",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788880685,
+    "utc": "2026-09-08T15:18:05+00:00",
+    "kernel": "5.15.19-htmm-node0-fix8-workers",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788886875,
+    "utc": "2026-09-08T17:01:15+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788888566,
+    "utc": "2026-09-08T17:29:26+00:00",
+    "kernel": "5.15.19-htmm-node0-fix8-workers",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788890096,
+    "utc": "2026-09-08T17:54:56+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788891030,
+    "utc": "2026-09-08T18:10:30+00:00",
+    "kernel": "6.2.0-060200-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788891299,
+    "utc": "2026-09-08T18:14:59+00:00",
+    "kernel": "6.2.0-060200-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788891852,
+    "utc": "2026-09-08T18:24:12+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788898815,
+    "utc": "2026-09-08T20:20:15+00:00",
+    "kernel": "6.2.0-060200-generic",
+    "source": "/var/log/wtmp.1"
+  },
+  {
+    "epoch": 1788952506,
+    "utc": "2026-09-09T11:15:06+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp"
+  },
+  {
+    "epoch": 1788987401,
+    "utc": "2026-09-09T20:56:41+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "source": "/var/log/wtmp"
+  },
+  {
+    "epoch": 1788988843,
+    "utc": "2026-09-09T21:20:43+00:00",
+    "kernel": "6.2.0-hybridtier+",
+    "source": "/var/log/wtmp"
+  }
+]

@@ -1,0 +1,12 @@
+--- setup March13 20:27:28
++++ setup March13 20:31:10
+@@ -58,9 +58,6 @@
+ write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs 10
+ write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs 10
+ write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 4096
+-write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_none 1024
+-write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_swap 1024
+-write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_shared 1024
+ sudo wrmsr --processor 39 0x620 0x707
+ sudo swapoff -a
+ 

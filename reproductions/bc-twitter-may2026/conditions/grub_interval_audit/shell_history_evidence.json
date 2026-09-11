@@ -1,0 +1,2831 @@
+[
+  {
+    "path": "/users/zimooo2/.bash_history",
+    "bytes": 54682,
+    "mtime_utc": "2026-09-10T02:15:44.921980+00:00",
+    "ctime_utc": "2026-09-10T02:15:44.921980+00:00",
+    "sha256": "a1d2fbd9473ec0b9467775834d230edeeff7e3d236d7d7b5d2aaa364267d5890",
+    "line_count": 2000,
+    "timestamp_line_count": 0,
+    "boot_commands": [
+      {
+        "line": 12,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 13,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 33,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 68,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 69,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 134,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 135,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 146,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 147,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 168,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 169,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 173,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 174,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 238,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 239,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 302,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 303,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 309,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 310,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 330,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 331,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 341,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 342,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 348,
+        "text": "sudo vim /etc/default//grub"
+      },
+      {
+        "line": 351,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 371,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 372,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 383,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 384,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 402,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 405,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 411,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 412,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 413,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 434,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 475,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 477,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 478,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 493,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 494,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 495,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 496,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 510,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 511,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 512,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 537,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 538,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 614,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 615,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 616,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 635,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 636,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 637,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 661,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 662,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 663,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 679,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 680,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 681,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 685,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 686,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 719,
+        "text": "sudo vi /etc/default/grub"
+      },
+      {
+        "line": 720,
+        "text": "sudo update-grub ; sudo reboot"
+      },
+      {
+        "line": 748,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 749,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 754,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 759,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 791,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 792,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 842,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 862,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 863,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 864,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 865,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 875,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 876,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 877,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 899,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 900,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 901,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 933,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 934,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1066,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1067,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1073,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1074,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1096,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1097,
+        "text": "sudo update-grub ; sudo reboot"
+      },
+      {
+        "line": 1132,
+        "text": "test -e \"/boot/initrd.img-$KREL\" || sudo update-initramfs -c -k \"$KREL\""
+      },
+      {
+        "line": 1133,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1135,
+        "text": "sudo grep -E \"^[[:space:]]*(submenu|menuentry) \" /boot/grub/grub.cfg | cut -d \"'\" -f2"
+      },
+      {
+        "line": 1136,
+        "text": "sudo grep -i \"5.15.19-htmm\" /boot/grub/grub.cfg"
+      },
+      {
+        "line": 1140,
+        "text": "sudo grep -E \"^[[:space:]]*(submenu|menuentry) \" /boot/grub/grub.cfg | cut -d \"'\" -f2"
+      },
+      {
+        "line": 1141,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\""
+      },
+      {
+        "line": 1146,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1147,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1148,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\""
+      },
+      {
+        "line": 1203,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1204,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1205,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\""
+      },
+      {
+        "line": 1207,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1208,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\""
+      },
+      {
+        "line": 1209,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1210,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1211,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\""
+      },
+      {
+        "line": 1230,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1231,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1232,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\""
+      },
+      {
+        "line": 1256,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1257,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1258,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\""
+      },
+      {
+        "line": 1286,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1287,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1325,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1326,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1345,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1346,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1366,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1367,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1388,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1391,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1392,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1620,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\""
+      },
+      {
+        "line": 1624,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1625,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1626,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\""
+      },
+      {
+        "line": 1641,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\""
+      },
+      {
+        "line": 1645,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1673,
+        "text": "(   set -e;   cd /users/zimooo2/memtis/linux;   make -j24 CC=gcc-11 HOSTCC=gcc-11 LOCALVERSION=-node0-fix2;   sudo make CC=gcc-11 HOSTCC=gcc-11 LOCALVERSION=-node0-fix2 modules_install install;   sudo update-grub; )"
+      },
+      {
+        "line": 1674,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\" && sudo reboot"
+      },
+      {
+        "line": 1688,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\" && sudo reboot"
+      },
+      {
+        "line": 1702,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\""
+      },
+      {
+        "line": 1715,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\""
+      },
+      {
+        "line": 1723,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\""
+      },
+      {
+        "line": 1737,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\""
+      },
+      {
+        "line": 1754,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\""
+      },
+      {
+        "line": 1757,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\""
+      },
+      {
+        "line": 1814,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\""
+      },
+      {
+        "line": 1846,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1847,
+        "text": "sudo grub-reboot '1>12'"
+      },
+      {
+        "line": 1851,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1852,
+        "text": "sudo grub-reboot '1>12'"
+      },
+      {
+        "line": 1853,
+        "text": "sudo grub-set-default \"1>12\" && sudo grub-reboot \"1>12\""
+      },
+      {
+        "line": 1869,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 1889,
+        "text": "sudo grub-set-default \"1>12\" && sudo grub-reboot \"1>12\""
+      },
+      {
+        "line": 1948,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1965,
+        "text": "sudo grub-reboot '1>8'"
+      },
+      {
+        "line": 1980,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1981,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1998,
+        "text": "sudo grub-reboot '1>12' && sudo reboot"
+      }
+    ],
+    "commit_anchors": [
+      {
+        "line": 6,
+        "text": "git commit -m \"merge\""
+      },
+      {
+        "line": 39,
+        "text": "git commit -m final paper\""
+      },
+      {
+        "line": 40,
+        "text": "git commit -m \"final paper\""
+      },
+      {
+        "line": 49,
+        "text": "git commit -m \"paper final\""
+      },
+      {
+        "line": 425,
+        "text": "git commit -m \"merge\""
+      },
+      {
+        "line": 468,
+        "text": "git commit -m \"merge\""
+      },
+      {
+        "line": 1311,
+        "text": "git commit -m \"more times\""
+      }
+    ],
+    "early_long_run_context": [
+      {
+        "line": 6,
+        "text": "git commit -m \"merge\""
+      },
+      {
+        "line": 12,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 13,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 24,
+        "text": "sudo mount /dev/sda ~/tiering_solutions/logs"
+      },
+      {
+        "line": 25,
+        "text": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 26,
+        "text": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+      },
+      {
+        "line": 27,
+        "text": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 28,
+        "text": "sudo mount /dev/sdc ~/tiering_solutions/logs"
+      },
+      {
+        "line": 29,
+        "text": "sudo mount /dev/sdc ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 33,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 39,
+        "text": "git commit -m final paper\""
+      },
+      {
+        "line": 40,
+        "text": "git commit -m \"final paper\""
+      },
+      {
+        "line": 49,
+        "text": "git commit -m \"paper final\""
+      },
+      {
+        "line": 56,
+        "text": "bash run_all_measurements_long.sh "
+      },
+      {
+        "line": 58,
+        "text": "bash run_all_measurements_long.sh "
+      },
+      {
+        "line": 59,
+        "text": "bash run_all_measurements_long.sh df"
+      },
+      {
+        "line": 65,
+        "text": "rm -rf */*.log"
+      },
+      {
+        "line": 66,
+        "text": "rm -rf */*.tmp"
+      },
+      {
+        "line": 68,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 69,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 70,
+        "text": "sudo rebooty"
+      },
+      {
+        "line": 71,
+        "text": "sudo reboot"
+      },
+      {
+        "line": 73,
+        "text": "bash run_all_measurements_long.sh "
+      },
+      {
+        "line": 103,
+        "text": "sudo mount /dev/sda ~/tiering_solutions/logs"
+      },
+      {
+        "line": 104,
+        "text": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 105,
+        "text": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+      },
+      {
+        "line": 106,
+        "text": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 107,
+        "text": "sudo mount /dev/sdc ~/tiering_solutions/logs"
+      },
+      {
+        "line": 108,
+        "text": "sudo mount /dev/sdc ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 134,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 135,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 136,
+        "text": "sudo mount /dev/sda ~/tiering_solutions/logs"
+      },
+      {
+        "line": 137,
+        "text": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 138,
+        "text": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+      },
+      {
+        "line": 139,
+        "text": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 140,
+        "text": "sudo mount /dev/sdc ~/tiering_solutions/logs"
+      },
+      {
+        "line": 141,
+        "text": "sudo mount /dev/sdc ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 144,
+        "text": "bash run_all_measurements_long.sh "
+      },
+      {
+        "line": 146,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 147,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 148,
+        "text": "sudo reboot"
+      },
+      {
+        "line": 158,
+        "text": "sudo mount /dev/sda ~/tiering_solutions/logs"
+      },
+      {
+        "line": 159,
+        "text": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 160,
+        "text": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+      },
+      {
+        "line": 161,
+        "text": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 162,
+        "text": "sudo mount /dev/sdc ~/tiering_solutions/logs"
+      },
+      {
+        "line": 163,
+        "text": "sudo mount /dev/sdc ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 165,
+        "text": "vim run_all_measurements_long.sh "
+      },
+      {
+        "line": 166,
+        "text": "bash run_all_measurements_long.sh "
+      },
+      {
+        "line": 168,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 169,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 170,
+        "text": "sudo reboot"
+      },
+      {
+        "line": 173,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 174,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 175,
+        "text": "sudo reboot"
+      },
+      {
+        "line": 184,
+        "text": "sudo mount /dev/sda ~/tiering_solutions/logs"
+      },
+      {
+        "line": 185,
+        "text": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 186,
+        "text": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+      },
+      {
+        "line": 187,
+        "text": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 188,
+        "text": "sudo mount /dev/sdc ~/tiering_solutions/logs"
+      },
+      {
+        "line": 189,
+        "text": "sudo mount /dev/sdc ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 191,
+        "text": "vim run_all_measurements_long.sh "
+      },
+      {
+        "line": 192,
+        "text": "bash run_all_measurements_long.sh "
+      },
+      {
+        "line": 193,
+        "text": "vim run_all_measurements_long.sh "
+      },
+      {
+        "line": 195,
+        "text": "vim run_all_measurements_long.sh "
+      },
+      {
+        "line": 196,
+        "text": "bash run_all_measurements_long.sh "
+      },
+      {
+        "line": 200,
+        "text": "sudo mount /dev/sda ~/tiering_solutions/logs"
+      },
+      {
+        "line": 201,
+        "text": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 202,
+        "text": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+      },
+      {
+        "line": 203,
+        "text": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 204,
+        "text": "sudo mount /dev/sdc ~/tiering_solutions/logs"
+      },
+      {
+        "line": 205,
+        "text": "sudo mount /dev/sdc ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 217,
+        "text": "sudo mount /dev/sda /users/zimooo2/big-ann-benchmarks/data"
+      },
+      {
+        "line": 218,
+        "text": "sudo mount /dev/sda /users/zimooo2/tiering_solutions/logs"
+      },
+      {
+        "line": 219,
+        "text": "sudo mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+      },
+      {
+        "line": 220,
+        "text": "sudo mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+      },
+      {
+        "line": 221,
+        "text": "sudo mount /dev/sdc /users/zimooo2/big-ann-benchmarks/data"
+      },
+      {
+        "line": 222,
+        "text": "sudo mount /dev/sdc /users/zimooo2/tiering_solutions/logs"
+      },
+      {
+        "line": 238,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 239,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 240,
+        "text": "sudo reboot"
+      },
+      {
+        "line": 289,
+        "text": "sudo mount /dev/sda ~/tiering_solutions/logs"
+      },
+      {
+        "line": 290,
+        "text": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 291,
+        "text": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+      },
+      {
+        "line": 292,
+        "text": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 293,
+        "text": "sudo mount /dev/sdc ~/tiering_solutions/logs"
+      },
+      {
+        "line": 294,
+        "text": "sudo mount /dev/sdc ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 300,
+        "text": "bash run_all_measurements_long.sh "
+      },
+      {
+        "line": 302,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 303,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 304,
+        "text": "sudo reboot"
+      },
+      {
+        "line": 309,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 310,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 311,
+        "text": "sudo reboot"
+      },
+      {
+        "line": 312,
+        "text": "sudo mount /dev/sda ~/tiering_solutions/logs"
+      },
+      {
+        "line": 313,
+        "text": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 314,
+        "text": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+      },
+      {
+        "line": 315,
+        "text": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 316,
+        "text": "sudo mount /dev/sdc ~/tiering_solutions/logs"
+      },
+      {
+        "line": 317,
+        "text": "sudo mount /dev/sdc ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 318,
+        "text": "bash run_all_measurements_long.sh "
+      },
+      {
+        "line": 323,
+        "text": "sudo mount /dev/sda ~/tiering_solutions/logs"
+      },
+      {
+        "line": 324,
+        "text": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 325,
+        "text": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+      },
+      {
+        "line": 326,
+        "text": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 327,
+        "text": "sudo mount /dev/sdc ~/tiering_solutions/logs"
+      },
+      {
+        "line": 328,
+        "text": "sudo mount /dev/sdc ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 329,
+        "text": "bash run_all_measurements_long.sh "
+      },
+      {
+        "line": 330,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 331,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 332,
+        "text": "sudo reboot"
+      },
+      {
+        "line": 334,
+        "text": "sudo mount /dev/sda ~/tiering_solutions/logs"
+      },
+      {
+        "line": 335,
+        "text": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 336,
+        "text": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+      },
+      {
+        "line": 337,
+        "text": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 338,
+        "text": "sudo mount /dev/sdc ~/tiering_solutions/logs"
+      },
+      {
+        "line": 339,
+        "text": "sudo mount /dev/sdc ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 341,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 342,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 343,
+        "text": "sudo reboot"
+      },
+      {
+        "line": 348,
+        "text": "sudo vim /etc/default//grub"
+      },
+      {
+        "line": 351,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 352,
+        "text": "sudo reboot"
+      },
+      {
+        "line": 354,
+        "text": "bash run_all_measurements_long.sh "
+      },
+      {
+        "line": 371,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 372,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 373,
+        "text": "sudo reboot"
+      },
+      {
+        "line": 374,
+        "text": "sudo mount /dev/sda ~/tiering_solutions/logs"
+      },
+      {
+        "line": 375,
+        "text": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 376,
+        "text": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+      },
+      {
+        "line": 377,
+        "text": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 378,
+        "text": "sudo mount /dev/sdc ~/tiering_solutions/logs"
+      },
+      {
+        "line": 379,
+        "text": "sudo mount /dev/sdc ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 382,
+        "text": "bash run_all_measurements_long.sh "
+      },
+      {
+        "line": 383,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 384,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 385,
+        "text": "sudo reboot"
+      },
+      {
+        "line": 386,
+        "text": "sudo mount /dev/sda ~/tiering_solutions/logs"
+      },
+      {
+        "line": 387,
+        "text": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 388,
+        "text": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+      },
+      {
+        "line": 389,
+        "text": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 390,
+        "text": "sudo mount /dev/sdc ~/tiering_solutions/logs"
+      },
+      {
+        "line": 391,
+        "text": "sudo mount /dev/sdc ~/big-ann-benchmarks/data"
+      },
+      {
+        "line": 399,
+        "text": "bash run_all_measurements_long.sh "
+      },
+      {
+        "line": 402,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 405,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 406,
+        "text": "sudo reboot"
+      },
+      {
+        "line": 411,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 412,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 413,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 425,
+        "text": "git commit -m \"merge\""
+      }
+    ]
+  },
+  {
+    "path": "/users/zimooo2/.bash_history-05835.tmp",
+    "bytes": 48751,
+    "mtime_utc": "2026-05-11T20:55:24.719324+00:00",
+    "ctime_utc": "2026-05-11T20:55:24.719324+00:00",
+    "sha256": "4d63f488bad28262e29a54d105329399511d420947888ee7c37d972b960e253c",
+    "line_count": 2000,
+    "timestamp_line_count": 0,
+    "boot_commands": [
+      {
+        "line": 23,
+        "text": "sudo vim /etc/default/grubq"
+      },
+      {
+        "line": 24,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 25,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 26,
+        "text": "sudo grub-set-default \"1>16\" && sudo grub-reboot \"1>16\""
+      },
+      {
+        "line": 55,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 56,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 57,
+        "text": "sudo grub-set-default \"1>16\" && sudo grub-reboot \"1>16\""
+      },
+      {
+        "line": 62,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 63,
+        "text": "sudo grub-set-default \"1>16\" && sudo grub-reboot \"1>16\""
+      },
+      {
+        "line": 134,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 135,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 136,
+        "text": "sudo grub-set-default \"1>16\" && sudo grub-reboot \"1>16\""
+      },
+      {
+        "line": 142,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 143,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 144,
+        "text": "sudo grub-set-default \"1>16\" && sudo grub-reboot \"1>16\""
+      },
+      {
+        "line": 169,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 170,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 171,
+        "text": "sudo grub-set-default \"1>16\" && sudo grub-reboot \"1>16\""
+      },
+      {
+        "line": 213,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 214,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 215,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 258,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 259,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 260,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 275,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 276,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 277,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 291,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 292,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 293,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 340,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 341,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 342,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 361,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 362,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 363,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 386,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 387,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 398,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 399,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 414,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 415,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 426,
+        "text": "sudo /etc/default/grub.d/"
+      },
+      {
+        "line": 427,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 428,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 429,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 452,
+        "text": "awk -F\"'\" '/menuentry/ {print $2}' /boot/grub*/grub.cfg"
+      },
+      {
+        "line": 453,
+        "text": "sudo awk -F\"'\" '/menuentry/ {print $2}' /boot/grub*/grub.cfg"
+      },
+      {
+        "line": 454,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\""
+      },
+      {
+        "line": 473,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 474,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 475,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\""
+      },
+      {
+        "line": 490,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 491,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 492,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\""
+      },
+      {
+        "line": 501,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 502,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 504,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 505,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\""
+      },
+      {
+        "line": 518,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 532,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 550,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 570,
+        "text": "sudo /etc/default/grub.d/"
+      },
+      {
+        "line": 571,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 572,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 573,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 584,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 585,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 588,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 600,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 601,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 602,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 611,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 612,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 613,
+        "text": "sudo grub-set-default \"1>14\" && sudo grub-reboot \"1>14\""
+      },
+      {
+        "line": 641,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 642,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 836,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 838,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 839,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 932,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 933,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1058,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1059,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1062,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 1071,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1073,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1074,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 1084,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1085,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1086,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 1096,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1097,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1115,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1117,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 1135,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1150,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1151,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1167,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1168,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1177,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1178,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1186,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1187,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1240,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1241,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1279,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1280,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1300,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1301,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1313,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1314,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1324,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1325,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1334,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1336,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1346,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1348,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1349,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1351,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1352,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1368,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1369,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1374,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1377,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1406,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1407,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1414,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1415,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1423,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1424,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1437,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1438,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1458,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1459,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1496,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1497,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1531,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1532,
+        "text": "sudo grub-update"
+      },
+      {
+        "line": 1533,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1565,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1566,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1606,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1607,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1619,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1620,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1633,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1634,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1648,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1649,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1677,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1678,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1694,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1696,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1707,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1708,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1714,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1715,
+        "text": "sudo update-grub ; sudo reboot"
+      },
+      {
+        "line": 1786,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1787,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1795,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1796,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1831,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1832,
+        "text": "sudo update-grub ; sudo reboot"
+      },
+      {
+        "line": 1849,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1850,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1867,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1868,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1874,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1882,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1883,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1888,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1895,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 1924,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1925,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1928,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 1973,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1974,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1989,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1990,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1991,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1996,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 1997,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1998,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1999,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      }
+    ],
+    "commit_anchors": [
+      {
+        "line": 272,
+        "text": "git commit -m \"times and model fix\""
+      },
+      {
+        "line": 469,
+        "text": "git commit -m \"save times\""
+      },
+      {
+        "line": 631,
+        "text": "git commit -m \"add new times\""
+      },
+      {
+        "line": 966,
+        "text": "git commit -m \"merge\""
+      },
+      {
+        "line": 996,
+        "text": "git commit -m \"merge\""
+      },
+      {
+        "line": 1000,
+        "text": "git commit -m \"merge\""
+      },
+      {
+        "line": 1584,
+        "text": "git commit -m \"merge\""
+      },
+      {
+        "line": 1593,
+        "text": "git commit -m \"merge\""
+      },
+      {
+        "line": 1843,
+        "text": "git commit -m \"new version\""
+      }
+    ]
+  },
+  {
+    "path": "/users/zimooo2/.bash_history-09434.tmp",
+    "bytes": 52478,
+    "mtime_utc": "2026-03-26T05:28:10.017581+00:00",
+    "ctime_utc": "2026-03-26T05:28:10.017581+00:00",
+    "sha256": "d574a26638fdc557daf8af266424e47b8f2209d3afa3e36ec28fed2b339738e4",
+    "line_count": 2000,
+    "timestamp_line_count": 0,
+    "boot_commands": [
+      {
+        "line": 62,
+        "text": "sudo vi /etc/default/grub"
+      },
+      {
+        "line": 66,
+        "text": "sudo vi /etc/default/grub"
+      },
+      {
+        "line": 67,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 68,
+        "text": "sudo update-grub2"
+      },
+      {
+        "line": 73,
+        "text": "sudo journalctl -b -k | grep -Ei 'memmap|mmap|grub|kernel command line|command line|e820|efi'"
+      },
+      {
+        "line": 74,
+        "text": "sudo vi /etc/default/grub"
+      },
+      {
+        "line": 77,
+        "text": "sudo vi /etc/default/grub"
+      },
+      {
+        "line": 79,
+        "text": "sudo vi /etc/default/grub"
+      },
+      {
+        "line": 80,
+        "text": "sudo update-grub2"
+      },
+      {
+        "line": 84,
+        "text": "sudo vi /etc/default/grub"
+      },
+      {
+        "line": 85,
+        "text": "sudo update-grub2"
+      },
+      {
+        "line": 594,
+        "text": "sudo dmesg | egrep -i 'perf: interrupt took too long|microcode|nmi watchdog|thermal' | tail -n 100"
+      },
+      {
+        "line": 603,
+        "text": "sudo vi /etc/default/grub"
+      },
+      {
+        "line": 815,
+        "text": "vim /etc/default/grub"
+      },
+      {
+        "line": 816,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 817,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 818,
+        "text": "vim /etc/default/grub"
+      },
+      {
+        "line": 832,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 833,
+        "text": "sudo grub-updaTE"
+      },
+      {
+        "line": 834,
+        "text": "sudo grub-update"
+      },
+      {
+        "line": 835,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 848,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 849,
+        "text": "sudo grub-update"
+      },
+      {
+        "line": 850,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 852,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 853,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 855,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 856,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 864,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 865,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 869,
+        "text": "vim /etc/default/grub"
+      },
+      {
+        "line": 871,
+        "text": "memmap=86G\\$8G"
+      },
+      {
+        "line": 914,
+        "text": "print(f\"memmap={reserve_gib}G\\\\$0x{reserve_start_phys:x}\")"
+      },
+      {
+        "line": 917,
+        "text": "vim /etc/default/grub"
+      },
+      {
+        "line": 918,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 919,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 924,
+        "text": "vim /etc/default/grub"
+      },
+      {
+        "line": 925,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 926,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 948,
+        "text": "sudo journalctl -b -3 --since \"2026-03-19 12:21:30\" --until \"2026-03-19 12:22:10\" --no-pager | egrep -i \"panic|oom|bug|fail|failed|assert|reboot|shutdown|watchdog|segfault|systemd-shutdown|dracut|initramfs|emergency\""
+      },
+      {
+        "line": 953,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 954,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 958,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 959,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 964,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 975,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 978,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 980,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 981,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 985,
+        "text": "echo \"== GRUB source ==\"; grep -nE 'GRUB_CMDLINE_LINUX|memmap' /etc/default/grub /etc/default/grub.d/*.cfg 2>/dev/null; echo \"== Generated grub.cfg ==\"; grep -nE 'linux.*memmap' /boot/grub*/grub.cfg 2>/dev/null | head -n 20; echo \"== Running kernel cmdline ==\"; cat /proc/cmdline; echo \"== Kernel logs (this boot) ==\"; sudo journalctl -k -b | grep -Ei 'memmap|e820|reserved|BIOS-e820|badram'"
+      },
+      {
+        "line": 986,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 987,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 989,
+        "text": "grep -nE 'linux.*memmap' /boot/grub*/grub.cfg"
+      },
+      {
+        "line": 990,
+        "text": "sudo grep -nE 'linux.*memmap' /boot/grub*/grub.cfg"
+      },
+      {
+        "line": 1002,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1007,
+        "text": "vim /etc/default/grub"
+      },
+      {
+        "line": 1009,
+        "text": "vim /etc/default/grub"
+      },
+      {
+        "line": 1029,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1034,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1067,
+        "text": "cat /boot/grub/grub.cfg | grep -A 5 \"menuentry\""
+      },
+      {
+        "line": 1068,
+        "text": "sudo cat /boot/grub/grub.cfg | grep -A 5 \"menuentry\""
+      },
+      {
+        "line": 1069,
+        "text": "sudo grub-reboot 'gnulinux-6.2.0-hybridtier+-advanced-ccb0832d-c80e-430f-b248-d117889f1992' && sudo reboot"
+      },
+      {
+        "line": 1073,
+        "text": "vim /etc/default/grub"
+      },
+      {
+        "line": 1074,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1075,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1085,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1087,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1088,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1100,
+        "text": "grep \"^menuentry\" /boot/grub/grub.cfg"
+      },
+      {
+        "line": 1101,
+        "text": "sudo grep \"^menuentry\" /boot/grub/grub.cfg"
+      },
+      {
+        "line": 1102,
+        "text": "grep \"^menuentry\" /boot/grub/grub.cfg | sed \"s/menuentry '\\([^']*\\)'.*/\\1/\""
+      },
+      {
+        "line": 1103,
+        "text": "sudo grep \"^menuentry\" /boot/grub/grub.cfg | sed \"s/menuentry '\\([^']*\\)'.*/\\1/\""
+      },
+      {
+        "line": 1104,
+        "text": "grep \"^menuentry\" /boot/grub/grub.cfg | sed \"s/menuentry '\\([^']*\\).*/\\1/\""
+      },
+      {
+        "line": 1105,
+        "text": "sudo grep \"^menuentry\" /boot/grub/grub.cfg | sed \"s/menuentry '\\([^']*\\).*/\\1/\""
+      },
+      {
+        "line": 1106,
+        "text": "vim  /boot/grub/grub.cfg"
+      },
+      {
+        "line": 1107,
+        "text": "sudo cat  /boot/grub/grub.cfg"
+      },
+      {
+        "line": 1108,
+        "text": "sudo grub-editenv list"
+      },
+      {
+        "line": 1109,
+        "text": "sudo grub-mkconfig -o /boot/grub/grub.cfg"
+      },
+      {
+        "line": 1110,
+        "text": "grep -A 1 \"^menuentry\" /boot/grub/grub.cfg"
+      },
+      {
+        "line": 1111,
+        "text": "sudo grep -A 1 \"^menuentry\" /boot/grub/grub.cfg"
+      },
+      {
+        "line": 1112,
+        "text": "grub"
+      },
+      {
+        "line": 1113,
+        "text": "awk -F\\' '/menuentry / {print $2}' /boot/grub/grub.cfg "
+      },
+      {
+        "line": 1114,
+        "text": "sudo awk -F\\' '/menuentry / {print $2}' /boot/grub/grub.cfg "
+      },
+      {
+        "line": 1115,
+        "text": "sudo awk -F\\' '$1==\"menuentry \" || $1==\"submenu \" {print i++ \" : \" $2}; /\\smenuentry / {print \"\\t\" i-1\">\"j++ \" : \" $2};' /boot/grub/grub.cfg"
+      },
+      {
+        "line": 1116,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 1117,
+        "text": "awk -F\\' '/menuentry / {print $2}' /boot/grub/grub.cfg "
+      },
+      {
+        "line": 1118,
+        "text": "sudo grep -A 1 \"^menuentry\" /boot/grub/grub.cfg"
+      },
+      {
+        "line": 1119,
+        "text": "sudo grub-editenv list"
+      },
+      {
+        "line": 1129,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1130,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1132,
+        "text": "sudo grep -A 1 \"^menuentry\" /boot/grub/grub.cfg"
+      },
+      {
+        "line": 1133,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 1134,
+        "text": "vim /etc/default/grub"
+      },
+      {
+        "line": 1138,
+        "text": "vim /etc/default/grub"
+      },
+      {
+        "line": 1155,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1156,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1157,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 1175,
+        "text": "sudo grub-set-default \"0\" && sudo grub-reboot \"0\""
+      },
+      {
+        "line": 1193,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1201,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 1227,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1249,
+        "text": "sudo /etc/default/grub.d/"
+      },
+      {
+        "line": 1250,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1251,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1255,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1256,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1336,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1337,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1359,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1360,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1389,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1390,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1422,
+        "text": "awk -F\"'\" '/^menuentry / {print $2}' /boot/grub/grub.cfg 2>/dev/null || awk -F\"'\" '/^menuentry / {print $2}' /boot/grub2/grub.cfg"
+      },
+      {
+        "line": 1429,
+        "text": "cat /boot/grub/grub.cfg"
+      },
+      {
+        "line": 1430,
+        "text": "sudo cat /boot/grub/grub.cfg"
+      },
+      {
+        "line": 1431,
+        "text": "sudo awk -F\"'\" 'function current_path(   s,i){s=idx[0]; for(i=1;i<=depth;i++) s=s \">\" idx[i]; return s} BEGIN{depth=0; idx[0]=-1} /^[[:space:]]*submenu[[:space:]]+/ {idx[depth]++; print current_path() \"  [submenu] \" $2; depth++; idx[depth]=-1; next} /^[[:space:]]*menuentry[[:space:]]+/ {idx[depth]++; print current_path() \"  \" $2; next} /^[[:space:]]*}/ && depth>0 {depth--}' /boot/grub/grub.cfg"
+      },
+      {
+        "line": 1458,
+        "text": "sudo awk -F\"'\" 'function current_path(   s,i){s=idx[0]; for(i=1;i<=depth;i++) s=s \">\" idx[i]; return s} BEGIN{depth=0; idx[0]=-1} /^[[:space:]]*submenu[[:space:]]+/ {idx[depth]++; print current_path() \"  [submenu] \" $2; depth++; idx[depth]=-1; next} /^[[:space:]]*menuentry[[:space:]]+/ {idx[depth]++; print current_path() \"  \" $2; next} /^[[:space:]]*}/ && depth>0 {depth--}' /boot/grub/grub.cfg"
+      },
+      {
+        "line": 1461,
+        "text": "sudo grub-set-default \"1>17\" && sudo grub-reboot \"1>17\""
+      },
+      {
+        "line": 1470,
+        "text": "sudo grub-editenv list"
+      },
+      {
+        "line": 1471,
+        "text": "grep -nE 'GRUB_DEFAULT|GRUB_SAVEDEFAULT|GRUB_TIMEOUT_STYLE|GRUB_TIMEOUT'   /etc/default/grub /etc/default/grub.d/*.cfg 2>/dev/null"
+      },
+      {
+        "line": 1472,
+        "text": "sudo awk -F\"'\" '/submenu |menuentry /{print NR \": \" $2}' /boot/grub/grub.cfg | sed -n '1,120p'"
+      },
+      {
+        "line": 1474,
+        "text": "sudo grub-reboot 'Advanced options for Ubuntu>Ubuntu, with Linux 5.13.0-rc6+'"
+      },
+      {
+        "line": 1477,
+        "text": "sudo grub-reboot 'Advanced options for Ubuntu>Ubuntu, with Linux 5.13.0-rc6+'"
+      },
+      {
+        "line": 1480,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1481,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1484,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1485,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1487,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1488,
+        "text": "sudo awk -F\"'\" 'function current_path(   s,i){s=idx[0]; for(i=1;i<=depth;i++) s=s \">\" idx[i]; return s} BEGIN{depth=0; idx[0]=-1} /^[[:space:]]*submenu[[:space:]]+/ {idx[depth]++; print current_path() \"  [submenu] \" $2; depth++; idx[depth]=-1; next} /^[[:space:]]*menuentry[[:space:]]+/ {idx[depth]++; print current_path() \"  \" $2; next} /^[[:space:]]*}/ && depth>0 {depth--}' /boot/grub/grub.cfg"
+      },
+      {
+        "line": 1489,
+        "text": "CFG=/boot/grub/grub.cfg"
+      },
+      {
+        "line": 1490,
+        "text": "[ -f /boot/grub2/grub.cfg ] && CFG=/boot/grub2/grub.cfg"
+      },
+      {
+        "line": 1532,
+        "text": "CFG=/boot/grub/grub.cfg"
+      },
+      {
+        "line": 1533,
+        "text": "[ -f /boot/grub2/grub.cfg ] && CFG=/boot/grub2/grub.cfg"
+      },
+      {
+        "line": 1537,
+        "text": "sudo awk -F\"'\" 'function current_path(   s,i){s=idx[0]; for(i=1;i<=depth;i++) s=s \">\" idx[i]; return s} BEGIN{depth=0; idx[0]=-1} /^[[:space:]]*submenu[[:space:]]+/ {idx[depth]++; print current_path() \"  [submenu] \" $2; depth++; idx[depth]=-1; next} /^[[:space:]]*menuentry[[:space:]]+/ {idx[depth]++; print current_path() \"  \" $2; next} /^[[:space:]]*}/ && depth>0 {depth--}' /boot/grub/grub.cfg"
+      },
+      {
+        "line": 1538,
+        "text": "grep -E \"^menuentry |^submenu \" /boot/grub/grub.cfg | cut -d\"'\" -f2"
+      },
+      {
+        "line": 1539,
+        "text": "sudo grep -E \"^menuentry |^submenu \" /boot/grub/grub.cfg | cut -d\"'\" -f2"
+      },
+      {
+        "line": 1540,
+        "text": "grep \"^menuentry \" /boot/grub/grub.cfg | cut -d\"'\" -f2"
+      },
+      {
+        "line": 1541,
+        "text": "sudo grep \"^menuentry \" /boot/grub/grub.cfg | cut -d\"'\" -f2"
+      },
+      {
+        "line": 1542,
+        "text": "sudo grep -E \"^menuentry |^submenu \" /boot/grub/grub.cfg | cut -d\"'\" -f2"
+      },
+      {
+        "line": 1543,
+        "text": "sudo grep -E \"^[[:space:]]*(menuentry|submenu) '\" /boot/grub/grub.cfg | cut -d\"'\" -f2"
+      },
+      {
+        "line": 1544,
+        "text": "sudo grep -E \"^[[:space:]]*(menuentry|submenu) '\" /boot/grub/grub.cfg | cut -d\"'\" -f2 | nl -v0"
+      },
+      {
+        "line": 1545,
+        "text": "sudo grub-set-default \"1>16 && sudo grub-reboot \"1>16\""
+      },
+      {
+        "line": 1546,
+        "text": "sudo grub-set-default \"1>16\" && sudo grub-reboot \"1>16\""
+      },
+      {
+        "line": 1548,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1559,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1560,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1651,
+        "text": "sudo vim /etc/default/grubq"
+      },
+      {
+        "line": 1652,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1653,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1654,
+        "text": "sudo grub-set-default \"1>16\" && sudo grub-reboot \"1>16\""
+      },
+      {
+        "line": 1683,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1684,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1685,
+        "text": "sudo grub-set-default \"1>16\" && sudo grub-reboot \"1>16\""
+      },
+      {
+        "line": 1690,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1691,
+        "text": "sudo grub-set-default \"1>16\" && sudo grub-reboot \"1>16\""
+      },
+      {
+        "line": 1762,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1763,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1764,
+        "text": "sudo grub-set-default \"1>16\" && sudo grub-reboot \"1>16\""
+      },
+      {
+        "line": 1770,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1771,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1772,
+        "text": "sudo grub-set-default \"1>16\" && sudo grub-reboot \"1>16\""
+      },
+      {
+        "line": 1797,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1798,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1799,
+        "text": "sudo grub-set-default \"1>16\" && sudo grub-reboot \"1>16\""
+      },
+      {
+        "line": 1841,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1842,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1843,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 1886,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1887,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1888,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 1903,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1904,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1905,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 1919,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1920,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1921,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 1968,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1969,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1970,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      },
+      {
+        "line": 1989,
+        "text": "sudo vim /etc/default/grub"
+      },
+      {
+        "line": 1990,
+        "text": "sudo update-grub"
+      },
+      {
+        "line": 1991,
+        "text": "sudo grub-set-default \"1>8\" && sudo grub-reboot \"1>8\""
+      }
+    ],
+    "commit_anchors": [
+      {
+        "line": 114,
+        "text": "git commit -m \"merge\""
+      },
+      {
+        "line": 119,
+        "text": "git commit -m \"huge page change\""
+      },
+      {
+        "line": 212,
+        "text": "git commit -m \"checkpoint\""
+      },
+      {
+        "line": 536,
+        "text": "git commit -m \"seemingly working minor fragmented page support\""
+      },
+      {
+        "line": 538,
+        "text": "git commit -m \"seemingly working minor fragmented page support\""
+      },
+      {
+        "line": 549,
+        "text": "git commit -m \"logging\""
+      },
+      {
+        "line": 553,
+        "text": "git commit -m \"logging\""
+      },
+      {
+        "line": 1185,
+        "text": "git commit -m \""
+      },
+      {
+        "line": 1186,
+        "text": "git commit -m "
+      },
+      {
+        "line": 1187,
+        "text": "git commit -m \"data\""
+      },
+      {
+        "line": 1404,
+        "text": "git commit -m \"times\""
+      },
+      {
+        "line": 1426,
+        "text": "git commit -m \"stash\""
+      },
+      {
+        "line": 1900,
+        "text": "git commit -m \"times and model fix\""
+      }
+    ]
+  }
+]

@@ -1,0 +1,185 @@
+{
+  "created_utc": "2026-09-09T17:54:04.446197+00:00",
+  "expected_boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+  "kernel": "6.18.1-061801-generic",
+  "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+  "device": "/dev/sda3",
+  "rotational": 0,
+  "manifest": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/manifest.json",
+  "cases": [
+    "may07_arms",
+    "may07_model"
+  ],
+  "model_configuration": [
+    2,
+    10,
+    0.5
+  ],
+  "libraries_instrumented": false,
+  "initial_cases": [
+    {
+      "knob": "none",
+      "session": "20260909T175404Z-425061",
+      "command": [
+        "/usr/bin/python3",
+        "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/run_conditions.py",
+        "--preset",
+        "may04_full",
+        "--knob",
+        "none",
+        "--run",
+        "--cases",
+        "may07_arms",
+        "may07_model",
+        "--timeout",
+        "360"
+      ],
+      "returncode": 0,
+      "restoration_differences": [],
+      "completed": true
+    },
+    {
+      "knob": "lowmem32",
+      "session": "20260909T175946Z-432507",
+      "command": [
+        "/usr/bin/python3",
+        "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/run_conditions.py",
+        "--preset",
+        "may04_full",
+        "--knob",
+        "lowmem32",
+        "--run",
+        "--cases",
+        "may07_arms",
+        "may07_model",
+        "--timeout",
+        "360"
+      ],
+      "returncode": 0,
+      "restoration_differences": [],
+      "completed": true
+    },
+    {
+      "knob": "lowmem4",
+      "session": "20260909T180532Z-439108",
+      "command": [
+        "/usr/bin/python3",
+        "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/run_conditions.py",
+        "--preset",
+        "may04_full",
+        "--knob",
+        "lowmem4",
+        "--run",
+        "--cases",
+        "may07_arms",
+        "may07_model",
+        "--timeout",
+        "360"
+      ],
+      "returncode": 0,
+      "restoration_differences": [],
+      "completed": true
+    },
+    {
+      "knob": "watermark_boost0",
+      "session": "20260909T181201Z-445918",
+      "command": [
+        "/usr/bin/python3",
+        "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/run_conditions.py",
+        "--preset",
+        "may04_full",
+        "--knob",
+        "watermark_boost0",
+        "--run",
+        "--cases",
+        "may07_arms",
+        "may07_model",
+        "--timeout",
+        "360"
+      ],
+      "returncode": 0,
+      "restoration_differences": [],
+      "completed": true
+    },
+    {
+      "knob": "min_free16m",
+      "session": "20260909T181744Z-453115",
+      "command": [
+        "/usr/bin/python3",
+        "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/run_conditions.py",
+        "--preset",
+        "may04_full",
+        "--knob",
+        "min_free16m",
+        "--run",
+        "--cases",
+        "may07_arms",
+        "may07_model",
+        "--timeout",
+        "360"
+      ],
+      "returncode": 0,
+      "restoration_differences": [],
+      "completed": true
+    },
+    {
+      "knob": "khugepaged_pages4096",
+      "session": "20260909T182328Z-460094",
+      "command": [
+        "/usr/bin/python3",
+        "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/run_conditions.py",
+        "--preset",
+        "may04_full",
+        "--knob",
+        "khugepaged_pages4096",
+        "--run",
+        "--cases",
+        "may07_arms",
+        "may07_model",
+        "--timeout",
+        "360"
+      ],
+      "returncode": 0,
+      "restoration_differences": [],
+      "completed": true
+    }
+  ],
+  "confirmation_cases": [
+    {
+      "knob": "none",
+      "session": "20260909T182911Z-468305",
+      "purpose": "Final baseline pair after all isolated overrides",
+      "command": [
+        "/usr/bin/python3",
+        "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/run_conditions.py",
+        "--preset",
+        "may04_full",
+        "--knob",
+        "none",
+        "--run",
+        "--cases",
+        "may07_arms",
+        "may07_model",
+        "--timeout",
+        "360"
+      ],
+      "returncode": 0,
+      "restoration_differences": [],
+      "completed": true
+    }
+  ],
+  "protocol": [
+    "Fresh baseline pair, five isolated alternative pairs, final baseline pair; ARMS then model in each pair.",
+    "Use frozen uninstrumented May libraries and the same SSD graph in the same 4 GB boot.",
+    "Full historical setup and double defrag before each run; apply one override after final defrag.",
+    "Read back all target controls before launch; preserve zoneinfo and VM counters before and after.",
+    "Restore controls after every pair; stop on invalid result or failed restoration.",
+    "The 163840 KiB editor-only value is not a requested historical-alternative table entry and is not included."
+  ],
+  "completed": true,
+  "completed_runs": 14,
+  "completed_utc": "2026-09-09T18:35:00.801615+00:00",
+  "result_report": "results.md",
+  "restoration_verified": true,
+  "results_audit_passed": true
+}

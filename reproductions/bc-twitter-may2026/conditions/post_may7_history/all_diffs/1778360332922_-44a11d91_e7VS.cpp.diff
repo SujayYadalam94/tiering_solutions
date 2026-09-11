@@ -1,0 +1,15 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-44a11d91/fH1x.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-44a11d91/e7VS.cpp
+@@ -1743,12 +1743,10 @@
+         {
+             continue;
+         }
+-#if USE_MODEL == (false) && LOGGING_RUN == (false)
+         if (!hot_page->can_promote)
+         {
+             continue;
+         }
+-#endif
+ 
+         double cost = 1 * get_promotion_cost_multiplier() * promotion_cost_avg;
+ #if USE_MODEL == (true)

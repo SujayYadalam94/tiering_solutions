@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/23af16b9/Rdeg.sh
++++ /users/zimooo2/.vscode-server/data/User/History/23af16b9/yXYH.sh
+@@ -4,7 +4,7 @@
+ SRC_ROOT="${1:-c220g5}"
+ DEST_ROOT="${2:-c220g5_final}"
+ VERSION_TAG="${3:-6.18}"
+-RUN_GLOB="${4:-10041MiB_run*}"
++RUN_GLOB="${4:-4041MiB_run*}"
+ DATASET_SUFFIX="${5:-long}"
+ 
+ TIERS=(arms model)

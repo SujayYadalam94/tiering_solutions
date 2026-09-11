@@ -1,0 +1,17 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/1e202976/dATi.sh
++++ /users/zimooo2/.vscode-server/data/User/History/1e202976/8V5Q.sh
+@@ -4,10 +4,10 @@
+ MEASUREMENT_WORKLOADS_PATH="${MEASUREMENT_WORKLOADS_DIR}/workloads"
+ 
+ declare -ar MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
+-    "bc-kron.sg-long"
+-    "pr-kron.sg-long"
+-    #"bc-twitter.sg-long"
+-    #"pr-twitter.sg-long"
++    #"bc-kron.sg-long"
++    #"pr-kron.sg-long"
++    "bc-twitter.sg-long"
++    "pr-twitter.sg-long"
+     #"faiss_10M-long"
+ 
+     #"XSBench"

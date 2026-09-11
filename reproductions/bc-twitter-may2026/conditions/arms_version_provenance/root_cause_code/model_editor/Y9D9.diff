@@ -1,0 +1,11 @@
+--- 4da3d6c3f/model.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-3fe4908d/Y9D9.cpp
+@@ -12,7 +12,7 @@
+ #include <vector>
+ 
+ // Number of features - must match model file feature_names count.
+-#define MODEL_NUM_FEATURES 12
++#define MODEL_NUM_FEATURES 11
+ 
+ static inline double model_discount_scale()
+ {

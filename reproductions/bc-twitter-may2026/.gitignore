@@ -1,0 +1,6 @@
+objects/
+libraries/
+results/
+__pycache__/
+diagnostics/*.so
+diagnostics/*.npz

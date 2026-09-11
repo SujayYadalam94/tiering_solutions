@@ -1,0 +1,408 @@
+[
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/DuckDB-TPCH-sf100/4000MiB_run1.time",
+    "final_path": "times/c220g5_final/arms_6.2/DuckDB-TPCH-sf100/4000MiB_run1.time",
+    "blob": "1b2ab83db7ce5a62b03352fc889074dadd38ce38",
+    "real_seconds": 523.106
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/DuckDB-TPCH-sf100/4000MiB_run2.time",
+    "final_path": "times/c220g5_final/arms_6.2/DuckDB-TPCH-sf100/4000MiB_run2.time",
+    "blob": "1a03ebbee8bca0a660bb9379888a934e766efad9",
+    "real_seconds": 544.018
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/DuckDB-TPCH-sf100/4000MiB_run3.time",
+    "final_path": "times/c220g5_final/arms_6.2/DuckDB-TPCH-sf100/4000MiB_run3.time",
+    "blob": "33970fe393db83182f59737618330fc954ee5d8e",
+    "real_seconds": 538.443
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/DuckDB-TPCH-sf100/4000MiB_run4.time",
+    "final_path": "times/c220g5_final/arms_6.2/DuckDB-TPCH-sf100/4000MiB_run4.time",
+    "blob": "e3d68cf6e28764fe6d03448b9b14addefdee475e",
+    "real_seconds": 534.36
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/XSBench/4000MiB_run1.time",
+    "final_path": "times/c220g5_final/arms_6.2/XSBench/4000MiB_run1.time",
+    "blob": "bacc9ec14b70fe5d62dde19c2b5b0fc20c29ded3",
+    "real_seconds": 209.531
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/XSBench/4000MiB_run2.time",
+    "final_path": "times/c220g5_final/arms_6.2/XSBench/4000MiB_run2.time",
+    "blob": "87232a7e83842cb7f30ee4e012796c673f5f0dcb",
+    "real_seconds": 212.999
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/XSBench/4000MiB_run3.time",
+    "final_path": "times/c220g5_final/arms_6.2/XSBench/4000MiB_run3.time",
+    "blob": "ed6ce8127fcf1821d382cde761b65351073509b2",
+    "real_seconds": 208.45499999999998
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/XSBench/4000MiB_run4.time",
+    "final_path": "times/c220g5_final/arms_6.2/XSBench/4000MiB_run4.time",
+    "blob": "d3a84c061128ce7ead07557e331c6cdb8aaf7a80",
+    "real_seconds": 207.652
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/bc-kron.sg/4000MiB_run1.time",
+    "final_path": "times/c220g5_final/arms_6.2/bc-kron.sg/4000MiB_run1.time",
+    "blob": "9489c0f0e2e0c8fc235e187e7535584ed7c08b70",
+    "real_seconds": 332.362
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/bc-kron.sg/4000MiB_run2.time",
+    "final_path": "times/c220g5_final/arms_6.2/bc-kron.sg/4000MiB_run2.time",
+    "blob": "8ebb4d9c6f8db91e3bee2856ca5964c582ebef00",
+    "real_seconds": 332.997
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/bc-kron.sg/4000MiB_run3.time",
+    "final_path": "times/c220g5_final/arms_6.2/bc-kron.sg/4000MiB_run3.time",
+    "blob": "e9bd7d6f0db717931e739c53239c102b313228fe",
+    "real_seconds": 341.06600000000003
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/bc-twitter.sg/4000MiB_run1.time",
+    "final_path": "times/c220g5_final/arms_6.2/bc-twitter.sg/4000MiB_run1.time",
+    "blob": "fa9f4d769274adc83b01d5225eedc7f58173d6ce",
+    "real_seconds": 159.639
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/bc-twitter.sg/4000MiB_run2.time",
+    "final_path": "times/c220g5_final/arms_6.2/bc-twitter.sg/4000MiB_run2.time",
+    "blob": "141812c66731c39ff814a1701c7afaa8e07ae82c",
+    "real_seconds": 155.672
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/bc-twitter.sg/4000MiB_run3.time",
+    "final_path": "times/c220g5_final/arms_6.2/bc-twitter.sg/4000MiB_run3.time",
+    "blob": "a8f71480b97a6b8403c6382a0cf0a927105b3e9a",
+    "real_seconds": 157.132
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/faiss_10M/4000MiB_run1.time",
+    "final_path": "times/c220g5_final/arms_6.2/faiss_10M/4000MiB_run1.time",
+    "blob": "5841d25719f9dba87bc0ffe92f4749a1487e340c",
+    "real_seconds": 554.149
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/faiss_10M/4000MiB_run2.time",
+    "final_path": "times/c220g5_final/arms_6.2/faiss_10M/4000MiB_run2.time",
+    "blob": "9a458bd60c10bea62195aab33d33d2134b0d450c",
+    "real_seconds": 549.161
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/faiss_10M/4000MiB_run3.time",
+    "final_path": "times/c220g5_final/arms_6.2/faiss_10M/4000MiB_run3.time",
+    "blob": "500c73331eaf24eabe93094d689810118a889bbc",
+    "real_seconds": 549.144
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/lulesh2.0_s400/4000MiB_run1.time",
+    "final_path": "times/c220g5_final/arms_6.2/lulesh2.0_s400/4000MiB_run1.time",
+    "blob": "d3805fb63e6ccb26dc4c915e954a3d05c670d788",
+    "real_seconds": 511.321
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/lulesh2.0_s400/4000MiB_run2.time",
+    "final_path": "times/c220g5_final/arms_6.2/lulesh2.0_s400/4000MiB_run2.time",
+    "blob": "273dcaa32e6c8aae1d9e4616e13b131205df6f61",
+    "real_seconds": 519.527
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/lulesh2.0_s400/4000MiB_run3.time",
+    "final_path": "times/c220g5_final/arms_6.2/lulesh2.0_s400/4000MiB_run3.time",
+    "blob": "f91525b006907b675635e170bd99593a7153de28",
+    "real_seconds": 512.279
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/mg.D.x/4000MiB_run1.time",
+    "final_path": "times/c220g5_final/arms_6.2/mg.D.x/4000MiB_run1.time",
+    "blob": "b356058965a373b9922ca9c11bad39b06244fb3d",
+    "real_seconds": 553.084
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/mg.D.x/4000MiB_run2.time",
+    "final_path": "times/c220g5_final/arms_6.2/mg.D.x/4000MiB_run2.time",
+    "blob": "349ef097990ff6574f1c648573b62db13994119e",
+    "real_seconds": 552.327
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/mg.D.x/4000MiB_run3.time",
+    "final_path": "times/c220g5_final/arms_6.2/mg.D.x/4000MiB_run3.time",
+    "blob": "73b3c9b738123efad7d6dc9d814efa5ca01b84e3",
+    "real_seconds": 553.755
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/pr-kron.sg/4000MiB_run1.time",
+    "final_path": "times/c220g5_final/arms_6.2/pr-kron.sg/4000MiB_run1.time",
+    "blob": "e1683f6068ad8960e8d5f06551093d59555f0fb3",
+    "real_seconds": 388.095
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/pr-kron.sg/4000MiB_run2.time",
+    "final_path": "times/c220g5_final/arms_6.2/pr-kron.sg/4000MiB_run2.time",
+    "blob": "6b2506660ee44c38c95a194286e60a5898affbb9",
+    "real_seconds": 383.605
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/pr-kron.sg/4000MiB_run3.time",
+    "final_path": "times/c220g5_final/arms_6.2/pr-kron.sg/4000MiB_run3.time",
+    "blob": "4238e3a942212cf64b7391f33e809b1959ccba34",
+    "real_seconds": 391.947
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/pr-twitter.sg/4000MiB_run1.time",
+    "final_path": "times/c220g5_final/arms_6.2/pr-twitter.sg/4000MiB_run1.time",
+    "blob": "9bdda0922867f9c39f5837edfc3d3c4aeca16c06",
+    "real_seconds": 364.93
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/pr-twitter.sg/4000MiB_run2.time",
+    "final_path": "times/c220g5_final/arms_6.2/pr-twitter.sg/4000MiB_run2.time",
+    "blob": "574e68eae10ce60b6cc90ea8d4a84a8c552c2b3a",
+    "real_seconds": 357.915
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/arms/pr-twitter.sg/4000MiB_run3.time",
+    "final_path": "times/c220g5_final/arms_6.2/pr-twitter.sg/4000MiB_run3.time",
+    "blob": "2b57d0537c728e9a5673ec817ce08182ca42dfc0",
+    "real_seconds": 372.889
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/DuckDB-TPCH-sf100/4000MiB_run1.time",
+    "final_path": "times/c220g5_final/hybridtier/DuckDB-TPCH-sf100/4000MiB_run1.time",
+    "blob": "6b39ef449d386fc547714973d6fa192d1561b99b",
+    "real_seconds": 524.008
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/DuckDB-TPCH-sf100/4000MiB_run2.time",
+    "final_path": "times/c220g5_final/hybridtier/DuckDB-TPCH-sf100/4000MiB_run2.time",
+    "blob": "e96ef00496af6ddf62f8634c686cab0824750c22",
+    "real_seconds": 512.186
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/DuckDB-TPCH-sf100/4000MiB_run3.time",
+    "final_path": "times/c220g5_final/hybridtier/DuckDB-TPCH-sf100/4000MiB_run3.time",
+    "blob": "0b6066409489aecf8b394a825c025ae9932b596d",
+    "real_seconds": 538.739
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/DuckDB-TPCH-sf100/4000MiB_run4.time",
+    "final_path": "times/c220g5_final/hybridtier/DuckDB-TPCH-sf100/4000MiB_run4.time",
+    "blob": "0609f58188d2acc719a53e95e35c2c6d068dd98d",
+    "real_seconds": 518.245
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/XSBench/4000MiB_run1.time",
+    "final_path": "times/c220g5_final/hybridtier/XSBench/4000MiB_run1.time",
+    "blob": "64a66dbec1b51470ffec0a5d35644eff4cda11ff",
+    "real_seconds": 214.628
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/XSBench/4000MiB_run2.time",
+    "final_path": "times/c220g5_final/hybridtier/XSBench/4000MiB_run2.time",
+    "blob": "39dd10f19026e082b7d86b47ea104558be235479",
+    "real_seconds": 214.085
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/XSBench/4000MiB_run3.time",
+    "final_path": "times/c220g5_final/hybridtier/XSBench/4000MiB_run3.time",
+    "blob": "4fd2a4c489ea334d9dd8459b13a0091a67c9b96e",
+    "real_seconds": 214.367
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/XSBench/4000MiB_run4.time",
+    "final_path": "times/c220g5_final/hybridtier/XSBench/4000MiB_run4.time",
+    "blob": "f271058a9ddf81fd50bedc4ea40d0534afd6fa0a",
+    "real_seconds": 213.336
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/bc-kron.sg/4000MiB_run1.time",
+    "final_path": "times/c220g5_final/hybridtier/bc-kron.sg/4000MiB_run1.time",
+    "blob": "b78c3f27834c9ac3467a724a86c1feee1685f737",
+    "real_seconds": 353.18399999999997
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/bc-kron.sg/4000MiB_run2.time",
+    "final_path": "times/c220g5_final/hybridtier/bc-kron.sg/4000MiB_run2.time",
+    "blob": "b60cf3d60f454f7ee4a50acfcc219f41276b155b",
+    "real_seconds": 361.813
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/bc-kron.sg/4000MiB_run3.time",
+    "final_path": "times/c220g5_final/hybridtier/bc-kron.sg/4000MiB_run3.time",
+    "blob": "51bb1068d7f66211568b059281aad6e27ff525b5",
+    "real_seconds": 354.805
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/bc-twitter.sg/4000MiB_run1.time",
+    "final_path": "times/c220g5_final/hybridtier/bc-twitter.sg/4000MiB_run1.time",
+    "blob": "5f07155822da05f226f5d5600f482bd9e4ab838c",
+    "real_seconds": 162.292
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/bc-twitter.sg/4000MiB_run2.time",
+    "final_path": "times/c220g5_final/hybridtier/bc-twitter.sg/4000MiB_run2.time",
+    "blob": "78403f8b4143842afc66ba0d8c28598711ddf6a6",
+    "real_seconds": 163.473
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/bc-twitter.sg/4000MiB_run3.time",
+    "final_path": "times/c220g5_final/hybridtier/bc-twitter.sg/4000MiB_run3.time",
+    "blob": "b33649a177c5a7ef5b670947e3fc732b393d497e",
+    "real_seconds": 166.708
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/faiss_10M/4000MiB_run1.time",
+    "final_path": "times/c220g5_final/hybridtier/faiss_10M/4000MiB_run1.time",
+    "blob": "450f02f17e2eff9f2b7a79ba8016b25033a2e564",
+    "real_seconds": 552.91
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/faiss_10M/4000MiB_run2.time",
+    "final_path": "times/c220g5_final/hybridtier/faiss_10M/4000MiB_run2.time",
+    "blob": "d6a6667dc6c476053a3009c710dda0504cdddf7e",
+    "real_seconds": 543.772
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/faiss_10M/4000MiB_run3.time",
+    "final_path": "times/c220g5_final/hybridtier/faiss_10M/4000MiB_run3.time",
+    "blob": "12cdf8fb2052db4dc82c8dc69323c79142a1eee6",
+    "real_seconds": 546.993
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/lulesh2.0_s400/4000MiB_run1.time",
+    "final_path": "times/c220g5_final/hybridtier/lulesh2.0_s400/4000MiB_run1.time",
+    "blob": "bf333126fa63a9f1210c7caf8d0bd69579d481a5",
+    "real_seconds": 500.082
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/lulesh2.0_s400/4000MiB_run2.time",
+    "final_path": "times/c220g5_final/hybridtier/lulesh2.0_s400/4000MiB_run2.time",
+    "blob": "ed35c58f9bcca0a6e79a4c48b643ef5ac802e04c",
+    "real_seconds": 491.98199999999997
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/lulesh2.0_s400/4000MiB_run3.time",
+    "final_path": "times/c220g5_final/hybridtier/lulesh2.0_s400/4000MiB_run3.time",
+    "blob": "ed041754af22abd182ad1da5416a4f4dc66d2ca4",
+    "real_seconds": 493.548
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/mg.D.x/4000MiB_run1.time",
+    "final_path": "times/c220g5_final/hybridtier/mg.D.x/4000MiB_run1.time",
+    "blob": "4bef75ef492162b1bdf8cb284aeb677fadb156c3",
+    "real_seconds": 537.658
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/mg.D.x/4000MiB_run2.time",
+    "final_path": "times/c220g5_final/hybridtier/mg.D.x/4000MiB_run2.time",
+    "blob": "8b10928a65f12e855bf37d9a087203df68758e55",
+    "real_seconds": 540.474
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/mg.D.x/4000MiB_run3.time",
+    "final_path": "times/c220g5_final/hybridtier/mg.D.x/4000MiB_run3.time",
+    "blob": "33efd054d13f417dff2012e3a9a4a2677a1b16a7",
+    "real_seconds": 540.068
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/pr-kron.sg/4000MiB_run1.time",
+    "final_path": "times/c220g5_final/hybridtier/pr-kron.sg/4000MiB_run1.time",
+    "blob": "15943222132374a3244ecd084394e0ce85c90409",
+    "real_seconds": 444.603
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/pr-kron.sg/4000MiB_run2.time",
+    "final_path": "times/c220g5_final/hybridtier/pr-kron.sg/4000MiB_run2.time",
+    "blob": "8f5ce70d1c3d805a996d5b5a0ef0a6fb66db8b97",
+    "real_seconds": 385.142
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/pr-kron.sg/4000MiB_run3.time",
+    "final_path": "times/c220g5_final/hybridtier/pr-kron.sg/4000MiB_run3.time",
+    "blob": "18dd238a9d796af3bde47a3ff2158e2884c0c875",
+    "real_seconds": 392.328
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/pr-twitter.sg/4000MiB_run1.time",
+    "final_path": "times/c220g5_final/hybridtier/pr-twitter.sg/4000MiB_run1.time",
+    "blob": "1a709906439f0ece21a9f2e2f932fe05d93aee63",
+    "real_seconds": 410.827
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/pr-twitter.sg/4000MiB_run2.time",
+    "final_path": "times/c220g5_final/hybridtier/pr-twitter.sg/4000MiB_run2.time",
+    "blob": "5c4e11694f9498a2dd7b450d2c176fa3c073c14c",
+    "real_seconds": 424.324
+  },
+  {
+    "git_commit": "fedcde1ee",
+    "historical_path": "times/hybridtier/pr-twitter.sg/4000MiB_run3.time",
+    "final_path": "times/c220g5_final/hybridtier/pr-twitter.sg/4000MiB_run3.time",
+    "blob": "211a85665066dbaa753633335242ded3e3277c53",
+    "real_seconds": 378.389
+  }
+]

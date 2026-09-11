@@ -1,0 +1,167 @@
+{
+  "captured_utc": "2026-09-09T20:08:11.279156+00:00",
+  "scope": "Normal C220G5 ARMS setup. Static current-source extraction versus existing fully intercepted May shell-write recording. No host settings or scripts executed.",
+  "historical_setup_git_blobs": {
+    "6b1bc11dd": "9269f544c753641578e44d8709ec815d031f7770",
+    "8d6a8bc66": "9269f544c753641578e44d8709ec815d031f7770",
+    "4da3d6c3f": "9269f544c753641578e44d8709ec815d031f7770",
+    "d6f720be6": "9269f544c753641578e44d8709ec815d031f7770"
+  },
+  "sources_sha256": {
+    "measurement_settings.sh": "206d6d8dbbe58a23d1b04ea5ecdcbd293860bba6735a21ee68eb472ef0c4a889",
+    "setup.sh": "2aaee86b09f147b88284ea0c4a182243b27e34ec9d7000a8f849d7fcebbd1709",
+    "measurement_common.sh": "86568da28262f814c9c86e7e93766d3600b73f04585403d3a3b6a48d1199148a",
+    "measurement_arms.sh": "fdb0ce68c319c3aa32c7ec0ef3d463a3f742423cf11da1ef09ee8e74a838e938",
+    "measurement_model.sh": "a3e440767d77057f960afcb57f8b553b83d01a335a99c82fcade2fae2c9898a9",
+    "defrag.sh": "26eab32ead739dc153c24d6a156cbf96a917f4c1ebdafeeaee26642767dc56ec",
+    "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/hugepage_settings_history/call_paths/may04_git/setup.sh": "3365dffcd8de8c203ef769b097181fc49e87bbbaf8cf127f5ae48b04c5d4e904"
+  },
+  "setting_count": 23,
+  "different_count": 0,
+  "settings": [
+    {
+      "path": "/proc/sys/kernel/numa_balancing",
+      "may_requested": "0",
+      "current_requested": "0",
+      "equal": true
+    },
+    {
+      "path": "/proc/sys/kernel/perf_cpu_time_max_percent",
+      "may_requested": "0",
+      "current_requested": "0",
+      "equal": true
+    },
+    {
+      "path": "/proc/sys/kernel/perf_event_max_sample_rate",
+      "may_requested": "1000000",
+      "current_requested": "1000000",
+      "equal": true
+    },
+    {
+      "path": "/proc/sys/vm/admin_reserve_kbytes",
+      "may_requested": "16384",
+      "current_requested": "16384",
+      "equal": true
+    },
+    {
+      "path": "/proc/sys/vm/compaction_proactiveness",
+      "may_requested": "80",
+      "current_requested": "80",
+      "equal": true
+    },
+    {
+      "path": "/proc/sys/vm/lowmem_reserve_ratio",
+      "may_requested": "256 256 32",
+      "current_requested": "256 256 32",
+      "equal": true
+    },
+    {
+      "path": "/proc/sys/vm/min_free_kbytes",
+      "may_requested": "1048576",
+      "current_requested": "1048576",
+      "equal": true
+    },
+    {
+      "path": "/proc/sys/vm/overcommit_memory",
+      "may_requested": "1",
+      "current_requested": "1",
+      "equal": true
+    },
+    {
+      "path": "/proc/sys/vm/user_reserve_kbytes",
+      "may_requested": "16384",
+      "current_requested": "16384",
+      "equal": true
+    },
+    {
+      "path": "/proc/sys/vm/vfs_cache_pressure",
+      "may_requested": "2000",
+      "current_requested": "2000",
+      "equal": true
+    },
+    {
+      "path": "/proc/sys/vm/watermark_boost_factor",
+      "may_requested": "10000",
+      "current_requested": "10000",
+      "equal": true
+    },
+    {
+      "path": "/proc/sys/vm/watermark_scale_factor",
+      "may_requested": "10",
+      "current_requested": "10",
+      "equal": true
+    },
+    {
+      "path": "/proc/sys/vm/zone_reclaim_mode",
+      "may_requested": "0",
+      "current_requested": "0",
+      "equal": true
+    },
+    {
+      "path": "/sys/kernel/mm/ksm/run",
+      "may_requested": "0",
+      "current_requested": "0",
+      "equal": true
+    },
+    {
+      "path": "/sys/kernel/mm/lru_gen/enabled",
+      "may_requested": "0x0000",
+      "current_requested": "0x0000",
+      "equal": true
+    },
+    {
+      "path": "/sys/kernel/mm/numa/demotion_enabled",
+      "may_requested": "0",
+      "current_requested": "0",
+      "equal": true
+    },
+    {
+      "path": "/sys/kernel/mm/transparent_hugepage/defrag",
+      "may_requested": "always",
+      "current_requested": "always",
+      "equal": true
+    },
+    {
+      "path": "/sys/kernel/mm/transparent_hugepage/enabled",
+      "may_requested": "always",
+      "current_requested": "always",
+      "equal": true
+    },
+    {
+      "path": "/sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs",
+      "may_requested": "1",
+      "current_requested": "1",
+      "equal": true
+    },
+    {
+      "path": "/sys/kernel/mm/transparent_hugepage/khugepaged/defrag",
+      "may_requested": "1",
+      "current_requested": "1",
+      "equal": true
+    },
+    {
+      "path": "/sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan",
+      "may_requested": "8192",
+      "current_requested": "8192",
+      "equal": true
+    },
+    {
+      "path": "/sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs",
+      "may_requested": "0",
+      "current_requested": "0",
+      "equal": true
+    },
+    {
+      "path": "/sys/kernel/mm/transparent_hugepage/shmem_enabled",
+      "may_requested": "force",
+      "current_requested": "force",
+      "equal": true
+    }
+  ],
+  "limitations": [
+    "Historical source establishes requested values, not successful per-run kernel acceptance.",
+    "Optional MGLRU path is present on the 6.18 host under comparison.",
+    "Requested NUMA baseline/NOMAD/TPP overrides are outside normal ARMS preparation.",
+    "Recorded May sequence has a duplicate zero NUMA-balancing write; only final values are compared here."
+  ]
+}

@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <array>
 #include <cmath>
 #include <mutex>
 #include <stdbool.h>
@@ -13,6 +14,39 @@
 
 // Number of features - must match model file feature_names count.
 #define MODEL_NUM_FEATURES 12
+
+void model_score_timing::finish_features()
+{
+#if MODEL_TIMING_TELEMETRY_ENABLED
+    features_end = clock::now();
+#endif
+}
+
+void model_score_timing::finish_inference()
+{
+#if MODEL_TIMING_TELEMETRY_ENABLED
+    inference_end = clock::now();
+#endif
+}
+
+void model_score_timing::finish(std::vector<struct data_row> &rows)
+{
+#if MODEL_TIMING_TELEMETRY_ENABLED
+    const auto end = clock::now();
+    const uint64_t features_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(features_end - start).count();
+    const uint64_t inference_ns =
+        std::chrono::duration_cast<std::chrono::nanoseconds>(inference_end - features_end).count();
+    const uint64_t total_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    for (auto &row : rows)
+    {
+        row.model_feature_aggregation_ns = features_ns;
+        row.model_inference_ns = inference_ns;
+        row.model_score_total_ns = total_ns;
+    }
+#else
+    (void)rows;
+#endif
+}
 
 static inline double model_discount_scale()
 {
@@ -105,7 +139,8 @@ static inline void extract_features(struct data_row &row, double *features)
 }
 
 static void model_predict_batch_impl(std::vector<struct data_row> &rows,
-                                     const std::vector<std::shared_ptr<struct page_info>> &pages, bool update_history)
+                                     const std::vector<std::shared_ptr<struct page_info>> &pages, bool update_history,
+                                     model_score_timing *timing = nullptr)
 {
     assert(rows.size() == pages.size());
 
@@ -113,18 +148,42 @@ static void model_predict_batch_impl(std::vector<struct data_row> &rows,
     const double discount_scale = model_discount_scale();
 
 #if VIRTUAL_FEATURES_ENABLED
-    for (size_t i = 0; i < rows.size(); ++i)
-    {
-        double features[MODEL_NUM_FEATURES] = {0.0};
-        extract_features(rows[i], features);
+    auto infer = [&](size_t i, double *features) {
 #if USE_MODEL == (true)
         forest_root(features, &outputs[i], 0, 1);
         outputs[i] += discount_scale *
                       static_cast<double>(std::max(rows[i].virtual_missed_ewma_100, rows[i].virtual_missed_accesses));
 #else
+        (void)features;
         outputs[i] = 0.0;
 #endif
+    };
+#if MODEL_TIMING_TELEMETRY_ENABLED
+    if (timing != nullptr)
+    {
+        // Pack the whole batch first so inference timing excludes feature extraction
+        // without taking clock samples for every page.
+        std::vector<std::array<double, MODEL_NUM_FEATURES>> features(rows.size());
+        for (size_t i = 0; i < rows.size(); ++i)
+            extract_features(rows[i], features[i].data());
+        timing->finish_features();
+        for (size_t i = 0; i < rows.size(); ++i)
+            infer(i, features[i].data());
+        timing->finish_inference();
     }
+    else
+#endif
+    {
+        for (size_t i = 0; i < rows.size(); ++i)
+        {
+            double features[MODEL_NUM_FEATURES] = {0.0};
+            extract_features(rows[i], features);
+            infer(i, features);
+        }
+    }
+#endif
+#if !MODEL_TIMING_TELEMETRY_ENABLED
+    (void)timing;
 #endif
 
     for (size_t i = 0; i < rows.size(); ++i)
@@ -155,9 +214,10 @@ void model_predict_batch(std::vector<struct data_row> &rows,
 }
 
 void model_predict_batch_observe(std::vector<struct data_row> &rows,
-                                 const std::vector<std::shared_ptr<struct page_info>> &pages)
+                                 const std::vector<std::shared_ptr<struct page_info>> &pages,
+                                 model_score_timing *timing)
 {
-    model_predict_batch_impl(rows, pages, false);
+    model_predict_batch_impl(rows, pages, false, timing);
 }
 
 double model_predict(struct data_row &row, struct page_info &page)

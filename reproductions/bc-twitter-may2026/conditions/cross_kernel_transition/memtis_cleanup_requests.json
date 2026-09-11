@@ -1,0 +1,37 @@
+[
+  {
+    "timestamp": "2026-09-08T18:00:38.129Z",
+    "session": "/users/zimooo2/.codex/sessions/2026/09/08/rollout-2026-09-08T11-06-11-01a081c5-1239-7163-ac74-162c5db5ded8.jsonl",
+    "text": "can you switch to using the disk on hdd for the workloads\n"
+  },
+  {
+    "timestamp": "2026-09-09T11:59:26.235Z",
+    "session": "/users/zimooo2/.codex/sessions/2026/09/09/rollout-2026-09-09T05-04-10-01a0859f-fe97-7201-8056-b7d2ca49eab4.jsonl",
+    "text": "Does it seems like the full difference between the model and arms is just the difference between hdd nad ssd mounting? Look through all the logs, and try to find traces that were ideally run on the same boot or around the same time. Please do a deep dive\n"
+  },
+  {
+    "timestamp": "2026-09-09T12:44:21.621Z",
+    "session": "/users/zimooo2/.codex/sessions/2026/09/09/rollout-2026-09-09T05-04-10-01a0859f-fe97-7201-8056-b7d2ca49eab4.jsonl",
+    "text": "Two things to keep in mind. We are booted into a 4GB OS, and the model version now isn't really any different in speed today than it was before from the experiments I have made unless the previous runs used hdd's. So another variabile to consider other the code base is HDD vs SSD. Also I am pretty confident that both were run on the same system because the cost ablation works like we expect where we see models performing similarly in the same boot as arms. And we were not changing the disk between runs as the run\\_all\\_benchmarks scripts should be relatively unchanged in logic\n"
+  },
+  {
+    "timestamp": "2026-09-09T21:40:44.993Z",
+    "session": "/users/zimooo2/.codex/sessions/2026/09/09/rollout-2026-09-09T05-04-10-01a0859f-fe97-7201-8056-b7d2ca49eab4.jsonl",
+    "text": "Is there something that could have happened when I installed the memtis kernel that caused this difference? Like I deleted some files, and the disk is now a lot less close to full for example.\n"
+  },
+  {
+    "timestamp": "2026-09-09T12:54:49.319Z",
+    "session": "/users/zimooo2/.codex/sessions/2026/09/09/rollout-2026-09-09T07-54-49-01a0863c-3ac1-7572-92f3-c58a5b4d3ecd.jsonl",
+    "text": "Two things to keep in mind. We are booted into a 4GB OS, and the model version now isn't really any different in speed today than it was before from the experiments I have made unless the previous runs used hdd's. So another variabile to consider other the code base is HDD vs SSD. Also I am pretty confident that both were run on the same system because the cost ablation works like we expect where we see models performing similarly in the same boot as arms. And we were not changing the disk between runs as the run\\_all\\_benchmarks scripts should be relatively unchanged in logic\n"
+  },
+  {
+    "timestamp": "2026-09-09T12:54:57.530Z",
+    "session": "/users/zimooo2/.codex/sessions/2026/09/09/rollout-2026-09-09T07-54-57-01a0863c-5ad2-7e83-b3b9-e78dc052ab2d.jsonl",
+    "text": "Two things to keep in mind. We are booted into a 4GB OS, and the model version now isn't really any different in speed today than it was before from the experiments I have made unless the previous runs used hdd's. So another variabile to consider other the code base is HDD vs SSD. Also I am pretty confident that both were run on the same system because the cost ablation works like we expect where we see models performing similarly in the same boot as arms. And we were not changing the disk between runs as the run\\_all\\_benchmarks scripts should be relatively unchanged in logic\n"
+  },
+  {
+    "timestamp": "2026-09-09T12:55:58.687Z",
+    "session": "/users/zimooo2/.codex/sessions/2026/09/09/rollout-2026-09-09T07-55-58-01a0863d-49b3-7a30-b371-f277cc2f4164.jsonl",
+    "text": "Two things to keep in mind. We are booted into a 4GB OS, and the model version now isn't really any different in speed today than it was before from the experiments I have made unless the previous runs used hdd's. So another variabile to consider other the code base is HDD vs SSD. Also I am pretty confident that both were run on the same system because the cost ablation works like we expect where we see models performing similarly in the same boot as arms. And we were not changing the disk between runs as the run\\_all\\_benchmarks scripts should be relatively unchanged in logic\n"
+  }
+]

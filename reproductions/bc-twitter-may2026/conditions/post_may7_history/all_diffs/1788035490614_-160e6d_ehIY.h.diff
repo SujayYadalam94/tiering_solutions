@@ -1,0 +1,13 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-160e6d/T8Vm.h
++++ /users/zimooo2/.vscode-server/data/User/History/-160e6d/ehIY.h
+@@ -288,9 +288,8 @@
+     (2. / (double)(MIGRATION_WINDOW_SIZE + 1)) // EWMA alpha for migration cost (20 periods -> 0.0952)
+ // ==============================================================================
+ 
+-#if 
+ #if USE_MODEL == (true)
+-#define PERF_PAGES (1 + (1 << 10)) // Has to be == 1+2^n, here 64MB
++#define PERF_PAGES (1 + (1 << 12)) // Has to be == 1+2^n, here 64MB
+ #else
+ #define PERF_PAGES (1 + (1 << 11)) // 128MB because of double sampling rate
+ #endif

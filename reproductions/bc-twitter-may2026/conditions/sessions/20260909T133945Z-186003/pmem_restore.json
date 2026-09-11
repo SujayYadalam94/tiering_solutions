@@ -1,0 +1,7423 @@
+{
+  "driver": "/sys/bus/nd/drivers/nd_pmem",
+  "after": {
+    "utc": "2026-09-09T13:45:23.547654+00:00",
+    "kernel": "6.18.1-061801-generic",
+    "settings": {
+      "/proc/cmdline": "BOOT_IMAGE=/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=92G!2G\n",
+      "/proc/meminfo": "MemTotal:       103768832 kB\nMemFree:        84383912 kB\nMemAvailable:   94562720 kB\nBuffers:           27092 kB\nCached:         13044456 kB\nSwapCached:            0 kB\nActive:          1232040 kB\nInactive:       14457160 kB\nActive(anon):     792416 kB\nInactive(anon):  1841764 kB\nActive(file):     439624 kB\nInactive(file): 12615396 kB\nUnevictable:       42472 kB\nMlocked:           39400 kB\nSwapTotal:             0 kB\nSwapFree:              0 kB\nZswap:                 0 kB\nZswapped:              0 kB\nDirty:              1264 kB\nWriteback:             0 kB\nAnonPages:       2660124 kB\nMapped:           549844 kB\nShmem:              5008 kB\nKReclaimable:      69344 kB\nSlab:             445080 kB\nSReclaimable:      69344 kB\nSUnreclaim:       375736 kB\nKernelStack:       16304 kB\nPageTables:        45288 kB\nSecPageTables:     11960 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:    51884416 kB\nCommitted_AS:    5075400 kB\nVmallocTotal:   34359738367 kB\nVmallocUsed:      161532 kB\nVmallocChunk:          0 kB\nPercpu:            81920 kB\nHardwareCorrupted:     0 kB\nAnonHugePages:    798720 kB\nShmemHugePages:        0 kB\nShmemPmdMapped:        0 kB\nFileHugePages:  12429312 kB\nFilePmdMapped:         0 kB\nCmaTotal:              0 kB\nCmaFree:               0 kB\nUnaccepted:            0 kB\nBalloon:               0 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\nHugetlb:               0 kB\nDirectMap4k:      197324 kB\nDirectMap2M:     5756928 kB\nDirectMap1G:    196083712 kB\n",
+      "/proc/vmstat": "nr_free_pages 21095978\nnr_free_pages_blocks 20771328\nnr_zone_inactive_anon 460441\nnr_zone_active_anon 198104\nnr_zone_inactive_file 3153849\nnr_zone_active_file 109906\nnr_zone_unevictable 10618\nnr_zone_write_pending 316\nnr_mlock 9850\nnr_zspages 0\nnr_free_cma 0\nnr_unaccepted 0\nnuma_hit 65057604\nnuma_miss 70628\nnuma_foreign 70628\nnuma_interleave 7562\nnuma_local 60081132\nnuma_other 5047100\nnr_inactive_anon 460441\nnr_active_anon 198104\nnr_inactive_file 3153849\nnr_active_file 109906\nnr_unevictable 10618\nnr_slab_reclaimable 17336\nnr_slab_unreclaimable 93934\nnr_isolated_anon 0\nnr_isolated_file 0\nworkingset_nodes 0\nworkingset_refault_anon 0\nworkingset_refault_file 51795\nworkingset_activate_anon 0\nworkingset_activate_file 2721\nworkingset_restore_anon 0\nworkingset_restore_file 1045\nworkingset_nodereclaim 0\nnr_anon_pages 665031\nnr_mapped 137461\nnr_file_pages 3267887\nnr_dirty 316\nnr_writeback 0\nnr_shmem 1252\nnr_shmem_hugepages 0\nnr_shmem_pmdmapped 0\nnr_file_hugepages 6069\nnr_file_pmdmapped 0\nnr_anon_transparent_hugepages 390\nnr_vmscan_write 0\nnr_vmscan_immediate_reclaim 2379\nnr_dirtied 755989\nnr_written 693535\nnr_throttled_written 0\nnr_kernel_misc_reclaimable 0\nnr_foll_pin_acquired 748\nnr_foll_pin_released 748\nnr_kernel_stack 16304\nnr_page_table_pages 11322\nnr_sec_page_table_pages 2990\nnr_iommu_pages 2990\nnr_swapcached 0\npgpromote_success 0\npgpromote_candidate 0\npgpromote_candidate_nrl 0\npgdemote_kswapd 0\npgdemote_direct 0\npgdemote_khugepaged 0\npgdemote_proactive 0\nnr_hugetlb 0\nnr_balloon_pages 0\nnr_kernel_file_pages 0\nnr_dirty_threshold 4790780\nnr_dirty_background_threshold 2392465\nnr_memmap_pages 368704\nnr_memmap_boot_pages 412672\npgpgin 426372413\npgpgout 3075964\npswpin 0\npswpout 0\npgalloc_dma 1024\npgalloc_dma32 82370709\npgalloc_normal 489751906\npgalloc_movable 0\npgalloc_device 0\nallocstall_dma 0\nallocstall_dma32 0\nallocstall_normal 0\nallocstall_movable 444612\nallocstall_device 0\npgskip_dma 0\npgskip_dma32 0\npgskip_normal 0\npgskip_movable 0\npgskip_device 0\npgfree 600243383\npgactivate 25482845\npgdeactivate 9082956\npglazyfree 3546\npgfault 68257806\npgmajfault 45256\npglazyfreed 15\npgrefill 9074926\npgreuse 10007612\npgsteal_kswapd 64155\npgsteal_direct 16975\npgsteal_khugepaged 104817\npgsteal_proactive 0\npgscan_kswapd 148851\npgscan_direct 1734857\npgscan_khugepaged 7324015\npgscan_proactive 0\npgscan_direct_throttle 0\npgscan_anon 0\npgscan_file 9207723\npgsteal_anon 0\npgsteal_file 185947\nzone_reclaim_success 0\nzone_reclaim_failed 0\npginodesteal 1134\nslabs_scanned 39387361\nkswapd_inodesteal 149\nkswapd_low_wmark_hit_quickly 286\nkswapd_high_wmark_hit_quickly 1355\npageoutrun 1799\npgrotated 17884\ndrop_pagecache 80\ndrop_slab 160\noom_kill 0\nnuma_pte_updates 520204\nnuma_huge_pte_updates 0\nnuma_hint_faults 338943\nnuma_hint_faults_local 267671\nnuma_pages_migrated 69719\npgmigrate_success 115839587\npgmigrate_fail 849132\nthp_migration_success 186732\nthp_migration_fail 27529\nthp_migration_split 27518\ncompact_migrate_scanned 416602371\ncompact_free_scanned 73382726\ncompact_isolated 14116857\ncompact_stall 716197\ncompact_fail 715595\ncompact_success 602\ncompact_daemon_wake 340\ncompact_daemon_migrate_scanned 108615811\ncompact_daemon_free_scanned 20867507\nhtlb_buddy_alloc_success 0\nhtlb_buddy_alloc_fail 0\ncma_alloc_success 0\ncma_alloc_fail 0\nunevictable_pgs_culled 62193\nunevictable_pgs_scanned 0\nunevictable_pgs_rescued 39254\nunevictable_pgs_mlocked 49108\nunevictable_pgs_munlocked 123\nunevictable_pgs_cleared 0\nunevictable_pgs_stranded 39135\nthp_fault_alloc 509348\nthp_fault_fallback 0\nthp_fault_fallback_charge 0\nthp_collapse_alloc 58993\nthp_collapse_alloc_failed 352128\nthp_file_alloc 375\nthp_file_fallback 0\nthp_file_fallback_charge 0\nthp_file_mapped 0\nthp_split_page 28186\nthp_split_page_failed 647\nthp_deferred_split_page 37926\nthp_underused_split_page 0\nthp_split_pmd 153029\nthp_scan_exceed_none_pte 3603883\nthp_scan_exceed_swap_pte 1152\nthp_scan_exceed_share_pte 69801\nthp_split_pud 0\nthp_zero_page_alloc 1\nthp_zero_page_alloc_failed 0\nthp_swpout 0\nthp_swpout_fallback 0\nballoon_inflate 0\nballoon_deflate 0\nballoon_migrate 0\nswap_ra 0\nswap_ra_hit 0\nswpin_zero 0\nswpout_zero 0\nksm_swpin_copy 0\ncow_ksm 0\nzswpin 0\nzswpout 0\nzswpwb 0\ndirect_map_level2_splits 79\ndirect_map_level3_splits 1\ndirect_map_level2_collapses 0\ndirect_map_level3_collapses 0\nnr_unstable 0\n",
+      "/proc/sys/kernel/random/boot_id": "09bab7b7-ee02-4496-b131-e20399b88193\n",
+      "/proc/sys/kernel/numa_balancing": "0",
+      "/proc/sys/kernel/perf_event_max_sample_rate": "1000000",
+      "/proc/sys/kernel/perf_cpu_time_max_percent": "0",
+      "/proc/sys/vm/min_free_kbytes": "1048576",
+      "/proc/sys/vm/watermark_scale_factor": "10",
+      "/proc/sys/vm/watermark_boost_factor": "10000",
+      "/proc/sys/vm/zone_reclaim_mode": "0",
+      "/proc/sys/vm/compaction_proactiveness": "80",
+      "/sys/kernel/mm/transparent_hugepage/enabled": "[always] madvise never",
+      "/sys/kernel/mm/transparent_hugepage/defrag": "[always] defer defer+madvise madvise never",
+      "/sys/kernel/mm/numa/demotion_enabled": "false",
+      "/sys/devices/system/node/node0/meminfo": "Node 0 MemTotal:        4737988 kB\nNode 0 MemFree:         2621756 kB\nNode 0 MemUsed:         2116232 kB\nNode 0 SwapCached:            0 kB\nNode 0 Active:             7288 kB\nNode 0 Inactive:           8288 kB\nNode 0 Active(anon):          4 kB\nNode 0 Inactive(anon):      852 kB\nNode 0 Active(file):       7284 kB\nNode 0 Inactive(file):     7436 kB\nNode 0 Unevictable:        3684 kB\nNode 0 Mlocked:             612 kB\nNode 0 Dirty:                64 kB\nNode 0 Writeback:             0 kB\nNode 0 FilePages:         19260 kB\nNode 0 Mapped:              988 kB\nNode 0 AnonPages:             0 kB\nNode 0 Shmem:              3928 kB\nNode 0 KernelStack:        7752 kB\nNode 0 PageTables:        17180 kB\nNode 0 SecPageTables:      7404 kB\nNode 0 NFS_Unstable:          0 kB\nNode 0 Bounce:                0 kB\nNode 0 WritebackTmp:          0 kB\nNode 0 KReclaimable:      19484 kB\nNode 0 Slab:             203844 kB\nNode 0 SReclaimable:      19484 kB\nNode 0 SUnreclaim:       184360 kB\nNode 0 AnonHugePages:         0 kB\nNode 0 ShmemHugePages:        0 kB\nNode 0 ShmemPmdMapped:        0 kB\nNode 0 FileHugePages:         0 kB\nNode 0 FilePmdMapped:         0 kB\nNode 0 Unaccepted:            0 kB\nNode 0 HugePages_Total:     0\nNode 0 HugePages_Free:      0\nNode 0 HugePages_Surp:      0\n",
+      "/sys/devices/system/node/node1/meminfo": "Node 1 MemTotal:       99030844 kB\nNode 1 MemFree:        81762156 kB\nNode 1 MemUsed:        17268688 kB\nNode 1 SwapCached:            0 kB\nNode 1 Active:          1224752 kB\nNode 1 Inactive:       14448872 kB\nNode 1 Active(anon):     792412 kB\nNode 1 Inactive(anon):  1840912 kB\nNode 1 Active(file):     432340 kB\nNode 1 Inactive(file): 12607960 kB\nNode 1 Unevictable:       38788 kB\nNode 1 Mlocked:           38788 kB\nNode 1 Dirty:              1200 kB\nNode 1 Writeback:             0 kB\nNode 1 FilePages:      13052288 kB\nNode 1 Mapped:           548856 kB\nNode 1 AnonPages:       2660124 kB\nNode 1 Shmem:              1080 kB\nNode 1 KernelStack:        8552 kB\nNode 1 PageTables:        28108 kB\nNode 1 SecPageTables:      4556 kB\nNode 1 NFS_Unstable:          0 kB\nNode 1 Bounce:                0 kB\nNode 1 WritebackTmp:          0 kB\nNode 1 KReclaimable:      49860 kB\nNode 1 Slab:             241236 kB\nNode 1 SReclaimable:      49860 kB\nNode 1 SUnreclaim:       191376 kB\nNode 1 AnonHugePages:    798720 kB\nNode 1 ShmemHugePages:        0 kB\nNode 1 ShmemPmdMapped:        0 kB\nNode 1 FileHugePages:  12429312 kB\nNode 1 FilePmdMapped:         0 kB\nNode 1 Unaccepted:            0 kB\nNode 1 HugePages_Total:     0\nNode 1 HugePages_Free:      0\nNode 1 HugePages_Surp:      0\n",
+      "/sys/devices/system/cpu/intel_uncore_frequency/package_00_die_00/max_freq_khz": "2000000\n",
+      "/sys/devices/system/cpu/intel_uncore_frequency/package_00_die_00/min_freq_khz": "1200000\n",
+      "/sys/devices/system/cpu/intel_uncore_frequency/package_00_die_00/initial_max_freq_khz": "2000000\n",
+      "/sys/devices/system/cpu/intel_uncore_frequency/package_00_die_00/initial_min_freq_khz": "1200000\n",
+      "/sys/devices/system/cpu/intel_uncore_frequency/package_00_die_00/current_freq_khz": "1200000\n",
+      "/sys/devices/system/cpu/intel_uncore_frequency/package_01_die_01/max_freq_khz": "700000\n",
+      "/sys/devices/system/cpu/intel_uncore_frequency/package_01_die_01/min_freq_khz": "700000\n",
+      "/sys/devices/system/cpu/intel_uncore_frequency/package_01_die_01/initial_max_freq_khz": "2000000\n",
+      "/sys/devices/system/cpu/intel_uncore_frequency/package_01_die_01/initial_min_freq_khz": "1200000\n",
+      "/sys/devices/system/cpu/intel_uncore_frequency/package_01_die_01/current_freq_khz": "700000\n",
+      "/proc/sys/vm/overcommit_memory": "1",
+      "/proc/sys/vm/user_reserve_kbytes": "16384",
+      "/proc/sys/vm/admin_reserve_kbytes": "16384",
+      "/proc/sys/vm/lowmem_reserve_ratio": "256\t256\t32\t0\t0",
+      "/proc/sys/vm/vfs_cache_pressure": "2000",
+      "/sys/kernel/mm/lru_gen/enabled": "0x0000",
+      "/sys/kernel/mm/transparent_hugepage/shmem_enabled": "always within_size advise never deny [force]",
+      "/sys/kernel/mm/transparent_hugepage/khugepaged/defrag": "1",
+      "/sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan": "8192",
+      "/sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs": "0",
+      "/sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs": "1",
+      "/sys/kernel/mm/ksm/run": "0",
+      "/proc/buddyinfo": "Node 0, zone      DMA      0      0      0      0      0      0      0      0      1      1      2 \nNode 0, zone    DMA32    273    273    211    191    126     91     51     25      6      3    386 \nNode 0, zone   Normal   2856   2188   1832   1453   1167    741    226    172    100    111     51 \nNode 1, zone   Normal   1587   1282   3467   4811   2392    687    287    148     92   3446  18065",
+      "/proc/pagetypeinfo": "Page block order: 9\nPages per block:  512\n\nFree pages count per migrate type at order       0      1      2      3      4      5      6      7      8      9     10 \nNode    0, zone      DMA, type    Unmovable      0      0      0      0      0      0      0      0      1      0      0 \nNode    0, zone      DMA, type      Movable      0      0      0      0      0      0      0      0      0      1      2 \nNode    0, zone      DMA, type  Reclaimable      0      0      0      0      0      0      0      0      0      0      0 \nNode    0, zone      DMA, type   HighAtomic      0      0      0      0      0      0      0      0      0      0      0 \nNode    0, zone      DMA, type          CMA      0      0      0      0      0      0      0      0      0      0      0 \nNode    0, zone      DMA, type      Isolate      0      0      0      0      0      0      0      0      0      0      0 \nNode    0, zone    DMA32, type    Unmovable     87     73     64     51     21     13     11      5      1      0      0 \nNode    0, zone    DMA32, type      Movable    185    198    144    137    102     75     39     18      5      3    386 \nNode    0, zone    DMA32, type  Reclaimable      1      2      3      3      3      3      1      2      0      0      0 \nNode    0, zone    DMA32, type   HighAtomic      0      0      0      0      0      0      0      0      0      0      0 \nNode    0, zone    DMA32, type          CMA      0      0      0      0      0      0      0      0      0      0      0 \nNode    0, zone    DMA32, type      Isolate      0      0      0      0      0      0      0      0      0      0      0 \nNode    0, zone   Normal, type    Unmovable   1836   1131    975    827    659    442    127    107     66      0      0 \nNode    0, zone   Normal, type      Movable    985    979    807    582    500    292     98     63     34    111     51 \nNode    0, zone   Normal, type  Reclaimable     35     78     50     44      8      7      1      2      0      0      0 \nNode    0, zone   Normal, type   HighAtomic      0      0      0      0      0      0      0      0      0      0      0 \nNode    0, zone   Normal, type          CMA      0      0      0      0      0      0      0      0      0      0      0 \nNode    0, zone   Normal, type      Isolate      0      0      0      0      0      0      0      0      0      0      0 \n\nNumber of blocks type     Unmovable      Movable  Reclaimable   HighAtomic          CMA      Isolate \nNode 0, zone      DMA            3            5            0            0            0            0 \nNode 0, zone    DMA32           10          834            1            0            0            0 \nNode 0, zone   Normal         1144          385            7            0            0            0 \nPage block order: 9\nPages per block:  512\n\nFree pages count per migrate type at order       0      1      2      3      4      5      6      7      8      9     10 \nNode    1, zone   Normal, type    Unmovable   1237    569   1479   2737    873    182     37     15      5      5      3 \nNode    1, zone   Normal, type      Movable    350    578   1664   1741   1274    374    186    104     69   3424  18051 \nNode    1, zone   Normal, type  Reclaimable      0    135    324    333    245    131     64     29     18     17     11 \nNode    1, zone   Normal, type   HighAtomic      0      0      0      0      0      0      0      0      0      0      0 \nNode    1, zone   Normal, type          CMA      0      0      0      0      0      0      0      0      0      0      0 \nNode    1, zone   Normal, type      Isolate      0      0      0      0      0      0      0      0      0      0      0 \n\nNumber of blocks type     Unmovable      Movable  Reclaimable   HighAtomic          CMA      Isolate \nNode 1, zone   Normal          408        48630          114            0            0            0",
+      "/proc/zoneinfo": "Node 0, zone      DMA\n  per-node stats\n      nr_inactive_anon 213\n      nr_active_anon 1\n      nr_inactive_file 1859\n      nr_active_file 1821\n      nr_unevictable 921\n      nr_slab_reclaimable 4871\n      nr_slab_unreclaimable 46090\n      nr_isolated_anon 0\n      nr_isolated_file 0\n      workingset_nodes 0\n      workingset_refault_anon 0\n      workingset_refault_file 17452\n      workingset_activate_anon 0\n      workingset_activate_file 260\n      workingset_restore_anon 0\n      workingset_restore_file 157\n      workingset_nodereclaim 0\n      nr_anon_pages 0\n      nr_mapped    247\n      nr_file_pages 4815\n      nr_dirty     16\n      nr_writeback 0\n      nr_shmem     982\n      nr_shmem_hugepages 0\n      nr_shmem_pmdmapped 0\n      nr_file_hugepages 0\n      nr_file_pmdmapped 0\n      nr_anon_transparent_hugepages 0\n      nr_vmscan_write 0\n      nr_vmscan_immediate_reclaim 2379\n      nr_dirtied   79854\n      nr_written   68772\n      nr_throttled_written 0\n      nr_kernel_misc_reclaimable 0\n      nr_foll_pin_acquired 264\n      nr_foll_pin_released 264\n      nr_kernel_stack 7752\n      nr_page_table_pages 4295\n      nr_sec_page_table_pages 1851\n      nr_iommu_pages 1851\n      nr_swapcached 0\n      pgpromote_success 0\n      pgpromote_candidate 0\n      pgpromote_candidate_nrl 0\n      pgdemote_kswapd 0\n      pgdemote_direct 0\n      pgdemote_khugepaged 0\n      pgdemote_proactive 0\n      nr_hugetlb   0\n      nr_balloon_pages 0\n      nr_kernel_file_pages 0\n  pages free     2816\n        boost    0\n        min      38\n        low      47\n        high     56\n        promo    65\n        spanned  4095\n        present  3996\n        managed  3840\n        cma      0\n        protection: (0, 1622, 4611, 4611, 4611)\n      nr_free_pages 2816\n      nr_free_pages_blocks 2560\n      nr_zone_inactive_anon 0\n      nr_zone_active_anon 0\n      nr_zone_inactive_file 0\n      nr_zone_active_file 0\n      nr_zone_unevictable 0\n      nr_zone_write_pending 0\n      nr_mlock     0\n      nr_zspages   0\n      nr_free_cma  0\n      nr_unaccepted 0\n      numa_hit     1\n      numa_miss    0\n      numa_foreign 0\n      numa_interleave 0\n      numa_local   1\n      numa_other   0\n  pagesets\n    cpu: 0\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 1\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 2\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 3\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 4\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 5\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 6\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 7\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 8\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 9\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 10\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 11\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 12\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 13\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 14\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 15\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 16\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 17\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 18\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 19\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 20\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 21\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 22\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 23\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 24\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 25\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 26\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 27\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 28\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 29\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 30\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 31\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 32\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 33\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 34\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 35\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 36\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 37\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 38\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n    cpu: 39\n              count:    0\n              high:     0\n              batch:    1\n              high_min: 4\n              high_max: 24\n  vm stats threshold: 12\n  node_unreclaimable:  0\n  start_pfn:           1\nNode 0, zone    DMA32\n  pages free     412919\n        boost    0\n        min      4197\n        low      5246\n        high     6295\n        promo    7344\n        spanned  1044480\n        present  431795\n        managed  415411\n        cma      0\n        protection: (0, 0, 2989, 2989, 2989)\n      nr_free_pages 412919\n      nr_free_pages_blocks 396800\n      nr_zone_inactive_anon 0\n      nr_zone_active_anon 0\n      nr_zone_inactive_file 0\n      nr_zone_active_file 0\n      nr_zone_unevictable 0\n      nr_zone_write_pending 0\n      nr_mlock     0\n      nr_zspages   0\n      nr_free_cma  0\n      nr_unaccepted 0\n      numa_hit     1850712\n      numa_miss    0\n      numa_foreign 0\n      numa_interleave 1\n      numa_local   1842963\n      numa_other   7749\n  pagesets\n    cpu: 0\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 1\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 2\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 3\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 4\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 5\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 6\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 7\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 8\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 9\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 10\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 11\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 12\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 13\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 14\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 15\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 16\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 17\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 18\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 19\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 20\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 21\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 22\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 23\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 24\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 25\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 26\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 27\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 28\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 29\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 30\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 31\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 32\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 33\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 34\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 35\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 36\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 37\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 38\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n    cpu: 39\n              count:    0\n              high:     262\n              batch:    63\n              high_min: 262\n              high_max: 2596\n  vm stats threshold: 60\n  node_unreclaimable:  0\n  start_pfn:           4096\nNode 0, zone   Normal\n  pages free     239704\n        boost    0\n        min      7732\n        low      9665\n        high     11598\n        promo    13531\n        spanned  24379392\n        present  786432\n        managed  765246\n        cma      0\n        protection: (0, 0, 0, 0, 0)\n      nr_free_pages 239704\n      nr_free_pages_blocks 109056\n      nr_zone_inactive_anon 213\n      nr_zone_active_anon 1\n      nr_zone_inactive_file 1859\n      nr_zone_active_file 1821\n      nr_zone_unevictable 921\n      nr_zone_write_pending 16\n      nr_mlock     153\n      nr_zspages   0\n      nr_free_cma  0\n      nr_unaccepted 0\n      numa_hit     18391750\n      numa_miss    0\n      numa_foreign 70628\n      numa_interleave 3568\n      numa_local   18384465\n      numa_other   7285\n  pagesets\n    cpu: 0\n              count:    0\n              high:     483\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 1\n              count:    395\n              high:     483\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 2\n              count:    199\n              high:     2566\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 3\n              count:    635\n              high:     1212\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 4\n              count:    155\n              high:     2111\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 5\n              count:    194\n              high:     1155\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 6\n              count:    307\n              high:     483\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 7\n              count:    808\n              high:     812\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 8\n              count:    105\n              high:     1341\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 9\n              count:    514\n              high:     644\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 10\n              count:    0\n              high:     483\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 11\n              count:    0\n              high:     483\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 12\n              count:    0\n              high:     483\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 13\n              count:    0\n              high:     483\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 14\n              count:    0\n              high:     483\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 15\n              count:    512\n              high:     827\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 16\n              count:    0\n              high:     483\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 17\n              count:    0\n              high:     483\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 18\n              count:    0\n              high:     483\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 19\n              count:    0\n              high:     483\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 20\n              count:    772\n              high:     1034\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 21\n              count:    197\n              high:     1092\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 22\n              count:    1485\n              high:     2160\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 23\n              count:    483\n              high:     2057\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 24\n              count:    568\n              high:     1575\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 25\n              count:    62\n              high:     790\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 26\n              count:    0\n              high:     805\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 27\n              count:    105\n              high:     683\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 28\n              count:    384\n              high:     1256\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 29\n              count:    512\n              high:     518\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 30\n              count:    0\n              high:     483\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 31\n              count:    0\n              high:     483\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 32\n              count:    0\n              high:     483\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 33\n              count:    0\n              high:     483\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 34\n              count:    0\n              high:     483\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 35\n              count:    0\n              high:     483\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 36\n              count:    114\n              high:     4782\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 37\n              count:    0\n              high:     483\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 38\n              count:    0\n              high:     483\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n    cpu: 39\n              count:    0\n              high:     483\n              batch:    63\n              high_min: 483\n              high_max: 4782\n  vm stats threshold: 72\n  node_unreclaimable:  0\n  start_pfn:           1048576\nNode 0, zone  Movable\n  pages free     0\n        boost    0\n        min      32\n        low      32\n        high     32\n        promo    32\n        spanned  0\n        present  0\n        managed  0\n        cma      0\n        protection: (0, 0, 0, 0, 0)\nNode 0, zone   Device\n  pages free     0\n        boost    0\n        min      0\n        low      0\n        high     0\n        promo    0\n        spanned  23597056\n        present  0\n        managed  0\n        cma      0\n        protection: (0, 0, 0, 0, 0)\nNode 1, zone      DMA\n  pages free     0\n        boost    0\n        min      0\n        low      0\n        high     0\n        promo    0\n        spanned  0\n        present  0\n        managed  0\n        cma      0\n        protection: (0, 0, 0, 0, 0)\nNode 1, zone    DMA32\n  pages free     0\n        boost    0\n        min      0\n        low      0\n        high     0\n        promo    0\n        spanned  0\n        present  0\n        managed  0\n        cma      0\n        protection: (0, 0, 0, 0, 0)\nNode 1, zone   Normal\n  per-node stats\n      nr_inactive_anon 460368\n      nr_active_anon 198104\n      nr_inactive_file 3152120\n      nr_active_file 108085\n      nr_unevictable 9697\n      nr_slab_reclaimable 12465\n      nr_slab_unreclaimable 47844\n      nr_isolated_anon 0\n      nr_isolated_file 0\n      workingset_nodes 0\n      workingset_refault_anon 0\n      workingset_refault_file 34343\n      workingset_activate_anon 0\n      workingset_activate_file 2461\n      workingset_restore_anon 0\n      workingset_restore_file 888\n      workingset_nodereclaim 0\n      nr_anon_pages 665172\n      nr_mapped    137214\n      nr_file_pages 3263202\n      nr_dirty     300\n      nr_writeback 0\n      nr_shmem     270\n      nr_shmem_hugepages 0\n      nr_shmem_pmdmapped 0\n      nr_file_hugepages 6069\n      nr_file_pmdmapped 0\n      nr_anon_transparent_hugepages 390\n      nr_vmscan_write 0\n      nr_vmscan_immediate_reclaim 0\n      nr_dirtied   676135\n      nr_written   624763\n      nr_throttled_written 0\n      nr_kernel_misc_reclaimable 0\n      nr_foll_pin_acquired 484\n      nr_foll_pin_released 484\n      nr_kernel_stack 8552\n      nr_page_table_pages 7032\n      nr_sec_page_table_pages 1139\n      nr_iommu_pages 1139\n      nr_swapcached 0\n      pgpromote_success 0\n      pgpromote_candidate 0\n      pgpromote_candidate_nrl 0\n      pgdemote_kswapd 0\n      pgdemote_direct 0\n      pgdemote_khugepaged 0\n      pgdemote_proactive 0\n      nr_hugetlb   0\n      nr_balloon_pages 0\n      nr_kernel_file_pages 0\n  pages free     20440539\n        boost    0\n        min      250174\n        low      312717\n        high     375260\n        promo    437803\n        spanned  25165824\n        present  25165824\n        managed  24757711\n        cma      0\n        protection: (0, 0, 0, 0, 0)\n      nr_free_pages 20440539\n      nr_free_pages_blocks 20262912\n      nr_zone_inactive_anon 460368\n      nr_zone_active_anon 198104\n      nr_zone_inactive_file 3152120\n      nr_zone_active_file 108085\n      nr_zone_unevictable 9697\n      nr_zone_write_pending 300\n      nr_mlock     9697\n      nr_zspages   0\n      nr_free_cma  0\n      nr_unaccepted 0\n      numa_hit     44815817\n      numa_miss    70628\n      numa_foreign 0\n      numa_interleave 3993\n      numa_local   39854379\n      numa_other   5032066\n  pagesets\n    cpu: 0\n              count:    769\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 1\n              count:    113\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 2\n              count:    13797\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 3\n              count:    6204\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 4\n              count:    15671\n              high:     15698\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 5\n              count:    15395\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 6\n              count:    1826\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 7\n              count:    5571\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 8\n              count:    9799\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 9\n              count:    3461\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 10\n              count:    8954\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 11\n              count:    4166\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 12\n              count:    2804\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 13\n              count:    5034\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 14\n              count:    1601\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 15\n              count:    3938\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 16\n              count:    15130\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 17\n              count:    434\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 18\n              count:    1141\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 19\n              count:    3083\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 20\n              count:    9274\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 21\n              count:    3647\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 22\n              count:    15016\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 23\n              count:    14218\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 24\n              count:    14367\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 25\n              count:    6877\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 26\n              count:    9816\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 27\n              count:    11795\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 28\n              count:    12804\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 29\n              count:    2755\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 30\n              count:    2667\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 31\n              count:    3466\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 32\n              count:    6920\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 33\n              count:    4359\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 34\n              count:    2437\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 35\n              count:    2951\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 36\n              count:    14645\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 37\n              count:    991\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 38\n              count:    6191\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n    cpu: 39\n              count:    4385\n              high:     15635\n              batch:    63\n              high_min: 15635\n              high_max: 154735\n  vm stats threshold: 125\n  node_unreclaimable:  0\n  start_pfn:           25427968\nNode 1, zone  Movable\n  pages free     0\n        boost    0\n        min      32\n        low      32\n        high     32\n        promo    32\n        spanned  0\n        present  0\n        managed  0\n        cma      0\n        protection: (0, 0, 0, 0, 0)\nNode 1, zone   Device\n  pages free     0\n        boost    0\n        min      0\n        low      0\n        high     0\n        promo    0\n        spanned  0\n        present  0\n        managed  0\n        cma      0\n        protection: (0, 0, 0, 0, 0)",
+      "/proc/modules": "nfsv3 61440 1 - Live 0xffffffffc0bd6000\nnfs_acl 12288 1 nfsv3, Live 0xffffffffc06f9000\nnfs 626688 3 nfsv3, Live 0xffffffffc0b9e000\nlockd 147456 2 nfsv3,nfs, Live 0xffffffffc0b8e000\ngrace 12288 1 lockd, Live 0xffffffffc0703000\nnetfs 602112 1 nfs, Live 0xffffffffc0b71000\ncfg80211 1482752 0 - Live 0xffffffffc1000000\nsunrpc 823296 9 nfsv3,nfs_acl,nfs,lockd, Live 0xffffffffc0b25000\nintel_rapl_msr 20480 0 - Live 0xffffffffc079d000\nintel_rapl_common 57344 1 intel_rapl_msr, Live 0xffffffffc0b20000\nintel_uncore_frequency 12288 0 - Live 0xffffffffc06f3000\nintel_uncore_frequency_common 20480 1 intel_uncore_frequency, Live 0xffffffffc0b1c000\nbinfmt_misc 24576 1 - Live 0xffffffffc0b1e000\nskx_edac 20480 0 - Live 0xffffffffc0b1a000\nskx_edac_common 24576 1 skx_edac, Live 0xffffffffc0b18000\nnfit 81920 1 skx_edac_common, Live 0xffffffffc0b0f000\nx86_pkg_temp_thermal 20480 0 - Live 0xffffffffc0798000\nintel_powerclamp 24576 0 - Live 0xffffffffc0b0b000\nnls_iso8859_1 12288 1 - Live 0xffffffffc072a000\ncoretemp 24576 0 - Live 0xffffffffc0b0d000\ncmdlinepart 16384 0 - Live 0xffffffffc06ed000\nkvm_intel 593920 0 - Live 0xffffffffc0ab5000\nspi_nor 172032 0 - Live 0xffffffffc0aa7000\nipmi_ssif 45056 0 - Live 0xffffffffc0aa3000\nmtd 106496 3 cmdlinepart,spi_nor, Live 0xffffffffc07f5000\nkvm 1495040 1 kvm_intel, Live 0xffffffffc0a00000\nirqbypass 16384 1 kvm, Live 0xffffffffc0738000\nnd_pmem 24576 2 - Live 0xffffffffc07f3000\npolyval_clmulni 12288 0 - Live 0xffffffffc07f1000\nghash_clmulni_intel 12288 0 - Live 0xffffffffc07ef000\nixgbe 585728 0 - Live 0xffffffffc079e000\nnd_btt 36864 1 nd_pmem, Live 0xffffffffc0799000\ndax_pmem 12288 0 - Live 0xffffffffc0797000\nrapl 20480 0 - Live 0xffffffffc0714000\ni40e 655360 0 - Live 0xffffffffc073b000\nlibie_fwlog 28672 1 ixgbe, Live 0xffffffffc0739000\nintel_cstate 20480 0 - Live 0xffffffffc0737000\nspi_intel_pci 12288 0 - Live 0xffffffffc0705000\nxfrm_algo 16384 1 ixgbe, Live 0xffffffffc0704000\nlibie 8192 1 i40e, Live 0x0000000000000000\nmei_me 53248 0 - Live 0xffffffffc06fe000\nmdio 12288 1 ixgbe, Live 0xffffffffc06fd000\nspi_intel 36864 1 spi_intel_pci, Live 0xffffffffc06fa000\nlibie_adminq 12288 1 i40e, Live 0xffffffffc06f0000\nioatdma 90112 0 - Live 0xffffffffc072b000\nmei 176128 1 mei_me, Live 0xffffffffc0718000\nlpc_ich 32768 0 - Live 0xffffffffc0715000\nintel_pch_thermal 20480 0 - Live 0xffffffffc0713000\nwmi 28672 0 - Live 0xffffffffc0710000\ndca 20480 2 ixgbe,ioatdma, Live 0xffffffffc06e0000\nipmi_si 94208 1 - Live 0xffffffffc0706000\nacpi_power_meter 20480 0 - Live 0xffffffffc06f7000\njoydev 32768 0 - Live 0xffffffffc06f4000\nacpi_ipmi 24576 1 acpi_power_meter, Live 0xffffffffc06f1000\nipmi_devintf 20480 0 - Live 0xffffffffc06ee000\nipmi_msghandler 98304 4 ipmi_ssif,ipmi_si,acpi_ipmi,ipmi_devintf, Live 0xffffffffc06e1000\nacpi_pad 184320 0 - Live 0xffffffffc0699000\nsch_fq_codel 24576 161 - Live 0xffffffffc06dd000\ndm_multipath 45056 0 - Live 0xffffffffc06d8000\nmsr 12288 0 - Live 0xffffffffc063e000\nefi_pstore 12288 0 - Live 0xffffffffc0628000\nnfnetlink 20480 2 - Live 0xffffffffc06d6000\ndmi_sysfs 24576 0 - Live 0xffffffffc0692000\nip_tables 36864 0 - Live 0xffffffffc06d2000\nx_tables 65536 1 ip_tables, Live 0xffffffffc06cc000\nautofs4 57344 2 - Live 0xffffffffc06c6000\nraid10 77824 0 - Live 0xffffffffc06ba000\nraid456 196608 0 - Live 0xffffffffc069d000\nasync_raid6_recov 20480 1 raid456, Live 0xffffffffc069b000\nasync_memcpy 16384 2 raid456,async_raid6_recov, Live 0xffffffffc069a000\nasync_pq 20480 2 raid456,async_raid6_recov, Live 0xffffffffc0697000\nasync_xor 16384 3 raid456,async_raid6_recov,async_pq, Live 0xffffffffc0696000\nxor 24576 1 async_xor, Live 0xffffffffc0693000\nasync_tx 16384 5 raid456,async_raid6_recov,async_memcpy,async_pq,async_xor, Live 0xffffffffc0691000\nraid6_pq 126976 3 raid456,async_raid6_recov,async_pq, Live 0xffffffffc068b000\nraid1 61440 0 - Live 0xffffffffc0682000\nraid0 24576 0 - Live 0xffffffffc0680000\nlinear 16384 0 - Live 0xffffffffc061e000\ninput_leds 12288 0 - Live 0xffffffffc063c000\nhid_generic 12288 0 - Live 0xffffffffc061f000\nmpt3sas 409600 3 - Live 0xffffffffc0648000\nusbhid 77824 0 - Live 0xffffffffc063f000\nraid_class 12288 1 mpt3sas, Live 0xffffffffc063d000\nhid 278528 2 hid_generic,usbhid, Live 0xffffffffc0629000\nmgag200 73728 0 - Live 0xffffffffc0620000\nscsi_transport_sas 53248 1 mpt3sas, Live 0xffffffffc0619000\nahci 49152 0 - Live 0xffffffffc0617000\ni2c_algo_bit 16384 1 mgag200, Live 0xffffffffc0615000\nlibahci 57344 1 ahci, Live 0xffffffffc060f000\nmac_hid 12288 0 - Live 0xffffffffc060e000\naesni_intel 94208 0 - Live 0xffffffffc0600000"
+    },
+    "process_main_thread_affinities": {
+      "1": {
+        "start": "92",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2": {
+        "start": "92",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "3": {
+        "start": "92",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "4": {
+        "start": "92",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "5": {
+        "start": "92",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "6": {
+        "start": "92",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "7": {
+        "start": "92",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "8": {
+        "start": "92",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "11": {
+        "start": "92",
+        "affinity": [
+          0
+        ]
+      },
+      "12": {
+        "start": "92",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "13": {
+        "start": "92",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "14": {
+        "start": "93",
+        "affinity": [
+          0
+        ]
+      },
+      "15": {
+        "start": "94",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "16": {
+        "start": "94",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "17": {
+        "start": "94",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "18": {
+        "start": "94",
+        "affinity": [
+          0
+        ]
+      },
+      "19": {
+        "start": "94",
+        "affinity": [
+          0
+        ]
+      },
+      "20": {
+        "start": "94",
+        "affinity": [
+          0
+        ]
+      },
+      "21": {
+        "start": "94",
+        "affinity": [
+          1
+        ]
+      },
+      "22": {
+        "start": "94",
+        "affinity": [
+          1
+        ]
+      },
+      "23": {
+        "start": "94",
+        "affinity": [
+          1
+        ]
+      },
+      "24": {
+        "start": "94",
+        "affinity": [
+          1
+        ]
+      },
+      "26": {
+        "start": "94",
+        "affinity": [
+          1
+        ]
+      },
+      "27": {
+        "start": "94",
+        "affinity": [
+          2
+        ]
+      },
+      "28": {
+        "start": "94",
+        "affinity": [
+          2
+        ]
+      },
+      "29": {
+        "start": "94",
+        "affinity": [
+          2
+        ]
+      },
+      "30": {
+        "start": "94",
+        "affinity": [
+          2
+        ]
+      },
+      "32": {
+        "start": "94",
+        "affinity": [
+          2
+        ]
+      },
+      "33": {
+        "start": "94",
+        "affinity": [
+          3
+        ]
+      },
+      "34": {
+        "start": "94",
+        "affinity": [
+          3
+        ]
+      },
+      "35": {
+        "start": "94",
+        "affinity": [
+          3
+        ]
+      },
+      "36": {
+        "start": "94",
+        "affinity": [
+          3
+        ]
+      },
+      "38": {
+        "start": "94",
+        "affinity": [
+          3
+        ]
+      },
+      "39": {
+        "start": "94",
+        "affinity": [
+          4
+        ]
+      },
+      "40": {
+        "start": "94",
+        "affinity": [
+          4
+        ]
+      },
+      "41": {
+        "start": "94",
+        "affinity": [
+          4
+        ]
+      },
+      "42": {
+        "start": "94",
+        "affinity": [
+          4
+        ]
+      },
+      "44": {
+        "start": "94",
+        "affinity": [
+          4
+        ]
+      },
+      "45": {
+        "start": "94",
+        "affinity": [
+          5
+        ]
+      },
+      "46": {
+        "start": "94",
+        "affinity": [
+          5
+        ]
+      },
+      "47": {
+        "start": "94",
+        "affinity": [
+          5
+        ]
+      },
+      "48": {
+        "start": "94",
+        "affinity": [
+          5
+        ]
+      },
+      "50": {
+        "start": "94",
+        "affinity": [
+          5
+        ]
+      },
+      "51": {
+        "start": "94",
+        "affinity": [
+          6
+        ]
+      },
+      "52": {
+        "start": "94",
+        "affinity": [
+          6
+        ]
+      },
+      "53": {
+        "start": "95",
+        "affinity": [
+          6
+        ]
+      },
+      "54": {
+        "start": "95",
+        "affinity": [
+          6
+        ]
+      },
+      "56": {
+        "start": "95",
+        "affinity": [
+          6
+        ]
+      },
+      "57": {
+        "start": "95",
+        "affinity": [
+          7
+        ]
+      },
+      "58": {
+        "start": "95",
+        "affinity": [
+          7
+        ]
+      },
+      "59": {
+        "start": "95",
+        "affinity": [
+          7
+        ]
+      },
+      "60": {
+        "start": "95",
+        "affinity": [
+          7
+        ]
+      },
+      "62": {
+        "start": "95",
+        "affinity": [
+          7
+        ]
+      },
+      "63": {
+        "start": "95",
+        "affinity": [
+          8
+        ]
+      },
+      "64": {
+        "start": "95",
+        "affinity": [
+          8
+        ]
+      },
+      "65": {
+        "start": "95",
+        "affinity": [
+          8
+        ]
+      },
+      "66": {
+        "start": "95",
+        "affinity": [
+          8
+        ]
+      },
+      "68": {
+        "start": "95",
+        "affinity": [
+          8
+        ]
+      },
+      "69": {
+        "start": "95",
+        "affinity": [
+          9
+        ]
+      },
+      "70": {
+        "start": "95",
+        "affinity": [
+          9
+        ]
+      },
+      "71": {
+        "start": "95",
+        "affinity": [
+          9
+        ]
+      },
+      "72": {
+        "start": "95",
+        "affinity": [
+          9
+        ]
+      },
+      "74": {
+        "start": "95",
+        "affinity": [
+          9
+        ]
+      },
+      "75": {
+        "start": "95",
+        "affinity": [
+          10
+        ]
+      },
+      "76": {
+        "start": "95",
+        "affinity": [
+          10
+        ]
+      },
+      "77": {
+        "start": "95",
+        "affinity": [
+          10
+        ]
+      },
+      "78": {
+        "start": "95",
+        "affinity": [
+          10
+        ]
+      },
+      "80": {
+        "start": "95",
+        "affinity": [
+          10
+        ]
+      },
+      "81": {
+        "start": "95",
+        "affinity": [
+          11
+        ]
+      },
+      "82": {
+        "start": "95",
+        "affinity": [
+          11
+        ]
+      },
+      "83": {
+        "start": "95",
+        "affinity": [
+          11
+        ]
+      },
+      "84": {
+        "start": "95",
+        "affinity": [
+          11
+        ]
+      },
+      "86": {
+        "start": "95",
+        "affinity": [
+          11
+        ]
+      },
+      "87": {
+        "start": "95",
+        "affinity": [
+          12
+        ]
+      },
+      "88": {
+        "start": "95",
+        "affinity": [
+          12
+        ]
+      },
+      "89": {
+        "start": "95",
+        "affinity": [
+          12
+        ]
+      },
+      "90": {
+        "start": "95",
+        "affinity": [
+          12
+        ]
+      },
+      "92": {
+        "start": "95",
+        "affinity": [
+          12
+        ]
+      },
+      "93": {
+        "start": "95",
+        "affinity": [
+          13
+        ]
+      },
+      "94": {
+        "start": "95",
+        "affinity": [
+          13
+        ]
+      },
+      "95": {
+        "start": "95",
+        "affinity": [
+          13
+        ]
+      },
+      "96": {
+        "start": "95",
+        "affinity": [
+          13
+        ]
+      },
+      "98": {
+        "start": "95",
+        "affinity": [
+          13
+        ]
+      },
+      "99": {
+        "start": "95",
+        "affinity": [
+          14
+        ]
+      },
+      "100": {
+        "start": "95",
+        "affinity": [
+          14
+        ]
+      },
+      "101": {
+        "start": "95",
+        "affinity": [
+          14
+        ]
+      },
+      "102": {
+        "start": "95",
+        "affinity": [
+          14
+        ]
+      },
+      "104": {
+        "start": "95",
+        "affinity": [
+          14
+        ]
+      },
+      "105": {
+        "start": "95",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "106": {
+        "start": "95",
+        "affinity": [
+          15
+        ]
+      },
+      "107": {
+        "start": "95",
+        "affinity": [
+          15
+        ]
+      },
+      "108": {
+        "start": "95",
+        "affinity": [
+          15
+        ]
+      },
+      "109": {
+        "start": "95",
+        "affinity": [
+          15
+        ]
+      },
+      "111": {
+        "start": "95",
+        "affinity": [
+          15
+        ]
+      },
+      "112": {
+        "start": "95",
+        "affinity": [
+          16
+        ]
+      },
+      "113": {
+        "start": "95",
+        "affinity": [
+          16
+        ]
+      },
+      "114": {
+        "start": "95",
+        "affinity": [
+          16
+        ]
+      },
+      "115": {
+        "start": "95",
+        "affinity": [
+          16
+        ]
+      },
+      "117": {
+        "start": "95",
+        "affinity": [
+          16
+        ]
+      },
+      "118": {
+        "start": "95",
+        "affinity": [
+          17
+        ]
+      },
+      "119": {
+        "start": "95",
+        "affinity": [
+          17
+        ]
+      },
+      "120": {
+        "start": "95",
+        "affinity": [
+          17
+        ]
+      },
+      "121": {
+        "start": "95",
+        "affinity": [
+          17
+        ]
+      },
+      "123": {
+        "start": "95",
+        "affinity": [
+          17
+        ]
+      },
+      "124": {
+        "start": "95",
+        "affinity": [
+          18
+        ]
+      },
+      "125": {
+        "start": "95",
+        "affinity": [
+          18
+        ]
+      },
+      "126": {
+        "start": "95",
+        "affinity": [
+          18
+        ]
+      },
+      "127": {
+        "start": "95",
+        "affinity": [
+          18
+        ]
+      },
+      "129": {
+        "start": "95",
+        "affinity": [
+          18
+        ]
+      },
+      "130": {
+        "start": "95",
+        "affinity": [
+          19
+        ]
+      },
+      "131": {
+        "start": "95",
+        "affinity": [
+          19
+        ]
+      },
+      "132": {
+        "start": "95",
+        "affinity": [
+          19
+        ]
+      },
+      "133": {
+        "start": "95",
+        "affinity": [
+          19
+        ]
+      },
+      "135": {
+        "start": "95",
+        "affinity": [
+          19
+        ]
+      },
+      "136": {
+        "start": "96",
+        "affinity": [
+          20
+        ]
+      },
+      "137": {
+        "start": "96",
+        "affinity": [
+          20
+        ]
+      },
+      "138": {
+        "start": "96",
+        "affinity": [
+          20
+        ]
+      },
+      "139": {
+        "start": "96",
+        "affinity": [
+          20
+        ]
+      },
+      "141": {
+        "start": "96",
+        "affinity": [
+          20
+        ]
+      },
+      "142": {
+        "start": "96",
+        "affinity": [
+          21
+        ]
+      },
+      "143": {
+        "start": "96",
+        "affinity": [
+          21
+        ]
+      },
+      "144": {
+        "start": "96",
+        "affinity": [
+          21
+        ]
+      },
+      "145": {
+        "start": "96",
+        "affinity": [
+          21
+        ]
+      },
+      "147": {
+        "start": "96",
+        "affinity": [
+          21
+        ]
+      },
+      "148": {
+        "start": "96",
+        "affinity": [
+          22
+        ]
+      },
+      "149": {
+        "start": "96",
+        "affinity": [
+          22
+        ]
+      },
+      "150": {
+        "start": "96",
+        "affinity": [
+          22
+        ]
+      },
+      "151": {
+        "start": "96",
+        "affinity": [
+          22
+        ]
+      },
+      "153": {
+        "start": "96",
+        "affinity": [
+          22
+        ]
+      },
+      "154": {
+        "start": "96",
+        "affinity": [
+          23
+        ]
+      },
+      "155": {
+        "start": "96",
+        "affinity": [
+          23
+        ]
+      },
+      "156": {
+        "start": "96",
+        "affinity": [
+          23
+        ]
+      },
+      "157": {
+        "start": "96",
+        "affinity": [
+          23
+        ]
+      },
+      "159": {
+        "start": "96",
+        "affinity": [
+          23
+        ]
+      },
+      "160": {
+        "start": "96",
+        "affinity": [
+          24
+        ]
+      },
+      "161": {
+        "start": "96",
+        "affinity": [
+          24
+        ]
+      },
+      "162": {
+        "start": "96",
+        "affinity": [
+          24
+        ]
+      },
+      "163": {
+        "start": "96",
+        "affinity": [
+          24
+        ]
+      },
+      "165": {
+        "start": "96",
+        "affinity": [
+          24
+        ]
+      },
+      "166": {
+        "start": "96",
+        "affinity": [
+          25
+        ]
+      },
+      "167": {
+        "start": "96",
+        "affinity": [
+          25
+        ]
+      },
+      "168": {
+        "start": "96",
+        "affinity": [
+          25
+        ]
+      },
+      "169": {
+        "start": "96",
+        "affinity": [
+          25
+        ]
+      },
+      "171": {
+        "start": "96",
+        "affinity": [
+          25
+        ]
+      },
+      "172": {
+        "start": "96",
+        "affinity": [
+          26
+        ]
+      },
+      "173": {
+        "start": "96",
+        "affinity": [
+          26
+        ]
+      },
+      "174": {
+        "start": "96",
+        "affinity": [
+          26
+        ]
+      },
+      "175": {
+        "start": "96",
+        "affinity": [
+          26
+        ]
+      },
+      "177": {
+        "start": "96",
+        "affinity": [
+          26
+        ]
+      },
+      "178": {
+        "start": "96",
+        "affinity": [
+          27
+        ]
+      },
+      "179": {
+        "start": "96",
+        "affinity": [
+          27
+        ]
+      },
+      "180": {
+        "start": "96",
+        "affinity": [
+          27
+        ]
+      },
+      "181": {
+        "start": "96",
+        "affinity": [
+          27
+        ]
+      },
+      "183": {
+        "start": "96",
+        "affinity": [
+          27
+        ]
+      },
+      "184": {
+        "start": "96",
+        "affinity": [
+          28
+        ]
+      },
+      "185": {
+        "start": "96",
+        "affinity": [
+          28
+        ]
+      },
+      "186": {
+        "start": "96",
+        "affinity": [
+          28
+        ]
+      },
+      "187": {
+        "start": "96",
+        "affinity": [
+          28
+        ]
+      },
+      "189": {
+        "start": "96",
+        "affinity": [
+          28
+        ]
+      },
+      "190": {
+        "start": "96",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "191": {
+        "start": "96",
+        "affinity": [
+          29
+        ]
+      },
+      "192": {
+        "start": "96",
+        "affinity": [
+          29
+        ]
+      },
+      "193": {
+        "start": "96",
+        "affinity": [
+          29
+        ]
+      },
+      "194": {
+        "start": "96",
+        "affinity": [
+          29
+        ]
+      },
+      "196": {
+        "start": "96",
+        "affinity": [
+          29
+        ]
+      },
+      "197": {
+        "start": "96",
+        "affinity": [
+          30
+        ]
+      },
+      "198": {
+        "start": "96",
+        "affinity": [
+          30
+        ]
+      },
+      "199": {
+        "start": "96",
+        "affinity": [
+          30
+        ]
+      },
+      "200": {
+        "start": "96",
+        "affinity": [
+          30
+        ]
+      },
+      "202": {
+        "start": "96",
+        "affinity": [
+          30
+        ]
+      },
+      "203": {
+        "start": "97",
+        "affinity": [
+          31
+        ]
+      },
+      "204": {
+        "start": "97",
+        "affinity": [
+          31
+        ]
+      },
+      "205": {
+        "start": "97",
+        "affinity": [
+          31
+        ]
+      },
+      "206": {
+        "start": "97",
+        "affinity": [
+          31
+        ]
+      },
+      "208": {
+        "start": "97",
+        "affinity": [
+          31
+        ]
+      },
+      "209": {
+        "start": "97",
+        "affinity": [
+          32
+        ]
+      },
+      "210": {
+        "start": "97",
+        "affinity": [
+          32
+        ]
+      },
+      "211": {
+        "start": "97",
+        "affinity": [
+          32
+        ]
+      },
+      "212": {
+        "start": "97",
+        "affinity": [
+          32
+        ]
+      },
+      "214": {
+        "start": "97",
+        "affinity": [
+          32
+        ]
+      },
+      "215": {
+        "start": "97",
+        "affinity": [
+          33
+        ]
+      },
+      "216": {
+        "start": "97",
+        "affinity": [
+          33
+        ]
+      },
+      "217": {
+        "start": "97",
+        "affinity": [
+          33
+        ]
+      },
+      "218": {
+        "start": "97",
+        "affinity": [
+          33
+        ]
+      },
+      "220": {
+        "start": "97",
+        "affinity": [
+          33
+        ]
+      },
+      "221": {
+        "start": "97",
+        "affinity": [
+          34
+        ]
+      },
+      "222": {
+        "start": "97",
+        "affinity": [
+          34
+        ]
+      },
+      "223": {
+        "start": "97",
+        "affinity": [
+          34
+        ]
+      },
+      "224": {
+        "start": "97",
+        "affinity": [
+          34
+        ]
+      },
+      "226": {
+        "start": "97",
+        "affinity": [
+          34
+        ]
+      },
+      "227": {
+        "start": "97",
+        "affinity": [
+          35
+        ]
+      },
+      "228": {
+        "start": "97",
+        "affinity": [
+          35
+        ]
+      },
+      "229": {
+        "start": "97",
+        "affinity": [
+          35
+        ]
+      },
+      "230": {
+        "start": "97",
+        "affinity": [
+          35
+        ]
+      },
+      "232": {
+        "start": "97",
+        "affinity": [
+          35
+        ]
+      },
+      "233": {
+        "start": "97",
+        "affinity": [
+          36
+        ]
+      },
+      "234": {
+        "start": "97",
+        "affinity": [
+          36
+        ]
+      },
+      "235": {
+        "start": "97",
+        "affinity": [
+          36
+        ]
+      },
+      "236": {
+        "start": "97",
+        "affinity": [
+          36
+        ]
+      },
+      "238": {
+        "start": "97",
+        "affinity": [
+          36
+        ]
+      },
+      "239": {
+        "start": "97",
+        "affinity": [
+          37
+        ]
+      },
+      "240": {
+        "start": "97",
+        "affinity": [
+          37
+        ]
+      },
+      "241": {
+        "start": "97",
+        "affinity": [
+          37
+        ]
+      },
+      "242": {
+        "start": "97",
+        "affinity": [
+          37
+        ]
+      },
+      "244": {
+        "start": "97",
+        "affinity": [
+          37
+        ]
+      },
+      "245": {
+        "start": "97",
+        "affinity": [
+          38
+        ]
+      },
+      "246": {
+        "start": "97",
+        "affinity": [
+          38
+        ]
+      },
+      "247": {
+        "start": "97",
+        "affinity": [
+          38
+        ]
+      },
+      "248": {
+        "start": "97",
+        "affinity": [
+          38
+        ]
+      },
+      "250": {
+        "start": "97",
+        "affinity": [
+          38
+        ]
+      },
+      "251": {
+        "start": "97",
+        "affinity": [
+          39
+        ]
+      },
+      "252": {
+        "start": "97",
+        "affinity": [
+          39
+        ]
+      },
+      "253": {
+        "start": "97",
+        "affinity": [
+          39
+        ]
+      },
+      "254": {
+        "start": "97",
+        "affinity": [
+          39
+        ]
+      },
+      "256": {
+        "start": "97",
+        "affinity": [
+          39
+        ]
+      },
+      "259": {
+        "start": "99",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "260": {
+        "start": "99",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "261": {
+        "start": "99",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "262": {
+        "start": "99",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "263": {
+        "start": "99",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "264": {
+        "start": "101",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "265": {
+        "start": "102",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "267": {
+        "start": "102",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "269": {
+        "start": "102",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "270": {
+        "start": "102",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "271": {
+        "start": "102",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "273": {
+        "start": "103",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "274": {
+        "start": "103",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "275": {
+        "start": "103",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "276": {
+        "start": "103",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "277": {
+        "start": "103",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "278": {
+        "start": "118",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "280": {
+        "start": "201",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "281": {
+        "start": "201",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "282": {
+        "start": "202",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "283": {
+        "start": "202",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "284": {
+        "start": "202",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "285": {
+        "start": "202",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "286": {
+        "start": "202",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "287": {
+        "start": "202",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "288": {
+        "start": "204",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "289": {
+        "start": "206",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "328": {
+        "start": "302",
+        "affinity": [
+          27
+        ]
+      },
+      "329": {
+        "start": "448",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "330": {
+        "start": "448",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "331": {
+        "start": "449",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "332": {
+        "start": "454",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "333": {
+        "start": "458",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "334": {
+        "start": "461",
+        "affinity": [
+          10
+        ]
+      },
+      "335": {
+        "start": "463",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "336": {
+        "start": "466",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "337": {
+        "start": "468",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "346": {
+        "start": "508",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "347": {
+        "start": "508",
+        "affinity": [
+          2
+        ]
+      },
+      "348": {
+        "start": "508",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "350": {
+        "start": "509",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "352": {
+        "start": "537",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "353": {
+        "start": "537",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "354": {
+        "start": "537",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "365": {
+        "start": "556",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "390": {
+        "start": "587",
+        "affinity": [
+          23
+        ]
+      },
+      "394": {
+        "start": "587",
+        "affinity": [
+          5
+        ]
+      },
+      "395": {
+        "start": "588",
+        "affinity": [
+          31
+        ]
+      },
+      "406": {
+        "start": "595",
+        "affinity": [
+          37
+        ]
+      },
+      "407": {
+        "start": "622",
+        "affinity": [
+          24
+        ]
+      },
+      "408": {
+        "start": "623",
+        "affinity": [
+          7
+        ]
+      },
+      "409": {
+        "start": "623",
+        "affinity": [
+          6
+        ]
+      },
+      "411": {
+        "start": "623",
+        "affinity": [
+          8
+        ]
+      },
+      "412": {
+        "start": "623",
+        "affinity": [
+          20
+        ]
+      },
+      "413": {
+        "start": "623",
+        "affinity": [
+          22
+        ]
+      },
+      "414": {
+        "start": "623",
+        "affinity": [
+          21
+        ]
+      },
+      "417": {
+        "start": "623",
+        "affinity": [
+          39
+        ]
+      },
+      "419": {
+        "start": "623",
+        "affinity": [
+          34
+        ]
+      },
+      "423": {
+        "start": "623",
+        "affinity": [
+          36
+        ]
+      },
+      "426": {
+        "start": "623",
+        "affinity": [
+          38
+        ]
+      },
+      "429": {
+        "start": "623",
+        "affinity": [
+          9
+        ]
+      },
+      "431": {
+        "start": "623",
+        "affinity": [
+          1
+        ]
+      },
+      "459": {
+        "start": "625",
+        "affinity": [
+          25
+        ]
+      },
+      "460": {
+        "start": "625",
+        "affinity": [
+          28
+        ]
+      },
+      "461": {
+        "start": "625",
+        "affinity": [
+          29
+        ]
+      },
+      "462": {
+        "start": "625",
+        "affinity": [
+          12
+        ]
+      },
+      "463": {
+        "start": "625",
+        "affinity": [
+          32
+        ]
+      },
+      "464": {
+        "start": "625",
+        "affinity": [
+          14
+        ]
+      },
+      "465": {
+        "start": "625",
+        "affinity": [
+          33
+        ]
+      },
+      "466": {
+        "start": "626",
+        "affinity": [
+          13
+        ]
+      },
+      "467": {
+        "start": "626",
+        "affinity": [
+          15
+        ]
+      },
+      "468": {
+        "start": "627",
+        "affinity": [
+          17
+        ]
+      },
+      "469": {
+        "start": "627",
+        "affinity": [
+          16
+        ]
+      },
+      "470": {
+        "start": "628",
+        "affinity": [
+          18
+        ]
+      },
+      "471": {
+        "start": "629",
+        "affinity": [
+          19
+        ]
+      },
+      "472": {
+        "start": "629",
+        "affinity": [
+          35
+        ]
+      },
+      "473": {
+        "start": "629",
+        "affinity": [
+          30
+        ]
+      },
+      "474": {
+        "start": "629",
+        "affinity": [
+          11
+        ]
+      },
+      "475": {
+        "start": "630",
+        "affinity": [
+          3
+        ]
+      },
+      "477": {
+        "start": "630",
+        "affinity": [
+          4
+        ]
+      },
+      "479": {
+        "start": "631",
+        "affinity": [
+          26
+        ]
+      },
+      "500": {
+        "start": "636",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "501": {
+        "start": "636",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "503": {
+        "start": "638",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "504": {
+        "start": "638",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "505": {
+        "start": "641",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "506": {
+        "start": "641",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "507": {
+        "start": "641",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "508": {
+        "start": "642",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "509": {
+        "start": "643",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "510": {
+        "start": "643",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "513": {
+        "start": "646",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "514": {
+        "start": "646",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "515": {
+        "start": "646",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "516": {
+        "start": "646",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "518": {
+        "start": "747",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "606": {
+        "start": "830",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "647": {
+        "start": "854",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "648": {
+        "start": "855",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "726": {
+        "start": "1021",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "750": {
+        "start": "1056",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "751": {
+        "start": "1056",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "784": {
+        "start": "1096",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "798": {
+        "start": "1107",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "802": {
+        "start": "1119",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "914": {
+        "start": "1128",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "980": {
+        "start": "1142",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "981": {
+        "start": "1143",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "1199": {
+        "start": "1206",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "1412": {
+        "start": "1250",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "1414": {
+        "start": "1252",
+        "affinity": [
+          0
+        ]
+      },
+      "1415": {
+        "start": "1252",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "1418": {
+        "start": "1258",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "1419": {
+        "start": "1258",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "1672": {
+        "start": "1425",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "1676": {
+        "start": "1433",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "1679": {
+        "start": "1435",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "1686": {
+        "start": "1442",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "1690": {
+        "start": "1447",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "1710": {
+        "start": "1454",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "1734": {
+        "start": "1468",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "1746": {
+        "start": "1474",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "1777": {
+        "start": "1486",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "1918": {
+        "start": "1911",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "1936": {
+        "start": "1935",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "1957": {
+        "start": "1939",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "1976": {
+        "start": "1941",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "1988": {
+        "start": "1944",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2037": {
+        "start": "1964",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2039": {
+        "start": "1966",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2152": {
+        "start": "2001",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2166": {
+        "start": "2012",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2209": {
+        "start": "2044",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2224": {
+        "start": "2049",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2230": {
+        "start": "2050",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2246": {
+        "start": "2053",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2424": {
+        "start": "2074",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2426": {
+        "start": "2075",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2607": {
+        "start": "2212",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2758": {
+        "start": "2334",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2810": {
+        "start": "2354",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2812": {
+        "start": "2357",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2816": {
+        "start": "2358",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2827": {
+        "start": "2394",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2829": {
+        "start": "2415",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2846": {
+        "start": "2572",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2847": {
+        "start": "2572",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2851": {
+        "start": "2572",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2932": {
+        "start": "2692",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2960": {
+        "start": "2807",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "2978": {
+        "start": "2878",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "3013": {
+        "start": "3116",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "3021": {
+        "start": "3185",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "3133": {
+        "start": "3605",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "3417": {
+        "start": "3726",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "4864": {
+        "start": "4049",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "5830": {
+        "start": "4184",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "6995": {
+        "start": "4349",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "8442": {
+        "start": "4789",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "8595": {
+        "start": "8822",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "8596": {
+        "start": "8823",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "13569": {
+        "start": "16498",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "13640": {
+        "start": "16819",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "14121": {
+        "start": "27146",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "15554": {
+        "start": "36271",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "56907": {
+        "start": "200207",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "81411": {
+        "start": "235437",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "94714": {
+        "start": "285644",
+        "affinity": [
+          5
+        ]
+      },
+      "95960": {
+        "start": "306961",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "97520": {
+        "start": "309122",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "97557": {
+        "start": "309160",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "117258": {
+        "start": "328102",
+        "affinity": [
+          22
+        ]
+      },
+      "124190": {
+        "start": "356084",
+        "affinity": [
+          1
+        ]
+      },
+      "124582": {
+        "start": "366301",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "125583": {
+        "start": "393798",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "129142": {
+        "start": "444526",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "132518": {
+        "start": "498502",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "132840": {
+        "start": "507586",
+        "affinity": [
+          14
+        ]
+      },
+      "133226": {
+        "start": "512666",
+        "affinity": [
+          20
+        ]
+      },
+      "134149": {
+        "start": "524019",
+        "affinity": [
+          25
+        ]
+      },
+      "134164": {
+        "start": "524037",
+        "affinity": [
+          27
+        ]
+      },
+      "134535": {
+        "start": "528301",
+        "affinity": [
+          35
+        ]
+      },
+      "135673": {
+        "start": "549179",
+        "affinity": [
+          31
+        ]
+      },
+      "135694": {
+        "start": "549222",
+        "affinity": [
+          37
+        ]
+      },
+      "136795": {
+        "start": "570988",
+        "affinity": [
+          39
+        ]
+      },
+      "138112": {
+        "start": "599869",
+        "affinity": [
+          21
+        ]
+      },
+      "138629": {
+        "start": "601158",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "138661": {
+        "start": "601430",
+        "affinity": [
+          9
+        ]
+      },
+      "138665": {
+        "start": "601433",
+        "affinity": [
+          36
+        ]
+      },
+      "138677": {
+        "start": "601442",
+        "affinity": [
+          15
+        ]
+      },
+      "138830": {
+        "start": "601977",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "138888": {
+        "start": "602237",
+        "affinity": [
+          2
+        ]
+      },
+      "138980": {
+        "start": "602565",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "139446": {
+        "start": "605846",
+        "affinity": [
+          29
+        ]
+      },
+      "140732": {
+        "start": "614072",
+        "affinity": [
+          6
+        ]
+      },
+      "142547": {
+        "start": "634193",
+        "affinity": [
+          11
+        ]
+      },
+      "143165": {
+        "start": "635360",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "151957": {
+        "start": "666498",
+        "affinity": [
+          0
+        ]
+      },
+      "153766": {
+        "start": "672827",
+        "affinity": [
+          19
+        ]
+      },
+      "153815": {
+        "start": "674762",
+        "affinity": [
+          3
+        ]
+      },
+      "153876": {
+        "start": "675348",
+        "affinity": [
+          21
+        ]
+      },
+      "154181": {
+        "start": "679854",
+        "affinity": [
+          23
+        ]
+      },
+      "154188": {
+        "start": "679862",
+        "affinity": [
+          16
+        ]
+      },
+      "154302": {
+        "start": "682333",
+        "affinity": [
+          26
+        ]
+      },
+      "154463": {
+        "start": "685041",
+        "affinity": [
+          28
+        ]
+      },
+      "155211": {
+        "start": "686177",
+        "affinity": [
+          24
+        ]
+      },
+      "162122": {
+        "start": "720584",
+        "affinity": [
+          12
+        ]
+      },
+      "165416": {
+        "start": "728025",
+        "affinity": [
+          33
+        ]
+      },
+      "166028": {
+        "start": "738010",
+        "affinity": [
+          35
+        ]
+      },
+      "166037": {
+        "start": "738026",
+        "affinity": [
+          17
+        ]
+      },
+      "166059": {
+        "start": "738068",
+        "affinity": [
+          32
+        ]
+      },
+      "166063": {
+        "start": "738073",
+        "affinity": [
+          18
+        ]
+      },
+      "166095": {
+        "start": "738133",
+        "affinity": [
+          37
+        ]
+      },
+      "166124": {
+        "start": "738144",
+        "affinity": [
+          34
+        ]
+      },
+      "166128": {
+        "start": "738149",
+        "affinity": [
+          36
+        ]
+      },
+      "166888": {
+        "start": "740171",
+        "affinity": [
+          26
+        ]
+      },
+      "169717": {
+        "start": "745971",
+        "affinity": [
+          6
+        ]
+      },
+      "170127": {
+        "start": "751886",
+        "affinity": [
+          7
+        ]
+      },
+      "170133": {
+        "start": "751890",
+        "affinity": [
+          13
+        ]
+      },
+      "170698": {
+        "start": "757707",
+        "affinity": [
+          8
+        ]
+      },
+      "173349": {
+        "start": "764369",
+        "affinity": [
+          5
+        ]
+      },
+      "173431": {
+        "start": "765924",
+        "affinity": [
+          33
+        ]
+      },
+      "175185": {
+        "start": "777030",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "177032": {
+        "start": "786617",
+        "affinity": [
+          30
+        ]
+      },
+      "177034": {
+        "start": "786627",
+        "affinity": [
+          38
+        ]
+      },
+      "177128": {
+        "start": "787615",
+        "affinity": [
+          16
+        ]
+      },
+      "177208": {
+        "start": "789096",
+        "affinity": [
+          14
+        ]
+      },
+      "177262": {
+        "start": "790421",
+        "affinity": [
+          34
+        ]
+      },
+      "177452": {
+        "start": "792632",
+        "affinity": [
+          29
+        ]
+      },
+      "177799": {
+        "start": "803703",
+        "affinity": [
+          2
+        ]
+      },
+      "177888": {
+        "start": "804497",
+        "affinity": [
+          4
+        ]
+      },
+      "177957": {
+        "start": "805983",
+        "affinity": [
+          11
+        ]
+      },
+      "178004": {
+        "start": "807008",
+        "affinity": [
+          27
+        ]
+      },
+      "178016": {
+        "start": "807025",
+        "affinity": [
+          18
+        ]
+      },
+      "178101": {
+        "start": "808699",
+        "affinity": [
+          25
+        ]
+      },
+      "178137": {
+        "start": "808713",
+        "affinity": [
+          7
+        ]
+      },
+      "178485": {
+        "start": "812716",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "182166": {
+        "start": "832276",
+        "affinity": [
+          32
+        ]
+      },
+      "182171": {
+        "start": "832285",
+        "affinity": [
+          30
+        ]
+      },
+      "182180": {
+        "start": "832304",
+        "affinity": [
+          38
+        ]
+      },
+      "182183": {
+        "start": "832309",
+        "affinity": [
+          10
+        ]
+      },
+      "182191": {
+        "start": "832324",
+        "affinity": [
+          31
+        ]
+      },
+      "183070": {
+        "start": "834973",
+        "affinity": [
+          28
+        ]
+      },
+      "183133": {
+        "start": "835040",
+        "affinity": [
+          15
+        ]
+      },
+      "185386": {
+        "start": "839012",
+        "affinity": [
+          39
+        ]
+      },
+      "185393": {
+        "start": "839029",
+        "affinity": [
+          12
+        ]
+      },
+      "185403": {
+        "start": "839049",
+        "affinity": [
+          20
+        ]
+      },
+      "185409": {
+        "start": "839060",
+        "affinity": [
+          3
+        ]
+      },
+      "185608": {
+        "start": "847916",
+        "affinity": [
+          19
+        ]
+      },
+      "185786": {
+        "start": "866187",
+        "affinity": [
+          4
+        ]
+      },
+      "185821": {
+        "start": "866732",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "185846": {
+        "start": "866895",
+        "affinity": [
+          1
+        ]
+      },
+      "185856": {
+        "start": "866907",
+        "affinity": [
+          8
+        ]
+      },
+      "185859": {
+        "start": "866916",
+        "affinity": [
+          22
+        ]
+      },
+      "185886": {
+        "start": "867279",
+        "affinity": [
+          13
+        ]
+      },
+      "185889": {
+        "start": "867398",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "186002": {
+        "start": "868791",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "186003": {
+        "start": "868797",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "186185": {
+        "start": "870484",
+        "affinity": [
+          17
+        ]
+      },
+      "186198": {
+        "start": "870831",
+        "affinity": [
+          0
+        ]
+      },
+      "186215": {
+        "start": "870841",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "186223": {
+        "start": "870929",
+        "affinity": [
+          23
+        ]
+      },
+      "186230": {
+        "start": "870952",
+        "affinity": [
+          24
+        ]
+      },
+      "186251": {
+        "start": "871477",
+        "affinity": [
+          9
+        ]
+      },
+      "186257": {
+        "start": "871494",
+        "affinity": [
+          10
+        ]
+      },
+      "186292": {
+        "start": "871935",
+        "affinity": [
+          38
+        ]
+      },
+      "186315": {
+        "start": "871943",
+        "affinity": [
+          2
+        ]
+      },
+      "186370": {
+        "start": "872106",
+        "affinity": [
+          6
+        ]
+      },
+      "186401": {
+        "start": "873215",
+        "affinity": [
+          27
+        ]
+      },
+      "186417": {
+        "start": "873246",
+        "affinity": [
+          37
+        ]
+      },
+      "186422": {
+        "start": "873254",
+        "affinity": [
+          5
+        ]
+      },
+      "186874": {
+        "start": "873747",
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "187044": {
+        "start": "873921",
+        "affinity": [
+          3
+        ]
+      },
+      "187078": {
+        "start": "873939",
+        "affinity": [
+          16
+        ]
+      },
+      "188571": {
+        "start": "876229",
+        "affinity": [
+          39
+        ]
+      },
+      "189673": {
+        "start": "877965",
+        "affinity": [
+          29
+        ]
+      },
+      "189701": {
+        "start": "877982",
+        "affinity": [
+          7
+        ]
+      },
+      "189860": {
+        "start": "878246",
+        "affinity": [
+          26
+        ]
+      },
+      "189875": {
+        "start": "878268",
+        "affinity": [
+          25
+        ]
+      },
+      "190093": {
+        "start": "879937",
+        "affinity": [
+          12
+        ]
+      },
+      "190141": {
+        "start": "881587",
+        "affinity": [
+          19
+        ]
+      },
+      "190152": {
+        "start": "881611",
+        "affinity": [
+          30
+        ]
+      },
+      "190188": {
+        "start": "881702",
+        "affinity": [
+          28
+        ]
+      },
+      "190221": {
+        "start": "881756",
+        "affinity": [
+          11
+        ]
+      },
+      "190356": {
+        "start": "883435",
+        "affinity": [
+          33
+        ]
+      },
+      "190477": {
+        "start": "885094",
+        "affinity": [
+          18
+        ]
+      },
+      "193701": {
+        "start": "895805",
+        "affinity": [
+          34
+        ]
+      },
+      "193812": {
+        "start": "899913",
+        "affinity": [
+          13
+        ]
+      },
+      "193869": {
+        "start": "902605",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      },
+      "193870": {
+        "start": "902605",
+        "affinity": [
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39
+        ]
+      }
+    },
+    "pmem7_driver": "/sys/bus/nd/drivers/nd_pmem"
+  },
+  "error": null
+}

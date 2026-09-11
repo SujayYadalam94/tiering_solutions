@@ -1,0 +1,86 @@
+commit 2caec5ede80def1bf4c1b6c9abfcc6e8b5b62347
+Author:     jsfreischuetz <zimooo2@gmail.com>
+AuthorDate: Tue Jul 28 21:51:30 2026 -0500
+Commit:     jsfreischuetz <zimooo2@gmail.com>
+CommitDate: Tue Jul 28 21:51:30 2026 -0500
+
+    merge
+
+diff --git a/measurement_arms.sh b/measurement_arms.sh
+index 47370eddd..381430fbc 100755
+--- a/measurement_arms.sh
++++ b/measurement_arms.sh
+@@ -29,7 +29,7 @@ function run_workload {
+     local log_dir="${SCRIPT_DIR}/logs/${WORKLOAD_OUTPUT}"
+     local time_file="${time_dir}/${time_basename}.time"
+     local log_output_path="${log_dir}/${time_basename}_arms.log"
+-    local offcore_metrics_file="${log_dir}/${time_basename}_arms_offcore_write_l3_metrics.log"
++    local write_cas_metrics_file="${log_dir}/${time_basename}_arms_unc_m_cas_count_wr.log"
+     local max_dram_file="${time_dir}/max_dram_hugepages_${time_basename}.log"
+     local model_path="${SCRIPT_DIR}/libraries/${MEASUREMENT_LIBRARY_PROFILE_DIR}/libhemem-arms${LIB_SUFFIX}.so"
+ 
+@@ -41,8 +41,8 @@ function run_workload {
+     fi
+ 
+     cleanup_measurement_outputs "${time_file}" "${log_output_path}" "${max_dram_file}"
+-    rm -f "${offcore_metrics_file}"
+-    cleanup_offcore_write_l3_metrics_log
++    rm -f "${write_cas_metrics_file}"
++    cleanup_unc_m_cas_count_wr_log
+     run_preloaded_measurement "${WORKLOAD_COMMAND}" "${model_path}" "${log_output_path}" "${time_file}" \
+         "${NUMA_MEM_NODES}" "${TASKSET_CPUS}"
+     local status=$?
+@@ -58,7 +58,7 @@ function run_workload {
+         echo "WARNING: ${WORKLOAD_OUTPUT} run ${run} failed with status ${status}"
+     fi
+     move_max_dram_log_if_present "${max_dram_file}"
+-    copy_offcore_write_l3_metrics_log_if_present "${offcore_metrics_file}"
++    copy_unc_m_cas_count_wr_log_if_present "${write_cas_metrics_file}"
+ }
+ 
+ for workload_id in "${WORKLOAD_IDS[@]}"; do
+@@ -73,4 +73,4 @@ for workload_id in "${WORKLOAD_IDS[@]}"; do
+ done
+ 
+ #
+-mkdir -p "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}/arms"
+\ No newline at end of file
++mkdir -p "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}/arms"
+diff --git a/measurement_common.sh b/measurement_common.sh
+index a5a88fbfd..2528a5fdc 100755
+--- a/measurement_common.sh
++++ b/measurement_common.sh
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++df#!/bin/bash
+ 
+ MEASUREMENT_COMMON_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+ 
+@@ -256,15 +256,15 @@ move_max_dram_log_if_present() {
+     fi
+ }
+ 
+-cleanup_offcore_write_l3_metrics_log() {
+-    rm -f offcore_write_l3_metrics.log
++cleanup_unc_m_cas_count_wr_log() {
++    rm -f unc_m_cas_count_wr.log
+ }
+ 
+-copy_offcore_write_l3_metrics_log_if_present() {
++copy_unc_m_cas_count_wr_log_if_present() {
+     local destination=$1
+ 
+-    if [[ -f offcore_write_l3_metrics.log ]]; then
+-        cp -f offcore_write_l3_metrics.log "${destination}"
++    if [[ -f unc_m_cas_count_wr.log ]]; then
++        cp -f unc_m_cas_count_wr.log "${destination}"
+     fi
+ }
+ 
+@@ -368,4 +368,4 @@ measurement_ensure_nomad_ready() {
+         echo "ERROR: NOMAD module '${nomad_module_name}' is still not active after insmod" >&2
+         return 1
+     fi
+-}
+\ No newline at end of file
++}

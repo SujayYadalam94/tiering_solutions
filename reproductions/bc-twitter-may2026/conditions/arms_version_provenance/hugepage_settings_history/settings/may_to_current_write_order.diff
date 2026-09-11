@@ -1,0 +1,31 @@
+--- May default requested writes
++++ Current default requested writes
+@@ -1,15 +1,14 @@
+ write	/proc/sys/vm/overcommit_memory	1
+ write	/proc/sys/vm/watermark_scale_factor	10
+ write	/proc/sys/vm/watermark_boost_factor	10000
+-write	/proc/sys/vm/min_free_kbytes	1048576
+ write	/proc/sys/vm/user_reserve_kbytes	16384
+ write	/proc/sys/vm/admin_reserve_kbytes	16384
++write	/proc/sys/vm/min_free_kbytes	1048576
+ write	/proc/sys/vm/lowmem_reserve_ratio	256 256 32
+-write	/proc/sys/kernel/numa_balancing	0
+ write	/proc/sys/vm/zone_reclaim_mode	0
++write	/proc/sys/vm/vfs_cache_pressure	2000
+ write	/proc/sys/kernel/numa_balancing	0
+ write	/sys/kernel/mm/numa/demotion_enabled	0
+-write	/sys/kernel/mm/lru_gen/enabled	0x0000
+ write	/sys/kernel/mm/transparent_hugepage/enabled	always
+ write	/sys/kernel/mm/transparent_hugepage/defrag	always
+ write	/sys/kernel/mm/transparent_hugepage/shmem_enabled	force
+@@ -18,7 +17,8 @@
+ write	/sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan	8192
+ write	/sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs	0
+ write	/sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs	1
++write	/sys/kernel/mm/ksm/run	0
++write	/sys/kernel/mm/lru_gen/enabled	0x0000
++write	/proc/sys/kernel/perf_cpu_time_max_percent	25
+ write	/proc/sys/kernel/perf_event_max_sample_rate	1000000
+ write	/proc/sys/kernel/perf_cpu_time_max_percent	0
+-write	/sys/kernel/mm/ksm/run	0
+-write	/proc/sys/vm/vfs_cache_pressure	2000

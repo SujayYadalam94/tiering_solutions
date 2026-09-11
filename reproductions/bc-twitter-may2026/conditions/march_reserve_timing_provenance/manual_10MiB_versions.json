@@ -1,0 +1,74 @@
+[
+  {
+    "blob": "7ee5081d0cbfe1b1b5c27ff0e2e02e5a2fe0c434",
+    "paths": [
+      "hybridtier_times_4GB/times/arms/DuckDB-TPCH-sf100/10MiB_run1.time",
+      "times/arms/DuckDB-TPCH-sf100/10MiB_run1.time"
+    ],
+    "text": "\nreal\t4m21.876s\nuser\t0m0.169s\nsys\t0m0.417s\n",
+    "matches_in_final": []
+  },
+  {
+    "blob": "e6cedef1d50838964d82623db64a8d8eef8f7962",
+    "paths": [
+      "hybridtier_times_4GB/times/arms/XSBench/10MiB_run1.time",
+      "times/arms/XSBench/10MiB_run1.time"
+    ],
+    "text": "\nreal\t3m29.837s\nuser\t0m0.097s\nsys\t0m0.224s\n",
+    "matches_in_final": []
+  },
+  {
+    "blob": "e1d90989fe7289a285b6d3fde60be3cbce5160a8",
+    "paths": [
+      "hybridtier_times_4GB/times/arms/bc-kron.sg/10MiB_run1.time",
+      "times/arms/bc-kron.sg/10MiB_run1.time"
+    ],
+    "text": "\nreal\t0m0.396s\nuser\t0m0.014s\nsys\t0m0.021s\n",
+    "matches_in_final": []
+  },
+  {
+    "blob": "a5d8d7cac6ced910064b6fc53528b250c8eeb9da",
+    "paths": [
+      "hybridtier_times_4GB/times/arms/bc-twitter.sg/10MiB_run1.time",
+      "times/arms/bc-twitter.sg/10MiB_run1.time"
+    ],
+    "text": "\nreal\t0m0.445s\nuser\t0m0.012s\nsys\t0m0.018s\n",
+    "matches_in_final": []
+  },
+  {
+    "blob": "d395b7753ca7fc9a968997d844b44fbd086d0a36",
+    "paths": [
+      "hybridtier_times_4GB/times/arms/faiss_10M/10MiB_run1.time",
+      "times/arms/faiss_10M/10MiB_run1.time"
+    ],
+    "text": "\nreal\t0m0.493s\nuser\t0m0.014s\nsys\t0m0.018s\n",
+    "matches_in_final": []
+  },
+  {
+    "blob": "9eed7f798ee8484a590493533d1c1bba1b99e33c",
+    "paths": [
+      "hybridtier_times_4GB/times/arms/lulesh2.0_s400/10MiB_run1.time",
+      "times/arms/lulesh2.0_s400/10MiB_run1.time"
+    ],
+    "text": "\nreal\t0m0.413s\nuser\t0m0.013s\nsys\t0m0.023s\n",
+    "matches_in_final": []
+  },
+  {
+    "blob": "c9251e22d7312a708808ee3defa7f6c9c2af648b",
+    "paths": [
+      "hybridtier_times_4GB/times/arms/mg.D.x/10MiB_run1.time",
+      "times/arms/mg.D.x/10MiB_run1.time"
+    ],
+    "text": "\nreal\t0m0.086s\nuser\t0m0.013s\nsys\t0m0.013s\n",
+    "matches_in_final": []
+  },
+  {
+    "blob": "ab120edb2fd655420b94e70cff3b37c1112cf881",
+    "paths": [
+      "hybridtier_times_4GB/times/arms/pr-twitter.sg/10MiB_run1.time",
+      "times/arms/pr-twitter.sg/10MiB_run1.time"
+    ],
+    "text": "\nreal\t0m16.018s\nuser\t0m0.035s\nsys\t0m0.047s\n",
+    "matches_in_final": []
+  }
+]

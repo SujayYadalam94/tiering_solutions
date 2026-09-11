@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GAPBS_80GB_GRAPH=${GAPBS_80GB_GRAPH:-${BENCH_ROOT}/gapbs/benchmark/graph-80GB.sg}
+GAPBS_80GB_GRAPH=${GAPBS_80GB_GRAPH:-${BENCH_ROOT}/gapbs/benchmark/kron-80GB.sg}
 
 WORKLOAD_ID="bc-graph-80GB.sg"
 WORKLOAD_OUTPUT="bc-graph-80GB.sg"

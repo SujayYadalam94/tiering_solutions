@@ -1,0 +1,41 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-2c506191/1px2.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-2c506191/oT6S.sh
+@@ -56,7 +56,7 @@
+     fi
+ }
+ 
+-SIZES=(071)
++SIZES=(6072)
+ RUNS=3
+ 
+ ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}
+@@ -106,10 +106,17 @@
+ 
+             # MEMTIS near-first variant
+             if [[ -x "${SCRIPT_DIR}/measurement_memtis_near.sh" ]]; then
+-                run_measurement_setup "${size}" memtis
+-                sudo -E "${SCRIPT_DIR}/measurement_memtis_near.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
++                # The runner holds its lock across setup, measurement, and teardown.
++                if sudo -E env MEMTIS_RUN_SETUP=1 "${SCRIPT_DIR}/measurement_memtis_near.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"; then
++                    :
++                else
++                    status=$?
++                    echo "ERROR: MEMTIS ${workload_id} failed (status ${status}); stopping measurements" >&2
++                    exit "${status}"
++                fi
+             else
+-                echo "WARNING: ./measurement_memtis_near.sh not found or not executable; skipping MEMTIS near-first"
++                echo "ERROR: ./measurement_memtis_near.sh not found or not executable" >&2
++                exit 1
+             fi
+ 
+             # Model
+@@ -146,7 +153,7 @@
+             #    echo "WARNING: ./measurement_cxl_only.sh not found or not executable; skipping CXL-only"
+             #fi
+ 
+-            run_measurement_teardown
++            # MEMTIS teardown is performed by the runner while its lock is held.
+         done
+     done
+ done

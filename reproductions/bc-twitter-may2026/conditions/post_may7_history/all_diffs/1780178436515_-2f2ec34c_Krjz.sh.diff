@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-2f2ec34c/QRrj.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-2f2ec34c/Krjz.sh
+@@ -4,7 +4,7 @@
+ # shellcheck source=measurement_common.sh
+ source "${SCRIPT_DIR}/measurement_common.sh"
+ # shellcheck source=measurement_workloads.sh
+-source "${SCRIPT_DIR}/measurement_workloads.sh"
++source "${SCRIPT_DIR}/measurement_workloads_short.sh"
+ 
+ measurement_init_platform_from_args "$@" || exit 1
+ PLATFORM_ARGS=(--platform "${MEASUREMENT_PLATFORM}")

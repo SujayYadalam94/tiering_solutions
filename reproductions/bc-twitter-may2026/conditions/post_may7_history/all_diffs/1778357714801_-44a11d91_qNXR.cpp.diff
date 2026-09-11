@@ -1,0 +1,12 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-44a11d91/7jtZ.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-44a11d91/qNXR.cpp
+@@ -1766,8 +1766,7 @@
+ 
+ #if USE_MODEL == (true)
+                     auto max_hugepages = max_dram_hugepages(scores);
+-                    if ( )
+-                    benefit -= (cold_page->score + 2.1) * HF_SAMPLE_PERIOD * latency_diff;
++                    benefit -= (cold_page->score) * HF_SAMPLE_PERIOD * latency_diff;
+ #else
+                     benefit -= cold_page->score * hot_page->hot_age * HF_SAMPLE_PERIOD * latency_diff;
+ #endif

@@ -1,0 +1,177 @@
+[
+  {
+    "source": "/var/log/auth.log.3.gz",
+    "line": 30589,
+    "text": "2026-08-18T04:42:38.376281-05:00 localhost sudo:  zimooo2 : TTY=pts/1 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/10053MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.3.gz",
+    "line": 90711,
+    "text": "2026-08-18T05:26:39.745296-05:00 localhost sudo:  zimooo2 : TTY=pts/1 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/10053MiB_run2_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.3.gz",
+    "line": 150682,
+    "text": "2026-08-18T06:09:47.594049-05:00 localhost sudo:  zimooo2 : TTY=pts/1 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/10053MiB_run3_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.3.gz",
+    "line": 242672,
+    "text": "2026-08-21T05:49:46.723598-05:00 localhost sudo:  zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/8053MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.3.gz",
+    "line": 339555,
+    "text": "2026-08-21T07:02:41.855630-05:00 localhost sudo:  zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/8053MiB_run2_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.3.gz",
+    "line": 435930,
+    "text": "2026-08-21T08:14:32.190757-05:00 localhost sudo:  zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/8053MiB_run3_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.3.gz",
+    "line": 550562,
+    "text": "2026-08-22T07:38:58.677844-05:00 localhost sudo:  zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/8053MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.3.gz",
+    "line": 648334,
+    "text": "2026-08-22T09:27:43.384175-05:00 localhost sudo:  zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/8053MiB_run2_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.3.gz",
+    "line": 745737,
+    "text": "2026-08-22T11:15:00.982604-05:00 localhost sudo:  zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/8053MiB_run3_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.2.gz",
+    "line": 39094,
+    "text": "2026-08-25T03:17:59.226212-05:00 localhost sudo:  zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/10053MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.2.gz",
+    "line": 135289,
+    "text": "2026-08-25T05:02:43.504321-05:00 localhost sudo:  zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/10053MiB_run2_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.2.gz",
+    "line": 231435,
+    "text": "2026-08-25T06:48:53.657260-05:00 localhost sudo:  zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/10053MiB_run3_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.2.gz",
+    "line": 329187,
+    "text": "2026-08-25T12:00:51.625386-05:00 localhost sudo:  zimooo2 : TTY=pts/4 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/6053MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.2.gz",
+    "line": 425579,
+    "text": "2026-08-25T12:59:36.663979-05:00 localhost sudo:  zimooo2 : TTY=pts/4 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/6053MiB_run2_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.2.gz",
+    "line": 522006,
+    "text": "2026-08-25T13:58:12.879696-05:00 localhost sudo:  zimooo2 : TTY=pts/4 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/6053MiB_run3_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.2.gz",
+    "line": 621348,
+    "text": "2026-08-26T08:28:46.541823-05:00 localhost sudo:  zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4053MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.2.gz",
+    "line": 716136,
+    "text": "2026-08-26T09:29:45.274510-05:00 localhost sudo:  zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4053MiB_run2_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.2.gz",
+    "line": 810930,
+    "text": "2026-08-26T10:30:03.443770-05:00 localhost sudo:  zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4053MiB_run3_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.2.gz",
+    "line": 909934,
+    "text": "2026-08-27T03:05:28.263391-05:00 localhost sudo:  zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4053MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.2.gz",
+    "line": 959365,
+    "text": "2026-08-27T03:53:36.033852-05:00 localhost sudo:  zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4053MiB_run2_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.2.gz",
+    "line": 1008300,
+    "text": "2026-08-27T04:40:26.290846-05:00 localhost sudo:  zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4053MiB_run3_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.2.gz",
+    "line": 1057369,
+    "text": "2026-08-27T06:07:23.366811-05:00 localhost sudo:  zimooo2 : TTY=pts/0 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/6053MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.2.gz",
+    "line": 1105610,
+    "text": "2026-08-27T06:52:11.830035-05:00 localhost sudo:  zimooo2 : TTY=pts/0 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/6053MiB_run2_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log.2.gz",
+    "line": 1154146,
+    "text": "2026-08-27T07:38:24.258872-05:00 localhost sudo:  zimooo2 : TTY=pts/0 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/6053MiB_run3_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log",
+    "line": 650011,
+    "text": "2026-09-08T18:56:55.731088-05:00 localhost sudo:  zimooo2 : TTY=pts/0 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4077MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log",
+    "line": 767168,
+    "text": "2026-09-09T00:01:24.290183-05:00 localhost sudo:  zimooo2 : TTY=pts/0 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4077MiB_run2_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log",
+    "line": 883396,
+    "text": "2026-09-09T05:09:26.490027-05:00 localhost sudo:  zimooo2 : TTY=pts/0 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4077MiB_run3_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log",
+    "line": 891903,
+    "text": "2026-09-09T05:19:49.615761-05:00 localhost sudo:  zimooo2 : TTY=pts/0 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log",
+    "line": 895876,
+    "text": "2026-09-09T05:21:21.157939-05:00 localhost sudo:  zimooo2 : TTY=pts/0 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log",
+    "line": 920003,
+    "text": "2026-09-09T05:53:25.890910-05:00 localhost sudo:  zimooo2 : TTY=pts/0 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log",
+    "line": 922932,
+    "text": "2026-09-09T06:01:13.715077-05:00 localhost sudo:  zimooo2 : TTY=pts/0 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log",
+    "line": 940047,
+    "text": "2026-09-09T06:22:06.476630-05:00 localhost sudo:  zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log",
+    "line": 945241,
+    "text": "2026-09-09T06:34:58.875222-05:00 localhost sudo:  zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log",
+    "line": 949926,
+    "text": "2026-09-09T06:54:09.163561-05:00 localhost sudo:  zimooo2 : TTY=pts/0 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "source": "/var/log/auth.log",
+    "line": 958007,
+    "text": "2026-09-09T06:59:02.981198-05:00 localhost sudo:  zimooo2 : TTY=pts/0 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run2_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  }
+]

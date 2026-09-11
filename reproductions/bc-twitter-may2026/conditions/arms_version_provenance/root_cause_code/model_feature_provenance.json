@@ -1,0 +1,167 @@
+{
+  "editor": [
+    {
+      "time": "2026-05-12T23:05:33.889000+00:00",
+      "snapshot": "/users/zimooo2/.vscode-server/data/User/History/-3fe4908d/mub3.cpp",
+      "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/root_cause_code/model_editor/mub3.cpp",
+      "sha256": "044a2d511035f5aca937f7a1e799c6403fb9741152651abd893d08c5ad79bf04",
+      "nfeat": 12,
+      "age_lines": [
+        "features[i++] = static_cast<double>(row.age > 100 ? 100 : row.age) / 100.0; // Normalize age to [0,1] with a cap at 100"
+      ],
+      "matches_may14": false
+    },
+    {
+      "time": "2026-05-12T23:05:36.048000+00:00",
+      "snapshot": "/users/zimooo2/.vscode-server/data/User/History/-3fe4908d/dwrV.cpp",
+      "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/root_cause_code/model_editor/dwrV.cpp",
+      "sha256": "a514e68c8fac8639bf0a05f88e1f4ab526193c89d4a94c2dbe9ad08c855b2075",
+      "nfeat": 12,
+      "age_lines": [
+        "features[i++] = static_cast<double>(row.age > );"
+      ],
+      "matches_may14": false
+    },
+    {
+      "time": "2026-05-12T23:05:41.028000+00:00",
+      "snapshot": "/users/zimooo2/.vscode-server/data/User/History/-3fe4908d/udfi.cpp",
+      "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/root_cause_code/model_editor/udfi.cpp",
+      "sha256": "f7075bf8d95b12d8bffaa9829e33ad70d4e0ac47f41fef71f01a5e7881fffed7",
+      "nfeat": 12,
+      "age_lines": [
+        "features[i++] = static_cast<double>(row.age > 100 ? 100 : row.age);"
+      ],
+      "matches_may14": true
+    },
+    {
+      "time": "2026-06-13T22:06:44.012000+00:00",
+      "snapshot": "/users/zimooo2/.vscode-server/data/User/History/-3fe4908d/GnjX.cpp",
+      "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/root_cause_code/model_editor/GnjX.cpp",
+      "sha256": "68d82d08d39154eaf7fc0a3aea85c9131c6f39989f68c13f1d5de51b06263e99",
+      "nfeat": 11,
+      "age_lines": [
+        "// features[i++] = static_cast<double>(row.age > 100 ? 100 : row.age);"
+      ],
+      "matches_may14": false
+    },
+    {
+      "time": "2026-06-18T16:07:41.022000+00:00",
+      "snapshot": "/users/zimooo2/.vscode-server/data/User/History/-3fe4908d/Y9D9.cpp",
+      "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/root_cause_code/model_editor/Y9D9.cpp",
+      "sha256": "44066b45a8306e92c21577260bdf2d70eab3930ac9a13a36980137f5d39b5d7e",
+      "nfeat": 11,
+      "age_lines": [
+        "features[i++] = static_cast<double>(row.age > 100 ? 100 : row.age);"
+      ],
+      "matches_may14": false
+    },
+    {
+      "time": "2026-06-18T16:07:52.055000+00:00",
+      "snapshot": "/users/zimooo2/.vscode-server/data/User/History/-3fe4908d/FnPW.cpp",
+      "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/root_cause_code/model_editor/FnPW.cpp",
+      "sha256": "f7075bf8d95b12d8bffaa9829e33ad70d4e0ac47f41fef71f01a5e7881fffed7",
+      "nfeat": 12,
+      "age_lines": [
+        "features[i++] = static_cast<double>(row.age > 100 ? 100 : row.age);"
+      ],
+      "matches_may14": true
+    },
+    {
+      "time": "2026-06-18T16:10:12.203000+00:00",
+      "snapshot": "/users/zimooo2/.vscode-server/data/User/History/-3fe4908d/iflc.cpp",
+      "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/root_cause_code/model_editor/iflc.cpp",
+      "sha256": "eb3f80fe6fcf4eec45137da4e67c12cb85a74eeea27d23b97067e2a2661869fb",
+      "nfeat": 12,
+      "age_lines": [
+        "features[i++] = static_cast<double>(row.age > 100 ? 100 : row.age);"
+      ],
+      "matches_may14": false
+    },
+    {
+      "time": "2026-06-18T16:10:14.821000+00:00",
+      "snapshot": "/users/zimooo2/.vscode-server/data/User/History/-3fe4908d/4MRC.cpp",
+      "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/root_cause_code/model_editor/4MRC.cpp",
+      "sha256": "f7075bf8d95b12d8bffaa9829e33ad70d4e0ac47f41fef71f01a5e7881fffed7",
+      "nfeat": 12,
+      "age_lines": [
+        "features[i++] = static_cast<double>(row.age > 100 ? 100 : row.age);"
+      ],
+      "matches_may14": true
+    },
+    {
+      "time": "2026-06-18T16:10:17.462000+00:00",
+      "snapshot": "/users/zimooo2/.vscode-server/data/User/History/-3fe4908d/b1ct.cpp",
+      "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/root_cause_code/model_editor/b1ct.cpp",
+      "sha256": "fb9c7d25de8805f029589c86df59c4d5b36f3aa00fc52167b105417fb2fdfdde",
+      "nfeat": 12,
+      "age_lines": [
+        "features[i++] = static_cast<double>(row.age > 100 ? 100 : row.age);"
+      ],
+      "matches_may14": false
+    },
+    {
+      "time": "2026-06-18T16:10:19.111000+00:00",
+      "snapshot": "/users/zimooo2/.vscode-server/data/User/History/-3fe4908d/edbQ.cpp",
+      "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/root_cause_code/model_editor/edbQ.cpp",
+      "sha256": "53435012f4b933ae97e26ef8df831430f361944968f69b3114a9458fc17e816a",
+      "nfeat": 12,
+      "age_lines": [
+        "features[i++] = static_cast<double>(row.age > 100 ? 100 : row.age);"
+      ],
+      "matches_may14": false
+    },
+    {
+      "time": "2026-06-18T16:10:22.524000+00:00",
+      "snapshot": "/users/zimooo2/.vscode-server/data/User/History/-3fe4908d/Fpit.cpp",
+      "copy": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/root_cause_code/model_editor/Fpit.cpp",
+      "sha256": "94285a79e3c26ce6a84b69696e3d967bfb1c9efcd38e4d1b0fe2713855cb0c79",
+      "nfeat": 12,
+      "age_lines": [
+        "features[i++] = static_cast<double>(row.age > 100 ? 100 : row.age);"
+      ],
+      "matches_may14": false
+    }
+  ],
+  "retained_forests": [
+    {
+      "file": "models/old/model_discounted_reward_99_bc-twitter.sg_l2.txt",
+      "features": "feature_names=ewma_2 ewma_5 ewma_20 ewma_100 global_avg_accesses_model group_neg_mean group_pos_mean group_0_mean age r_ratio_20 r_ratio_100 group_ewma5_var",
+      "max_index": 11,
+      "n_trees": 128,
+      "trees_with_index11": 117,
+      "splits_index11": 310,
+      "txt_sha256": "57c39dda632eddbb5a0e1f2006f81d7778ec967634243dd1803a8278eaf285df",
+      "object_sha256": "763ad7a415847b832a89389d6a20bca1a4f8d01871b0d69186aee7f943591585"
+    },
+    {
+      "file": "models/no_age/model_discounted_reward_99_bc-twitter.sg_l2.txt",
+      "features": "feature_names=ewma_2 ewma_5 ewma_20 ewma_100 global_avg_accesses_model group_neg_mean group_pos_mean group_0_mean age r_ratio_20 r_ratio_100 group_ewma5_var",
+      "max_index": 11,
+      "n_trees": 96,
+      "trees_with_index11": 96,
+      "splits_index11": 743,
+      "txt_sha256": "a965a5dc3b9e69825e16a741b86c734d7e02a460e043664ee7396619800d41e9",
+      "object_sha256": "96148ddca2bbc531768cef66f9012cf91830696b683a82b6d7dbd52cfebb60dc"
+    },
+    {
+      "file": "models/with_age/model_discounted_reward_99_bc-twitter.sg_l2.txt",
+      "features": "feature_names=ewma_2 ewma_5 ewma_20 ewma_100 global_avg_accesses_model group_neg_mean group_pos_mean group_0_mean age r_ratio_20 r_ratio_100 group_ewma5_var",
+      "max_index": 11,
+      "n_trees": 96,
+      "trees_with_index11": 96,
+      "splits_index11": 743,
+      "txt_sha256": "a965a5dc3b9e69825e16a741b86c734d7e02a460e043664ee7396619800d41e9",
+      "object_sha256": "96148ddca2bbc531768cef66f9012cf91830696b683a82b6d7dbd52cfebb60dc"
+    },
+    {
+      "file": "models/model_discounted_reward_99_bc-twitter.sg_l2.txt",
+      "features": "feature_names=ewma_2 ewma_5 ewma_20 ewma_100 global_avg_accesses_model group_neg_mean group_pos_mean group_0_mean age r_ratio_20 r_ratio_100 group_ewma5_var",
+      "max_index": 11,
+      "n_trees": 96,
+      "trees_with_index11": 83,
+      "splits_index11": 280,
+      "txt_sha256": "ddee33ea89113f2735d8adbda395cf45b169ba3c292f1da8989c4b21e0625b03",
+      "object_sha256": "1a0cf6217dbf4d07736f28b2a166d3fbdaf479a82bdf014da7a6f629bb44ceb6"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "source": "reproductions/bc-twitter-may2026/conditions/sessions/20260909T133945Z-186003/pmem_detach.json",
+  "namespace": "/sys/bus/nd/devices/namespace7.0",
+  "physical_capacity_changed": false,
+  "before_utc": "2026-09-09T13:39:45.895210+00:00",
+  "after_utc": "2026-09-09T13:39:46.063959+00:00",
+  "nodes": {
+    "0": {
+      "MemTotal": {
+        "before_kib": 4737988,
+        "after_kib": 4737988,
+        "delta_kib": 0
+      },
+      "MemFree": {
+        "before_kib": 2552164,
+        "after_kib": 4029228,
+        "delta_kib": 1477064
+      },
+      "MemUsed": {
+        "before_kib": 2185824,
+        "after_kib": 708760,
+        "delta_kib": -1477064
+      },
+      "Slab": {
+        "before_kib": 204740,
+        "after_kib": 204688,
+        "delta_kib": -52
+      },
+      "PageTables": {
+        "before_kib": 18044,
+        "after_kib": 17800,
+        "delta_kib": -244
+      }
+    },
+    "1": {
+      "MemTotal": {
+        "before_kib": 99030844,
+        "after_kib": 99030844,
+        "delta_kib": 0
+      },
+      "MemFree": {
+        "before_kib": 81698756,
+        "after_kib": 81698756,
+        "delta_kib": 0
+      },
+      "MemUsed": {
+        "before_kib": 17332088,
+        "after_kib": 17332088,
+        "delta_kib": 0
+      },
+      "Slab": {
+        "before_kib": 244908,
+        "after_kib": 244960,
+        "delta_kib": 52
+      },
+      "PageTables": {
+        "before_kib": 27812,
+        "after_kib": 28384,
+        "delta_kib": 572
+      }
+    }
+  },
+  "vmstat": {
+    "nr_memmap_pages": {
+      "before_pages": 368704,
+      "after_pages": 64,
+      "delta_pages": -368640
+    },
+    "nr_memmap_boot_pages": {
+      "before_pages": 412672,
+      "after_pages": 412672,
+      "delta_pages": 0
+    },
+    "nr_free_pages": {
+      "before_pages": 21062730,
+      "after_pages": 21429948,
+      "delta_pages": 367218
+    }
+  },
+  "memmap_storage_freed_mib": 1440.0,
+  "node0_memfree_gain_mib": 1442.4453125,
+  "difference_between_free_gain_and_memmap_mib": 2.4453125,
+  "interpretation": "Observedmemmapcounterdrop confirms1440MiBdevicemetadata; free-memorysnapshotsinclude2.445MiBadditionalallocationnoise. Historicaldriverstateandruntimeperformancecausalityremainunproven."
+}

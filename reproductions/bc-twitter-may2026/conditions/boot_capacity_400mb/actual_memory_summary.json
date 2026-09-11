@@ -1,0 +1,690 @@
+{
+  "generated_utc": "2026-09-09T19:54:12.230444+00:00",
+  "journal_boots_with_identity_headers": 22,
+  "journal_full_boot_list_count": 22,
+  "all_boot_headers_covered_by_combining_queries": true,
+  "recent_headers_query_returncode": -2,
+  "recent_headers_query_note": "Stopped own long query with SIGINT after20olderbootidentities; separate completedcurrent/priorbootqueries provide last2 identities. Original partialresult preserved.",
+  "boot_summaries": [
+    {
+      "boot_id": "2536aeeef2f34e4c88b0a2916cd27b44",
+      "header_receipt_utc": "2026-09-07T06:59:59.056551+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "command_line": "Command line: BOOT_IMAGE=/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro",
+      "early_memory_line": "Memory: 196359564K/199924028K available (23041K kernel code, 4733K rwdata, 16932K rodata, 5184K init, 6260K bss, 3288712K reserved, 0K cma-reserved)",
+      "zone_readbacks": {}
+    },
+    {
+      "boot_id": "b72f5e3ac43b4c4d84c69a76879bbced",
+      "header_receipt_utc": "2026-09-07T15:18:22.438527+00:00",
+      "kernel": "5.15.19-htmm-node0",
+      "command_line": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro",
+      "early_memory_line": "Memory: 196657940K/199924028K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 3265828K reserved, 0K cma-reserved)",
+      "zone_readbacks": {}
+    },
+    {
+      "boot_id": "1ee18c8173864e06891024d1256541a0",
+      "header_receipt_utc": "2026-09-07T15:27:26.227813+00:00",
+      "kernel": "5.15.19-htmm-node0",
+      "command_line": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "early_memory_line": "Memory: 105825076K/107649340K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 1824004K reserved, 0K cma-reserved)",
+      "zone_readbacks": {
+        "node0_DMA": [
+          {
+            "present_kib": 15984,
+            "managed_kib": 15360,
+            "raw": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788796012456795",
+            "journal_monotonic_us": "1178482128"
+          }
+        ],
+        "node0_DMA32": [
+          {
+            "present_kib": 1727180,
+            "managed_kib": 1661644,
+            "raw": "Node 0 DMA32 free:36260kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:746012kB inactive_anon:254492kB active_file:32kB inactive_file:140kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:22588kB local_pcp:832kB free_cma:0kB",
+            "journal_realtime_us": "1788796012457065",
+            "journal_monotonic_us": "1178482399"
+          }
+        ],
+        "node0_Normal": [
+          {
+            "present_kib": 5242880,
+            "managed_kib": 5127208,
+            "raw": "Node 0 Normal free:52776kB min:52836kB low:65532kB high:78228kB reserved_highatomic:0KB active_anon:1797196kB inactive_anon:869864kB active_file:324kB inactive_file:100kB unevictable:3072kB writepending:4kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:29620kB local_pcp:844kB free_cma:0kB",
+            "journal_realtime_us": "1788796012457192",
+            "journal_monotonic_us": "1178482526"
+          }
+        ],
+        "node1_Normal": [
+          {
+            "present_kib": 100663296,
+            "managed_kib": 99048532,
+            "raw": "Node 1 Normal free:73597836kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:723276kB inactive_anon:10698656kB active_file:161120kB inactive_file:12298140kB unevictable:43592kB writepending:20kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:201968kB local_pcp:336kB free_cma:0kB",
+            "journal_realtime_us": "1788796012457332",
+            "journal_monotonic_us": "1178482666"
+          }
+        ]
+      },
+      "node0_managed_kib": 6804212
+    },
+    {
+      "boot_id": "98191d8e4d6d4efcb44bdb91949f0405",
+      "header_receipt_utc": "2026-09-07T16:08:38.156976+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "command_line": "Command line: BOOT_IMAGE=/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "early_memory_line": "Memory: 105625044K/107649340K available (23041K kernel code, 4733K rwdata, 16932K rodata, 5184K init, 6260K bss, 1846860K reserved, 0K cma-reserved)",
+      "zone_readbacks": {}
+    },
+    {
+      "boot_id": "e775d948fd20446b94e9d00dc2951818",
+      "header_receipt_utc": "2026-09-07T19:08:12.651591+00:00",
+      "kernel": "5.15.19-htmm-node0-fix1",
+      "command_line": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0-fix1 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "early_memory_line": "Memory: 105825068K/107649340K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 1824012K reserved, 0K cma-reserved)",
+      "zone_readbacks": {}
+    },
+    {
+      "boot_id": "e30de8fc829f44c2a20c69bc6f9395f1",
+      "header_receipt_utc": "2026-09-07T21:02:00.184009+00:00",
+      "kernel": "5.15.19-htmm-node0-fix2",
+      "command_line": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0-fix2 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "early_memory_line": "Memory: 105798216K/107649340K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 1850864K reserved, 0K cma-reserved)",
+      "zone_readbacks": {
+        "node0_DMA": [
+          {
+            "present_kib": 15984,
+            "managed_kib": 15360,
+            "raw": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788815531678722",
+            "journal_monotonic_us": "620916769"
+          }
+        ],
+        "node0_DMA32": [
+          {
+            "present_kib": 1727180,
+            "managed_kib": 1661644,
+            "raw": "Node 0 DMA32 free:36428kB min:18508kB low:22620kB high:26732kB reserved_highatomic:0KB active_anon:1116164kB inactive_anon:431412kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:848kB local_pcp:68kB free_cma:0kB",
+            "journal_realtime_us": "1788815531678837",
+            "journal_monotonic_us": "620916885"
+          }
+        ],
+        "node0_Normal": [
+          {
+            "present_kib": 5242880,
+            "managed_kib": 5093540,
+            "raw": "Node 0 Normal free:54532kB min:54552kB low:67164kB high:79776kB reserved_highatomic:0KB active_anon:621336kB inactive_anon:1649136kB active_file:1640kB inactive_file:1072kB unevictable:3072kB writepending:4kB present:5242880kB managed:5093540kB mlocked:0kB bounce:0kB free_pcp:4208kB local_pcp:12kB free_cma:0kB",
+            "journal_realtime_us": "1788815531678970",
+            "journal_monotonic_us": "620917018"
+          }
+        ],
+        "node1_Normal": [
+          {
+            "present_kib": 100663296,
+            "managed_kib": 99082200,
+            "raw": "Node 1 Normal free:73923864kB min:981504kB low:1226880kB high:1472256kB reserved_highatomic:0KB active_anon:8342220kB inactive_anon:3745712kB active_file:143564kB inactive_file:12313040kB unevictable:43592kB writepending:52kB present:100663296kB managed:99082200kB mlocked:43592kB bounce:0kB free_pcp:63620kB local_pcp:632kB free_cma:0kB",
+            "journal_realtime_us": "1788815531679091",
+            "journal_monotonic_us": "620917138"
+          }
+        ]
+      },
+      "node0_managed_kib": 6770544
+    },
+    {
+      "boot_id": "d87710787fdf4d5389d79daaef4933c4",
+      "header_receipt_utc": "2026-09-08T06:58:28.484958+00:00",
+      "kernel": "5.15.19-htmm-node0-fix3",
+      "command_line": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0-fix3 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "early_memory_line": "Memory: 105798216K/107649340K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 1850864K reserved, 0K cma-reserved)",
+      "zone_readbacks": {
+        "node0_DMA": [
+          {
+            "present_kib": 15984,
+            "managed_kib": 15360,
+            "raw": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788853563464130",
+            "journal_monotonic_us": "2864683833"
+          }
+        ],
+        "node0_DMA32": [
+          {
+            "present_kib": 1727180,
+            "managed_kib": 1661644,
+            "raw": "Node 0 DMA32 free:51916kB min:32844kB low:36956kB high:41068kB reserved_highatomic:0KB active_anon:32kB inactive_anon:1544916kB active_file:24kB inactive_file:40kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788853563464249",
+            "journal_monotonic_us": "2864683952"
+          }
+        ],
+        "node0_Normal": [
+          {
+            "present_kib": 5242880,
+            "managed_kib": 5127208,
+            "raw": "Node 0 Normal free:121996kB min:124516kB low:137212kB high:149908kB reserved_highatomic:0KB active_anon:92kB inactive_anon:2109280kB active_file:820kB inactive_file:1480kB unevictable:3072kB writepending:0kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788853563464405",
+            "journal_monotonic_us": "2864684109"
+          }
+        ],
+        "node1_Normal": [
+          {
+            "present_kib": 100663296,
+            "managed_kib": 99048532,
+            "raw": "Node 1 Normal free:86056284kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:17244kB inactive_anon:5997588kB active_file:264076kB inactive_file:6121468kB unevictable:43592kB writepending:24kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788853563464537",
+            "journal_monotonic_us": "2864684241"
+          }
+        ]
+      },
+      "node0_managed_kib": 6804212
+    },
+    {
+      "boot_id": "a1bd6a703cf843f094c4ee5fb0a50761",
+      "header_receipt_utc": "2026-09-08T08:59:32.497640+00:00",
+      "kernel": "5.15.19-htmm-node0-fix5",
+      "command_line": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0-fix5 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "early_memory_line": "Memory: 105798216K/107649340K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 1850864K reserved, 0K cma-reserved)",
+      "zone_readbacks": {
+        "node0_DMA": [
+          {
+            "present_kib": 15984,
+            "managed_kib": 15360,
+            "raw": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788859122225184",
+            "journal_monotonic_us": "1162229085"
+          }
+        ],
+        "node0_DMA32": [
+          {
+            "present_kib": 1727180,
+            "managed_kib": 1661644,
+            "raw": "Node 0 DMA32 free:36380kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:9188kB inactive_anon:1564572kB active_file:88kB inactive_file:96kB unevictable:0kB writepending:4kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:10856kB local_pcp:532kB free_cma:0kB",
+            "journal_realtime_us": "1788859122225307",
+            "journal_monotonic_us": "1162229208"
+          }
+        ],
+        "node0_Normal": [
+          {
+            "present_kib": 5242880,
+            "managed_kib": 5127208,
+            "raw": "Node 0 Normal free:50596kB min:50788kB low:63484kB high:76180kB reserved_highatomic:0KB active_anon:0kB inactive_anon:2435400kB active_file:140kB inactive_file:252kB unevictable:3072kB writepending:8kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:35256kB local_pcp:1792kB free_cma:0kB",
+            "journal_realtime_us": "1788859122225428",
+            "journal_monotonic_us": "1162229329"
+          }
+        ],
+        "node1_Normal": [
+          {
+            "present_kib": 100663296,
+            "managed_kib": 99048532,
+            "raw": "Node 1 Normal free:78935276kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:299580kB inactive_anon:5462736kB active_file:9522552kB inactive_file:3106944kB unevictable:43592kB writepending:20kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:338432kB local_pcp:2388kB free_cma:0kB",
+            "journal_realtime_us": "1788859122225570",
+            "journal_monotonic_us": "1162229470"
+          }
+        ]
+      },
+      "node0_managed_kib": 6804212
+    },
+    {
+      "boot_id": "7e34868460204965b9885bae6b59b941",
+      "header_receipt_utc": "2026-09-08T09:45:03.471553+00:00",
+      "kernel": "5.15.19-htmm-node0-fix6",
+      "command_line": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0-fix6 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "early_memory_line": "Memory: 105798208K/107649340K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 1850872K reserved, 0K cma-reserved)",
+      "zone_readbacks": {
+        "node0_DMA": [
+          {
+            "present_kib": 15984,
+            "managed_kib": 15360,
+            "raw": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788861275364502",
+            "journal_monotonic_us": "581603844"
+          }
+        ],
+        "node0_DMA32": [
+          {
+            "present_kib": 1727180,
+            "managed_kib": 1627976,
+            "raw": "Node 0 DMA32 free:33828kB min:16124kB low:20152kB high:24180kB reserved_highatomic:0KB active_anon:0kB inactive_anon:1269760kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1627976kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788861275364615",
+            "journal_monotonic_us": "581603958"
+          }
+        ],
+        "node0_Normal": [
+          {
+            "present_kib": 5242880,
+            "managed_kib": 5127208,
+            "raw": "Node 0 Normal free:68944kB min:69220kB low:81916kB high:94612kB reserved_highatomic:0KB active_anon:4176kB inactive_anon:2398832kB active_file:724kB inactive_file:2624kB unevictable:3072kB writepending:0kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788861275364737",
+            "journal_monotonic_us": "581604080"
+          }
+        ],
+        "node1_Normal": [
+          {
+            "present_kib": 100663296,
+            "managed_kib": 99082192,
+            "raw": "Node 1 Normal free:65425444kB min:981504kB low:1226880kB high:1472256kB reserved_highatomic:0KB active_anon:22800kB inactive_anon:15257268kB active_file:75108kB inactive_file:17740624kB unevictable:43592kB writepending:16kB present:100663296kB managed:99082192kB mlocked:43592kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788861275364864",
+            "journal_monotonic_us": "581604207"
+          }
+        ]
+      },
+      "node0_managed_kib": 6770544
+    },
+    {
+      "boot_id": "1125e4bc0a104100a6d9182beda6127b",
+      "header_receipt_utc": "2026-09-08T11:40:03.233750+00:00",
+      "kernel": "5.15.19-htmm-node0-fix7-baseline",
+      "command_line": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0-fix7-baseline root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "early_memory_line": "Memory: 105798208K/107649340K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 1850872K reserved, 0K cma-reserved)",
+      "zone_readbacks": {
+        "node0_DMA": [
+          {
+            "present_kib": 15984,
+            "managed_kib": 15360,
+            "raw": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788868926227710",
+            "journal_monotonic_us": "1332582470"
+          }
+        ],
+        "node0_DMA32": [
+          {
+            "present_kib": 1727180,
+            "managed_kib": 1661644,
+            "raw": "Node 0 DMA32 free:36376kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:66268kB inactive_anon:1423448kB active_file:0kB inactive_file:4kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:5804kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788868926227828",
+            "journal_monotonic_us": "1332582587"
+          }
+        ],
+        "node0_Normal": [
+          {
+            "present_kib": 5242880,
+            "managed_kib": 5127208,
+            "raw": "Node 0 Normal free:57624kB min:58980kB low:71676kB high:84372kB reserved_highatomic:0KB active_anon:998612kB inactive_anon:1231536kB active_file:144kB inactive_file:0kB unevictable:3072kB writepending:4kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:2724kB local_pcp:212kB free_cma:0kB",
+            "journal_realtime_us": "1788868926227967",
+            "journal_monotonic_us": "1332582727"
+          }
+        ],
+        "node1_Normal": [
+          {
+            "present_kib": 100663296,
+            "managed_kib": 99048532,
+            "raw": "Node 1 Normal free:78093908kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:6688kB inactive_anon:7588496kB active_file:112656kB inactive_file:12622712kB unevictable:43592kB writepending:168kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:21076kB local_pcp:148kB free_cma:0kB",
+            "journal_realtime_us": "1788868926228092",
+            "journal_monotonic_us": "1332582852"
+          }
+        ]
+      },
+      "node0_managed_kib": 6804212
+    },
+    {
+      "boot_id": "312d13a469b5469baadd1b24fc0f24da",
+      "header_receipt_utc": "2026-09-08T13:50:53.018767+00:00",
+      "kernel": "5.15.19-htmm-node0-fix7-baseline",
+      "command_line": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0-fix7-baseline root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "early_memory_line": "Memory: 105798204K/107649340K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 1850876K reserved, 0K cma-reserved)",
+      "zone_readbacks": {}
+    },
+    {
+      "boot_id": "7306dcdd1d314cec931d3acc6e2bb137",
+      "header_receipt_utc": "2026-09-08T13:58:12.828709+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "command_line": "Command line: BOOT_IMAGE=/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "early_memory_line": "Memory: 105624976K/107649340K available (23041K kernel code, 4733K rwdata, 16932K rodata, 5184K init, 6260K bss, 1846840K reserved, 0K cma-reserved)",
+      "zone_readbacks": {}
+    },
+    {
+      "boot_id": "90bfdd6b6fe24814a538e6b785103072",
+      "header_receipt_utc": "2026-09-08T14:01:57.445737+00:00",
+      "kernel": "5.15.19-htmm-node0-fix7-baseline",
+      "command_line": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0-fix7-baseline root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "early_memory_line": "Memory: 105798208K/107649340K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 1850872K reserved, 0K cma-reserved)",
+      "zone_readbacks": {
+        "node0_DMA": [
+          {
+            "present_kib": 15984,
+            "managed_kib": 15360,
+            "raw": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788876482507746",
+            "journal_monotonic_us": "377530959"
+          }
+        ],
+        "node0_DMA32": [
+          {
+            "present_kib": 1727180,
+            "managed_kib": 1661644,
+            "raw": "Node 0 DMA32 free:36448kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:4096kB inactive_anon:1368096kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788876482507794",
+            "journal_monotonic_us": "377531008"
+          }
+        ],
+        "node0_Normal": [
+          {
+            "present_kib": 5242880,
+            "managed_kib": 5127208,
+            "raw": "Node 0 Normal free:50520kB min:50788kB low:63484kB high:76180kB reserved_highatomic:0KB active_anon:2128kB inactive_anon:2411640kB active_file:0kB inactive_file:744kB unevictable:3072kB writepending:0kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:560kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788876482507841",
+            "journal_monotonic_us": "377531054"
+          }
+        ],
+        "node1_Normal": [
+          {
+            "present_kib": 100663296,
+            "managed_kib": 99048532,
+            "raw": "Node 1 Normal free:64816076kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:13496860kB inactive_anon:2237164kB active_file:122964kB inactive_file:17743036kB unevictable:43592kB writepending:72kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:652kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788876482507898",
+            "journal_monotonic_us": "377531111"
+          }
+        ]
+      },
+      "node0_managed_kib": 6804212
+    },
+    {
+      "boot_id": "d279ae290e214372a62743be0ffc6b8c",
+      "header_receipt_utc": "2026-09-08T15:18:06.297850+00:00",
+      "kernel": "5.15.19-htmm-node0-fix8-workers",
+      "command_line": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0-fix8-workers root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "early_memory_line": "Memory: 105798212K/107649340K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 1850868K reserved, 0K cma-reserved)",
+      "zone_readbacks": {
+        "node0_DMA": [
+          {
+            "present_kib": 15984,
+            "managed_kib": 15360,
+            "raw": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788880910396102",
+            "journal_monotonic_us": "233648906"
+          }
+        ],
+        "node0_Normal": [
+          {
+            "present_kib": 5242880,
+            "managed_kib": 5127208,
+            "raw": "Node 0 Normal free:59988kB min:61028kB low:73724kB high:86420kB reserved_highatomic:0KB active_anon:564040kB inactive_anon:1785300kB active_file:768kB inactive_file:1340kB unevictable:3072kB writepending:20kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:3076kB local_pcp:24kB free_cma:0kB",
+            "journal_realtime_us": "1788880910396243",
+            "journal_monotonic_us": "233649047"
+          }
+        ],
+        "node1_Normal": [
+          {
+            "present_kib": 100663296,
+            "managed_kib": 99048532,
+            "raw": "Node 1 Normal free:75877588kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:3584552kB inactive_anon:5459484kB active_file:126912kB inactive_file:12486368kB unevictable:43592kB writepending:68kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:2216kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788880910396298",
+            "journal_monotonic_us": "233649102"
+          }
+        ],
+        "node0_DMA32": [
+          {
+            "present_kib": 1727180,
+            "managed_kib": 1661644,
+            "raw": "Node 0 DMA32 free:36324kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:1136396kB inactive_anon:99644kB active_file:48kB inactive_file:16kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:5312kB local_pcp:232kB free_cma:0kB",
+            "journal_realtime_us": "1788882174959410",
+            "journal_monotonic_us": "1498212214"
+          }
+        ]
+      },
+      "node0_managed_kib": 6804212
+    },
+    {
+      "boot_id": "e79ea3efd7984057b0ed5e0a13fe0528",
+      "header_receipt_utc": "2026-09-08T17:01:16.825091+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "command_line": "Command line: BOOT_IMAGE=/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "early_memory_line": "Memory: 105625152K/107649340K available (23041K kernel code, 4733K rwdata, 16932K rodata, 5184K init, 6260K bss, 1846860K reserved, 0K cma-reserved)",
+      "zone_readbacks": {
+        "node0_DMA": [
+          {
+            "present_kib": 15984,
+            "managed_kib": 15360,
+            "raw": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788887020617773",
+            "journal_monotonic_us": "154172594"
+          }
+        ],
+        "node0_DMA32": [
+          {
+            "present_kib": 1727180,
+            "managed_kib": 1661644,
+            "raw": "Node 0 DMA32 free:36376kB boost:0kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:1620240kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:996kB local_pcp:248kB free_cma:0kB",
+            "journal_realtime_us": "1788887020617870",
+            "journal_monotonic_us": "154172691"
+          }
+        ],
+        "node0_Normal": [
+          {
+            "present_kib": 5242880,
+            "managed_kib": 5125364,
+            "raw": "Node 0 Normal free:45540kB boost:0kB min:50780kB low:63472kB high:76164kB reserved_highatomic:0KB free_highatomic:0KB active_anon:20kB inactive_anon:2597264kB active_file:24kB inactive_file:148kB unevictable:3072kB writepending:0kB zspages:0kB present:5242880kB managed:5125364kB mlocked:0kB bounce:0kB free_pcp:8308kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788887020617956",
+            "journal_monotonic_us": "154172777"
+          }
+        ],
+        "node1_Normal": [
+          {
+            "present_kib": 100663296,
+            "managed_kib": 99030844,
+            "raw": "Node 1 Normal free:79096144kB boost:0kB min:981176kB low:1226468kB high:1471760kB reserved_highatomic:0KB free_highatomic:0KB active_anon:77296kB inactive_anon:8668164kB active_file:47524kB inactive_file:10158740kB unevictable:39320kB writepending:0kB zspages:0kB present:100663296kB managed:99030844kB mlocked:39320kB bounce:0kB free_pcp:12632kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788887020618047",
+            "journal_monotonic_us": "154172868"
+          }
+        ]
+      },
+      "node0_managed_kib": 6802368
+    },
+    {
+      "boot_id": "4a165569e4294354ad90c10dc6a2b6d3",
+      "header_receipt_utc": "2026-09-08T17:29:28.070751+00:00",
+      "kernel": "5.15.19-htmm-node0-fix8-workers",
+      "command_line": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0-fix8-workers root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "early_memory_line": "Memory: 105798212K/107649340K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 1850868K reserved, 0K cma-reserved)",
+      "zone_readbacks": {
+        "node0_DMA": [
+          {
+            "present_kib": 15984,
+            "managed_kib": 15360,
+            "raw": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788889439070350",
+            "journal_monotonic_us": "881322205"
+          }
+        ],
+        "node0_DMA32": [
+          {
+            "present_kib": 1727180,
+            "managed_kib": 1661644,
+            "raw": "Node 0 DMA32 free:36068kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:12288kB inactive_anon:1450592kB active_file:0kB inactive_file:612kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:356kB local_pcp:20kB free_cma:0kB",
+            "journal_realtime_us": "1788889439070471",
+            "journal_monotonic_us": "881322326"
+          }
+        ],
+        "node0_Normal": [
+          {
+            "present_kib": 5242880,
+            "managed_kib": 5127208,
+            "raw": "Node 0 Normal free:50776kB min:50788kB low:63484kB high:76180kB reserved_highatomic:0KB active_anon:22496kB inactive_anon:2267392kB active_file:1132kB inactive_file:1668kB unevictable:3072kB writepending:16kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:272kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788889439070605",
+            "journal_monotonic_us": "881322461"
+          }
+        ],
+        "node1_Normal": [
+          {
+            "present_kib": 100663296,
+            "managed_kib": 99048532,
+            "raw": "Node 1 Normal free:64830960kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:12499504kB inactive_anon:3000956kB active_file:148920kB inactive_file:17923580kB unevictable:43592kB writepending:88kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:808kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788889439070730",
+            "journal_monotonic_us": "881322586"
+          }
+        ]
+      },
+      "node0_managed_kib": 6804212
+    },
+    {
+      "boot_id": "2a8df903c7d14419b1e97c801cf7497e",
+      "header_receipt_utc": "2026-09-08T17:54:57.672079+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "command_line": "Command line: BOOT_IMAGE=/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "early_memory_line": "Memory: 105625164K/107649340K available (23041K kernel code, 4733K rwdata, 16932K rodata, 5184K init, 6260K bss, 1846872K reserved, 0K cma-reserved)",
+      "zone_readbacks": {}
+    },
+    {
+      "boot_id": "eeb523eca1bc4da6b7afe3bdbd326667",
+      "header_receipt_utc": "2026-09-08T18:10:31.901985+00:00",
+      "kernel": "6.2.0-060200-generic",
+      "command_line": "Command line: BOOT_IMAGE=/boot/vmlinuz-6.2.0-060200-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "early_memory_line": "Memory: 105814796K/107649340K available (20480K kernel code, 4140K rwdata, 12700K rodata, 4484K init, 5544K bss, 1834284K reserved, 0K cma-reserved)",
+      "zone_readbacks": {}
+    },
+    {
+      "boot_id": "481c7716b93e4b079ca7d0beeacd4b41",
+      "header_receipt_utc": "2026-09-08T18:15:00.783434+00:00",
+      "kernel": "6.2.0-060200-generic",
+      "command_line": "Command line: BOOT_IMAGE=/boot/vmlinuz-6.2.0-060200-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=92G!2G",
+      "early_memory_line": "Memory: 103750396K/105552188K available (20480K kernel code, 4140K rwdata, 12700K rodata, 4484K init, 5544K bss, 1801532K reserved, 0K cma-reserved)",
+      "zone_readbacks": {}
+    },
+    {
+      "boot_id": "f8439f05fcfa40deae87c4f51e71b03b",
+      "header_receipt_utc": "2026-09-08T18:24:13.602416+00:00",
+      "kernel": "6.2.0-hybridtier+",
+      "command_line": "Command line: BOOT_IMAGE=/boot/vmlinuz-6.2.0-hybridtier+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=92G!2G",
+      "early_memory_line": "Memory: 103481416K/105552188K available (110592K kernel code, 21776K rwdata, 89028K rodata, 15716K init, 6920K bss, 2070512K reserved, 0K cma-reserved)",
+      "zone_readbacks": {
+        "node0_DMA": [
+          {
+            "present_kib": 15984,
+            "managed_kib": 15360,
+            "raw": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788893069876343",
+            "journal_monotonic_us": "1245454579"
+          }
+        ],
+        "node0_DMA32": [
+          {
+            "present_kib": 1727180,
+            "managed_kib": 1661644,
+            "raw": "Node 0 DMA32 free:30752kB boost:2048kB min:18864kB low:23068kB high:27272kB reserved_highatomic:0KB active_anon:0kB inactive_anon:1617612kB active_file:24kB inactive_file:20kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:1196kB local_pcp:248kB free_cma:0kB",
+            "journal_realtime_us": "1788893069876492",
+            "journal_monotonic_us": "1245454728"
+          }
+        ],
+        "node0_Normal": [
+          {
+            "present_kib": 3145728,
+            "managed_kib": 3062664,
+            "raw": "Node 0 Normal free:33580kB boost:4096kB min:35096kB low:42844kB high:50592kB reserved_highatomic:0KB active_anon:24kB inactive_anon:818252kB active_file:60kB inactive_file:60kB unevictable:1752kB writepending:0kB present:3145728kB managed:3062664kB mlocked:216kB bounce:0kB free_pcp:1832kB local_pcp:248kB free_cma:0kB",
+            "journal_realtime_us": "1788893069876640",
+            "journal_monotonic_us": "1245454876"
+          }
+        ],
+        "node1_Normal": [
+          {
+            "present_kib": 100663296,
+            "managed_kib": 98854916,
+            "raw": "Node 1 Normal free:72729720kB boost:0kB min:1000600kB low:1250748kB high:1500896kB reserved_highatomic:0KB active_anon:996460kB inactive_anon:11377684kB active_file:380568kB inactive_file:12572700kB unevictable:45044kB writepending:12356kB present:100663296kB managed:98854916kB mlocked:43508kB bounce:0kB free_pcp:76240kB local_pcp:11504kB free_cma:0kB",
+            "journal_realtime_us": "1788893069876806",
+            "journal_monotonic_us": "1245455042"
+          }
+        ]
+      },
+      "node0_managed_kib": 4739668
+    },
+    {
+      "boot_id": "8d89477fa10d420cb3fb6ef5f44ea07e",
+      "header_receipt_utc": "2026-09-08T20:20:16.979533+00:00",
+      "kernel": "6.2.0-060200-generic",
+      "command_line": "Command line: BOOT_IMAGE=/boot/vmlinuz-6.2.0-060200-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=92G!2G",
+      "early_memory_line": "Memory: 103750400K/105552188K available (20480K kernel code, 4140K rwdata, 12700K rodata, 4484K init, 5544K bss, 1801528K reserved, 0K cma-reserved)",
+      "zone_readbacks": {
+        "node0_DMA": [
+          {
+            "present_kib": 15984,
+            "managed_kib": 15360,
+            "raw": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788900563108885",
+            "journal_monotonic_us": "1759562150"
+          }
+        ],
+        "node0_DMA32": [
+          {
+            "present_kib": 1727180,
+            "managed_kib": 1661644,
+            "raw": "Node 0 DMA32 free:28300kB boost:0kB min:16788kB low:20984kB high:25180kB reserved_highatomic:0KB active_anon:0kB inactive_anon:1586032kB active_file:0kB inactive_file:64kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:1372kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788900563109853",
+            "journal_monotonic_us": "1759563118"
+          }
+        ],
+        "node0_Normal": [
+          {
+            "present_kib": 3145728,
+            "managed_kib": 3062824,
+            "raw": "Node 0 Normal free:30620kB boost:0kB min:30944kB low:38680kB high:46416kB reserved_highatomic:0KB active_anon:28kB inactive_anon:909528kB active_file:588kB inactive_file:652kB unevictable:316kB writepending:4kB present:3145728kB managed:3062824kB mlocked:316kB bounce:0kB free_pcp:472kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788900563109922",
+            "journal_monotonic_us": "1759563187"
+          }
+        ],
+        "node1_Normal": [
+          {
+            "present_kib": 100663296,
+            "managed_kib": 99040864,
+            "raw": "Node 1 Normal free:3646692kB boost:0kB min:1000684kB low:1250852kB high:1501020kB reserved_highatomic:0KB active_anon:272kB inactive_anon:81708660kB active_file:401632kB inactive_file:11858680kB unevictable:43276kB writepending:4kB present:100663296kB managed:99040864kB mlocked:43276kB bounce:0kB free_pcp:3452kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788900563110342",
+            "journal_monotonic_us": "1759563607"
+          }
+        ]
+      },
+      "node0_managed_kib": 4739828
+    },
+    {
+      "boot_id": "09bab7b7ee024496b131e20399b88193",
+      "header_receipt_utc": "2026-09-09T11:15:07.785164+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "command_line": "Command line: BOOT_IMAGE=/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=92G!2G",
+      "early_memory_line": "Memory: 103560544K/105552188K available (23041K kernel code, 4733K rwdata, 16932K rodata, 5184K init, 6260K bss, 1814088K reserved, 0K cma-reserved)",
+      "zone_readbacks": {
+        "node0_DMA": [
+          {
+            "present_kib": 15984,
+            "managed_kib": 15360,
+            "raw": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788953006311542",
+            "journal_monotonic_us": "508813686"
+          }
+        ],
+        "node0_DMA32": [
+          {
+            "present_kib": 1727180,
+            "managed_kib": 1661644,
+            "raw": "Node 0 DMA32 free:35748kB boost:10240kB min:27028kB low:31224kB high:35420kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:1595644kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:13196kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788953006311634",
+            "journal_monotonic_us": "508813778"
+          }
+        ],
+        "node0_Normal": [
+          {
+            "present_kib": 3145728,
+            "managed_kib": 3060984,
+            "raw": "Node 0 Normal free:40600kB boost:16384kB min:47312kB low:55044kB high:62776kB reserved_highatomic:0KB free_highatomic:0KB active_anon:24kB inactive_anon:609196kB active_file:4408kB inactive_file:4324kB unevictable:3288kB writepending:668kB zspages:0kB present:3145728kB managed:3060984kB mlocked:216kB bounce:0kB free_pcp:528kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788953006311723",
+            "journal_monotonic_us": "508813867"
+          }
+        ],
+        "node1_Normal": [
+          {
+            "present_kib": 100663296,
+            "managed_kib": 99030844,
+            "raw": "Node 1 Normal free:71914012kB boost:0kB min:1000696kB low:1250868kB high:1501040kB reserved_highatomic:0KB free_highatomic:0KB active_anon:933684kB inactive_anon:12706488kB active_file:394584kB inactive_file:12588104kB unevictable:39104kB writepending:984kB zspages:0kB present:100663296kB managed:99030844kB mlocked:39104kB bounce:0kB free_pcp:788kB local_pcp:0kB free_cma:0kB",
+            "journal_realtime_us": "1788953006311817",
+            "journal_monotonic_us": "508813960"
+          }
+        ]
+      },
+      "node0_managed_kib": 4737988
+    }
+  ],
+  "selected_comparisons": {
+    "current_minus_previous_6_2_node0_managed_kib": -1840,
+    "current_minus_previous_6_18_90G_node0_managed_kib": -2064380
+  },
+  "limits": [
+    "Managedzone capacity is not MemFree or MemAvailable at benchmark launch. Equal capacity cannot rule out different allocations/headroom.",
+    "Boot Memory available is an early global log field, not node0 capacity or /proc/meminfo MemAvailable.",
+    "No May readback of node0 total/reserved/preparation free memory was recovered.",
+    "Journal header receipt time is not an exact firmware/startup timestamp."
+  ]
+}

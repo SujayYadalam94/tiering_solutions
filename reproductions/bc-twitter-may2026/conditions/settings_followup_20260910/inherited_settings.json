@@ -1,0 +1,101 @@
+{
+  "cpu_policies": {
+    "scaling_governor": [
+      "powersave"
+    ],
+    "scaling_driver": [
+      "intel_pstate"
+    ],
+    "scaling_min_freq": [
+      "800000"
+    ],
+    "scaling_max_freq": [
+      "3000000"
+    ],
+    "energy_performance_preference": [
+      "balance_performance"
+    ]
+  },
+  "intel_pstate": {
+    "no_turbo": "0",
+    "num_pstates": "23",
+    "status": "active",
+    "turbo_pct": "36",
+    "max_perf_pct": "100",
+    "hwp_dynamic_boost": "1",
+    "min_perf_pct": "26"
+  },
+  "vm_unset": {
+    "vfs_cache_pressure": "2000",
+    "vfs_cache_pressure_denom": "100",
+    "dirty_ratio": "20",
+    "dirty_background_ratio": "10",
+    "dirty_bytes": "0",
+    "dirty_background_bytes": "0",
+    "dirty_expire_centisecs": "3000",
+    "dirty_writeback_centisecs": "500",
+    "page-cluster": "3",
+    "percpu_pagelist_high_fraction": "0",
+    "compact_unevictable_allowed": "1",
+    "compaction_proactiveness": "80",
+    "extfrag_threshold": "500",
+    "defrag_mode": "0",
+    "stat_interval": "1",
+    "swappiness": "60",
+    "min_unmapped_ratio": "1",
+    "min_slab_ratio": "5",
+    "numa_stat": "1",
+    "zone_reclaim_mode": "0"
+  },
+  "acpi_pm_profile": "4",
+  "microcode_package_events": [
+    {
+      "file": "/var/log/apt/history.log.10.gz",
+      "date": "Start-Date: 2024-06-22  10:28:48",
+      "matching": [
+        "linux-firmware:amd64 (20240318.git3b128b60-0ubuntu2.1, automatic)",
+        "intel-microcode:amd64 (3.20240514.0ubuntu0.24.04.1, automatic)"
+      ]
+    },
+    {
+      "file": "/var/log/apt/history.log.5.gz",
+      "date": "Start-Date: 2025-08-08  14:01:17",
+      "matching": [
+        "linux-firmware:amd64 (20240318.git3b128b60-0ubuntu2.11, 20240318.git3b128b60-0ubuntu2.15)",
+        "intel-microcode:amd64 (3.20250211.0ubuntu0.24.04.1, 3.20250512.0ubuntu0.24.04.1)"
+      ]
+    },
+    {
+      "file": "/var/log/apt/history.log.8.gz",
+      "date": "Start-Date: 2024-09-17  14:13:00",
+      "matching": [
+        "linux-firmware:amd64 (20240318.git3b128b60-0ubuntu2.1, 20240318.git3b128b60-0ubuntu2.3)",
+        "intel-microcode:amd64 (3.20240514.0ubuntu0.24.04.1, 3.20240813.0ubuntu0.24.04.2)"
+      ]
+    },
+    {
+      "file": "/var/log/apt/history.log.6.gz",
+      "date": "Start-Date: 2025-05-05  14:17:38",
+      "matching": [
+        "linux-firmware:amd64 (20240318.git3b128b60-0ubuntu2.9, 20240318.git3b128b60-0ubuntu2.11)",
+        "intel-microcode:amd64 (3.20241112.0ubuntu0.24.04.1, 3.20250211.0ubuntu0.24.04.1)"
+      ]
+    },
+    {
+      "file": "/var/log/apt/history.log.7.gz",
+      "date": "Start-Date: 2025-02-13  13:12:29",
+      "matching": [
+        "linux-firmware:amd64 (20240318.git3b128b60-0ubuntu2.3, 20240318.git3b128b60-0ubuntu2.9)",
+        "intel-microcode:amd64 (3.20240813.0ubuntu0.24.04.2, 3.20241112.0ubuntu0.24.04.1)"
+      ]
+    },
+    {
+      "file": "/var/log/apt/history.log.4.gz",
+      "date": "Start-Date: 2026-02-23  08:02:56",
+      "matching": [
+        "linux-firmware:amd64 (20240318.git3b128b60-0ubuntu2.15, 20240318.git3b128b60-0ubuntu2.23)",
+        "intel-microcode:amd64 (3.20250512.0ubuntu0.24.04.1, 3.20250812.0ubuntu0.24.04.1)"
+      ]
+    }
+  ]
+}

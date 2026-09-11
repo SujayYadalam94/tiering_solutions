@@ -1,0 +1,12 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/3971283d/0eP9.sh
++++ /users/zimooo2/.vscode-server/data/User/History/3971283d/sSMm.sh
+@@ -1,7 +1,7 @@
+ #!/bin/bash
+ 
+-WORKLOAD_ID="XSBench-long"
+-WORKLOAD_OUTPUT="XSBench-long"
++WORKLOAD_ID="XSBench-short"
++WORKLOAD_OUTPUT="XSBench-short"
+ WORKLOAD_COMMAND="OMP_NUM_THREADS=16 ${BENCH_ROOT}/XSBench/openmp-threading/XSBench -t 16 -g 50000 -p 1000000"
+ WORKLOAD_EXE_NAME="XSBench"
+ WORKLOAD_MODEL_BASE="XSBench"

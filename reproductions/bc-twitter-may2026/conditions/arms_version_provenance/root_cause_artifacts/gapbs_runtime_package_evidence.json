@@ -1,0 +1,78 @@
+{
+  "checked_utc": "2026-09-09T16:10:50.120973+00:00",
+  "files": [
+    {
+      "path": "/users/zimooo2/gapbs/bc",
+      "size": 121808,
+      "mtime": "2026-03-05T19:40:17.215888+00:00",
+      "ctime": "2026-03-05T19:40:17.215888+00:00",
+      "sha256": "744d57aee15e1bb6af4a796d725f4b686a1f2063c335dc7facb0327316b18449"
+    },
+    {
+      "path": "/users/zimooo2/gapbs/src/bc.cc",
+      "size": 8357,
+      "mtime": "2026-03-05T19:40:12.072816+00:00",
+      "ctime": "2026-03-05T19:40:12.072816+00:00",
+      "sha256": "6df4e8a1947925456983d149918e5c505db959ff42633f5442f6e1a9ec4d8e8c"
+    },
+    {
+      "path": "/users/zimooo2/gapbs/src/benchmark.h",
+      "size": 3380,
+      "mtime": "2026-03-05T19:40:12.072816+00:00",
+      "ctime": "2026-03-05T19:40:12.072816+00:00",
+      "sha256": "a1a477adfee41eddf8fdc9781d776030ca40492f0e875205c23c85ec633d3c9f"
+    },
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0",
+      "size": 352304,
+      "mtime": "2025-12-18T21:36:50+00:00",
+      "ctime": "2026-02-23T15:02:57.719506+00:00",
+      "sha256": "135f3c8f006d2fe5e68e51281c7974cb991a03de3bfb3593d68d174dfcf854d1"
+    },
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/libnuma.so.1.0.0",
+      "size": 52248,
+      "mtime": "2026-01-09T13:36:33+00:00",
+      "ctime": "2026-02-23T15:03:27.610460+00:00",
+      "sha256": "02d7582c5d391e460e56aa67a414360e3183b968206645b9123f9dc7bff5d009"
+    },
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33",
+      "size": 2592224,
+      "mtime": "2025-12-18T21:36:50+00:00",
+      "ctime": "2026-02-23T15:03:02.675498+00:00",
+      "sha256": "1fd75fe70354a416d75aef22bcae68c47bd25d20e2d0568c30b1a9838cf62f11"
+    }
+  ],
+  "package_log_ranges": [
+    {
+      "path": "/var/log/dpkg.log",
+      "first": "2026-09-08 12:48:25",
+      "last": "2026-09-08 12:49:03"
+    },
+    {
+      "path": "/var/log/dpkg.log.1",
+      "first": "2026-09-07 07:46:15",
+      "last": "2026-09-07 14:04:35"
+    },
+    {
+      "path": "/var/log/dpkg.log.2.gz",
+      "first": "2026-04-18 23:59:15",
+      "last": "2026-04-25 17:08:40"
+    },
+    {
+      "path": "/var/log/dpkg.log.3.gz",
+      "first": "2026-03-02 23:37:07",
+      "last": "2026-03-17 01:12:56"
+    },
+    {
+      "path": "/var/log/dpkg.log.4.gz",
+      "first": "2026-03-01 20:38:42",
+      "last": "2026-03-01 20:38:47"
+    }
+  ],
+  "may_june_package_transactions": [],
+  "gapbs_head": "b5e3e19c2845f22fb338f4a4bc4b1ccee861d026",
+  "gapbs_source_diff": "",
+  "bc_compiler": "\nString dump of section '.comment':\n  [     0]  GCC: (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\n\n"
+}

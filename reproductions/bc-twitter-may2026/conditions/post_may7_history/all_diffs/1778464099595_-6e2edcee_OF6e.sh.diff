@@ -1,0 +1,9 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-6e2edcee/flBg.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-6e2edcee/OF6e.sh
+@@ -7,5 +7,5 @@
+ WORKLOAD_MODEL_BASE="mg.D.x"
+ WORKLOAD_RUNTIME_INPUT_SOURCE="${BENCH_ROOT}/tiering_solutions/workloads/mg.D.x-long.input"
+ WORKLOAD_RUNTIME_INPUT_TARGET="mg.input"
+-WORKLOAD_VIRTUAL_STEP_SAMPLES="100000"
++WORKLOAD_VIRTUAL_STEP_SAMPLES="10000"
+ WORKLOAD_SYSTEMS="arms hybridtier model logging"

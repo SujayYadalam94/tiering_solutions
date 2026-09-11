@@ -1,0 +1,135 @@
+{
+  "created_utc": "2026-09-09T16:28:58.172222+00:00",
+  "compiler": "g++ (GCC) 15.1.0",
+  "source_manifest_sha256": "2891cb34c3cb8cb9b7bcf9d53a00c5d800ccbffe5e64e2d35632a313183986d0",
+  "probe_manifest_sha256": "757938cb04c1a5528b3a43467cd4dd01d9185a72de527e3f1f7b446d1c4e9252",
+  "worker_source_sha256": "4885709bb5b0a0c8c1555f1776f194d23214951ba56f8f5edbddebfec03263d9",
+  "commands": [
+    {
+      "cwd": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/arms_version_provenance/migration_probe/fixed_index/source",
+      "argv": [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "-DNDEBUG",
+        "-pthread",
+        "-fPIC",
+        "-I.",
+        "-DC220G5",
+        "-DUSE_MODEL=false",
+        "-c",
+        "migration_worker.cpp",
+        "-o",
+        "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/arms_version_provenance/migration_probe/fixed_index/objects/may07_arms_fixed_index/migration_worker.o"
+      ]
+    },
+    {
+      "argv": [
+        "g++",
+        "-shared",
+        "-pthread",
+        "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/arms_version_provenance/migration_probe/objects/may07_arms/arms_kernel.o",
+        "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/objects/may07_arms/pebs_scan_thread.o",
+        "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/objects/may07_arms/pagemap_scan_thread.o",
+        "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/arms_version_provenance/migration_probe/fixed_index/objects/may07_arms_fixed_index/migration_worker.o",
+        "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/objects/may07_arms/policy_thread.o",
+        "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/objects/may07_arms/timer.o",
+        "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/objects/may07_arms/hook_hook.o",
+        "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/objects/may07_arms/groups.o",
+        "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/objects/may07_arms/page.o",
+        "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/objects/may07_arms/logging.o",
+        "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/objects/may07_arms/model.o",
+        "-lnuma",
+        "-ldl",
+        "-o",
+        "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/arms_version_provenance/migration_probe/fixed_index/libraries/may07_arms_fixed_index.so"
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "source": "arms_kernel.cpp",
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/arms_version_provenance/migration_probe/objects/may07_arms/arms_kernel.o",
+      "sha256": "5f6a53f3724faa85474b25e3bb45bb2057817bc0139e056408b0bee7c3c022cc",
+      "origin": "recompiled_instrumented",
+      "probe_object_sha256": "5f6a53f3724faa85474b25e3bb45bb2057817bc0139e056408b0bee7c3c022cc"
+    },
+    {
+      "source": "pebs_scan_thread.cpp",
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/objects/may07_arms/pebs_scan_thread.o",
+      "sha256": "ec4bd62e9ca677fd5d2bc2aa7933e43356e54be9c3f4276e1a5fa75f6943d043",
+      "origin": "reused_original_reproduction_object",
+      "probe_object_sha256": "ec4bd62e9ca677fd5d2bc2aa7933e43356e54be9c3f4276e1a5fa75f6943d043"
+    },
+    {
+      "source": "pagemap_scan_thread.cpp",
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/objects/may07_arms/pagemap_scan_thread.o",
+      "sha256": "9adb0a69d4370b801b9f3c44e0db3280a1b3849affdb584f18cea5489fdc1f65",
+      "origin": "reused_original_reproduction_object",
+      "probe_object_sha256": "9adb0a69d4370b801b9f3c44e0db3280a1b3849affdb584f18cea5489fdc1f65"
+    },
+    {
+      "source": "migration_worker.cpp",
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/arms_version_provenance/migration_probe/fixed_index/objects/may07_arms_fixed_index/migration_worker.o",
+      "sha256": "f4943935344a9e5b839d1e409b21897b8efd41fc3754a3749deb5b097e3a6442",
+      "origin": "recompiled_filtered_index_worker",
+      "probe_object_sha256": "e1a6c3417d136203a84b6a2868b90d8c4725038304529e45ca71b05aa7a843ed"
+    },
+    {
+      "source": "policy_thread.cpp",
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/objects/may07_arms/policy_thread.o",
+      "sha256": "02d5952d62de67158c1dfc63019b613550630fd45bb83106c6d3520a6248b197",
+      "origin": "reused_original_reproduction_object",
+      "probe_object_sha256": "02d5952d62de67158c1dfc63019b613550630fd45bb83106c6d3520a6248b197"
+    },
+    {
+      "source": "timer.cpp",
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/objects/may07_arms/timer.o",
+      "sha256": "475b7c5d460f9fe09392cda12937ef235ab5e386e393b545d923f4371ab15193",
+      "origin": "reused_original_reproduction_object",
+      "probe_object_sha256": "475b7c5d460f9fe09392cda12937ef235ab5e386e393b545d923f4371ab15193"
+    },
+    {
+      "source": "hook/hook.cpp",
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/objects/may07_arms/hook_hook.o",
+      "sha256": "df8d1866520c82cce33b10a61a4c009475a4210fbf1202fdcc531d1d4c08fec7",
+      "origin": "reused_original_reproduction_object",
+      "probe_object_sha256": "df8d1866520c82cce33b10a61a4c009475a4210fbf1202fdcc531d1d4c08fec7"
+    },
+    {
+      "source": "groups.cpp",
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/objects/may07_arms/groups.o",
+      "sha256": "de78e1fddd6825183535b79944efc8d52eb3355ee201a65b4f059a8dbfab539c",
+      "origin": "reused_original_reproduction_object",
+      "probe_object_sha256": "de78e1fddd6825183535b79944efc8d52eb3355ee201a65b4f059a8dbfab539c"
+    },
+    {
+      "source": "page.cpp",
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/objects/may07_arms/page.o",
+      "sha256": "71b111bda50b5cea993b5e4cd5103f7c865d886c5223ecbe8577d18af262460d",
+      "origin": "reused_original_reproduction_object",
+      "probe_object_sha256": "71b111bda50b5cea993b5e4cd5103f7c865d886c5223ecbe8577d18af262460d"
+    },
+    {
+      "source": "logging.cpp",
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/objects/may07_arms/logging.o",
+      "sha256": "e9044119eb560a361cb91ae4bc750b8c229e1292739d60f0fcf96f06f3694bfa",
+      "origin": "reused_original_reproduction_object",
+      "probe_object_sha256": "e9044119eb560a361cb91ae4bc750b8c229e1292739d60f0fcf96f06f3694bfa"
+    },
+    {
+      "source": "model.cpp",
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/objects/may07_arms/model.o",
+      "sha256": "e6b739a28e46c6a17a6d6bbf2b02a59a9199efe7253fc0d8656a63e6fdec074a",
+      "origin": "reused_original_reproduction_object",
+      "probe_object_sha256": "e6b739a28e46c6a17a6d6bbf2b02a59a9199efe7253fc0d8656a63e6fdec074a"
+    }
+  ],
+  "library": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/arms_version_provenance/migration_probe/fixed_index/libraries/may07_arms_fixed_index.so",
+  "library_sha256": "dc811f5f4258b1cc1efb26636e88cfc12248f5efab2ddf68756b5abab8188a34",
+  "case": "may07_arms_fixed_index",
+  "model": null,
+  "configuration": null,
+  "status_mapping": "filtered_pages",
+  "benchmark_executed": false
+}

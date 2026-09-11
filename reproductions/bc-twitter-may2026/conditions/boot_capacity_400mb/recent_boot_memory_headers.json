@@ -1,0 +1,1487 @@
+{
+  "generated_utc": "2026-09-09T19:52:07.098045+00:00",
+  "command": [
+    "journalctl",
+    "--no-pager",
+    "-q",
+    "-o",
+    "json",
+    "--grep",
+    "^(Linux version|Command line:|Memory: [0-9]|Node [01] (DMA|DMA32|Normal|Movable) free:)",
+    "_TRANSPORT=kernel"
+  ],
+  "returncode": -2,
+  "stderr": "",
+  "records": [
+    {
+      "MESSAGE": "Linux version 6.18.1-061801-generic (kernel@balboa) (x86_64-linux-gnu-gcc-15 (Ubuntu 15.2.0-4ubuntu4) 15.2.0, GNU ld (GNU Binutils for Ubuntu) 2.45) #202512121839 SMP PREEMPT_DYNAMIC Fri Dec 12 19:19:06 UTC 2025",
+      "_BOOT_ID": "2536aeeef2f34e4c88b0a2916cd27b44",
+      "__REALTIME_TIMESTAMP": "1788764399056551",
+      "__MONOTONIC_TIMESTAMP": "5957179"
+    },
+    {
+      "MESSAGE": "Command line: BOOT_IMAGE=/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro",
+      "_BOOT_ID": "2536aeeef2f34e4c88b0a2916cd27b44",
+      "__REALTIME_TIMESTAMP": "1788764399056595",
+      "__MONOTONIC_TIMESTAMP": "5957223"
+    },
+    {
+      "MESSAGE": "Memory: 196359564K/199924028K available (23041K kernel code, 4733K rwdata, 16932K rodata, 5184K init, 6260K bss, 3288712K reserved, 0K cma-reserved)",
+      "_BOOT_ID": "2536aeeef2f34e4c88b0a2916cd27b44",
+      "__REALTIME_TIMESTAMP": "1788764399062463",
+      "__MONOTONIC_TIMESTAMP": "5963091"
+    },
+    {
+      "MESSAGE": "Linux version 5.15.19-htmm-node0 (zimooo2@node0.hemem16.uw-mad-dash-pg0.wisc.cloudlab.us) (gcc-11 (Ubuntu 11.5.0-1ubuntu1~24.04.1) 11.5.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #20260907123515 SMP Mon Sep 7 07:35:19 CDT 2026",
+      "_BOOT_ID": "b72f5e3ac43b4c4d84c69a76879bbced",
+      "__REALTIME_TIMESTAMP": "1788794302438527",
+      "__MONOTONIC_TIMESTAMP": "5229507"
+    },
+    {
+      "MESSAGE": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro",
+      "_BOOT_ID": "b72f5e3ac43b4c4d84c69a76879bbced",
+      "__REALTIME_TIMESTAMP": "1788794302438543",
+      "__MONOTONIC_TIMESTAMP": "5229523"
+    },
+    {
+      "MESSAGE": "Memory: 196657940K/199924028K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 3265828K reserved, 0K cma-reserved)",
+      "_BOOT_ID": "b72f5e3ac43b4c4d84c69a76879bbced",
+      "__REALTIME_TIMESTAMP": "1788794302441495",
+      "__MONOTONIC_TIMESTAMP": "5232474"
+    },
+    {
+      "MESSAGE": "Linux version 5.15.19-htmm-node0 (zimooo2@node0.hemem16.uw-mad-dash-pg0.wisc.cloudlab.us) (gcc-11 (Ubuntu 11.5.0-1ubuntu1~24.04.1) 11.5.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #20260907123515 SMP Mon Sep 7 07:35:19 CDT 2026",
+      "_BOOT_ID": "1ee18c8173864e06891024d1256541a0",
+      "__REALTIME_TIMESTAMP": "1788794846227813",
+      "__MONOTONIC_TIMESTAMP": "12253147"
+    },
+    {
+      "MESSAGE": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "_BOOT_ID": "1ee18c8173864e06891024d1256541a0",
+      "__REALTIME_TIMESTAMP": "1788794846227830",
+      "__MONOTONIC_TIMESTAMP": "12253163"
+    },
+    {
+      "MESSAGE": "Memory: 105825076K/107649340K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 1824004K reserved, 0K cma-reserved)",
+      "_BOOT_ID": "1ee18c8173864e06891024d1256541a0",
+      "__REALTIME_TIMESTAMP": "1788794846231116",
+      "__MONOTONIC_TIMESTAMP": "12256450"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "1ee18c8173864e06891024d1256541a0",
+      "__REALTIME_TIMESTAMP": "1788796012456795",
+      "__MONOTONIC_TIMESTAMP": "1178482128"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:36260kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:746012kB inactive_anon:254492kB active_file:32kB inactive_file:140kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:22588kB local_pcp:832kB free_cma:0kB",
+      "_BOOT_ID": "1ee18c8173864e06891024d1256541a0",
+      "__REALTIME_TIMESTAMP": "1788796012457065",
+      "__MONOTONIC_TIMESTAMP": "1178482399"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:52776kB min:52836kB low:65532kB high:78228kB reserved_highatomic:0KB active_anon:1797196kB inactive_anon:869864kB active_file:324kB inactive_file:100kB unevictable:3072kB writepending:4kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:29620kB local_pcp:844kB free_cma:0kB",
+      "_BOOT_ID": "1ee18c8173864e06891024d1256541a0",
+      "__REALTIME_TIMESTAMP": "1788796012457192",
+      "__MONOTONIC_TIMESTAMP": "1178482526"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:73597836kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:723276kB inactive_anon:10698656kB active_file:161120kB inactive_file:12298140kB unevictable:43592kB writepending:20kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:201968kB local_pcp:336kB free_cma:0kB",
+      "_BOOT_ID": "1ee18c8173864e06891024d1256541a0",
+      "__REALTIME_TIMESTAMP": "1788796012457332",
+      "__MONOTONIC_TIMESTAMP": "1178482666"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "1ee18c8173864e06891024d1256541a0",
+      "__REALTIME_TIMESTAMP": "1788796040336765",
+      "__MONOTONIC_TIMESTAMP": "1206362098"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:36280kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:65464kB inactive_anon:1458836kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:4812kB local_pcp:108kB free_cma:0kB",
+      "_BOOT_ID": "1ee18c8173864e06891024d1256541a0",
+      "__REALTIME_TIMESTAMP": "1788796040336890",
+      "__MONOTONIC_TIMESTAMP": "1206362224"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:49684kB min:50788kB low:63484kB high:76180kB reserved_highatomic:0KB active_anon:63772kB inactive_anon:2149896kB active_file:28kB inactive_file:28kB unevictable:3072kB writepending:0kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:4632kB local_pcp:344kB free_cma:0kB",
+      "_BOOT_ID": "1ee18c8173864e06891024d1256541a0",
+      "__REALTIME_TIMESTAMP": "1788796040337043",
+      "__MONOTONIC_TIMESTAMP": "1206362376"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:72267460kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:4143872kB inactive_anon:7340848kB active_file:6405216kB inactive_file:8137600kB unevictable:43592kB writepending:0kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:4004kB local_pcp:4kB free_cma:0kB",
+      "_BOOT_ID": "1ee18c8173864e06891024d1256541a0",
+      "__REALTIME_TIMESTAMP": "1788796040337168",
+      "__MONOTONIC_TIMESTAMP": "1206362502"
+    },
+    {
+      "MESSAGE": "Linux version 6.18.1-061801-generic (kernel@balboa) (x86_64-linux-gnu-gcc-15 (Ubuntu 15.2.0-4ubuntu4) 15.2.0, GNU ld (GNU Binutils for Ubuntu) 2.45) #202512121839 SMP PREEMPT_DYNAMIC Fri Dec 12 19:19:06 UTC 2025",
+      "_BOOT_ID": "98191d8e4d6d4efcb44bdb91949f0405",
+      "__REALTIME_TIMESTAMP": "1788797318156976",
+      "__MONOTONIC_TIMESTAMP": "10680685"
+    },
+    {
+      "MESSAGE": "Command line: BOOT_IMAGE=/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "_BOOT_ID": "98191d8e4d6d4efcb44bdb91949f0405",
+      "__REALTIME_TIMESTAMP": "1788797318157025",
+      "__MONOTONIC_TIMESTAMP": "10680735"
+    },
+    {
+      "MESSAGE": "Memory: 105625044K/107649340K available (23041K kernel code, 4733K rwdata, 16932K rodata, 5184K init, 6260K bss, 1846860K reserved, 0K cma-reserved)",
+      "_BOOT_ID": "98191d8e4d6d4efcb44bdb91949f0405",
+      "__REALTIME_TIMESTAMP": "1788797318163246",
+      "__MONOTONIC_TIMESTAMP": "10686955"
+    },
+    {
+      "MESSAGE": "Linux version 5.15.19-htmm-node0-fix1 (zimooo2@node0.hemem16.uw-mad-dash-pg0.wisc.cloudlab.us) (gcc-11 (Ubuntu 11.5.0-1ubuntu1~24.04.1) 11.5.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #20260907170847 SMP Mon Sep 7 12:08:54 CDT 2026",
+      "_BOOT_ID": "e775d948fd20446b94e9d00dc2951818",
+      "__REALTIME_TIMESTAMP": "1788808092651591",
+      "__MONOTONIC_TIMESTAMP": "9902141"
+    },
+    {
+      "MESSAGE": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0-fix1 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "_BOOT_ID": "e775d948fd20446b94e9d00dc2951818",
+      "__REALTIME_TIMESTAMP": "1788808092651608",
+      "__MONOTONIC_TIMESTAMP": "9902157"
+    },
+    {
+      "MESSAGE": "Memory: 105825068K/107649340K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 1824012K reserved, 0K cma-reserved)",
+      "_BOOT_ID": "e775d948fd20446b94e9d00dc2951818",
+      "__REALTIME_TIMESTAMP": "1788808092654925",
+      "__MONOTONIC_TIMESTAMP": "9905475"
+    },
+    {
+      "MESSAGE": "Linux version 5.15.19-htmm-node0-fix2 (zimooo2@node0.hemem16.uw-mad-dash-pg0.wisc.cloudlab.us) (gcc-11 (Ubuntu 11.5.0-1ubuntu1~24.04.1) 11.5.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #5 SMP Mon Sep 7 15:41:50 CDT 2026",
+      "_BOOT_ID": "e30de8fc829f44c2a20c69bc6f9395f1",
+      "__REALTIME_TIMESTAMP": "1788814920184009",
+      "__MONOTONIC_TIMESTAMP": "9422056"
+    },
+    {
+      "MESSAGE": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0-fix2 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "_BOOT_ID": "e30de8fc829f44c2a20c69bc6f9395f1",
+      "__REALTIME_TIMESTAMP": "1788814920184026",
+      "__MONOTONIC_TIMESTAMP": "9422073"
+    },
+    {
+      "MESSAGE": "Memory: 105798216K/107649340K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 1850864K reserved, 0K cma-reserved)",
+      "_BOOT_ID": "e30de8fc829f44c2a20c69bc6f9395f1",
+      "__REALTIME_TIMESTAMP": "1788814920187290",
+      "__MONOTONIC_TIMESTAMP": "9425338"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "e30de8fc829f44c2a20c69bc6f9395f1",
+      "__REALTIME_TIMESTAMP": "1788815531678722",
+      "__MONOTONIC_TIMESTAMP": "620916769"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:36428kB min:18508kB low:22620kB high:26732kB reserved_highatomic:0KB active_anon:1116164kB inactive_anon:431412kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:848kB local_pcp:68kB free_cma:0kB",
+      "_BOOT_ID": "e30de8fc829f44c2a20c69bc6f9395f1",
+      "__REALTIME_TIMESTAMP": "1788815531678837",
+      "__MONOTONIC_TIMESTAMP": "620916885"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:54532kB min:54552kB low:67164kB high:79776kB reserved_highatomic:0KB active_anon:621336kB inactive_anon:1649136kB active_file:1640kB inactive_file:1072kB unevictable:3072kB writepending:4kB present:5242880kB managed:5093540kB mlocked:0kB bounce:0kB free_pcp:4208kB local_pcp:12kB free_cma:0kB",
+      "_BOOT_ID": "e30de8fc829f44c2a20c69bc6f9395f1",
+      "__REALTIME_TIMESTAMP": "1788815531678970",
+      "__MONOTONIC_TIMESTAMP": "620917018"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:73923864kB min:981504kB low:1226880kB high:1472256kB reserved_highatomic:0KB active_anon:8342220kB inactive_anon:3745712kB active_file:143564kB inactive_file:12313040kB unevictable:43592kB writepending:52kB present:100663296kB managed:99082200kB mlocked:43592kB bounce:0kB free_pcp:63620kB local_pcp:632kB free_cma:0kB",
+      "_BOOT_ID": "e30de8fc829f44c2a20c69bc6f9395f1",
+      "__REALTIME_TIMESTAMP": "1788815531679091",
+      "__MONOTONIC_TIMESTAMP": "620917138"
+    },
+    {
+      "MESSAGE": "Linux version 5.15.19-htmm-node0-fix3 (zimooo2@node0.hemem16.uw-mad-dash-pg0.wisc.cloudlab.us) (gcc-11 (Ubuntu 11.5.0-1ubuntu1~24.04.1) 11.5.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #6 SMP Mon Sep 7 16:44:33 CDT 2026",
+      "_BOOT_ID": "d87710787fdf4d5389d79daaef4933c4",
+      "__REALTIME_TIMESTAMP": "1788850708484958",
+      "__MONOTONIC_TIMESTAMP": "9704662"
+    },
+    {
+      "MESSAGE": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0-fix3 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "_BOOT_ID": "d87710787fdf4d5389d79daaef4933c4",
+      "__REALTIME_TIMESTAMP": "1788850708484974",
+      "__MONOTONIC_TIMESTAMP": "9704678"
+    },
+    {
+      "MESSAGE": "Memory: 105798216K/107649340K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 1850864K reserved, 0K cma-reserved)",
+      "_BOOT_ID": "d87710787fdf4d5389d79daaef4933c4",
+      "__REALTIME_TIMESTAMP": "1788850708488226",
+      "__MONOTONIC_TIMESTAMP": "9707930"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "d87710787fdf4d5389d79daaef4933c4",
+      "__REALTIME_TIMESTAMP": "1788853563464130",
+      "__MONOTONIC_TIMESTAMP": "2864683833"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:51916kB min:32844kB low:36956kB high:41068kB reserved_highatomic:0KB active_anon:32kB inactive_anon:1544916kB active_file:24kB inactive_file:40kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "d87710787fdf4d5389d79daaef4933c4",
+      "__REALTIME_TIMESTAMP": "1788853563464249",
+      "__MONOTONIC_TIMESTAMP": "2864683952"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:121996kB min:124516kB low:137212kB high:149908kB reserved_highatomic:0KB active_anon:92kB inactive_anon:2109280kB active_file:820kB inactive_file:1480kB unevictable:3072kB writepending:0kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "d87710787fdf4d5389d79daaef4933c4",
+      "__REALTIME_TIMESTAMP": "1788853563464405",
+      "__MONOTONIC_TIMESTAMP": "2864684109"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:86056284kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:17244kB inactive_anon:5997588kB active_file:264076kB inactive_file:6121468kB unevictable:43592kB writepending:24kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "d87710787fdf4d5389d79daaef4933c4",
+      "__REALTIME_TIMESTAMP": "1788853563464537",
+      "__MONOTONIC_TIMESTAMP": "2864684241"
+    },
+    {
+      "MESSAGE": "Linux version 5.15.19-htmm-node0-fix5 (zimooo2@node0.hemem16.uw-mad-dash-pg0.wisc.cloudlab.us) (gcc-11 (Ubuntu 11.5.0-1ubuntu1~24.04.1) 11.5.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #9 SMP Tue Sep 8 03:43:16 CDT 2026",
+      "_BOOT_ID": "a1bd6a703cf843f094c4ee5fb0a50761",
+      "__REALTIME_TIMESTAMP": "1788857972497640",
+      "__MONOTONIC_TIMESTAMP": "12501541"
+    },
+    {
+      "MESSAGE": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0-fix5 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "_BOOT_ID": "a1bd6a703cf843f094c4ee5fb0a50761",
+      "__REALTIME_TIMESTAMP": "1788857972497657",
+      "__MONOTONIC_TIMESTAMP": "12501558"
+    },
+    {
+      "MESSAGE": "Memory: 105798216K/107649340K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 1850864K reserved, 0K cma-reserved)",
+      "_BOOT_ID": "a1bd6a703cf843f094c4ee5fb0a50761",
+      "__REALTIME_TIMESTAMP": "1788857972500973",
+      "__MONOTONIC_TIMESTAMP": "12504874"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "a1bd6a703cf843f094c4ee5fb0a50761",
+      "__REALTIME_TIMESTAMP": "1788859122225184",
+      "__MONOTONIC_TIMESTAMP": "1162229085"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:36380kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:9188kB inactive_anon:1564572kB active_file:88kB inactive_file:96kB unevictable:0kB writepending:4kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:10856kB local_pcp:532kB free_cma:0kB",
+      "_BOOT_ID": "a1bd6a703cf843f094c4ee5fb0a50761",
+      "__REALTIME_TIMESTAMP": "1788859122225307",
+      "__MONOTONIC_TIMESTAMP": "1162229208"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:50596kB min:50788kB low:63484kB high:76180kB reserved_highatomic:0KB active_anon:0kB inactive_anon:2435400kB active_file:140kB inactive_file:252kB unevictable:3072kB writepending:8kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:35256kB local_pcp:1792kB free_cma:0kB",
+      "_BOOT_ID": "a1bd6a703cf843f094c4ee5fb0a50761",
+      "__REALTIME_TIMESTAMP": "1788859122225428",
+      "__MONOTONIC_TIMESTAMP": "1162229329"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:78935276kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:299580kB inactive_anon:5462736kB active_file:9522552kB inactive_file:3106944kB unevictable:43592kB writepending:20kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:338432kB local_pcp:2388kB free_cma:0kB",
+      "_BOOT_ID": "a1bd6a703cf843f094c4ee5fb0a50761",
+      "__REALTIME_TIMESTAMP": "1788859122225570",
+      "__MONOTONIC_TIMESTAMP": "1162229470"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "a1bd6a703cf843f094c4ee5fb0a50761",
+      "__REALTIME_TIMESTAMP": "1788859194542062",
+      "__MONOTONIC_TIMESTAMP": "1234545962"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:42212kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:0kB inactive_anon:1530028kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:204kB local_pcp:204kB free_cma:0kB",
+      "_BOOT_ID": "a1bd6a703cf843f094c4ee5fb0a50761",
+      "__REALTIME_TIMESTAMP": "1788859194542180",
+      "__MONOTONIC_TIMESTAMP": "1234546081"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:69148kB min:50788kB low:63484kB high:76180kB reserved_highatomic:0KB active_anon:0kB inactive_anon:2935244kB active_file:128kB inactive_file:8kB unevictable:3072kB writepending:8kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:2104kB local_pcp:2104kB free_cma:0kB",
+      "_BOOT_ID": "a1bd6a703cf843f094c4ee5fb0a50761",
+      "__REALTIME_TIMESTAMP": "1788859194542299",
+      "__MONOTONIC_TIMESTAMP": "1234546200"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:68444632kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:276356kB inactive_anon:12884504kB active_file:76816kB inactive_file:14638912kB unevictable:43592kB writepending:24kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:198320kB local_pcp:276kB free_cma:0kB",
+      "_BOOT_ID": "a1bd6a703cf843f094c4ee5fb0a50761",
+      "__REALTIME_TIMESTAMP": "1788859194542444",
+      "__MONOTONIC_TIMESTAMP": "1234546345"
+    },
+    {
+      "MESSAGE": "Linux version 5.15.19-htmm-node0-fix6 (zimooo2@node0.hemem16.uw-mad-dash-pg0.wisc.cloudlab.us) (gcc-11 (Ubuntu 11.5.0-1ubuntu1~24.04.1) 11.5.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #10 SMP Tue Sep 8 04:33:13 CDT 2026",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788860703471553",
+      "__MONOTONIC_TIMESTAMP": "9710896"
+    },
+    {
+      "MESSAGE": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0-fix6 root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788860703471570",
+      "__MONOTONIC_TIMESTAMP": "9710912"
+    },
+    {
+      "MESSAGE": "Memory: 105798208K/107649340K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 1850872K reserved, 0K cma-reserved)",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788860703474898",
+      "__MONOTONIC_TIMESTAMP": "9714240"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788861275364502",
+      "__MONOTONIC_TIMESTAMP": "581603844"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:33828kB min:16124kB low:20152kB high:24180kB reserved_highatomic:0KB active_anon:0kB inactive_anon:1269760kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1627976kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788861275364615",
+      "__MONOTONIC_TIMESTAMP": "581603958"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:68944kB min:69220kB low:81916kB high:94612kB reserved_highatomic:0KB active_anon:4176kB inactive_anon:2398832kB active_file:724kB inactive_file:2624kB unevictable:3072kB writepending:0kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788861275364737",
+      "__MONOTONIC_TIMESTAMP": "581604080"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:65425444kB min:981504kB low:1226880kB high:1472256kB reserved_highatomic:0KB active_anon:22800kB inactive_anon:15257268kB active_file:75108kB inactive_file:17740624kB unevictable:43592kB writepending:16kB present:100663296kB managed:99082192kB mlocked:43592kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788861275364864",
+      "__MONOTONIC_TIMESTAMP": "581604207"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788861594530577",
+      "__MONOTONIC_TIMESTAMP": "900769919"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:36068kB min:16124kB low:20152kB high:24180kB reserved_highatomic:0KB active_anon:117308kB inactive_anon:1424432kB active_file:8kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1627976kB mlocked:0kB bounce:0kB free_pcp:23972kB local_pcp:2548kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788861594530642",
+      "__MONOTONIC_TIMESTAMP": "900769985"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:51948kB min:54884kB low:67580kB high:80276kB reserved_highatomic:0KB active_anon:0kB inactive_anon:2311616kB active_file:972kB inactive_file:0kB unevictable:3072kB writepending:4kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:20168kB local_pcp:1208kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788861594530706",
+      "__MONOTONIC_TIMESTAMP": "900770049"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:77243576kB min:981504kB low:1226880kB high:1472256kB reserved_highatomic:0KB active_anon:3880132kB inactive_anon:2331552kB active_file:6319052kB inactive_file:8398164kB unevictable:43592kB writepending:0kB present:100663296kB managed:99082192kB mlocked:43592kB bounce:0kB free_pcp:343584kB local_pcp:152kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788861594530784",
+      "__MONOTONIC_TIMESTAMP": "900770127"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788862440750302",
+      "__MONOTONIC_TIMESTAMP": "1746989644"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:35964kB min:16124kB low:20152kB high:24180kB reserved_highatomic:0KB active_anon:3596kB inactive_anon:1545340kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1627976kB mlocked:0kB bounce:0kB free_pcp:2616kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788862440750414",
+      "__MONOTONIC_TIMESTAMP": "1746989757"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:58272kB min:61028kB low:73724kB high:86420kB reserved_highatomic:0KB active_anon:0kB inactive_anon:2569284kB active_file:352kB inactive_file:296kB unevictable:3072kB writepending:0kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:5556kB local_pcp:168kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788862440750521",
+      "__MONOTONIC_TIMESTAMP": "1746989864"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:79122112kB min:981504kB low:1226880kB high:1472256kB reserved_highatomic:0KB active_anon:273340kB inactive_anon:5887136kB active_file:9521240kB inactive_file:3111776kB unevictable:43592kB writepending:0kB present:100663296kB managed:99082192kB mlocked:43592kB bounce:0kB free_pcp:12944kB local_pcp:252kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788862440750655",
+      "__MONOTONIC_TIMESTAMP": "1746989997"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788862472883819",
+      "__MONOTONIC_TIMESTAMP": "1779123161"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:36080kB min:16124kB low:20152kB high:24180kB reserved_highatomic:0KB active_anon:81448kB inactive_anon:978908kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1627976kB mlocked:0kB bounce:0kB free_pcp:3508kB local_pcp:8kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788862472883945",
+      "__MONOTONIC_TIMESTAMP": "1779123288"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:49856kB min:50788kB low:63484kB high:76180kB reserved_highatomic:0KB active_anon:0kB inactive_anon:3090496kB active_file:0kB inactive_file:120kB unevictable:3072kB writepending:0kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:3456kB local_pcp:200kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788862472884066",
+      "__MONOTONIC_TIMESTAMP": "1779123409"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:77361976kB min:981504kB low:1226880kB high:1472256kB reserved_highatomic:0KB active_anon:3810400kB inactive_anon:2605720kB active_file:6360216kB inactive_file:8359664kB unevictable:43592kB writepending:0kB present:100663296kB managed:99082192kB mlocked:43592kB bounce:0kB free_pcp:4276kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788862472884186",
+      "__MONOTONIC_TIMESTAMP": "1779123529"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788862492861343",
+      "__MONOTONIC_TIMESTAMP": "1799100686"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:36068kB min:16124kB low:20152kB high:24180kB reserved_highatomic:0KB active_anon:1038228kB inactive_anon:313108kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1627976kB mlocked:0kB bounce:0kB free_pcp:6388kB local_pcp:32kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788862492861461",
+      "__MONOTONIC_TIMESTAMP": "1799100804"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:50508kB min:50788kB low:63484kB high:76180kB reserved_highatomic:0KB active_anon:636232kB inactive_anon:1846316kB active_file:152kB inactive_file:444kB unevictable:3072kB writepending:4kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:4348kB local_pcp:164kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788862492861577",
+      "__MONOTONIC_TIMESTAMP": "1799100919"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:68513840kB min:981504kB low:1226880kB high:1472256kB reserved_highatomic:0KB active_anon:9887492kB inactive_anon:5282384kB active_file:81532kB inactive_file:14640732kB unevictable:43592kB writepending:24kB present:100663296kB managed:99082192kB mlocked:43592kB bounce:0kB free_pcp:100900kB local_pcp:2148kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788862492861741",
+      "__MONOTONIC_TIMESTAMP": "1799101083"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788863360752893",
+      "__MONOTONIC_TIMESTAMP": "2666992235"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:36036kB min:16124kB low:20152kB high:24180kB reserved_highatomic:0KB active_anon:3632kB inactive_anon:1052360kB active_file:12kB inactive_file:4kB unevictable:0kB writepending:0kB present:1727180kB managed:1627976kB mlocked:0kB bounce:0kB free_pcp:3996kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788863360753020",
+      "__MONOTONIC_TIMESTAMP": "2666992363"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:51388kB min:52836kB low:65532kB high:78228kB reserved_highatomic:0KB active_anon:0kB inactive_anon:3353732kB active_file:888kB inactive_file:0kB unevictable:3072kB writepending:0kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:3036kB local_pcp:176kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788863360753136",
+      "__MONOTONIC_TIMESTAMP": "2666992478"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:74518636kB min:981504kB low:1226880kB high:1472256kB reserved_highatomic:0KB active_anon:232232kB inactive_anon:9012156kB active_file:7340828kB inactive_file:7383252kB unevictable:43592kB writepending:0kB present:100663296kB managed:99082192kB mlocked:43592kB bounce:0kB free_pcp:5724kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "7e34868460204965b9885bae6b59b941",
+      "__REALTIME_TIMESTAMP": "1788863360753257",
+      "__MONOTONIC_TIMESTAMP": "2666992599"
+    },
+    {
+      "MESSAGE": "Linux version 5.15.19-htmm-node0-fix7-baseline (zimooo2@node0.hemem16.uw-mad-dash-pg0.wisc.cloudlab.us) (gcc-11 (Ubuntu 11.5.0-1ubuntu1~24.04.1) 11.5.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #11 SMP Tue Sep 8 06:25:37 CDT 2026",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788867603233750",
+      "__MONOTONIC_TIMESTAMP": "9588510"
+    },
+    {
+      "MESSAGE": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0-fix7-baseline root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788867603233766",
+      "__MONOTONIC_TIMESTAMP": "9588526"
+    },
+    {
+      "MESSAGE": "Memory: 105798208K/107649340K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 1850872K reserved, 0K cma-reserved)",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788867603237065",
+      "__MONOTONIC_TIMESTAMP": "9591825"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788868926227710",
+      "__MONOTONIC_TIMESTAMP": "1332582470"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:36376kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:66268kB inactive_anon:1423448kB active_file:0kB inactive_file:4kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:5804kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788868926227828",
+      "__MONOTONIC_TIMESTAMP": "1332582587"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:57624kB min:58980kB low:71676kB high:84372kB reserved_highatomic:0KB active_anon:998612kB inactive_anon:1231536kB active_file:144kB inactive_file:0kB unevictable:3072kB writepending:4kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:2724kB local_pcp:212kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788868926227967",
+      "__MONOTONIC_TIMESTAMP": "1332582727"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:78093908kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:6688kB inactive_anon:7588496kB active_file:112656kB inactive_file:12622712kB unevictable:43592kB writepending:168kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:21076kB local_pcp:148kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788868926228092",
+      "__MONOTONIC_TIMESTAMP": "1332582852"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788868962493383",
+      "__MONOTONIC_TIMESTAMP": "1368848143"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:40052kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:124916kB inactive_anon:1436340kB active_file:4kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:496kB local_pcp:496kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788868962493499",
+      "__MONOTONIC_TIMESTAMP": "1368848259"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:51264kB min:50788kB low:63484kB high:76180kB reserved_highatomic:0KB active_anon:0kB inactive_anon:2172612kB active_file:72kB inactive_file:64kB unevictable:3072kB writepending:4kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:248kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788868962493615",
+      "__MONOTONIC_TIMESTAMP": "1368848375"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:67945420kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:4235396kB inactive_anon:11432540kB active_file:9293300kB inactive_file:5526412kB unevictable:43592kB writepending:76kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:216kB local_pcp:216kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788868962494004",
+      "__MONOTONIC_TIMESTAMP": "1368848764"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788869815208320",
+      "__MONOTONIC_TIMESTAMP": "2221563080"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:36280kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:9704kB inactive_anon:1030368kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:3528kB local_pcp:308kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788869815208429",
+      "__MONOTONIC_TIMESTAMP": "2221563189"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:52100kB min:52836kB low:65532kB high:78228kB reserved_highatomic:0KB active_anon:0kB inactive_anon:2844036kB active_file:580kB inactive_file:0kB unevictable:3072kB writepending:0kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:2396kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788869815208544",
+      "__MONOTONIC_TIMESTAMP": "2221563304"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:76781956kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:293680kB inactive_anon:7203448kB active_file:9688036kB inactive_file:4297080kB unevictable:43592kB writepending:72kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:15036kB local_pcp:568kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788869815208659",
+      "__MONOTONIC_TIMESTAMP": "2221563419"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788869853235378",
+      "__MONOTONIC_TIMESTAMP": "2259590138"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:36084kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:52416kB inactive_anon:1504772kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:3028kB local_pcp:152kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788869853235435",
+      "__MONOTONIC_TIMESTAMP": "2259590195"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:49872kB min:50788kB low:63484kB high:76180kB reserved_highatomic:0KB active_anon:0kB inactive_anon:2332604kB active_file:0kB inactive_file:296kB unevictable:3072kB writepending:0kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:2176kB local_pcp:48kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788869853235492",
+      "__MONOTONIC_TIMESTAMP": "2259590252"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:66577484kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:2743700kB inactive_anon:11694728kB active_file:9377460kB inactive_file:6695464kB unevictable:43592kB writepending:0kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:6176kB local_pcp:496kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788869853235545",
+      "__MONOTONIC_TIMESTAMP": "2259590305"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788869908628635",
+      "__MONOTONIC_TIMESTAMP": "2314983395"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:50408kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:431824kB inactive_anon:1091900kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:2692kB local_pcp:2692kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788869908628760",
+      "__MONOTONIC_TIMESTAMP": "2314983520"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:72536kB min:52836kB low:65532kB high:78228kB reserved_highatomic:0KB active_anon:968496kB inactive_anon:1191196kB active_file:140kB inactive_file:0kB unevictable:3072kB writepending:4kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:7060kB local_pcp:728kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788869908628889",
+      "__MONOTONIC_TIMESTAMP": "2314983649"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:73052676kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:6736kB inactive_anon:7426788kB active_file:5488560kB inactive_file:11533824kB unevictable:43592kB writepending:12kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:144332kB local_pcp:600kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788869908629044",
+      "__MONOTONIC_TIMESTAMP": "2314983804"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788870178307149",
+      "__MONOTONIC_TIMESTAMP": "2584661909"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:38408kB min:20556kB low:24668kB high:28780kB reserved_highatomic:0KB active_anon:4kB inactive_anon:1465720kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:1520kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788870178307266",
+      "__MONOTONIC_TIMESTAMP": "2584662026"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:50396kB min:52836kB low:65532kB high:78228kB reserved_highatomic:0KB active_anon:0kB inactive_anon:2563088kB active_file:756kB inactive_file:2348kB unevictable:3072kB writepending:52kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:1956kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788870178307392",
+      "__MONOTONIC_TIMESTAMP": "2584662152"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:86506796kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:2282080kB inactive_anon:2974084kB active_file:133192kB inactive_file:6507472kB unevictable:43592kB writepending:64kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:1544kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788870178307501",
+      "__MONOTONIC_TIMESTAMP": "2584662261"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788870210516411",
+      "__MONOTONIC_TIMESTAMP": "2616871171"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:35684kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:1006116kB inactive_anon:496708kB active_file:104kB inactive_file:852kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:5040kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788870210516534",
+      "__MONOTONIC_TIMESTAMP": "2616871294"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:49080kB min:50788kB low:63484kB high:76180kB reserved_highatomic:0KB active_anon:944304kB inactive_anon:1503436kB active_file:220kB inactive_file:1340kB unevictable:3072kB writepending:0kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:5860kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788870210516670",
+      "__MONOTONIC_TIMESTAMP": "2616871430"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:74210504kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:295524kB inactive_anon:10997208kB active_file:145600kB inactive_file:12693796kB unevictable:43592kB writepending:12kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788870210516785",
+      "__MONOTONIC_TIMESTAMP": "2616871545"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788870717344432",
+      "__MONOTONIC_TIMESTAMP": "3123699192"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:36376kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:11112kB inactive_anon:1078036kB active_file:4kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:2680kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788870717344476",
+      "__MONOTONIC_TIMESTAMP": "3123699236"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:50744kB min:50788kB low:63484kB high:76180kB reserved_highatomic:0KB active_anon:0kB inactive_anon:2906980kB active_file:0kB inactive_file:504kB unevictable:3072kB writepending:8kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:6560kB local_pcp:476kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788870717344525",
+      "__MONOTONIC_TIMESTAMP": "3123699285"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:77867000kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:299236kB inactive_anon:6889400kB active_file:9625236kB inactive_file:3141636kB unevictable:43592kB writepending:280kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:4760kB local_pcp:464kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788870717344568",
+      "__MONOTONIC_TIMESTAMP": "3123699328"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788870750695427",
+      "__MONOTONIC_TIMESTAMP": "3157050187"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:36284kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:157456kB inactive_anon:1384064kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:6108kB local_pcp:720kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788870750695544",
+      "__MONOTONIC_TIMESTAMP": "3157050304"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:51096kB min:52836kB low:65532kB high:78228kB reserved_highatomic:0KB active_anon:0kB inactive_anon:2454632kB active_file:52kB inactive_file:76kB unevictable:3072kB writepending:20kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:4932kB local_pcp:692kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788870750695675",
+      "__MONOTONIC_TIMESTAMP": "3157050435"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:76212956kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:4022928kB inactive_anon:3316816kB active_file:6358724kB inactive_file:8491196kB unevictable:43592kB writepending:488kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:4860kB local_pcp:588kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788870750695806",
+      "__MONOTONIC_TIMESTAMP": "3157050565"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788870806160831",
+      "__MONOTONIC_TIMESTAMP": "3212515591"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:36300kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:423740kB inactive_anon:959052kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:3988kB local_pcp:140kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788870806160966",
+      "__MONOTONIC_TIMESTAMP": "3212515726"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:49376kB min:50788kB low:63484kB high:76180kB reserved_highatomic:0KB active_anon:445300kB inactive_anon:1893684kB active_file:68kB inactive_file:64kB unevictable:3072kB writepending:0kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:3032kB local_pcp:176kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788870806161109",
+      "__MONOTONIC_TIMESTAMP": "3212515869"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:78256512kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:20904kB inactive_anon:4298708kB active_file:2271552kB inactive_file:13526588kB unevictable:43592kB writepending:0kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:35920kB local_pcp:332kB free_cma:0kB",
+      "_BOOT_ID": "1125e4bc0a104100a6d9182beda6127b",
+      "__REALTIME_TIMESTAMP": "1788870806161904",
+      "__MONOTONIC_TIMESTAMP": "3212516664"
+    },
+    {
+      "MESSAGE": "Linux version 5.15.19-htmm-node0-fix7-baseline (zimooo2@node0.hemem16.uw-mad-dash-pg0.wisc.cloudlab.us) (gcc-11 (Ubuntu 11.5.0-1ubuntu1~24.04.1) 11.5.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #11 SMP Tue Sep 8 06:25:37 CDT 2026",
+      "_BOOT_ID": "312d13a469b5469baadd1b24fc0f24da",
+      "__REALTIME_TIMESTAMP": "1788875453018767",
+      "__MONOTONIC_TIMESTAMP": "11969681"
+    },
+    {
+      "MESSAGE": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0-fix7-baseline root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "_BOOT_ID": "312d13a469b5469baadd1b24fc0f24da",
+      "__REALTIME_TIMESTAMP": "1788875453018784",
+      "__MONOTONIC_TIMESTAMP": "11969698"
+    },
+    {
+      "MESSAGE": "Memory: 105798204K/107649340K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 1850876K reserved, 0K cma-reserved)",
+      "_BOOT_ID": "312d13a469b5469baadd1b24fc0f24da",
+      "__REALTIME_TIMESTAMP": "1788875453022142",
+      "__MONOTONIC_TIMESTAMP": "11973056"
+    },
+    {
+      "MESSAGE": "Linux version 6.18.1-061801-generic (kernel@balboa) (x86_64-linux-gnu-gcc-15 (Ubuntu 15.2.0-4ubuntu4) 15.2.0, GNU ld (GNU Binutils for Ubuntu) 2.45) #202512121839 SMP PREEMPT_DYNAMIC Fri Dec 12 19:19:06 UTC 2025",
+      "_BOOT_ID": "7306dcdd1d314cec931d3acc6e2bb137",
+      "__REALTIME_TIMESTAMP": "1788875892828709",
+      "__MONOTONIC_TIMESTAMP": "10377831"
+    },
+    {
+      "MESSAGE": "Command line: BOOT_IMAGE=/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "_BOOT_ID": "7306dcdd1d314cec931d3acc6e2bb137",
+      "__REALTIME_TIMESTAMP": "1788875892828755",
+      "__MONOTONIC_TIMESTAMP": "10377877"
+    },
+    {
+      "MESSAGE": "Memory: 105624976K/107649340K available (23041K kernel code, 4733K rwdata, 16932K rodata, 5184K init, 6260K bss, 1846840K reserved, 0K cma-reserved)",
+      "_BOOT_ID": "7306dcdd1d314cec931d3acc6e2bb137",
+      "__REALTIME_TIMESTAMP": "1788875892834993",
+      "__MONOTONIC_TIMESTAMP": "10384116"
+    },
+    {
+      "MESSAGE": "Linux version 5.15.19-htmm-node0-fix7-baseline (zimooo2@node0.hemem16.uw-mad-dash-pg0.wisc.cloudlab.us) (gcc-11 (Ubuntu 11.5.0-1ubuntu1~24.04.1) 11.5.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #11 SMP Tue Sep 8 06:25:37 CDT 2026",
+      "_BOOT_ID": "90bfdd6b6fe24814a538e6b785103072",
+      "__REALTIME_TIMESTAMP": "1788876117445737",
+      "__MONOTONIC_TIMESTAMP": "12468950"
+    },
+    {
+      "MESSAGE": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0-fix7-baseline root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "_BOOT_ID": "90bfdd6b6fe24814a538e6b785103072",
+      "__REALTIME_TIMESTAMP": "1788876117445753",
+      "__MONOTONIC_TIMESTAMP": "12468967"
+    },
+    {
+      "MESSAGE": "Memory: 105798208K/107649340K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 1850872K reserved, 0K cma-reserved)",
+      "_BOOT_ID": "90bfdd6b6fe24814a538e6b785103072",
+      "__REALTIME_TIMESTAMP": "1788876117449019",
+      "__MONOTONIC_TIMESTAMP": "12472232"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "90bfdd6b6fe24814a538e6b785103072",
+      "__REALTIME_TIMESTAMP": "1788876482507746",
+      "__MONOTONIC_TIMESTAMP": "377530959"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:36448kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:4096kB inactive_anon:1368096kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "90bfdd6b6fe24814a538e6b785103072",
+      "__REALTIME_TIMESTAMP": "1788876482507794",
+      "__MONOTONIC_TIMESTAMP": "377531008"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:50520kB min:50788kB low:63484kB high:76180kB reserved_highatomic:0KB active_anon:2128kB inactive_anon:2411640kB active_file:0kB inactive_file:744kB unevictable:3072kB writepending:0kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:560kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "90bfdd6b6fe24814a538e6b785103072",
+      "__REALTIME_TIMESTAMP": "1788876482507841",
+      "__MONOTONIC_TIMESTAMP": "377531054"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:64816076kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:13496860kB inactive_anon:2237164kB active_file:122964kB inactive_file:17743036kB unevictable:43592kB writepending:72kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:652kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "90bfdd6b6fe24814a538e6b785103072",
+      "__REALTIME_TIMESTAMP": "1788876482507898",
+      "__MONOTONIC_TIMESTAMP": "377531111"
+    },
+    {
+      "MESSAGE": "Linux version 5.15.19-htmm-node0-fix8-workers (zimooo2@node0.hemem16.uw-mad-dash-pg0.wisc.cloudlab.us) (gcc-11 (Ubuntu 11.5.0-1ubuntu1~24.04.1) 11.5.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #12 SMP Tue Sep 8 09:43:12 CDT 2026",
+      "_BOOT_ID": "d279ae290e214372a62743be0ffc6b8c",
+      "__REALTIME_TIMESTAMP": "1788880686297850",
+      "__MONOTONIC_TIMESTAMP": "9550654"
+    },
+    {
+      "MESSAGE": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0-fix8-workers root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "_BOOT_ID": "d279ae290e214372a62743be0ffc6b8c",
+      "__REALTIME_TIMESTAMP": "1788880686297866",
+      "__MONOTONIC_TIMESTAMP": "9550670"
+    },
+    {
+      "MESSAGE": "Memory: 105798212K/107649340K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 1850868K reserved, 0K cma-reserved)",
+      "_BOOT_ID": "d279ae290e214372a62743be0ffc6b8c",
+      "__REALTIME_TIMESTAMP": "1788880686301150",
+      "__MONOTONIC_TIMESTAMP": "9553954"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "d279ae290e214372a62743be0ffc6b8c",
+      "__REALTIME_TIMESTAMP": "1788880910396102",
+      "__MONOTONIC_TIMESTAMP": "233648906"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:59988kB min:61028kB low:73724kB high:86420kB reserved_highatomic:0KB active_anon:564040kB inactive_anon:1785300kB active_file:768kB inactive_file:1340kB unevictable:3072kB writepending:20kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:3076kB local_pcp:24kB free_cma:0kB",
+      "_BOOT_ID": "d279ae290e214372a62743be0ffc6b8c",
+      "__REALTIME_TIMESTAMP": "1788880910396243",
+      "__MONOTONIC_TIMESTAMP": "233649047"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:75877588kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:3584552kB inactive_anon:5459484kB active_file:126912kB inactive_file:12486368kB unevictable:43592kB writepending:68kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:2216kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "d279ae290e214372a62743be0ffc6b8c",
+      "__REALTIME_TIMESTAMP": "1788880910396298",
+      "__MONOTONIC_TIMESTAMP": "233649102"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "d279ae290e214372a62743be0ffc6b8c",
+      "__REALTIME_TIMESTAMP": "1788882174959276",
+      "__MONOTONIC_TIMESTAMP": "1498212080"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:36324kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:1136396kB inactive_anon:99644kB active_file:48kB inactive_file:16kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:5312kB local_pcp:232kB free_cma:0kB",
+      "_BOOT_ID": "d279ae290e214372a62743be0ffc6b8c",
+      "__REALTIME_TIMESTAMP": "1788882174959410",
+      "__MONOTONIC_TIMESTAMP": "1498212214"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:50552kB min:52836kB low:65532kB high:78228kB reserved_highatomic:0KB active_anon:2348868kB inactive_anon:156740kB active_file:764kB inactive_file:0kB unevictable:3072kB writepending:0kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:5328kB local_pcp:300kB free_cma:0kB",
+      "_BOOT_ID": "d279ae290e214372a62743be0ffc6b8c",
+      "__REALTIME_TIMESTAMP": "1788882174959527",
+      "__MONOTONIC_TIMESTAMP": "1498212331"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:78027856kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:3309872kB inactive_anon:2066520kB active_file:5053548kB inactive_file:9418280kB unevictable:43592kB writepending:16kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:61336kB local_pcp:496kB free_cma:0kB",
+      "_BOOT_ID": "d279ae290e214372a62743be0ffc6b8c",
+      "__REALTIME_TIMESTAMP": "1788882174959656",
+      "__MONOTONIC_TIMESTAMP": "1498212460"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "d279ae290e214372a62743be0ffc6b8c",
+      "__REALTIME_TIMESTAMP": "1788882194299746",
+      "__MONOTONIC_TIMESTAMP": "1517552550"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:36276kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:18104kB inactive_anon:1074020kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:2828kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "d279ae290e214372a62743be0ffc6b8c",
+      "__REALTIME_TIMESTAMP": "1788882194299901",
+      "__MONOTONIC_TIMESTAMP": "1517552705"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:50448kB min:50788kB low:63484kB high:76180kB reserved_highatomic:0KB active_anon:0kB inactive_anon:2697652kB active_file:352kB inactive_file:344kB unevictable:3072kB writepending:4kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:6160kB local_pcp:256kB free_cma:0kB",
+      "_BOOT_ID": "d279ae290e214372a62743be0ffc6b8c",
+      "__REALTIME_TIMESTAMP": "1788882194300048",
+      "__MONOTONIC_TIMESTAMP": "1517552852"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:72041620kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:587936kB inactive_anon:11138672kB active_file:8343436kB inactive_file:6364924kB unevictable:43592kB writepending:20kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:5744kB local_pcp:360kB free_cma:0kB",
+      "_BOOT_ID": "d279ae290e214372a62743be0ffc6b8c",
+      "__REALTIME_TIMESTAMP": "1788882194300174",
+      "__MONOTONIC_TIMESTAMP": "1517552979"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "d279ae290e214372a62743be0ffc6b8c",
+      "__REALTIME_TIMESTAMP": "1788882206901353",
+      "__MONOTONIC_TIMESTAMP": "1530154157"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:36396kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:370220kB inactive_anon:1228688kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:3028kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "d279ae290e214372a62743be0ffc6b8c",
+      "__REALTIME_TIMESTAMP": "1788882206901475",
+      "__MONOTONIC_TIMESTAMP": "1530154279"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:49672kB min:50788kB low:63484kB high:76180kB reserved_highatomic:0KB active_anon:290864kB inactive_anon:1909112kB active_file:988kB inactive_file:0kB unevictable:3072kB writepending:4kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:2812kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "d279ae290e214372a62743be0ffc6b8c",
+      "__REALTIME_TIMESTAMP": "1788882206901593",
+      "__MONOTONIC_TIMESTAMP": "1530154397"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:69635792kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:6995868kB inactive_anon:7108024kB active_file:105756kB inactive_file:14623540kB unevictable:43592kB writepending:108kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:10092kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "d279ae290e214372a62743be0ffc6b8c",
+      "__REALTIME_TIMESTAMP": "1788882206901720",
+      "__MONOTONIC_TIMESTAMP": "1530154524"
+    },
+    {
+      "MESSAGE": "Linux version 6.18.1-061801-generic (kernel@balboa) (x86_64-linux-gnu-gcc-15 (Ubuntu 15.2.0-4ubuntu4) 15.2.0, GNU ld (GNU Binutils for Ubuntu) 2.45) #202512121839 SMP PREEMPT_DYNAMIC Fri Dec 12 19:19:06 UTC 2025",
+      "_BOOT_ID": "e79ea3efd7984057b0ed5e0a13fe0528",
+      "__REALTIME_TIMESTAMP": "1788886876825091",
+      "__MONOTONIC_TIMESTAMP": "10379912"
+    },
+    {
+      "MESSAGE": "Command line: BOOT_IMAGE=/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "_BOOT_ID": "e79ea3efd7984057b0ed5e0a13fe0528",
+      "__REALTIME_TIMESTAMP": "1788886876825134",
+      "__MONOTONIC_TIMESTAMP": "10379955"
+    },
+    {
+      "MESSAGE": "Memory: 105625152K/107649340K available (23041K kernel code, 4733K rwdata, 16932K rodata, 5184K init, 6260K bss, 1846860K reserved, 0K cma-reserved)",
+      "_BOOT_ID": "e79ea3efd7984057b0ed5e0a13fe0528",
+      "__REALTIME_TIMESTAMP": "1788886876831333",
+      "__MONOTONIC_TIMESTAMP": "10386154"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "e79ea3efd7984057b0ed5e0a13fe0528",
+      "__REALTIME_TIMESTAMP": "1788887020617773",
+      "__MONOTONIC_TIMESTAMP": "154172594"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:36376kB boost:0kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:1620240kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:996kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "e79ea3efd7984057b0ed5e0a13fe0528",
+      "__REALTIME_TIMESTAMP": "1788887020617870",
+      "__MONOTONIC_TIMESTAMP": "154172691"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:45540kB boost:0kB min:50780kB low:63472kB high:76164kB reserved_highatomic:0KB free_highatomic:0KB active_anon:20kB inactive_anon:2597264kB active_file:24kB inactive_file:148kB unevictable:3072kB writepending:0kB zspages:0kB present:5242880kB managed:5125364kB mlocked:0kB bounce:0kB free_pcp:8308kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "e79ea3efd7984057b0ed5e0a13fe0528",
+      "__REALTIME_TIMESTAMP": "1788887020617956",
+      "__MONOTONIC_TIMESTAMP": "154172777"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:79096144kB boost:0kB min:981176kB low:1226468kB high:1471760kB reserved_highatomic:0KB free_highatomic:0KB active_anon:77296kB inactive_anon:8668164kB active_file:47524kB inactive_file:10158740kB unevictable:39320kB writepending:0kB zspages:0kB present:100663296kB managed:99030844kB mlocked:39320kB bounce:0kB free_pcp:12632kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "e79ea3efd7984057b0ed5e0a13fe0528",
+      "__REALTIME_TIMESTAMP": "1788887020618047",
+      "__MONOTONIC_TIMESTAMP": "154172868"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "e79ea3efd7984057b0ed5e0a13fe0528",
+      "__REALTIME_TIMESTAMP": "1788887033847310",
+      "__MONOTONIC_TIMESTAMP": "167402131"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:34788kB boost:0kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:1571492kB active_file:0kB inactive_file:0kB unevictable:96kB writepending:0kB zspages:0kB present:1727180kB managed:1661644kB mlocked:96kB bounce:0kB free_pcp:51032kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "e79ea3efd7984057b0ed5e0a13fe0528",
+      "__REALTIME_TIMESTAMP": "1788887033847460",
+      "__MONOTONIC_TIMESTAMP": "167402281"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:43996kB boost:0kB min:50780kB low:63472kB high:76164kB reserved_highatomic:0KB free_highatomic:0KB active_anon:20kB inactive_anon:2515940kB active_file:64kB inactive_file:64kB unevictable:3288kB writepending:0kB zspages:0kB present:5242880kB managed:5125364kB mlocked:216kB bounce:0kB free_pcp:91048kB local_pcp:13296kB free_cma:0kB",
+      "_BOOT_ID": "e79ea3efd7984057b0ed5e0a13fe0528",
+      "__REALTIME_TIMESTAMP": "1788887033847635",
+      "__MONOTONIC_TIMESTAMP": "167402456"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:78491384kB boost:0kB min:981176kB low:1226468kB high:1471760kB reserved_highatomic:0KB free_highatomic:0KB active_anon:77296kB inactive_anon:9553596kB active_file:47384kB inactive_file:10159272kB unevictable:39040kB writepending:0kB zspages:0kB present:100663296kB managed:99030844kB mlocked:39040kB bounce:0kB free_pcp:108032kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "e79ea3efd7984057b0ed5e0a13fe0528",
+      "__REALTIME_TIMESTAMP": "1788887033847792",
+      "__MONOTONIC_TIMESTAMP": "167402613"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "e79ea3efd7984057b0ed5e0a13fe0528",
+      "__REALTIME_TIMESTAMP": "1788887046112403",
+      "__MONOTONIC_TIMESTAMP": "179667224"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:35876kB boost:0kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:1570452kB active_file:0kB inactive_file:0kB unevictable:96kB writepending:0kB zspages:0kB present:1727180kB managed:1661644kB mlocked:96kB bounce:0kB free_pcp:51072kB local_pcp:8064kB free_cma:0kB",
+      "_BOOT_ID": "e79ea3efd7984057b0ed5e0a13fe0528",
+      "__REALTIME_TIMESTAMP": "1788887046112549",
+      "__MONOTONIC_TIMESTAMP": "179667370"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:49088kB boost:0kB min:50780kB low:63472kB high:76164kB reserved_highatomic:0KB free_highatomic:0KB active_anon:20kB inactive_anon:2554556kB active_file:128kB inactive_file:0kB unevictable:3288kB writepending:0kB zspages:0kB present:5242880kB managed:5125364kB mlocked:216kB bounce:0kB free_pcp:46704kB local_pcp:16116kB free_cma:0kB",
+      "_BOOT_ID": "e79ea3efd7984057b0ed5e0a13fe0528",
+      "__REALTIME_TIMESTAMP": "1788887046112726",
+      "__MONOTONIC_TIMESTAMP": "179667547"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:78598644kB boost:0kB min:981176kB low:1226468kB high:1471760kB reserved_highatomic:0KB free_highatomic:0KB active_anon:77296kB inactive_anon:9506036kB active_file:47396kB inactive_file:10159412kB unevictable:39040kB writepending:0kB zspages:0kB present:100663296kB managed:99030844kB mlocked:39040kB bounce:0kB free_pcp:49372kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "e79ea3efd7984057b0ed5e0a13fe0528",
+      "__REALTIME_TIMESTAMP": "1788887046112910",
+      "__MONOTONIC_TIMESTAMP": "179667731"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB zspages:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "e79ea3efd7984057b0ed5e0a13fe0528",
+      "__REALTIME_TIMESTAMP": "1788887067636250",
+      "__MONOTONIC_TIMESTAMP": "201191071"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:35072kB boost:0kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB free_highatomic:0KB active_anon:0kB inactive_anon:1611820kB active_file:0kB inactive_file:0kB unevictable:96kB writepending:0kB zspages:0kB present:1727180kB managed:1661644kB mlocked:96kB bounce:0kB free_pcp:10764kB local_pcp:992kB free_cma:0kB",
+      "_BOOT_ID": "e79ea3efd7984057b0ed5e0a13fe0528",
+      "__REALTIME_TIMESTAMP": "1788887067636404",
+      "__MONOTONIC_TIMESTAMP": "201191225"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:47484kB boost:0kB min:50780kB low:63472kB high:76164kB reserved_highatomic:0KB free_highatomic:0KB active_anon:20kB inactive_anon:2529872kB active_file:64kB inactive_file:64kB unevictable:3288kB writepending:0kB zspages:0kB present:5242880kB managed:5125364kB mlocked:216kB bounce:0kB free_pcp:72368kB local_pcp:4744kB free_cma:0kB",
+      "_BOOT_ID": "e79ea3efd7984057b0ed5e0a13fe0528",
+      "__REALTIME_TIMESTAMP": "1788887067636576",
+      "__MONOTONIC_TIMESTAMP": "201191397"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:78588572kB boost:0kB min:981176kB low:1226468kB high:1471760kB reserved_highatomic:0KB free_highatomic:0KB active_anon:77272kB inactive_anon:9497620kB active_file:47560kB inactive_file:10159708kB unevictable:39040kB writepending:0kB zspages:0kB present:100663296kB managed:99030844kB mlocked:39040kB bounce:0kB free_pcp:65088kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "e79ea3efd7984057b0ed5e0a13fe0528",
+      "__REALTIME_TIMESTAMP": "1788887067636750",
+      "__MONOTONIC_TIMESTAMP": "201191571"
+    },
+    {
+      "MESSAGE": "Linux version 5.15.19-htmm-node0-fix8-workers (zimooo2@node0.hemem16.uw-mad-dash-pg0.wisc.cloudlab.us) (gcc-11 (Ubuntu 11.5.0-1ubuntu1~24.04.1) 11.5.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #12 SMP Tue Sep 8 09:43:12 CDT 2026",
+      "_BOOT_ID": "4a165569e4294354ad90c10dc6a2b6d3",
+      "__REALTIME_TIMESTAMP": "1788888568070751",
+      "__MONOTONIC_TIMESTAMP": "10322607"
+    },
+    {
+      "MESSAGE": "Command line: BOOT_IMAGE=/boot/vmlinuz-5.15.19-htmm-node0-fix8-workers root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "_BOOT_ID": "4a165569e4294354ad90c10dc6a2b6d3",
+      "__REALTIME_TIMESTAMP": "1788888568070769",
+      "__MONOTONIC_TIMESTAMP": "10322624"
+    },
+    {
+      "MESSAGE": "Memory: 105798212K/107649340K available (18441K kernel code, 4563K rwdata, 5808K rodata, 2908K init, 6704K bss, 1850868K reserved, 0K cma-reserved)",
+      "_BOOT_ID": "4a165569e4294354ad90c10dc6a2b6d3",
+      "__REALTIME_TIMESTAMP": "1788888568074113",
+      "__MONOTONIC_TIMESTAMP": "10325969"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "4a165569e4294354ad90c10dc6a2b6d3",
+      "__REALTIME_TIMESTAMP": "1788889439070350",
+      "__MONOTONIC_TIMESTAMP": "881322205"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:36068kB min:16460kB low:20572kB high:24684kB reserved_highatomic:0KB active_anon:12288kB inactive_anon:1450592kB active_file:0kB inactive_file:612kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:356kB local_pcp:20kB free_cma:0kB",
+      "_BOOT_ID": "4a165569e4294354ad90c10dc6a2b6d3",
+      "__REALTIME_TIMESTAMP": "1788889439070471",
+      "__MONOTONIC_TIMESTAMP": "881322326"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:50776kB min:50788kB low:63484kB high:76180kB reserved_highatomic:0KB active_anon:22496kB inactive_anon:2267392kB active_file:1132kB inactive_file:1668kB unevictable:3072kB writepending:16kB present:5242880kB managed:5127208kB mlocked:0kB bounce:0kB free_pcp:272kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "4a165569e4294354ad90c10dc6a2b6d3",
+      "__REALTIME_TIMESTAMP": "1788889439070605",
+      "__MONOTONIC_TIMESTAMP": "881322461"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:64830960kB min:981172kB low:1226464kB high:1471756kB reserved_highatomic:0KB active_anon:12499504kB inactive_anon:3000956kB active_file:148920kB inactive_file:17923580kB unevictable:43592kB writepending:88kB present:100663296kB managed:99048532kB mlocked:43592kB bounce:0kB free_pcp:808kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "4a165569e4294354ad90c10dc6a2b6d3",
+      "__REALTIME_TIMESTAMP": "1788889439070730",
+      "__MONOTONIC_TIMESTAMP": "881322586"
+    },
+    {
+      "MESSAGE": "Linux version 6.18.1-061801-generic (kernel@balboa) (x86_64-linux-gnu-gcc-15 (Ubuntu 15.2.0-4ubuntu4) 15.2.0, GNU ld (GNU Binutils for Ubuntu) 2.45) #202512121839 SMP PREEMPT_DYNAMIC Fri Dec 12 19:19:06 UTC 2025",
+      "_BOOT_ID": "2a8df903c7d14419b1e97c801cf7497e",
+      "__REALTIME_TIMESTAMP": "1788890097672079",
+      "__MONOTONIC_TIMESTAMP": "10217309"
+    },
+    {
+      "MESSAGE": "Command line: BOOT_IMAGE=/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "_BOOT_ID": "2a8df903c7d14419b1e97c801cf7497e",
+      "__REALTIME_TIMESTAMP": "1788890097672126",
+      "__MONOTONIC_TIMESTAMP": "10217356"
+    },
+    {
+      "MESSAGE": "Memory: 105625164K/107649340K available (23041K kernel code, 4733K rwdata, 16932K rodata, 5184K init, 6260K bss, 1846872K reserved, 0K cma-reserved)",
+      "_BOOT_ID": "2a8df903c7d14419b1e97c801cf7497e",
+      "__REALTIME_TIMESTAMP": "1788890097678374",
+      "__MONOTONIC_TIMESTAMP": "10223604"
+    },
+    {
+      "MESSAGE": "Linux version 6.2.0-060200-generic (kernel@sita) (x86_64-linux-gnu-gcc-12 (Ubuntu 12.2.0-9ubuntu1) 12.2.0, GNU ld (GNU Binutils for Ubuntu) 2.39) #202302191831 SMP PREEMPT_DYNAMIC Sun Feb 19 23:37:22 UTC 2023",
+      "_BOOT_ID": "eeb523eca1bc4da6b7afe3bdbd326667",
+      "__REALTIME_TIMESTAMP": "1788891031901985",
+      "__MONOTONIC_TIMESTAMP": "13387713"
+    },
+    {
+      "MESSAGE": "Command line: BOOT_IMAGE=/boot/vmlinuz-6.2.0-060200-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G",
+      "_BOOT_ID": "eeb523eca1bc4da6b7afe3bdbd326667",
+      "__REALTIME_TIMESTAMP": "1788891031902008",
+      "__MONOTONIC_TIMESTAMP": "13387736"
+    },
+    {
+      "MESSAGE": "Memory: 105814796K/107649340K available (20480K kernel code, 4140K rwdata, 12700K rodata, 4484K init, 5544K bss, 1834284K reserved, 0K cma-reserved)",
+      "_BOOT_ID": "eeb523eca1bc4da6b7afe3bdbd326667",
+      "__REALTIME_TIMESTAMP": "1788891031906927",
+      "__MONOTONIC_TIMESTAMP": "13392655"
+    },
+    {
+      "MESSAGE": "Linux version 6.2.0-060200-generic (kernel@sita) (x86_64-linux-gnu-gcc-12 (Ubuntu 12.2.0-9ubuntu1) 12.2.0, GNU ld (GNU Binutils for Ubuntu) 2.39) #202302191831 SMP PREEMPT_DYNAMIC Sun Feb 19 23:37:22 UTC 2023",
+      "_BOOT_ID": "481c7716b93e4b079ca7d0beeacd4b41",
+      "__REALTIME_TIMESTAMP": "1788891300783434",
+      "__MONOTONIC_TIMESTAMP": "13242650"
+    },
+    {
+      "MESSAGE": "Command line: BOOT_IMAGE=/boot/vmlinuz-6.2.0-060200-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=92G!2G",
+      "_BOOT_ID": "481c7716b93e4b079ca7d0beeacd4b41",
+      "__REALTIME_TIMESTAMP": "1788891300783458",
+      "__MONOTONIC_TIMESTAMP": "13242674"
+    },
+    {
+      "MESSAGE": "Memory: 103750396K/105552188K available (20480K kernel code, 4140K rwdata, 12700K rodata, 4484K init, 5544K bss, 1801532K reserved, 0K cma-reserved)",
+      "_BOOT_ID": "481c7716b93e4b079ca7d0beeacd4b41",
+      "__REALTIME_TIMESTAMP": "1788891300788443",
+      "__MONOTONIC_TIMESTAMP": "13247659"
+    },
+    {
+      "MESSAGE": "Linux version 6.2.0-hybridtier+ (zimooo2@node0.hemem16.uw-mad-dash-pg0.wisc.cloudlab.us) (gcc-11 (Ubuntu 11.5.0-1ubuntu1~24.04.1) 11.5.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #5 SMP PREEMPT_DYNAMIC Fri Mar  6 23:21:19 CST 2026",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788891853602416",
+      "__MONOTONIC_TIMESTAMP": "29180652"
+    },
+    {
+      "MESSAGE": "Command line: BOOT_IMAGE=/boot/vmlinuz-6.2.0-hybridtier+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=92G!2G",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788891853602468",
+      "__MONOTONIC_TIMESTAMP": "29180704"
+    },
+    {
+      "MESSAGE": "Memory: 103481416K/105552188K available (110592K kernel code, 21776K rwdata, 89028K rodata, 15716K init, 6920K bss, 2070512K reserved, 0K cma-reserved)",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788891853611000",
+      "__MONOTONIC_TIMESTAMP": "29189237"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893069876343",
+      "__MONOTONIC_TIMESTAMP": "1245454579"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:30752kB boost:2048kB min:18864kB low:23068kB high:27272kB reserved_highatomic:0KB active_anon:0kB inactive_anon:1617612kB active_file:24kB inactive_file:20kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:1196kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893069876492",
+      "__MONOTONIC_TIMESTAMP": "1245454728"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:33580kB boost:4096kB min:35096kB low:42844kB high:50592kB reserved_highatomic:0KB active_anon:24kB inactive_anon:818252kB active_file:60kB inactive_file:60kB unevictable:1752kB writepending:0kB present:3145728kB managed:3062664kB mlocked:216kB bounce:0kB free_pcp:1832kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893069876640",
+      "__MONOTONIC_TIMESTAMP": "1245454876"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:72729720kB boost:0kB min:1000600kB low:1250748kB high:1500896kB reserved_highatomic:0KB active_anon:996460kB inactive_anon:11377684kB active_file:380568kB inactive_file:12572700kB unevictable:45044kB writepending:12356kB present:100663296kB managed:98854916kB mlocked:43508kB bounce:0kB free_pcp:76240kB local_pcp:11504kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893069876806",
+      "__MONOTONIC_TIMESTAMP": "1245455042"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893080404298",
+      "__MONOTONIC_TIMESTAMP": "1255982534"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:30624kB boost:2048kB min:18864kB low:23068kB high:27272kB reserved_highatomic:0KB active_anon:0kB inactive_anon:1615852kB active_file:56kB inactive_file:0kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:2480kB local_pcp:80kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893080404459",
+      "__MONOTONIC_TIMESTAMP": "1255982696"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:31748kB boost:4096kB min:35096kB low:42844kB high:50592kB reserved_highatomic:0KB active_anon:24kB inactive_anon:819792kB active_file:172kB inactive_file:0kB unevictable:1752kB writepending:0kB present:3145728kB managed:3062664kB mlocked:216kB bounce:0kB free_pcp:1200kB local_pcp:108kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893080404632",
+      "__MONOTONIC_TIMESTAMP": "1255982868"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:72781712kB boost:0kB min:1000600kB low:1250748kB high:1500896kB reserved_highatomic:0KB active_anon:996460kB inactive_anon:11351588kB active_file:380592kB inactive_file:12575792kB unevictable:45044kB writepending:0kB present:100663296kB managed:98854916kB mlocked:43508kB bounce:0kB free_pcp:21376kB local_pcp:2840kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893080404823",
+      "__MONOTONIC_TIMESTAMP": "1255983059"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893091902823",
+      "__MONOTONIC_TIMESTAMP": "1267481059"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:28580kB boost:0kB min:16816kB low:21020kB high:25224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:1617712kB active_file:24kB inactive_file:20kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:3360kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893091903003",
+      "__MONOTONIC_TIMESTAMP": "1267481239"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:32696kB boost:2048kB min:33048kB low:40796kB high:48544kB reserved_highatomic:0KB active_anon:24kB inactive_anon:817904kB active_file:60kB inactive_file:60kB unevictable:1752kB writepending:0kB present:3145728kB managed:3062664kB mlocked:216kB bounce:0kB free_pcp:2892kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893091903183",
+      "__MONOTONIC_TIMESTAMP": "1267481419"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:72659640kB boost:0kB min:1000600kB low:1250748kB high:1500896kB reserved_highatomic:0KB active_anon:996408kB inactive_anon:11380500kB active_file:380684kB inactive_file:12584400kB unevictable:45044kB writepending:0kB present:100663296kB managed:98854916kB mlocked:43508kB bounce:0kB free_pcp:131612kB local_pcp:5332kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893091903354",
+      "__MONOTONIC_TIMESTAMP": "1267481590"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893102149601",
+      "__MONOTONIC_TIMESTAMP": "1277727837"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:28192kB boost:0kB min:16816kB low:21020kB high:25224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:1617688kB active_file:24kB inactive_file:20kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:3780kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893102149772",
+      "__MONOTONIC_TIMESTAMP": "1277728008"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:32576kB boost:2048kB min:33048kB low:40796kB high:48544kB reserved_highatomic:0KB active_anon:24kB inactive_anon:817904kB active_file:60kB inactive_file:60kB unevictable:1752kB writepending:0kB present:3145728kB managed:3062664kB mlocked:216kB bounce:0kB free_pcp:3060kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893102149933",
+      "__MONOTONIC_TIMESTAMP": "1277728169"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:72544980kB boost:0kB min:1000600kB low:1250748kB high:1500896kB reserved_highatomic:0KB active_anon:996392kB inactive_anon:11379968kB active_file:380864kB inactive_file:12584416kB unevictable:45044kB writepending:156kB present:100663296kB managed:98854916kB mlocked:43508kB bounce:0kB free_pcp:245040kB local_pcp:10616kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893102150141",
+      "__MONOTONIC_TIMESTAMP": "1277728377"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893112909357",
+      "__MONOTONIC_TIMESTAMP": "1288487593"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:28608kB boost:0kB min:16816kB low:21020kB high:25224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:1620288kB active_file:24kB inactive_file:20kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:752kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893112909518",
+      "__MONOTONIC_TIMESTAMP": "1288487754"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:30664kB boost:2048kB min:33048kB low:40796kB high:48544kB reserved_highatomic:0KB active_anon:24kB inactive_anon:822460kB active_file:60kB inactive_file:60kB unevictable:1752kB writepending:0kB present:3145728kB managed:3062664kB mlocked:216kB bounce:0kB free_pcp:248kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893112909702",
+      "__MONOTONIC_TIMESTAMP": "1288487938"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:72684968kB boost:0kB min:1000600kB low:1250748kB high:1500896kB reserved_highatomic:0KB active_anon:996156kB inactive_anon:11374828kB active_file:380940kB inactive_file:12592572kB unevictable:45044kB writepending:144kB present:100663296kB managed:98854916kB mlocked:43508kB bounce:0kB free_pcp:102532kB local_pcp:1268kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893112909889",
+      "__MONOTONIC_TIMESTAMP": "1288488125"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893122956923",
+      "__MONOTONIC_TIMESTAMP": "1298535159"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:28640kB boost:0kB min:16816kB low:21020kB high:25224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:1620276kB active_file:24kB inactive_file:20kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:752kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893122957100",
+      "__MONOTONIC_TIMESTAMP": "1298535336"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:33032kB boost:2048kB min:33048kB low:40796kB high:48544kB reserved_highatomic:0KB active_anon:24kB inactive_anon:819772kB active_file:60kB inactive_file:60kB unevictable:1752kB writepending:0kB present:3145728kB managed:3062664kB mlocked:216kB bounce:0kB free_pcp:744kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893122957285",
+      "__MONOTONIC_TIMESTAMP": "1298535521"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:72556136kB boost:0kB min:1000600kB low:1250748kB high:1500896kB reserved_highatomic:0KB active_anon:996160kB inactive_anon:11388972kB active_file:381248kB inactive_file:12593104kB unevictable:45044kB writepending:0kB present:100663296kB managed:98854916kB mlocked:43508kB bounce:0kB free_pcp:212500kB local_pcp:5048kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893122957474",
+      "__MONOTONIC_TIMESTAMP": "1298535710"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893133516792",
+      "__MONOTONIC_TIMESTAMP": "1309095028"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:28744kB boost:0kB min:16816kB low:21020kB high:25224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:1620348kB active_file:12kB inactive_file:32kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:488kB local_pcp:240kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893133516845",
+      "__MONOTONIC_TIMESTAMP": "1309095081"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:31000kB boost:0kB min:31000kB low:38748kB high:46496kB reserved_highatomic:0KB active_anon:28kB inactive_anon:821848kB active_file:36kB inactive_file:60kB unevictable:1752kB writepending:0kB present:3145728kB managed:3062664kB mlocked:216kB bounce:0kB free_pcp:480kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893133516897",
+      "__MONOTONIC_TIMESTAMP": "1309095133"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:72733232kB boost:0kB min:1000600kB low:1250748kB high:1500896kB reserved_highatomic:0KB active_anon:995872kB inactive_anon:11400024kB active_file:381288kB inactive_file:12601176kB unevictable:45044kB writepending:12196kB present:100663296kB managed:98854916kB mlocked:43508kB bounce:0kB free_pcp:20192kB local_pcp:1528kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893133516948",
+      "__MONOTONIC_TIMESTAMP": "1309095184"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893147191061",
+      "__MONOTONIC_TIMESTAMP": "1322769297"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:28760kB boost:0kB min:16816kB low:21020kB high:25224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:1620680kB active_file:16kB inactive_file:28kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:248kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893147191199",
+      "__MONOTONIC_TIMESTAMP": "1322769436"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:31036kB boost:2048kB min:33048kB low:40796kB high:48544kB reserved_highatomic:0KB active_anon:28kB inactive_anon:822104kB active_file:60kB inactive_file:60kB unevictable:1752kB writepending:0kB present:3145728kB managed:3062664kB mlocked:216kB bounce:0kB free_pcp:748kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893147191342",
+      "__MONOTONIC_TIMESTAMP": "1322769578"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:72675356kB boost:0kB min:1000600kB low:1250748kB high:1500896kB reserved_highatomic:0KB active_anon:995868kB inactive_anon:11398416kB active_file:381320kB inactive_file:12609516kB unevictable:45044kB writepending:0kB present:100663296kB managed:98854916kB mlocked:43508kB bounce:0kB free_pcp:69740kB local_pcp:260kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893147191493",
+      "__MONOTONIC_TIMESTAMP": "1322769729"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893158453001",
+      "__MONOTONIC_TIMESTAMP": "1334031237"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:28652kB boost:0kB min:16816kB low:21020kB high:25224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:1618636kB active_file:28kB inactive_file:16kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:1952kB local_pcp:232kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893158453205",
+      "__MONOTONIC_TIMESTAMP": "1334031441"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:30348kB boost:0kB min:31000kB low:38748kB high:46496kB reserved_highatomic:0KB active_anon:28kB inactive_anon:821604kB active_file:72kB inactive_file:48kB unevictable:1752kB writepending:0kB present:3145728kB managed:3062664kB mlocked:216kB bounce:0kB free_pcp:1304kB local_pcp:196kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893158453397",
+      "__MONOTONIC_TIMESTAMP": "1334031633"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:72721740kB boost:0kB min:1000600kB low:1250748kB high:1500896kB reserved_highatomic:0KB active_anon:995868kB inactive_anon:11399392kB active_file:381344kB inactive_file:12609532kB unevictable:45044kB writepending:0kB present:100663296kB managed:98854916kB mlocked:43508kB bounce:0kB free_pcp:22000kB local_pcp:3348kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893158453612",
+      "__MONOTONIC_TIMESTAMP": "1334031848"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893168457338",
+      "__MONOTONIC_TIMESTAMP": "1344035574"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:28204kB boost:0kB min:16816kB low:21020kB high:25224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:1617708kB active_file:0kB inactive_file:44kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:3804kB local_pcp:152kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893168457527",
+      "__MONOTONIC_TIMESTAMP": "1344035763"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:30244kB boost:0kB min:31000kB low:38748kB high:46496kB reserved_highatomic:0KB active_anon:28kB inactive_anon:822104kB active_file:0kB inactive_file:128kB unevictable:1752kB writepending:0kB present:3145728kB managed:3062664kB mlocked:216kB bounce:0kB free_pcp:1304kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893168457710",
+      "__MONOTONIC_TIMESTAMP": "1344035946"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:72408500kB boost:0kB min:1000600kB low:1250748kB high:1500896kB reserved_highatomic:0KB active_anon:995868kB inactive_anon:11398892kB active_file:381368kB inactive_file:12609548kB unevictable:45044kB writepending:0kB present:100663296kB managed:98854916kB mlocked:43508kB bounce:0kB free_pcp:334128kB local_pcp:108kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893168457907",
+      "__MONOTONIC_TIMESTAMP": "1344036143"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893178486119",
+      "__MONOTONIC_TIMESTAMP": "1354064355"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:28736kB boost:0kB min:16816kB low:21020kB high:25224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:1617708kB active_file:20kB inactive_file:24kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:3272kB local_pcp:8kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893178486312",
+      "__MONOTONIC_TIMESTAMP": "1354064548"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:30248kB boost:0kB min:31000kB low:38748kB high:46496kB reserved_highatomic:0KB active_anon:28kB inactive_anon:822104kB active_file:88kB inactive_file:32kB unevictable:1752kB writepending:0kB present:3145728kB managed:3062664kB mlocked:216kB bounce:0kB free_pcp:1308kB local_pcp:40kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893178486502",
+      "__MONOTONIC_TIMESTAMP": "1354064738"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:72296780kB boost:0kB min:1000600kB low:1250748kB high:1500896kB reserved_highatomic:0KB active_anon:995868kB inactive_anon:11401716kB active_file:381376kB inactive_file:12609572kB unevictable:45044kB writepending:0kB present:100663296kB managed:98854916kB mlocked:43508kB bounce:0kB free_pcp:444440kB local_pcp:1720kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893178486697",
+      "__MONOTONIC_TIMESTAMP": "1354064933"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893188705445",
+      "__MONOTONIC_TIMESTAMP": "1364283681"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:28704kB boost:0kB min:16816kB low:21020kB high:25224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:1618364kB active_file:20kB inactive_file:24kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:2652kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893188705632",
+      "__MONOTONIC_TIMESTAMP": "1364283868"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:29960kB boost:0kB min:31000kB low:38748kB high:46496kB reserved_highatomic:0KB active_anon:28kB inactive_anon:822172kB active_file:144kB inactive_file:0kB unevictable:1752kB writepending:0kB present:3145728kB managed:3062664kB mlocked:216kB bounce:0kB free_pcp:1552kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893188705803",
+      "__MONOTONIC_TIMESTAMP": "1364284039"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:72599668kB boost:0kB min:1000600kB low:1250748kB high:1500896kB reserved_highatomic:0KB active_anon:995868kB inactive_anon:11399440kB active_file:427444kB inactive_file:12586952kB unevictable:45044kB writepending:0kB present:100663296kB managed:98854916kB mlocked:43508kB bounce:0kB free_pcp:119936kB local_pcp:4292kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893188705982",
+      "__MONOTONIC_TIMESTAMP": "1364284218"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893198708508",
+      "__MONOTONIC_TIMESTAMP": "1374286744"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:28064kB boost:0kB min:16816kB low:21020kB high:25224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:1618364kB active_file:32kB inactive_file:12kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:3292kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893198708663",
+      "__MONOTONIC_TIMESTAMP": "1374286899"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:29964kB boost:0kB min:31000kB low:38748kB high:46496kB reserved_highatomic:0KB active_anon:28kB inactive_anon:822172kB active_file:136kB inactive_file:0kB unevictable:1752kB writepending:0kB present:3145728kB managed:3062664kB mlocked:216kB bounce:0kB free_pcp:1548kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893198708844",
+      "__MONOTONIC_TIMESTAMP": "1374287080"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:72495288kB boost:0kB min:1000600kB low:1250748kB high:1500896kB reserved_highatomic:0KB active_anon:995872kB inactive_anon:11398596kB active_file:427460kB inactive_file:12586968kB unevictable:45044kB writepending:128kB present:100663296kB managed:98854916kB mlocked:43508kB bounce:0kB free_pcp:223668kB local_pcp:4292kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893198709020",
+      "__MONOTONIC_TIMESTAMP": "1374287256"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893208715325",
+      "__MONOTONIC_TIMESTAMP": "1384293561"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:28568kB boost:0kB min:16816kB low:21020kB high:25224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:1618364kB active_file:36kB inactive_file:8kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:2788kB local_pcp:192kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893208715496",
+      "__MONOTONIC_TIMESTAMP": "1384293733"
+    },
+    {
+      "MESSAGE": "Node 0 Normal free:29988kB boost:0kB min:31000kB low:38748kB high:46496kB reserved_highatomic:0KB active_anon:28kB inactive_anon:822172kB active_file:100kB inactive_file:20kB unevictable:1752kB writepending:0kB present:3145728kB managed:3062664kB mlocked:216kB bounce:0kB free_pcp:1556kB local_pcp:32kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893208715676",
+      "__MONOTONIC_TIMESTAMP": "1384293912"
+    },
+    {
+      "MESSAGE": "Node 1 Normal free:72362948kB boost:0kB min:1000600kB low:1250748kB high:1500896kB reserved_highatomic:0KB active_anon:995864kB inactive_anon:11398404kB active_file:427484kB inactive_file:12586980kB unevictable:45044kB writepending:0kB present:100663296kB managed:98854916kB mlocked:43508kB bounce:0kB free_pcp:355648kB local_pcp:2048kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893208715846",
+      "__MONOTONIC_TIMESTAMP": "1384294083"
+    },
+    {
+      "MESSAGE": "Node 0 DMA free:11264kB boost:0kB min:152kB low:188kB high:224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:0kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:15984kB managed:15360kB mlocked:0kB bounce:0kB free_pcp:0kB local_pcp:0kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893394759371",
+      "__MONOTONIC_TIMESTAMP": "1570337607"
+    },
+    {
+      "MESSAGE": "Node 0 DMA32 free:28540kB boost:0kB min:16816kB low:21020kB high:25224kB reserved_highatomic:0KB active_anon:0kB inactive_anon:1620056kB active_file:8kB inactive_file:32kB unevictable:0kB writepending:0kB present:1727180kB managed:1661644kB mlocked:0kB bounce:0kB free_pcp:732kB local_pcp:248kB free_cma:0kB",
+      "_BOOT_ID": "f8439f05fcfa40deae87c4f51e71b03b",
+      "__REALTIME_TIMESTAMP": "1788893394759419",
+      "__MONOTONIC_TIMESTAMP": "1570337655"
+    }
+  ]
+}

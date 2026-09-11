@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-2f2ec34c/jSlr.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-2f2ec34c/fSYY.sh
+@@ -27,7 +27,7 @@
+ WORKLOAD_ARGS=("${MEASUREMENT_REMAINING_ARGS[@]}")
+ 
+ SIZES=(100102)
+-RUNS=1
++RUNS=10
+ NUMA_MEM_NODES_OVERRIDE=${NUMA_MEM_NODES_OVERRIDE:-${NUMA_MEM_NODE_OVERRIDE:-0}}
+ 
+ RUN_LABEL_SUFFIX=${RUN_LABEL_SUFFIX:-_train}

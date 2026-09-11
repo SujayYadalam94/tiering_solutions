@@ -1,0 +1,358 @@
+[
+  {
+    "size": 4032,
+    "arms_mean": 711.096,
+    "model_mean": 632.7456666666667,
+    "gap_s": 78.35033333333331,
+    "relative_gap_percent": 12.38259500789416,
+    "arms_files": [
+      {
+        "path": "times/c220g5/arms/bc-twitter.sg-long/4032MiB_run2.time",
+        "group": "arms",
+        "size_mib": 4032,
+        "run": 2,
+        "seconds": 705.438,
+        "exit_status": 0,
+        "mtime_utc": "2026-05-12T22:25:30.554265+00:00",
+        "mtime_ns": 1778624730554265186,
+        "sha256": "bb945bb9043e634d93de39d5ac0d4a4fd9bcac669ef486e014aad769298f5249",
+        "boot_start_inferred_from_mtime": "2026-05-12T17:06:17+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      },
+      {
+        "path": "times/c220g5/arms/bc-twitter.sg-long/4032MiB_run3.time",
+        "group": "arms",
+        "size_mib": 4032,
+        "run": 3,
+        "seconds": 715.936,
+        "exit_status": 0,
+        "mtime_utc": "2026-05-12T23:17:14.402515+00:00",
+        "mtime_ns": 1778627834402514634,
+        "sha256": "794b4c2a0b48f2bb10c024e9bd9b1f98f65d7af68be28238046918b7137bcf82",
+        "boot_start_inferred_from_mtime": "2026-05-12T17:06:17+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      },
+      {
+        "path": "times/c220g5/arms/bc-twitter.sg-long/4032MiB_run1.time",
+        "group": "arms",
+        "size_mib": 4032,
+        "run": 1,
+        "seconds": 711.914,
+        "exit_status": 0,
+        "mtime_utc": "2026-05-12T23:53:28.999033+00:00",
+        "mtime_ns": 1778630008999033452,
+        "sha256": "41f904f5d4e4932fecaa3b9241a9eb90731cd97328861157ef9029ae5b1b79be",
+        "boot_start_inferred_from_mtime": "2026-05-12T17:06:17+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      }
+    ],
+    "model_files": [
+      {
+        "path": "times/c220g5/model/bc-twitter.sg-long/4032MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "group": "model",
+        "size_mib": 4032,
+        "run": 1,
+        "seconds": 636.504,
+        "exit_status": 0,
+        "mtime_utc": "2026-05-12T20:35:43.614066+00:00",
+        "mtime_ns": 1778618143614066114,
+        "sha256": "3a73f2a9acafc29b3530246f224d44fa14e0653ab4f606a16e14ea450d699128",
+        "boot_start_inferred_from_mtime": "2026-05-12T17:06:17+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      },
+      {
+        "path": "times/c220g5/model/bc-twitter.sg-long/4032MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "group": "model",
+        "size_mib": 4032,
+        "run": 2,
+        "seconds": 628.457,
+        "exit_status": 0,
+        "mtime_utc": "2026-05-12T22:36:44.520473+00:00",
+        "mtime_ns": 1778625404520473340,
+        "sha256": "8b555c56372c736c909da5e5a0f1116e2c174118a39a861a6f13ad16a16b44fd",
+        "boot_start_inferred_from_mtime": "2026-05-12T17:06:17+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      },
+      {
+        "path": "times/c220g5/model/bc-twitter.sg-long/4032MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "group": "model",
+        "size_mib": 4032,
+        "run": 3,
+        "seconds": 633.276,
+        "exit_status": 0,
+        "mtime_utc": "2026-05-12T23:28:32.876740+00:00",
+        "mtime_ns": 1778628512876739547,
+        "sha256": "8afca24691f0c5931576b8ef3403442c29b4788c850b0cb7d272e10f2b85fae0",
+        "boot_start_inferred_from_mtime": "2026-05-12T17:06:17+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      }
+    ]
+  },
+  {
+    "size": 4035,
+    "arms_mean": 808.5566666666667,
+    "model_mean": 744.401,
+    "gap_s": 64.15566666666678,
+    "relative_gap_percent": 8.618428329175654,
+    "arms_files": [
+      {
+        "path": "times/c220g5/arms/bc-twitter.sg-long/4035MiB_run1.time",
+        "group": "arms",
+        "size_mib": 4035,
+        "run": 1,
+        "seconds": 794.368,
+        "exit_status": 0,
+        "mtime_utc": "2026-05-14T08:11:43.919171+00:00",
+        "mtime_ns": 1778746303919171186,
+        "sha256": "ae75d67a14d9a1d8c3b08538b8a1357745b2e6db79afa85608b72c5aff0c699c",
+        "boot_start_inferred_from_mtime": "2026-05-14T07:30:49+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      },
+      {
+        "path": "times/c220g5/arms/bc-twitter.sg-long/4035MiB_run2.time",
+        "group": "arms",
+        "size_mib": 4035,
+        "run": 2,
+        "seconds": 819.386,
+        "exit_status": 0,
+        "mtime_utc": "2026-05-14T08:38:59.254630+00:00",
+        "mtime_ns": 1778747939254629650,
+        "sha256": "a820b1006307e516f2c2ee031c42a2a1c5a6950ab181474d9f48fd18a53a9049",
+        "boot_start_inferred_from_mtime": "2026-05-14T07:30:49+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      },
+      {
+        "path": "times/c220g5/arms/bc-twitter.sg-long/4035MiB_run3.time",
+        "group": "arms",
+        "size_mib": 4035,
+        "run": 3,
+        "seconds": 811.916,
+        "exit_status": 0,
+        "mtime_utc": "2026-05-14T09:06:50.839137+00:00",
+        "mtime_ns": 1778749610839137350,
+        "sha256": "fb732979718da5046821d6081c2225130d1cce56518ca9c56eed9c86d4af778e",
+        "boot_start_inferred_from_mtime": "2026-05-14T07:30:49+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      }
+    ],
+    "model_files": [
+      {
+        "path": "times/c220g5/model/bc-twitter.sg-long/4035MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "group": "model",
+        "size_mib": 4035,
+        "run": 1,
+        "seconds": 739.146,
+        "exit_status": 0,
+        "mtime_utc": "2026-05-14T07:57:44.751503+00:00",
+        "mtime_ns": 1778745464751502998,
+        "sha256": "26f4ff246b5dce417050d6c56c78d3c3c0084c54acd5f2e9ca86fca23563f31f",
+        "boot_start_inferred_from_mtime": "2026-05-14T07:30:49+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      },
+      {
+        "path": "times/c220g5/model/bc-twitter.sg-long/4035MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "group": "model",
+        "size_mib": 4035,
+        "run": 2,
+        "seconds": 724.703,
+        "exit_status": 0,
+        "mtime_utc": "2026-05-14T08:24:35.065881+00:00",
+        "mtime_ns": 1778747075065881557,
+        "sha256": "ebc3993474f01b5b5fb4fec449a809bc06176f5696881df545afdf63bc73f374",
+        "boot_start_inferred_from_mtime": "2026-05-14T07:30:49+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      },
+      {
+        "path": "times/c220g5/model/bc-twitter.sg-long/4035MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "group": "model",
+        "size_mib": 4035,
+        "run": 3,
+        "seconds": 769.354,
+        "exit_status": 0,
+        "mtime_utc": "2026-05-14T08:52:33.963559+00:00",
+        "mtime_ns": 1778748753963559222,
+        "sha256": "8316dc24c4d09a6f743cc0d56f4c57aa7acdebc87d1c6ee6d2f02971bebd9aa7",
+        "boot_start_inferred_from_mtime": "2026-05-14T07:30:49+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      }
+    ]
+  },
+  {
+    "size": 4040,
+    "arms_mean": 625.3146666666667,
+    "model_mean": 614.2376666666667,
+    "gap_s": 11.076999999999998,
+    "relative_gap_percent": 1.8033736127112565,
+    "arms_files": [
+      {
+        "path": "times/c220g5/arms/bc-twitter.sg-long/4040MiB_run1.time",
+        "group": "arms",
+        "size_mib": 4040,
+        "run": 1,
+        "seconds": 621.264,
+        "exit_status": 0,
+        "mtime_utc": "2026-06-14T00:09:29.783397+00:00",
+        "mtime_ns": 1781395769783397471,
+        "sha256": "a3c20094c362f4b7a230aa9fc5986319a36886eb49a669d77bfd25a880c8e225",
+        "boot_start_inferred_from_mtime": "2026-06-13T22:10:24+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      },
+      {
+        "path": "times/c220g5/arms/bc-twitter.sg-long/4040MiB_run2.time",
+        "group": "arms",
+        "size_mib": 4040,
+        "run": 2,
+        "seconds": 623.501,
+        "exit_status": 0,
+        "mtime_utc": "2026-06-14T04:39:57.149491+00:00",
+        "mtime_ns": 1781411997149490688,
+        "sha256": "683bb5ec9933f91acbfebda2d85eeace7464f75bd5a8ed217503fb5fbd2e4af7",
+        "boot_start_inferred_from_mtime": "2026-06-13T22:10:24+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      },
+      {
+        "path": "times/c220g5/arms/bc-twitter.sg-long/4040MiB_run3.time",
+        "group": "arms",
+        "size_mib": 4040,
+        "run": 3,
+        "seconds": 631.179,
+        "exit_status": 0,
+        "mtime_utc": "2026-06-14T09:15:35.439751+00:00",
+        "mtime_ns": 1781428535439750650,
+        "sha256": "51e36ad1fb30e9330484976a18e1c1c82d6a6d91657815f8ec1a3b4c99135b6f",
+        "boot_start_inferred_from_mtime": "2026-06-13T22:10:24+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      }
+    ],
+    "model_files": [
+      {
+        "path": "times/c220g5/model/bc-twitter.sg-long/4040MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "group": "model",
+        "size_mib": 4040,
+        "run": 1,
+        "seconds": 611.46,
+        "exit_status": 0,
+        "mtime_utc": "2026-06-13T23:58:03.958960+00:00",
+        "mtime_ns": 1781395083958959752,
+        "sha256": "f784837976c0b67008d60d8bb4a95aea4d9f8c992014b8321a1487c29329242c",
+        "boot_start_inferred_from_mtime": "2026-06-13T22:10:24+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      },
+      {
+        "path": "times/c220g5/model/bc-twitter.sg-long/4040MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "group": "model",
+        "size_mib": 4040,
+        "run": 2,
+        "seconds": 614.477,
+        "exit_status": 0,
+        "mtime_utc": "2026-06-14T04:28:24.310938+00:00",
+        "mtime_ns": 1781411304310937865,
+        "sha256": "d0c0aa3d32035d0056b7c63e0ab6bc02fc76b259c53c849f009e52ad94a518ef",
+        "boot_start_inferred_from_mtime": "2026-06-13T22:10:24+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      },
+      {
+        "path": "times/c220g5/model/bc-twitter.sg-long/4040MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "group": "model",
+        "size_mib": 4040,
+        "run": 3,
+        "seconds": 616.776,
+        "exit_status": 0,
+        "mtime_utc": "2026-06-14T09:03:32.276708+00:00",
+        "mtime_ns": 1781427812276708431,
+        "sha256": "6e192048670c8097b0cf2a4059fed802788d0a9e2fe1f5a84c175b4a907cdd3c",
+        "boot_start_inferred_from_mtime": "2026-06-13T22:10:24+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      }
+    ]
+  },
+  {
+    "size": 4041,
+    "arms_mean": 628.544,
+    "model_mean": 619.911,
+    "gap_s": 8.633000000000038,
+    "relative_gap_percent": 1.3926192630877798,
+    "arms_files": [
+      {
+        "path": "times/c220g5/arms/bc-twitter.sg-long/4041MiB_run1.time",
+        "group": "arms",
+        "size_mib": 4041,
+        "run": 1,
+        "seconds": 624.103,
+        "exit_status": 0,
+        "mtime_utc": "2026-06-22T18:46:14.981888+00:00",
+        "mtime_ns": 1782153974981887470,
+        "sha256": "4456360ed5f064ca3f3320e566dbc516eab7307fd6187c21262169849de935e7",
+        "boot_start_inferred_from_mtime": "2026-06-22T03:55:37+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      },
+      {
+        "path": "times/c220g5/arms/bc-twitter.sg-long/4041MiB_run2.time",
+        "group": "arms",
+        "size_mib": 4041,
+        "run": 2,
+        "seconds": 626.0360000000001,
+        "exit_status": 0,
+        "mtime_utc": "2026-06-22T23:52:58.676235+00:00",
+        "mtime_ns": 1782172378676235309,
+        "sha256": "559543cb1074fe6b05a10738d4d5a6df460a342796dfff6dbeb29accb255393f",
+        "boot_start_inferred_from_mtime": "2026-06-22T03:55:37+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      },
+      {
+        "path": "times/c220g5/arms/bc-twitter.sg-long/4041MiB_run3.time",
+        "group": "arms",
+        "size_mib": 4041,
+        "run": 3,
+        "seconds": 635.493,
+        "exit_status": 0,
+        "mtime_utc": "2026-06-23T04:55:39.297047+00:00",
+        "mtime_ns": 1782190539297047285,
+        "sha256": "025b34c0e865fa874eb21f2ec61f3c380c442b1a6d1a606b6bf68a1512bd4833",
+        "boot_start_inferred_from_mtime": "2026-06-22T03:55:37+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      }
+    ],
+    "model_files": [
+      {
+        "path": "times/c220g5/model/bc-twitter.sg-long/4041MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "group": "model",
+        "size_mib": 4041,
+        "run": 1,
+        "seconds": 611.92,
+        "exit_status": 0,
+        "mtime_utc": "2026-06-22T18:35:05.284434+00:00",
+        "mtime_ns": 1782153305284433589,
+        "sha256": "5a771e8fb0f9972018a7bb79af146146f8a307e57ef9dbaa7d492ae1f480de7d",
+        "boot_start_inferred_from_mtime": "2026-06-22T03:55:37+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      },
+      {
+        "path": "times/c220g5/model/bc-twitter.sg-long/4041MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "group": "model",
+        "size_mib": 4041,
+        "run": 2,
+        "seconds": 625.804,
+        "exit_status": 0,
+        "mtime_utc": "2026-06-22T23:41:47.215906+00:00",
+        "mtime_ns": 1782171707215906377,
+        "sha256": "af3193df72b6b295abab69daddca86e87b05dd13fc7e4d24b10e9386c4f1f26b",
+        "boot_start_inferred_from_mtime": "2026-06-22T03:55:37+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      },
+      {
+        "path": "times/c220g5/model/bc-twitter.sg-long/4041MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "group": "model",
+        "size_mib": 4041,
+        "run": 3,
+        "seconds": 622.009,
+        "exit_status": 0,
+        "mtime_utc": "2026-06-23T04:44:18.070434+00:00",
+        "mtime_ns": 1782189858070433740,
+        "sha256": "9b536c2b5fe987387971b6e9843ce0f0c35a087e08d6bc09415987811b8bf847",
+        "boot_start_inferred_from_mtime": "2026-06-22T03:55:37+00:00",
+        "kernel_label_from_boot_ledger": "6.18.1-061801-ge"
+      }
+    ]
+  }
+]

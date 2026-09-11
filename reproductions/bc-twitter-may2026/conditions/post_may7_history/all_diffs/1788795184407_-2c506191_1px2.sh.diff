@@ -1,0 +1,50 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-2c506191/FxKU.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-2c506191/1px2.sh
+@@ -56,7 +56,7 @@
+     fi
+ }
+ 
+-SIZES=(4071)
++SIZES=(071)
+ RUNS=3
+ 
+ ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}
+@@ -94,23 +94,23 @@
+             #fi
+ 
+             # MEMTIS
+-            if [[ -x "${SCRIPT_DIR}/measurement_memtis.sh" ]]; then
+-                # Use the normal pre-run cleanup so existing process memory is
+-                # migrated away from the fast node before MEMTIS reserves its
+-                # sampler buffers. The workload itself can still use both nodes.
+-                run_measurement_setup "${size}" memtis
+-                sudo -E "${SCRIPT_DIR}/measurement_memtis.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
+-            else
+-                echo "WARNING: ./measurement_memtis.sh not found or not executable; skipping MEMTIS"
+-            fi
++            #if [[ -x "${SCRIPT_DIR}/measurement_memtis.sh" ]]; then
++            #    # Use the normal pre-run cleanup so existing process memory is
++            #    # migrated away from the fast node before MEMTIS reserves its
++            #    # sampler buffers. The workload itself can still use both nodes.
++            #    run_measurement_setup "${size}" memtis
++            #    sudo -E "${SCRIPT_DIR}/measurement_memtis.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
++            #else
++            #    echo "WARNING: ./measurement_memtis.sh not found or not executable; skipping MEMTIS"
++            #fi
+ 
+             # MEMTIS near-first variant
+-            #if [[ -x "${SCRIPT_DIR}/measurement_memtis_near.sh" ]]; then
+-            #    run_measurement_setup "${size}" memtis
+-            #    sudo -E "${SCRIPT_DIR}/measurement_memtis_near.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
+-            #else
+-            #    echo "WARNING: ./measurement_memtis_near.sh not found or not executable; skipping MEMTIS near-first"
+-            #fi
++            if [[ -x "${SCRIPT_DIR}/measurement_memtis_near.sh" ]]; then
++                run_measurement_setup "${size}" memtis
++                sudo -E "${SCRIPT_DIR}/measurement_memtis_near.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
++            else
++                echo "WARNING: ./measurement_memtis_near.sh not found or not executable; skipping MEMTIS near-first"
++            fi
+ 
+             # Model
+             #if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then

@@ -1,0 +1,11 @@
+{
+  "configuration_file_matches": [],
+  "current_extra_controls": {
+    "/proc/sys/vm/defrag_mode": "0",
+    "/proc/sys/vm/compact_unevictable_allowed": "1",
+    "/proc/sys/vm/extfrag_threshold": "500",
+    "/sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_none": "511",
+    "/sys/kernel/mm/transparent_hugepage/shrink_underused": "1"
+  },
+  "scope": "Readable local persistent configuration only; no writes; no historical state inferred."
+}

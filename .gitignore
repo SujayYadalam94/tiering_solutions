@@ -19,7 +19,10 @@ memsim/mmgr_simple_mmm
 memsim/mmgr_hemem
 logs/*
 results/
-scripts/
+scripts/*
+!scripts/parquet_flags.py
+!tests/test_logging_parquet.py
 *tags
 .venv
 collected_logs/
+/data/graphs/

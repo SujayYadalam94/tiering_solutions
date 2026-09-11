@@ -1,0 +1,16 @@
+train_all_streaming.py timing report
+Run started (UTC): 2026-09-04T12:54:00.453189+00:00
+Run finished (UTC): 2026-09-04T15:44:35.834914+00:00
+Objective: 99
+Model output: /users/zimooo2/tiering_models/process_data/model_discounted_reward_99_pr-graph-80GB.sg_l2.txt
+Status: completed
+
+input_discovery_and_capacity_planning: 0.503893 seconds
+dependency_loading_and_run_setup: 5.046044 seconds
+streaming_and_reservoir_sampling: 9042.320371 seconds
+hyperparameter_search: 610.733449 seconds
+full_dataset_construction: 7.670228 seconds
+finalist_evaluation: 551.120541 seconds
+final_test_evaluation_and_model_save: 0.403881 seconds
+model_compilation: 17.582860 seconds
+total: 10235.381689 seconds

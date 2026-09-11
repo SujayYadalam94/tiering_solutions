@@ -1,0 +1,439 @@
+{
+  "captured_utc": "2026-09-09T19:52:23.816528+00:00",
+  "vmalloc_by_caller": {
+    "copy_process+0x1ce/0x1760": {
+      "virtual_bytes": 23080960,
+      "mappings": 1127,
+      "node_pages": {
+        "0": 2022,
+        "1": 2486
+      },
+      "reported_pages": 4508
+    },
+    "x86_acpi_os_ioremap+0xe/0x20": {
+      "virtual_bytes": 2686976,
+      "mappings": 44,
+      "node_pages": {},
+      "reported_pages": 0
+    },
+    "alloc_large_system_hash+0x178/0x3d0": {
+      "virtual_bytes": 123240448,
+      "mappings": 18,
+      "node_pages": {
+        "0": 15035,
+        "1": 15035
+      },
+      "reported_pages": 30070
+    },
+    "dma_common_pages_remap+0x29/0x60": {
+      "virtual_bytes": 95223808,
+      "mappings": 9947,
+      "node_pages": {},
+      "reported_pages": 0
+    },
+    "irq_init_percpu_irqstack+0x117/0x1b0": {
+      "virtual_bytes": 819200,
+      "mappings": 40,
+      "node_pages": {},
+      "reported_pages": 0
+    },
+    "bpf_prog_alloc_no_stats+0x42/0x290": {
+      "virtual_bytes": 1818624,
+      "mappings": 221,
+      "node_pages": {
+        "0": 117,
+        "1": 106
+      },
+      "reported_pages": 223
+    },
+    "ixgbe_setup_rx_resources+0x55/0x170": {
+      "virtual_bytes": 819200,
+      "mappings": 40,
+      "node_pages": {
+        "0": 80,
+        "1": 80
+      },
+      "reported_pages": 160
+    },
+    "msix_capability_init+0xf6/0x260": {
+      "virtual_bytes": 172032,
+      "mappings": 21,
+      "node_pages": {},
+      "reported_pages": 0
+    },
+    "ixgbe_probe+0x1d2/0xdc0": {
+      "virtual_bytes": 8396800,
+      "mappings": 2,
+      "node_pages": {},
+      "reported_pages": 0
+    },
+    "ixgbe_setup_tx_resources+0x4d/0x120": {
+      "virtual_bytes": 1146880,
+      "mappings": 40,
+      "node_pages": {
+        "1": 120,
+        "0": 120
+      },
+      "reported_pages": 240
+    },
+    "n_tty_open+0x19/0xb0": {
+      "virtual_bytes": 114688,
+      "mappings": 7,
+      "node_pages": {
+        "0": 6,
+        "1": 15
+      },
+      "reported_pages": 21
+    },
+    "execmem_alloc+0x97/0x1d0": {
+      "virtual_bytes": 11632640,
+      "mappings": 245,
+      "node_pages": {
+        "1": 1540,
+        "0": 1055
+      },
+      "reported_pages": 2595
+    },
+    "pci_iomap_range+0xbb/0x210": {
+      "virtual_bytes": 884736,
+      "mappings": 19,
+      "node_pages": {},
+      "reported_pages": 0
+    },
+    "bpf_prog_realloc+0x69/0x100": {
+      "virtual_bytes": 122880,
+      "mappings": 10,
+      "node_pages": {
+        "1": 10,
+        "0": 10
+      },
+      "reported_pages": 20
+    },
+    "ghes_estatus_pool_init+0x38/0xa0": {
+      "virtual_bytes": 139264,
+      "mappings": 1,
+      "node_pages": {
+        "0": 16,
+        "1": 17
+      },
+      "reported_pages": 33
+    },
+    "pci_ioremap_bar+0x5b/0xa0": {
+      "virtual_bytes": 8192,
+      "mappings": 1,
+      "node_pages": {},
+      "reported_pages": 0
+    },
+    "memremap+0xa6/0x140": {
+      "virtual_bytes": 12288,
+      "mappings": 1,
+      "node_pages": {},
+      "reported_pages": 0
+    },
+    "pstore_register+0x19e/0x210": {
+      "virtual_bytes": 274432,
+      "mappings": 1,
+      "node_pages": {
+        "0": 33,
+        "1": 33
+      },
+      "reported_pages": 66
+    },
+    "pcpu_mem_zalloc+0x34/0x70": {
+      "virtual_bytes": 4435968,
+      "mappings": 13,
+      "node_pages": {
+        "0": 937,
+        "1": 133
+      },
+      "reported_pages": 1070
+    },
+    "drm_gem_shmem_vmap_locked+0x132/0x190": {
+      "virtual_bytes": 3149824,
+      "mappings": 1,
+      "node_pages": {},
+      "reported_pages": 0
+    },
+    "i40e_probe+0x19c/0x780": {
+      "virtual_bytes": 8265728,
+      "mappings": 2,
+      "node_pages": {},
+      "reported_pages": 0
+    },
+    "execmem_alloc+0xd3/0x1d0": {
+      "virtual_bytes": 6303744,
+      "mappings": 3,
+      "node_pages": {
+        "1": 1024,
+        "0": 512
+      },
+      "reported_pages": 1536
+    },
+    "devm_ioremap+0x4a/0x90": {
+      "virtual_bytes": 69632,
+      "mappings": 1,
+      "node_pages": {},
+      "reported_pages": 0
+    },
+    "devm_ioremap_wc+0x4a/0x90": {
+      "virtual_bytes": 16781312,
+      "mappings": 1,
+      "node_pages": {},
+      "reported_pages": 0
+    },
+    "pcpu_get_vm_areas+0x0/0xfc0": {
+      "virtual_bytes": 83886080,
+      "mappings": 8,
+      "node_pages": {},
+      "reported_pages": 0
+    },
+    "hpet_enable+0x8f/0x470": {
+      "virtual_bytes": 8192,
+      "mappings": 1,
+      "node_pages": {},
+      "reported_pages": 0
+    },
+    "map_iommu+0x51/0x1e0": {
+      "virtual_bytes": 65536,
+      "mappings": 8,
+      "node_pages": {},
+      "reported_pages": 0
+    },
+    "gen_pool_add_owner+0x4b/0xf0": {
+      "virtual_bytes": 40960,
+      "mappings": 5,
+      "node_pages": {
+        "0": 2,
+        "1": 3
+      },
+      "reported_pages": 5
+    },
+    "ipmi_create_user+0xe2/0x2b0": {
+      "virtual_bytes": 8192,
+      "mappings": 1,
+      "node_pages": {
+        "1": 1
+      },
+      "reported_pages": 1
+    },
+    "intel_pstate_init+0x236/0x4e0": {
+      "virtual_bytes": 8192,
+      "mappings": 1,
+      "node_pages": {
+        "1": 1
+      },
+      "reported_pages": 1
+    },
+    "mpt3sas_base_map_resources+0x194/0x5f0": {
+      "virtual_bytes": 1052672,
+      "mappings": 1,
+      "node_pages": {},
+      "reported_pages": 0
+    },
+    "pci_mmcfg_arch_map+0x2f/0x70": {
+      "virtual_bytes": 268439552,
+      "mappings": 1,
+      "node_pages": {},
+      "reported_pages": 0
+    },
+    "erst_init+0x1e6/0x310": {
+      "virtual_bytes": 16384,
+      "mappings": 1,
+      "node_pages": {},
+      "reported_pages": 0
+    },
+    "vmalloc_array_noprof+0x1e/0x40": {
+      "virtual_bytes": 12288,
+      "mappings": 1,
+      "node_pages": {
+        "0": 1,
+        "1": 1
+      },
+      "reported_pages": 2
+    },
+    "unpurged": {
+      "virtual_bytes": 84119552,
+      "mappings": 4268,
+      "node_pages": {},
+      "reported_pages": 0
+    }
+  },
+  "largest_slabs": [
+    {
+      "name": "iommu_iova_magazine",
+      "active_objects": 71040,
+      "objects": 71104,
+      "object_bytes": 1024,
+      "object_capacity_bytes": 72810496
+    },
+    {
+      "name": "ext4_inode_cache",
+      "active_objects": 34858,
+      "objects": 34858,
+      "object_bytes": 1128,
+      "object_capacity_bytes": 39319824
+    },
+    {
+      "name": "dentry",
+      "active_objects": 110979,
+      "objects": 111090,
+      "object_bytes": 192,
+      "object_capacity_bytes": 21329280
+    },
+    {
+      "name": "task_struct",
+      "active_objects": 1306,
+      "objects": 1314,
+      "object_bytes": 12544,
+      "object_capacity_bytes": 16482816
+    },
+    {
+      "name": "vmap_area",
+      "active_objects": 176983,
+      "objects": 177688,
+      "object_bytes": 72,
+      "object_capacity_bytes": 12793536
+    },
+    {
+      "name": "radix_tree_node",
+      "active_objects": 20272,
+      "objects": 20272,
+      "object_bytes": 584,
+      "object_capacity_bytes": 11838848
+    },
+    {
+      "name": "kernfs_node_cache",
+      "active_objects": 83950,
+      "objects": 84090,
+      "object_bytes": 136,
+      "object_capacity_bytes": 11436240
+    },
+    {
+      "name": "dmaengine-unmap-2",
+      "active_objects": 114262,
+      "objects": 114304,
+      "object_bytes": 64,
+      "object_capacity_bytes": 7315456
+    },
+    {
+      "name": "kmalloc-rnd-02-512",
+      "active_objects": 9100,
+      "objects": 12768,
+      "object_bytes": 512,
+      "object_capacity_bytes": 6537216
+    },
+    {
+      "name": "proc_inode_cache",
+      "active_objects": 9207,
+      "objects": 9306,
+      "object_bytes": 688,
+      "object_capacity_bytes": 6402528
+    },
+    {
+      "name": "buffer_head",
+      "active_objects": 54444,
+      "objects": 54444,
+      "object_bytes": 104,
+      "object_capacity_bytes": 5662176
+    },
+    {
+      "name": "kmalloc-512",
+      "active_objects": 9920,
+      "objects": 9920,
+      "object_bytes": 512,
+      "object_capacity_bytes": 5079040
+    },
+    {
+      "name": "vm_area_struct",
+      "active_objects": 17210,
+      "objects": 25872,
+      "object_bytes": 192,
+      "object_capacity_bytes": 4967424
+    },
+    {
+      "name": "sighand_cache",
+      "active_objects": 1880,
+      "objects": 1905,
+      "object_bytes": 2112,
+      "object_capacity_bytes": 4023360
+    },
+    {
+      "name": "biovec-max",
+      "active_objects": 936,
+      "objects": 968,
+      "object_bytes": 4096,
+      "object_capacity_bytes": 3964928
+    },
+    {
+      "name": "kmalloc-cg-2k",
+      "active_objects": 1808,
+      "objects": 1888,
+      "object_bytes": 2048,
+      "object_capacity_bytes": 3866624
+    },
+    {
+      "name": "kmalloc-rnd-06-512",
+      "active_objects": 7274,
+      "objects": 7328,
+      "object_bytes": 512,
+      "object_capacity_bytes": 3751936
+    },
+    {
+      "name": "shmem_inode_cache",
+      "active_objects": 4503,
+      "objects": 4536,
+      "object_bytes": 768,
+      "object_capacity_bytes": 3483648
+    },
+    {
+      "name": "inode_cache",
+      "active_objects": 5470,
+      "objects": 5618,
+      "object_bytes": 616,
+      "object_capacity_bytes": 3460688
+    },
+    {
+      "name": "signal_cache",
+      "active_objects": 2661,
+      "objects": 2688,
+      "object_bytes": 1152,
+      "object_capacity_bytes": 3096576
+    },
+    {
+      "name": "kmalloc-rnd-15-2k",
+      "active_objects": 1456,
+      "objects": 1456,
+      "object_bytes": 2048,
+      "object_capacity_bytes": 2981888
+    },
+    {
+      "name": "kmalloc-rnd-15-8k",
+      "active_objects": 348,
+      "objects": 348,
+      "object_bytes": 8192,
+      "object_capacity_bytes": 2850816
+    },
+    {
+      "name": "debugfs_inode_cache",
+      "active_objects": 4488,
+      "objects": 4488,
+      "object_bytes": 632,
+      "object_capacity_bytes": 2836416
+    },
+    {
+      "name": "pool_workqueue",
+      "active_objects": 5314,
+      "objects": 5344,
+      "object_bytes": 512,
+      "object_capacity_bytes": 2736128
+    },
+    {
+      "name": "kmalloc-cg-4k",
+      "active_objects": 620,
+      "objects": 656,
+      "object_bytes": 4096,
+      "object_capacity_bytes": 2686976
+    }
+  ],
+  "caveat": "Vmalloc virtual sizes are not physical backing; slabs are global, and accounting categories overlap other meminfo totals."
+}

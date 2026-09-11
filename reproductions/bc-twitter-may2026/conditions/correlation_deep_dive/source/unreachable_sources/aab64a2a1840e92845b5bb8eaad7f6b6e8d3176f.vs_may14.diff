@@ -1,0 +1,96 @@
+--- git:4da3d6c3f:hook/hook.cpp
++++ aab64a2a1840e92845b5bb8eaad7f6b6e8d3176f
+@@ -19,6 +19,22 @@
+ namespace
+ {
+ 
++#if PRINT_TRAINING_DATA
++int (*application_main)(int, char **, char **) = nullptr;
++
++int training_main(int argc, char **argv, char **envp)
++{
++    // libc has now registered the loader's teardown callback. Keep a fallback
++    // for termination paths that do not return from main or call public exit().
++    atexit(arms_kernel_shutdown);
++    const int status = application_main(argc, argv, envp);
++    // Arrow and application-owned lazy singletons must still be alive while
++    // serializing the training log. An atexit-only writer can run too late.
++    arms_kernel_shutdown();
++    return status;
++}
++#endif
++
+ constexpr const char *kHelperLibraryPrefixes[] = {
+     "libc.so",
+     "libstdc++.so",
+@@ -27,6 +43,9 @@
+     "libgomp.so",
+     "libomp.so",
+     "libgcc_s.so",
++    "libarrow.so",
++    "libarrow_",
++    "libparquet.so",
+     "ld-linux",
+     "ld-musl",
+ };
+@@ -244,12 +263,29 @@
+ 
+ } // namespace
+ 
++#if PRINT_TRAINING_DATA
++// Applications such as Python can terminate with exit() rather than returning
++// from main. Flush before exit starts running C++/Arrow destructors in that case
++// as well. Preserve the application's status and normal libc exit handlers.
++extern "C" [[noreturn]] void exit(int status) noexcept
++{
++    using ExitFunction = void (*)(int);
++    static const auto libc_exit = reinterpret_cast<ExitFunction>(dlsym(RTLD_NEXT, "exit"));
++    arms_kernel_shutdown();
++    if (libc_exit != nullptr)
++        libc_exit(status);
++    _exit(status);
++}
++#endif
++
+ extern "C" int __libc_start_main(int (*main)(int, char **, char **), int argc, char **argv,
+                                  int (*init)(int, char **, char **), void (*fini)(void), void (*rtld_fini)(void),
+                                  void *stack_end)
+ {
+     std::cout << "!!!!!!!!!!!!!!!!!!!!Overridden __libc_start_main called!" << std::endl;
++#if !PRINT_TRAINING_DATA
+     atexit(arms_kernel_shutdown);
++#endif
+ 
+     // Read the current process's name
+     std::ifstream cmdline("/proc/self/cmdline");
+@@ -268,7 +304,11 @@
+     std::cout << "found process " << executable_name << std::endl;
+     configure_preload_ip_filter();
+ 
+-    if (NEAR_MEM_TRACING_RUN && !FORCE_FAR_MEMORY_DEFAULT)
++#if defined(ALL_NUMA_MEMORY_DEFAULT) && ALL_NUMA_MEMORY_DEFAULT
++    // Preserve the runner's all-node policy until arms_start_tiering installs
++    // an explicit mask containing both the fast and slow tiers.
++#else
++    if ((NEAR_MEM_TRACING_RUN || (USE_MODEL && !LOGGING_RUN)) && !FORCE_FAR_MEMORY_DEFAULT)
+     {
+         set_application_thread_near_memory_preferred();
+     }
+@@ -281,10 +321,16 @@
+         // Keep application allocations in far memory by default.
+         set_application_thread_far_memory_default();
+     }
++#endif
+ 
+     // start tiering threads
+     arms_start_tiering();
+ 
+     // Call the original function
++#if PRINT_TRAINING_DATA
++    application_main = main;
++    return original_libc_start_main(training_main, argc, argv, init, fini, rtld_fini, stack_end);
++#else
+     return original_libc_start_main(main, argc, argv, init, fini, rtld_fini, stack_end);
+-}
++#endif
++}

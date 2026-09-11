@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-46e76ef1/Gl6b.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-46e76ef1/3gZO.cpp
+@@ -448,7 +448,7 @@
+     {
+         this->can_promote = false;
+     }
+-    if (rank > (1.5 * num_dram_pages))
++    if (rank > (2.0 * num_dram_pages))
+     {
+         this->can_demote = true;
+     }

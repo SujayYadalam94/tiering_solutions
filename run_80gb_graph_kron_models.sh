@@ -3,6 +3,8 @@
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 # shellcheck source=measurement_common.sh
 source "${SCRIPT_DIR}/measurement_common.sh"
+# shellcheck source=measurement_workloads.sh
+source "${SCRIPT_DIR}/measurement_workloads.sh"
 
 measurement_init_platform_from_args "$@" || exit 1
 ARGS=("${MEASUREMENT_REMAINING_ARGS[@]}")
@@ -14,11 +16,10 @@ Usage: $0 [--platform c220g5|gsl_optane] <sizeMiB> <runNumber> [libSuffix]
 
 Runs both GAPBS workloads on the approximately 80 GB graph under:
   ARMS
-  bc with the original bc-kron.sg model
-  pr with the original pr-kron.sg model
+  bc and pr with WORKLOAD_MODEL_BASE from their workloads/*.sh files
 
 The graph defaults to:
-  \${BENCH_ROOT}/gapbs/benchmark/graph-80GB.sg
+  \${BENCH_ROOT}/gapbs/benchmark/kron-80GB.sg
 
 Set GAPBS_80GB_GRAPH to override that path.
 Outputs use directories named wl_<workload>_model_<model>.
@@ -51,18 +52,13 @@ if [[ ! -x "${SCRIPT_DIR}/measurement_arms.sh" ]]; then
     exit 1
 fi
 
-GAPBS_80GB_GRAPH=${GAPBS_80GB_GRAPH:-${BENCH_ROOT}/gapbs/benchmark/graph-80GB.sg}
+GAPBS_80GB_GRAPH=${GAPBS_80GB_GRAPH:-${BENCH_ROOT}/gapbs/benchmark/kron-80GB.sg}
 export GAPBS_80GB_GRAPH
 
 if [[ ! -f "${GAPBS_80GB_GRAPH}" ]]; then
     echo "ERROR: 80 GB graph not found: ${GAPBS_80GB_GRAPH}" >&2
     exit 1
 fi
-
-MODEL_BASES=(
-    "bc-kron.sg"
-    "pr-kron.sg"
-)
 
 WORKLOAD_IDS=(
     "bc-graph-80GB.sg"
@@ -71,21 +67,22 @@ WORKLOAD_IDS=(
 
 trap 'run_measurement_teardown' EXIT
 
-for index in "${!MODEL_BASES[@]}"; do
-    model_base=${MODEL_BASES[index]}
-    workload_id=${WORKLOAD_IDS[index]}
+for workload_id in "${WORKLOAD_IDS[@]}"; do
+    measurement_load_workload "${workload_id}" || exit 1
+    model_base=${WORKLOAD_MODEL_BASE}
     output="wl_${workload_id}_model_${model_base}"
 
-    echo "== Running ${workload_id} with ARMS =="
-    run_measurement_setup "${SIZE_MIB}"
-    if ! "${SCRIPT_DIR}/measurement_arms.sh" \
-            "${PLATFORM_ARGS[@]}" "${SIZE_MIB}" "${RUN_ID}" "${LIB_SUFFIX}" "${workload_id}"; then
-        echo "ERROR: ${workload_id} with ARMS failed" >&2
-        exit 1
-    fi
+    #echo "== Running ${workload_id} with ARMS =="
+    #run_measurement_setup "${SIZE_MIB}"
+    #if ! "${SCRIPT_DIR}/measurement_arms.sh" \
+    #        "${PLATFORM_ARGS[@]}" "${SIZE_MIB}" "${RUN_ID}" "${LIB_SUFFIX}" "${workload_id}"; then
+    #    echo "ERROR: ${workload_id} with ARMS failed" >&2
+    #    exit 1
+    #fi
 
     echo "== Running ${workload_id} with ${model_base} model; output: ${output} =="
-    if ! MODEL_BASE_OVERRIDE="${model_base}" \
+    # Let the model runner load WORKLOAD_MODEL_BASE itself, ignoring inherited overrides.
+    if ! MODEL_BASE_OVERRIDE="" \
             MODEL_OUTPUT_OVERRIDE="${output}" \
             "${SCRIPT_DIR}/measurement_model.sh" \
             "${PLATFORM_ARGS[@]}" "${SIZE_MIB}" "${RUN_ID}" "${LIB_SUFFIX}" "${workload_id}"; then
@@ -97,4 +94,4 @@ done
 run_measurement_teardown
 trap - EXIT
 
-echo "All ARMS and original-Kron-model measurements on the 80 GB graph complete"
+echo "All ARMS and workload-configured model measurements on the 80 GB graph complete"

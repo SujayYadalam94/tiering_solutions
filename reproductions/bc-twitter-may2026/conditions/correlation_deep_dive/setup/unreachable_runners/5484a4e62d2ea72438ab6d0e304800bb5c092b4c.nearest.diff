@@ -1,0 +1,14 @@
+--- /users/zimooo2/.vscode-server/data/User/History/-2c506191/wE1V.sh
++++ 5484a4e62d2ea72438ab6d0e304800bb5c092b4c.sh
+@@ -56,7 +56,11 @@
+     fi
+ }
+ 
++<<<<<<< HEAD
+ SIZES=(6032)
++=======
++SIZES=(10004)
++>>>>>>> 19be6995820548941c130220bd9290d1bf7bfbf9
+ RUNS=3
+ 
+ ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}

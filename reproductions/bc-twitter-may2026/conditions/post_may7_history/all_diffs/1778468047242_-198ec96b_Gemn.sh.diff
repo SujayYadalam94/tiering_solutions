@@ -1,0 +1,17 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-198ec96b/VAgv.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-198ec96b/Gemn.sh
+@@ -5,10 +5,10 @@
+ 
+ declare -ar MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
+     #"bc-kron.sg"
+-    "pr-kron.sg"
+-    "bc-twitter.sg"
+-    "pr-twitter.sg"
+-    "XSBench"
++    #"pr-kron.sg"
++    #"bc-twitter.sg"
++    #"pr-twitter.sg"
++    #"XSBench"
+     "faiss_10M"
+     "mg.D.x"
+     "DuckDB-TPCH-sf100"

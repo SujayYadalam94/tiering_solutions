@@ -1,0 +1,44 @@
+--- existing
++++ fresh
+@@ -100,23 +100,24 @@
+      1ae:	8d 4a 78             	lea    0x78(%rdx),%ecx
+      1b1:	c1 e9 03             	shr    $0x3,%ecx
+      1b4:	f3 48 ab             	rep stos %rax,%es:(%rdi)
+-     1b7:	31 c0                	xor    %eax,%eax
+-     1b9:	48 c7 83 e8 02 00 00 	movq   $0x0,0x2e8(%rbx)
+-     1c0:	00 00 00 00 
+-     1c4:	66 89 83 18 01 00 00 	mov    %ax,0x118(%rbx)
+-     1cb:	c7 83 14 01 00 00 00 	movl   $0x0,0x114(%rbx)
+-     1d2:	00 00 00 
+-     1d5:	c7 43 60 00 00 00 00 	movl   $0x0,0x60(%rbx)
+-     1dc:	48 c7 83 00 03 00 00 	movq   $0x0,0x300(%rbx)
+-     1e3:	00 00 00 00 
+-     1e7:	c7 43 10 00 00 00 00 	movl   $0x0,0x10(%rbx)
+-     1ee:	c6 83 1a 01 00 00 01 	movb   $0x1,0x11a(%rbx)
+-     1f5:	48 c7 83 18 03 00 00 	movq   $0x0,0x318(%rbx)
+-     1fc:	00 00 00 00 
+-     200:	0f 11 83 20 01 00 00 	movups %xmm0,0x120(%rbx)
+-     207:	0f 11 8b 08 03 00 00 	movups %xmm1,0x308(%rbx)
+-     20e:	5b                   	pop    %rbx
+-     20f:	c3                   	ret
++     1b7:	c7 43 60 00 00 00 00 	movl   $0x0,0x60(%rbx)
++     1be:	48 b8 00 00 00 00 00 	movabs $0x101000000000000,%rax
++     1c5:	00 01 01 
++     1c8:	48 c7 83 e8 02 00 00 	movq   $0x0,0x2e8(%rbx)
++     1cf:	00 00 00 00 
++     1d3:	48 c7 83 00 03 00 00 	movq   $0x0,0x300(%rbx)
++     1da:	00 00 00 00 
++     1de:	c7 43 10 00 00 00 00 	movl   $0x0,0x10(%rbx)
++     1e5:	48 89 83 14 01 00 00 	mov    %rax,0x114(%rbx)
++     1ec:	48 c7 83 18 03 00 00 	movq   $0x0,0x318(%rbx)
++     1f3:	00 00 00 00 
++     1f7:	0f 11 83 20 01 00 00 	movups %xmm0,0x120(%rbx)
++     1fe:	0f 11 8b 08 03 00 00 	movups %xmm1,0x308(%rbx)
++     205:	5b                   	pop    %rbx
++     206:	c3                   	ret
++     207:	90                   	nop
++     208:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
++     20f:	00 
+ 
+ 0000000000000210 <page_info::max_model_score_history() const>:
+      210:	0f b6 87 5c 01 00 00 	movzbl 0x15c(%rdi),%eax

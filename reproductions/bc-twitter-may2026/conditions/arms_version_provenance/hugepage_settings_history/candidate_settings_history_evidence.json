@@ -1,0 +1,2159 @@
+{
+  "generated_utc": "2026-09-09T17:43:44.117239+00:00",
+  "scope": "Read-only shell/editor/Git audit. Shell lines record requested commands, not successful readbacks. Not a runtime test.",
+  "histories": [
+    {
+      "path": "/users/zimooo2/.bash_history-09434.tmp",
+      "sha256": "d574a26638fdc557daf8af266424e47b8f2209d3afa3e36ec28fed2b339738e4",
+      "mtime_utc": "2026-03-26T05:28:10.017581+00:00",
+      "command_timestamps_present": false,
+      "matches": [
+        {
+          "line": 59,
+          "text": "taskset: failed to set pid 239's affinity: Invalid argument"
+        },
+        {
+          "line": 206,
+          "text": "sudo cat /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan "
+        },
+        {
+          "line": 321,
+          "text": "sudo mkdir /sys/fs/cgroup/cpuset/my_app"
+        },
+        {
+          "line": 322,
+          "text": "sudo mkdir /sys/fs/cgroup/benchmarking"
+        },
+        {
+          "line": 394,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+        },
+        {
+          "line": 486,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"256 256 32\""
+        },
+        {
+          "line": 494,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"256 256 32\""
+        },
+        {
+          "line": 496,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"32 32 16\""
+        },
+        {
+          "line": 540,
+          "text": "cat /sys/fs/cgroup/cpuset.mems.effective "
+        },
+        {
+          "line": 561,
+          "text": "cat /proc/sys/kernel/nmi_watchdog"
+        },
+        {
+          "line": 571,
+          "text": "sysctl kernel.perf_event_max_sample_rate        kernel.perf_cpu_time_max_percent        kernel.perf_event_max_stack        kernel.perf_event_max_contexts_per_stack        kernel.nmi_watchdog        kernel.watchdog"
+        },
+        {
+          "line": 592,
+          "text": "sudo sysctl -w kernel.nmi_watchdog=0"
+        },
+        {
+          "line": 627,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"4 4 4\""
+        }
+      ],
+      "targeted_contexts": [
+        {
+          "range": [
+            314,
+            325
+          ],
+          "lines": [
+            {
+              "line": 314,
+              "text": "bash setup.sh "
+            },
+            {
+              "line": 315,
+              "text": "bash setup.sh 1"
+            },
+            {
+              "line": 316,
+              "text": "make clean ; make -j ; sudo -E ./measurement_arms.sh 1 1"
+            },
+            {
+              "line": 317,
+              "text": "make clean ; make -j ; bash setup.sh 1 ; sudo -E ./measurement_arms.sh 1 1"
+            },
+            {
+              "line": 318,
+              "text": "make clean ; make -j ; bash setup.sh 1 ; sudo -E bash run_all_measurements.sh "
+            },
+            {
+              "line": 319,
+              "text": "htop"
+            },
+            {
+              "line": 320,
+              "text": "make clean ; make -j ; bash setup.sh 1 ; sudo -E ./measurement_arms.sh 1 1"
+            },
+            {
+              "line": 321,
+              "text": "sudo mkdir /sys/fs/cgroup/cpuset/my_app"
+            },
+            {
+              "line": 322,
+              "text": "sudo mkdir /sys/fs/cgroup/benchmarking"
+            },
+            {
+              "line": 323,
+              "text": "make clean ; make -j ; bash setup.sh 1 ; sudo -E ./measurement_arms.sh 1 1"
+            },
+            {
+              "line": 324,
+              "text": "make clean ; make -j ; bash setup.sh 1 ; sudo -E bash run_all_measurements.sh "
+            },
+            {
+              "line": 325,
+              "text": "sudo -E ./measurement_arms.sh 1 1"
+            }
+          ]
+        },
+        {
+          "range": [
+            486,
+            500
+          ],
+          "lines": [
+            {
+              "line": 486,
+              "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"256 256 32\""
+            },
+            {
+              "line": 487,
+              "text": "bash setup.sh 1"
+            },
+            {
+              "line": 488,
+              "text": "sudo -E bash measurement_arms.sh 7 1"
+            },
+            {
+              "line": 489,
+              "text": "make clean ; make -j"
+            },
+            {
+              "line": 490,
+              "text": "sudo -E bash measurement_arms.sh 7 1"
+            },
+            {
+              "line": 491,
+              "text": "bash setup.sh "
+            },
+            {
+              "line": 492,
+              "text": "bash setup.sh 1"
+            },
+            {
+              "line": 493,
+              "text": "sudo -E bash measurement_arms.sh 7 1"
+            },
+            {
+              "line": 494,
+              "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"256 256 32\""
+            },
+            {
+              "line": 495,
+              "text": "sudo -E bash measurement_arms.sh 7 1"
+            },
+            {
+              "line": 496,
+              "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"32 32 16\""
+            },
+            {
+              "line": 497,
+              "text": "sudo -E bash measurement_arms.sh 7 1"
+            },
+            {
+              "line": 498,
+              "text": "bash setup.sh "
+            },
+            {
+              "line": 499,
+              "text": "bash setup.sh 1"
+            },
+            {
+              "line": 500,
+              "text": "sudo -E bash measurement_arms.sh 7 1"
+            }
+          ]
+        },
+        {
+          "range": [
+            623,
+            634
+          ],
+          "lines": [
+            {
+              "line": 623,
+              "text": "bash setup.sh  1"
+            },
+            {
+              "line": 624,
+              "text": "bash measurement_arms.sh 10 1"
+            },
+            {
+              "line": 625,
+              "text": "bash defrag.sh "
+            },
+            {
+              "line": 626,
+              "text": "bash measurement_arms.sh 10 1"
+            },
+            {
+              "line": 627,
+              "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"4 4 4\""
+            },
+            {
+              "line": 628,
+              "text": "bash measurement_arms.sh 10 1"
+            },
+            {
+              "line": 629,
+              "text": "bash defrag.sh "
+            },
+            {
+              "line": 630,
+              "text": "bash measurement_arms.sh 10 1"
+            },
+            {
+              "line": 631,
+              "text": "bash setup.sh "
+            },
+            {
+              "line": 632,
+              "text": "bash setup.sh 1"
+            },
+            {
+              "line": 633,
+              "text": "bash defrag.sh "
+            },
+            {
+              "line": 634,
+              "text": "bash measurement_arms.sh 10 1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/users/zimooo2/.bash_history-05835.tmp",
+      "sha256": "4d63f488bad28262e29a54d105329399511d420947888ee7c37d972b960e253c",
+      "mtime_utc": "2026-05-11T20:55:24.719324+00:00",
+      "command_timestamps_present": false,
+      "matches": [
+        {
+          "line": 880,
+          "text": "numactl -m 1 -N 0 ./mlc --idle_latency"
+        },
+        {
+          "line": 881,
+          "text": "sudo numactl -m 1 -N 0 ./mlc --idle_latency"
+        },
+        {
+          "line": 882,
+          "text": "sudo numactl -m 1 -N 0 ./mlc --help"
+        },
+        {
+          "line": 883,
+          "text": "sudo numactl -m 1 -N 0 ./mlc --loaded_latency -W6"
+        },
+        {
+          "line": 884,
+          "text": "sudo numactl -m 1 -N 0 ./mlc --loaded_latency -W6 -h"
+        },
+        {
+          "line": 885,
+          "text": "sudo numactl -m 1 -N 0 ./mlc --loaded_latency -W6 -L"
+        },
+        {
+          "line": 886,
+          "text": "sudo numactl -m 1 -N 0 ./mlc --loaded_latency -W6"
+        },
+        {
+          "line": 903,
+          "text": "sudo modprobe msr && numactl -m 1 -N 1 sudo ./mlc --c2c_latency"
+        },
+        {
+          "line": 917,
+          "text": "numactl -m 0 -N 0 sudo ./mlc --c2c_latency -C10"
+        },
+        {
+          "line": 918,
+          "text": "numactl -m 1 -N 1 sudo ./mlc --c2c_latency -C10"
+        }
+      ],
+      "targeted_contexts": []
+    },
+    {
+      "path": "/users/zimooo2/.bash_history",
+      "sha256": "d2ff07f66992528f446cba1492c6c67a41d8f91decbd4d8e6623165e3098d844",
+      "mtime_utc": "2026-09-09T12:06:15.393274+00:00",
+      "command_timestamps_present": false,
+      "matches": [
+        {
+          "line": 1038,
+          "text": "OMP_NUM_THREADS=\"$(nproc)\" ./converter -u 28 -k 36 -m -b graph-80GB.sg"
+        },
+        {
+          "line": 1518,
+          "text": "OMP_NUM_THREADS=\"$(nproc)\" ./converter -g 29 -k 18 -m -b benchmark/kron-80GB.sg"
+        },
+        {
+          "line": 1519,
+          "text": "OMP_NUM_THREADS=\"$(nproc)\" ./converter -g 29 -k 18 -m -b benchmark/kron-80GB.sg ; cd ~/tiering_solutions/ ; bash run_all_measurements_train_dram_only.sh"
+        }
+      ],
+      "targeted_contexts": []
+    }
+  ],
+  "editor_candidates": [
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/30Tm.sh",
+      "saved_utc": "2026-03-13T19:58:00.634000+00:00",
+      "sha256": "8bfe0cd0d303fef1f0eed080b663258a16d9b4f22b906061cefa5a9ed212ee95",
+      "id": "30Tm.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 15000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 163840"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/mvjk.sh",
+      "saved_utc": "2026-03-13T19:58:18.108000+00:00",
+      "sha256": "2410067d82a3a604879c1d028dc9c7934771888fa1a67189879303a404f7b682",
+      "id": "mvjk.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 15000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/z1KC.sh",
+      "saved_utc": "2026-03-13T19:58:25.813000+00:00",
+      "sha256": "8bfe0cd0d303fef1f0eed080b663258a16d9b4f22b906061cefa5a9ed212ee95",
+      "id": "z1KC.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 15000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 163840"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/DICS.sh",
+      "saved_utc": "2026-03-13T19:58:45.941000+00:00",
+      "sha256": "cbc157a15f548fedc969bf51e6d3e20aabb9011f8467514208044241845b035e",
+      "id": "DICS.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 1"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 15000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/YceO.sh",
+      "saved_utc": "2026-03-13T19:59:09.935000+00:00",
+      "sha256": "4bf47f38228ef2675e912c7d97b356a4b43ca55808bb46b5c53efa641264ceaa",
+      "id": "YceO.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 1"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 15000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"256 256 32\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/7pyZ.sh",
+      "saved_utc": "2026-03-13T19:59:57.677000+00:00",
+      "sha256": "cbc157a15f548fedc969bf51e6d3e20aabb9011f8467514208044241845b035e",
+      "id": "7pyZ.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 1"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 15000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/Fpm4.sh",
+      "saved_utc": "2026-03-13T20:10:06.541000+00:00",
+      "sha256": "4bf47f38228ef2675e912c7d97b356a4b43ca55808bb46b5c53efa641264ceaa",
+      "id": "Fpm4.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 1"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 15000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"256 256 32\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/Y1D7.sh",
+      "saved_utc": "2026-03-13T20:11:46.137000+00:00",
+      "sha256": "59445acae191bfc3ab851b609e06eec349ef6f1b1d897d88b12542e610f5f0fa",
+      "id": "Y1D7.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 1"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 15000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"32 32 16\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/RdRZ.sh",
+      "saved_utc": "2026-03-13T20:12:43.768000+00:00",
+      "sha256": "3bcfec2b3ff3f8d63e1400a56d1d73239bddc3e47c0e8f971aba5071261d2c3c",
+      "id": "RdRZ.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 1"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 0"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"32 32 16\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/x3o0.sh",
+      "saved_utc": "2026-03-13T20:13:43.363000+00:00",
+      "sha256": "507b8e279de80700b3ae3f5cfbae36e26a1098454dfd0c9ad2b34aab12029016",
+      "id": "x3o0.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 1"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 0"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"8 8 8\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/wOyV.sh",
+      "saved_utc": "2026-03-13T20:16:53.202000+00:00",
+      "sha256": "e5b8893361be7384c7c26c06fd7bade65f04431f40d2767af50fa26cd623b1fc",
+      "id": "wOyV.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 1"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 0"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"8 8 8\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/8TYJ.sh",
+      "saved_utc": "2026-03-13T20:20:32.064000+00:00",
+      "sha256": "1a9c80f7d8fa29ad6ea903162fc9a37177b4f16370bfb1cb2c3ada323eb87023",
+      "id": "8TYJ.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 1"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 0"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/2IaU.sh",
+      "saved_utc": "2026-03-13T20:20:56.103000+00:00",
+      "sha256": "2c916560042874f369ced744e40c2b79e365d476507d65801a6155a27ab23149",
+      "id": "2IaU.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 1"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 0"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"1\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/Ub51.sh",
+      "saved_utc": "2026-03-13T20:20:58.589000+00:00",
+      "sha256": "1a9c80f7d8fa29ad6ea903162fc9a37177b4f16370bfb1cb2c3ada323eb87023",
+      "id": "Ub51.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 1"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 0"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/3B9G.sh",
+      "saved_utc": "2026-03-13T20:21:00.718000+00:00",
+      "sha256": "59445acae191bfc3ab851b609e06eec349ef6f1b1d897d88b12542e610f5f0fa",
+      "id": "3B9G.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 1"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 15000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"32 32 16\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/rSSq.sh",
+      "saved_utc": "2026-03-13T20:21:04.733000+00:00",
+      "sha256": "1a9c80f7d8fa29ad6ea903162fc9a37177b4f16370bfb1cb2c3ada323eb87023",
+      "id": "rSSq.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 1"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 0"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/6gG5.sh",
+      "saved_utc": "2026-03-13T20:21:51.223000+00:00",
+      "sha256": "1a9c80f7d8fa29ad6ea903162fc9a37177b4f16370bfb1cb2c3ada323eb87023",
+      "id": "6gG5.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 1"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 0"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/DTis.sh",
+      "saved_utc": "2026-03-13T20:22:42.161000+00:00",
+      "sha256": "1a9c80f7d8fa29ad6ea903162fc9a37177b4f16370bfb1cb2c3ada323eb87023",
+      "id": "DTis.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 1"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 0"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/f6vd.sh",
+      "saved_utc": "2026-03-13T20:22:43.970000+00:00",
+      "sha256": "e5b8893361be7384c7c26c06fd7bade65f04431f40d2767af50fa26cd623b1fc",
+      "id": "f6vd.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 1"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 0"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"8 8 8\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/ZHWE.sh",
+      "saved_utc": "2026-03-13T20:22:46.861000+00:00",
+      "sha256": "1a9c80f7d8fa29ad6ea903162fc9a37177b4f16370bfb1cb2c3ada323eb87023",
+      "id": "ZHWE.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 1"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 0"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/uEfM.sh",
+      "saved_utc": "2026-03-13T20:23:03.327000+00:00",
+      "sha256": "8e7d80fa587b11a9a79e1d2983ade1722ece15e34a1ee0bd405939cbd34c69f2",
+      "id": "uEfM.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10000"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/OcD2.sh",
+      "saved_utc": "2026-03-13T20:23:16.838000+00:00",
+      "sha256": "498e8e6f5c432e5905fd872c736ef68372e66365508670f0c8ae685b838c8b01",
+      "id": "OcD2.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/wiCz.sh",
+      "saved_utc": "2026-03-13T20:24:42.850000+00:00",
+      "sha256": "774b81f4e8ce2ddf09032a1f1702eb963292fbc5ab330732a5ba976e6b67ed45",
+      "id": "wiCz.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/sDdJ.sh",
+      "saved_utc": "2026-03-13T20:25:55.629000+00:00",
+      "sha256": "498e8e6f5c432e5905fd872c736ef68372e66365508670f0c8ae685b838c8b01",
+      "id": "sDdJ.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/7CMn.sh",
+      "saved_utc": "2026-03-13T20:26:21.481000+00:00",
+      "sha256": "5e0d0f1585d4db08192cdc0813316a7011e569e0da70e1dd93fbf1d20437f76e",
+      "id": "7CMn.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"8 8 8\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/IlY9.sh",
+      "saved_utc": "2026-03-13T20:27:28.171000+00:00",
+      "sha256": "5aed738ff73f643030e58cbf66d275d092fffb6e60d6536b23b64044b5d4d1eb",
+      "id": "IlY9.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"8 8 8\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 60,
+          "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 4096"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/dSQ5.sh",
+      "saved_utc": "2026-03-13T20:31:10.798000+00:00",
+      "sha256": "cb20d3a3751fa09cbc1878418958ed96ca5a80af7d3aedb07c0ddecd7be31cff",
+      "id": "dSQ5.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"8 8 8\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 60,
+          "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 4096"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/eEKL.sh",
+      "saved_utc": "2026-03-13T21:04:24.802000+00:00",
+      "sha256": "cb20d3a3751fa09cbc1878418958ed96ca5a80af7d3aedb07c0ddecd7be31cff",
+      "id": "eEKL.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"8 8 8\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 60,
+          "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 4096"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/QfSZ.sh",
+      "saved_utc": "2026-03-13T21:04:47.452000+00:00",
+      "sha256": "90d3881a86b9b91dfec85940cbcda23e1d71920896c57c766d775cfe0d4f49e7",
+      "id": "QfSZ.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 100"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"4 4 4\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 60,
+          "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 4096"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/1Igr.sh",
+      "saved_utc": "2026-03-13T21:05:07.985000+00:00",
+      "sha256": "7482c047482f691d32e1b6558982ca4b445a8d5d4d70f24acb4f2068e5778a23",
+      "id": "1Igr.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 100"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"4 4 4\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 60,
+          "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 4096"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/Tpix.sh",
+      "saved_utc": "2026-03-13T21:07:07.661000+00:00",
+      "sha256": "6f90c9744fe9845462bc1bccab9f6260913ed84fcb0527af2fa77e628f3c0a4c",
+      "id": "Tpix.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 100"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"8 8 8\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 60,
+          "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 4096"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/UNHd.sh",
+      "saved_utc": "2026-03-13T21:07:33.820000+00:00",
+      "sha256": "2f94bdc0129803a9912bf128914ad076e85c24e72aef91c2766b04ce2d496cdd",
+      "id": "UNHd.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"8 8 8\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 60,
+          "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 4096"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/UyiX.sh",
+      "saved_utc": "2026-03-14T01:53:43.890000+00:00",
+      "sha256": "2fa9c8ecdbf3ab083412dfea24865b126250b9b901ed6cd5f5097b5a34f5bf95",
+      "id": "UyiX.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 1"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 0"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 60,
+          "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 4096"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/H9B4.sh",
+      "saved_utc": "2026-03-14T01:54:20.217000+00:00",
+      "sha256": "bc2c814ec29178a5f3bdfada75e5de4b02ec3bca2f24c4623fcbce0a8e801c02",
+      "id": "H9B4.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 60,
+          "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 4096"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/oQdm.sh",
+      "saved_utc": "2026-03-14T01:54:24.017000+00:00",
+      "sha256": "44a229dc382b986ae4964c5ef349704143f9412755a8a83ed666ff8638fa4eae",
+      "id": "oQdm.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 0"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 60,
+          "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 4096"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/t9d5.sh",
+      "saved_utc": "2026-03-14T01:55:03.274000+00:00",
+      "sha256": "cfb36dd85da2731682acf0969a9b256ef576c21580ad538f40e4ad0551d45955",
+      "id": "t9d5.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 0"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"4 4 4\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 60,
+          "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 4096"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/qwPG.sh",
+      "saved_utc": "2026-03-14T01:55:49.245000+00:00",
+      "sha256": "7b9332b763dd341e65f62d498ac79e2e28af5615552920fef726cd3b21ab81e3",
+      "id": "qwPG.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"4 4 4\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 60,
+          "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 4096"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/vKAW.sh",
+      "saved_utc": "2026-03-14T01:56:14.783000+00:00",
+      "sha256": "2f94bdc0129803a9912bf128914ad076e85c24e72aef91c2766b04ce2d496cdd",
+      "id": "vKAW.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"8 8 8\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 60,
+          "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 4096"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/1Rur.sh",
+      "saved_utc": "2026-03-14T03:22:12.481000+00:00",
+      "sha256": "59cb6413dd1c4be45c543756bcc57a3dc280f5b3a9478424d52bde70e21042d2",
+      "id": "1Rur.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 1048576"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"8 8 8\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 60,
+          "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 4096"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/VV5b.sh",
+      "saved_utc": "2026-03-14T03:23:46.011000+00:00",
+      "sha256": "02a4ef9963a4db8caefefa01be6bfee9ee6365ac449ba7c6f5652ab2a029709c",
+      "id": "VV5b.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 1048576"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"8 8 8\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 60,
+          "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 4096"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/v2E9.sh",
+      "saved_utc": "2026-03-14T03:24:11.933000+00:00",
+      "sha256": "c966a1253e1fb477f663d3db79951cb744234b06f1bf6f8ca939c67a7ff9a326",
+      "id": "v2E9.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 1048576"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"8 8 8\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 60,
+          "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 4096"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/DahH.sh",
+      "saved_utc": "2026-03-14T03:24:23.972000+00:00",
+      "sha256": "6fb79d695bb0664a9c9fc632637db528ef83439809b91a880d11894615e75bb2",
+      "id": "DahH.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 1048576"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"8 8 8\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 60,
+          "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 4096"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/ITo5.sh",
+      "saved_utc": "2026-03-14T03:25:57.589000+00:00",
+      "sha256": "dc87b394b19437afda0b69a30a5f8ff3f63927f28a359369a03dee2409eaaa60",
+      "id": "ITo5.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 1048576"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"256 256 32\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 60,
+          "text": "write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 4096"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/SBKh.sh",
+      "saved_utc": "2026-03-14T03:56:09.572000+00:00",
+      "sha256": "fbebf5feaeccd7a48b3bcff6e9c38c9fa4c3894f335d1673b09f4ab1e241ce82",
+      "id": "SBKh.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 1048576"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"256 256 32\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 58,
+          "text": "echo 8192 | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/ZLmm.sh",
+      "saved_utc": "2026-03-14T03:57:15.746000+00:00",
+      "sha256": "07d8c52a789649133bcf3ff610a1f4541241ce9a39e956a38954d973b78d23e5",
+      "id": "ZLmm.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 1048576"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"256 256 32\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 58,
+          "text": "echo 8192 | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/9Jnq.sh",
+      "saved_utc": "2026-03-14T21:19:51.843000+00:00",
+      "sha256": "9e07899a4d45092fa8328c32ac4bce5d2bfa3eacf035969314062ab360df3032",
+      "id": "9Jnq.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 1048576"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"256 256 32\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 58,
+          "text": "echo 840962 | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/UlLy.sh",
+      "saved_utc": "2026-03-14T21:20:32.298000+00:00",
+      "sha256": "2fbe79459b982313a90fc727998daadac6d23f11f1d18b82614e6a5010119bc4",
+      "id": "UlLy.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 1048576"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"256 256 32\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 58,
+          "text": "echo 4096 | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/foBl.sh",
+      "saved_utc": "2026-03-14T23:13:06.204000+00:00",
+      "sha256": "07d8c52a789649133bcf3ff610a1f4541241ce9a39e956a38954d973b78d23e5",
+      "id": "foBl.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 1048576"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"256 256 32\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 58,
+          "text": "echo 8192 | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/RfAy.sh",
+      "saved_utc": "2026-03-16T23:58:46.371000+00:00",
+      "sha256": "c4449787642da8623203b0833d429cd39e1c867fb0c02c9d3723bec71feca23f",
+      "id": "RfAy.sh",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 1048576"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"256 256 32\""
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 58,
+          "text": "echo 8192 | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan"
+        }
+      ]
+    },
+    {
+      "source_path": "/users/zimooo2/.vscode-server/data/User/History/-247d494f/X6Fx.sh",
+      "saved_utc": "2026-03-22T05:58:40.744000+00:00",
+      "sha256": "fff5fd73401d24d1ce03a30af31ead57f801571e0874cc18513f1dca7ee261cb",
+      "id": "X6Fx.sh",
+      "lines": [
+        {
+          "line": 39,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 42,
+          "text": "write_sysctl_value vm.min_free_kbytes 1048576"
+        },
+        {
+          "line": 45,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"256 256 32\""
+        },
+        {
+          "line": 50,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 60,
+          "text": "echo 8192 | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan"
+        }
+      ]
+    }
+  ],
+  "git_setup_anchors": [
+    {
+      "commit": "7f73ad25b383e44bbbebf41204abf060f570b6ae",
+      "author_date": "2026-01-19T14:18:48-06:00",
+      "committer_date": "2026-01-19T14:18:48-06:00",
+      "subject": "stash",
+      "path": "setup.sh",
+      "source_sha256": "549b7dd554fbabd4c700935b481c8d57ab253e3d1a81869499daa9215a4fb27e",
+      "lines": [
+        {
+          "line": 8,
+          "text": "sudo sysctl -w vm.watermark_scale_factor=1"
+        },
+        {
+          "line": 9,
+          "text": "sudo sysctl -w vm.watermark_boost_factor=0"
+        },
+        {
+          "line": 11,
+          "text": "sudo sysctl -w vm.min_free_kbytes=16384"
+        },
+        {
+          "line": 14,
+          "text": "#sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+        },
+        {
+          "line": 15,
+          "text": "#sudo sysctl -w vm.zone_reclaim_mode=0"
+        }
+      ]
+    },
+    {
+      "commit": "7d4508f982c569414bcd21918a807e052ea482a9",
+      "author_date": "2026-03-08T12:03:12-05:00",
+      "committer_date": "2026-03-08T12:03:12-05:00",
+      "subject": "cleanup",
+      "path": "setup.sh",
+      "source_sha256": "167261676744f96bbfd4531dde94bf088b905187b1103592617e470881609eea",
+      "lines": [
+        {
+          "line": 15,
+          "text": "sudo sysctl -w vm.watermark_scale_factor=1"
+        },
+        {
+          "line": 16,
+          "text": "sudo sysctl -w vm.watermark_boost_factor=0"
+        },
+        {
+          "line": 18,
+          "text": "sudo sysctl -w vm.min_free_kbytes=16384"
+        },
+        {
+          "line": 21,
+          "text": "#sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+        },
+        {
+          "line": 22,
+          "text": "#sudo sysctl -w vm.zone_reclaim_mode=0"
+        },
+        {
+          "line": 26,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 29,
+          "text": "write_sysfs_value /proc/sys/vm/watermark_scale_factor 10"
+        }
+      ]
+    },
+    {
+      "commit": "6b2f5ddf79c799504ef96ed0032017e6b11eb7af",
+      "author_date": "2026-03-09T16:40:05-05:00",
+      "committer_date": "2026-03-09T16:40:05-05:00",
+      "subject": "merge",
+      "path": "setup.sh",
+      "source_sha256": "267e6f61b7f6300b1780cfa4c31a48605c68f4e16328b51aa9bdda4d0e2e766a",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 1"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 0"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 16384"
+        },
+        {
+          "line": 43,
+          "text": "#sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\""
+        },
+        {
+          "line": 44,
+          "text": "#sudo sysctl -w vm.zone_reclaim_mode=0"
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 51,
+          "text": "write_sysfs_value /proc/sys/vm/watermark_scale_factor 10"
+        }
+      ]
+    },
+    {
+      "commit": "d87369bcef81010ca06406e3e456295ff412d957",
+      "author_date": "2026-03-14T10:14:19-05:00",
+      "committer_date": "2026-03-14T10:14:19-05:00",
+      "subject": "functional migration mechanism",
+      "path": "setup.sh",
+      "source_sha256": "07d8c52a789649133bcf3ff610a1f4541241ce9a39e956a38954d973b78d23e5",
+      "lines": [
+        {
+          "line": 37,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 38,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.min_free_kbytes 1048576"
+        },
+        {
+          "line": 43,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"256 256 32\""
+        },
+        {
+          "line": 44,
+          "text": "#sudo sysctl -w vm.zone_reclaim_mode=0"
+        },
+        {
+          "line": 48,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 58,
+          "text": "echo 8192 | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan"
+        }
+      ]
+    },
+    {
+      "commit": "2cb2ac9cf857360aa244c132c25f07286d5e3beb",
+      "author_date": "2026-03-24T09:59:53-05:00",
+      "committer_date": "2026-03-24T09:59:53-05:00",
+      "subject": "times and model fix",
+      "path": "setup.sh",
+      "source_sha256": "fff5fd73401d24d1ce03a30af31ead57f801571e0874cc18513f1dca7ee261cb",
+      "lines": [
+        {
+          "line": 39,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 40,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 42,
+          "text": "write_sysctl_value vm.min_free_kbytes 1048576"
+        },
+        {
+          "line": 45,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"256 256 32\""
+        },
+        {
+          "line": 46,
+          "text": "#sudo sysctl -w vm.zone_reclaim_mode=0"
+        },
+        {
+          "line": 50,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 60,
+          "text": "echo 8192 | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan"
+        }
+      ]
+    },
+    {
+      "commit": "7b0da923a70ccd868e3d3a4018ccec27fc48341b",
+      "author_date": "2026-04-23T18:22:10-05:00",
+      "committer_date": "2026-04-23T18:22:10-05:00",
+      "subject": "merge",
+      "path": "setup.sh",
+      "source_sha256": "3365dffcd8de8c203ef769b097181fc49e87bbbaf8cf127f5ae48b04c5d4e904",
+      "lines": [
+        {
+          "line": 82,
+          "text": "write_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 83,
+          "text": "write_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 85,
+          "text": "write_sysctl_value vm.min_free_kbytes 1048576"
+        },
+        {
+          "line": 88,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"256 256 32\""
+        },
+        {
+          "line": 89,
+          "text": "#sudo sysctl -w vm.zone_reclaim_mode=0"
+        },
+        {
+          "line": 93,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 103,
+          "text": "echo 8192 | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan"
+        }
+      ]
+    },
+    {
+      "commit": "671e0e64423d586c82b91dc6c9681946d54043e7",
+      "author_date": "2026-09-03T08:53:26-05:00",
+      "committer_date": "2026-09-03T08:53:26-05:00",
+      "subject": "more times",
+      "path": "setup.sh",
+      "source_sha256": "76184b0183038470f351a7378a62aa3308c0bd58ff55d54cefc0e14e1124f585",
+      "lines": [
+        {
+          "line": 48,
+          "text": "kernel_auto_min_free_kbytes() {"
+        },
+        {
+          "line": 103,
+          "text": "\tMEMTIS_MIN_FREE_KBYTES=$(kernel_auto_min_free_kbytes)"
+        },
+        {
+          "line": 105,
+          "text": "\t\techo \"ERROR: could not calculate the kernel-default vm.min_free_kbytes\" >&2"
+        },
+        {
+          "line": 109,
+          "text": "\twrite_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 110,
+          "text": "\twrite_sysctl_value vm.watermark_boost_factor 15000"
+        },
+        {
+          "line": 111,
+          "text": "\twrite_sysctl_value vm.min_free_kbytes \"${MEMTIS_MIN_FREE_KBYTES}\""
+        },
+        {
+          "line": 116,
+          "text": "\twrite_sysctl_value vm.watermark_scale_factor 10"
+        },
+        {
+          "line": 117,
+          "text": "\twrite_sysctl_value vm.watermark_boost_factor 10000"
+        },
+        {
+          "line": 119,
+          "text": "\twrite_sysctl_value vm.min_free_kbytes 1048576"
+        },
+        {
+          "line": 123,
+          "text": "sudo sysctl -w vm.lowmem_reserve_ratio=\"256 256 32\""
+        },
+        {
+          "line": 124,
+          "text": "#sudo sysctl -w vm.zone_reclaim_mode=0"
+        },
+        {
+          "line": 128,
+          "text": "write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0"
+        },
+        {
+          "line": 148,
+          "text": "\twrite_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 4096"
+        },
+        {
+          "line": 153,
+          "text": "\twrite_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan 8192"
+        }
+      ]
+    }
+  ],
+  "retained_condition_overrides": [
+    {
+      "session": "20260909T142436Z-200883",
+      "knob": "compaction20",
+      "overrides": {
+        "/proc/sys/vm/compaction_proactiveness": "20"
+      }
+    },
+    {
+      "session": "20260909T143041Z-209179",
+      "knob": "khugepaged_scan10",
+      "overrides": {
+        "/sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs": "10"
+      }
+    },
+    {
+      "session": "20260909T170328Z-2",
+      "knob": "khugepaged_defrag0",
+      "overrides": {
+        "/sys/kernel/mm/transparent_hugepage/khugepaged/defrag": "0"
+      }
+    },
+    {
+      "session": "20260909T171055Z-389918",
+      "knob": "khugepaged_defrag0",
+      "overrides": {
+        "/sys/kernel/mm/transparent_hugepage/khugepaged/defrag": "0"
+      }
+    },
+    {
+      "session": "20260909T171729Z-396978",
+      "knob": "khugepaged_alloc1000",
+      "overrides": {
+        "/sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs": "1000"
+      }
+    },
+    {
+      "session": "20260909T172342Z-403992",
+      "knob": "khugepaged_scan1000",
+      "overrides": {
+        "/sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs": "1000"
+      }
+    },
+    {
+      "session": "20260909T172954Z-411197",
+      "knob": "khugepaged_scan1000",
+      "overrides": {
+        "/sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs": "1000"
+      }
+    }
+  ]
+}

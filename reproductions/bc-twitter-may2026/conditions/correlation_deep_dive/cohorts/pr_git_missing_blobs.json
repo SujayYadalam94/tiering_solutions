@@ -1,0 +1,646 @@
+[
+  {
+    "blob": "0aca525d780b30cf95e27e730fed38ef3e042ed6",
+    "seconds": 357.502,
+    "status": null,
+    "contents": "\nreal\t5m57.502s\nuser\t0m0.273s\nsys\t0m0.551s\n",
+    "references": [
+      {
+        "commit": "e6223c95ae33008078585393fb96214187cbcd1a",
+        "date": "2026-03-14T19:39:26-05:00",
+        "path": "times/arms/pr-twitter.sg/4000MiB_run1.time",
+        "side": "old",
+        "blob": "0aca525d780b30cf95e27e730fed38ef3e042ed6"
+      },
+      {
+        "commit": "d87369bcef81010ca06406e3e456295ff412d957",
+        "date": "2026-03-14T10:14:19-05:00",
+        "path": "times/arms/pr-twitter.sg/4000MiB_run1.time",
+        "side": "new",
+        "blob": "0aca525d780b30cf95e27e730fed38ef3e042ed6"
+      }
+    ]
+  },
+  {
+    "blob": "0cbabbb705a56af26aed816d667f71ea0f41381b",
+    "seconds": 305.727,
+    "status": 0,
+    "contents": "\nreal\t5m5.727s\nuser\t0m0.012s\nsys\t0m0.025s\nexit_status=0\ntimed_out=0\nelapsed_seconds=306\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+    "references": [
+      {
+        "commit": "4494a8ebb29f22aea16d062096d9e3090fa4068e",
+        "date": "2026-05-04T20:40:38-05:00",
+        "path": "times/c220g5/model/pr-kron.sg/4008MiB_run1_model_discounted_reward_99_pr-kron.sg_l2-2_10_1.0.time",
+        "side": "old",
+        "blob": "0cbabbb705a56af26aed816d667f71ea0f41381b"
+      },
+      {
+        "commit": "29e225954a5244b7d9d1e97ca3ca78350f859fe3",
+        "date": "2026-05-03T22:00:24-05:00",
+        "path": "times/c220g5/model/pr-kron.sg/4008MiB_run1_model_discounted_reward_99_pr-kron.sg_l2-2_10_1.0.time",
+        "side": "new",
+        "blob": "0cbabbb705a56af26aed816d667f71ea0f41381b"
+      }
+    ]
+  },
+  {
+    "blob": "0e2012ddd7a0df52cbc44eb87d3bb937d492b124",
+    "seconds": 317.491,
+    "status": 0,
+    "contents": "\nreal\t5m17.491s\nuser\t0m0.012s\nsys\t0m0.026s\nexit_status=0\ntimed_out=0\nelapsed_seconds=317\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+    "references": [
+      {
+        "commit": "4494a8ebb29f22aea16d062096d9e3090fa4068e",
+        "date": "2026-05-04T20:40:38-05:00",
+        "path": "times/c220g5/arms/pr-kron.sg/4008MiB_run1.time",
+        "side": "old",
+        "blob": "0e2012ddd7a0df52cbc44eb87d3bb937d492b124"
+      },
+      {
+        "commit": "29e225954a5244b7d9d1e97ca3ca78350f859fe3",
+        "date": "2026-05-03T22:00:24-05:00",
+        "path": "times/c220g5/arms/pr-kron.sg/4008MiB_run1.time",
+        "side": "new",
+        "blob": "0e2012ddd7a0df52cbc44eb87d3bb937d492b124"
+      }
+    ]
+  },
+  {
+    "blob": "0eb069d0a9d1914b7ad37d579d3c9182883371f8",
+    "seconds": 0.062,
+    "status": null,
+    "contents": "\nreal\t0m0.062s\nuser\t0m0.008s\nsys\t0m0.024s\n",
+    "references": [
+      {
+        "commit": "d87369bcef81010ca06406e3e456295ff412d957",
+        "date": "2026-03-14T10:14:19-05:00",
+        "path": "times/arms/pr-kron.sg/4000MiB_run1.time",
+        "side": "old",
+        "blob": "0eb069d0a9d1914b7ad37d579d3c9182883371f8"
+      },
+      {
+        "commit": "6822f5e082e37bebf5f6a3376e45bfdf69d50b6a",
+        "date": "2026-03-10T21:15:42-05:00",
+        "path": "times/arms/pr-kron.sg/4000MiB_run1.time",
+        "side": "new",
+        "blob": "0eb069d0a9d1914b7ad37d579d3c9182883371f8"
+      }
+    ]
+  },
+  {
+    "blob": "13e0daced8c97daac48b285c35e32db293aec22a",
+    "seconds": 1169.084,
+    "status": null,
+    "contents": "\nreal\t19m29.084s\nuser\t0m1.060s\nsys\t0m2.793s\n",
+    "references": [
+      {
+        "commit": "de3bdd000f93f6858f4444340949d497942c7172",
+        "date": "2026-02-24T22:22:14-06:00",
+        "path": "times/arms/pr-twitter.sg/4000MiB_run1.time",
+        "side": "old",
+        "blob": "13e0daced8c97daac48b285c35e32db293aec22a"
+      },
+      {
+        "commit": "47e0101c0b9e866bb6cb9465d6bacaaef3abf2ae",
+        "date": "2026-02-12T22:03:15-06:00",
+        "path": "times/arms/pr-twitter.sg/4000MiB_run1.time",
+        "side": "new",
+        "blob": "13e0daced8c97daac48b285c35e32db293aec22a"
+      }
+    ]
+  },
+  {
+    "blob": "16a44ab8166f731d43e12cfddc8aa0b73caadb22",
+    "seconds": 303.469,
+    "status": 0,
+    "contents": "\nreal\t5m3.469s\nuser\t0m0.014s\nsys\t0m0.023s\nexit_status=0\ntimed_out=0\nelapsed_seconds=304\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+    "references": [
+      {
+        "commit": "4494a8ebb29f22aea16d062096d9e3090fa4068e",
+        "date": "2026-05-04T20:40:38-05:00",
+        "path": "times/c220g5/model/pr-kron.sg/4008MiB_run1_model_discounted_reward_99_pr-kron.sg_l2-2_10_0.5.time",
+        "side": "old",
+        "blob": "16a44ab8166f731d43e12cfddc8aa0b73caadb22"
+      },
+      {
+        "commit": "29e225954a5244b7d9d1e97ca3ca78350f859fe3",
+        "date": "2026-05-03T22:00:24-05:00",
+        "path": "times/c220g5/model/pr-kron.sg/4008MiB_run1_model_discounted_reward_99_pr-kron.sg_l2-2_10_0.5.time",
+        "side": "new",
+        "blob": "16a44ab8166f731d43e12cfddc8aa0b73caadb22"
+      }
+    ]
+  },
+  {
+    "blob": "1972fb443021e77d501b13300ca930586520da9b",
+    "seconds": 307.184,
+    "status": 0,
+    "contents": "\nreal\t5m7.184s\nuser\t0m0.011s\nsys\t0m0.027s\nexit_status=0\ntimed_out=0\nelapsed_seconds=307\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+    "references": [
+      {
+        "commit": "4494a8ebb29f22aea16d062096d9e3090fa4068e",
+        "date": "2026-05-04T20:40:38-05:00",
+        "path": "times/c220g5/model/pr-kron.sg/4008MiB_run1_model_discounted_reward_99_pr-kron.sg_l2-2_10_1.5.time",
+        "side": "old",
+        "blob": "1972fb443021e77d501b13300ca930586520da9b"
+      },
+      {
+        "commit": "29e225954a5244b7d9d1e97ca3ca78350f859fe3",
+        "date": "2026-05-03T22:00:24-05:00",
+        "path": "times/c220g5/model/pr-kron.sg/4008MiB_run1_model_discounted_reward_99_pr-kron.sg_l2-2_10_1.5.time",
+        "side": "new",
+        "blob": "1972fb443021e77d501b13300ca930586520da9b"
+      }
+    ]
+  },
+  {
+    "blob": "1dd83e9a4b6a803dd898f24aaf5980b712184f79",
+    "seconds": 304.439,
+    "status": 0,
+    "contents": "\nreal\t5m4.439s\nuser\t0m0.015s\nsys\t0m0.025s\nexit_status=0\ntimed_out=0\nelapsed_seconds=304\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+    "references": [
+      {
+        "commit": "4494a8ebb29f22aea16d062096d9e3090fa4068e",
+        "date": "2026-05-04T20:40:38-05:00",
+        "path": "times/c220g5/model/pr-kron.sg/4008MiB_run2_model_discounted_reward_99_pr-kron.sg_l2-2_10_0.25.time",
+        "side": "old",
+        "blob": "1dd83e9a4b6a803dd898f24aaf5980b712184f79"
+      },
+      {
+        "commit": "29e225954a5244b7d9d1e97ca3ca78350f859fe3",
+        "date": "2026-05-03T22:00:24-05:00",
+        "path": "times/c220g5/model/pr-kron.sg/4008MiB_run2_model_discounted_reward_99_pr-kron.sg_l2-2_10_0.25.time",
+        "side": "new",
+        "blob": "1dd83e9a4b6a803dd898f24aaf5980b712184f79"
+      }
+    ]
+  },
+  {
+    "blob": "29101f7762477377dbd9c194959dccca03c31318",
+    "seconds": 303.242,
+    "status": 0,
+    "contents": "\nreal\t5m3.242s\nuser\t0m0.015s\nsys\t0m0.025s\nexit_status=0\ntimed_out=0\nelapsed_seconds=304\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+    "references": [
+      {
+        "commit": "4494a8ebb29f22aea16d062096d9e3090fa4068e",
+        "date": "2026-05-04T20:40:38-05:00",
+        "path": "times/c220g5/model/pr-kron.sg/4008MiB_run2_model_discounted_reward_99_pr-kron.sg_l2-2_10_1.0.time",
+        "side": "old",
+        "blob": "29101f7762477377dbd9c194959dccca03c31318"
+      },
+      {
+        "commit": "29e225954a5244b7d9d1e97ca3ca78350f859fe3",
+        "date": "2026-05-03T22:00:24-05:00",
+        "path": "times/c220g5/model/pr-kron.sg/4008MiB_run2_model_discounted_reward_99_pr-kron.sg_l2-2_10_1.0.time",
+        "side": "new",
+        "blob": "29101f7762477377dbd9c194959dccca03c31318"
+      }
+    ]
+  },
+  {
+    "blob": "30cea64434a88062dab0c3eb58e99574f8e485e3",
+    "seconds": 304.414,
+    "status": 0,
+    "contents": "\nreal\t5m4.414s\nuser\t0m0.012s\nsys\t0m0.025s\nexit_status=0\ntimed_out=0\nelapsed_seconds=305\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+    "references": [
+      {
+        "commit": "4494a8ebb29f22aea16d062096d9e3090fa4068e",
+        "date": "2026-05-04T20:40:38-05:00",
+        "path": "times/c220g5/model/pr-kron.sg/4008MiB_run1_model_discounted_reward_99_pr-kron.sg_l2-2_10_0.25.time",
+        "side": "old",
+        "blob": "30cea64434a88062dab0c3eb58e99574f8e485e3"
+      },
+      {
+        "commit": "29e225954a5244b7d9d1e97ca3ca78350f859fe3",
+        "date": "2026-05-03T22:00:24-05:00",
+        "path": "times/c220g5/model/pr-kron.sg/4008MiB_run1_model_discounted_reward_99_pr-kron.sg_l2-2_10_0.25.time",
+        "side": "new",
+        "blob": "30cea64434a88062dab0c3eb58e99574f8e485e3"
+      }
+    ]
+  },
+  {
+    "blob": "3c17cc607f5f0570df81d90ff00cd8a8022cd801",
+    "seconds": 363.411,
+    "status": null,
+    "contents": "\nreal\t6m3.411s\nuser\t0m0.209s\nsys\t0m0.417s\n",
+    "references": [
+      {
+        "commit": "fedcde1ee67e9cbcbcf442944f61f44c0193498c",
+        "date": "2026-03-15T18:05:27-05:00",
+        "path": "times/arms/pr-twitter.sg/4000MiB_run1.time",
+        "side": "old",
+        "blob": "3c17cc607f5f0570df81d90ff00cd8a8022cd801"
+      },
+      {
+        "commit": "e6223c95ae33008078585393fb96214187cbcd1a",
+        "date": "2026-03-14T19:39:26-05:00",
+        "path": "times/arms/pr-twitter.sg/4000MiB_run1.time",
+        "side": "new",
+        "blob": "3c17cc607f5f0570df81d90ff00cd8a8022cd801"
+      }
+    ]
+  },
+  {
+    "blob": "4b35e6465b1b7c04ead95dc1b30aca3bbdf82e63",
+    "seconds": 406.404,
+    "status": null,
+    "contents": "\nreal\t6m46.404s\nuser\t0m0.236s\nsys\t0m0.521s\n",
+    "references": [
+      {
+        "commit": "fedcde1ee67e9cbcbcf442944f61f44c0193498c",
+        "date": "2026-03-15T18:05:27-05:00",
+        "path": "times/arms/pr-kron.sg/4000MiB_run1.time",
+        "side": "old",
+        "blob": "4b35e6465b1b7c04ead95dc1b30aca3bbdf82e63"
+      },
+      {
+        "commit": "d87369bcef81010ca06406e3e456295ff412d957",
+        "date": "2026-03-14T10:14:19-05:00",
+        "path": "times/arms/pr-kron.sg/4000MiB_run1.time",
+        "side": "new",
+        "blob": "4b35e6465b1b7c04ead95dc1b30aca3bbdf82e63"
+      }
+    ]
+  },
+  {
+    "blob": "4c3e82718c509685555da24e46bfa497c82da5db",
+    "seconds": 269.13,
+    "status": 130,
+    "contents": "\nreal\t4m29.130s\nuser\t0m0.017s\nsys\t0m0.021s\nexit_status=130\ntimed_out=0\nelapsed_seconds=269\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+    "references": [
+      {
+        "commit": "4494a8ebb29f22aea16d062096d9e3090fa4068e",
+        "date": "2026-05-04T20:40:38-05:00",
+        "path": "times/c220g5/model/pr-kron.sg/4008MiB_run2_model_discounted_reward_99_pr-kron.sg_l2-2_10_1.5.time",
+        "side": "old",
+        "blob": "4c3e82718c509685555da24e46bfa497c82da5db"
+      },
+      {
+        "commit": "29e225954a5244b7d9d1e97ca3ca78350f859fe3",
+        "date": "2026-05-03T22:00:24-05:00",
+        "path": "times/c220g5/model/pr-kron.sg/4008MiB_run2_model_discounted_reward_99_pr-kron.sg_l2-2_10_1.5.time",
+        "side": "new",
+        "blob": "4c3e82718c509685555da24e46bfa497c82da5db"
+      }
+    ]
+  },
+  {
+    "blob": "5a43475499022910c8752313be918f2bd3c582e1",
+    "seconds": 321.076,
+    "status": 0,
+    "contents": "\nreal\t5m21.076s\nuser\t0m0.013s\nsys\t0m0.027s\nexit_status=0\ntimed_out=0\nelapsed_seconds=321\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+    "references": [
+      {
+        "commit": "4494a8ebb29f22aea16d062096d9e3090fa4068e",
+        "date": "2026-05-04T20:40:38-05:00",
+        "path": "times/c220g5/model/pr-twitter.sg/4008MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-2_10_0.25.time",
+        "side": "old",
+        "blob": "5a43475499022910c8752313be918f2bd3c582e1"
+      },
+      {
+        "commit": "29e225954a5244b7d9d1e97ca3ca78350f859fe3",
+        "date": "2026-05-03T22:00:24-05:00",
+        "path": "times/c220g5/model/pr-twitter.sg/4008MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-2_10_0.25.time",
+        "side": "new",
+        "blob": "5a43475499022910c8752313be918f2bd3c582e1"
+      }
+    ]
+  },
+  {
+    "blob": "5b134cd3587478068ba926b5974868ffb32f53c6",
+    "seconds": 304.367,
+    "status": 0,
+    "contents": "\nreal\t5m4.367s\nuser\t0m0.015s\nsys\t0m0.023s\nexit_status=0\ntimed_out=0\nelapsed_seconds=304\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+    "references": [
+      {
+        "commit": "4494a8ebb29f22aea16d062096d9e3090fa4068e",
+        "date": "2026-05-04T20:40:38-05:00",
+        "path": "times/c220g5/model/pr-kron.sg/4008MiB_run2_model_discounted_reward_99_pr-kron.sg_l2-2_10_0.5.time",
+        "side": "old",
+        "blob": "5b134cd3587478068ba926b5974868ffb32f53c6"
+      },
+      {
+        "commit": "29e225954a5244b7d9d1e97ca3ca78350f859fe3",
+        "date": "2026-05-03T22:00:24-05:00",
+        "path": "times/c220g5/model/pr-kron.sg/4008MiB_run2_model_discounted_reward_99_pr-kron.sg_l2-2_10_0.5.time",
+        "side": "new",
+        "blob": "5b134cd3587478068ba926b5974868ffb32f53c6"
+      }
+    ]
+  },
+  {
+    "blob": "5f3f6d70cf5b8bba3e1658154301b89ba6291ccd",
+    "seconds": 0.05,
+    "status": null,
+    "contents": "\nreal\t0m0.050s\nuser\t0m0.010s\nsys\t0m0.020s\n",
+    "references": [
+      {
+        "commit": "d87369bcef81010ca06406e3e456295ff412d957",
+        "date": "2026-03-14T10:14:19-05:00",
+        "path": "times/arms/pr-twitter.sg/4000MiB_run1.time",
+        "side": "old",
+        "blob": "5f3f6d70cf5b8bba3e1658154301b89ba6291ccd"
+      },
+      {
+        "commit": "6822f5e082e37bebf5f6a3376e45bfdf69d50b6a",
+        "date": "2026-03-10T21:15:42-05:00",
+        "path": "times/arms/pr-twitter.sg/4000MiB_run1.time",
+        "side": "new",
+        "blob": "5f3f6d70cf5b8bba3e1658154301b89ba6291ccd"
+      }
+    ]
+  },
+  {
+    "blob": "62b98e10a53e08dccf100fda923bd6c2fb593052",
+    "seconds": 319.718,
+    "status": 0,
+    "contents": "\nreal\t5m19.718s\nuser\t0m0.013s\nsys\t0m0.026s\nexit_status=0\ntimed_out=0\nelapsed_seconds=320\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+    "references": [
+      {
+        "commit": "4494a8ebb29f22aea16d062096d9e3090fa4068e",
+        "date": "2026-05-04T20:40:38-05:00",
+        "path": "times/c220g5/arms/pr-twitter.sg/4008MiB_run1.time",
+        "side": "old",
+        "blob": "62b98e10a53e08dccf100fda923bd6c2fb593052"
+      },
+      {
+        "commit": "29e225954a5244b7d9d1e97ca3ca78350f859fe3",
+        "date": "2026-05-03T22:00:24-05:00",
+        "path": "times/c220g5/arms/pr-twitter.sg/4008MiB_run1.time",
+        "side": "new",
+        "blob": "62b98e10a53e08dccf100fda923bd6c2fb593052"
+      }
+    ]
+  },
+  {
+    "blob": "6837d145f323583c704e4902465dab335998b355",
+    "seconds": 304.412,
+    "status": 0,
+    "contents": "\nreal\t5m4.412s\nuser\t0m0.020s\nsys\t0m0.017s\nexit_status=0\ntimed_out=0\nelapsed_seconds=305\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+    "references": [
+      {
+        "commit": "4494a8ebb29f22aea16d062096d9e3090fa4068e",
+        "date": "2026-05-04T20:40:38-05:00",
+        "path": "times/c220g5/model/pr-twitter.sg/4008MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-2_10_1.5.time",
+        "side": "old",
+        "blob": "6837d145f323583c704e4902465dab335998b355"
+      },
+      {
+        "commit": "29e225954a5244b7d9d1e97ca3ca78350f859fe3",
+        "date": "2026-05-03T22:00:24-05:00",
+        "path": "times/c220g5/model/pr-twitter.sg/4008MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-2_10_1.5.time",
+        "side": "new",
+        "blob": "6837d145f323583c704e4902465dab335998b355"
+      }
+    ]
+  },
+  {
+    "blob": "835e2adbc621d77bbeefcaa60e20b2513a78164e",
+    "seconds": 305.952,
+    "status": 0,
+    "contents": "\nreal\t5m5.952s\nuser\t0m0.010s\nsys\t0m0.027s\nexit_status=0\ntimed_out=0\nelapsed_seconds=306\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+    "references": [
+      {
+        "commit": "4494a8ebb29f22aea16d062096d9e3090fa4068e",
+        "date": "2026-05-04T20:40:38-05:00",
+        "path": "times/c220g5/model/pr-twitter.sg/4008MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-2_10_2.0.time",
+        "side": "old",
+        "blob": "835e2adbc621d77bbeefcaa60e20b2513a78164e"
+      },
+      {
+        "commit": "29e225954a5244b7d9d1e97ca3ca78350f859fe3",
+        "date": "2026-05-03T22:00:24-05:00",
+        "path": "times/c220g5/model/pr-twitter.sg/4008MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-2_10_2.0.time",
+        "side": "new",
+        "blob": "835e2adbc621d77bbeefcaa60e20b2513a78164e"
+      }
+    ]
+  },
+  {
+    "blob": "8ac3927ae34591c82cfdb9e29bce3cb6e3529d1a",
+    "seconds": 623.143,
+    "status": 0,
+    "contents": "\nreal\t10m23.143s\nuser\t0m0.012s\nsys\t0m0.026s\nexit_status=0\ntimed_out=0\ntimeout_seconds=2700\n",
+    "references": [
+      {
+        "commit": "058f6325889dc63e81d47cfaf2a27266c260ba1a",
+        "date": "2026-05-02T13:20:52-05:00",
+        "path": "times/c220g5/arms-6.18/pr-kron.sg/4000MiB_run1_train.time",
+        "side": "old",
+        "blob": "8ac3927ae34591c82cfdb9e29bce3cb6e3529d1a"
+      },
+      {
+        "commit": "8433b3fc734f495fe530b9b43ab1cab2328eacc0",
+        "date": "2026-04-09T01:32:50+00:00",
+        "path": "times/c220g5/arms-6.18/pr-kron.sg/4000MiB_run1_train.time",
+        "side": "new",
+        "blob": "8ac3927ae34591c82cfdb9e29bce3cb6e3529d1a"
+      },
+      {
+        "commit": "d92cb822f07cd1d3c1aaa7884bcbbea0da9bf8ed",
+        "date": "2026-04-09T01:30:08+00:00",
+        "path": "times/arms-6.18/pr-kron.sg/4000MiB_run1_train.time",
+        "side": "old",
+        "blob": "8ac3927ae34591c82cfdb9e29bce3cb6e3529d1a"
+      },
+      {
+        "commit": "2cb2ac9cf857360aa244c132c25f07286d5e3beb",
+        "date": "2026-03-24T09:59:53-05:00",
+        "path": "times/arms-6.18/pr-kron.sg/4000MiB_run1_train.time",
+        "side": "new",
+        "blob": "8ac3927ae34591c82cfdb9e29bce3cb6e3529d1a"
+      },
+      {
+        "commit": "2cb2ac9cf857360aa244c132c25f07286d5e3beb",
+        "date": "2026-03-24T09:59:53-05:00",
+        "path": "times/arms/pr-kron.sg/4000MiB_run1_train.time",
+        "side": "old",
+        "blob": "8ac3927ae34591c82cfdb9e29bce3cb6e3529d1a"
+      },
+      {
+        "commit": "761df1b26f643f26bf3eb66a0d63425410357fde",
+        "date": "2026-03-21T17:32:44-05:00",
+        "path": "times/arms/pr-kron.sg/4000MiB_run1_train.time",
+        "side": "new",
+        "blob": "8ac3927ae34591c82cfdb9e29bce3cb6e3529d1a"
+      }
+    ]
+  },
+  {
+    "blob": "9e4bf63eb43e6ccc38993a3dcafcc5a77e75b98e",
+    "seconds": 303.15,
+    "status": 0,
+    "contents": "\nreal\t5m3.150s\nuser\t0m0.014s\nsys\t0m0.021s\nexit_status=0\ntimed_out=0\nelapsed_seconds=303\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+    "references": [
+      {
+        "commit": "4494a8ebb29f22aea16d062096d9e3090fa4068e",
+        "date": "2026-05-04T20:40:38-05:00",
+        "path": "times/c220g5/model/pr-kron.sg/4008MiB_run1_model_discounted_reward_99_pr-kron.sg_l2-2_10_2.0.time",
+        "side": "old",
+        "blob": "9e4bf63eb43e6ccc38993a3dcafcc5a77e75b98e"
+      },
+      {
+        "commit": "29e225954a5244b7d9d1e97ca3ca78350f859fe3",
+        "date": "2026-05-03T22:00:24-05:00",
+        "path": "times/c220g5/model/pr-kron.sg/4008MiB_run1_model_discounted_reward_99_pr-kron.sg_l2-2_10_2.0.time",
+        "side": "new",
+        "blob": "9e4bf63eb43e6ccc38993a3dcafcc5a77e75b98e"
+      }
+    ]
+  },
+  {
+    "blob": "a1be378a78370864d413e9b3a208675bebca0e2d",
+    "seconds": 560.096,
+    "status": null,
+    "contents": "\nreal\t9m20.096s\nuser\t0m0.472s\nsys\t0m1.147s\n",
+    "references": [
+      {
+        "commit": "de3bdd000f93f6858f4444340949d497942c7172",
+        "date": "2026-02-24T22:22:14-06:00",
+        "path": "times/model/pr-kron.sg/4000MiB_run1.time",
+        "side": "old",
+        "blob": "a1be378a78370864d413e9b3a208675bebca0e2d"
+      },
+      {
+        "commit": "47e0101c0b9e866bb6cb9465d6bacaaef3abf2ae",
+        "date": "2026-02-12T22:03:15-06:00",
+        "path": "times/model/pr-kron.sg/4000MiB_run1.time",
+        "side": "new",
+        "blob": "a1be378a78370864d413e9b3a208675bebca0e2d"
+      }
+    ]
+  },
+  {
+    "blob": "ab4cb435a8f7f3fde01834a8e328d7b3e27904dc",
+    "seconds": 2339.619,
+    "status": 0,
+    "contents": "\nreal\t38m59.619s\nuser\t0m0.136s\nsys\t0m0.398s\nexit_status=0\ntimed_out=0\nelapsed_seconds=2339\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+    "references": [
+      {
+        "commit": "f3c98ae03e3de17765a06876c79ed156a777684e",
+        "date": "2026-05-02T18:25:10+00:00",
+        "path": "times/gsl_optane/arms/pr-kron.sg/4000MiB_run1.time",
+        "side": "old",
+        "blob": "ab4cb435a8f7f3fde01834a8e328d7b3e27904dc"
+      },
+      {
+        "commit": "563220a4ab89f9f545819db62c3fa21758c90796",
+        "date": "2026-04-23T23:23:07+00:00",
+        "path": "times/gsl_optane/arms/pr-kron.sg/4000MiB_run1.time",
+        "side": "new",
+        "blob": "ab4cb435a8f7f3fde01834a8e328d7b3e27904dc"
+      }
+    ]
+  },
+  {
+    "blob": "abc1d0e46db1a0b50d7f819aa8cf0ce443fea2c6",
+    "seconds": 303.832,
+    "status": 0,
+    "contents": "\nreal\t5m3.832s\nuser\t0m0.017s\nsys\t0m0.022s\nexit_status=0\ntimed_out=0\nelapsed_seconds=304\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+    "references": [
+      {
+        "commit": "4494a8ebb29f22aea16d062096d9e3090fa4068e",
+        "date": "2026-05-04T20:40:38-05:00",
+        "path": "times/c220g5/model/pr-twitter.sg/4008MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-2_10_1.0.time",
+        "side": "old",
+        "blob": "abc1d0e46db1a0b50d7f819aa8cf0ce443fea2c6"
+      },
+      {
+        "commit": "29e225954a5244b7d9d1e97ca3ca78350f859fe3",
+        "date": "2026-05-03T22:00:24-05:00",
+        "path": "times/c220g5/model/pr-twitter.sg/4008MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-2_10_1.0.time",
+        "side": "new",
+        "blob": "abc1d0e46db1a0b50d7f819aa8cf0ce443fea2c6"
+      }
+    ]
+  },
+  {
+    "blob": "b0f7d5d2c84140ff331ff8376bc765541ab05143",
+    "seconds": 308.514,
+    "status": 0,
+    "contents": "\nreal\t5m8.514s\nuser\t0m0.014s\nsys\t0m0.024s\nexit_status=0\ntimed_out=0\nelapsed_seconds=308\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+    "references": [
+      {
+        "commit": "4494a8ebb29f22aea16d062096d9e3090fa4068e",
+        "date": "2026-05-04T20:40:38-05:00",
+        "path": "times/c220g5/model/pr-twitter.sg/4008MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-2_10_0.5.time",
+        "side": "old",
+        "blob": "b0f7d5d2c84140ff331ff8376bc765541ab05143"
+      },
+      {
+        "commit": "29e225954a5244b7d9d1e97ca3ca78350f859fe3",
+        "date": "2026-05-03T22:00:24-05:00",
+        "path": "times/c220g5/model/pr-twitter.sg/4008MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-2_10_0.5.time",
+        "side": "new",
+        "blob": "b0f7d5d2c84140ff331ff8376bc765541ab05143"
+      }
+    ]
+  },
+  {
+    "blob": "b51ba629f74017ccedd0f7c227a36205f1516520",
+    "seconds": 317.462,
+    "status": 0,
+    "contents": "\nreal\t5m17.462s\nuser\t0m0.017s\nsys\t0m0.020s\nexit_status=0\ntimed_out=0\nelapsed_seconds=318\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+    "references": [
+      {
+        "commit": "4494a8ebb29f22aea16d062096d9e3090fa4068e",
+        "date": "2026-05-04T20:40:38-05:00",
+        "path": "times/c220g5/arms/pr-kron.sg/4008MiB_run2.time",
+        "side": "old",
+        "blob": "b51ba629f74017ccedd0f7c227a36205f1516520"
+      },
+      {
+        "commit": "29e225954a5244b7d9d1e97ca3ca78350f859fe3",
+        "date": "2026-05-03T22:00:24-05:00",
+        "path": "times/c220g5/arms/pr-kron.sg/4008MiB_run2.time",
+        "side": "new",
+        "blob": "b51ba629f74017ccedd0f7c227a36205f1516520"
+      }
+    ]
+  },
+  {
+    "blob": "d65adf47bfa0eec0679e85ff125fe6971950647f",
+    "seconds": 590.298,
+    "status": null,
+    "contents": "\nreal\t9m50.298s\nuser\t0m0.620s\nsys\t0m1.531s\n",
+    "references": [
+      {
+        "commit": "de3bdd000f93f6858f4444340949d497942c7172",
+        "date": "2026-02-24T22:22:14-06:00",
+        "path": "times/arms/pr-kron.sg/4000MiB_run1.time",
+        "side": "old",
+        "blob": "d65adf47bfa0eec0679e85ff125fe6971950647f"
+      },
+      {
+        "commit": "47e0101c0b9e866bb6cb9465d6bacaaef3abf2ae",
+        "date": "2026-02-12T22:03:15-06:00",
+        "path": "times/arms/pr-kron.sg/4000MiB_run1.time",
+        "side": "new",
+        "blob": "d65adf47bfa0eec0679e85ff125fe6971950647f"
+      }
+    ]
+  },
+  {
+    "blob": "eebcd7bd586456fc5fefd8648991814968a2d4b1",
+    "seconds": 1115.381,
+    "status": null,
+    "contents": "\nreal\t18m35.381s\nuser\t0m0.972s\nsys\t0m2.265s\n",
+    "references": [
+      {
+        "commit": "de3bdd000f93f6858f4444340949d497942c7172",
+        "date": "2026-02-24T22:22:14-06:00",
+        "path": "times/model/pr-twitter.sg/4000MiB_run1.time",
+        "side": "old",
+        "blob": "eebcd7bd586456fc5fefd8648991814968a2d4b1"
+      },
+      {
+        "commit": "47e0101c0b9e866bb6cb9465d6bacaaef3abf2ae",
+        "date": "2026-02-12T22:03:15-06:00",
+        "path": "times/model/pr-twitter.sg/4000MiB_run1.time",
+        "side": "new",
+        "blob": "eebcd7bd586456fc5fefd8648991814968a2d4b1"
+      }
+    ]
+  }
+]

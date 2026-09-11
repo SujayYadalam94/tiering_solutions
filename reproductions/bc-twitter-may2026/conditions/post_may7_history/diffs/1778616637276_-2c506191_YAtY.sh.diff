@@ -1,0 +1,13 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-2c506191/4VMy.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-2c506191/YAtY.sh
+@@ -73,8 +73,8 @@
+             echo "---- Workload ${workload_id} ----"
+ 
+             # ARMS
+-            #run_measurement_setup "${size}"
+-            #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
++            run_measurement_setup "${size}"
++            "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+ 
+ 
+             # Model

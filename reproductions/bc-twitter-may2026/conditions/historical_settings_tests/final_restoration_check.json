@@ -1,0 +1,60 @@
+{
+  "mode": "saved snapshots plus live readback",
+  "checks": [
+    {
+      "session": "20260909T175404Z-425061",
+      "knob": "none",
+      "runner_restoration_errors": [],
+      "recorded_differences": [],
+      "current_differences": []
+    },
+    {
+      "session": "20260909T175946Z-432507",
+      "knob": "lowmem32",
+      "runner_restoration_errors": [],
+      "recorded_differences": [],
+      "current_differences": []
+    },
+    {
+      "session": "20260909T180532Z-439108",
+      "knob": "lowmem4",
+      "runner_restoration_errors": [],
+      "recorded_differences": [],
+      "current_differences": []
+    },
+    {
+      "session": "20260909T181201Z-445918",
+      "knob": "watermark_boost0",
+      "runner_restoration_errors": [],
+      "recorded_differences": [],
+      "current_differences": []
+    },
+    {
+      "session": "20260909T181744Z-453115",
+      "knob": "min_free16m",
+      "runner_restoration_errors": [],
+      "recorded_differences": [],
+      "current_differences": []
+    },
+    {
+      "session": "20260909T182328Z-460094",
+      "knob": "khugepaged_pages4096",
+      "runner_restoration_errors": [],
+      "recorded_differences": [],
+      "current_differences": []
+    },
+    {
+      "session": "20260909T182911Z-468305",
+      "knob": "none",
+      "runner_restoration_errors": [],
+      "recorded_differences": [],
+      "current_differences": []
+    }
+  ],
+  "live_readback_performed": true,
+  "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+  "boot_unchanged": true,
+  "active_benchmarks": [],
+  "pmem7_driver": "/sys/bus/nd/drivers/nd_pmem",
+  "passed": true
+}

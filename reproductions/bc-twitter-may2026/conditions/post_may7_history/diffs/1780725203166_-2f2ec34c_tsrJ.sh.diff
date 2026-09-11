@@ -1,0 +1,16 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-2f2ec34c/vUq2.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-2f2ec34c/tsrJ.sh
+@@ -81,10 +81,11 @@
+         run_label="${run}${RUN_LABEL_SUFFIX}"
+         echo "-- Run ${run}/${RUNS} for size ${size}MiB (label ${run_label}) --"
+ 
+-        run_measurement_setup "${size}" || exit 1
+-        trap 'run_measurement_teardown' EXIT
+ 
+         for workload_id in "${WORKLOAD_IDS[@]}"; do
++            run_measurement_setup "${size}" || exit 1
++            trap 'run_measurement_teardown' EXIT
++
+             measurement_load_workload "${workload_id}" || exit 1
+             if ! measurement_workload_supports_system arms; then
+                 echo "Skipping ${workload_id}: not supported by arms"

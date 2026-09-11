@@ -1,0 +1,41 @@
+--- 8d6a8bc66:run_all_measurements.sh
++++ -2c506191/Rn3E.sh
+@@ -56,7 +56,7 @@
+     fi
+ }
+ 
+-SIZES=(6005)
++SIZES=(4029)
+ RUNS=3
+ 
+ ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}
+@@ -73,8 +73,8 @@
+             echo "---- Workload ${workload_id} ----"
+ 
+             # ARMS
+-            run_measurement_setup "${size}"
+-            "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
++            #run_measurement_setup "${size}"
++            #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+ 
+ 
+             # Model
+@@ -101,12 +101,12 @@
+             #fi
+ 
+             # HybridTier
+-            #run_measurement_setup "${size}"
+-            #if [[ -x "${SCRIPT_DIR}/measurement_hybridtier.sh" ]]; then
+-            #    sudo -E "${SCRIPT_DIR}/measurement_hybridtier.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" huge "${workload_id}"
+-            #else
+-            #    echo "WARNING: ./measurement_hybridtier.sh not found or not executable; skipping HybridTier"
+-            #fi
++            run_measurement_setup "${size}"
++            if [[ -x "${SCRIPT_DIR}/measurement_hybridtier.sh" ]]; then
++                sudo -E "${SCRIPT_DIR}/measurement_hybridtier.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" huge "${workload_id}"
++            else
++                echo "WARNING: ./measurement_hybridtier.sh not found or not executable; skipping HybridTier"
++            fi
+ 
+             #run_measurement_setup "${size}"
+             #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${ARMS_LIB_SUFFIX}" "${workload_id}"

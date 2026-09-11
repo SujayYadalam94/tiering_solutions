@@ -8,6 +8,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <string>
 #include <stdio.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -99,6 +100,13 @@ struct data_row
     int num_demotions;
     int num_promotions;
     uint64_t step_unc_m_cas_count_wr;
+
+#if MODEL_TIMING_TELEMETRY_ENABLED
+    // Whole-batch wall times, repeated on each page row of a completed virtual step.
+    uint64_t model_feature_aggregation_ns;
+    uint64_t model_inference_ns;
+    uint64_t model_score_total_ns;
+#endif
 
     // Reward Componants computed at the end
     struct data_row *prev;
@@ -208,7 +216,6 @@ class access_log
 
     int get_disk_usage(const pid_t pid);
     int get_cpu_usage(const pid_t pid);
-    void print_row(std::ostream &os, struct data_row *row, bool header);
     void finalize_log();
 
   public:

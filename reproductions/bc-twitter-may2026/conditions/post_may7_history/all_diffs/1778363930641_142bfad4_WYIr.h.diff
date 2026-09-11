@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/142bfad4/rbmB.h
++++ /users/zimooo2/.vscode-server/data/User/History/142bfad4/WYIr.h
+@@ -65,7 +65,7 @@
+     float prev_score;
+     uint16_t hot_age;
+     bool can_promote;
+-    bool can_demote
++    bool can_demote;
+ 
+     uint64_t last_seen_scan;
+     uint64_t last_access_generation;

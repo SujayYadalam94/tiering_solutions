@@ -1,0 +1,37 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-2c506191/5irs.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-2c506191/uLgz.sh
+@@ -56,7 +56,7 @@
+     fi
+ }
+ 
+-SIZES=(4060)
++SIZES=(4061)
+ RUNS=3
+ 
+ ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}
+@@ -93,12 +93,20 @@
+             #    echo "WARNING: ./measurement_nomad.sh not found or not executable; skipping NOMAD"
+             #fi
+ 
++            # MEMTIS
++            if [[ -x "${SCRIPT_DIR}/measurement_memtis.sh" ]]; then
++                run_measurement_setup "${size}" all_numa
++                sudo -E "${SCRIPT_DIR}/measurement_memtis.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
++            else
++                echo "WARNING: ./measurement_memtis.sh not found or not executable; skipping MEMTIS"
++            fi
++
+             # Model
+-            if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
+-                "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+-            else
+-                echo "WARNING: ./measurement_model.sh not found or not executable; skipping model"
+-            fi
++            #if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
++            #    "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
++            #else
++            #    echo "WARNING: ./measurement_model.sh not found or not executable; skipping model"
++            #fi
+ 
+             # HybridTier
+             #run_measurement_setup "${size}"

@@ -1,0 +1,18 @@
+--- git:8d6a8bc66:page.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-46e76ef1/KdGc.cpp
+@@ -439,6 +439,15 @@
+         this->hot_age = 0;
+         this->can_promote = false;
+     }
++#else
++    if (rank < num_dram_pages * 0.75)
++    {
++        this->can_promote = true
++    }
++    else
++    {
++        this->can_promote = false;
++    }
+ #endif
+ }
+ 

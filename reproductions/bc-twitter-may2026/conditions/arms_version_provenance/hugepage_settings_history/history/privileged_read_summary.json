@@ -1,0 +1,24 @@
+{
+  "root_shell_history": {
+    "path": "/root/.bash_history",
+    "mtime_utc": "2026-03-19T17:35:22.025342+00:00",
+    "line_count": 27,
+    "sha256": "1ea57e15592b9d08f3c6aa6559e9937183e54d46767eef6a9582267c139bdb83",
+    "relevant_matches": []
+  },
+  "root_vim_history": {
+    "path": "/root/.viminfo",
+    "mtime_utc": "2026-03-19T16:33:08.012516+00:00",
+    "line_count": 130,
+    "sha256": "ffabd2bc45a3039f17522e114298ba1626af18ec72d4f7e477b909404ec3c9e3",
+    "relevant_matches": []
+  },
+  "grub_backup": {
+    "path": "/etc/default/grub.bak",
+    "mtime_utc": "2026-03-16T22:06:09.786291+00:00",
+    "sha256": "f92f3b64241ccb6f47864f0fc2e3cbda7aedb279bc3cb0b1159c46ee9e2b1e30",
+    "memory_map_arguments": ["memmap=90G!2G"],
+    "explicit_thp_compaction_or_numa_options": []
+  },
+  "scope": "Filtered read-only checks; unrelated root history and GRUB arguments omitted. No host settings changed."
+}

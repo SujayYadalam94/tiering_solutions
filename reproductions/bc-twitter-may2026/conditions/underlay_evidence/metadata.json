@@ -1,0 +1,223 @@
+{
+  "method": "nonrecursive root bind remounted read-only in private mount namespace; live mounts unchanged",
+  "source_log_root": "/users/zimooo2/tiering_solutions/logs under root filesystem",
+  "root_graph_underlay_exists": false,
+  "files": [
+    {
+      "relative_path": "DuckDB-TPCH-sf100/4029MiB_run1_hybridtier.log",
+      "size": 110748,
+      "inode": 4072080,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T16:26:39.451019+00:00",
+      "sha256": "e3352aa09ec171485ced3613eb1ed50cc84acb6d7c8920fa6b0fa9564e5a78cd"
+    },
+    {
+      "relative_path": "DuckDB-TPCH-sf100/4029MiB_run2_hybridtier.log",
+      "size": 111010,
+      "inode": 4072092,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T17:42:15.095154+00:00",
+      "sha256": "cabbe7c908d0f980e429bde3a203ec02f958f674132e71e0d06289ff944cd075"
+    },
+    {
+      "relative_path": "DuckDB-TPCH-sf100/4029MiB_run3_hybridtier.log",
+      "size": 138209,
+      "inode": 4072400,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T18:59:34.473956+00:00",
+      "sha256": "2ed4c67fd58d7641671e7a9ea2ecc819cf7f7d9243dd2104fe737d9524ccc15c"
+    },
+    {
+      "relative_path": "XSBench/4029MiB_run1_hybridtier.log",
+      "size": 220213,
+      "inode": 4072071,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T16:06:21.003558+00:00",
+      "sha256": "4f9b6d75f1f5c38b458d0e75ba53b3b11d6320d9897142528269b4646071cc84"
+    },
+    {
+      "relative_path": "XSBench/4029MiB_run2_hybridtier.log",
+      "size": 161912,
+      "inode": 4072086,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T17:21:54.031375+00:00",
+      "sha256": "ae51f98f4724059bd39ca4aeda919c78653baa6009bf37d219466e9cee3caf64"
+    },
+    {
+      "relative_path": "XSBench/4029MiB_run3_hybridtier.log",
+      "size": 220893,
+      "inode": 4072105,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T18:39:13.169092+00:00",
+      "sha256": "8aa507329b33b1f88fbfe9329dff3f854b09039f0319091783b050526c619e02"
+    },
+    {
+      "relative_path": "bc-kron.sg/4029MiB_run1_hybridtier.log",
+      "size": 194707,
+      "inode": 4072050,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T15:21:30.651630+00:00",
+      "sha256": "035e486559f0444b9bd0be8528b7ccaf9e1cf2e937a9197fad3e1a29e80ecce0"
+    },
+    {
+      "relative_path": "bc-kron.sg/4029MiB_run2_hybridtier.log",
+      "size": 167721,
+      "inode": 4072081,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T16:37:51.246806+00:00",
+      "sha256": "3c4de48a63973595ffe1b910fb57e618d3a1b6c0c00bfa29e8919690ccd773d0"
+    },
+    {
+      "relative_path": "bc-kron.sg/4029MiB_run3_hybridtier.log",
+      "size": 167783,
+      "inode": 4072093,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T17:53:36.845222+00:00",
+      "sha256": "2cb958abd04fdbb15efe8c0472ad7c9137c699ed9fa05f3541fa53c45c456912"
+    },
+    {
+      "relative_path": "bc-kron.sg/4061MiB_run1_memtis.log",
+      "size": 76,
+      "inode": 4073009,
+      "device": 2051,
+      "mtime_utc": "2026-08-31T17:02:04.534532+00:00",
+      "sha256": "b88e713cb2c205b5e77248d35a059e872c7cce852e1da75ad80df88cfb270403"
+    },
+    {
+      "relative_path": "bc-twitter.sg/4029MiB_run1_hybridtier.log",
+      "size": 165476,
+      "inode": 4072067,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T15:42:16.734582+00:00",
+      "sha256": "ad8790d46d51f31611b302858151441edc5431e93e8394ebdb92be9987223def"
+    },
+    {
+      "relative_path": "bc-twitter.sg/4029MiB_run2_hybridtier.log",
+      "size": 138787,
+      "inode": 4072083,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T16:58:32.388034+00:00",
+      "sha256": "1cb9205ff9955ab19bfda778906292aa29fbc1abf356ab0f77f1fc71fca0996e"
+    },
+    {
+      "relative_path": "bc-twitter.sg/4029MiB_run3_hybridtier.log",
+      "size": 165756,
+      "inode": 4072098,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T18:15:13.511090+00:00",
+      "sha256": "5c063493e795b799a502583a594429e8ed806a81c9329d71dd9a17fcbd44bd66"
+    },
+    {
+      "relative_path": "faiss_10M/4029MiB_run1_hybridtier.log",
+      "size": 5895,
+      "inode": 4072075,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T16:08:06.364992+00:00",
+      "sha256": "3d9abaee56d1f882fb0a4c8fa8f887e4824b9055602d1427c70a0ff475a011be"
+    },
+    {
+      "relative_path": "faiss_10M/4029MiB_run2_hybridtier.log",
+      "size": 5896,
+      "inode": 4072089,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T17:23:40.399846+00:00",
+      "sha256": "3ab8bd33ed623420b79ee581b588fe93a1ed2e7a1155693c03da24acabce7d1d"
+    },
+    {
+      "relative_path": "faiss_10M/4029MiB_run3_hybridtier.log",
+      "size": 5896,
+      "inode": 4072106,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T18:40:59.670571+00:00",
+      "sha256": "b828ac6c3a0450da428b0b6042977e790d76964422b9d4c49db71a023824bbad"
+    },
+    {
+      "relative_path": "faiss_10M-original/4029MiB_run1_hybridtier.log",
+      "size": 5896,
+      "inode": 4072441,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T19:06:31.646614+00:00",
+      "sha256": "21b9f147681fbb2614052e21635f2c62efc5d9b46129e1e0282a82f96461851e"
+    },
+    {
+      "relative_path": "mg.D.x/4029MiB_run1_hybridtier.log",
+      "size": 86486,
+      "inode": 4072078,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T16:17:37.128716+00:00",
+      "sha256": "2eb715b8df51c4db6602ffe0e513ae1f32c59c7db94bc329d1a6540f68031f39"
+    },
+    {
+      "relative_path": "mg.D.x/4029MiB_run2_hybridtier.log",
+      "size": 87190,
+      "inode": 4072090,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T17:33:10.069688+00:00",
+      "sha256": "878073a1955614dfed44fce2e61c191456338125db9ba3c6efe7deab82cd08dd"
+    },
+    {
+      "relative_path": "mg.D.x/4029MiB_run3_hybridtier.log",
+      "size": 87016,
+      "inode": 4072396,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T18:50:33.817506+00:00",
+      "sha256": "4061ed99d46d0564c81cd99bbbfbaf16e71b52bb7f0268a9743b12214892f37f"
+    },
+    {
+      "relative_path": "pr-kron.sg/4029MiB_run1_hybridtier.log",
+      "size": 172269,
+      "inode": 4072065,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T15:36:18.485636+00:00",
+      "sha256": "ac5ded43cfa8847697cbe90186de73139cbaa9e1e202ad4f08dff92f4d212ac0"
+    },
+    {
+      "relative_path": "pr-kron.sg/4029MiB_run2_hybridtier.log",
+      "size": 146194,
+      "inode": 4072082,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T16:52:33.178276+00:00",
+      "sha256": "9662df72bb99f843fbf49d1a98c869a67296b6cb0c92ca466003518546d9837b"
+    },
+    {
+      "relative_path": "pr-kron.sg/4029MiB_run3_hybridtier.log",
+      "size": 199497,
+      "inode": 4072096,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T18:09:08.928259+00:00",
+      "sha256": "0d21f7c9048af6c7cc924f95e29d7e5f128afdba91c9fe7f04ab066e7657d1bd"
+    },
+    {
+      "relative_path": "pr-kron.sg/4061MiB_run1_memtis.log",
+      "size": 76,
+      "inode": 4073010,
+      "device": 2051,
+      "mtime_utc": "2026-08-31T17:02:14.455668+00:00",
+      "sha256": "c13177e27094c959e67bfa5d1717360b3db203dd1c9599f27ed06697dc8096e2"
+    },
+    {
+      "relative_path": "pr-twitter.sg/4029MiB_run1_hybridtier.log",
+      "size": 119650,
+      "inode": 4072069,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T15:57:47.406519+00:00",
+      "sha256": "0d82b61b65eabb3c858b1a3642f41dfae5bc4cf48c1e2b66ab03a8db6425b26b"
+    },
+    {
+      "relative_path": "pr-twitter.sg/4029MiB_run2_hybridtier.log",
+      "size": 92115,
+      "inode": 4072085,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T17:13:31.911436+00:00",
+      "sha256": "e330a4599d2c11f855f35eeb8dca9f5ec29fff2cb853ed9dc2a7f2a36eb056e0"
+    },
+    {
+      "relative_path": "pr-twitter.sg/4029MiB_run3_hybridtier.log",
+      "size": 119417,
+      "inode": 4072102,
+      "device": 2051,
+      "mtime_utc": "2026-05-11T18:30:49.482149+00:00",
+      "sha256": "74cef07ea13fc495b3ed5b2e2ef5be758aff0433b259e6a2b215f2ec89d82455"
+    }
+  ]
+}

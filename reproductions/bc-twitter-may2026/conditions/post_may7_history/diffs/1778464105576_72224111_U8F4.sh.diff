@@ -1,0 +1,9 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/72224111/0a44.sh
++++ /users/zimooo2/.vscode-server/data/User/History/72224111/U8F4.sh
+@@ -5,5 +5,5 @@
+ WORKLOAD_COMMAND="OMP_NUM_THREADS=16 ${BENCH_ROOT}/XSBench/openmp-threading/XSBench -t 16 -g 50000 -p 100000000"
+ WORKLOAD_EXE_NAME="XSBench"
+ WORKLOAD_MODEL_BASE="XSBench"
+-WORKLOAD_VIRTUAL_STEP_SAMPLES="100000"
++WORKLOAD_VIRTUAL_STEP_SAMPLES="10000"
+ WORKLOAD_SYSTEMS="arms hybridtier model logging"

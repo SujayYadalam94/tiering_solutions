@@ -1,0 +1,34 @@
+{
+  "source": "/users/zimooo2/.codex/attachments/b95333be-6cb0-460c-912e-aec6769844ab/pasted-text.txt",
+  "raw_sha256": "e3fe40fd9588e2fab6e95703f99916523b0f2bbf11f8d748e77a26bab36d4078",
+  "normalized_sha256": "3365dffcd8de8c203ef769b097181fc49e87bbbaf8cf127f5ae48b04c5d4e904",
+  "comparisons": [
+    {
+      "commit": "d92cb822f",
+      "setup_blob": "9269f544c753641578e44d8709ec815d031f7770",
+      "identical_after_newline_normalization": true,
+      "normalized_sha256": "3365dffcd8de8c203ef769b097181fc49e87bbbaf8cf127f5ae48b04c5d4e904"
+    },
+    {
+      "commit": "8d6a8bc66",
+      "setup_blob": "9269f544c753641578e44d8709ec815d031f7770",
+      "identical_after_newline_normalization": true,
+      "normalized_sha256": "3365dffcd8de8c203ef769b097181fc49e87bbbaf8cf127f5ae48b04c5d4e904"
+    },
+    {
+      "commit": "4da3d6c3f",
+      "setup_blob": "9269f544c753641578e44d8709ec815d031f7770",
+      "identical_after_newline_normalization": true,
+      "normalized_sha256": "3365dffcd8de8c203ef769b097181fc49e87bbbaf8cf127f5ae48b04c5d4e904"
+    },
+    {
+      "commit": "d6f720be6",
+      "setup_blob": "9269f544c753641578e44d8709ec815d031f7770",
+      "identical_after_newline_normalization": true,
+      "normalized_sha256": "3365dffcd8de8c203ef769b097181fc49e87bbbaf8cf127f5ae48b04c5d4e904"
+    }
+  ],
+  "current_setup_sha256": "2aaee86b09f147b88284ea0c4a182243b27e34ec9d7000a8f849d7fcebbd1709",
+  "current_measurement_settings_sha256": "206d6d8dbbe58a23d1b04ea5ecdcbd293860bba6735a21ee68eb472ef0c4a889",
+  "scope": "Static comparison only; the supplied script was not executed. User describes source machine as having March runs; file does not include execution provenance."
+}

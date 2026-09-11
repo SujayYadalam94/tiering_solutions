@@ -1,0 +1,50 @@
+{
+  "utc": "2026-09-09T14:41:10.436581+00:00",
+  "kernel": "6.18.1-061801-generic",
+  "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+  "pmem_driver": "/sys/bus/nd/drivers/nd_pmem",
+  "pmem_device_present": true,
+  "active_benchmarks": [],
+  "controls": {
+    "/proc/sys/vm/compaction_proactiveness": "80",
+    "/sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs": "0",
+    "/sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs": "1",
+    "/proc/sys/vm/min_free_kbytes": "1048576",
+    "/proc/sys/kernel/perf_event_max_sample_rate": "1000000",
+    "/proc/sys/kernel/perf_cpu_time_max_percent": "0"
+  },
+  "session_restorations": [
+    {
+      "session": "20260909T130001Z-142220",
+      "errors": []
+    },
+    {
+      "session": "20260909T130805Z-154045",
+      "errors": []
+    },
+    {
+      "session": "20260909T132959Z-178251",
+      "errors": []
+    },
+    {
+      "session": "20260909T133945Z-186003",
+      "errors": []
+    },
+    {
+      "session": "20260909T141557Z-194881",
+      "errors": []
+    },
+    {
+      "session": "20260909T142436Z-200883",
+      "errors": []
+    },
+    {
+      "session": "20260909T143041Z-209179",
+      "errors": []
+    },
+    {
+      "session": "20260909T143646Z-217337",
+      "errors": []
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+WORKLOAD_ID="XSBench_no_virtual_step"
+WORKLOAD_OUTPUT="XSBench_no_virtual_step"
+WORKLOAD_COMMAND="OMP_NUM_THREADS=16 ${BENCH_ROOT}/XSBench/openmp-threading/XSBench -t 16 -g 50000 -p 10000000"
+WORKLOAD_EXE_NAME="XSBench"
+WORKLOAD_MODEL_BASE="XSBench_no_virtual_step"
+WORKLOAD_VIRTUAL_STEP_SAMPLES="10000"
+WORKLOAD_SYSTEMS="model"

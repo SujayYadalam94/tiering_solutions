@@ -1,0 +1,150 @@
+{
+  "path": "/etc/default/grub.bak",
+  "bytes": 1815,
+  "mtime_utc": "2026-03-16T22:06:09.786291+00:00",
+  "ctime_utc": "2026-03-16T22:06:09.786291+00:00",
+  "sha256": "f92f3b64241ccb6f47864f0fc2e3cbda7aedb279bc3cb0b1159c46ee9e2b1e30",
+  "selected_lines": [
+    {
+      "line": 6,
+      "text": "GRUB_DEFAULT=0"
+    },
+    {
+      "line": 8,
+      "text": "GRUB_HIDDEN_TIMEOUT_QUIET=false"
+    },
+    {
+      "line": 9,
+      "text": "GRUB_TIMEOUT=5"
+    },
+    {
+      "line": 10,
+      "text": "GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`"
+    },
+    {
+      "line": 11,
+      "text": "GRUB_CMDLINE_LINUX_DEFAULT=\"console=ttyS0,115200 earlycon=uart,io,0x3f8,115200 loglevel=7 ignore_loglevel debug rd.shell rd.break memmap=90G!2G\""
+    },
+    {
+      "line": 12,
+      "text": "GRUB_CMDLINE_LINUX=\"console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G\""
+    },
+    {
+      "line": 20,
+      "text": "GRUB_TERMINAL=\"serial console\""
+    },
+    {
+      "line": 37,
+      "text": "GRUB_SERIAL_COMMAND=\"serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1\""
+    },
+    {
+      "line": 41,
+      "text": "GRUB_CMDLINE_LINUX=\"console=ttyS0,115200 emulabcnet=00:5d:73:ef:d9:ee\""
+    },
+    {
+      "line": 42,
+      "text": "GRUB_TERMINAL=serial"
+    },
+    {
+      "line": 43,
+      "text": "GRUB_SERIAL_COMMAND=\"serial --unit=0 --port=0x3F8 --speed=115200\""
+    }
+  ],
+  "unique_memmap_arguments": [
+    "memmap=90G!2G"
+  ],
+  "assignments": {
+    "GRUB_DEFAULT": [
+      {
+        "line": 6,
+        "literal_value": "0"
+      }
+    ],
+    "GRUB_HIDDEN_TIMEOUT_QUIET": [
+      {
+        "line": 8,
+        "literal_value": "false"
+      }
+    ],
+    "GRUB_TIMEOUT": [
+      {
+        "line": 9,
+        "literal_value": "5"
+      }
+    ],
+    "GRUB_DISTRIBUTOR": [
+      {
+        "line": 10,
+        "literal_value": "`lsb_release -i -s 2> /dev/null || echo Debian`"
+      }
+    ],
+    "GRUB_CMDLINE_LINUX_DEFAULT": [
+      {
+        "line": 11,
+        "literal_value": "\"console=ttyS0,115200 earlycon=uart,io,0x3f8,115200 loglevel=7 ignore_loglevel debug rd.shell rd.break memmap=90G!2G\""
+      }
+    ],
+    "GRUB_CMDLINE_LINUX": [
+      {
+        "line": 12,
+        "literal_value": "\"console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G\""
+      },
+      {
+        "line": 41,
+        "literal_value": "\"console=ttyS0,115200 emulabcnet=00:5d:73:ef:d9:ee\""
+      }
+    ],
+    "GRUB_TERMINAL": [
+      {
+        "line": 20,
+        "literal_value": "\"serial console\""
+      },
+      {
+        "line": 42,
+        "literal_value": "serial"
+      }
+    ],
+    "GRUB_SERIAL_COMMAND": [
+      {
+        "line": 37,
+        "literal_value": "\"serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1\""
+      },
+      {
+        "line": 43,
+        "literal_value": "\"serial --unit=0 --port=0x3F8 --speed=115200\""
+      }
+    ]
+  },
+  "duplicate_assignments": {
+    "GRUB_CMDLINE_LINUX": [
+      {
+        "line": 12,
+        "literal_value": "\"console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=90G!2G\""
+      },
+      {
+        "line": 41,
+        "literal_value": "\"console=ttyS0,115200 emulabcnet=00:5d:73:ef:d9:ee\""
+      }
+    ],
+    "GRUB_TERMINAL": [
+      {
+        "line": 20,
+        "literal_value": "\"serial console\""
+      },
+      {
+        "line": 42,
+        "literal_value": "serial"
+      }
+    ],
+    "GRUB_SERIAL_COMMAND": [
+      {
+        "line": 37,
+        "literal_value": "\"serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1\""
+      },
+      {
+        "line": 43,
+        "literal_value": "\"serial --unit=0 --port=0x3F8 --speed=115200\""
+      }
+    ]
+  }
+}

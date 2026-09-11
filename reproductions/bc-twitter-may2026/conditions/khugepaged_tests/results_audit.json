@@ -1,0 +1,74 @@
+{
+  "passed": true,
+  "completed_runs": 10,
+  "checks": [
+    {
+      "session": "20260909T170421Z-382094",
+      "case": "may07_arms",
+      "knob": "none",
+      "controls_and_identity_passed": true
+    },
+    {
+      "session": "20260909T170421Z-382094",
+      "case": "may07_model",
+      "knob": "none",
+      "controls_and_identity_passed": true
+    },
+    {
+      "session": "20260909T171055Z-389918",
+      "case": "may07_arms",
+      "knob": "khugepaged_defrag0",
+      "controls_and_identity_passed": true
+    },
+    {
+      "session": "20260909T171055Z-389918",
+      "case": "may07_model",
+      "knob": "khugepaged_defrag0",
+      "controls_and_identity_passed": true
+    },
+    {
+      "session": "20260909T171729Z-396978",
+      "case": "may07_arms",
+      "knob": "khugepaged_alloc1000",
+      "controls_and_identity_passed": true
+    },
+    {
+      "session": "20260909T171729Z-396978",
+      "case": "may07_model",
+      "knob": "khugepaged_alloc1000",
+      "controls_and_identity_passed": true
+    },
+    {
+      "session": "20260909T172342Z-403992",
+      "case": "may07_arms",
+      "knob": "khugepaged_scan1000",
+      "controls_and_identity_passed": true
+    },
+    {
+      "session": "20260909T172342Z-403992",
+      "case": "may07_model",
+      "knob": "khugepaged_scan1000",
+      "controls_and_identity_passed": true
+    },
+    {
+      "session": "20260909T172954Z-411197",
+      "case": "may07_arms",
+      "knob": "khugepaged_scan1000",
+      "controls_and_identity_passed": true
+    },
+    {
+      "session": "20260909T173344Z-414920",
+      "case": "may07_arms",
+      "knob": "none",
+      "controls_and_identity_passed": true
+    }
+  ],
+  "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+  "binary_sha256": "744d57aee15e1bb6af4a796d725f4b686a1f2063c335dc7facb0327316b18449",
+  "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+  "start_node0_free_mib_range": [
+    2515.03515625,
+    2548.65234375
+  ],
+  "limits": "Requested preparation commands succeeded and recorded controls matched. No claim of identical physical fragmentation or PID-specific VM counters."
+}

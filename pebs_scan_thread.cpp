@@ -109,10 +109,11 @@ static void log_new_pages_for_previous_virtual_step(const std::vector<page_ptr> 
 #endif
 }
 
-static void log_virtual_step_rows(const std::vector<page_ptr> &pages)
+static void log_virtual_step_rows(const std::vector<page_ptr> &pages, model_score_timing &timing)
 {
 #if PRINT_TRAINING_DATA == (false)
     (void)pages;
+    (void)timing;
     return;
 #else
     if (!VIRTUAL_FEATURES_ENABLED || access_log == nullptr || pages.empty())
@@ -141,11 +142,16 @@ static void log_virtual_step_rows(const std::vector<page_ptr> &pages)
         model_pages.push_back(page);
     }
 
-    model_predict_batch_observe(rows, model_pages);
+    model_predict_batch_observe(rows, model_pages, &timing);
 
     for (size_t i = 0; i < pages.size(); ++i)
     {
         rows[i].score = pages[i]->score;
+    }
+    timing.finish(rows);
+
+    for (size_t i = 0; i < pages.size(); ++i)
+    {
         access_log->log_row(pages[i], rows[i]);
     }
 #endif
@@ -264,6 +270,7 @@ static void maybe_advance_virtual_step()
     // before virtual windows/ages are advanced for the current step.
     log_new_pages_for_previous_virtual_step(page_snapshot, current_virtual_step);
 
+    model_score_timing timing;
     {
         std::unique_lock<std::shared_mutex> lock(virtual_features_lock);
         refresh_virtual_group_features(page_snapshot);
@@ -285,7 +292,7 @@ static void maybe_advance_virtual_step()
         }
     }
 
-    log_virtual_step_rows(page_snapshot);
+    log_virtual_step_rows(page_snapshot, timing);
 }
 
 } // namespace

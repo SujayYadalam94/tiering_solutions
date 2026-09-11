@@ -1,0 +1,95 @@
+--- may04_git/setup.sh
++++ current/setup.sh
+@@ -1,3 +1,7 @@
++#!/bin/bash
++
++SETUP_SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
++source "${SETUP_SCRIPT_DIR}/measurement_settings.sh" || exit 1
+ 
+ SIZE_MIB=${1:-}
+ if [[ -z "${SIZE_MIB}" ]]; then
+@@ -58,57 +62,9 @@
+ 	done
+ }
+ 
+-apply_cpu_slowdown_if_needed() {
+-	if [[ "${MEASUREMENT_PLATFORM}" != "c220g5" ]]; then
+-		echo "Skipping CPU slowdown for platform ${MEASUREMENT_PLATFORM}"
+-		return
+-	fi
++measurement_apply_common_settings write_sysfs_value 1000000 0 "${MEASUREMENT_SYSTEM}" || exit 1
+ 
+-	local cpu
+-	for cpu in ${CPU_SLOWDOWN_CPUS//,/ }; do
+-		if [[ "${cpu}" == *-* ]]; then
+-			local start=${cpu%-*}
+-			local end=${cpu#*-}
+-			for ((i = start; i <= end; i++)); do
+-				sudo wrmsr --processor "$i" 0x620 0x707
+-			done
+-		else
+-			sudo wrmsr --processor "$cpu" 0x620 0x707
+-		fi
+-	done
+-}
+-
+-write_sysctl_value vm.overcommit_memory 1
+-write_sysctl_value vm.watermark_scale_factor 10
+-write_sysctl_value vm.watermark_boost_factor 10000
+-# Shrink kernel reserves so nearly all RAM is usable by memeater and later apps.
+-write_sysctl_value vm.min_free_kbytes 1048576
+-write_sysctl_value vm.user_reserve_kbytes 16384
+-write_sysctl_value vm.admin_reserve_kbytes 16384
+-sudo sysctl -w vm.lowmem_reserve_ratio="256 256 32"
+-#sudo sysctl -w vm.zone_reclaim_mode=0
+-#sudo sysctl -w vm.dirty_background_ratio=1
+-#sudo sysctl -w vm.dirty_ratio=20
+-write_sysctl_value kernel.numa_balancing 0
+-write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0
+-write_sysfs_value /proc/sys/kernel/numa_balancing 0
+-write_sysfs_value /sys/kernel/mm/numa/demotion_enabled 0
+-write_sysfs_value /sys/kernel/mm/lru_gen/enabled 0x0000
+-echo "Turning huge page ON"
+-write_sysfs_value /sys/kernel/mm/transparent_hugepage/enabled always
+-write_sysfs_value /sys/kernel/mm/transparent_hugepage/defrag always
+-write_sysfs_value /sys/kernel/mm/transparent_hugepage/shmem_enabled force
+-write_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/defrag 1
+-write_sysfs_value /proc/sys/vm/compaction_proactiveness 80
+-echo 8192 | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan
+-echo 0    | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs
+-echo 1    | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs
+-echo 1000000 | sudo tee /proc/sys/kernel/perf_event_max_sample_rate
+-echo 0 | sudo tee /proc/sys/kernel/perf_cpu_time_max_percent
+-
+-write_sysfs_value /sys/kernel/mm/ksm/run 0
+-
+-apply_cpu_slowdown_if_needed
++measurement_apply_uncore_settings || exit 1
+ sudo swapoff -a
+ 
+ if [[ "${MEASUREMENT_SYSTEM}" == "nomad" ]]; then
+@@ -128,11 +84,14 @@
+ # existing IRQs
+ set_irq_affinity
+ 
+-# Migrate memory of all running user processes to NUMA node 1
+-migrate_all_processes_to_slow_tier
+-
+-# Free page cache and reclaimable slab so allocations match the requested headroom.
+-write_sysctl_value vm.vfs_cache_pressure 2000 >/dev/null
++# All-NUMA workloads need both tiers and should not move or re-affine the SSH,
++# tmux, and system processes that launched the experiment.
++if [[ "${MEASUREMENT_SYSTEM}" == "all_numa" ]]; then
++	echo "Skipping global process migration for all-NUMA workload"
++else
++	# Migrate memory of all running user processes to the slow tier.
++	migrate_all_processes_to_slow_tier
++fi
+ 
+ #bash defrag.sh
+ 
+@@ -149,4 +108,4 @@
+ #sudo insmod memeater.ko sizeMiB=${alloc_mib} 
+ #popd
+ 
+-bash defrag.sh+bash "${SETUP_SCRIPT_DIR}/defrag.sh" "${MEASUREMENT_SYSTEM}"

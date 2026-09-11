@@ -1,0 +1,3087 @@
+[
+  {
+    "path": "logs/bc-graph-80GB.sg/run6.parquet",
+    "rows": 100000000,
+    "metadata_keys": [
+      "ARROW:schema"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-graph-80GB.sg/run7.parquet",
+    "rows": 100000000,
+    "metadata_keys": [
+      "ARROW:schema"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-graph-80GB.sg/run5.parquet",
+    "rows": 100000000,
+    "metadata_keys": [
+      "ARROW:schema"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-graph-80GB.sg/run9.parquet",
+    "rows": 100000000,
+    "metadata_keys": [
+      "ARROW:schema"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-graph-80GB.sg/run3.parquet",
+    "rows": 100000000,
+    "metadata_keys": [
+      "ARROW:schema"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-graph-80GB.sg/run1.parquet",
+    "rows": 100000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-graph-80GB.sg/run8.parquet",
+    "rows": 100000000,
+    "metadata_keys": [
+      "ARROW:schema"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-graph-80GB.sg/run2.parquet",
+    "rows": 100000000,
+    "metadata_keys": [
+      "ARROW:schema"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-graph-80GB.sg/run10.parquet",
+    "rows": 100000000,
+    "metadata_keys": [
+      "ARROW:schema"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-graph-80GB.sg/run4.parquet",
+    "rows": 100000000,
+    "metadata_keys": [
+      "ARROW:schema"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-graph-80GB.sg/run6.parquet",
+    "rows": 100000000,
+    "metadata_keys": [
+      "ARROW:schema"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-graph-80GB.sg/run7.parquet",
+    "rows": 100000000,
+    "metadata_keys": [
+      "ARROW:schema"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-graph-80GB.sg/run5.parquet",
+    "rows": 100000000,
+    "metadata_keys": [
+      "ARROW:schema"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-graph-80GB.sg/run9.parquet",
+    "rows": 100000000,
+    "metadata_keys": [
+      "ARROW:schema"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-graph-80GB.sg/run3.parquet",
+    "rows": 100000000,
+    "metadata_keys": [
+      "ARROW:schema"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-graph-80GB.sg/run1.parquet",
+    "rows": 100000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-graph-80GB.sg/run8.parquet",
+    "rows": 100000000,
+    "metadata_keys": [
+      "ARROW:schema"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-graph-80GB.sg/run2.parquet",
+    "rows": 100000000,
+    "metadata_keys": [
+      "ARROW:schema"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-graph-80GB.sg/run10.parquet",
+    "rows": 100000000,
+    "metadata_keys": [
+      "ARROW:schema"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-graph-80GB.sg/run4.parquet",
+    "rows": 100000000,
+    "metadata_keys": [
+      "ARROW:schema"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M-original/100050MiB_run1_train_arms.parquet",
+    "rows": 10000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M-original/100102MiB_run1_train_arms.parquet",
+    "rows": 11163089,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M-original/100100MiB_run1_train_arms.parquet",
+    "rows": 11108773,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M-original/100101MiB_run1_train_arms.parquet",
+    "rows": 11039661,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M-original/100102MiB_run10_train_arms.parquet",
+    "rows": 11088202,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M-original/100102MiB_run4_train_arms.parquet",
+    "rows": 11189140,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M-original/100102MiB_run3_train_arms.parquet",
+    "rows": 11203332,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M-original/100102MiB_run6_train_arms.parquet",
+    "rows": 11116262,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M-original/100102MiB_run7_train_arms.parquet",
+    "rows": 11136634,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M-original/100102MiB_run5_train_arms.parquet",
+    "rows": 11180612,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M-original/100102MiB_run2_train_arms.parquet",
+    "rows": 11199103,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M-original/100102MiB_run8_train_arms.parquet",
+    "rows": 11119702,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M-original/100102MiB_run9_train_arms.parquet",
+    "rows": 11115857,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100-original/100050MiB_run1_train_arms.parquet",
+    "rows": 10000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100-original/100102MiB_run1_train_arms.parquet",
+    "rows": 13795737,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100-original/100100MiB_run1_train_arms.parquet",
+    "rows": 14171912,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100-original/100101MiB_run1_train_arms.parquet",
+    "rows": 13184807,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100-original/100102MiB_run10_train_arms.parquet",
+    "rows": 13161327,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100-original/100102MiB_run4_train_arms.parquet",
+    "rows": 13429398,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100-original/100102MiB_run3_train_arms.parquet",
+    "rows": 13287185,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100-original/100102MiB_run6_train_arms.parquet",
+    "rows": 12978127,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100-original/100102MiB_run7_train_arms.parquet",
+    "rows": 14093675,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100-original/100102MiB_run5_train_arms.parquet",
+    "rows": 13627170,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100-original/100102MiB_run2_train_arms.parquet",
+    "rows": 13718891,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100-original/100102MiB_run8_train_arms.parquet",
+    "rows": 13516190,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100-original/100102MiB_run9_train_arms.parquet",
+    "rows": 13341258,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x-original/100050MiB_run1_train_arms.parquet",
+    "rows": 10000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x-original/100102MiB_run1_train_arms.parquet",
+    "rows": 13077631,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x-original/100100MiB_run1_train_arms.parquet",
+    "rows": 13421544,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x-original/100101MiB_run1_train_arms.parquet",
+    "rows": 13427685,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x-original/100102MiB_run10_train_arms.parquet",
+    "rows": 13234944,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x-original/100102MiB_run4_train_arms.parquet",
+    "rows": 13037702,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x-original/100102MiB_run3_train_arms.parquet",
+    "rows": 12909705,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x-original/100102MiB_run6_train_arms.parquet",
+    "rows": 13040786,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x-original/100102MiB_run7_train_arms.parquet",
+    "rows": 13154412,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x-original/100102MiB_run5_train_arms.parquet",
+    "rows": 12991006,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x-original/100102MiB_run2_train_arms.parquet",
+    "rows": 13010443,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x-original/100102MiB_run8_train_arms.parquet",
+    "rows": 13190826,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x-original/100102MiB_run9_train_arms.parquet",
+    "rows": 13192055,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/100050MiB_run1_train_arms.parquet",
+    "rows": 7706588,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/run6.parquet",
+    "rows": 5281067,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/run7.parquet",
+    "rows": 5358082,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/100102MiB_run1_train_arms.parquet",
+    "rows": 7743530,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/100100MiB_run1_train_arms.parquet",
+    "rows": 7731639,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/run5.parquet",
+    "rows": 5574228,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/100101MiB_run1_train_arms.parquet",
+    "rows": 7708380,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/100102MiB_run10_train_arms.parquet",
+    "rows": 7665064,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/run9.parquet",
+    "rows": 5673127,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/100102MiB_run4_train_arms.parquet",
+    "rows": 7743720,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/100102MiB_run3_train_arms.parquet",
+    "rows": 7753093,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/100102MiB_run6_train_arms.parquet",
+    "rows": 7709245,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/100102MiB_run7_train_arms.parquet",
+    "rows": 8127248,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/run3.parquet",
+    "rows": 5713484,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/100102MiB_run5_train_arms.parquet",
+    "rows": 7698769,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/run1.parquet",
+    "rows": 5364028,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/run8.parquet",
+    "rows": 5455625,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/100102MiB_run2_train_arms.parquet",
+    "rows": 7774484,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/run2.parquet",
+    "rows": 5280148,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/bc-kron.sg.parquet",
+    "rows": 54777839,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/run10.parquet",
+    "rows": 5424285,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/100102MiB_run8_train_arms.parquet",
+    "rows": 7666579,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/run4.parquet",
+    "rows": 5653765,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg/100102MiB_run9_train_arms.parquet",
+    "rows": 7664875,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/100050MiB_run1_train_arms.parquet",
+    "rows": 2535960,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/run6.parquet",
+    "rows": 1495047,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/run7.parquet",
+    "rows": 1467594,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/100102MiB_run1_train_arms.parquet",
+    "rows": 2338792,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/100100MiB_run1_train_arms.parquet",
+    "rows": 2518071,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/run5.parquet",
+    "rows": 1482149,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/100101MiB_run1_train_arms.parquet",
+    "rows": 2492924,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/100102MiB_run10_train_arms.parquet",
+    "rows": 2303351,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/run9.parquet",
+    "rows": 1481746,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/100102MiB_run4_train_arms.parquet",
+    "rows": 2314517,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/100102MiB_run3_train_arms.parquet",
+    "rows": 2318235,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/100102MiB_run6_train_arms.parquet",
+    "rows": 2296439,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/100102MiB_run7_train_arms.parquet",
+    "rows": 2330712,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/run3.parquet",
+    "rows": 1447572,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/100102MiB_run5_train_arms.parquet",
+    "rows": 2314725,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/run1.parquet",
+    "rows": 1413260,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/bc-twitter.sg.parquet",
+    "rows": 14691964,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/run8.parquet",
+    "rows": 1488211,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/100102MiB_run2_train_arms.parquet",
+    "rows": 2332119,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/run2.parquet",
+    "rows": 1448112,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/run10.parquet",
+    "rows": 1494311,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/100102MiB_run8_train_arms.parquet",
+    "rows": 2307035,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/run4.parquet",
+    "rows": 1473962,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg/100102MiB_run9_train_arms.parquet",
+    "rows": 2305776,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M-short/100013MiB_run1_cxl_train_arms.parquet",
+    "rows": 3737464,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M-short/run1.parquet",
+    "rows": 1673429,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/pr-twitter.sg.parquet",
+    "rows": 81811338,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/100050MiB_run1_train_arms.parquet",
+    "rows": 7137963,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/run6.parquet",
+    "rows": 8191585,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/run7.parquet",
+    "rows": 8070330,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/100102MiB_run1_train_arms.parquet",
+    "rows": 6919302,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/100100MiB_run1_train_arms.parquet",
+    "rows": 7223770,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/run5.parquet",
+    "rows": 8524978,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/100101MiB_run1_train_arms.parquet",
+    "rows": 7124282,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/100102MiB_run10_train_arms.parquet",
+    "rows": 6927739,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/run9.parquet",
+    "rows": 8154939,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/100102MiB_run4_train_arms.parquet",
+    "rows": 6997641,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/100102MiB_run3_train_arms.parquet",
+    "rows": 6877499,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/100102MiB_run6_train_arms.parquet",
+    "rows": 6942261,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/100102MiB_run7_train_arms.parquet",
+    "rows": 7072366,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/run3.parquet",
+    "rows": 8041257,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/100102MiB_run5_train_arms.parquet",
+    "rows": 6919448,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/run1.parquet",
+    "rows": 7817818,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/run8.parquet",
+    "rows": 8100619,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/100102MiB_run2_train_arms.parquet",
+    "rows": 6926081,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/run2.parquet",
+    "rows": 8201459,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/run10.parquet",
+    "rows": 8340424,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/100102MiB_run8_train_arms.parquet",
+    "rows": 6994907,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/run4.parquet",
+    "rows": 8367929,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg/100102MiB_run9_train_arms.parquet",
+    "rows": 6925322,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/100050MiB_run1_train_arms.parquet",
+    "rows": 7182836,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/run6.parquet",
+    "rows": 14921981,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/run7.parquet",
+    "rows": 13175081,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/XSBench.parquet",
+    "rows": 136863726,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/100102MiB_run1_train_arms.parquet",
+    "rows": 6972258,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/100100MiB_run1_train_arms.parquet",
+    "rows": 7178198,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/run5.parquet",
+    "rows": 14299439,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/100101MiB_run1_train_arms.parquet",
+    "rows": 7220418,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/100102MiB_run10_train_arms.parquet",
+    "rows": 6982949,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/run9.parquet",
+    "rows": 13688337,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/100102MiB_run4_train_arms.parquet",
+    "rows": 7115630,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/100102MiB_run3_train_arms.parquet",
+    "rows": 6952354,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/100102MiB_run6_train_arms.parquet",
+    "rows": 7093980,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/100102MiB_run7_train_arms.parquet",
+    "rows": 7010288,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/run3.parquet",
+    "rows": 14210726,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/100102MiB_run5_train_arms.parquet",
+    "rows": 6954755,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/run1.parquet",
+    "rows": 11657075,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/run8.parquet",
+    "rows": 14792165,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/100102MiB_run2_train_arms.parquet",
+    "rows": 7112455,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/run2.parquet",
+    "rows": 13737750,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/run10.parquet",
+    "rows": 12558830,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/100102MiB_run8_train_arms.parquet",
+    "rows": 6978014,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/run4.parquet",
+    "rows": 13822342,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench/100102MiB_run9_train_arms.parquet",
+    "rows": 6971942,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg-short/100013MiB_run1_cxl_train_arms.parquet",
+    "rows": 2329466,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg-short/run1.parquet",
+    "rows": 1159102,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100/DuckDB-TPCH-sf100.parquet",
+    "rows": 41204580,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100/run6.parquet",
+    "rows": 4174064,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100/run7.parquet",
+    "rows": 4032304,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100/run5.parquet",
+    "rows": 4240060,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100/run9.parquet",
+    "rows": 4011452,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100/run3.parquet",
+    "rows": 4374683,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100/run1.parquet",
+    "rows": 3532691,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100/run8.parquet",
+    "rows": 4145599,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100/run2.parquet",
+    "rows": 4087257,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100/run10.parquet",
+    "rows": 4356467,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/DuckDB-TPCH-sf100/run4.parquet",
+    "rows": 4250003,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/100050MiB_run1_train_arms.parquet",
+    "rows": 10000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/run6.parquet",
+    "rows": 12651284,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/run7.parquet",
+    "rows": 13140081,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/100102MiB_run1_train_arms.parquet",
+    "rows": 10849811,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/100100MiB_run1_train_arms.parquet",
+    "rows": 11192626,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/run5.parquet",
+    "rows": 13190547,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/100101MiB_run1_train_arms.parquet",
+    "rows": 10616410,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/100102MiB_run10_train_arms.parquet",
+    "rows": 10911349,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/run9.parquet",
+    "rows": 13092768,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/100102MiB_run4_train_arms.parquet",
+    "rows": 10916054,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/100102MiB_run3_train_arms.parquet",
+    "rows": 10814592,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/100102MiB_run6_train_arms.parquet",
+    "rows": 10867743,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/100102MiB_run7_train_arms.parquet",
+    "rows": 10938405,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/run3.parquet",
+    "rows": 13118043,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/100102MiB_run5_train_arms.parquet",
+    "rows": 10805208,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/run1.parquet",
+    "rows": 13116910,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/run8.parquet",
+    "rows": 12419018,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/100102MiB_run2_train_arms.parquet",
+    "rows": 10874896,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/run2.parquet",
+    "rows": 13220551,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/run10.parquet",
+    "rows": 11652459,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/100102MiB_run8_train_arms.parquet",
+    "rows": 10942261,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/run4.parquet",
+    "rows": 13092656,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/100102MiB_run9_train_arms.parquet",
+    "rows": 10875943,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-kron.sg/pr-kron.sg.parquet",
+    "rows": 128694317,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg-short/100013MiB_run1_cxl_train_arms.parquet",
+    "rows": 1981665,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-kron.sg-short/run1.parquet",
+    "rows": 811644,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x/run6.parquet",
+    "rows": 19854883,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x/run7.parquet",
+    "rows": 19840867,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x/run5.parquet",
+    "rows": 19864875,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x/run9.parquet",
+    "rows": 19146344,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x/mg.D.x.parquet",
+    "rows": 196173835,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x/run3.parquet",
+    "rows": 19844864,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x/run1.parquet",
+    "rows": 19430376,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x/run8.parquet",
+    "rows": 19856056,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x/run2.parquet",
+    "rows": 18623692,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x/run10.parquet",
+    "rows": 19835026,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/mg.D.x/run4.parquet",
+    "rows": 19876852,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg-short/100013MiB_run1_cxl_train_arms.parquet",
+    "rows": 812443,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/bc-twitter.sg-short/run1.parquet",
+    "rows": 272327,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg-short/100013MiB_run1_cxl_train_arms.parquet",
+    "rows": 1564132,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/pr-twitter.sg-short/run1.parquet",
+    "rows": 765879,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench-short/100013MiB_run1_cxl_train_arms.parquet",
+    "rows": 2075574,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/XSBench-short/run1.parquet",
+    "rows": 1241730,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M/faiss_10M.parquet",
+    "rows": 21211842,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M/run6.parquet",
+    "rows": 2137565,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M/run7.parquet",
+    "rows": 2022955,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M/run5.parquet",
+    "rows": 2131304,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M/run9.parquet",
+    "rows": 2130593,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M/run3.parquet",
+    "rows": 2114681,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M/run1.parquet",
+    "rows": 2140993,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M/run8.parquet",
+    "rows": 2125635,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M/run2.parquet",
+    "rows": 2130399,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M/run10.parquet",
+    "rows": 2137910,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "logs/faiss_10M/run4.parquet",
+    "rows": 2139807,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260717_001443/pr-twitter.sg/100100MiB_run1_train_arms.parquet",
+    "rows": 7223770,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260717_001443/bc-twitter.sg/100100MiB_run1_train_arms.parquet",
+    "rows": 2518071,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260717_001443/mg.D.x-original/100100MiB_run1_train_arms.parquet",
+    "rows": 13421544,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260717_001443/pr-kron.sg/100100MiB_run1_train_arms.parquet",
+    "rows": 11192626,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260717_001443/XSBench/100100MiB_run1_train_arms.parquet",
+    "rows": 7178198,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260717_001443/faiss_10M-original/100100MiB_run1_train_arms.parquet",
+    "rows": 11108773,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260717_001443/bc-kron.sg/100100MiB_run1_train_arms.parquet",
+    "rows": 7731639,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260717_001443/DuckDB-TPCH-sf100-original/100100MiB_run1_train_arms.parquet",
+    "rows": 14171912,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_80gb_graphs_20260828_094141/pr-graph-80GB.sg/100101MiB_run1_train_arms.parquet",
+    "rows": 20000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_80gb_graphs_20260828_094141/bc-graph-80GB.sg/100101MiB_run1_train_arms.parquet",
+    "rows": 20000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260727_124853/pr-twitter.sg/100101MiB_run1_train_arms.parquet",
+    "rows": 7124282,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260727_124853/bc-twitter.sg/100101MiB_run1_train_arms.parquet",
+    "rows": 2492924,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260727_124853/mg.D.x-original/100101MiB_run1_train_arms.parquet",
+    "rows": 13427685,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260727_124853/pr-kron.sg/100101MiB_run1_train_arms.parquet",
+    "rows": 10616410,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260727_124853/XSBench/100101MiB_run1_train_arms.parquet",
+    "rows": 7220418,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260727_124853/faiss_10M-original/100101MiB_run1_train_arms.parquet",
+    "rows": 11039661,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260727_124853/bc-kron.sg/100101MiB_run1_train_arms.parquet",
+    "rows": 7708380,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260727_124853/DuckDB-TPCH-sf100-original/100101MiB_run1_train_arms.parquet",
+    "rows": 13184807,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260726_221433/DuckDB-TPCH-sf100-original/100101MiB_run1_train_arms.parquet",
+    "rows": 13528595,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/pr-twitter.sg/100102MiB_run4_train_arms.parquet",
+    "rows": 6997641,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/pr-twitter.sg/100102MiB_run1_train_arms.parquet",
+    "rows": 6919302,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/pr-twitter.sg/100102MiB_run3_train_arms.parquet",
+    "rows": 6877499,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/pr-twitter.sg/100102MiB_run2_train_arms.parquet",
+    "rows": 6926081,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/pr-twitter.sg/100102MiB_run5_train_arms.parquet",
+    "rows": 6919448,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/pr-twitter.sg/100102MiB_run6_train_arms.parquet",
+    "rows": 6942261,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/bc-twitter.sg/100102MiB_run4_train_arms.parquet",
+    "rows": 2314517,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/bc-twitter.sg/100102MiB_run1_train_arms.parquet",
+    "rows": 2338792,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/bc-twitter.sg/100102MiB_run3_train_arms.parquet",
+    "rows": 2318235,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/bc-twitter.sg/100102MiB_run2_train_arms.parquet",
+    "rows": 2332119,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/bc-twitter.sg/100102MiB_run7_train_arms.parquet",
+    "error": "Parquet file size is 0 bytes"
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/bc-twitter.sg/100102MiB_run5_train_arms.parquet",
+    "rows": 2314725,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/bc-twitter.sg/100102MiB_run6_train_arms.parquet",
+    "rows": 2296439,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/mg.D.x-original/100102MiB_run4_train_arms.parquet",
+    "rows": 13037702,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/mg.D.x-original/100102MiB_run1_train_arms.parquet",
+    "rows": 13077631,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/mg.D.x-original/100102MiB_run3_train_arms.parquet",
+    "rows": 12909705,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/mg.D.x-original/100102MiB_run2_train_arms.parquet",
+    "rows": 13010443,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/mg.D.x-original/100102MiB_run5_train_arms.parquet",
+    "rows": 12991006,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/mg.D.x-original/100102MiB_run6_train_arms.parquet",
+    "rows": 13040786,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/pr-kron.sg/100102MiB_run4_train_arms.parquet",
+    "rows": 10916054,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/pr-kron.sg/100102MiB_run1_train_arms.parquet",
+    "rows": 10849811,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/pr-kron.sg/100102MiB_run3_train_arms.parquet",
+    "rows": 10814592,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/pr-kron.sg/100102MiB_run2_train_arms.parquet",
+    "rows": 10874896,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/pr-kron.sg/100102MiB_run7_train_arms.parquet",
+    "error": "Parquet magic bytes not found in footer. Either the file is corrupted or this is not a parquet file."
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/pr-kron.sg/100102MiB_run5_train_arms.parquet",
+    "rows": 10805208,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/pr-kron.sg/100102MiB_run6_train_arms.parquet",
+    "rows": 10867743,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/XSBench/100102MiB_run4_train_arms.parquet",
+    "rows": 7115630,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/XSBench/100102MiB_run1_train_arms.parquet",
+    "rows": 6972258,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/XSBench/100102MiB_run3_train_arms.parquet",
+    "rows": 6952354,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/XSBench/100102MiB_run2_train_arms.parquet",
+    "rows": 7112455,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/XSBench/100102MiB_run5_train_arms.parquet",
+    "rows": 6954755,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/XSBench/100102MiB_run6_train_arms.parquet",
+    "rows": 7093980,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/faiss_10M-original/100102MiB_run4_train_arms.parquet",
+    "rows": 11189140,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/faiss_10M-original/100102MiB_run1_train_arms.parquet",
+    "rows": 11163089,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/faiss_10M-original/100102MiB_run3_train_arms.parquet",
+    "rows": 11203332,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/faiss_10M-original/100102MiB_run2_train_arms.parquet",
+    "rows": 11199103,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/faiss_10M-original/100102MiB_run5_train_arms.parquet",
+    "rows": 11180612,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/faiss_10M-original/100102MiB_run6_train_arms.parquet",
+    "rows": 11116262,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/bc-kron.sg/100102MiB_run4_train_arms.parquet",
+    "rows": 7743720,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/bc-kron.sg/100102MiB_run1_train_arms.parquet",
+    "rows": 7743530,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/bc-kron.sg/100102MiB_run3_train_arms.parquet",
+    "rows": 7753093,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/bc-kron.sg/100102MiB_run2_train_arms.parquet",
+    "rows": 7774484,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/bc-kron.sg/100102MiB_run7_train_arms.parquet",
+    "error": "Parquet file size is 0 bytes"
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/bc-kron.sg/100102MiB_run5_train_arms.parquet",
+    "rows": 7698769,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/bc-kron.sg/100102MiB_run6_train_arms.parquet",
+    "rows": 7709245,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/DuckDB-TPCH-sf100-original/100102MiB_run4_train_arms.parquet",
+    "rows": 13429398,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/DuckDB-TPCH-sf100-original/100102MiB_run1_train_arms.parquet",
+    "rows": 13795737,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/DuckDB-TPCH-sf100-original/100102MiB_run3_train_arms.parquet",
+    "rows": 13287185,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/DuckDB-TPCH-sf100-original/100102MiB_run2_train_arms.parquet",
+    "rows": 13718891,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/DuckDB-TPCH-sf100-original/100102MiB_run7_train_arms.parquet",
+    "error": "Parquet magic bytes not found in footer. Either the file is corrupted or this is not a parquet file."
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/DuckDB-TPCH-sf100-original/100102MiB_run5_train_arms.parquet",
+    "rows": 13627170,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260905_190105/DuckDB-TPCH-sf100-original/100102MiB_run6_train_arms.parquet",
+    "rows": 12978127,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/pr-twitter.sg/100102MiB_run10_train_arms.parquet",
+    "rows": 6927739,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/pr-twitter.sg/100102MiB_run9_train_arms.parquet",
+    "rows": 6925322,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/pr-twitter.sg/100102MiB_run7_train_arms.parquet",
+    "rows": 7072366,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/pr-twitter.sg/100102MiB_run8_train_arms.parquet",
+    "rows": 6994907,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/bc-twitter.sg/100102MiB_run10_train_arms.parquet",
+    "rows": 2303351,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/bc-twitter.sg/100102MiB_run9_train_arms.parquet",
+    "rows": 2305776,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/bc-twitter.sg/100102MiB_run7_train_arms.parquet",
+    "rows": 2330712,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/bc-twitter.sg/100102MiB_run8_train_arms.parquet",
+    "rows": 2307035,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/mg.D.x-original/100102MiB_run10_train_arms.parquet",
+    "rows": 13234944,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/mg.D.x-original/100102MiB_run9_train_arms.parquet",
+    "rows": 13192055,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/mg.D.x-original/100102MiB_run7_train_arms.parquet",
+    "rows": 13154412,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/mg.D.x-original/100102MiB_run8_train_arms.parquet",
+    "rows": 13190826,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/pr-kron.sg/100102MiB_run10_train_arms.parquet",
+    "rows": 10911349,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/pr-kron.sg/100102MiB_run9_train_arms.parquet",
+    "rows": 10875943,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/pr-kron.sg/100102MiB_run7_train_arms.parquet",
+    "rows": 10938405,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/pr-kron.sg/100102MiB_run8_train_arms.parquet",
+    "rows": 10942261,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/XSBench/100102MiB_run10_train_arms.parquet",
+    "rows": 6982949,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/XSBench/100102MiB_run9_train_arms.parquet",
+    "rows": 6971942,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/XSBench/100102MiB_run7_train_arms.parquet",
+    "rows": 7010288,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/XSBench/100102MiB_run8_train_arms.parquet",
+    "rows": 6978014,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/faiss_10M-original/100102MiB_run10_train_arms.parquet",
+    "rows": 11088202,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/faiss_10M-original/100102MiB_run9_train_arms.parquet",
+    "rows": 11115857,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/faiss_10M-original/100102MiB_run7_train_arms.parquet",
+    "rows": 11136634,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/faiss_10M-original/100102MiB_run8_train_arms.parquet",
+    "rows": 11119702,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/bc-kron.sg/100102MiB_run10_train_arms.parquet",
+    "rows": 7665064,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/bc-kron.sg/100102MiB_run9_train_arms.parquet",
+    "rows": 7664875,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/bc-kron.sg/100102MiB_run7_train_arms.parquet",
+    "rows": 8127248,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/bc-kron.sg/100102MiB_run8_train_arms.parquet",
+    "rows": 7666579,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/DuckDB-TPCH-sf100-original/100102MiB_run10_train_arms.parquet",
+    "rows": 13161327,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/DuckDB-TPCH-sf100-original/100102MiB_run9_train_arms.parquet",
+    "rows": 13341258,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/DuckDB-TPCH-sf100-original/100102MiB_run7_train_arms.parquet",
+    "rows": 14093675,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_20260906_011115/DuckDB-TPCH-sf100-original/100102MiB_run8_train_arms.parquet",
+    "rows": 13516190,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_80gb_graphs_20260828_113843/pr-graph-80GB.sg/100101MiB_run6_train_arms.parquet",
+    "rows": 20000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_80gb_graphs_20260828_113843/pr-graph-80GB.sg/100101MiB_run11_train_arms.parquet",
+    "rows": 20000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_80gb_graphs_20260828_113843/pr-graph-80GB.sg/100101MiB_run10_train_arms.parquet",
+    "rows": 20000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_80gb_graphs_20260828_113843/pr-graph-80GB.sg/100101MiB_run4_train_arms.parquet",
+    "rows": 20000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_80gb_graphs_20260828_113843/pr-graph-80GB.sg/100101MiB_run8_train_arms.parquet",
+    "rows": 20000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_80gb_graphs_20260828_113843/pr-graph-80GB.sg/100101MiB_run2_train_arms.parquet",
+    "rows": 20000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_80gb_graphs_20260828_113843/pr-graph-80GB.sg/100101MiB_run5_train_arms.parquet",
+    "rows": 20000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_80gb_graphs_20260828_113843/pr-graph-80GB.sg/100101MiB_run3_train_arms.parquet",
+    "rows": 20000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_80gb_graphs_20260828_113843/pr-graph-80GB.sg/100101MiB_run7_train_arms.parquet",
+    "rows": 20000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_80gb_graphs_20260828_113843/pr-graph-80GB.sg/100101MiB_run9_train_arms.parquet",
+    "rows": 20000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_80gb_graphs_20260828_113843/bc-graph-80GB.sg/100101MiB_run6_train_arms.parquet",
+    "rows": 20000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_80gb_graphs_20260828_113843/bc-graph-80GB.sg/100101MiB_run11_train_arms.parquet",
+    "rows": 20000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_80gb_graphs_20260828_113843/bc-graph-80GB.sg/100101MiB_run10_train_arms.parquet",
+    "rows": 20000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_80gb_graphs_20260828_113843/bc-graph-80GB.sg/100101MiB_run4_train_arms.parquet",
+    "rows": 20000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_80gb_graphs_20260828_113843/bc-graph-80GB.sg/100101MiB_run8_train_arms.parquet",
+    "rows": 20000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_80gb_graphs_20260828_113843/bc-graph-80GB.sg/100101MiB_run2_train_arms.parquet",
+    "rows": 20000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_80gb_graphs_20260828_113843/bc-graph-80GB.sg/100101MiB_run5_train_arms.parquet",
+    "rows": 20000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_80gb_graphs_20260828_113843/bc-graph-80GB.sg/100101MiB_run3_train_arms.parquet",
+    "rows": 20000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_80gb_graphs_20260828_113843/bc-graph-80GB.sg/100101MiB_run7_train_arms.parquet",
+    "rows": 20000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  },
+  {
+    "path": "collected_logs/c220g5/arms_near_train_80gb_graphs_20260828_113843/bc-graph-80GB.sg/100101MiB_run9_train_arms.parquet",
+    "rows": 20000000,
+    "metadata_keys": [
+      "ARROW:schema",
+      "pandas"
+    ],
+    "provenance_fields": []
+  }
+]

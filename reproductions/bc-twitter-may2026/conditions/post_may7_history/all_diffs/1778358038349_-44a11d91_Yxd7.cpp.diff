@@ -1,0 +1,37 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-44a11d91/w115.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-44a11d91/Yxd7.cpp
+@@ -580,8 +580,8 @@
+ float latency_diff = UNLOADED_NVM_LAT - UNLOADED_DRAM_LAT;
+ 
+ #if USE_MODEL == (true)
+-float dram_boundary_score_moving_average = 0.0f;
+-uint32_t dram_boundary_score_moving_average_count = 0;
++static float dram_boundary_score_moving_average = 0.0f;
++static uint32_t dram_boundary_score_moving_average_count = 0;
+ #endif
+ 
+ std::atomic<bool> terminated{false};
+@@ -1684,12 +1684,12 @@
+ #if USE_MODEL == (true)
+ static void update_dram_boundary_score_moving_average(const std::vector<score_entry> &scores, int64_t max_hugepages)
+ {
+-    if (max_hugepages <= 0 || static_cast<size_t>(max_hugepages) > scores.size())
++    if (max_hugepages < 0 || static_cast<size_t>(max_hugepages) >= scores.size())
+     {
+         return;
+     }
+ 
+-    const float boundary_score = scores[static_cast<size_t>(max_hugepages - 1)].score;
++    const float boundary_score = scores[static_cast<size_t>(max_hugepages)].score;
+     const float denom = get_adjusted_ewma_denom(3, dram_boundary_score_moving_average_count);
+     dram_boundary_score_moving_average = adjusted_ewma(dram_boundary_score_moving_average, boundary_score, denom);
+     dram_boundary_score_moving_average_count++;
+@@ -1750,7 +1750,7 @@
+ 
+         double cost = 1 * get_promotion_cost_multiplier() * promotion_cost_avg;
+ #if USE_MODEL == (true)
+-    cost += boundary_score_cost;
++        cost += boundary_score_cost;
+         // float benefit = SWITCH_SCALER * hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
+         double benefit = (hot_page->score - 2.1) * HF_SAMPLE_PERIOD * latency_diff;
+         // std::cout << "cost: " << cost << " PROMOTION_COST_MULTIPLIER: " << get_promotion_cost_multiplier()

@@ -1,0 +1,50 @@
+[
+  {
+    "original_path": "/etc/default/grub",
+    "source_mtime_ns": 1789044952798971287,
+    "bytes": 1570,
+    "sha256": "f6e122907ad7767ce7f8bff72753e8aea4b51b5f337c59fbe6e031c83b27b66d"
+  },
+  {
+    "original_path": "/usr/local/etc/emulab/emulab-networkd.sh",
+    "source_mtime_ns": 1746024737000000000,
+    "bytes": 7041,
+    "sha256": "72ca10caa90ff0eee59b485840b90b11c33f82656a29a888a37f13fedfb6d2dc"
+  },
+  {
+    "original_path": "/usr/local/etc/emulab/emulab-networkd-udev-helper.sh",
+    "source_mtime_ns": 1746024737000000000,
+    "bytes": 2331,
+    "sha256": "c21e74baef712f8350b4159a24c7795df2dd3c4e11db7131930ce09e45485e0a"
+  },
+  {
+    "original_path": "/usr/lib/systemd/system/emulab-networkd@.service",
+    "source_mtime_ns": 1746024737000000000,
+    "bytes": 241,
+    "sha256": "12ea6f6046a09fda5b0d5e90b722828369f33d80770fce5969b9ac965b719b1d"
+  },
+  {
+    "original_path": "/var/emulab/logs/emulab-networkd-eno1.log",
+    "source_mtime_ns": 1789045138588621860,
+    "bytes": 174230,
+    "sha256": "b01e43874410f5b8272c3151c4a2901a8638f4cc0ffc7ea11ff35bd95093694b"
+  },
+  {
+    "original_path": "/var/emulab/logs/emulab-networkd-eno2.log",
+    "source_mtime_ns": 1789045137617621895,
+    "bytes": 42135,
+    "sha256": "3fff6e62c73b0ab70f025e190c82c375f0e6857e56b0f273fdf673de39b41729"
+  },
+  {
+    "original_path": "/var/emulab/logs/emulab-networkd-enp94s0f0np0.log",
+    "source_mtime_ns": 1789045137620621895,
+    "bytes": 42451,
+    "sha256": "eb1f526bd711807beba467a7f63bd74b0e0841ad07643d5190f686f66b0e0991"
+  },
+  {
+    "original_path": "/var/emulab/logs/emulab-networkd-enp94s0f1np1.log",
+    "source_mtime_ns": 1789045137626621894,
+    "bytes": 44336,
+    "sha256": "31d2a5bb96b92aa4fba968b021259e2d6735d81c8708be0a5c002c3de6293f3a"
+  }
+]

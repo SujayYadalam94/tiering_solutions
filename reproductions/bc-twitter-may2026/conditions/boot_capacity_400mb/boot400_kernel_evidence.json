@@ -1,0 +1,867 @@
+{
+  "captured_utc": "2026-09-09T19:52:14.795856+00:00",
+  "pattern": "crashkernel|kdump|kexec|page_owner|page_ext|page_table_check|debug_pagealloc|init_on_alloc|init_on_free|swiotlb|numa=fake|(?:^|\\s)numa=(?:off|noacpi)|memblock|reserve_mem|reserved_mem|kfence|possible_cpus|nr_cpus=",
+  "histories": [
+    {
+      "path": "/users/zimooo2/.bash_history-09434.tmp",
+      "sha256": "d574a26638fdc557daf8af266424e47b8f2209d3afa3e36ec28fed2b339738e4",
+      "lines": 2000,
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.bash_history-05835.tmp",
+      "sha256": "4d63f488bad28262e29a54d105329399511d420947888ee7c37d972b960e253c",
+      "lines": 2000,
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.bash_history",
+      "sha256": "d2ff07f66992528f446cba1492c6c67a41d8f91decbd4d8e6623165e3098d844",
+      "lines": 2000,
+      "matches": []
+    }
+  ],
+  "editors": [
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/622870c6/1DIJ.sh",
+      "utc": "2026-05-02T15:35:45.626000+00:00",
+      "sha256": "c7a21c24051412d6222a8ce752b0c21523700acb27d456e4a5ac087de2a722c7",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/52cc6f0a/uPO2.sh",
+      "utc": "2026-05-04T02:37:16.148000+00:00",
+      "sha256": "c717aa9dbb1205b7869f27dc7dfe4d63a35b528dbedf40e520b7be3a808ce42b",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/52cc6f0a/89Uc.sh",
+      "utc": "2026-05-04T03:21:31.547000+00:00",
+      "sha256": "77c0f076e9b82aaf62f585fccfd41c961248fcb9ee03ab1aeb92bc2d72ffe507",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/eCxO.sh",
+      "utc": "2026-05-02T05:12:14.861000+00:00",
+      "sha256": "6a3feb5216bedaa28f36100597e7b9c27bd45fe3c2f8f3a3436e41b60ed87bf9",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/BaG5.sh",
+      "utc": "2026-05-03T19:17:48.990000+00:00",
+      "sha256": "e15d78deb97ea926f5e774fa8b8ea5194edcc8f2252019f2b37f93c48b328df4",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/mnhz.sh",
+      "utc": "2026-05-03T19:18:47.240000+00:00",
+      "sha256": "5925878b6e12755a2a2d54ae99aa8b4badb413d6f020ef81f064f37aee93b39c",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/HQEe.sh",
+      "utc": "2026-05-03T20:57:21.202000+00:00",
+      "sha256": "06b7789b5cc89664137b03244fc0fd61a3a62d3d8d4f948e7124d2d3a369333b",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/ZNpU.sh",
+      "utc": "2026-05-03T20:57:33.209000+00:00",
+      "sha256": "5925878b6e12755a2a2d54ae99aa8b4badb413d6f020ef81f064f37aee93b39c",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/hDYx.sh",
+      "utc": "2026-05-03T20:57:34.649000+00:00",
+      "sha256": "cee3c10a94a666e58b264dcf9a13911d4a6db9740e2973780f40e204211d8ac8",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/M6BP.sh",
+      "utc": "2026-05-05T01:59:10.386000+00:00",
+      "sha256": "0a1cb6ef718189096d6e0e77ab10e3fc444c0f3c7753813781985be7031087f1",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/47GZ.sh",
+      "utc": "2026-05-07T06:09:11.699000+00:00",
+      "sha256": "9769303a156d7ea57ee79f7bc5f04d8d44bd27010cb3231f855a09c3d38bc632",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/7IyO.sh",
+      "utc": "2026-05-08T19:21:20.344000+00:00",
+      "sha256": "fa61329d628f79bc0ee06953aa395615ec8efcf053e3014253e352e7f717a7fb",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/6r1w.sh",
+      "utc": "2026-05-09T01:33:41.425000+00:00",
+      "sha256": "df20c945de6afe4820d75fa6281faa492ac819023316b5f82e39d8098a8d6e75",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/SmTW.sh",
+      "utc": "2026-05-09T05:56:27.462000+00:00",
+      "sha256": "2f4ef5e9d4b69f57a352d647196c063bbe278dbd4eb9df10d692bbb720458220",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/FfFb.sh",
+      "utc": "2026-05-09T06:01:26.679000+00:00",
+      "sha256": "d78a5b2681f22b0128fa0291f359b2761c0a69062d3fcdb4d9f75bff853c5511",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/wllT.sh",
+      "utc": "2026-05-09T06:01:39.854000+00:00",
+      "sha256": "2f4ef5e9d4b69f57a352d647196c063bbe278dbd4eb9df10d692bbb720458220",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/OQke.sh",
+      "utc": "2026-05-09T06:01:53.049000+00:00",
+      "sha256": "d78a5b2681f22b0128fa0291f359b2761c0a69062d3fcdb4d9f75bff853c5511",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/Mnql.sh",
+      "utc": "2026-05-09T06:05:26.413000+00:00",
+      "sha256": "721491080577479d254f0c3b5e313d1d611ea7a0535a4b9fa562f9bfa3d86bc0",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/1JnA.sh",
+      "utc": "2026-05-09T06:08:35.744000+00:00",
+      "sha256": "f689f972553d80244cdb4dcbd75614282e206747c10a2f3c73a4522d7565b8c3",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/xUgc.sh",
+      "utc": "2026-05-09T06:09:03.587000+00:00",
+      "sha256": "df20c945de6afe4820d75fa6281faa492ac819023316b5f82e39d8098a8d6e75",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/v9O8.sh",
+      "utc": "2026-05-09T20:03:59.902000+00:00",
+      "sha256": "2b532a24bfa93fe8c62ba89128655b495199257a1485f2b06b90bbaf57a52cdc",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/9QUo.sh",
+      "utc": "2026-05-09T20:13:05.467000+00:00",
+      "sha256": "df20c945de6afe4820d75fa6281faa492ac819023316b5f82e39d8098a8d6e75",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/F15c.sh",
+      "utc": "2026-05-09T20:47:56.423000+00:00",
+      "sha256": "6e5824a7803f46bf314adb6ee1af67d21bc9fdf8502d78f4cdd2be7bee909804",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/fWXj.sh",
+      "utc": "2026-05-09T20:51:42.486000+00:00",
+      "sha256": "74aa630c27b36eb34b5396a07ed697cc225050d50519a00e258f668393feb503",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/JSDS.sh",
+      "utc": "2026-05-09T21:01:15.098000+00:00",
+      "sha256": "df20c945de6afe4820d75fa6281faa492ac819023316b5f82e39d8098a8d6e75",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/DZMa.sh",
+      "utc": "2026-05-09T21:11:30.927000+00:00",
+      "sha256": "4812bed5d86312dac9dbba7cefeef1cf771fda9d02902acfdb8b0e4cfcbbfecf",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/5YvZ.sh",
+      "utc": "2026-05-09T21:57:13.112000+00:00",
+      "sha256": "df20c945de6afe4820d75fa6281faa492ac819023316b5f82e39d8098a8d6e75",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/vPoY.sh",
+      "utc": "2026-05-09T22:02:24.184000+00:00",
+      "sha256": "4812bed5d86312dac9dbba7cefeef1cf771fda9d02902acfdb8b0e4cfcbbfecf",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/9nWM.sh",
+      "utc": "2026-05-09T22:05:45.257000+00:00",
+      "sha256": "b920bfd3c09e14f30cfe83de7c47d7b64f66cbe02581342d4ea5254501a3faf4",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/InLV.sh",
+      "utc": "2026-05-09T22:10:48.450000+00:00",
+      "sha256": "f689f972553d80244cdb4dcbd75614282e206747c10a2f3c73a4522d7565b8c3",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/1QT8.sh",
+      "utc": "2026-05-09T22:12:53.993000+00:00",
+      "sha256": "df20c945de6afe4820d75fa6281faa492ac819023316b5f82e39d8098a8d6e75",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/Wgjr.sh",
+      "utc": "2026-05-09T22:28:56.307000+00:00",
+      "sha256": "4812bed5d86312dac9dbba7cefeef1cf771fda9d02902acfdb8b0e4cfcbbfecf",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/s3G9.sh",
+      "utc": "2026-05-09T23:29:22.133000+00:00",
+      "sha256": "df20c945de6afe4820d75fa6281faa492ac819023316b5f82e39d8098a8d6e75",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/oSC8.sh",
+      "utc": "2026-05-10T02:02:28.375000+00:00",
+      "sha256": "4812bed5d86312dac9dbba7cefeef1cf771fda9d02902acfdb8b0e4cfcbbfecf",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/daJA.sh",
+      "utc": "2026-05-10T02:02:29.212000+00:00",
+      "sha256": "df20c945de6afe4820d75fa6281faa492ac819023316b5f82e39d8098a8d6e75",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3b775728/jLFv.sh",
+      "utc": "2026-05-10T02:11:31.507000+00:00",
+      "sha256": "4812bed5d86312dac9dbba7cefeef1cf771fda9d02902acfdb8b0e4cfcbbfecf",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/5f7fe257/YS3U.sh",
+      "utc": "2026-05-11T01:46:04.841000+00:00",
+      "sha256": "bb6a279206256476c3a070c10b5eb0010cae4709fc938d5386070e7f7e0a7864",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/5f7fe257/V3IV.sh",
+      "utc": "2026-05-11T05:10:22.786000+00:00",
+      "sha256": "bb6a279206256476c3a070c10b5eb0010cae4709fc938d5386070e7f7e0a7864",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/5f7fe257/zrzd.sh",
+      "utc": "2026-05-12T18:19:20.758000+00:00",
+      "sha256": "af5745aa196f74cceeb72a31a38703cee5d454908c6e309be91e03f4885a9835",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/5f7fe257/WIRe.sh",
+      "utc": "2026-05-12T18:41:38.096000+00:00",
+      "sha256": "a8b49c8fd343e4b0e65ab84036e65b5ac1573db18bedb5df2f6e18bcc2f8ecc6",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/5f7fe257/TSz8.sh",
+      "utc": "2026-05-12T19:41:39.301000+00:00",
+      "sha256": "954e5f0198e9cbd19bf981bc44dce364bf018b48dfeecda298a6d1aa2024ff7e",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-160e6d/qSBt.h",
+      "utc": "2026-05-02T03:09:40.868000+00:00",
+      "sha256": "1311e85f4d44505dc1b783f8f609b8ca378161e74ebe03a7d9f86a835f2a9c9a",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-160e6d/eLNu.h",
+      "utc": "2026-05-03T17:39:11.324000+00:00",
+      "sha256": "b7217f6e7dfa911942f0e1b95981dcc586f3f8cbe1bc4adbd613b21213c0d624",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-160e6d/TrSL.h",
+      "utc": "2026-05-03T19:21:58.977000+00:00",
+      "sha256": "1b895c366b4b8f57e49aaa9d9065979d946193af8695ee096b7a1114cc5d3613",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-160e6d/2LzZ.h",
+      "utc": "2026-05-04T02:33:19.741000+00:00",
+      "sha256": "47a8a0eb989a771a77309dbcc4f4995dc2da5d1d0e2cde6198b4ee2d0dfc6c84",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-160e6d/SxRO.h",
+      "utc": "2026-05-04T02:36:26.727000+00:00",
+      "sha256": "b186068f562328cd430aee114edfc2efb5ad0572a4737e3488a0c5349fee5f2b",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-160e6d/RYpG.h",
+      "utc": "2026-05-04T02:53:13.689000+00:00",
+      "sha256": "3b96cd28f1c86775e903a501eee8116064c49e860cf9dc8518d26df4999650f1",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-160e6d/iTBv.h",
+      "utc": "2026-05-04T03:21:01.042000+00:00",
+      "sha256": "26bf1161554e944ebf73357dac04adc21d0a1b15e26077a4e2feb869f7123a9f",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-160e6d/Javf.h",
+      "utc": "2026-05-09T22:16:41.264000+00:00",
+      "sha256": "abb145298097f5214a36faf328a95c6871f3d078ca2d07d3db3118ec7c49155c",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-160e6d/R1XD.h",
+      "utc": "2026-05-09T23:29:48.585000+00:00",
+      "sha256": "116aaf47651335b15dcd43dd6449d0f30ed58abeba9a356bfb0d908f4c3dbd7b",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/xAjU",
+      "utc": "2026-05-02T04:15:30.559000+00:00",
+      "sha256": "028753b5073ac4d12180674eda08af86345e49b0b23f0fe9fe507a9cc75bf647",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/JPC9",
+      "utc": "2026-05-02T04:15:36.287000+00:00",
+      "sha256": "17f29796f0759223dfb0d4f686beb7a419e52eb66f7246e2e49c6a8124012096",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/vJdA",
+      "utc": "2026-05-02T04:16:48.573000+00:00",
+      "sha256": "2978c5c59a276841873afbd41801aea4e98bc2d916601d88824f57b2caaac37f",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/xet9",
+      "utc": "2026-05-02T04:53:15.332000+00:00",
+      "sha256": "7c34a8d5a8f5c5ffcc86ee7e94a99d4639ba861bf5d102bfad4cb143296750de",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/VEpy",
+      "utc": "2026-05-02T04:56:45.253000+00:00",
+      "sha256": "b033dcf623ab93d8108d6182d586bfe240c9794c3ed4aca841e1bae604ef81c8",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/szLd",
+      "utc": "2026-05-02T04:57:19.127000+00:00",
+      "sha256": "7c65eca4608538a3bed0f99c07a1bb77a493165734de77b0559b0afb0c9908a2",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/bBPi",
+      "utc": "2026-05-02T04:59:26.566000+00:00",
+      "sha256": "fd69800396f0be6e9325dd61c16bccdcd807ca9bb8bc52ad65e2e4e0fa4271da",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/yjzO",
+      "utc": "2026-05-02T05:12:05.858000+00:00",
+      "sha256": "f4b7440586a56dcd8300b630f03a700448bff14e7a0c036721d0742e127e1844",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/kWME",
+      "utc": "2026-05-02T15:34:40.561000+00:00",
+      "sha256": "f4b7440586a56dcd8300b630f03a700448bff14e7a0c036721d0742e127e1844",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/dDH7",
+      "utc": "2026-05-02T15:35:23.653000+00:00",
+      "sha256": "97011f19d3bf86f38e32f70d1c0797f1118a807f39f839c3233033175a2daa66",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/d0TD",
+      "utc": "2026-05-03T19:18:39.285000+00:00",
+      "sha256": "01bad71ab89f0bbcde5fb29314452700a7529c6609c76919f6050b6b171d6918",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/1hr4",
+      "utc": "2026-05-04T02:43:35.855000+00:00",
+      "sha256": "f871a681c51dd46037388a3867f8af6843f36523d46f3fbf0c1b9593e671251c",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/OU8b",
+      "utc": "2026-05-05T01:37:40.589000+00:00",
+      "sha256": "1db39a599daf0d754b8837e5fa29d588675b923405c4925e7f777fecef1f83ae",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/88sB",
+      "utc": "2026-05-05T01:37:52.955000+00:00",
+      "sha256": "8bfce404ac1cd5222228a1325660e69a1f76b460dbb3791d261273092b1e5e1a",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/Gj0W",
+      "utc": "2026-05-05T01:42:34.514000+00:00",
+      "sha256": "1cf877c63f228656d98110f15a9a4534df5a0e207893ee689c42d4fed7888f1d",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/3aZI",
+      "utc": "2026-05-05T01:42:53.457000+00:00",
+      "sha256": "7bad9d113d1837b2ced29e3c591f57759cff80f82ed33264531f4fdc5aced764",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/OXgg",
+      "utc": "2026-05-05T01:43:40.714000+00:00",
+      "sha256": "8bfce404ac1cd5222228a1325660e69a1f76b460dbb3791d261273092b1e5e1a",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/qN1D",
+      "utc": "2026-05-07T04:10:20.357000+00:00",
+      "sha256": "3cf2462f53e222eaec1426d698f4c5363487dd4b6bfa74c659a35b372cde9dd8",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/4HiW",
+      "utc": "2026-05-07T04:10:44.530000+00:00",
+      "sha256": "c8c0c779d5e9de561016e38a975b42ba6d10b2b5f51101303242d1b7508154a7",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/GKnv",
+      "utc": "2026-05-09T01:27:12.595000+00:00",
+      "sha256": "4f7413da899f83b4d4cb549ca4077c34ca31d0416e2d31edc91b93e0e09f32ac",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/2GRZ",
+      "utc": "2026-05-09T05:50:43.286000+00:00",
+      "sha256": "7a7dc33daeb69a14152cd8c7eb3ed1ed8e65398dce5b715c7ef8e3b0d197d8b1",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/X6Fu",
+      "utc": "2026-05-09T06:01:55.968000+00:00",
+      "sha256": "7279a76171b88622ef066a5a0fd46f1d41f14c6bd080f81d4b05457059bb24eb",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/kfGo",
+      "utc": "2026-05-09T06:05:18.981000+00:00",
+      "sha256": "ddc114b097129971624352b85220294c21cc882dc1d17a126aa495b2c2911e04",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/yhTF",
+      "utc": "2026-05-09T06:08:57.383000+00:00",
+      "sha256": "4f7413da899f83b4d4cb549ca4077c34ca31d0416e2d31edc91b93e0e09f32ac",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/WLzG",
+      "utc": "2026-05-09T20:02:55.971000+00:00",
+      "sha256": "84145dc5379443309958453a01f605b098fdcea82313ca45a1a91c0ec139ce23",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/UxoN",
+      "utc": "2026-05-09T20:23:47.206000+00:00",
+      "sha256": "4f7413da899f83b4d4cb549ca4077c34ca31d0416e2d31edc91b93e0e09f32ac",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/xtaQ",
+      "utc": "2026-05-09T20:47:37.017000+00:00",
+      "sha256": "ba61b5eeb1590e0ddde2d88f9ecd4eb86611fd6181c4504845c17cb69e703f2b",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/OFqt",
+      "utc": "2026-05-09T21:01:07.329000+00:00",
+      "sha256": "4f7413da899f83b4d4cb549ca4077c34ca31d0416e2d31edc91b93e0e09f32ac",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/QkoR",
+      "utc": "2026-05-09T21:11:40.273000+00:00",
+      "sha256": "e725c3e0742339007467732d89297858e841ff7cbf5a70e1f30a7e3a93a0e907",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/IB7i",
+      "utc": "2026-05-09T21:57:25.975000+00:00",
+      "sha256": "4f7413da899f83b4d4cb549ca4077c34ca31d0416e2d31edc91b93e0e09f32ac",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/toH6",
+      "utc": "2026-05-09T22:02:30.490000+00:00",
+      "sha256": "e725c3e0742339007467732d89297858e841ff7cbf5a70e1f30a7e3a93a0e907",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/umDa",
+      "utc": "2026-05-09T22:05:39.260000+00:00",
+      "sha256": "9dc5e1c10a6a851ac9a9cea9e7e7b9c8002d1abdbf0d62e38af37806cf2220a8",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/dC0a",
+      "utc": "2026-05-09T22:10:36.043000+00:00",
+      "sha256": "4f7413da899f83b4d4cb549ca4077c34ca31d0416e2d31edc91b93e0e09f32ac",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/VKso",
+      "utc": "2026-05-09T22:28:51.377000+00:00",
+      "sha256": "e725c3e0742339007467732d89297858e841ff7cbf5a70e1f30a7e3a93a0e907",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/OKeg",
+      "utc": "2026-05-09T23:29:15.965000+00:00",
+      "sha256": "4f7413da899f83b4d4cb549ca4077c34ca31d0416e2d31edc91b93e0e09f32ac",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/FzqA",
+      "utc": "2026-05-09T23:35:39.576000+00:00",
+      "sha256": "e725c3e0742339007467732d89297858e841ff7cbf5a70e1f30a7e3a93a0e907",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/VqpS",
+      "utc": "2026-05-10T01:05:31.063000+00:00",
+      "sha256": "4f7413da899f83b4d4cb549ca4077c34ca31d0416e2d31edc91b93e0e09f32ac",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/6e5t",
+      "utc": "2026-05-10T01:54:59.021000+00:00",
+      "sha256": "e725c3e0742339007467732d89297858e841ff7cbf5a70e1f30a7e3a93a0e907",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/zH6w",
+      "utc": "2026-05-10T02:02:42.622000+00:00",
+      "sha256": "4f7413da899f83b4d4cb549ca4077c34ca31d0416e2d31edc91b93e0e09f32ac",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/GmzG",
+      "utc": "2026-05-10T02:11:26.596000+00:00",
+      "sha256": "e725c3e0742339007467732d89297858e841ff7cbf5a70e1f30a7e3a93a0e907",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.vscode-server/data/User/History/3a5f6756/T9rc",
+      "utc": "2026-06-17T15:01:21.878000+00:00",
+      "sha256": "23055289ba4426b779cb1a4e6e387b037e9fb25c0047e9143eceb1a115837feb",
+      "matches": []
+    }
+  ],
+  "config": {
+    "path": "/boot/config-6.18.1-061801-generic",
+    "sha256": "1616bd0122b02046cbb4033e48ed1e789a305e1b22939308efda49b12bab4e72",
+    "lines": [
+      {
+        "line": 188,
+        "text": "CONFIG_LOG_BUF_SHIFT=18"
+      },
+      {
+        "line": 328,
+        "text": "CONFIG_CRASH_RESERVE=y"
+      },
+      {
+        "line": 330,
+        "text": "CONFIG_KEXEC_CORE=y"
+      },
+      {
+        "line": 331,
+        "text": "CONFIG_HAVE_IMA_KEXEC=y"
+      },
+      {
+        "line": 332,
+        "text": "CONFIG_KEXEC=y"
+      },
+      {
+        "line": 333,
+        "text": "CONFIG_KEXEC_FILE=y"
+      },
+      {
+        "line": 334,
+        "text": "CONFIG_KEXEC_SIG=y"
+      },
+      {
+        "line": 335,
+        "text": "# CONFIG_KEXEC_SIG_FORCE is not set"
+      },
+      {
+        "line": 336,
+        "text": "CONFIG_KEXEC_BZIMAGE_VERIFY_SIG=y"
+      },
+      {
+        "line": 337,
+        "text": "CONFIG_KEXEC_JUMP=y"
+      },
+      {
+        "line": 338,
+        "text": "CONFIG_KEXEC_HANDOVER=y"
+      },
+      {
+        "line": 339,
+        "text": "# CONFIG_KEXEC_HANDOVER_DEBUG is not set"
+      },
+      {
+        "line": 340,
+        "text": "CONFIG_CRASH_DUMP=y"
+      },
+      {
+        "line": 341,
+        "text": "CONFIG_CRASH_DM_CRYPT=y"
+      },
+      {
+        "line": 342,
+        "text": "CONFIG_CRASH_DM_CRYPT_CONFIGS=y"
+      },
+      {
+        "line": 343,
+        "text": "CONFIG_CRASH_HOTPLUG=y"
+      },
+      {
+        "line": 344,
+        "text": "CONFIG_CRASH_MAX_MEMORY_RANGES=8192"
+      },
+      {
+        "line": 449,
+        "text": "CONFIG_NR_CPUS_RANGE_BEGIN=8192"
+      },
+      {
+        "line": 450,
+        "text": "CONFIG_NR_CPUS_RANGE_END=8192"
+      },
+      {
+        "line": 451,
+        "text": "CONFIG_NR_CPUS_DEFAULT=8192"
+      },
+      {
+        "line": 452,
+        "text": "CONFIG_NR_CPUS=8192"
+      },
+      {
+        "line": 530,
+        "text": "CONFIG_ARCH_SUPPORTS_KEXEC=y"
+      },
+      {
+        "line": 531,
+        "text": "CONFIG_ARCH_SUPPORTS_KEXEC_FILE=y"
+      },
+      {
+        "line": 532,
+        "text": "CONFIG_ARCH_SELECTS_KEXEC_FILE=y"
+      },
+      {
+        "line": 533,
+        "text": "CONFIG_ARCH_SUPPORTS_KEXEC_PURGATORY=y"
+      },
+      {
+        "line": 534,
+        "text": "CONFIG_ARCH_SUPPORTS_KEXEC_SIG=y"
+      },
+      {
+        "line": 535,
+        "text": "CONFIG_ARCH_SUPPORTS_KEXEC_SIG_FORCE=y"
+      },
+      {
+        "line": 536,
+        "text": "CONFIG_ARCH_SUPPORTS_KEXEC_BZIMAGE_VERIFY_SIG=y"
+      },
+      {
+        "line": 537,
+        "text": "CONFIG_ARCH_SUPPORTS_KEXEC_JUMP=y"
+      },
+      {
+        "line": 538,
+        "text": "CONFIG_ARCH_SUPPORTS_KEXEC_HANDOVER=y"
+      },
+      {
+        "line": 539,
+        "text": "CONFIG_ARCH_SUPPORTS_CRASH_DUMP=y"
+      },
+      {
+        "line": 540,
+        "text": "CONFIG_ARCH_DEFAULT_CRASH_DUMP=y"
+      },
+      {
+        "line": 541,
+        "text": "CONFIG_ARCH_SUPPORTS_CRASH_HOTPLUG=y"
+      },
+      {
+        "line": 542,
+        "text": "CONFIG_ARCH_HAS_GENERIC_CRASHKERNEL_RESERVATION=y"
+      },
+      {
+        "line": 1022,
+        "text": "CONFIG_ARCH_SUPPORTS_DEBUG_PAGEALLOC=y"
+      },
+      {
+        "line": 1023,
+        "text": "CONFIG_ARCH_SUPPORTS_PAGE_TABLE_CHECK=y"
+      },
+      {
+        "line": 1335,
+        "text": "# CONFIG_NUMA_EMU is not set"
+      },
+      {
+        "line": 7519,
+        "text": "# CONFIG_DRM_XE_DEBUG_VM is not set"
+      },
+      {
+        "line": 9940,
+        "text": "CONFIG_SWIOTLB_XEN=y"
+      },
+      {
+        "line": 10367,
+        "text": "CONFIG_INTEL_PMT_CRASHLOG=m"
+      },
+      {
+        "line": 12136,
+        "text": "CONFIG_IMA_KEXEC=y"
+      },
+      {
+        "line": 12160,
+        "text": "CONFIG_IMA_KEXEC_EXTRA_MEMORY_KB=0"
+      },
+      {
+        "line": 12186,
+        "text": "CONFIG_INIT_ON_ALLOC_DEFAULT_ON=y"
+      },
+      {
+        "line": 12187,
+        "text": "# CONFIG_INIT_ON_FREE_DEFAULT_ON is not set"
+      },
+      {
+        "line": 12602,
+        "text": "CONFIG_SWIOTLB=y"
+      },
+      {
+        "line": 12603,
+        "text": "CONFIG_SWIOTLB_DYNAMIC=y"
+      },
+      {
+        "line": 12623,
+        "text": "CONFIG_CPUMASK_OFFSTACK=y"
+      },
+      {
+        "line": 12790,
+        "text": "# CONFIG_PAGE_EXTENSION is not set"
+      },
+      {
+        "line": 12791,
+        "text": "# CONFIG_DEBUG_PAGEALLOC is not set"
+      },
+      {
+        "line": 12794,
+        "text": "# CONFIG_PAGE_OWNER is not set"
+      },
+      {
+        "line": 12795,
+        "text": "# CONFIG_PAGE_TABLE_CHECK is not set"
+      },
+      {
+        "line": 12797,
+        "text": "# CONFIG_DEBUG_PAGE_REF is not set"
+      },
+      {
+        "line": 12811,
+        "text": "CONFIG_ARCH_HAS_DEBUG_VM_PGTABLE=y"
+      },
+      {
+        "line": 12813,
+        "text": "# CONFIG_DEBUG_VM is not set"
+      },
+      {
+        "line": 12814,
+        "text": "# CONFIG_DEBUG_VM_PGTABLE is not set"
+      },
+      {
+        "line": 12821,
+        "text": "CONFIG_HAVE_ARCH_KASAN=y"
+      },
+      {
+        "line": 12822,
+        "text": "CONFIG_HAVE_ARCH_KASAN_VMALLOC=y"
+      },
+      {
+        "line": 12823,
+        "text": "CONFIG_CC_HAS_KASAN_GENERIC=y"
+      },
+      {
+        "line": 12824,
+        "text": "CONFIG_CC_HAS_KASAN_SW_TAGS=y"
+      },
+      {
+        "line": 12826,
+        "text": "# CONFIG_KASAN is not set"
+      },
+      {
+        "line": 12827,
+        "text": "CONFIG_HAVE_ARCH_KFENCE=y"
+      },
+      {
+        "line": 12828,
+        "text": "CONFIG_KFENCE=y"
+      },
+      {
+        "line": 12829,
+        "text": "CONFIG_KFENCE_SAMPLE_INTERVAL=0"
+      },
+      {
+        "line": 12830,
+        "text": "CONFIG_KFENCE_NUM_OBJECTS=255"
+      },
+      {
+        "line": 12831,
+        "text": "# CONFIG_KFENCE_DEFERRABLE is not set"
+      },
+      {
+        "line": 12832,
+        "text": "# CONFIG_KFENCE_STATIC_KEYS is not set"
+      },
+      {
+        "line": 12833,
+        "text": "CONFIG_KFENCE_STRESS_TEST_FAULTS=0"
+      },
+      {
+        "line": 13146,
+        "text": "# CONFIG_TEST_KEXEC_HANDOVER is not set"
+      }
+    ]
+  },
+  "git_scope": "All reachable refs; shell/conf/notes diff search, excluding kernel C source. March matches inspected and were local variable numa= in HybridTier runner, not NUMA emulation boot controls.",
+  "git_matches": [
+    "6b2f5ddf79c799504ef96ed0032017e6b11eb7af",
+    "7d4508f982c569414bcd21918a807e052ea482a9",
+    "8ae72487a (2022 initial Linux source import; outside May/June cohort)"
+  ],
+  "calculated_MiB": {
+    "kfence_pool": 2.0,
+    "swiotlb_buffer": 64.0,
+    "swiotlb_slot_metadata": 0.75,
+    "swiotlb_512_minus_64_buffer": 448,
+    "swiotlb_512_minus_64_slot_metadata": 5.25,
+    "current_percpu_global": 80.0,
+    "node0_MemTotal": 4626.94140625,
+    "400MiB_pages": 102400,
+    "crash384M_pages": 98304
+  }
+}

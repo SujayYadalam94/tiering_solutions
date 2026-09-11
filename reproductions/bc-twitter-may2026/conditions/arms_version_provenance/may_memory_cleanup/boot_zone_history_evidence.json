@@ -1,0 +1,38 @@
+{
+  "scope": "Focused read-only search; file-save dates do not date shell commands. No parameter changes or benchmarks.",
+  "shell": [
+    {
+      "path": "/users/zimooo2/.bash_history-09434.tmp",
+      "sha256": "d574a26638fdc557daf8af266424e47b8f2209d3afa3e36ec28fed2b339738e4",
+      "matches": [
+        {
+          "line": 871,
+          "text": "memmap=86G\\$8G"
+        },
+        {
+          "line": 914,
+          "text": "print(f\"memmap={reserve_gib}G\\\\$0x{reserve_start_phys:x}\")"
+        }
+      ]
+    },
+    {
+      "path": "/users/zimooo2/.bash_history-05835.tmp",
+      "sha256": "4d63f488bad28262e29a54d105329399511d420947888ee7c37d972b960e253c",
+      "matches": []
+    },
+    {
+      "path": "/users/zimooo2/.bash_history",
+      "sha256": "d2ff07f66992528f446cba1492c6c67a41d8f91decbd4d8e6623165e3098d844",
+      "matches": []
+    }
+  ],
+  "may_june_editor_count": 230,
+  "may_june_editor_matches": [],
+  "all_refs_bootmap_script_commits": [
+    "a8d9cfabc 2025-11-23T02:00:58-06:00 Updated setup script and added files for PRELOAD",
+    "1143af318 2025-09-13T17:48:00-05:00 Update setup scripts",
+    "5c828a6d1 2025-09-04T23:22:28-05:00 Update setup files",
+    "ff5899009 2025-07-22T21:49:51+00:00 Add setup scripts"
+  ],
+  "no_historical_zone_readbacks_recovered": "Previous retained-log audits plus this focused history review; historical files name capacity labels, not measured zones."
+}

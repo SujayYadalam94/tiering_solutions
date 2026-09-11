@@ -1,0 +1,24 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-198ec96b/SJOf.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-198ec96b/b69S.sh
+@@ -5,14 +5,14 @@
+ 
+ declare -ar MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
+     "bc-kron.sg"
+-    "faiss_10M"
+-    "mg.D.x"
+-    "DuckDB-TPCH-sf100"
++    #"faiss_10M"
++    #"mg.D.x"
++    #"DuckDB-TPCH-sf100"
+ 
+-    "XSBench"
+-    "pr-kron.sg"
+-    "bc-twitter.sg"
+-    "pr-twitter.sg"
++    #"XSBench"
++    #"pr-kron.sg"
++    #"bc-twitter.sg"
++    #"pr-twitter.sg"
+     #"lulesh2.0_s400"
+ 
+ 

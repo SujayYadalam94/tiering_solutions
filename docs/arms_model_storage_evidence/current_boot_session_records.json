@@ -1,0 +1,233 @@
+[
+  {
+    "timestamp_utc": "2026-09-09T11:17:24.547905+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "13470",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496b807;b=09bab7b7ee024496b131e20399b88193;m=8c3ce41;t=65b0afee5f541;x=c5301415c96ff7d",
+    "message": " zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:17:24.551253+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "13470",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496b808;b=09bab7b7ee024496b131e20399b88193;m=8c3db55;t=65b0afee60255;x=77c6ea7e9bde6139",
+    "message": "pam_unix(sudo:session): session opened for user root(uid=0) by zimooo2(uid=20020)"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:19:32.831713+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "13470",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496b81d;b=09bab7b7ee024496b131e20399b88193;m=106942e1;t=65b0b068b69e1;x=9973f124be573aad",
+    "message": "pam_unix(sudo:session): session closed for user root"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:19:36.146149+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "15211",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496b92a;b=09bab7b7ee024496b131e20399b88193;m=109bd5e5;t=65b0b06bdfce5;x=237ec3cebdc3ae1d",
+    "message": " zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:19:36.148421+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "15211",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496b92b;b=09bab7b7ee024496b131e20399b88193;m=109bdec4;t=65b0b06be05c5;x=8b3c85530895d534",
+    "message": "pam_unix(sudo:session): session opened for user root(uid=0) by zimooo2(uid=20020)"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:19:36.149211+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "15211",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496b92c;b=09bab7b7ee024496b131e20399b88193;m=109be1da;t=65b0b06be08db;x=cea6e2d7d623055c",
+    "message": "pam_unix(sudo:session): session closed for user root"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:22:06.475812+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "20750",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496c8c4;b=09bab7b7ee024496b131e20399b88193;m=1991af23;t=65b0b0fb3d624;x=c558c569006da480",
+    "message": " zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:22:06.478166+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "20750",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496c8c5;b=09bab7b7ee024496b131e20399b88193;m=1991b856;t=65b0b0fb3df56;x=2e8edd534e28a2f6",
+    "message": "pam_unix(sudo:session): session opened for user root(uid=0) by zimooo2(uid=20020)"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:24:19.191603+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "20750",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496ca89;b=09bab7b7ee024496b131e20399b88193;m=217ac434;t=65b0b179ceb33;x=ece0009b0bc4fb15",
+    "message": "pam_unix(sudo:session): session closed for user root"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:24:32.588767+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "23974",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496cef6;b=09bab7b7ee024496b131e20399b88193;m=224730df;t=65b0b186957df;x=fda4c03ef69e315f",
+    "message": " zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/gapbs/benchmark/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:24:32.590831+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "23974",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496cef7;b=09bab7b7ee024496b131e20399b88193;m=224738ee;t=65b0b18695fef;x=f5178e24d9437a73",
+    "message": "pam_unix(sudo:session): session opened for user root(uid=0) by zimooo2(uid=20020)"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:24:33.009589+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "23974",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496cef8;b=09bab7b7ee024496b131e20399b88193;m=224d9cb5;t=65b0b186fc3b5;x=747dc4c0b61de1ce",
+    "message": "pam_unix(sudo:session): session closed for user root"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:34:58.874447+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "30123",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496dec9;b=09bab7b7ee024496b131e20399b88193;m=479b8d4e;t=65b0b3dbdb44f;x=ca8e6243cd2c4ce7",
+    "message": " zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:34:58.876935+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "30123",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496deca;b=09bab7b7ee024496b131e20399b88193;m=479b9707;t=65b0b3dbdbe07;x=8ed97a7c8b6e9dcf",
+    "message": "pam_unix(sudo:session): session opened for user root(uid=0) by zimooo2(uid=20020)"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:36:37.429697+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "30123",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496e025;b=09bab7b7ee024496b131e20399b88193;m=4d7b62c1;t=65b0b439d89c1;x=ecc070aa2635f7bb",
+    "message": "pam_unix(sudo:session): session closed for user root"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:36:42.465239+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "31350",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496e1c8;b=09bab7b7ee024496b131e20399b88193;m=4dc838d7;t=65b0b43ea5fd7;x=1a50818e697e7ee3",
+    "message": " zimooo2 : TTY=pts/2 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:36:42.468276+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "31350",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496e1c9;b=09bab7b7ee024496b131e20399b88193;m=4dc844b4;t=65b0b43ea6bb4;x=5586bc2f05ed4374",
+    "message": "pam_unix(sudo:session): session opened for user root(uid=0) by zimooo2(uid=20020)"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:36:42.893903+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "31350",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496e1ca;b=09bab7b7ee024496b131e20399b88193;m=4dcec34f;t=65b0b43f0ea4f;x=924ec359e404774",
+    "message": "pam_unix(sudo:session): session closed for user root"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:38:00.265465+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "32019",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496e1d9;b=09bab7b7ee024496b131e20399b88193;m=526b5bf9;t=65b0b488d82f9;x=6f870d3e8a5faf6f",
+    "message": " zimooo2 : PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/tmp/bc-twitter-618-ssd-check/model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:38:00.268064+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "32019",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496e1da;b=09bab7b7ee024496b131e20399b88193;m=526b661f;t=65b0b488d8d20;x=c192a15157309209",
+    "message": "pam_unix(sudo:session): session opened for user root(uid=0) by zimooo2(uid=20020)"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:39:36.815849+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "32019",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496e1f3;b=09bab7b7ee024496b131e20399b88193;m=582c99e9;t=65b0b4e4ec0e9;x=b77ecf276ff6da52",
+    "message": "pam_unix(sudo:session): session closed for user root"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:53:21.586127+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "76696",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496e3c4;b=09bab7b7ee024496b131e20399b88193;m=895598cf;t=65b0b7f77bfcf;x=12c541e0f10aa087",
+    "message": " zimooo2 : TTY=pts/5 ; PWD=/tmp/arms-source-audit-jraqd_s5/may09/run ; USER=root ; COMMAND=/usr/bin/env OMP_NUM_THREADS=16 WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LOG_OUTPUT_PATH=/tmp/arms-source-audit-jraqd_s5/may09/run/access.log LD_PRELOAD=/tmp/arms-source-audit-jraqd_s5/may09/libarms-audit.so /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:53:21.588099+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "76696",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496e3c5;b=09bab7b7ee024496b131e20399b88193;m=8955a083;t=65b0b7f77c783;x=be0c0a3a8c1e28f9",
+    "message": "pam_unix(sudo:session): session opened for user root(uid=0) by zimooo2(uid=20020)"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:54:09.162400+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "81297",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496f272;b=09bab7b7ee024496b131e20399b88193;m=8c2b8d9f;t=65b0b824db4a0;x=15e8f9d459ac960",
+    "message": " zimooo2 : TTY=pts/0 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:54:09.164513+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "81297",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496f273;b=09bab7b7ee024496b131e20399b88193;m=8c2b95e1;t=65b0b824dbce1;x=9273d9cf40f6e072",
+    "message": "pam_unix(sudo:session): session opened for user root(uid=0) by zimooo2(uid=20020)"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:54:27.219578+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "76696",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496f2d2;b=09bab7b7ee024496b131e20399b88193;m=8d3f157a;t=65b0b83613c7a;x=3949864f4f41da6a",
+    "message": "pam_unix(sudo:session): session closed for user root"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:55:49.765683+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "81297",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2496f3d6;b=09bab7b7ee024496b131e20399b88193;m=922aa333;t=65b0b884cca33;x=3c0fe202893ae097",
+    "message": "pam_unix(sudo:session): session closed for user root"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:56:38.090955+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "87569",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=249703a0;b=09bab7b7ee024496b131e20399b88193;m=950c05cb;t=65b0b8b2e2ccb;x=c3bd5abe671ab208",
+    "message": " zimooo2 : TTY=pts/0 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1_model.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:56:38.093045+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "87569",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=249703a1;b=09bab7b7ee024496b131e20399b88193;m=950c0df4;t=65b0b8b2e34f5;x=3c7aa26f6dcc9",
+    "message": "pam_unix(sudo:session): session opened for user root(uid=0) by zimooo2(uid=20020)"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:58:15.409795+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "87569",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=249703b6;b=09bab7b7ee024496b131e20399b88193;m=9ad8fd83;t=65b0b90fb2483;x=a3e37ef082f05d57",
+    "message": "pam_unix(sudo:session): session closed for user root"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:59:02.980359+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "93213",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=24971364;b=09bab7b7ee024496b131e20399b88193;m=9daedc06;t=65b0b93d10307;x=6d52e3001940f85c",
+    "message": " zimooo2 : TTY=pts/0 ; PWD=/users/zimooo2/tiering_solutions ; USER=root ; COMMAND=/usr/bin/env LOG_OUTPUT_PATH=/users/zimooo2/tiering_solutions/logs/bc-twitter.sg/4078MiB_run2_arms.log WORKLOAD_VIRTUAL_STEP_SAMPLES=10000 VIRTUAL_STEP_SAMPLES=10000 LD_PRELOAD=/users/zimooo2/tiering_solutions/libraries/C220G5/libhemem-arms.so OMP_NUM_THREADS=16 /users/zimooo2/gapbs/bc -n 10 -f /users/zimooo2/tiering_solutions/data/graphs/twitter.sg"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:59:02.982370+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "93213",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=24971365;b=09bab7b7ee024496b131e20399b88193;m=9daee3e1;t=65b0b93d10ae2;x=398ea0ea76b23810",
+    "message": "pam_unix(sudo:session): session opened for user root(uid=0) by zimooo2(uid=20020)"
+  },
+  {
+    "timestamp_utc": "2026-09-09T11:59:26.879484+00:00",
+    "boot_id": "09bab7b7ee024496b131e20399b88193",
+    "pid": "93213",
+    "cursor": "s=630f664ed94a406b91a9aff729a5413a;i=2497136f;b=09bab7b7ee024496b131e20399b88193;m=9f1b87fc;t=65b0b953daefc;x=89585d2fb2db2c17",
+    "message": "pam_unix(sudo:session): session closed for user root"
+  }
+]

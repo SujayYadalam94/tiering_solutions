@@ -1,0 +1,1346 @@
+[
+  {
+    "path": "times/c220g5/memtis_near/pr-twitter.sg/8061MiB_run2_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.75506"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        23.76741"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/pr-twitter.sg/6061MiB_run2_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.72645"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        23.95609"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/pr-twitter.sg/6061MiB_run3_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.73220"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        24.06775"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/pr-twitter.sg/8061MiB_run3_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.73895"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        23.47421"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/pr-twitter.sg/8061MiB_run1_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.73054"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        24.61243"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/pr-twitter.sg/6072MiB_run1_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.70040"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        23.79466"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/pr-twitter.sg/10061MiB_run3_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           64.31786"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        23.09141"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/pr-twitter.sg/6071MiB_run1_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.66192"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        23.95665"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/pr-twitter.sg/10061MiB_run2_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.48368"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        23.03698"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/pr-twitter.sg/6061MiB_run1_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           86.18851"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        23.87510"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/pr-twitter.sg/10061MiB_run1_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.51429"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        23.00580"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/bc-twitter.sg/8061MiB_run2_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.63833"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        5.34494"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/bc-twitter.sg/6061MiB_run2_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           93.99669"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        5.44472"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/bc-twitter.sg/6061MiB_run3_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.70791"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        5.43986"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/bc-twitter.sg/8061MiB_run3_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           64.01892"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        5.38286"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/bc-twitter.sg/8061MiB_run1_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.61935"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        5.34462"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/bc-twitter.sg/6072MiB_run1_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           64.01673"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        6.68866"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/bc-twitter.sg/10061MiB_run3_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.91894"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        5.25903"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/bc-twitter.sg/6071MiB_run1_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.62851"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        5.57849"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/bc-twitter.sg/10061MiB_run2_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.63962"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        5.31006"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/bc-twitter.sg/6061MiB_run1_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           188.19677"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        5.38794"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/bc-twitter.sg/10061MiB_run1_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.60368"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        5.29895"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/pr-kron.sg/8061MiB_run2_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           114.35799"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        25.54406"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/pr-kron.sg/6061MiB_run2_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           412.51689"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        23.66513"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/pr-kron.sg/6061MiB_run3_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           113.62449"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        23.64379"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/pr-kron.sg/8061MiB_run3_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           116.05549"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        24.52753"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/pr-kron.sg/8061MiB_run1_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           114.19546"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        26.41201"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/pr-kron.sg/10061MiB_run3_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           114.01924"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        23.72251"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/pr-kron.sg/6071MiB_run1_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           113.53716"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        23.68361"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/pr-kron.sg/10061MiB_run2_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           114.80204"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        23.57482"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/pr-kron.sg/6061MiB_run1_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           875.71135"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        24.65972"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/pr-kron.sg/10061MiB_run1_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           114.81397"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        26.17360"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/bc-kron.sg/8061MiB_run2_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           114.74611"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        14.28212"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/bc-kron.sg/6061MiB_run2_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           138.42181"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        14.74455"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/bc-kron.sg/6061MiB_run3_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           113.89506"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        14.93548"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/bc-kron.sg/8061MiB_run3_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           114.49258"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        14.46173"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/bc-kron.sg/8061MiB_run1_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           114.34263"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        14.28273"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/bc-kron.sg/6072MiB_run1_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           114.31658"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        14.55319"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/bc-kron.sg/10061MiB_run3_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           115.16949"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        14.02589"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/bc-kron.sg/6071MiB_run1_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           114.97471"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        16.01161"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/bc-kron.sg/10061MiB_run2_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           114.94555"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        14.01372"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/bc-kron.sg/6061MiB_run1_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           1204.49656"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        14.95513"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/memtis_near/bc-kron.sg/10061MiB_run1_memtis_near.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           114.85243"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        14.18948"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-kron.sg/6061MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           1663.39482"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        17.37949"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-kron.sg/4061MiB_run3_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           124.11795"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        27.51029"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-kron.sg/4061MiB_run2_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           90.20875"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        27.34286"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-kron.sg/6061MiB_run3_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           115.31801"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        17.01288"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-kron.sg/10061MiB_run2_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           116.69984"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        16.10493"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-kron.sg/10061MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           115.97378"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        16.32598"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-kron.sg/6072MiB_run3_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           115.24972"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        14.86032"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-kron.sg/10061MiB_run3_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           115.37237"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        16.08000"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-kron.sg/6061MiB_run2_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           133.55023"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        17.02573"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-kron.sg/8061MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           115.11664"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        17.11278"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-kron.sg/6073MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           64.18788"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-kron.sg/8061MiB_run2_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           115.73113"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        16.85596"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-kron.sg/6072MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           114.45576"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        14.77091"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-kron.sg/6072MiB_run2_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           115.09421"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        14.76320"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-kron.sg/8061MiB_run3_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           115.26140"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        16.73959"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-kron.sg/4061MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           90.11733"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        27.44496"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-twitter.sg/6061MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           105.68404"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        6.64681"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-twitter.sg/4061MiB_run3_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.36436"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        10.66860"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-twitter.sg/4061MiB_run2_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.45767"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        10.52935"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-twitter.sg/6061MiB_run3_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.79784"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        6.35114"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-twitter.sg/10061MiB_run2_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           64.13572"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        6.25163"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-twitter.sg/10061MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.86757"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        6.21677"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-twitter.sg/6072MiB_run3_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.73911"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        5.67160"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-twitter.sg/10061MiB_run3_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.74718"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        6.22075"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-twitter.sg/6061MiB_run2_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           152.43910"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        6.33341"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-twitter.sg/8061MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.72806"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        6.58359"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-twitter.sg/6073MiB_run2_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.74281"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        6.42546"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-twitter.sg/6073MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           47.35919"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        7.30598"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-twitter.sg/8061MiB_run2_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.92271"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        6.31253"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-twitter.sg/6072MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.72017"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        7.71707"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-twitter.sg/6072MiB_run2_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.74651"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        5.70875"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-twitter.sg/8061MiB_run3_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           64.00416"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        6.45762"
+      }
+    ]
+  },
+  {
+    "path": "logs/bc-twitter.sg/4061MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           72.99564"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        10.60681"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-twitter.sg/6061MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           75.67512"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        24.04138"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-twitter.sg/4061MiB_run3_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.43139"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        49.46172"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-twitter.sg/4061MiB_run2_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.33956"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        49.27544"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-twitter.sg/6061MiB_run3_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.85533"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        25.66195"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-twitter.sg/10061MiB_run2_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.78915"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        23.35473"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-twitter.sg/10061MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           64.10435"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        23.39383"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-twitter.sg/10061MiB_run3_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           64.06441"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        23.39113"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-twitter.sg/6061MiB_run2_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           65.45229"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        24.63356"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-twitter.sg/8061MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.92607"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        26.89810"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-twitter.sg/6073MiB_run2_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.74349"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-twitter.sg/6073MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           46.93551"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        24.08074"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-twitter.sg/8061MiB_run2_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           64.06366"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        24.92187"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-twitter.sg/6072MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.73757"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        25.70790"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-twitter.sg/8061MiB_run3_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           63.99963"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        24.44836"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-twitter.sg/4061MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           69.92624"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        49.46936"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-kron.sg/6061MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           234.88573"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        24.41558"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-kron.sg/4061MiB_run3_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           112.13493"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        52.20951"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-kron.sg/4061MiB_run2_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           90.20756"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        51.34616"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-kron.sg/6061MiB_run3_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           113.78154"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        24.69031"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-kron.sg/10061MiB_run2_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           114.48598"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        24.12923"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-kron.sg/10061MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           116.10585"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        24.14735"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-kron.sg/10061MiB_run3_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           114.35000"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        24.14319"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-kron.sg/6061MiB_run2_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           145.16029"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        24.11932"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-kron.sg/8061MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           114.19704"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        25.83397"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-kron.sg/6073MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           114.09484"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        24.04894"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-kron.sg/8061MiB_run2_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           114.42080"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        24.71093"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-kron.sg/8061MiB_run3_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           114.39880"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        24.43814"
+      }
+    ]
+  },
+  {
+    "path": "logs/pr-kron.sg/4061MiB_run1_memtis.log",
+    "matches": [
+      {
+        "line": 1,
+        "text": "Read Time:           97.40902"
+      },
+      {
+        "line": 13,
+        "text": "Average Time:        51.88445"
+      }
+    ]
+  }
+]

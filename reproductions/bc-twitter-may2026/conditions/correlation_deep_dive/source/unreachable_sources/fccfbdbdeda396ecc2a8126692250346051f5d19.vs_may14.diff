@@ -1,0 +1,13 @@
+--- git:4da3d6c3f:page.cpp
++++ fccfbdbdeda396ecc2a8126692250346051f5d19
+@@ -104,8 +104,8 @@
+     this->num_demotions = 0;
+     this->num_promotions = 0;
+ 
+-    this->can_promote = true;
+-    this->can_demote = true;
++    // this->can_promote = true;
++    // this->can_demote = true;
+ 
+     this->last_logged_row = NULL;
+ }

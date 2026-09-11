@@ -1,0 +1,4589 @@
+[
+  {
+    "path": "times/c220g5/arms-6.18_backup/bc-twitter.sg/10000MiB_run1.time",
+    "group": "arms-6.18_backup",
+    "size_mib": 10000,
+    "run": 1,
+    "variant": "",
+    "seconds": 101.376,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.542934+00:00",
+    "mtime_ns": 1775936542542934208,
+    "sha256": "e74977b631c07a16cf2095c3b25e143256392468091104c4efb9b8f8630a54e8",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_backup/bc-twitter.sg/10000MiB_run2.time",
+    "group": "arms-6.18_backup",
+    "size_mib": 10000,
+    "run": 2,
+    "variant": "",
+    "seconds": 104.74799999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.543934+00:00",
+    "mtime_ns": 1775936542543934222,
+    "sha256": "46885f595ccbba4a815d27122d591c3e11fc252d1e3d5a1ab807175cf067a042",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_backup/bc-twitter.sg/10000MiB_run3.time",
+    "group": "arms-6.18_backup",
+    "size_mib": 10000,
+    "run": 3,
+    "variant": "",
+    "seconds": 102.815,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.543934+00:00",
+    "mtime_ns": 1775936542543934222,
+    "sha256": "23d74e04b50aaecf62b52feed773a627130bd7ec30011db8e49cd73dcab0a4d9",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_backup/bc-twitter.sg/4000MiB_run1.time",
+    "group": "arms-6.18_backup",
+    "size_mib": 4000,
+    "run": 1,
+    "variant": "",
+    "seconds": 110.822,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.543934+00:00",
+    "mtime_ns": 1775936542543934222,
+    "sha256": "765ab74f351b70569f747ccad2675da2a62e513802b1273350fdc4e516ae384a",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_backup/bc-twitter.sg/4000MiB_run2.time",
+    "group": "arms-6.18_backup",
+    "size_mib": 4000,
+    "run": 2,
+    "variant": "",
+    "seconds": 111.43,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.543934+00:00",
+    "mtime_ns": 1775936542543934222,
+    "sha256": "8fdb479bbbc2e4cd72b70b2a619aa00b86d3b7333d45c7d06c7cf8374f1d6083",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_backup/bc-twitter.sg/4000MiB_run3.time",
+    "group": "arms-6.18_backup",
+    "size_mib": 4000,
+    "run": 3,
+    "variant": "",
+    "seconds": 111.72999999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.543934+00:00",
+    "mtime_ns": 1775936542543934222,
+    "sha256": "ab0edcd886a89ca8270461e1582233a425e2b2198aa8a6170884580b5e3eafea",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_backup/bc-twitter.sg/6000MiB_run1.time",
+    "group": "arms-6.18_backup",
+    "size_mib": 6000,
+    "run": 1,
+    "variant": "",
+    "seconds": 101.644,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.543934+00:00",
+    "mtime_ns": 1775936542543934222,
+    "sha256": "5192f5fc60ef5f51a5dbbb3b34346724a435217bec1f0f28fc990c95cd5d956f",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_backup/bc-twitter.sg/6000MiB_run2.time",
+    "group": "arms-6.18_backup",
+    "size_mib": 6000,
+    "run": 2,
+    "variant": "",
+    "seconds": 102.66499999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.544934+00:00",
+    "mtime_ns": 1775936542544934236,
+    "sha256": "c307c6268428104cdc307ccb2dd7347bea467e58d8c5e927bb052bdcbe789704",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_backup/bc-twitter.sg/6000MiB_run3.time",
+    "group": "arms-6.18_backup",
+    "size_mib": 6000,
+    "run": 3,
+    "variant": "",
+    "seconds": 103.095,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.544934+00:00",
+    "mtime_ns": 1775936542544934236,
+    "sha256": "37af1901adc581eecd02281e2a8cf363f65f53bff712ffd09522632f6d3ad93f",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_backup/bc-twitter.sg/8000MiB_run1.time",
+    "group": "arms-6.18_backup",
+    "size_mib": 8000,
+    "run": 1,
+    "variant": "",
+    "seconds": 100.537,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.544934+00:00",
+    "mtime_ns": 1775936542544934236,
+    "sha256": "be8702673eff89f752c170878414fce53cf409f6fd078059ea24f3cc60d555d0",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_backup/bc-twitter.sg/8000MiB_run2.time",
+    "group": "arms-6.18_backup",
+    "size_mib": 8000,
+    "run": 2,
+    "variant": "",
+    "seconds": 100.51599999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.544934+00:00",
+    "mtime_ns": 1775936542544934236,
+    "sha256": "50efd387aeb3109872e5570127c96c61c370f09eda0727504442341091ff162a",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_backup/bc-twitter.sg/8000MiB_run3.time",
+    "group": "arms-6.18_backup",
+    "size_mib": 8000,
+    "run": 3,
+    "variant": "",
+    "seconds": 100.518,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.544934+00:00",
+    "mtime_ns": 1775936542544934236,
+    "sha256": "c5716498d4377e04550361d12cf1d40f5f74add8b17e7bf366eb263cdb35c187",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.2/bc-twitter.sg/10000MiB_run1.time",
+    "group": "arms-6.2",
+    "size_mib": 10000,
+    "run": 1,
+    "variant": "",
+    "seconds": 139.906,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.558934+00:00",
+    "mtime_ns": 1775936542558934432,
+    "sha256": "9289494d5bd11b4efe057858f6a6760525f00c92797cb7e3cecc929a9ed569d2",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.2/bc-twitter.sg/10000MiB_run1.time",
+        "mtime_utc": "2026-05-12T04:02:47.521059+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.2/bc-twitter.sg/10000MiB_run2.time",
+    "group": "arms-6.2",
+    "size_mib": 10000,
+    "run": 2,
+    "variant": "",
+    "seconds": 139.959,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.558934+00:00",
+    "mtime_ns": 1775936542558934432,
+    "sha256": "194ecbaee9446ef2c7e267f84bfa29d2aad6b49dcf3df296dd41cfe84e680080",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.2/bc-twitter.sg/10000MiB_run2.time",
+        "mtime_utc": "2026-05-12T04:02:47.522059+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.2/bc-twitter.sg/10000MiB_run3.time",
+    "group": "arms-6.2",
+    "size_mib": 10000,
+    "run": 3,
+    "variant": "",
+    "seconds": 141.439,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.558934+00:00",
+    "mtime_ns": 1775936542558934432,
+    "sha256": "416c8b514036628336d965de893f318cad1bb7eb7ef31dabb6aa821d5c82e172",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.2/bc-twitter.sg/10000MiB_run3.time",
+        "mtime_utc": "2026-05-12T04:02:47.522059+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.2/bc-twitter.sg/2000MiB_run1.time",
+    "group": "arms-6.2",
+    "size_mib": 2000,
+    "run": 1,
+    "variant": "",
+    "seconds": 177.615,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.558934+00:00",
+    "mtime_ns": 1775936542558934432,
+    "sha256": "42efb5299434546c0c05932a8a34e9e953d8bd7054b8cf7315732fdc5d90065a",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.2/bc-twitter.sg/2000MiB_run1.time",
+        "mtime_utc": "2026-05-12T04:02:47.523059+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.2/bc-twitter.sg/2000MiB_run2.time",
+    "group": "arms-6.2",
+    "size_mib": 2000,
+    "run": 2,
+    "variant": "",
+    "seconds": 181.869,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.559934+00:00",
+    "mtime_ns": 1775936542559934446,
+    "sha256": "7dc535069b94f34fd6d08cb1a95085401908a2f91a5c52bb853000714383bcb5",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.2/bc-twitter.sg/2000MiB_run2.time",
+        "mtime_utc": "2026-05-12T04:02:47.523059+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.2/bc-twitter.sg/2000MiB_run3.time",
+    "group": "arms-6.2",
+    "size_mib": 2000,
+    "run": 3,
+    "variant": "",
+    "seconds": 185.023,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.559934+00:00",
+    "mtime_ns": 1775936542559934446,
+    "sha256": "016f493a2dc5d4ee5b0f52717745f21c4d35516b04debda1000b415663ee0db4",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.2/bc-twitter.sg/2000MiB_run3.time",
+        "mtime_utc": "2026-05-12T04:02:47.524060+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.2/bc-twitter.sg/4000MiB_run1.time",
+    "group": "arms-6.2",
+    "size_mib": 4000,
+    "run": 1,
+    "variant": "",
+    "seconds": 159.639,
+    "exit_status": null,
+    "mtime_utc": "2026-04-11T19:42:22.559934+00:00",
+    "mtime_ns": 1775936542559934446,
+    "sha256": "7783a57e4eaeb18e26c98c382bc1eab312afb645c04f8b2ba59638a9b9d9e8e5",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.2/bc-twitter.sg/4000MiB_run1.time",
+        "mtime_utc": "2026-05-12T04:02:47.524060+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.2/bc-twitter.sg/4000MiB_run2.time",
+    "group": "arms-6.2",
+    "size_mib": 4000,
+    "run": 2,
+    "variant": "",
+    "seconds": 155.672,
+    "exit_status": null,
+    "mtime_utc": "2026-04-11T19:42:22.559934+00:00",
+    "mtime_ns": 1775936542559934446,
+    "sha256": "d999bb5fdc2d18ee1a3ac9487c14ee3cf4361a00c61509630b6aaa589da58e3b",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.2/bc-twitter.sg/4000MiB_run2.time",
+        "mtime_utc": "2026-05-12T04:02:47.524060+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.2/bc-twitter.sg/4000MiB_run3.time",
+    "group": "arms-6.2",
+    "size_mib": 4000,
+    "run": 3,
+    "variant": "",
+    "seconds": 157.132,
+    "exit_status": null,
+    "mtime_utc": "2026-04-11T19:42:22.559934+00:00",
+    "mtime_ns": 1775936542559934446,
+    "sha256": "f9734320c777041b3a22844b7b063af71ef754593494282cf597f85d3b528707",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.2/bc-twitter.sg/4000MiB_run3.time",
+        "mtime_utc": "2026-05-12T04:02:47.525059+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.2/bc-twitter.sg/6000MiB_run1.time",
+    "group": "arms-6.2",
+    "size_mib": 6000,
+    "run": 1,
+    "variant": "",
+    "seconds": 140.464,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.559934+00:00",
+    "mtime_ns": 1775936542559934446,
+    "sha256": "32136f012b2fa72f2d3c103b3489a7524e640db83b3af0b3378743e1c36aa392",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.2/bc-twitter.sg/6000MiB_run1.time",
+        "mtime_utc": "2026-05-12T04:02:47.525059+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.2/bc-twitter.sg/6000MiB_run2.time",
+    "group": "arms-6.2",
+    "size_mib": 6000,
+    "run": 2,
+    "variant": "",
+    "seconds": 141.603,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.559934+00:00",
+    "mtime_ns": 1775936542559934446,
+    "sha256": "2b355590e5eff97e5d43c4c891b7159e94010652f8460531c6e348fee5c629e9",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.2/bc-twitter.sg/6000MiB_run2.time",
+        "mtime_utc": "2026-05-12T04:02:47.525059+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.2/bc-twitter.sg/6000MiB_run3.time",
+    "group": "arms-6.2",
+    "size_mib": 6000,
+    "run": 3,
+    "variant": "",
+    "seconds": 140.224,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.559934+00:00",
+    "mtime_ns": 1775936542559934446,
+    "sha256": "0cd0f8d2f6aedd168c490520fea03fc51a84f4c525f9effb12220cc86477ae2c",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.2/bc-twitter.sg/6000MiB_run3.time",
+        "mtime_utc": "2026-05-12T04:02:47.526059+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.2/bc-twitter.sg/8000MiB_run1.time",
+    "group": "arms-6.2",
+    "size_mib": 8000,
+    "run": 1,
+    "variant": "",
+    "seconds": 142.008,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.559934+00:00",
+    "mtime_ns": 1775936542559934446,
+    "sha256": "e7a0a04970c5cfcf5fd45da361ea811b56abab4764f0b0aaf40ee1ec48b3733d",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.2/bc-twitter.sg/8000MiB_run1.time",
+        "mtime_utc": "2026-05-12T04:02:47.526059+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.2/bc-twitter.sg/8000MiB_run2.time",
+    "group": "arms-6.2",
+    "size_mib": 8000,
+    "run": 2,
+    "variant": "",
+    "seconds": 139.086,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.559934+00:00",
+    "mtime_ns": 1775936542559934446,
+    "sha256": "a9c5b0cd75c1c9be1fd080d5b6cbeed264138c23e8be7eb0e8c3d4b9e41eb279",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.2/bc-twitter.sg/8000MiB_run2.time",
+        "mtime_utc": "2026-05-12T04:02:47.527060+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.2/bc-twitter.sg/8000MiB_run3.time",
+    "group": "arms-6.2",
+    "size_mib": 8000,
+    "run": 3,
+    "variant": "",
+    "seconds": 140.064,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.559934+00:00",
+    "mtime_ns": 1775936542559934446,
+    "sha256": "2772c249f5429891e80769b6fa2b2e721cb6f54864834d29467bb8d68b820a68",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.2/bc-twitter.sg/8000MiB_run3.time",
+        "mtime_utc": "2026-05-12T04:02:47.527060+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/old/_arms/bc-twitter.sg/4000MiB_run1.time",
+    "group": "old/_arms",
+    "size_mib": 4000,
+    "run": 1,
+    "variant": "",
+    "seconds": 147.019,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.567935+00:00",
+    "mtime_ns": 1775936542567934558,
+    "sha256": "f0f93581313f463edf8c9e042315bc9879cc8b720e1733c4c263e1d8aa9f4c87",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_arms/bc-twitter.sg/4000MiB_run2.time",
+    "group": "old/_arms",
+    "size_mib": 4000,
+    "run": 2,
+    "variant": "",
+    "seconds": 146.314,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.568935+00:00",
+    "mtime_ns": 1775936542568934572,
+    "sha256": "278b4483d5b38589978fea06f55737b7f3fb499bac4f5629e639ae84462847af",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_arms/bc-twitter.sg/4000MiB_run3.time",
+    "group": "old/_arms",
+    "size_mib": 4000,
+    "run": 3,
+    "variant": "",
+    "seconds": 146.281,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.568935+00:00",
+    "mtime_ns": 1775936542568934572,
+    "sha256": "c879a793f038c45af2730f0df6732288948fc1e48c0bd0e30408254430ef3eea",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old_v2/bc-twitter.sg/10000MiB_run1_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.18_old_v2",
+    "size_mib": 10000,
+    "run": 1,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 106.155,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.598935+00:00",
+    "mtime_ns": 1775936542598934992,
+    "sha256": "cb4cd84ae604b97e157a485ed46a8ea9f35462c6f5d5a456a359e2d5d428664d",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old_v2/bc-twitter.sg/10000MiB_run2_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.18_old_v2",
+    "size_mib": 10000,
+    "run": 2,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 105.305,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.599935+00:00",
+    "mtime_ns": 1775936542599935006,
+    "sha256": "13f8aa5ad10693fa2663c5536a506ab5c1de6f97278be244bb2f8ef0e7d2d605",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old_v2/bc-twitter.sg/10000MiB_run3_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.18_old_v2",
+    "size_mib": 10000,
+    "run": 3,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 106.027,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.599935+00:00",
+    "mtime_ns": 1775936542599935006,
+    "sha256": "2a6c1839bf1e1fb670bf1c74cff232402b5af22677aadb5821b918aae29669f1",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old_v2/bc-twitter.sg/4000MiB_run1_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.18_old_v2",
+    "size_mib": 4000,
+    "run": 1,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 107.993,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.599935+00:00",
+    "mtime_ns": 1775936542599935006,
+    "sha256": "0edaef586d06cc3487fbb29420c4224b99b45aa48302633b263b9e8c5164336c",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old_v2/bc-twitter.sg/4000MiB_run2_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.18_old_v2",
+    "size_mib": 4000,
+    "run": 2,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 107.77199999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.599935+00:00",
+    "mtime_ns": 1775936542599935006,
+    "sha256": "125001e7c3c59528fca7dc374731a1d0337a66ffa2d6be88a32178ea617f1baa",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old_v2/bc-twitter.sg/4000MiB_run3_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.18_old_v2",
+    "size_mib": 4000,
+    "run": 3,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 107.277,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.599935+00:00",
+    "mtime_ns": 1775936542599935006,
+    "sha256": "a044e10c88f3628fd336bc0afb79c46bf110ebb02ebac255726133be837818e8",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old_v2/bc-twitter.sg/6000MiB_run1_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.18_old_v2",
+    "size_mib": 6000,
+    "run": 1,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 111.777,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.599935+00:00",
+    "mtime_ns": 1775936542599935006,
+    "sha256": "7e45302aca714f63e2e67eb99768330b0ebf651b87b095e3b37462febfab4677",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old_v2/bc-twitter.sg/6000MiB_run2_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.18_old_v2",
+    "size_mib": 6000,
+    "run": 2,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 113.34899999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.599935+00:00",
+    "mtime_ns": 1775936542599935006,
+    "sha256": "ff183cbe4eeb835e5fbd8704da7f59244c276d702ab770fd8211f4df60cbb363",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old_v2/bc-twitter.sg/6000MiB_run3_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.18_old_v2",
+    "size_mib": 6000,
+    "run": 3,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 111.765,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.599935+00:00",
+    "mtime_ns": 1775936542599935006,
+    "sha256": "290808830a13f592b3e3aa73dc468783b1566a55f10ebf8a456e4425527a6a4e",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old_v2/bc-twitter.sg/8000MiB_run1_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.18_old_v2",
+    "size_mib": 8000,
+    "run": 1,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 105.90899999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.599935+00:00",
+    "mtime_ns": 1775936542599935006,
+    "sha256": "624c277921a4b1ea496b29115ffeba232cfc8cdeaa4a47ec4f8aa3feaea6dc94",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old_v2/bc-twitter.sg/8000MiB_run2_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.18_old_v2",
+    "size_mib": 8000,
+    "run": 2,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 110.404,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.599935+00:00",
+    "mtime_ns": 1775936542599935006,
+    "sha256": "05724da00031ef453d416216ba4ae6e3b6ab59f8dd0be84bf246f9df20e15712",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old_v2/bc-twitter.sg/8000MiB_run3_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.18_old_v2",
+    "size_mib": 8000,
+    "run": 3,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 104.794,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.600935+00:00",
+    "mtime_ns": 1775936542600935020,
+    "sha256": "d051d01a12c3e7dabce44789c0850d141db594ddce5c1c97a017b9aa1d1d6771",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old/bc-twitter.sg/10000MiB_run1_model_discounted_reward_95_bc-twitter.sg_l2-false_4_0.9.time",
+    "group": "old/model-6.18_old",
+    "size_mib": 10000,
+    "run": 1,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-false_4_0.9",
+    "seconds": 106.53,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.613935+00:00",
+    "mtime_ns": 1775936542613935202,
+    "sha256": "d1293e5c417fab8340576962ad1438c9c0e9a3ca097adf9366b73393f43c7ae0",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old/bc-twitter.sg/10000MiB_run2_model_discounted_reward_95_bc-twitter.sg_l2-false_4_0.9.time",
+    "group": "old/model-6.18_old",
+    "size_mib": 10000,
+    "run": 2,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-false_4_0.9",
+    "seconds": 106.215,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.613935+00:00",
+    "mtime_ns": 1775936542613935202,
+    "sha256": "1866c88e7aa3a5c0714ec936fc3175ac1e2332c7e32d6f371bf67beb261f3418",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old/bc-twitter.sg/10000MiB_run3_model_discounted_reward_95_bc-twitter.sg_l2-false_4_0.9.time",
+    "group": "old/model-6.18_old",
+    "size_mib": 10000,
+    "run": 3,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-false_4_0.9",
+    "seconds": 108.154,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.613935+00:00",
+    "mtime_ns": 1775936542613935202,
+    "sha256": "2a07fd8c15293cae3ae4dc10cdb67ba513ad8eb13bf6af3e9a9a5da084654ebc",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old/bc-twitter.sg/10MiB_run10_model_discounted_reward_90_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.18_old",
+    "size_mib": 10,
+    "run": 10,
+    "variant": "_model_discounted_reward_90_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 124.511,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.613935+00:00",
+    "mtime_ns": 1775936542613935202,
+    "sha256": "2a7c7ccf08ff5695aeb933a895f83c8ce83734049b040c45ad7f47f7e439d516",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old/bc-twitter.sg/10MiB_run10_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.18_old",
+    "size_mib": 10,
+    "run": 10,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 118.907,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.613935+00:00",
+    "mtime_ns": 1775936542613935202,
+    "sha256": "fedf46fc228bfd66d3b854f56a6bbbc74bc0f467b7edeb46ac0189f556513c65",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old/bc-twitter.sg/10MiB_run10_model_discounted_reward_99_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.18_old",
+    "size_mib": 10,
+    "run": 10,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 124.746,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.613935+00:00",
+    "mtime_ns": 1775936542613935202,
+    "sha256": "a11463b118f006a4e152c2b68dee2f0625080ef8537cf47f782eb4a28f74e352",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old/bc-twitter.sg/12MiB_run12_model_discounted_reward_90_bc-twitter.sg_l2-true_4_0.8.time",
+    "group": "old/model-6.18_old",
+    "size_mib": 12,
+    "run": 12,
+    "variant": "_model_discounted_reward_90_bc-twitter.sg_l2-true_4_0.8",
+    "seconds": 130.483,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.613935+00:00",
+    "mtime_ns": 1775936542613935202,
+    "sha256": "826cd3345af0fb1969a1a743b5b7b581e54b683a17acffee7e8ba2aede902a26",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old/bc-twitter.sg/12MiB_run12_model_discounted_reward_90_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.18_old",
+    "size_mib": 12,
+    "run": 12,
+    "variant": "_model_discounted_reward_90_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 132.346,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.613935+00:00",
+    "mtime_ns": 1775936542613935202,
+    "sha256": "36d0211dcb9a1c855fd83063f6c7f4fc6d183ca49254a77911076cdf6f6ee822",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old/bc-twitter.sg/12MiB_run12_model_discounted_reward_90_bc-twitter.sg_l2-true_4_1.0.time",
+    "group": "old/model-6.18_old",
+    "size_mib": 12,
+    "run": 12,
+    "variant": "_model_discounted_reward_90_bc-twitter.sg_l2-true_4_1.0",
+    "seconds": 134.423,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.614935+00:00",
+    "mtime_ns": 1775936542614935216,
+    "sha256": "98b9489f265a1b29d3223482975fe455a507a224110b9272c52a21b297b15db4",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old/bc-twitter.sg/12MiB_run12_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.8.time",
+    "group": "old/model-6.18_old",
+    "size_mib": 12,
+    "run": 12,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.8",
+    "seconds": 116.16499999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.614935+00:00",
+    "mtime_ns": 1775936542614935216,
+    "sha256": "55ad93bd899c3be6151dd6e820932b3893bcc71a05c4145e91b509b93df9c2e7",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old/bc-twitter.sg/12MiB_run12_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.18_old",
+    "size_mib": 12,
+    "run": 12,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 121.228,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.614935+00:00",
+    "mtime_ns": 1775936542614935216,
+    "sha256": "64b36cce7657659be7daed92b5e1a6e63fd45c150192a8a5094b6cbfe86b08aa",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old/bc-twitter.sg/12MiB_run12_model_discounted_reward_95_bc-twitter.sg_l2-true_4_1.0.time",
+    "group": "old/model-6.18_old",
+    "size_mib": 12,
+    "run": 12,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_1.0",
+    "seconds": 117.245,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.614935+00:00",
+    "mtime_ns": 1775936542614935216,
+    "sha256": "884dfcd17cfedd422e37a5fd646c0c5a3d741c7245df23d50691ff71e03b4971",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old/bc-twitter.sg/12MiB_run12_model_discounted_reward_99_bc-twitter.sg_l2-true_4_0.8.time",
+    "group": "old/model-6.18_old",
+    "size_mib": 12,
+    "run": 12,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-true_4_0.8",
+    "seconds": 116.161,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.614935+00:00",
+    "mtime_ns": 1775936542614935216,
+    "sha256": "019eafc7da29f11d33df92e14d3ddecc215ff02eb55bc5803f318f3c0da56652",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old/bc-twitter.sg/12MiB_run12_model_discounted_reward_99_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.18_old",
+    "size_mib": 12,
+    "run": 12,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 122.579,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.614935+00:00",
+    "mtime_ns": 1775936542614935216,
+    "sha256": "214d88d969b31f7f16e69914fd17c4216835fe01a0c9baab790a4f69055a569a",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old/bc-twitter.sg/12MiB_run12_model_discounted_reward_99_bc-twitter.sg_l2-true_4_1.0.time",
+    "group": "old/model-6.18_old",
+    "size_mib": 12,
+    "run": 12,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-true_4_1.0",
+    "seconds": 120.345,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.614935+00:00",
+    "mtime_ns": 1775936542614935216,
+    "sha256": "ac931e1a6480ece332d7839daf0121a119d9b994d9dc35ff37d7297e547ae0b0",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old/bc-twitter.sg/8000MiB_run1_model_discounted_reward_95_bc-twitter.sg_l2-false_4_0.9.time",
+    "group": "old/model-6.18_old",
+    "size_mib": 8000,
+    "run": 1,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-false_4_0.9",
+    "seconds": 106.59899999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.614935+00:00",
+    "mtime_ns": 1775936542614935216,
+    "sha256": "1b3de97ad36bd2fa6edd8395d2af1c991c9f38ee2d68d1750c72587ff7f94be3",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old/bc-twitter.sg/8000MiB_run2_model_discounted_reward_95_bc-twitter.sg_l2-false_4_0.9.time",
+    "group": "old/model-6.18_old",
+    "size_mib": 8000,
+    "run": 2,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-false_4_0.9",
+    "seconds": 107.616,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.615935+00:00",
+    "mtime_ns": 1775936542615935230,
+    "sha256": "8b6366e7d12681ab4c2fb1600073437ee802691a72b616fab8d2444927d757da",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old/bc-twitter.sg/8000MiB_run3_model_discounted_reward_95_bc-twitter.sg_l2-false_4_0.9.time",
+    "group": "old/model-6.18_old",
+    "size_mib": 8000,
+    "run": 3,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-false_4_0.9",
+    "seconds": 108.973,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.615935+00:00",
+    "mtime_ns": 1775936542615935230,
+    "sha256": "71cb7f7cc2e2c8dd96104bea1545db62f096104449a98d945139b52d366ac7e8",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old/bc-twitter.sg/9MiB_run9_model_discounted_reward_90_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.18_old",
+    "size_mib": 9,
+    "run": 9,
+    "variant": "_model_discounted_reward_90_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 121.836,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.615935+00:00",
+    "mtime_ns": 1775936542615935230,
+    "sha256": "3c7d1b033ee724d50137af277d04872d44a3e493d9863a61e07abba17be7e568",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old/bc-twitter.sg/9MiB_run9_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.18_old",
+    "size_mib": 9,
+    "run": 9,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 113.744,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.615935+00:00",
+    "mtime_ns": 1775936542615935230,
+    "sha256": "ee1281253f2b9f5140b631004816377554879e303822a64b316fd6a3bec8f629",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.18_old/bc-twitter.sg/9MiB_run9_model_discounted_reward_99_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.18_old",
+    "size_mib": 9,
+    "run": 9,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 119.017,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.615935+00:00",
+    "mtime_ns": 1775936542615935230,
+    "sha256": "ad4c984e29ce3ff96620813a3fee44032195a71bb192cd767aca92fbbf5c361d",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.2_old_v2/bc-twitter.sg/10000MiB_run1_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.2_old_v2",
+    "size_mib": 10000,
+    "run": 1,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 145.201,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.629936+00:00",
+    "mtime_ns": 1775936542629935425,
+    "sha256": "3cd29c52b95785503bfcfc98037a8442e61b157010ef7f9a44ac3f8f84eb667f",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.2_old_v2/bc-twitter.sg/10000MiB_run2_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.2_old_v2",
+    "size_mib": 10000,
+    "run": 2,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 142.837,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.629936+00:00",
+    "mtime_ns": 1775936542629935425,
+    "sha256": "890db2e966dc3d4b3ba9ff1f33efd0a813222775ca99223bc76b3f387fc88e96",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.2_old_v2/bc-twitter.sg/10000MiB_run3_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.2_old_v2",
+    "size_mib": 10000,
+    "run": 3,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 144.89600000000002,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.629936+00:00",
+    "mtime_ns": 1775936542629935425,
+    "sha256": "f9b6102f2bce40fea3150650223fa69943ecd1eefb46c66dfde450231693068f",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.2_old_v2/bc-twitter.sg/2000MiB_run1_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.2_old_v2",
+    "size_mib": 2000,
+    "run": 1,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 209.715,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.629936+00:00",
+    "mtime_ns": 1775936542629935425,
+    "sha256": "e864270e0ad69ab84621e2ea8857a1edbee6630667d8f3d91af5eb133cf13770",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.2_old_v2/bc-twitter.sg/2000MiB_run2_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.2_old_v2",
+    "size_mib": 2000,
+    "run": 2,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 208.524,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.629936+00:00",
+    "mtime_ns": 1775936542629935425,
+    "sha256": "8806c6c9c55b4beac41d7a0420c2bf637d2f7bae9ba707a52e487775ea8049fa",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.2_old_v2/bc-twitter.sg/4000MiB_run1_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.2_old_v2",
+    "size_mib": 4000,
+    "run": 1,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 151.498,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.630935+00:00",
+    "mtime_ns": 1775936542630935439,
+    "sha256": "d93b1ccdd3cb36909404c7f890e6f1abe522ea287f99569777cf425b762245f3",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.2_old_v2/bc-twitter.sg/4000MiB_run2_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.2_old_v2",
+    "size_mib": 4000,
+    "run": 2,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 147.706,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.630935+00:00",
+    "mtime_ns": 1775936542630935439,
+    "sha256": "dea7cd81ef636a461708b0748e868aa810a2e3e3b8a613a3761904145a56506a",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.2_old_v2/bc-twitter.sg/4000MiB_run3_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.2_old_v2",
+    "size_mib": 4000,
+    "run": 3,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 147.091,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.630935+00:00",
+    "mtime_ns": 1775936542630935439,
+    "sha256": "ed71496dd316a0005446e97eecd9b93e454e04895cf1e8d67a2cd2f04e6ca67a",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.2_old_v2/bc-twitter.sg/6000MiB_run1_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.2_old_v2",
+    "size_mib": 6000,
+    "run": 1,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 143.434,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.630935+00:00",
+    "mtime_ns": 1775936542630935439,
+    "sha256": "da81ad4dfde9527a2cef6c5aaa6360a6efa88b46d764e5b1c6978cca6a7ece01",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.2_old_v2/bc-twitter.sg/6000MiB_run2_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.2_old_v2",
+    "size_mib": 6000,
+    "run": 2,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 146.159,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.630935+00:00",
+    "mtime_ns": 1775936542630935439,
+    "sha256": "caec5e0576b8e60b6a36c7aa75183882b7c99aaecd1b7cd0d750c18c08c35a4c",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.2_old_v2/bc-twitter.sg/6000MiB_run3_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.2_old_v2",
+    "size_mib": 6000,
+    "run": 3,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 143.622,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.630935+00:00",
+    "mtime_ns": 1775936542630935439,
+    "sha256": "37f4f78d86ebfdfbc384a79d6402cba6b3465b7bc47c3bc227153e41d9c3db64",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.2_old_v2/bc-twitter.sg/8000MiB_run1_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.2_old_v2",
+    "size_mib": 8000,
+    "run": 1,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 140.099,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.630935+00:00",
+    "mtime_ns": 1775936542630935439,
+    "sha256": "99ead4920cbfa4909ac1c291cddace8a653e9476c577437ed3906b38cc9a313b",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.2_old_v2/bc-twitter.sg/8000MiB_run2_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.2_old_v2",
+    "size_mib": 8000,
+    "run": 2,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 141.477,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.630935+00:00",
+    "mtime_ns": 1775936542630935439,
+    "sha256": "a26e91fa1c182edc68f4f36bace0dffe68f07e7c9b91407e1124a7d3e5ec09f7",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/model-6.2_old_v2/bc-twitter.sg/8000MiB_run3_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/model-6.2_old_v2",
+    "size_mib": 8000,
+    "run": 3,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 140.444,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.630935+00:00",
+    "mtime_ns": 1775936542630935439,
+    "sha256": "16ade3929ad28599c68e18f8c4b47d5f50797a17a89a306143ad83ff78bc4e65",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_model/bc-twitter.sg/2000MiB_run1_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/_model",
+    "size_mib": 2000,
+    "run": 1,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 209.715,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.644936+00:00",
+    "mtime_ns": 1775936542644935635,
+    "sha256": "e864270e0ad69ab84621e2ea8857a1edbee6630667d8f3d91af5eb133cf13770",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_model/bc-twitter.sg/2000MiB_run2_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/_model",
+    "size_mib": 2000,
+    "run": 2,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 208.524,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.645936+00:00",
+    "mtime_ns": 1775936542645935649,
+    "sha256": "8806c6c9c55b4beac41d7a0420c2bf637d2f7bae9ba707a52e487775ea8049fa",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_model/bc-twitter.sg/4000MiB_run1_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/_model",
+    "size_mib": 4000,
+    "run": 1,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 151.498,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.645936+00:00",
+    "mtime_ns": 1775936542645935649,
+    "sha256": "d93b1ccdd3cb36909404c7f890e6f1abe522ea287f99569777cf425b762245f3",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_model/bc-twitter.sg/4000MiB_run2_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/_model",
+    "size_mib": 4000,
+    "run": 2,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 147.706,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.645936+00:00",
+    "mtime_ns": 1775936542645935649,
+    "sha256": "dea7cd81ef636a461708b0748e868aa810a2e3e3b8a613a3761904145a56506a",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_model/bc-twitter.sg/4000MiB_run3_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/_model",
+    "size_mib": 4000,
+    "run": 3,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 147.091,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.645936+00:00",
+    "mtime_ns": 1775936542645935649,
+    "sha256": "ed71496dd316a0005446e97eecd9b93e454e04895cf1e8d67a2cd2f04e6ca67a",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_model/bc-twitter.sg/6000MiB_run1_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/_model",
+    "size_mib": 6000,
+    "run": 1,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 143.434,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.645936+00:00",
+    "mtime_ns": 1775936542645935649,
+    "sha256": "da81ad4dfde9527a2cef6c5aaa6360a6efa88b46d764e5b1c6978cca6a7ece01",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_model/bc-twitter.sg/6000MiB_run2_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/_model",
+    "size_mib": 6000,
+    "run": 2,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 146.159,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-11T19:42:22.645936+00:00",
+    "mtime_ns": 1775936542645935649,
+    "sha256": "caec5e0576b8e60b6a36c7aa75183882b7c99aaecd1b7cd0d750c18c08c35a4c",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_arms/bc-twitter.sg/8000MiB_run1.time",
+    "group": "old/_arms",
+    "size_mib": 8000,
+    "run": 1,
+    "variant": "",
+    "seconds": 94.69200000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-13T01:59:23.167623+00:00",
+    "mtime_ns": 1776045563167622965,
+    "sha256": "2d398ea60358f5ff24875cfb094aa60a936d07dc639e3f324615a66b95d02c14",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_arms/bc-twitter.sg/8000MiB_run2.time",
+    "group": "old/_arms",
+    "size_mib": 8000,
+    "run": 2,
+    "variant": "",
+    "seconds": 94.161,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-13T02:42:21.967602+00:00",
+    "mtime_ns": 1776048141967602049,
+    "sha256": "f5f90404720593368f536e30fc047afa2a918a309857afdb468e4c7bb345dc27",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_arms/bc-twitter.sg/8000MiB_run3.time",
+    "group": "old/_arms",
+    "size_mib": 8000,
+    "run": 3,
+    "variant": "",
+    "seconds": 94.50399999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-13T03:21:47.918675+00:00",
+    "mtime_ns": 1776050507918675082,
+    "sha256": "6f84b6d19365522b03acc53173e67d93d8fdd01aa3228205363e816c3263cfdd",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_arms/bc-twitter.sg/100000MiB_run1_train.time",
+    "group": "old/_arms",
+    "size_mib": 100000,
+    "run": 1,
+    "variant": "_train",
+    "seconds": 103.85499999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-22T23:27:25.767332+00:00",
+    "mtime_ns": 1776900445767331624,
+    "sha256": "0e950c2f088fbc3660b62f5bf0090b26b38d0332cc5e0c1ea3f2fd5e63aeb6fa",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_arms/bc-twitter.sg/100000MiB_run1_cxl_train.time",
+    "group": "old/_arms",
+    "size_mib": 100000,
+    "run": 1,
+    "variant": "_cxl_train",
+    "seconds": 134.505,
+    "exit_status": 0,
+    "mtime_utc": "2026-04-23T07:40:31.600657+00:00",
+    "mtime_ns": 1776930031600657491,
+    "sha256": "44fae94e1a036f82120644611ee344a2f67970847b2c9545e7843cc441c417f3",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_arms/bc-twitter.sg/8000MiB_run1_train.time",
+    "group": "old/_arms",
+    "size_mib": 8000,
+    "run": 1,
+    "variant": "_train",
+    "seconds": 0.109,
+    "exit_status": 1,
+    "mtime_utc": "2026-04-23T23:40:23.047363+00:00",
+    "mtime_ns": 1776987623047362463,
+    "sha256": "8ad048e6f7da043b8c69c01b4cef63f153adbc3cd7fa352189728bf7d4d98b00",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_model/bc-twitter.sg/8000MiB_run1_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/_model",
+    "size_mib": 8000,
+    "run": 1,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 0.11,
+    "exit_status": 1,
+    "mtime_utc": "2026-04-23T23:40:23.048362+00:00",
+    "mtime_ns": 1776987623048362477,
+    "sha256": "7c31ad729871cb0532e8321ce6c54d10da800b61d1c9389173cb41b094283599",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_model/bc-twitter.sg/8000MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/_model",
+    "size_mib": 8000,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 0.107,
+    "exit_status": 1,
+    "mtime_utc": "2026-04-23T23:40:23.048362+00:00",
+    "mtime_ns": 1776987623048362477,
+    "sha256": "b976bafc33c114d495078b1d595cead8178a0a0d42cd6432d2afd5f26683bd67",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_model/bc-twitter.sg/8000MiB_run1_train_model_discounted_reward_90_bc-twitter.sg_l2-false_4_0.9.time",
+    "group": "old/_model",
+    "size_mib": 8000,
+    "run": 1,
+    "variant": "_train_model_discounted_reward_90_bc-twitter.sg_l2-false_4_0.9",
+    "seconds": 0.106,
+    "exit_status": 1,
+    "mtime_utc": "2026-04-23T23:40:23.048362+00:00",
+    "mtime_ns": 1776987623048362477,
+    "sha256": "d0715b1158c531997e2a627b320eb30ae90dae5bcfa33e7151817626fda2ae8f",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_model/bc-twitter.sg/8000MiB_run1_train_model_discounted_reward_95_bc-twitter.sg_l2-false_4_0.9.time",
+    "group": "old/_model",
+    "size_mib": 8000,
+    "run": 1,
+    "variant": "_train_model_discounted_reward_95_bc-twitter.sg_l2-false_4_0.9",
+    "seconds": 0.106,
+    "exit_status": 1,
+    "mtime_utc": "2026-04-23T23:40:23.048362+00:00",
+    "mtime_ns": 1776987623048362477,
+    "sha256": "f9fca9e8255f393f7eddd3a3f4dd47d3dcadf7f2eeed9a72dd9745599267d31a",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_model/bc-twitter.sg/8000MiB_run1_train_model_discounted_reward_99_bc-twitter.sg_l2-false_4_0.9.time",
+    "group": "old/_model",
+    "size_mib": 8000,
+    "run": 1,
+    "variant": "_train_model_discounted_reward_99_bc-twitter.sg_l2-false_4_0.9",
+    "seconds": 0.106,
+    "exit_status": 1,
+    "mtime_utc": "2026-04-23T23:40:23.048362+00:00",
+    "mtime_ns": 1776987623048362477,
+    "sha256": "a0f5e26fc99beba3230a51a3f2c70ae2265961f00d22792f4730771978336c04",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_model/bc-twitter.sg/8000MiB_run2_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/_model",
+    "size_mib": 8000,
+    "run": 2,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 0.109,
+    "exit_status": 1,
+    "mtime_utc": "2026-04-23T23:40:23.048362+00:00",
+    "mtime_ns": 1776987623048362477,
+    "sha256": "0bde280d4de38114931293cf0557148b00a7d2cf547def94415ce93c1ab233f2",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_model/bc-twitter.sg/8000MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/_model",
+    "size_mib": 8000,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 0.108,
+    "exit_status": 1,
+    "mtime_utc": "2026-04-23T23:40:23.048362+00:00",
+    "mtime_ns": 1776987623048362477,
+    "sha256": "ebf6d091751854977b681a5a0422e5553bcf97f529e1864d6eb43166ad549cc6",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_model/bc-twitter.sg/8000MiB_run3_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/_model",
+    "size_mib": 8000,
+    "run": 3,
+    "variant": "_model_discounted_reward_95_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 0.109,
+    "exit_status": 1,
+    "mtime_utc": "2026-04-23T23:40:23.048362+00:00",
+    "mtime_ns": 1776987623048362477,
+    "sha256": "3b698246a4e25b0848757dc69d813d9ac645beb318f5493013b17b16223cb9aa",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/old/_model/bc-twitter.sg/8000MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-true_4_0.9.time",
+    "group": "old/_model",
+    "size_mib": 8000,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-true_4_0.9",
+    "seconds": 0.11,
+    "exit_status": 1,
+    "mtime_utc": "2026-04-23T23:40:23.048362+00:00",
+    "mtime_ns": 1776987623048362477,
+    "sha256": "464c0901eaa2bd152474eeafa7c25a1f01bd964cf3c691b83d6264aefedb37ee",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/4008MiB_run1.time",
+    "group": "arms-6.18_new",
+    "size_mib": 4008,
+    "run": 1,
+    "variant": "",
+    "seconds": 121.201,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-04T06:27:30.738794+00:00",
+    "mtime_ns": 1777876050738794249,
+    "sha256": "6911b5cfca6d37c8fac8f26afe70430f09137d4d19887c767c33b8237d9ddc01",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4008MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "group": "model_6.18_new",
+    "size_mib": 4008,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25",
+    "seconds": 109.994,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-04T06:30:05.711932+00:00",
+    "mtime_ns": 1777876205711931707,
+    "sha256": "ddc96306ba29fc67bcfd7e8abd17b5a4f214958bd6eb14d7eef03307d294583b",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4008MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 4008,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5",
+    "seconds": 103.225,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-04T06:32:34.808988+00:00",
+    "mtime_ns": 1777876354808987683,
+    "sha256": "b197234a5672af754a2b16bc89e982056e13e7212cd78b70cd982a2da6762ace",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4008MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 4008,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0",
+    "seconds": 104.953,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-04T06:35:05.323063+00:00",
+    "mtime_ns": 1777876505323063353,
+    "sha256": "143f6b2e01b9eb3c65e133cd232907da22b862a6829b7d610363295d54273d39",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4008MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 4008,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5",
+    "seconds": 102.54599999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-04T06:37:33.702110+00:00",
+    "mtime_ns": 1777876653702109651,
+    "sha256": "7bbde62171e876884bc14abc0b44acfd7bbfd6bbca605828fa700c0e49b2024b",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4008MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_2.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 4008,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_2.0",
+    "seconds": 105.35900000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-04T06:40:04.302187+00:00",
+    "mtime_ns": 1777876804302186610,
+    "sha256": "372a8eba9450f0ff9641a40969bf2b4622e7ee8a7a8c1d6d678b724699569614",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/4008MiB_run2.time",
+    "group": "arms-6.18_new",
+    "size_mib": 4008,
+    "run": 2,
+    "variant": "",
+    "seconds": 114.783,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-04T10:14:31.497047+00:00",
+    "mtime_ns": 1777889671497047321,
+    "sha256": "12c63c6d39899d8ea1c4b590b04912735eb69d64adef15d87a17ece9cb9c9e1a",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4008MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "group": "model_6.18_new",
+    "size_mib": 4008,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25",
+    "seconds": 110.275,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-04T10:17:07.771231+00:00",
+    "mtime_ns": 1777889827771230919,
+    "sha256": "16a3c50e997c0c474f1fe674039211eb3b5d98f7c00b9d8582cc703bb5c3bb0b",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4008MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 4008,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5",
+    "seconds": 101.32900000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-04T10:19:34.700317+00:00",
+    "mtime_ns": 1777889974700317255,
+    "sha256": "50e574602f317a3fc24886d33b9114b4c2b526dcddd316d178fa570dd32026fe",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4008MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 4008,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0",
+    "seconds": 101.53999999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-04T10:22:01.691412+00:00",
+    "mtime_ns": 1777890121691412460,
+    "sha256": "b69c87638362208616ffc879c5d819b57df4552f708061cbe4c2b95a73d06f27",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4008MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 4008,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5",
+    "seconds": 102.038,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-04T10:24:29.501482+00:00",
+    "mtime_ns": 1777890269501481853,
+    "sha256": "1fc8be952cd9b366759b220990c9022571c9882f3278d8e9eb45ac5f584f4dca",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4008MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_2.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 4008,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_2.0",
+    "seconds": 103.592,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-04T10:26:59.064582+00:00",
+    "mtime_ns": 1777890419064582360,
+    "sha256": "213c5e4678adea727c1d850cda56d93fca727ad40fd8d8d0a2c5909bbdcd5e2f",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/4008MiB_run3.time",
+    "group": "arms-6.18_new",
+    "size_mib": 4008,
+    "run": 3,
+    "variant": "",
+    "seconds": 115.013,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-04T14:00:57.014450+00:00",
+    "mtime_ns": 1777903257014449497,
+    "sha256": "2af774805409b1ea29343d19a98677d4f3e5f31f20848656bdadc9c0a7566ae5",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4008MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "group": "model_6.18_new",
+    "size_mib": 4008,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25",
+    "seconds": 102.34100000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-04T14:03:25.011527+00:00",
+    "mtime_ns": 1777903405011526787,
+    "sha256": "bf10ff7c9a376c301b1db37394538590f67de50ce5e4bc4e9f885d142cce2bed",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4008MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 4008,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5",
+    "seconds": 101.269,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-04T14:05:52.222600+00:00",
+    "mtime_ns": 1777903552222599728,
+    "sha256": "10fdfc74cade4102085cbef44ac905443decc8d069bb32dd27275fe9a6abc52c",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4008MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 4008,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0",
+    "seconds": 101.029,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-04T14:08:19.053673+00:00",
+    "mtime_ns": 1777903699053673197,
+    "sha256": "a47bcbf2a716f33088dac4ae67eb523465f2847229f12e029ec74dc5d04640a5",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4008MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 4008,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5",
+    "seconds": 104.374,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-04T14:10:49.038800+00:00",
+    "mtime_ns": 1777903849038799760,
+    "sha256": "4566763d6a77c8130ad531fdf4fca2fc11d23f4ded5c354ff6996262e043637f",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4008MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_2.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 4008,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_2.0",
+    "seconds": 103.55799999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-04T14:13:19.043930+00:00",
+    "mtime_ns": 1777903999043929660,
+    "sha256": "c8696b3f81a591e9b1e61a04eb4a7edb497c689768a507047279d77695e37905",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/6005MiB_run1.time",
+    "group": "arms-6.18_new",
+    "size_mib": 6005,
+    "run": 1,
+    "variant": "",
+    "seconds": 100.681,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T04:18:22.707130+00:00",
+    "mtime_ns": 1777954702707130057,
+    "sha256": "162ef9c04fb4fc64c0dfb9df0d36ee6763517922eb67253e2533b095938da89e",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625.time",
+    "group": "model_6.18_new",
+    "size_mib": 6005,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625",
+    "seconds": 111.578,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T04:20:58.801370+00:00",
+    "mtime_ns": 1777954858801370247,
+    "sha256": "7603e13153626792ef96a33c0eb44db3962e0fb94d356af7afdb4af58bd7ecf3",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+    "group": "model_6.18_new",
+    "size_mib": 6005,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125",
+    "seconds": 100.77000000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T04:23:24.614456+00:00",
+    "mtime_ns": 1777955004614456480,
+    "sha256": "6b8b061815ac8ae1ae0170fb41a67e83b85bd6d57cc733f5bbb8ddf4018f67f1",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "group": "model_6.18_new",
+    "size_mib": 6005,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25",
+    "seconds": 100.304,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T04:25:49.871531+00:00",
+    "mtime_ns": 1777955149871531519,
+    "sha256": "46e2ef135446074450c2c3ee6715000983d916ad641f7bba2116d1e74298e6a0",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 6005,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5",
+    "seconds": 101.088,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T04:28:15.629614+00:00",
+    "mtime_ns": 1777955295629613742,
+    "sha256": "8e336ab98b1f345a0009aa3f7b5b3054196821ea195edfd8b61944b7cc656e54",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 6005,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0",
+    "seconds": 101.50999999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T04:30:42.145707+00:00",
+    "mtime_ns": 1777955442145707060,
+    "sha256": "e2e37e01afb579126808c92950806928fe0ac5db620c27b7bf89b943279dab49",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 6005,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5",
+    "seconds": 102.61099999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T04:33:09.908818+00:00",
+    "mtime_ns": 1777955589908818320,
+    "sha256": "667ca5fb6c475d0341ee2e28cc14da9809d6af771fd7ffbff9ad74b3efa16252",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/6005MiB_run2.time",
+    "group": "arms-6.18_new",
+    "size_mib": 6005,
+    "run": 2,
+    "variant": "",
+    "seconds": 100.172,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T07:32:01.636537+00:00",
+    "mtime_ns": 1777966321636536593,
+    "sha256": "fc4602750d671fcf835aedfbd35dd997476c2a0b49f8dc355af2c44769f30146",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625.time",
+    "group": "model_6.18_new",
+    "size_mib": 6005,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625",
+    "seconds": 107.95400000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T07:34:34.513757+00:00",
+    "mtime_ns": 1777966474513756800,
+    "sha256": "afd8c09fcad931ec6a43309c2e10c425b66b0ce6317ceaf604fe9b5e5af354a9",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+    "group": "model_6.18_new",
+    "size_mib": 6005,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125",
+    "seconds": 102.999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T07:37:02.584907+00:00",
+    "mtime_ns": 1777966622584906603,
+    "sha256": "ca48d2df3ba1d4810215a10b3e7ef6f5fcf6115de41d17f479863c4ecdc1b7bb",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "group": "model_6.18_new",
+    "size_mib": 6005,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25",
+    "seconds": 99.882,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T07:39:27.114005+00:00",
+    "mtime_ns": 1777966767114004851,
+    "sha256": "0c859f8486e471b97c660a8da384fb31d0d6a67b65c59bd932e37e39989610a9",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 6005,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5",
+    "seconds": 100.854,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T07:41:52.898120+00:00",
+    "mtime_ns": 1777966912898119951,
+    "sha256": "7f7ff1be7419fd19bef1beef75bc2654ea4819fb1e235ced5b0ad9ee55f82df8",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 6005,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0",
+    "seconds": 100.279,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T07:44:18.329230+00:00",
+    "mtime_ns": 1777967058329229713,
+    "sha256": "7f83860946b74d2be6820df21bea56322445f94208ef9e8269ece77e9b87db33",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 6005,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5",
+    "seconds": 101.30799999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T07:46:44.371348+00:00",
+    "mtime_ns": 1777967204371347704,
+    "sha256": "5be00e1047a5e72ba33c1e9faee808298ce997b7e430166d35eb621b470c6606",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/6005MiB_run3.time",
+    "group": "arms-6.18_new",
+    "size_mib": 6005,
+    "run": 3,
+    "variant": "",
+    "seconds": 99.89699999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T10:45:30.788278+00:00",
+    "mtime_ns": 1777977930788278102,
+    "sha256": "c749d8f2cdabc24a7278fed442bfadb827f811bdefab94ba72fbcec552936a89",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625.time",
+    "group": "model_6.18_new",
+    "size_mib": 6005,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625",
+    "seconds": 107.036,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T10:48:03.186463+00:00",
+    "mtime_ns": 1777978083186462714,
+    "sha256": "c5b11ca7d970c8f45d4eb4a85fc96e34c9be3c4344a54c7868042af79ac1043d",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+    "group": "model_6.18_new",
+    "size_mib": 6005,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125",
+    "seconds": 104.93,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T10:50:32.951608+00:00",
+    "mtime_ns": 1777978232951608356,
+    "sha256": "efd6c15404fba4068b6759433a0583941fb473d048ccdc8de78b284723e7d4ae",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "group": "model_6.18_new",
+    "size_mib": 6005,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25",
+    "seconds": 99.928,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T10:52:58.139692+00:00",
+    "mtime_ns": 1777978378139691526,
+    "sha256": "fc7876c8704c760c4faa52d1bee9e4fc45a810cab12eb7e81dd698b7f7ac83df",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 6005,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5",
+    "seconds": 102.013,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T10:55:24.637794+00:00",
+    "mtime_ns": 1777978524637794154,
+    "sha256": "1880abca996847411816a934904b07d83c7c01ec8c37d47b354796bb7062ea4b",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 6005,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0",
+    "seconds": 103.598,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T10:57:53.334929+00:00",
+    "mtime_ns": 1777978673334929348,
+    "sha256": "7bb90a91e21e34e48020f17371fa0e3711a4a97de4595ee0365be41b653b8b10",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 6005,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5",
+    "seconds": 105.01599999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-05T11:00:23.252084+00:00",
+    "mtime_ns": 1777978823252083583,
+    "sha256": "9174321253fec89cfe8cedbb6a4427394ce1079164ddda355ebe8f40159c7ed4",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/8005MiB_run1.time",
+    "group": "arms-6.18_new",
+    "size_mib": 8005,
+    "run": 1,
+    "variant": "",
+    "seconds": 98.843,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T02:44:41.834086+00:00",
+    "mtime_ns": 1778035481834085865,
+    "sha256": "1df495d4422e67717d648352fc6c1e96518b49a948a31239fcfdc3ac7a262feb",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625.time",
+    "group": "model_6.18_new",
+    "size_mib": 8005,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625",
+    "seconds": 102.563,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T02:47:10.088804+00:00",
+    "mtime_ns": 1778035630088804289,
+    "sha256": "141ffb2e8e3e64114dbd6c828ee288f72ac432c130e0035bbf5c77ec27be17d7",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+    "group": "model_6.18_new",
+    "size_mib": 8005,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125",
+    "seconds": 100.038,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T02:49:36.054495+00:00",
+    "mtime_ns": 1778035776054495377,
+    "sha256": "219bd1d26d9474f679d474d25891d4ef1116a78c45160ffb80ab4b52651dd356",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "group": "model_6.18_new",
+    "size_mib": 8005,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25",
+    "seconds": 101.868,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T02:52:03.852210+00:00",
+    "mtime_ns": 1778035923852210222,
+    "sha256": "b0e222a9d1f23dc250372e27f38f934e0f2657e6c62b159d7e37c3154635b7c9",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 8005,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5",
+    "seconds": 101.086,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T02:54:30.683915+00:00",
+    "mtime_ns": 1778036070683915323,
+    "sha256": "31b4eb4e9d69a099f8ab3c5c15de9caa2a46b8dc53f16dac2b15e1a26cb7b8b5",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 8005,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0",
+    "seconds": 101.866,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T02:56:58.351621+00:00",
+    "mtime_ns": 1778036218351621228,
+    "sha256": "fbfb38f493ec78b4a199481d31797d99b3e85cb8b4066d11cce23752b1d3ab6c",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 8005,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5",
+    "seconds": 100.906,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T02:59:25.101314+00:00",
+    "mtime_ns": 1778036365101313821,
+    "sha256": "cd8f659ff28a871bf3a72de47e5b15d01b3388e8ea71e2fa1d9909816ec914ce",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/8005MiB_run2.time",
+    "group": "arms-6.18_new",
+    "size_mib": 8005,
+    "run": 2,
+    "variant": "",
+    "seconds": 99.887,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T06:28:46.755347+00:00",
+    "mtime_ns": 1778048926755347537,
+    "sha256": "72d28d2e64cebedc999b33eba7167d40e7fd01133565f7911553262e9dc61a0d",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625.time",
+    "group": "model_6.18_new",
+    "size_mib": 8005,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625",
+    "seconds": 101.95,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T06:31:14.406064+00:00",
+    "mtime_ns": 1778049074406063755,
+    "sha256": "5ce4840d6f2bb4f4052654a55ba519be5188c3a95779a25de50b662a88adc7e6",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+    "group": "model_6.18_new",
+    "size_mib": 8005,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125",
+    "seconds": 98.572,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T06:33:38.325734+00:00",
+    "mtime_ns": 1778049218325734151,
+    "sha256": "376076b81c96b3dd9ff71cd801695c5bc3f9249e09a9be551f80607a66240953",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "group": "model_6.18_new",
+    "size_mib": 8005,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25",
+    "seconds": 100.431,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T06:36:04.421428+00:00",
+    "mtime_ns": 1778049364421428491,
+    "sha256": "0fa8755eb398ef97261b0240a83f22fc7ac0fd056160ca3633e33b7bf420857e",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 8005,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5",
+    "seconds": 99.48400000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T06:38:29.523111+00:00",
+    "mtime_ns": 1778049509523110619,
+    "sha256": "3b09825354e04f05c711e31dc0c40325caeb162004a2a2d3d2b6cb46c6dd8054",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 8005,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0",
+    "seconds": 100.656,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T06:40:55.747806+00:00",
+    "mtime_ns": 1778049655747806164,
+    "sha256": "8c9a737ee6bd21b8b69ab9abbdbbdbf1b85ce14b1c0f581ebd602f73a208ac04",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 8005,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5",
+    "seconds": 101.25999999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T06:43:22.251504+00:00",
+    "mtime_ns": 1778049802251504469,
+    "sha256": "4c2efb07a544ab63d4745195b9b497a80d1f971c92062ef01d1d4356735df8cb",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/8005MiB_run3.time",
+    "group": "arms-6.18_new",
+    "size_mib": 8005,
+    "run": 3,
+    "variant": "",
+    "seconds": 99.125,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T10:12:19.991415+00:00",
+    "mtime_ns": 1778062339991415081,
+    "sha256": "cf04e3bc699d21d5800990ff95aa4e18eaca5a51c28971465327a69147e4ff0b",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625.time",
+    "group": "model_6.18_new",
+    "size_mib": 8005,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625",
+    "seconds": 102.732,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T10:14:47.956132+00:00",
+    "mtime_ns": 1778062487956131999,
+    "sha256": "154c97f449bfcba1ab763fb0f68557bc64d32188dae9a3806baa4c46ae49baea",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+    "group": "model_6.18_new",
+    "size_mib": 8005,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125",
+    "seconds": 98.49000000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T10:17:11.920803+00:00",
+    "mtime_ns": 1778062631920802501,
+    "sha256": "1ab69b88101bda632487d484dd22fc896448b8c6293c0b46fd626f0dc875c37a",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "group": "model_6.18_new",
+    "size_mib": 8005,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25",
+    "seconds": 99.541,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T10:19:37.226489+00:00",
+    "mtime_ns": 1778062777226488663,
+    "sha256": "b9ac6c47036712dbeea39cbf476a012e6c6751a4a2e4d2c0016c8cf15447220b",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 8005,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5",
+    "seconds": 100.45,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T10:22:03.332184+00:00",
+    "mtime_ns": 1778062923332184306,
+    "sha256": "da95efaf10bb9622e560ace4a00b584ac04223fb5358779d6dc548791d3cd429",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 8005,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0",
+    "seconds": 101.178,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T10:24:29.943886+00:00",
+    "mtime_ns": 1778063069943885791,
+    "sha256": "bf3e88e6895bd1cf1cd31d08d4d030e739778cc5100f8b40f16fc01add8df884",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 8005,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5",
+    "seconds": 102.789,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T10:26:57.729601+00:00",
+    "mtime_ns": 1778063217729600872,
+    "sha256": "7580982f2a1ff12ab38f5b28779da9b8095cee439672d1155d5caa9fdad73433",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/10005MiB_run1.time",
+    "group": "arms-6.18_new",
+    "size_mib": 10005,
+    "run": 1,
+    "variant": "",
+    "seconds": 98.048,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T18:38:06.205043+00:00",
+    "mtime_ns": 1778092686205043170,
+    "sha256": "770ea35f10cd39e05e29b9fd12e7e0dfc1a7cb78843305b34e0481432d2e4ade",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625.time",
+    "group": "model_6.18_new",
+    "size_mib": 10005,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625",
+    "seconds": 104.45,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T18:40:35.319098+00:00",
+    "mtime_ns": 1778092835319097453,
+    "sha256": "7e2a0e73991e9ab711454c2455dbacde849392719eca9917f623731e9e3b7ab0",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625.time",
+        "mtime_utc": "2026-05-11T05:17:18.725980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+    "group": "model_6.18_new",
+    "size_mib": 10005,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125",
+    "seconds": 98.721,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T18:42:58.825081+00:00",
+    "mtime_ns": 1778092978825080991,
+    "sha256": "8f80dbd3eec78b2fcc0162b486abad207235605d7d789382ef2e5e56f41314b8",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "mtime_utc": "2026-05-11T05:17:18.726980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "group": "model_6.18_new",
+    "size_mib": 10005,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25",
+    "seconds": 99.74600000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T18:45:23.131081+00:00",
+    "mtime_ns": 1778093123131080605,
+    "sha256": "75f7f48aada6b73c5f3a1fc977b4c92d288bc7139269dbd49cd07e1470c7f1f3",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "mtime_utc": "2026-05-11T05:17:18.727980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 10005,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5",
+    "seconds": 100.465,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T18:47:48.459095+00:00",
+    "mtime_ns": 1778093268459095501,
+    "sha256": "bf76c5a96ad72b2b6327644c9800b3a00303b90f79703852ff160c6804dded85",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.727980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 10005,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0",
+    "seconds": 99.757,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T18:50:12.382085+00:00",
+    "mtime_ns": 1778093412382085262,
+    "sha256": "c14d8fc1b6ae50610a4262fad27585d44e36d2bf322e50f8db159795c542f01b",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "mtime_utc": "2026-05-11T05:17:18.728980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 10005,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5",
+    "seconds": 101.81,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T18:52:38.632101+00:00",
+    "mtime_ns": 1778093558632101197,
+    "sha256": "5a73faffa0e5c0ccd55dcb9da400aa2f609839c18064d24921fa9623419dd5e1",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.729980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/10005MiB_run2.time",
+    "group": "arms-6.18_new",
+    "size_mib": 10005,
+    "run": 2,
+    "variant": "",
+    "seconds": 97.97,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T22:20:06.665892+00:00",
+    "mtime_ns": 1778106006665892175,
+    "sha256": "3df59e49b9a576bef499ee1e68975b54803ad956156888455f865cf2ede99ce7",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625.time",
+    "group": "model_6.18_new",
+    "size_mib": 10005,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625",
+    "seconds": 97.843,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T22:22:30.276891+00:00",
+    "mtime_ns": 1778106150276891315,
+    "sha256": "8eaf229bcb255dcc984a5f65355c32c8ac1bb51f796059ed07c66e3ff36eb7e1",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625.time",
+        "mtime_utc": "2026-05-11T05:17:18.730980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+    "group": "model_6.18_new",
+    "size_mib": 10005,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125",
+    "seconds": 97.22800000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T22:24:54.067891+00:00",
+    "mtime_ns": 1778106294067890924,
+    "sha256": "7be334c089f5e749ec04b16113a2db97bf5a9b5c3abcecfc6f832d2b10ae95e7",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "mtime_utc": "2026-05-11T05:17:18.730980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "group": "model_6.18_new",
+    "size_mib": 10005,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25",
+    "seconds": 99.473,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T22:27:19.760917+00:00",
+    "mtime_ns": 1778106439760916780,
+    "sha256": "f312ed232a847fbfccead1e407f147e1d9e10d8025d50a4c09cd07352395259a",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "mtime_utc": "2026-05-11T05:17:18.731980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 10005,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5",
+    "seconds": 99.429,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T22:29:45.099936+00:00",
+    "mtime_ns": 1778106585099936556,
+    "sha256": "cbdb9b627f4e34a6b7c1b80a348608f211ca9886a37cfbf198d6dc367165b64a",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.732980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 10005,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0",
+    "seconds": 100.17699999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T22:32:11.430964+00:00",
+    "mtime_ns": 1778106731430964584,
+    "sha256": "b75d3f25464b5092f80a7428e20c17b680bfe5b1ef1492757df03717b8f3c14d",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "mtime_utc": "2026-05-11T05:17:18.733980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 10005,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5",
+    "seconds": 102.50399999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-06T22:34:39.866023+00:00",
+    "mtime_ns": 1778106879866022759,
+    "sha256": "231c4569231d34210c02c74cb897becca96ed62712766e2044bd2a563db46626",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.734980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/10005MiB_run3.time",
+    "group": "arms-6.18_new",
+    "size_mib": 10005,
+    "run": 3,
+    "variant": "",
+    "seconds": 97.576,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T02:01:49.768584+00:00",
+    "mtime_ns": 1778119309768584520,
+    "sha256": "6648a2f4ad6c07042917dfc7d1601a3ab825f7973ea3b95804f3e7f6ff383537",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625.time",
+    "group": "model_6.18_new",
+    "size_mib": 10005,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625",
+    "seconds": 98.218,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T02:04:13.850588+00:00",
+    "mtime_ns": 1778119453850587616,
+    "sha256": "4545e76c0ce05c5ca90d01f029a975d88cfe3b833c06451dac83c6d64810f9a4",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.0625.time",
+        "mtime_utc": "2026-05-11T05:17:18.734980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+    "group": "model_6.18_new",
+    "size_mib": 10005,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125",
+    "seconds": 97.42,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T02:06:37.148582+00:00",
+    "mtime_ns": 1778119597148582252,
+    "sha256": "c01f405b80d8f23cd7b2d759db89f19e286fd2fe868a073b1b07b96a6da4dc64",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "mtime_utc": "2026-05-11T05:17:18.735980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "group": "model_6.18_new",
+    "size_mib": 10005,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25",
+    "seconds": 100.684,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T02:09:03.762624+00:00",
+    "mtime_ns": 1778119743762623890,
+    "sha256": "24c67007218a4785b599029a460b9fdd695522b6e2f18aebd5c2870be2bd1905",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "mtime_utc": "2026-05-11T05:17:18.736980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 10005,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5",
+    "seconds": 101.562,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T02:11:31.230678+00:00",
+    "mtime_ns": 1778119891230677632,
+    "sha256": "f6ef853736b422d5818469bf4a88b931fada015a98558acc14c5e34903e83691",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.737980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 10005,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0",
+    "seconds": 100.54599999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T02:13:58.009715+00:00",
+    "mtime_ns": 1778120038009715408,
+    "sha256": "71de8a105259028572753c39c2e0fbad28e528e40fb0031ec336a9d48fcb1891",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "mtime_utc": "2026-05-11T05:17:18.737980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 10005,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5",
+    "seconds": 103.294,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T02:16:26.451770+00:00",
+    "mtime_ns": 1778120186451770375,
+    "sha256": "4c00cc7251e4d18d0f297aa02f3f6e6766e7ace14ae41729170d6d6f07dfc499",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/10005MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.738980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/4009MiB_run1.time",
+    "group": "arms-6.18_new",
+    "size_mib": 4009,
+    "run": 1,
+    "variant": "",
+    "seconds": 112.781,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T09:07:49.182845+00:00",
+    "mtime_ns": 1778144869182845273,
+    "sha256": "0fa3245410764fa5fa16e61b5834adeb9eaa5645f80e1e8b48ef63d39e6d4df7",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/4009MiB_run1.time",
+        "mtime_utc": "2026-05-11T05:34:04.787807+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+    "group": "model_6.18_new",
+    "size_mib": 4009,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125",
+    "seconds": 113.024,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T09:10:25.725044+00:00",
+    "mtime_ns": 1778145025725044286,
+    "sha256": "9946e7af5c7a07e7f4bb64b790332a9bafab83ccdc6f9d6b7eb11317457c9728",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "mtime_utc": "2026-05-11T05:17:18.754980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "group": "model_6.18_new",
+    "size_mib": 4009,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25",
+    "seconds": 109.62700000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T09:12:59.204201+00:00",
+    "mtime_ns": 1778145179204200431,
+    "sha256": "fd01396e6bfa8d95a94f5bbe8441dc9db13308053e35bea06a44f307acb04602",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "mtime_utc": "2026-05-11T05:17:18.755980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 4009,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5",
+    "seconds": 100.394,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T09:15:23.445217+00:00",
+    "mtime_ns": 1778145323445216570,
+    "sha256": "4a1eb31fca472543cb8b88fe909018431c7cf222385bf7a77961c3ea4678289e",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.755980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 4009,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0",
+    "seconds": 102.51400000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T09:17:49.701261+00:00",
+    "mtime_ns": 1778145469701260778,
+    "sha256": "787e6b1f5fd3d8aff779d655aa4afd593dcc5aa20e926ba6cebbdef0ed99d76d",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "mtime_utc": "2026-05-11T05:17:18.756980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 4009,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5",
+    "seconds": 101.437,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T09:20:14.606285+00:00",
+    "mtime_ns": 1778145614606285092,
+    "sha256": "c9f6a18b0e347f41044c248c3e352482307b89522423691f8a1cb3fa71c83699",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.757980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/4009MiB_run2.time",
+    "group": "arms-6.18_new",
+    "size_mib": 4009,
+    "run": 2,
+    "variant": "",
+    "seconds": 118.35499999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T12:54:13.790302+00:00",
+    "mtime_ns": 1778158453790301500,
+    "sha256": "d3e73e405ad1a78984c99f32701ef805843721ef30f5a0c887d6fb66e41e1ff4",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/4009MiB_run2.time",
+        "mtime_utc": "2026-05-11T05:34:04.788807+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+    "group": "model_6.18_new",
+    "size_mib": 4009,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125",
+    "seconds": 114.52600000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T12:56:52.166517+00:00",
+    "mtime_ns": 1778158612166516959,
+    "sha256": "dff0ee2aa56645f2bf6828954298280022b8f36d31a9db71541e3a53b488ef7b",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "mtime_utc": "2026-05-11T05:17:18.757980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "group": "model_6.18_new",
+    "size_mib": 4009,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25",
+    "seconds": 105.632,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T12:59:21.604585+00:00",
+    "mtime_ns": 1778158761604585457,
+    "sha256": "28de91a4af74eae8af89d065509c14bb90198a4b5bf3ceec678edf86d3f7f601",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "mtime_utc": "2026-05-11T05:17:18.758980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 4009,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5",
+    "seconds": 100.399,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T13:01:45.985580+00:00",
+    "mtime_ns": 1778158905985579977,
+    "sha256": "12db0c43a9b21e9ec3159d18bfec2037bfda58fce61c764ccf9feda184f3ff28",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.759980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 4009,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0",
+    "seconds": 99.82300000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T13:04:09.715561+00:00",
+    "mtime_ns": 1778159049715560773,
+    "sha256": "185046818dac18b4dd768748aaf98558aa611cc2c42fdbeea086d707b65269ea",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "mtime_utc": "2026-05-11T05:17:18.759980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 4009,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5",
+    "seconds": 99.72999999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T13:06:33.454538+00:00",
+    "mtime_ns": 1778159193454537675,
+    "sha256": "2a8cb43dbf14ea9faa5231ad8ed058f3f5a1c8fc9e92be0e80fd7df9b070e4fb",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.760980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/4009MiB_run3.time",
+    "group": "arms-6.18_new",
+    "size_mib": 4009,
+    "run": 3,
+    "variant": "",
+    "seconds": 116.275,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T16:40:42.857317+00:00",
+    "mtime_ns": 1778172042857316875,
+    "sha256": "1e8d4a39370c92c0a131b709378989e8e550e473492f0e3072f0513916743be5",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/4009MiB_run3.time",
+        "mtime_utc": "2026-05-11T05:34:04.788807+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+    "group": "model_6.18_new",
+    "size_mib": 4009,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125",
+    "seconds": 113.705,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T16:43:20.239485+00:00",
+    "mtime_ns": 1778172200239485345,
+    "sha256": "d222468e665fb79864b205048bffdceed20595448ad27f8baaf83cbaf8507ae0",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "mtime_utc": "2026-05-11T05:17:18.761980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "group": "model_6.18_new",
+    "size_mib": 4009,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25",
+    "seconds": 108.646,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T16:45:52.499584+00:00",
+    "mtime_ns": 1778172352499584230,
+    "sha256": "ab848b4e8a3ad1a6e5c801fd533a90cc6bbd5cd0c6a70e7200ecccc862994d4d",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "mtime_utc": "2026-05-11T05:17:18.761980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 4009,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5",
+    "seconds": 99.587,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T16:48:15.898564+00:00",
+    "mtime_ns": 1778172495898564165,
+    "sha256": "a41b09a20b97f9d0fbbaf0501f8ad097184920b98cebd94ecd185baa34b636cc",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.762980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 4009,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0",
+    "seconds": 99.32,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T16:50:38.418552+00:00",
+    "mtime_ns": 1778172638418552024,
+    "sha256": "f8bca0feb73c73d18d9706c155a729bd8ad5aedde731330327b916c03e298fdb",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "mtime_utc": "2026-05-11T05:17:18.763980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 4009,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5",
+    "seconds": 100.31700000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T16:53:02.698563+00:00",
+    "mtime_ns": 1778172782698563060,
+    "sha256": "759736a607a03436ea77a710e774231e681f9637aa4ff150e854831aca5e723d",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/4009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.763980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/6009MiB_run1.time",
+    "group": "arms-6.18_new",
+    "size_mib": 6009,
+    "run": 1,
+    "variant": "",
+    "seconds": 98.632,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T22:01:47.320929+00:00",
+    "mtime_ns": 1778191307320928539,
+    "sha256": "71105ebcac88fff5c4b907f6660da193ee5c98d07ea068dedb29315caa1657e5",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/6009MiB_run1.time",
+        "mtime_utc": "2026-05-11T05:34:04.791807+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+    "group": "model_6.18_new",
+    "size_mib": 6009,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125",
+    "seconds": 99.214,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T22:04:11.389909+00:00",
+    "mtime_ns": 1778191451389909094,
+    "sha256": "e9bc622d334c035493f64433c295a7511e1ead69a75360e9b869cf75650cfd13",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "mtime_utc": "2026-05-11T05:17:18.780981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "group": "model_6.18_new",
+    "size_mib": 6009,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25",
+    "seconds": 98.863,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T22:06:35.139885+00:00",
+    "mtime_ns": 1778191595139885473,
+    "sha256": "66c93ca3c65ae0ba76cb82a0ce90df15470f670b8a92151fe84bf4a90df94aaa",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "mtime_utc": "2026-05-11T05:17:18.781981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 6009,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5",
+    "seconds": 100.718,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T22:09:00.020881+00:00",
+    "mtime_ns": 1778191740020880799,
+    "sha256": "6123d153e338608af13fc4289455d110a3ab7d7886373a1a1e77198a8c39508a",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.781981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 6009,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0",
+    "seconds": 102.02000000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T22:11:26.869916+00:00",
+    "mtime_ns": 1778191886869916360,
+    "sha256": "340ce68614355fc79899fd40d93776c6154512c5cb4e2ff1753b56600993188b",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "mtime_utc": "2026-05-11T05:17:18.782981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 6009,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5",
+    "seconds": 101.66,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-07T22:13:53.168947+00:00",
+    "mtime_ns": 1778192033168946717,
+    "sha256": "ad10e150d083fe86db5dc5e120af802af1d5e84330fe324868cbb5f3279ad2d8",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.782981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/6009MiB_run2.time",
+    "group": "arms-6.18_new",
+    "size_mib": 6009,
+    "run": 2,
+    "variant": "",
+    "seconds": 98.745,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T01:39:22.782482+00:00",
+    "mtime_ns": 1778204362782482044,
+    "sha256": "8b84dcd781273acf88b3badee2d1f46bfb4d698550be8e2c744e358c40e3f97f",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/6009MiB_run2.time",
+        "mtime_utc": "2026-05-11T05:34:04.792807+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+    "group": "model_6.18_new",
+    "size_mib": 6009,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125",
+    "seconds": 98.53,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T01:41:46.730479+00:00",
+    "mtime_ns": 1778204506730479048,
+    "sha256": "956662a33dc03e58bc2cedbf1f28a9a1de1a857a4771d131360201e479913e4d",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "mtime_utc": "2026-05-11T05:17:18.783981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "group": "model_6.18_new",
+    "size_mib": 6009,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25",
+    "seconds": 99.11699999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T01:44:11.253505+00:00",
+    "mtime_ns": 1778204651253504832,
+    "sha256": "ac69a119c386656c0feef89be70370c8e6f206b65f0bf22f71ae70524f4bc946",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "mtime_utc": "2026-05-11T05:17:18.784981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 6009,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5",
+    "seconds": 100.098,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T01:46:36.948557+00:00",
+    "mtime_ns": 1778204796948557323,
+    "sha256": "0020f115782703aa5ad2ec1e45996f41cf8c3d947f2c60bb474b54151ec3c6b1",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.785981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 6009,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0",
+    "seconds": 99.602,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T01:49:02.181594+00:00",
+    "mtime_ns": 1778204942181594320,
+    "sha256": "8ccec9e04de2d2664dc1f2a20a92a4720502f292c985a5c7c4d67fcb3edb9d4d",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "mtime_utc": "2026-05-11T05:17:18.785981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 6009,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5",
+    "seconds": 101.81700000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T01:51:29.425643+00:00",
+    "mtime_ns": 1778205089425643462,
+    "sha256": "0a92bf34e5a537f4dbc9dcc8853fa1a84cea01ecbbdf8938f9c90ab3e4dec16d",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.786981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/6009MiB_run3.time",
+    "group": "arms-6.18_new",
+    "size_mib": 6009,
+    "run": 3,
+    "variant": "",
+    "seconds": 98.73400000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T05:17:36.392465+00:00",
+    "mtime_ns": 1778217456392464596,
+    "sha256": "6e7d5347fba473ec23ccbd4dfeaa850b3c242eee99b1d458281cf761e7af939d",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/6009MiB_run3.time",
+        "mtime_utc": "2026-05-11T05:34:04.792807+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+    "group": "model_6.18_new",
+    "size_mib": 6009,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125",
+    "seconds": 98.765,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T05:19:59.441474+00:00",
+    "mtime_ns": 1778217599441474518,
+    "sha256": "023a8fd5ad756d5fcf9c6ca88b14c0e77f2331588f09243361f1e8f6cb5e5aec",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "mtime_utc": "2026-05-11T05:17:18.787981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "group": "model_6.18_new",
+    "size_mib": 6009,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25",
+    "seconds": 98.875,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T05:22:23.123485+00:00",
+    "mtime_ns": 1778217743123485184,
+    "sha256": "11f178fcf7e9850fdc506490ff341fe9f7dfee0c1c55a43462f436c86855148b",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "mtime_utc": "2026-05-11T05:17:18.787981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 6009,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5",
+    "seconds": 99.723,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T05:24:47.628503+00:00",
+    "mtime_ns": 1778217887628503096,
+    "sha256": "8598ca74f1b876fe47137cb0bcd412a1d355d34095f7ca4d63cdaa9593eacb71",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.788981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 6009,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0",
+    "seconds": 100.372,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T05:27:12.850540+00:00",
+    "mtime_ns": 1778218032850539691,
+    "sha256": "f6305318a252cfade7994dde498f5e2eafac3822a7f7edf8666855f810bb7bc3",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "mtime_utc": "2026-05-11T05:17:18.789981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 6009,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5",
+    "seconds": 102.27600000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T05:29:39.875596+00:00",
+    "mtime_ns": 1778218179875595858,
+    "sha256": "c8c2d41495f9e64b84d532a2f4b69fbfb46fca82be9ed0d784859f4c65c3d7b3",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/6009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.789981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/8009MiB_run1.time",
+    "group": "arms-6.18_new",
+    "size_mib": 8009,
+    "run": 1,
+    "variant": "",
+    "seconds": 98.35300000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T09:01:17.486506+00:00",
+    "mtime_ns": 1778230877486505803,
+    "sha256": "222ffada79f040797578cefc200943b805b5ceeaba058763fa63e81689c65357",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/8009MiB_run1.time",
+        "mtime_utc": "2026-05-11T05:34:04.795807+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+    "group": "model_6.18_new",
+    "size_mib": 8009,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125",
+    "seconds": 97.582,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T09:03:39.313470+00:00",
+    "mtime_ns": 1778231019313469850,
+    "sha256": "8eb0a58a1c3447eea00ee06162e14d0dcd2ed4e00114de860391263be2f45235",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "mtime_utc": "2026-05-11T05:17:18.803981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "group": "model_6.18_new",
+    "size_mib": 8009,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25",
+    "seconds": 98.423,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T09:06:02.339448+00:00",
+    "mtime_ns": 1778231162339447976,
+    "sha256": "2e004cde96ccc6a7e773ff7c65dd2b65c420399b533272ffb534f608f7bd93d8",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "mtime_utc": "2026-05-11T05:17:18.804981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 8009,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5",
+    "seconds": 99.35300000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T09:08:26.330439+00:00",
+    "mtime_ns": 1778231306330438509,
+    "sha256": "0a4ccc5b914aa2fcc2fbeff8a17a6f475d064392c4b9edbf5ef25642fb73b926",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.804981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 8009,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0",
+    "seconds": 98.938,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T09:10:49.968425+00:00",
+    "mtime_ns": 1778231449968424572,
+    "sha256": "a5dea5a84f4e9e7aac666d7a8bb68bcae7308a4cc59606578d2ac7682a269e90",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "mtime_utc": "2026-05-11T05:17:18.805981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 8009,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5",
+    "seconds": 103.456,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T09:13:18.296475+00:00",
+    "mtime_ns": 1778231598296475516,
+    "sha256": "2ff50d3d02c9b88afc8f3e2fef68c11afb4deb8184903620fa138183db466709",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.806981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/8009MiB_run2.time",
+    "group": "arms-6.18_new",
+    "size_mib": 8009,
+    "run": 2,
+    "variant": "",
+    "seconds": 98.074,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T12:37:00.075808+00:00",
+    "mtime_ns": 1778243820075808068,
+    "sha256": "50a8e014d62eb01bb224cfa00d4fba6a60cbb2ebf1c7d1d60d4ee4df09a97f63",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/8009MiB_run2.time",
+        "mtime_utc": "2026-05-11T05:34:04.795807+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+    "group": "model_6.18_new",
+    "size_mib": 8009,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125",
+    "seconds": 98.351,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T12:39:23.358808+00:00",
+    "mtime_ns": 1778243963358808183,
+    "sha256": "96febbb4ff3d0808e69bd6398b9b8cac4d225bb099d4774cd285478b16d2825b",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "mtime_utc": "2026-05-11T05:17:18.806981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "group": "model_6.18_new",
+    "size_mib": 8009,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25",
+    "seconds": 98.757,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T12:41:46.503794+00:00",
+    "mtime_ns": 1778244106503793766,
+    "sha256": "504808d9592887ded2229b6ee57ed8b7c41ac67575d4e2801275d7bbb290d7dd",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "mtime_utc": "2026-05-11T05:17:18.807981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 8009,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5",
+    "seconds": 99.432,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T12:44:10.673790+00:00",
+    "mtime_ns": 1778244250673790386,
+    "sha256": "351b99c8de7e23aaf241fb65ba1176757e75c883df3504c4128931d33132f86f",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.808981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 8009,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0",
+    "seconds": 99.965,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T12:46:35.057791+00:00",
+    "mtime_ns": 1778244395057790600,
+    "sha256": "c688bce5cdf184a48a46504827ecc626fd1f0d4139ed2a4064ce4ff0050f2161",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "mtime_utc": "2026-05-11T05:17:18.808981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 8009,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5",
+    "seconds": 100.714,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T12:49:00.690808+00:00",
+    "mtime_ns": 1778244540690807754,
+    "sha256": "fdb67b3bcbd6aa0dcb9052f80efb39f127c0f7b8ccf1cd8ce32f5e46fe67b89a",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.809981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/8009MiB_run3.time",
+    "group": "arms-6.18_new",
+    "size_mib": 8009,
+    "run": 3,
+    "variant": "",
+    "seconds": 98.094,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T16:12:47.388755+00:00",
+    "mtime_ns": 1778256767388755098,
+    "sha256": "6deded226a02b13e093250105795fc6fd89e95d2fa52ec2c4304d7e575c0aa50",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/8009MiB_run3.time",
+        "mtime_utc": "2026-05-11T05:34:04.796807+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+    "group": "model_6.18_new",
+    "size_mib": 8009,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125",
+    "seconds": 97.684,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T16:15:09.345707+00:00",
+    "mtime_ns": 1778256909345707381,
+    "sha256": "ef1b14b19425551454db281e96d69fe797883549a9fa80073f735c6b1eb015fd",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+        "mtime_utc": "2026-05-11T05:17:18.810981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+    "group": "model_6.18_new",
+    "size_mib": 8009,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25",
+    "seconds": 98.40100000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T16:17:32.559677+00:00",
+    "mtime_ns": 1778257052559676908,
+    "sha256": "08526e1ea8e417e05e36c115a9a81d6078d83e5e5634fd4cf3278e6759b49198",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.25.time",
+        "mtime_utc": "2026-05-11T05:17:18.810981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 8009,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5",
+    "seconds": 98.73599999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T16:19:56.087653+00:00",
+    "mtime_ns": 1778257196087652839,
+    "sha256": "89fed2b630da95d32dd37731eb1bfc443f5e30c10d05ff4f6b93e1f7999248f2",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.811981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+    "group": "model_6.18_new",
+    "size_mib": 8009,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0",
+    "seconds": 98.588,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T16:22:19.531634+00:00",
+    "mtime_ns": 1778257339531634202,
+    "sha256": "c79e7dd86d5f78cd4156e1c8ae6f25d32851b678163f3e9090af183cc2f3181d",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.0.time",
+        "mtime_utc": "2026-05-11T05:17:18.812981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+    "group": "model_6.18_new",
+    "size_mib": 8009,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5",
+    "seconds": 99.958,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T16:24:43.789628+00:00",
+    "mtime_ns": 1778257483789628127,
+    "sha256": "c09ea0387f2d8dc9eda1cdf8d9479359cfc00e43f1bf02ab84bef507d69f5982",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18_cost_ablation/bc-twitter.sg/8009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_1.5.time",
+        "mtime_utc": "2026-05-11T05:17:18.812981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10009MiB_run1_train_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125.time",
+    "group": "model_6.18_new",
+    "size_mib": 10009,
+    "run": 1,
+    "variant": "_train_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.125",
+    "seconds": 105.55199999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-08T19:53:02.547704+00:00",
+    "mtime_ns": 1778269982547704321,
+    "sha256": "d75b8f9b9ab72366acf6e038828e850474256c0d0e9c93fc5d5cd022f3519bbd",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4010MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.1.time",
+    "group": "model_6.18_new",
+    "size_mib": 4010,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.1",
+    "seconds": 120.542,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-09T01:58:26.767963+00:00",
+    "mtime_ns": 1778291906767962741,
+    "sha256": "d5a70d12962b1e04bf98ea639c520c957915158f6c109f4b19e319fc7a7a2e56",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4011MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.1.time",
+    "group": "model_6.18_new",
+    "size_mib": 4011,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.1",
+    "seconds": 120.47,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-09T02:28:37.501284+00:00",
+    "mtime_ns": 1778293717501283831,
+    "sha256": "2e868f52c7cf60ef81255a708a3b3d2e84263b9015bc0e48608e0d27a24b45ac",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/10009MiB_run1.time",
+    "group": "arms-6.18_new",
+    "size_mib": 10009,
+    "run": 1,
+    "variant": "",
+    "seconds": 98.709,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-09T08:33:20.270496+00:00",
+    "mtime_ns": 1778315600270496056,
+    "sha256": "7c60f55e59682f3f2283131dd68e95a2e8ddb2e7e7103c51b35be0a2f0df62ec",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/10009MiB_run1.time",
+        "mtime_utc": "2026-05-11T05:34:04.783807+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10009MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.1.time",
+    "group": "model_6.18_new",
+    "size_mib": 10009,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.1",
+    "seconds": 98.098,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-09T08:35:42.653406+00:00",
+    "mtime_ns": 1778315742653405987,
+    "sha256": "53006242060486276757846f1a8f8e5d3d868501c26c438515df6304eeb71a5a",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/10009MiB_run2.time",
+    "group": "arms-6.18_new",
+    "size_mib": 10009,
+    "run": 2,
+    "variant": "",
+    "seconds": 96.997,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-09T09:43:26.535907+00:00",
+    "mtime_ns": 1778319806535907038,
+    "sha256": "f4b3addbda30147a09fc00d0d1b0ae759627471c4c9f10933c7c7c7df606774c",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/10009MiB_run2.time",
+        "mtime_utc": "2026-05-11T05:34:04.783807+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10009MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.1.time",
+    "group": "model_6.18_new",
+    "size_mib": 10009,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.1",
+    "seconds": 98.11699999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-09T09:45:49.029839+00:00",
+    "mtime_ns": 1778319949029838947,
+    "sha256": "f031786ad3928522988ee9246a9f2f39f8f1ac38087b034ae6af90e80c2b052b",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/10009MiB_run3.time",
+    "group": "arms-6.18_new",
+    "size_mib": 10009,
+    "run": 3,
+    "variant": "",
+    "seconds": 96.55199999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-09T10:53:42.954439+00:00",
+    "mtime_ns": 1778324022954439007,
+    "sha256": "109cb98f61c8ca14395207286789793dbfb637f79cfeac0cf19edaca4f12629d",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/arms_6.18/bc-twitter.sg/10009MiB_run3.time",
+        "mtime_utc": "2026-05-11T05:34:04.784807+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10009MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.1.time",
+    "group": "model_6.18_new",
+    "size_mib": 10009,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.1",
+    "seconds": 97.14699999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-09T10:56:04.528348+00:00",
+    "mtime_ns": 1778324164528347833,
+    "sha256": "29a7a785da7f9fb7218c2551b3d72fbb11de41b673aaaf10bd8cfa8958d55d2c",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4026MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.1.time",
+    "group": "model_6.18_new",
+    "size_mib": 4026,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.1",
+    "seconds": 99.413,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-09T23:48:09.429183+00:00",
+    "mtime_ns": 1778370489429183478,
+    "sha256": "e971ac85290b26569c17bec35f8c232741795af3968b003c16e47fa1d0bd5bda",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4026MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.1.time",
+    "group": "model_6.18_new",
+    "size_mib": 4026,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-2_10_0.1",
+    "seconds": 97.482,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-10T01:19:24.798929+00:00",
+    "mtime_ns": 1778375964798929534,
+    "sha256": "30c9547c4b448c0c645e29c55de60695c2f66002f8e0d7c6d1c13a4aad06629e",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4028MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.18_new",
+    "size_mib": 4028,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 97.911,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-10T02:44:03.962330+00:00",
+    "mtime_ns": 1778381043962329576,
+    "sha256": "8c5e18967d30f13f22f2bca1d3eac1f8f7690435eae893e33f5fbc4dd5d02f74",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18/bc-twitter.sg/4028MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-11T05:17:18.767981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4028MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.18_new",
+    "size_mib": 4028,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 98.48599999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-10T03:21:07.722419+00:00",
+    "mtime_ns": 1778383267722418634,
+    "sha256": "e90f25f3b0e4822bba90b1d49cc5be6cc009c909f6fae28683653ba5f2487d87",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18/bc-twitter.sg/4028MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-11T05:17:18.767981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4028MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.18_new",
+    "size_mib": 4028,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 97.981,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-10T03:58:06.929490+00:00",
+    "mtime_ns": 1778385486929490186,
+    "sha256": "d3c94b684d5b03ee638113387ef1b8d0b196f619ac6f99711839724900329be0",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18/bc-twitter.sg/4028MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-11T05:17:18.768981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8028MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.18_new",
+    "size_mib": 8028,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 98.071,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-10T04:52:43.976880+00:00",
+    "mtime_ns": 1778388763976880119,
+    "sha256": "3890903520dea1cd3042f4998977692b1ceeeb332b110e5fb0c6cb98c2fa1930",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18/bc-twitter.sg/8028MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-11T05:17:18.813981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8028MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.18_new",
+    "size_mib": 8028,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 99.062,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-10T05:27:26.250304+00:00",
+    "mtime_ns": 1778390846250304319,
+    "sha256": "df5be44d3926426f44fe66f112fdef6a41f3a43197852fdbd341437f9f239c0a",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18/bc-twitter.sg/8028MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-11T05:17:18.814981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/8028MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.18_new",
+    "size_mib": 8028,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 97.477,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-10T06:02:05.794070+00:00",
+    "mtime_ns": 1778392925794070022,
+    "sha256": "d978d3835cf6003cc72f35b3ba8b711b6212b0d861db08972b538ba97e58215c",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18/bc-twitter.sg/8028MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-11T05:17:18.814981+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10028MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.18_new",
+    "size_mib": 10028,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 101.463,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-10T17:24:58.490889+00:00",
+    "mtime_ns": 1778433898490889114,
+    "sha256": "ee5200646ba16cde1121b9af0c90ea6220ef557f435b24c0c032aa4a724f7878",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18/bc-twitter.sg/10028MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-11T05:17:18.743980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10028MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.18_new",
+    "size_mib": 10028,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 96.962,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-10T17:59:13.820666+00:00",
+    "mtime_ns": 1778435953820666317,
+    "sha256": "f8e320cf77face688b7ba1f23fceaa5e2777334fdc7f85344ec0910fac534dac",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18/bc-twitter.sg/10028MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-11T05:17:18.743980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms-6.18_new/bc-twitter.sg/10028MiB_run1.time",
+    "group": "arms-6.18_new",
+    "size_mib": 10028,
+    "run": 1,
+    "variant": "",
+    "seconds": 99.09100000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-10T19:00:48.133082+00:00",
+    "mtime_ns": 1778439648133081902,
+    "sha256": "7dd635ee1d70f98f921fa7da809174f973012fa53de6deab2653bac45a0c87eb",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/10028MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.18_new",
+    "size_mib": 10028,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 99.049,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-10T19:03:12.401057+00:00",
+    "mtime_ns": 1778439792401056678,
+    "sha256": "e50aaf543d62665872ad630f56351797ed2c5e00e49f27a1eef1ca28f4891dfd",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18/bc-twitter.sg/10028MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-11T05:17:18.742980+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/6028MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.18_new",
+    "size_mib": 6028,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 103.305,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-10T21:57:08.651116+00:00",
+    "mtime_ns": 1778450228651116482,
+    "sha256": "9afe225fc011253156527073b903da0420373d59285361f9c708edac3df2a8bf",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.2_new/bc-twitter.sg/6029MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.2_new",
+    "size_mib": 6029,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 133.433,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-10T23:30:15.801872+00:00",
+    "mtime_ns": 1778455815801872547,
+    "sha256": "aa5d89e3e72ef09b9866ecc9f315473b0f65f8828f93b8eea09b0161fad3f4ca",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.2/bc-twitter.sg/6029MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-11T05:16:35.602433+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.2_new/bc-twitter.sg/6029MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.2_new",
+    "size_mib": 6029,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 133.577,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-11T00:13:02.606736+00:00",
+    "mtime_ns": 1778458382606736379,
+    "sha256": "ed657603a77e352eec0599424c27a7f3788816991592ca23c292b017616ff010",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.2/bc-twitter.sg/6029MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-11T05:16:35.603433+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.2_new/bc-twitter.sg/6029MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.2_new",
+    "size_mib": 6029,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 136.066,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-11T00:55:51.518041+00:00",
+    "mtime_ns": 1778460951518040953,
+    "sha256": "34f7688f11e275c6c70ed398b37573f4a0155766c3f9e0248e5ebb71ae12fcee",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.2/bc-twitter.sg/6029MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-11T05:16:35.603433+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.2_new/bc-twitter.sg/8029MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.2_new",
+    "size_mib": 8029,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 131.547,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-11T06:26:24.709525+00:00",
+    "mtime_ns": 1778480784709524886,
+    "sha256": "62ac1e8d7a3ce0e7a82abe92de85f901c4baa84c52f8ab97d2cbdc662b772494",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.2/bc-twitter.sg/8029MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-11T14:45:20.650465+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.2_new/bc-twitter.sg/8029MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.2_new",
+    "size_mib": 8029,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 131.688,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-11T08:01:22.870955+00:00",
+    "mtime_ns": 1778486482870954561,
+    "sha256": "554c15d05a026c6ef3760c100383ec92cf0f08dd078feef40429eba1d5a67be9",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.2/bc-twitter.sg/8029MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-11T14:45:20.745466+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.2_new/bc-twitter.sg/8029MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.2_new",
+    "size_mib": 8029,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 134.653,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-11T09:35:08.745140+00:00",
+    "mtime_ns": 1778492108745139808,
+    "sha256": "36151e9acc1deca4699e1ff244ffda133016e3f73d2736235145e2cde91a7b20",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.2/bc-twitter.sg/8029MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-11T14:45:20.877467+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4029MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.18_new",
+    "size_mib": 4029,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 115.306,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-11T15:38:57.827823+00:00",
+    "mtime_ns": 1778513937827823411,
+    "sha256": "ad9a3f98de9e139e03c5ed35b29e70c78f2f60079090e533e7ec95e3ffd3cd66",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4029MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.18_new",
+    "size_mib": 4029,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 114.632,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-11T16:55:12.940386+00:00",
+    "mtime_ns": 1778518512940385866,
+    "sha256": "075ef7d0869b338dd7e8a8632b0421ec11c870627c76fcaaa2ddc188cad89293",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4029MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.18_new",
+    "size_mib": 4029,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 113.733,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-11T18:11:47.264348+00:00",
+    "mtime_ns": 1778523107264347468,
+    "sha256": "1a6a04295f8866826df135e6d5b3591df703ffba4cb0ba1771dddbcb865c2361",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model_6.2_new/bc-twitter.sg/4030MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.2_new",
+    "size_mib": 4030,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 137.808,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-11T21:46:49.177382+00:00",
+    "mtime_ns": 1778536009177381785,
+    "sha256": "9f7b5c90635f6fc4c4d09b6f637c4b7c7649ac6fd5ad1781aac27a83781b20e6",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.2/bc-twitter.sg/4030MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-12T04:05:17.434958+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.2_new/bc-twitter.sg/4030MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.2_new",
+    "size_mib": 4030,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 134.512,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-11T22:44:00.788306+00:00",
+    "mtime_ns": 1778539440788306219,
+    "sha256": "1b10b94460e156381b644c8d59b43c4ff17f90de78e4c3071b05d182953c0915",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.2/bc-twitter.sg/4030MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-12T04:05:17.477959+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.2_new/bc-twitter.sg/4030MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.2_new",
+    "size_mib": 4030,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 133.621,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-11T23:40:29.562132+00:00",
+    "mtime_ns": 1778542829562132335,
+    "sha256": "8629f480136484caf62a4395d4e54018fb04561671cdca40349bfe74f32b2522",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.2/bc-twitter.sg/4030MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-12T04:05:17.557960+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.2_new/bc-twitter.sg/10030MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.2_new",
+    "size_mib": 10030,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 132.121,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-12T05:42:08.596809+00:00",
+    "mtime_ns": 1778564528596808680,
+    "sha256": "497ee8f2ad1692d9a60abe67cdda656104ccbfd15667dd7b8bc485afe638ad4b",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.2/bc-twitter.sg/10030MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-13T03:05:50.027874+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.2_new/bc-twitter.sg/10030MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.2_new",
+    "size_mib": 10030,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 132.745,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-12T06:33:37.303321+00:00",
+    "mtime_ns": 1778567617303321303,
+    "sha256": "c31b890806b40d07b0ccc2843ae768874b9f780418c9e410fe0af25683fc197d",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.2/bc-twitter.sg/10030MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-13T03:05:50.086875+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model_6.2_new/bc-twitter.sg/10030MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model_6.2_new",
+    "size_mib": 10030,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 132.73,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-12T07:25:10.576085+00:00",
+    "mtime_ns": 1778570710576084685,
+    "sha256": "4652a5ad2dcd4929d2c1004cb05c4485ef03f2a2a449b6b83c4e67157734ef71",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.2/bc-twitter.sg/10030MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-13T03:05:50.184876+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model/bc-twitter.sg/6032MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model",
+    "size_mib": 6032,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 100.634,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-13T17:31:58.518786+00:00",
+    "mtime_ns": 1778693518518786003,
+    "sha256": "063a52e55970d527a2c44497507e4d881382ea3275aa8bb9a14af8e7da98e7ab",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18/bc-twitter.sg/6032MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-14T05:24:51.774062+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model/bc-twitter.sg/6032MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model",
+    "size_mib": 6032,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 102.70400000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-13T19:08:37.626702+00:00",
+    "mtime_ns": 1778699317626702313,
+    "sha256": "ec640c1e07863ed86949495ca68dbe53c198c2bff7083013911a939071bdf90e",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18/bc-twitter.sg/6032MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-14T05:24:51.775062+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/model/bc-twitter.sg/6032MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model",
+    "size_mib": 6032,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 101.799,
+    "exit_status": 0,
+    "mtime_utc": "2026-05-13T20:50:05.195682+00:00",
+    "mtime_ns": 1778705405195682323,
+    "sha256": "3a425772be9d3079a8be3fc801939b8149a2434e0eb14cbe6b1ff8cb3b29228e",
+    "final_copies": [
+      {
+        "path": "times/c220g5_final/model_6.18/bc-twitter.sg/6032MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+        "mtime_utc": "2026-05-14T05:24:51.773062+00:00"
+      }
+    ]
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100050MiB_run1_train.time",
+    "group": "arms",
+    "size_mib": 100050,
+    "run": 1,
+    "variant": "_train",
+    "seconds": 150.025,
+    "exit_status": 0,
+    "mtime_utc": "2026-06-06T17:45:31.100228+00:00",
+    "mtime_ns": 1780767931100227956,
+    "sha256": "fcdb1ce7bd50ec18138cd24e059f2f86f16804286bb0bfdf5fab66edee820d81",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100100MiB_run1_train.time",
+    "group": "arms",
+    "size_mib": 100100,
+    "run": 1,
+    "variant": "_train",
+    "seconds": 165.077,
+    "exit_status": 0,
+    "mtime_utc": "2026-07-17T05:34:45.881894+00:00",
+    "mtime_ns": 1784266485881894181,
+    "sha256": "2a1c2a3b3053d6fc56e4e9a3654d944b833ac9a9704b837060b6a6d2449e05ea",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100101MiB_run1_train.time",
+    "group": "arms",
+    "size_mib": 100101,
+    "run": 1,
+    "variant": "_train",
+    "seconds": 166.34300000000002,
+    "exit_status": 0,
+    "mtime_utc": "2026-07-27T18:08:45.599104+00:00",
+    "mtime_ns": 1785175725599104365,
+    "sha256": "05b5fdf9e541c6cb99b812aa26c08dd8029df0544a9ff666bc46550e9bfa1c6f",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/8053MiB_run1.time",
+    "group": "arms",
+    "size_mib": 8053,
+    "run": 1,
+    "variant": "",
+    "seconds": 121.319,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-22T12:40:59.959359+00:00",
+    "mtime_ns": 1787402459959359381,
+    "sha256": "54831df5e8531010d68d29987fb3f37ab75f86ab7aa7e28640e524b94a0c8621",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/8053MiB_run2.time",
+    "group": "arms",
+    "size_mib": 8053,
+    "run": 2,
+    "variant": "",
+    "seconds": 121.378,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-22T14:29:44.725746+00:00",
+    "mtime_ns": 1787408984725746471,
+    "sha256": "2b78f2dc15949aa80dfa1655ccc348bf55011a6385882d12af4ad55d27ea642f",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/8053MiB_run3.time",
+    "group": "arms",
+    "size_mib": 8053,
+    "run": 3,
+    "variant": "",
+    "seconds": 121.359,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-22T16:17:02.306888+00:00",
+    "mtime_ns": 1787415422306888412,
+    "sha256": "706a1d69276d57cab4b2019406585b57fffa2d6c31308567e45a526b56821f10",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/10053MiB_run1.time",
+    "group": "arms",
+    "size_mib": 10053,
+    "run": 1,
+    "variant": "",
+    "seconds": 123.459,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-25T08:20:02.648707+00:00",
+    "mtime_ns": 1787646002648706655,
+    "sha256": "6b88b6c718fae88be3f937cd29fd00184f3c314a1003e42b6780162e390d9171",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/10053MiB_run2.time",
+    "group": "arms",
+    "size_mib": 10053,
+    "run": 2,
+    "variant": "",
+    "seconds": 126.44200000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-25T10:04:49.913186+00:00",
+    "mtime_ns": 1787652289913186316,
+    "sha256": "24745541139971fafb046a4ee8bf45248c05415977940aad43e4f4f2fd5f1cf4",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/10053MiB_run3.time",
+    "group": "arms",
+    "size_mib": 10053,
+    "run": 3,
+    "variant": "",
+    "seconds": 129.417,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-25T11:51:03.041740+00:00",
+    "mtime_ns": 1787658663041740243,
+    "sha256": "d54f7370965c61b87939e8a53f5de67f0869c7ec981450e1b8f1a9435ef70958",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/4053MiB_run1.time",
+    "group": "arms",
+    "size_mib": 4053,
+    "run": 1,
+    "variant": "",
+    "seconds": 134.192,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-27T08:07:42.409720+00:00",
+    "mtime_ns": 1787818062409719837,
+    "sha256": "6ba061b17b2d2e64190e0f0c4e1ff019ab9ea101924eb29ce971b94a423eda0b",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/4053MiB_run2.time",
+    "group": "arms",
+    "size_mib": 4053,
+    "run": 2,
+    "variant": "",
+    "seconds": 128.651,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-27T08:55:44.649886+00:00",
+    "mtime_ns": 1787820944649885543,
+    "sha256": "f3a126e68b2d5c019977e5802e303f82c0582d804068e407a4330cdd6dbd45bf",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/4053MiB_run3.time",
+    "group": "arms",
+    "size_mib": 4053,
+    "run": 3,
+    "variant": "",
+    "seconds": 126.669,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-27T09:42:32.924319+00:00",
+    "mtime_ns": 1787823752924318991,
+    "sha256": "6dbff94d75655a58577d25bda177643fc89058a03d74e7726fcec2a4d1bb6f0f",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/6053MiB_run1.time",
+    "group": "arms",
+    "size_mib": 6053,
+    "run": 1,
+    "variant": "",
+    "seconds": 121.915,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-27T11:09:25.249904+00:00",
+    "mtime_ns": 1787828965249903927,
+    "sha256": "441b05e11e57a677d1a18ac370eb6330276450bb732f7e1b8935378b434547b7",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/6053MiB_run2.time",
+    "group": "arms",
+    "size_mib": 6053,
+    "run": 2,
+    "variant": "",
+    "seconds": 121.827,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-27T11:54:13.623183+00:00",
+    "mtime_ns": 1787831653623183123,
+    "sha256": "063ff2a758f5f2c528739aa3c3f72104156c92525e84bed77cb576c76ddf4360",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/6053MiB_run3.time",
+    "group": "arms",
+    "size_mib": 6053,
+    "run": 3,
+    "variant": "",
+    "seconds": 123.944,
+    "exit_status": 0,
+    "mtime_utc": "2026-08-27T12:40:28.170912+00:00",
+    "mtime_ns": 1787834428170911826,
+    "sha256": "f112c76ae4637372a001c1ad7682a3785d42b3357f6046df58ea0cc6819529c0",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100102MiB_run1_train.time",
+    "group": "arms",
+    "size_mib": 100102,
+    "run": 1,
+    "variant": "_train",
+    "seconds": 132.995,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-06T00:29:40.472743+00:00",
+    "mtime_ns": 1788654580472742469,
+    "sha256": "9b7bdbda2d3cb4b2c961e14cfc9210fd0a917ec7108e29be4bdfb83cbb0a5bdb",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100102MiB_run2_train.time",
+    "group": "arms",
+    "size_mib": 100102,
+    "run": 2,
+    "variant": "_train",
+    "seconds": 132.86599999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-06T01:23:56.035154+00:00",
+    "mtime_ns": 1788657836035153575,
+    "sha256": "8214f64b07edbf721301e3a3cd952aedf68642725083d889a4fcf20892522669",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100102MiB_run3_train.time",
+    "group": "arms",
+    "size_mib": 100102,
+    "run": 3,
+    "variant": "_train",
+    "seconds": 132.622,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-06T02:18:10.454104+00:00",
+    "mtime_ns": 1788661090454104125,
+    "sha256": "69f49ddfcc7197feeb5fd7c5bd54f88e2bf5f846e4903c0be082d459d87002d5",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100102MiB_run4_train.time",
+    "group": "arms",
+    "size_mib": 100102,
+    "run": 4,
+    "variant": "_train",
+    "seconds": 132.74099999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-06T03:12:25.092814+00:00",
+    "mtime_ns": 1788664345092814119,
+    "sha256": "8c2e54ca3a1268edc363455c5ad3cf312a6b50bfec7963c7313ece0ba2c754f6",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100102MiB_run5_train.time",
+    "group": "arms",
+    "size_mib": 100102,
+    "run": 5,
+    "variant": "_train",
+    "seconds": 132.868,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-06T04:06:43.576887+00:00",
+    "mtime_ns": 1788667603576887364,
+    "sha256": "5083872d3c0e11fa1a6aba9f127cbfcbb52bae9a67377ad4787a3dbc86371e62",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100102MiB_run6_train.time",
+    "group": "arms",
+    "size_mib": 100102,
+    "run": 6,
+    "variant": "_train",
+    "seconds": 132.23,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-06T05:00:43.890834+00:00",
+    "mtime_ns": 1788670843890834409,
+    "sha256": "f624919f91954848e6cdf241de8d70c7bdb29cc1d9c2a59d29dc253c31518b1e",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100102MiB_run7_train.time",
+    "group": "arms",
+    "size_mib": 100102,
+    "run": 7,
+    "variant": "_train",
+    "seconds": 133.973,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-06T06:39:02.650595+00:00",
+    "mtime_ns": 1788676742650594733,
+    "sha256": "bcae56c225b678574c0dc8db0a59b44ccd26eed80572774cf58c9a3424fc81d8",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100102MiB_run8_train.time",
+    "group": "arms",
+    "size_mib": 100102,
+    "run": 8,
+    "variant": "_train",
+    "seconds": 132.814,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-06T07:34:04.249224+00:00",
+    "mtime_ns": 1788680044249224264,
+    "sha256": "957aed38143191954f07848ffd509a7c0201c59f388d080ba0d0e1ceed8f0ad7",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100102MiB_run9_train.time",
+    "group": "arms",
+    "size_mib": 100102,
+    "run": 9,
+    "variant": "_train",
+    "seconds": 132.75,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-06T08:28:25.055153+00:00",
+    "mtime_ns": 1788683305055152758,
+    "sha256": "548791b1aafa8a4bd3fd7755d974550a98d5c57951b415150ebc4375aad53a92",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/100102MiB_run10_train.time",
+    "group": "arms",
+    "size_mib": 100102,
+    "run": 10,
+    "variant": "_train",
+    "seconds": 132.597,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-06T09:22:46.273343+00:00",
+    "mtime_ns": 1788686566273342822,
+    "sha256": "927316b419dfa1f8d17c54f1e8c44746830d18a6699020cfe3238cba9ae811b8",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model/bc-twitter.sg/6073MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model",
+    "size_mib": 6073,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 131.233,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-08T18:39:56.433915+00:00",
+    "mtime_ns": 1788892796433914662,
+    "sha256": "cc7ea1835e1b2aeb3a654551628a10e1de385811083e084a847a7e0b484aebc2",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model/bc-twitter.sg/6073MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model",
+    "size_mib": 6073,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 132.387,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-08T19:37:04.771456+00:00",
+    "mtime_ns": 1788896224771456143,
+    "sha256": "90deed46fab2896697950908cb2338e08916cba8a601a13498d2f97fe879826f",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/4077MiB_run1.time",
+    "group": "arms",
+    "size_mib": 4077,
+    "run": 1,
+    "variant": "",
+    "seconds": 102.475,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-08T23:58:38.171501+00:00",
+    "mtime_ns": 1788911918171500826,
+    "sha256": "e764e4bd60f03948bc3bfbec28176bb36ca369b629c44e5c0351eb91b250dddb",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model/bc-twitter.sg/4077MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model",
+    "size_mib": 4077,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 100.941,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-09T00:01:08.497706+00:00",
+    "mtime_ns": 1788912068497706304,
+    "sha256": "6a38f301ff69e3047afe5c195f460e239963f692e4cdb68bc970ed0d72eadcd2",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/4077MiB_run2.time",
+    "group": "arms",
+    "size_mib": 4077,
+    "run": 2,
+    "variant": "",
+    "seconds": 102.64500000000001,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-09T05:03:06.900790+00:00",
+    "mtime_ns": 1788930186900790088,
+    "sha256": "c13cb55630902b0bf0b57465bc9c8b05cd5b19e8d3afba35773f6c6c652820ee",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model/bc-twitter.sg/4077MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model",
+    "size_mib": 4077,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 101.43,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-09T05:05:35.678968+00:00",
+    "mtime_ns": 1788930335678967807,
+    "sha256": "c8109c513769e9c738706d0623a645f4133f7aeb75ecaa36f3f111ef0e2ff683",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/4077MiB_run3.time",
+    "group": "arms",
+    "size_mib": 4077,
+    "run": 3,
+    "variant": "",
+    "seconds": 104.011,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-09T10:11:10.463995+00:00",
+    "mtime_ns": 1788948670463995529,
+    "sha256": "6f87da2e1858a78002c7dfb0dadae85ee62756ac869eaeccf22d474def4df262",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model/bc-twitter.sg/4077MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model",
+    "size_mib": 4077,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 59.119,
+    "exit_status": 130,
+    "mtime_utc": "2026-09-09T10:13:00.721619+00:00",
+    "mtime_ns": 1788948780721618757,
+    "sha256": "10fb47c0ac00ea523b1a88d88dedc89c3cb51e6acce55a44e484995f71f55e2d",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/arms/bc-twitter.sg/4078MiB_run1.time",
+    "group": "arms",
+    "size_mib": 4078,
+    "run": 1,
+    "variant": "",
+    "seconds": 100.48599999999999,
+    "exit_status": 0,
+    "mtime_utc": "2026-09-09T15:35:23.293003+00:00",
+    "mtime_ns": 1788968123293002883,
+    "sha256": "99de6c941a50278f82aaf655c8cb246af064c816065adf904fbc9957097af3e2",
+    "final_copies": []
+  },
+  {
+    "path": "times/c220g5/model/bc-twitter.sg/4078MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+    "group": "model",
+    "size_mib": 4078,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+    "seconds": 0.095,
+    "exit_status": 130,
+    "mtime_utc": "2026-09-09T15:35:29.988095+00:00",
+    "mtime_ns": 1788968129988095317,
+    "sha256": "f65ef05ca7e460ee8db50717b35351a896f3c1c5a75e985bb0f50a5eedf022fd",
+    "final_copies": []
+  }
+]

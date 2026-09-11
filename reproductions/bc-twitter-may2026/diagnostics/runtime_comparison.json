@@ -1,0 +1,290 @@
+[
+  {
+    "case": "may07_arms",
+    "repetition": 1,
+    "returncode": 0,
+    "elapsed_seconds": 103.16,
+    "read_seconds": 38.91169,
+    "average_iteration_seconds": 6.38791,
+    "trial_count": 10,
+    "interference": null,
+    "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/results/20260909T122951Z-129527/01-may07_arms",
+    "valid": true,
+    "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+    "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+    "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+    "startup_free_dram_bytes": 2584772608,
+    "latest_sample_anon_numa_pages": {
+      "0": 555128,
+      "1": 2874794
+    },
+    "global_vmstat_deltas_not_per_process": {
+      "compact_fail": 58114,
+      "compact_success": 48,
+      "pgmigrate_fail": 69207,
+      "pgmigrate_success": 4407593,
+      "pgscan_direct": 57956,
+      "pgscan_kswapd": 4085,
+      "thp_fault_alloc": 13662,
+      "thp_fault_fallback": 0,
+      "thp_migration_fail": 2511,
+      "thp_migration_success": 5203
+    }
+  },
+  {
+    "case": "may07_model",
+    "repetition": 1,
+    "returncode": 0,
+    "elapsed_seconds": 97.58,
+    "read_seconds": 38.78153,
+    "average_iteration_seconds": 5.85869,
+    "trial_count": 10,
+    "interference": null,
+    "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/results/20260909T122951Z-129527/01-may07_model",
+    "valid": true,
+    "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+    "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+    "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+    "startup_free_dram_bytes": 2673528832,
+    "latest_sample_anon_numa_pages": {
+      "0": 441733,
+      "1": 2989740
+    },
+    "global_vmstat_deltas_not_per_process": {
+      "compact_fail": 0,
+      "compact_success": 0,
+      "pgmigrate_fail": 1885,
+      "pgmigrate_success": 3560485,
+      "pgscan_direct": 0,
+      "pgscan_kswapd": 0,
+      "thp_fault_alloc": 13658,
+      "thp_fault_fallback": 0,
+      "thp_migration_fail": 0,
+      "thp_migration_success": 6948
+    }
+  },
+  {
+    "case": "current_arms",
+    "repetition": 1,
+    "returncode": 0,
+    "elapsed_seconds": 100.1,
+    "read_seconds": 38.88172,
+    "average_iteration_seconds": 6.08579,
+    "trial_count": 10,
+    "interference": null,
+    "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/results/20260909T122951Z-129527/01-current_arms",
+    "valid": true,
+    "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+    "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+    "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+    "startup_free_dram_bytes": 2659753984,
+    "latest_sample_anon_numa_pages": {
+      "0": 529179,
+      "1": 2868732
+    },
+    "global_vmstat_deltas_not_per_process": {
+      "compact_fail": 60902,
+      "compact_success": 21,
+      "pgmigrate_fail": 49573,
+      "pgmigrate_success": 4240600,
+      "pgscan_direct": 1805,
+      "pgscan_kswapd": 928,
+      "thp_fault_alloc": 13672,
+      "thp_fault_fallback": 0,
+      "thp_migration_fail": 1880,
+      "thp_migration_success": 5640
+    }
+  },
+  {
+    "case": "current_model",
+    "repetition": 1,
+    "returncode": 0,
+    "elapsed_seconds": 96.83,
+    "read_seconds": 38.88534,
+    "average_iteration_seconds": 5.77381,
+    "trial_count": 10,
+    "interference": null,
+    "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/results/20260909T122951Z-129527/01-current_model",
+    "valid": true,
+    "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+    "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+    "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+    "startup_free_dram_bytes": 2645786624,
+    "latest_sample_anon_numa_pages": {
+      "0": 219609,
+      "1": 2937842
+    },
+    "global_vmstat_deltas_not_per_process": {
+      "compact_fail": 7900,
+      "compact_success": 4,
+      "pgmigrate_fail": 5275,
+      "pgmigrate_success": 3617340,
+      "pgscan_direct": 0,
+      "pgscan_kswapd": 0,
+      "thp_fault_alloc": 13664,
+      "thp_fault_fallback": 0,
+      "thp_migration_fail": 116,
+      "thp_migration_success": 6908
+    }
+  },
+  {
+    "case": "current_arms",
+    "repetition": 1,
+    "returncode": 0,
+    "elapsed_seconds": 101.74,
+    "read_seconds": 39.03869,
+    "average_iteration_seconds": 6.23145,
+    "trial_count": 10,
+    "interference": null,
+    "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/results/20260909T123745Z-132387/01-current_arms",
+    "valid": true,
+    "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+    "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+    "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+    "startup_free_dram_bytes": 2623270912,
+    "latest_sample_anon_numa_pages": {
+      "0": 538261,
+      "1": 2892772
+    },
+    "global_vmstat_deltas_not_per_process": {
+      "compact_fail": 52380,
+      "compact_success": 10,
+      "pgmigrate_fail": 56814,
+      "pgmigrate_success": 4242712,
+      "pgscan_direct": 193928,
+      "pgscan_kswapd": 4656,
+      "thp_fault_alloc": 13655,
+      "thp_fault_fallback": 0,
+      "thp_migration_fail": 2310,
+      "thp_migration_success": 5239
+    }
+  },
+  {
+    "case": "may07_arms",
+    "repetition": 1,
+    "returncode": 0,
+    "elapsed_seconds": 102.1,
+    "read_seconds": 38.93615,
+    "average_iteration_seconds": 6.28229,
+    "trial_count": 10,
+    "interference": null,
+    "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/results/20260909T123745Z-132387/01-may07_arms",
+    "valid": true,
+    "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+    "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+    "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+    "startup_free_dram_bytes": 2666946560,
+    "latest_sample_anon_numa_pages": {
+      "0": 548230,
+      "1": 2882766
+    },
+    "global_vmstat_deltas_not_per_process": {
+      "compact_fail": 53788,
+      "compact_success": 19,
+      "pgmigrate_fail": 68332,
+      "pgmigrate_success": 4379615,
+      "pgscan_direct": 191598,
+      "pgscan_kswapd": 10232,
+      "thp_fault_alloc": 13690,
+      "thp_fault_fallback": 0,
+      "thp_migration_fail": 2541,
+      "thp_migration_success": 5239
+    }
+  },
+  {
+    "case": "may10_model_candidate",
+    "repetition": 1,
+    "returncode": 0,
+    "elapsed_seconds": 96.59,
+    "read_seconds": 38.90882,
+    "average_iteration_seconds": 5.74622,
+    "trial_count": 10,
+    "interference": null,
+    "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/results/20260909T123745Z-132387/01-may10_model_candidate",
+    "valid": true,
+    "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+    "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+    "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+    "startup_free_dram_bytes": 2630881280,
+    "latest_sample_anon_numa_pages": {
+      "0": 208863,
+      "1": 2961824
+    },
+    "global_vmstat_deltas_not_per_process": {
+      "compact_fail": 2,
+      "compact_success": 0,
+      "pgmigrate_fail": 1879,
+      "pgmigrate_success": 3601483,
+      "pgscan_direct": 0,
+      "pgscan_kswapd": 0,
+      "thp_fault_alloc": 13675,
+      "thp_fault_fallback": 0,
+      "thp_migration_fail": 1,
+      "thp_migration_success": 7028
+    }
+  },
+  {
+    "case": "may07_arms",
+    "repetition": 1,
+    "returncode": 0,
+    "elapsed_seconds": 129.19,
+    "read_seconds": 66.80747,
+    "average_iteration_seconds": 6.20127,
+    "trial_count": 10,
+    "interference": null,
+    "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/results/20260909T124445Z-135186/01-may07_arms",
+    "valid": true,
+    "graph": "/users/zimooo2/gapbs/benchmark/graphs/twitter.sg",
+    "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+    "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+    "startup_free_dram_bytes": 2652164096,
+    "latest_sample_anon_numa_pages": {
+      "0": 528071,
+      "1": 2901555
+    },
+    "global_vmstat_deltas_not_per_process": {
+      "compact_fail": 43766,
+      "compact_success": 36,
+      "pgmigrate_fail": 50842,
+      "pgmigrate_success": 4202838,
+      "pgscan_direct": 128349,
+      "pgscan_kswapd": 5950,
+      "thp_fault_alloc": 13669,
+      "thp_fault_fallback": 0,
+      "thp_migration_fail": 2238,
+      "thp_migration_success": 5375
+    }
+  },
+  {
+    "case": "may07_model",
+    "repetition": 1,
+    "returncode": 0,
+    "elapsed_seconds": 122.92,
+    "read_seconds": 64.35975,
+    "average_iteration_seconds": 5.83555,
+    "trial_count": 10,
+    "interference": null,
+    "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/results/20260909T124445Z-135186/01-may07_model",
+    "valid": true,
+    "graph": "/users/zimooo2/gapbs/benchmark/graphs/twitter.sg",
+    "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+    "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+    "startup_free_dram_bytes": 2632691712,
+    "latest_sample_anon_numa_pages": {
+      "0": 399225,
+      "1": 3032273
+    },
+    "global_vmstat_deltas_not_per_process": {
+      "compact_fail": 0,
+      "compact_success": 0,
+      "pgmigrate_fail": 1877,
+      "pgmigrate_success": 3624309,
+      "pgscan_direct": 0,
+      "pgscan_kswapd": 0,
+      "thp_fault_alloc": 13658,
+      "thp_fault_fallback": 0,
+      "thp_migration_fail": 0,
+      "thp_migration_success": 7072
+    }
+  }
+]

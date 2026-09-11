@@ -1,0 +1,5677 @@
+{
+  "roots": [
+    {
+      "path": "logs",
+      "counts": {
+        ".log": 135
+      },
+      "hits": [
+        {
+          "path": "logs/mg.D.x-original/4029MiB_run1_hybridtier.log",
+          "mtime_utc": "2026-05-11T19:21:50.070574+00:00",
+          "sha256": "713083dbf6a77cda7913934207977962915d3c5933cbc522d0e2e5aa3e5433d7",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 68,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 70,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 72,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 86,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 88,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 90,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 94,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 96,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 98,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 100,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 102,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 142,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        }
+      ],
+      "errors": []
+    },
+    {
+      "path": "logs2",
+      "counts": {},
+      "hits": [],
+      "errors": []
+    },
+    {
+      "path": "collected_logs",
+      "counts": {
+        ".log": 87,
+        ".time": 123
+      },
+      "hits": [],
+      "errors": []
+    },
+    {
+      "path": "times/c220g5",
+      "counts": {
+        ".time": 4537,
+        ".log": 1346
+      },
+      "hits": [],
+      "errors": []
+    },
+    {
+      "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs",
+      "counts": {
+        ".log": 27
+      },
+      "hits": [
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/pr-twitter.sg/4029MiB_run3_hybridtier.log",
+          "mtime_utc": "2026-05-11T18:30:49.482149+00:00",
+          "sha256": "74cef07ea13fc495b3ed5b2e2ef5be758aff0433b259e6a2b215f2ec89d82455",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 48,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 50,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 68,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 70,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 72,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 86,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 88,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 90,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 94,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 96,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 98,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 142,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1127,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1130,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1133,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1136,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1139,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1142,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1145,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1148,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1151,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1154,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1157,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1160,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1163,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1166,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1169,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1172,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1186,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1189,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1192,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1195,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1198,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1201,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1204,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1207,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1210,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1213,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1216,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1219,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1222,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1225,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1228,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1231,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1272,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1275,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1278,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1281,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1284,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1287,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1290,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1293,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1296,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1299,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1302,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1305,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1308,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1311,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1314,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1317,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/pr-twitter.sg/4029MiB_run2_hybridtier.log",
+          "mtime_utc": "2026-05-11T17:13:31.911436+00:00",
+          "sha256": "e330a4599d2c11f855f35eeb8dca9f5ec29fff2cb853ed9dc2a7f2a36eb056e0",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 48,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 50,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 68,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 70,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 72,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 86,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 88,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 90,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 94,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 96,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 98,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 142,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1040,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1043,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1046,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1049,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1052,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1055,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1058,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1061,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1064,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1067,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1070,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1073,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1076,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1079,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1082,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1085,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1135,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1138,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1141,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1144,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1147,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1150,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1153,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1156,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1159,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1162,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1165,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1168,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1171,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1174,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1177,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1180,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1193,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1196,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1199,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1202,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1205,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1208,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1211,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1214,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1217,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1220,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1223,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1226,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1229,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1232,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1235,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1238,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/pr-twitter.sg/4029MiB_run1_hybridtier.log",
+          "mtime_utc": "2026-05-11T15:57:47.406519+00:00",
+          "sha256": "0d82b61b65eabb3c858b1a3642f41dfae5bc4cf48c1e2b66ab03a8db6425b26b",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 48,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 50,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 68,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 70,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 72,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 86,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 88,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 90,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 94,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 96,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 98,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 142,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1141,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1144,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1147,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1150,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1153,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1156,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1159,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1162,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1165,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1168,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1171,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1174,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1177,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1180,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1183,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1186,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1319,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1322,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1325,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1328,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1331,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1334,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1337,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1340,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1343,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1346,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1349,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1352,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1355,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1358,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1361,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1364,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1377,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1380,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1383,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1386,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1389,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1392,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1395,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1398,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1401,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1404,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1407,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1410,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1413,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1416,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1419,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 1422,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/bc-twitter.sg/4029MiB_run3_hybridtier.log",
+          "mtime_utc": "2026-05-11T18:15:13.511090+00:00",
+          "sha256": "5c063493e795b799a502583a594429e8ed806a81c9329d71dd9a17fcbd44bd66",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 48,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 50,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 68,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 70,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 72,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 86,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 88,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 90,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 94,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 96,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 98,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 142,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/bc-twitter.sg/4029MiB_run2_hybridtier.log",
+          "mtime_utc": "2026-05-11T16:58:32.388034+00:00",
+          "sha256": "1cb9205ff9955ab19bfda778906292aa29fbc1abf356ab0f77f1fc71fca0996e",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 48,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 50,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 68,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 70,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 72,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 86,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 88,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 90,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 94,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 96,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 98,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 142,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/bc-twitter.sg/4029MiB_run1_hybridtier.log",
+          "mtime_utc": "2026-05-11T15:42:16.734582+00:00",
+          "sha256": "ad8790d46d51f31611b302858151441edc5431e93e8394ebdb92be9987223def",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 48,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 50,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 68,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 70,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 72,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 86,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 88,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 90,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 94,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 96,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 98,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 142,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/mg.D.x/4029MiB_run3_hybridtier.log",
+          "mtime_utc": "2026-05-11T18:50:33.817506+00:00",
+          "sha256": "4061ed99d46d0564c81cd99bbbfbaf16e71b52bb7f0268a9743b12214892f37f",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 48,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 50,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 68,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 70,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 72,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 86,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 88,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 90,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 94,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 96,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 98,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 142,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/mg.D.x/4029MiB_run2_hybridtier.log",
+          "mtime_utc": "2026-05-11T17:33:10.069688+00:00",
+          "sha256": "878073a1955614dfed44fce2e61c191456338125db9ba3c6efe7deab82cd08dd",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 48,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 50,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 68,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 70,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 72,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 86,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 88,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 90,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 94,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 96,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 98,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 142,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/mg.D.x/4029MiB_run1_hybridtier.log",
+          "mtime_utc": "2026-05-11T16:17:37.128716+00:00",
+          "sha256": "2eb715b8df51c4db6602ffe0e513ae1f32c59c7db94bc329d1a6540f68031f39",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 48,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 50,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 69,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 86,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 88,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 90,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 94,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 96,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 98,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 100,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 102,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 142,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/pr-kron.sg/4029MiB_run3_hybridtier.log",
+          "mtime_utc": "2026-05-11T18:09:08.928259+00:00",
+          "sha256": "0d21f7c9048af6c7cc924f95e29d7e5f128afdba91c9fe7f04ab066e7657d1bd",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 48,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 50,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 68,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 70,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 72,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 86,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 88,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 90,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 94,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 96,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 98,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 142,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2208,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2211,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2214,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2217,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2220,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2223,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2226,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2229,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2232,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2235,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2238,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2241,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2244,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2247,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2250,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2253,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2266,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2269,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2272,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2275,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2278,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2281,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2284,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2287,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2290,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2293,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2296,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2299,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2302,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2305,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2308,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2311,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2324,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2327,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2330,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2333,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2336,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2339,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2342,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2345,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2348,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2351,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2354,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2357,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2360,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2363,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2366,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2369,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/pr-kron.sg/4029MiB_run2_hybridtier.log",
+          "mtime_utc": "2026-05-11T16:52:33.178276+00:00",
+          "sha256": "9662df72bb99f843fbf49d1a98c869a67296b6cb0c92ca466003518546d9837b",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 48,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 50,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 68,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 70,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 72,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 86,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 88,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 90,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 94,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 96,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 98,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 142,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2259,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2262,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2265,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2268,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2271,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2274,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2277,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2280,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2283,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2286,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2289,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2292,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2295,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2298,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2301,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2304,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2318,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2321,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2324,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2327,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2330,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2333,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2336,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2339,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2342,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2345,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2348,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2351,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2354,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2357,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2360,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2363,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2377,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2380,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2383,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2386,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2389,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2392,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2395,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2398,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2401,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2404,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2407,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2410,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2413,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2416,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2419,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2422,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/pr-kron.sg/4029MiB_run1_hybridtier.log",
+          "mtime_utc": "2026-05-11T15:36:18.485636+00:00",
+          "sha256": "ac5ded43cfa8847697cbe90186de73139cbaa9e1e202ad4f08dff92f4d212ac0",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 48,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 50,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 68,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 70,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 72,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 86,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 88,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 90,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 94,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 96,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 98,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 142,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2214,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2217,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2220,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2223,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2226,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2229,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2232,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2235,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2238,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2241,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2244,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2247,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2250,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2253,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2256,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2259,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2272,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2275,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2278,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2281,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2284,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2287,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2290,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2293,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2296,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2299,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2302,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2305,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2308,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2311,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2314,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2317,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2330,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2333,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2336,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2339,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2342,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2345,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2348,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2351,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2354,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2357,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2360,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2363,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2366,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2369,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2372,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2375,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/faiss_10M/4029MiB_run3_hybridtier.log",
+          "mtime_utc": "2026-05-11T18:40:59.670571+00:00",
+          "sha256": "b828ac6c3a0450da428b0b6042977e790d76964422b9d4c49db71a023824bbad",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 48,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 50,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 68,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 70,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 72,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 86,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 88,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 90,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 98,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 100,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 102,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 114,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/faiss_10M/4029MiB_run2_hybridtier.log",
+          "mtime_utc": "2026-05-11T17:23:40.399846+00:00",
+          "sha256": "3ab8bd33ed623420b79ee581b588fe93a1ed2e7a1155693c03da24acabce7d1d",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 48,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 50,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 68,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 70,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 72,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 88,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 94,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 96,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 98,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 100,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 102,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 105,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/faiss_10M/4029MiB_run1_hybridtier.log",
+          "mtime_utc": "2026-05-11T16:08:06.364992+00:00",
+          "sha256": "3d9abaee56d1f882fb0a4c8fa8f887e4824b9055602d1427c70a0ff475a011be",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 48,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 50,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 68,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 70,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 72,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 86,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 88,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 90,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 98,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 100,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 102,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 105,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/XSBench/4029MiB_run3_hybridtier.log",
+          "mtime_utc": "2026-05-11T18:39:13.169092+00:00",
+          "sha256": "8aa507329b33b1f88fbfe9329dff3f854b09039f0319091783b050526c619e02",
+          "matches": [
+            {
+              "line": 69,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 71,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 73,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 75,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 77,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 79,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 81,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 83,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 85,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 87,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 89,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 91,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 93,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 95,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 97,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 99,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 101,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 103,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 105,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 107,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 109,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 111,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 113,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 115,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 117,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 119,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 121,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 123,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 126,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 131,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 133,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 173,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2452,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2455,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2458,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2461,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2464,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2467,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2470,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2473,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2476,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2479,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2482,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2485,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2488,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2491,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2494,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2497,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2510,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2513,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2516,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2519,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2522,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2525,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2528,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2531,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2534,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2537,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2540,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2543,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2546,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2549,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2552,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2555,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2569,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2572,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2575,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2578,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2581,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2584,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2587,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2590,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2593,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2596,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2599,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2602,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2605,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2608,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2611,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2614,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/XSBench/4029MiB_run2_hybridtier.log",
+          "mtime_utc": "2026-05-11T17:21:54.031375+00:00",
+          "sha256": "ae51f98f4724059bd39ca4aeda919c78653baa6009bf37d219466e9cee3caf64",
+          "matches": [
+            {
+              "line": 69,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 71,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 73,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 75,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 77,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 79,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 81,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 83,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 85,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 87,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 89,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 91,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 93,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 95,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 97,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 99,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 101,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 103,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 105,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 107,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 109,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 111,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 113,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 115,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 117,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 119,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 121,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 123,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 128,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 131,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 133,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 173,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/XSBench/4029MiB_run1_hybridtier.log",
+          "mtime_utc": "2026-05-11T16:06:21.003558+00:00",
+          "sha256": "4f9b6d75f1f5c38b458d0e75ba53b3b11d6320d9897142528269b4646071cc84",
+          "matches": [
+            {
+              "line": 69,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 71,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 73,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 75,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 77,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 79,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 81,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 83,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 85,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 87,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 89,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 91,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 93,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 95,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 97,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 99,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 101,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 103,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 105,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 107,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 109,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 111,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 113,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 115,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 117,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 119,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 121,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 123,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 125,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 128,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 133,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 173,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2396,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2399,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2402,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2405,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2408,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2411,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2414,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2417,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2420,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2423,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2426,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2429,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2432,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2435,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2438,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2441,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2455,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2458,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2461,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2464,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2467,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2470,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2473,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2476,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2479,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2482,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2485,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2488,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2491,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2494,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2497,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2500,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2513,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2516,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2519,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2522,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2525,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2528,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2531,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2534,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2537,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2540,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2543,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2546,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2549,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2552,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2555,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 2558,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/faiss_10M-original/4029MiB_run1_hybridtier.log",
+          "mtime_utc": "2026-05-11T19:06:31.646614+00:00",
+          "sha256": "21b9f147681fbb2614052e21635f2c62efc5d9b46129e1e0282a82f96461851e",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 48,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 50,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 68,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 70,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 72,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 87,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 94,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 96,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 98,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 100,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 102,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 105,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/bc-kron.sg/4029MiB_run3_hybridtier.log",
+          "mtime_utc": "2026-05-11T17:53:36.845222+00:00",
+          "sha256": "2cb958abd04fdbb15efe8c0472ad7c9137c699ed9fa05f3541fa53c45c456912",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 48,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 50,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 68,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 70,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 72,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 86,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 88,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 90,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 94,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 96,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 98,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 142,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/bc-kron.sg/4029MiB_run2_hybridtier.log",
+          "mtime_utc": "2026-05-11T16:37:51.246806+00:00",
+          "sha256": "3c4de48a63973595ffe1b910fb57e618d3a1b6c0c00bfa29e8919690ccd773d0",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 48,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 50,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 68,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 70,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 72,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 86,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 88,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 90,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 94,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 96,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 98,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 142,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/bc-kron.sg/4029MiB_run1_hybridtier.log",
+          "mtime_utc": "2026-05-11T15:21:30.651630+00:00",
+          "sha256": "035e486559f0444b9bd0be8528b7ccaf9e1cf2e937a9197fad3e1a29e80ecce0",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 48,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 50,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 68,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 70,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 72,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 86,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 88,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 90,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 94,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 96,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 98,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 142,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/DuckDB-TPCH-sf100/4029MiB_run3_hybridtier.log",
+          "mtime_utc": "2026-05-11T18:59:34.473956+00:00",
+          "sha256": "2ed4c67fd58d7641671e7a9ea2ecc819cf7f7d9243dd2104fe737d9524ccc15c",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 48,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 50,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 68,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 70,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 72,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 86,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 88,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 90,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 94,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 96,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 98,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 143,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 471,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 474,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 477,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 480,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 483,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 486,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 489,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 492,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 495,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 498,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 501,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 504,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 507,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 510,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 513,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 516,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 525,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 528,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 531,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 534,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 537,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 540,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 543,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 546,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 549,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 552,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 555,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 558,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 561,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 564,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 567,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 570,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 579,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 582,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 585,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 588,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 591,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 594,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 597,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 600,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 603,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 606,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 609,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 612,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 615,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 618,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 621,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 624,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/DuckDB-TPCH-sf100/4029MiB_run2_hybridtier.log",
+          "mtime_utc": "2026-05-11T17:42:15.095154+00:00",
+          "sha256": "cabbe7c908d0f980e429bde3a203ec02f958f674132e71e0d06289ff944cd075",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 48,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 50,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 68,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 70,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 72,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 86,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 88,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 90,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 96,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 100,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 102,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 143,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 491,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 494,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 497,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 500,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 503,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 506,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 509,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 512,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 515,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 518,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 521,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 524,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 527,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 530,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 533,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 536,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 546,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 549,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 552,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 555,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 558,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 561,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 564,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 567,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 570,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 573,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 576,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 579,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 582,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 585,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 588,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 591,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 600,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 603,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 606,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 609,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 612,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 615,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 618,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 621,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 624,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 627,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 630,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 633,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 636,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 639,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 642,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 645,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        },
+        {
+          "path": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/DuckDB-TPCH-sf100/4029MiB_run1_hybridtier.log",
+          "mtime_utc": "2026-05-11T16:26:39.451019+00:00",
+          "sha256": "e3352aa09ec171485ced3613eb1ed50cc84acb6d7c8920fa6b0fa9564e5a78cd",
+          "matches": [
+            {
+              "line": 38,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 40,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 42,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 44,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 46,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 48,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 50,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 52,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 54,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 56,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 58,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 60,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 62,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 64,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 66,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 68,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 70,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 72,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 74,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 76,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 78,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 80,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 82,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 84,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 86,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 88,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 90,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 92,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 94,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 97,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 102,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 143,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 501,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 504,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 507,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 510,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 513,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 516,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 519,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 522,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 525,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 528,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 531,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 534,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 537,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 540,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 543,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 546,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 555,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 558,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 561,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 564,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 567,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 570,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 573,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 576,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 579,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 582,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 585,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 588,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 591,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 594,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 597,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 600,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 609,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 612,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 615,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 618,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 621,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 624,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 627,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 630,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 633,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 636,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 639,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 642,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 645,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 648,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 651,
+              "text": "Perf mmap size 135168, page size 4096 "
+            },
+            {
+              "line": 654,
+              "text": "Perf mmap size 135168, page size 4096 "
+            }
+          ]
+        }
+      ],
+      "errors": []
+    }
+  ],
+  "patterns": [
+    "USE_MODEL",
+    "ARMS_VERBOSE",
+    "BACKOFF_PERIOD",
+    "libhemem-arms",
+    "libarms_kernel",
+    "mmap size"
+  ],
+  "note": "Non-final originals only. Existing reproduction startup logs excluded because they establish reconstructed settings, not historical settings."
+}

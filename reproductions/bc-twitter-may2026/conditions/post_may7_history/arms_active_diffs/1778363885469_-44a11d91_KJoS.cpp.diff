@@ -1,0 +1,11 @@
+--- /users/zimooo2/.vscode-server/data/User/History/-44a11d91/e7VS.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-44a11d91/KJoS.cpp
+@@ -1312,7 +1312,7 @@
+ {
+ break;
+ }
+-if (cold_page->in_dram)
++if (cold_page->in_dram && cold_page->can_demote)
+ {
+ selected_cold_page = cold_page;
+ cost += 1 * get_demotion_cost_multiplier() * demotion_cost_avg;

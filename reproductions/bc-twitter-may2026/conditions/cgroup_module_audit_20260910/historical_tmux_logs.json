@@ -1,0 +1,79 @@
+[
+  {
+    "file": "/var/log/syslog",
+    "matching_lines": 63,
+    "first_three": [
+      {
+        "line": 1374,
+        "text": "2026-09-06T01:04:00.540253-05:00 localhost systemd[2423]: tmux-spawn-bad2c860-1c04-4efa-a816-aab125688e84.scope: Consumed 2d 20h 7min 8.499s CPU time."
+      },
+      {
+        "line": 3631,
+        "text": "2026-09-06T01:08:59.476138-05:00 localhost systemd[2356]: Started tmux-spawn-5346bd0f-bb44-4ddb-816f-89449f2f2f24.scope - tmux child pane 9131 launched by process 9130."
+      },
+      {
+        "line": 5606,
+        "text": "2026-09-07T01:56:58.149946-05:00 localhost systemd[2356]: tmux-spawn-5346bd0f-bb44-4ddb-816f-89449f2f2f24.scope: Consumed 6d 20h 51min 41.936s CPU time."
+      }
+    ]
+  },
+  {
+    "file": "/var/log/syslog.1",
+    "matching_lines": 98,
+    "first_three": [
+      {
+        "line": 2554,
+        "text": "2026-08-30T04:39:36.748294-05:00 localhost systemd[2051]: Started tmux-spawn-d8410119-8ec7-404b-90b4-08e37dc24492.scope - tmux child pane 12027 launched by process 12023."
+      },
+      {
+        "line": 2805,
+        "text": "2026-08-30T07:01:40.554335-05:00 localhost kernel: oom-kill:constraint=CONSTRAINT_MEMORY_POLICY,nodemask=0,cpuset=/,mems_allowed=0-1,global_oom,task_memcg=/user.slice/user-20020.slice/user@20020.service/tmux-spawn-d8410119-8ec7-404b-90b4-08e37dc24492.scope,task=bc,pid=26492,uid=0"
+      },
+      {
+        "line": 2808,
+        "text": "2026-08-30T07:01:40.567542-05:00 localhost systemd[2051]: tmux-spawn-d8410119-8ec7-404b-90b4-08e37dc24492.scope: A process of this unit has been killed by the OOM killer."
+      }
+    ]
+  },
+  {
+    "file": "/var/log/syslog.2.gz",
+    "matching_lines": 43,
+    "first_three": [
+      {
+        "line": 8155,
+        "text": "2026-08-24T04:57:58.111726-05:00 localhost systemd[7393]: tmux-spawn-0508930e-e76e-4aa7-8a53-df28ba083dc9.scope: Consumed 3d 21h 14min 15.686s CPU time."
+      },
+      {
+        "line": 15887,
+        "text": "2026-08-25T02:50:01.890742-05:00 localhost systemd[7804]: Started tmux-spawn-c5ce320e-39f3-4649-b93d-d8fec49032fc.scope - tmux child pane 8946 launched by process 8945."
+      },
+      {
+        "line": 59094,
+        "text": "2026-08-25T11:48:59.120251-05:00 localhost systemd[7804]: tmux-spawn-c5ce320e-39f3-4649-b93d-d8fec49032fc.scope: Consumed 2d 4h 41min 4.086s CPU time."
+      }
+    ]
+  },
+  {
+    "file": "/var/log/syslog.3.gz",
+    "matching_lines": 11,
+    "first_three": [
+      {
+        "line": 3901,
+        "text": "2026-08-18T04:29:57.570188-05:00 localhost systemd[1824]: tmux-spawn-6e39dd00-1361-4924-b539-e546ceb7f3ad.scope: Consumed 1d 16h 38min 34.325s CPU time."
+      },
+      {
+        "line": 6177,
+        "text": "2026-08-18T04:34:45.845145-05:00 localhost systemd[2378]: Started tmux-spawn-97687339-9f65-4648-b709-3ee306912943.scope - tmux child pane 11504 launched by process 11503."
+      },
+      {
+        "line": 35332,
+        "text": "2026-08-21T05:24:18.602790-05:00 localhost systemd[2378]: tmux-spawn-97687339-9f65-4648-b709-3ee306912943.scope: Consumed 1d 58min 18.318s CPU time."
+      }
+    ]
+  },
+  {
+    "file": "/var/log/syslog.4.gz",
+    "matching_lines": 0,
+    "first_three": []
+  }
+]

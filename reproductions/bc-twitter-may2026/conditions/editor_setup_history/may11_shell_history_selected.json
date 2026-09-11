@@ -1,0 +1,825 @@
+{
+  "path": "/users/zimooo2/.bash_history-05835.tmp",
+  "mtime_utc": "2026-05-11T20:55:24.719324+00:00",
+  "sha256": "4d63f488bad28262e29a54d105329399511d420947888ee7c37d972b960e253c",
+  "line_count": 2000,
+  "gapbs_literal_lines": [],
+  "selected_commands": [
+    {
+      "line": 51,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 52,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 137,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 138,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 139,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 140,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 161,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 162,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 183,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 184,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 187,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 188,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 189,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 190,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 202,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 204,
+      "command": "sudo mount /dev/sda ~/tiering_solutions/logs"
+    },
+    {
+      "line": 205,
+      "command": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 249,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 250,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 251,
+      "command": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 252,
+      "command": "sudo mount /dev/sda ~/tiering_solutions/logs"
+    },
+    {
+      "line": 262,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 263,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 284,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 285,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 302,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 303,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 304,
+      "command": "sudo mount /dev/sda ~/tiering_solutions/logs"
+    },
+    {
+      "line": 305,
+      "command": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 345,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 346,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 347,
+      "command": "sudo mount /dev/sda ~/tiering_solutions/logs"
+    },
+    {
+      "line": 348,
+      "command": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 378,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 379,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 391,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 392,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 402,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 403,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 421,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 422,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 432,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 433,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 460,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 461,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 480,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 481,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 482,
+      "command": "sudo mount /dev/sda ~/tiering_solutions/logs"
+    },
+    {
+      "line": 483,
+      "command": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 496,
+      "command": "sudo mount /dev/sda ~/tiering_solutions/logs"
+    },
+    {
+      "line": 497,
+      "command": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 508,
+      "command": "sudo mount /dev/sda ~/tiering_solutions/logs"
+    },
+    {
+      "line": 509,
+      "command": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 510,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 511,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 523,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 524,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 525,
+      "command": "sudo mount /dev/sda ~/tiering_solutions/logs"
+    },
+    {
+      "line": 526,
+      "command": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 541,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 542,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 543,
+      "command": "sudo mount /dev/sda ~/tiering_solutions/logs"
+    },
+    {
+      "line": 544,
+      "command": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 564,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 565,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 575,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 576,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 596,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 597,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 604,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 605,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 617,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 618,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 619,
+      "command": "sudo mount /dev/sda ~/tiering_solutions/logs"
+    },
+    {
+      "line": 620,
+      "command": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 644,
+      "command": "sudo mount /dev/sda ~/tiering_solutions/logs"
+    },
+    {
+      "line": 645,
+      "command": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 646,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 647,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 806,
+      "command": "sudo wrmsr --processor 39  0x620 0x707"
+    },
+    {
+      "line": 923,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 924,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 980,
+      "command": "sudo umount /dev/sdb"
+    },
+    {
+      "line": 982,
+      "command": "sudo mount /users/zimooo2/tiering_solutions/data"
+    },
+    {
+      "line": 983,
+      "command": "sudo mount /dev/sdb /users/zimooo2/tiering_solutions/data"
+    },
+    {
+      "line": 984,
+      "command": "sudo mount /users/zimooo2/tiering_solutions/datacd"
+    },
+    {
+      "line": 1043,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1044,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1046,
+      "command": "sudo mount /dev/sda ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1047,
+      "command": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1080,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1081,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1090,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1091,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1105,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1106,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1126,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1127,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1129,
+      "command": "sudo mount /dev/sda ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1130,
+      "command": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1131,
+      "command": "sudo mount /dev/sdc ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1132,
+      "command": "sudo mount /dev/sdc ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1138,
+      "command": "csudo mount /dev/sdc ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1139,
+      "command": "sudo mount /dev/sdc ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1140,
+      "command": "sudo mount /dev/sdc ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1141,
+      "command": "sudo mount /dev/sdc ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1144,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1145,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1161,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1162,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1171,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1172,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1181,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1182,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1193,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1194,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1246,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1247,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1256,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1257,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1258,
+      "command": "sudo mount /dev/sdc ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1259,
+      "command": "sudo mount /dev/sdc ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1286,
+      "command": "sudo mount /dev/sdc ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1287,
+      "command": "sudo mount /dev/sdc ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1289,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1290,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1305,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1306,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1317,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1318,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1331,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1332,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1339,
+      "command": "sudo mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1340,
+      "command": "sudo mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+    },
+    {
+      "line": 1359,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1360,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1383,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1384,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1391,
+      "command": "sudo mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1392,
+      "command": "sudo mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+    },
+    {
+      "line": 1409,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1410,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1417,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1418,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1427,
+      "command": "sudo mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1428,
+      "command": "sudo mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+    },
+    {
+      "line": 1441,
+      "command": "sudo mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1442,
+      "command": "sudo mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+    },
+    {
+      "line": 1461,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1462,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1463,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1464,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1503,
+      "command": "sudo mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1504,
+      "command": "sudo mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+    },
+    {
+      "line": 1552,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1553,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1611,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1612,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1625,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1626,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1627,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1628,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1652,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1653,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1665,
+      "command": "cd tiering_solutions/sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1666,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1667,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1668,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1686,
+      "command": "sudo mount /dev/sdb /users/zimooo2/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1687,
+      "command": "sudo mount /dev/sdb /users/zimooo2/tiering_solutions/logs"
+    },
+    {
+      "line": 1698,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1699,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1716,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1717,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1730,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1731,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1792,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1793,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1798,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1799,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1833,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1834,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1857,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1858,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1892,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1893,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1901,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1902,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1933,
+      "command": "sudo mount /dev/sda ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1934,
+      "command": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1937,
+      "command": "sudo umount /users/zimooo2/tiering_solutions/logs"
+    },
+    {
+      "line": 1938,
+      "command": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1940,
+      "command": "sudo mount /dev/sda ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1955,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1956,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1960,
+      "command": "sudo mount /dev/sdc ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1961,
+      "command": "sudo mount /dev/sdc ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1962,
+      "command": "sudo mount /dev/sda ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1963,
+      "command": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1966,
+      "command": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1980,
+      "command": "sudo mount /dev/sda ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1981,
+      "command": "sudo mount /dev/sda ~/big-ann-benchmarks/data"
+    },
+    {
+      "line": 1983,
+      "command": "sudo mount /dev/sdb ~/tiering_solutions/logs"
+    },
+    {
+      "line": 1984,
+      "command": "sudo mount /dev/sdb ~/big-ann-benchmarks/data"
+    }
+  ]
+}

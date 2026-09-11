@@ -1,0 +1,632 @@
+[
+  {
+    "boot_start_utc": "2026-05-12T17:06:17+00:00",
+    "count": 6,
+    "groups": [
+      {
+        "group": "model",
+        "workload": "bc-twitter.sg-long",
+        "size_mib": 4032,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-05-12T20:35:43.614066+00:00",
+        "last": "2026-05-12T23:28:32.876740+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "bc-twitter.sg-long",
+        "size_mib": 4032,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-05-12T22:25:30.554265+00:00",
+        "last": "2026-05-12T23:53:28.999033+00:00"
+      }
+    ]
+  },
+  {
+    "boot_start_utc": "2026-05-13T01:08:19+00:00",
+    "count": 6,
+    "groups": [
+      {
+        "group": "model",
+        "workload": "pr-twitter.sg-long",
+        "size_mib": 4032,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-05-13T03:59:10.792686+00:00",
+        "last": "2026-05-13T07:10:40.531224+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "pr-twitter.sg-long",
+        "size_mib": 4032,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-05-13T04:45:07.510806+00:00",
+        "last": "2026-05-13T07:56:36.450224+00:00"
+      }
+    ]
+  },
+  {
+    "boot_start_utc": "2026-05-13T16:28:17+00:00",
+    "count": 39,
+    "groups": [
+      {
+        "group": "arms",
+        "workload": "bc-kron.sg",
+        "size_mib": 6032,
+        "count": 1,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-05-13T16:46:29.413174+00:00",
+        "last": "2026-05-13T16:46:29.413174+00:00"
+      },
+      {
+        "group": "hybridtier",
+        "workload": "bc-kron.sg",
+        "size_mib": 6032,
+        "count": 1,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-05-13T16:52:55.113193+00:00",
+        "last": "2026-05-13T16:52:55.113193+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "pr-kron.sg",
+        "size_mib": 6032,
+        "count": 1,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-05-13T17:04:26.859500+00:00",
+        "last": "2026-05-13T17:04:26.859500+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "bc-kron.sg",
+        "size_mib": 6032,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-05-13T17:23:46.791896+00:00",
+        "last": "2026-05-13T20:41:47.761831+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "pr-kron.sg",
+        "size_mib": 6032,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-05-13T17:29:32.939764+00:00",
+        "last": "2026-05-13T20:47:36.324632+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "bc-twitter.sg",
+        "size_mib": 6032,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-05-13T17:31:58.518786+00:00",
+        "last": "2026-05-13T20:50:05.195682+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "pr-twitter.sg",
+        "size_mib": 6032,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-05-13T17:37:48.108613+00:00",
+        "last": "2026-05-13T20:55:55.680508+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "XSBench",
+        "size_mib": 6032,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-05-13T17:41:21.876553+00:00",
+        "last": "2026-05-13T20:59:33.455507+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "faiss_10M",
+        "size_mib": 6032,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-05-13T17:46:58.692167+00:00",
+        "last": "2026-05-13T21:05:11.450155+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "mg.D.x",
+        "size_mib": 6032,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-05-13T17:51:30.613892+00:00",
+        "last": "2026-05-13T21:09:42.155864+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "DuckDB-TPCH-sf100",
+        "size_mib": 6032,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-05-13T17:55:32.499204+00:00",
+        "last": "2026-05-13T21:13:46.308196+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "bc-twitter.sg-long",
+        "size_mib": 6032,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-05-13T18:08:02.030372+00:00",
+        "last": "2026-05-13T21:26:08.292216+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "pr-twitter.sg-long",
+        "size_mib": 6032,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-05-13T18:55:59.113220+00:00",
+        "last": "2026-05-13T22:13:54.547087+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "bc-twitter.sg-long",
+        "size_mib": 6032,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-05-14T00:45:16.334372+00:00",
+        "last": "2026-05-14T02:55:31.077171+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "pr-twitter.sg-long",
+        "size_mib": 6032,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-05-14T01:32:33.094131+00:00",
+        "last": "2026-05-14T03:42:45.907861+00:00"
+      }
+    ]
+  },
+  {
+    "boot_start_utc": "2026-05-14T07:30:49+00:00",
+    "count": 9,
+    "groups": [
+      {
+        "group": "model",
+        "workload": "bc-twitter.sg-long",
+        "size_mib": 4035,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-05-14T07:57:44.751503+00:00",
+        "last": "2026-05-14T08:52:33.963559+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "bc-twitter.sg-long",
+        "size_mib": 4035,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-05-14T08:11:43.919171+00:00",
+        "last": "2026-05-14T09:06:50.839137+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "pr-twitter.sg-long",
+        "size_mib": 4035,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-05-15T03:41:14.219841+00:00",
+        "last": "2026-05-15T05:17:54.799973+00:00"
+      }
+    ]
+  },
+  {
+    "boot_start_utc": "2026-06-13T22:10:24+00:00",
+    "count": 48,
+    "groups": [
+      {
+        "group": "model",
+        "workload": "bc-kron.sg-long",
+        "size_mib": 4040,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-13T22:44:34.950656+00:00",
+        "last": "2026-06-14T07:49:40.209445+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "bc-kron.sg-long",
+        "size_mib": 4040,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-13T23:00:36.037841+00:00",
+        "last": "2026-06-14T08:06:01.627922+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "pr-kron.sg-long",
+        "size_mib": 4040,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-13T23:23:25.170514+00:00",
+        "last": "2026-06-14T08:29:05.874046+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "pr-kron.sg-long",
+        "size_mib": 4040,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-13T23:46:33.895471+00:00",
+        "last": "2026-06-14T08:52:19.025363+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "bc-twitter.sg-long",
+        "size_mib": 4040,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-13T23:58:03.958960+00:00",
+        "last": "2026-06-14T09:03:32.276708+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "bc-twitter.sg-long",
+        "size_mib": 4040,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-14T00:09:29.783397+00:00",
+        "last": "2026-06-14T09:15:35.439751+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "pr-twitter.sg-long",
+        "size_mib": 4040,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-14T00:54:59.125174+00:00",
+        "last": "2026-06-14T10:01:01.164402+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "pr-twitter.sg-long",
+        "size_mib": 4040,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-14T01:38:42.338641+00:00",
+        "last": "2026-06-14T10:45:45.109894+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "faiss_10M-long",
+        "size_mib": 4040,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-14T01:39:43.386499+00:00",
+        "last": "2026-06-14T10:47:02.808988+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "faiss_10M-long",
+        "size_mib": 4040,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-14T01:41:08.368694+00:00",
+        "last": "2026-06-14T10:48:14.177991+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "XSBench-long",
+        "size_mib": 4040,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-14T02:05:57.866521+00:00",
+        "last": "2026-06-14T11:13:05.651758+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "XSBench-long",
+        "size_mib": 4040,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-14T02:29:33.445503+00:00",
+        "last": "2026-06-14T11:37:24.891107+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "mg.D.x-long",
+        "size_mib": 4040,
+        "count": 3,
+        "exit_statuses": [
+          "139"
+        ],
+        "first": "2026-06-14T02:30:52.807621+00:00",
+        "last": "2026-06-14T11:38:47.602260+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "mg.D.x-long",
+        "size_mib": 4040,
+        "count": 3,
+        "exit_statuses": [
+          "139"
+        ],
+        "first": "2026-06-14T02:31:57.455532+00:00",
+        "last": "2026-06-14T11:40:10.210412+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "DuckDB-TPCH-sf100-long",
+        "size_mib": 4040,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-14T02:45:38.735093+00:00",
+        "last": "2026-06-14T11:53:41.347709+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "DuckDB-TPCH-sf100-long",
+        "size_mib": 4040,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-14T02:59:18.359582+00:00",
+        "last": "2026-06-14T12:07:34.544281+00:00"
+      }
+    ]
+  },
+  {
+    "boot_start_utc": "2026-06-22T03:55:37+00:00",
+    "count": 48,
+    "groups": [
+      {
+        "group": "model",
+        "workload": "bc-kron.sg-long",
+        "size_mib": 4041,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-22T17:24:04.707842+00:00",
+        "last": "2026-06-23T03:32:56.021240+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "bc-kron.sg-long",
+        "size_mib": 4041,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-22T17:39:35.671626+00:00",
+        "last": "2026-06-23T03:48:30.909504+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "pr-kron.sg-long",
+        "size_mib": 4041,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-22T18:01:57.420211+00:00",
+        "last": "2026-06-23T04:10:57.430972+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "pr-kron.sg-long",
+        "size_mib": 4041,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-22T18:24:07.095128+00:00",
+        "last": "2026-06-23T04:33:09.843918+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "bc-twitter.sg-long",
+        "size_mib": 4041,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-22T18:35:05.284434+00:00",
+        "last": "2026-06-23T04:44:18.070434+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "bc-twitter.sg-long",
+        "size_mib": 4041,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-22T18:46:14.981888+00:00",
+        "last": "2026-06-23T04:55:39.297047+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "pr-twitter.sg-long",
+        "size_mib": 4041,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-22T19:34:15.424006+00:00",
+        "last": "2026-06-23T05:39:35.290448+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "pr-twitter.sg-long",
+        "size_mib": 4041,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-22T20:17:38.311588+00:00",
+        "last": "2026-06-23T06:23:14.944335+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "faiss_10M-long",
+        "size_mib": 4041,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-22T20:38:26.506123+00:00",
+        "last": "2026-06-23T06:43:52.875846+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "faiss_10M-long",
+        "size_mib": 4041,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-22T20:59:21.960761+00:00",
+        "last": "2026-06-23T07:04:32.945331+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "XSBench-long",
+        "size_mib": 4041,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-22T21:22:38.111503+00:00",
+        "last": "2026-06-23T07:27:50.482001+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "XSBench-long",
+        "size_mib": 4041,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-22T21:46:39.414780+00:00",
+        "last": "2026-06-23T07:51:53.362211+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "mg.D.x-long",
+        "size_mib": 4041,
+        "count": 3,
+        "exit_statuses": [
+          "139"
+        ],
+        "first": "2026-06-22T21:47:25.644428+00:00",
+        "last": "2026-06-23T07:52:39.995854+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "mg.D.x-long",
+        "size_mib": 4041,
+        "count": 3,
+        "exit_statuses": [
+          "139"
+        ],
+        "first": "2026-06-22T21:48:11.038065+00:00",
+        "last": "2026-06-23T07:53:26.109492+00:00"
+      },
+      {
+        "group": "model",
+        "workload": "DuckDB-TPCH-sf100-long",
+        "size_mib": 4041,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-22T22:01:17.069986+00:00",
+        "last": "2026-06-23T08:06:20.422240+00:00"
+      },
+      {
+        "group": "arms",
+        "workload": "DuckDB-TPCH-sf100-long",
+        "size_mib": 4041,
+        "count": 3,
+        "exit_statuses": [
+          "0"
+        ],
+        "first": "2026-06-22T22:14:55.131123+00:00",
+        "last": "2026-06-23T08:19:51.013374+00:00"
+      }
+    ]
+  }
+]

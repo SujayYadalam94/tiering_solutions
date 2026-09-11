@@ -1,0 +1,14 @@
+--- git:4494a8ebb29f22aea16d062096d9e3090fa4068e:run_all_measurements.sh
++++ 995f537eb79ae2306fa3eb5ceebdc268b17d3bc0.sh
+@@ -56,7 +56,11 @@
+     fi
+ }
+ 
++<<<<<<< HEAD
+ SIZES=(6001)
++=======
++SIZES=(8001)
++>>>>>>> 1b5facfc442060395761569789cf032646478c32
+ RUNS=3
+ 
+ ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}

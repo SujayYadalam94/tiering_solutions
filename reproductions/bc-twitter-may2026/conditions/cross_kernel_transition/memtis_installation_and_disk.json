@@ -1,0 +1,170 @@
+{
+  "captured_utc": "2026-09-09T21:45:11.519602+00:00",
+  "memtis_clone_utc": "2026-08-31T13:44:47+00:00",
+  "kernel_files": [
+    {
+      "path": "/boot/vmlinuz-5.15.19-htmm",
+      "size": 10024256,
+      "mtime_utc": "2026-08-31T15:38:07.607994+00:00",
+      "ctime_utc": "2026-08-31T15:38:07.607994+00:00"
+    },
+    {
+      "path": "/boot/initrd.img-5.15.19-htmm",
+      "size": 48023806,
+      "mtime_utc": "2026-08-31T15:38:19.819172+00:00",
+      "ctime_utc": "2026-08-31T15:38:19.885173+00:00"
+    },
+    {
+      "path": "/boot/vmlinuz-6.2.0-hybridtier+",
+      "size": 82363264,
+      "mtime_utc": "2026-03-07T15:55:48.888735+00:00",
+      "ctime_utc": "2026-03-07T15:55:48.888735+00:00"
+    },
+    {
+      "path": "/boot/initrd.img-6.2.0-hybridtier+",
+      "size": 96146768,
+      "mtime_utc": "2026-03-07T15:56:19.122145+00:00",
+      "ctime_utc": "2026-03-07T15:56:19.247147+00:00"
+    },
+    {
+      "path": "/boot/vmlinuz-6.18.1-061801-generic",
+      "size": 17232064,
+      "mtime_utc": "2025-12-12T18:39:08+00:00",
+      "ctime_utc": "2026-03-05T19:29:31.446885+00:00"
+    },
+    {
+      "path": "/boot/initrd.img-6.18.1-061801-generic",
+      "size": 20978747,
+      "mtime_utc": "2026-03-05T19:29:53.568194+00:00",
+      "ctime_utc": "2026-03-05T19:29:53.637195+00:00"
+    }
+  ],
+  "history_metadata": {
+    "path": "/users/zimooo2/.bash_history",
+    "size": 54166,
+    "mtime_utc": "2026-09-09T21:17:37.534789+00:00",
+    "ctime_utc": "2026-09-09T21:17:37.535789+00:00"
+  },
+  "history_sha256": "444ff8a8a6bf668a549406e85f030382fafd8c7579674a465daa23f87205568e",
+  "selected_history": [
+    {
+      "line": 1142,
+      "command": "git clone https://github.com/cosmoss-jigu/memtis"
+    },
+    {
+      "line": 1143,
+      "command": "cd memtis/"
+    },
+    {
+      "line": 1162,
+      "command": "sudo make modules_install"
+    },
+    {
+      "line": 1163,
+      "command": "sudo make install"
+    },
+    {
+      "line": 1231,
+      "command": "sudo chmod -R 777 times/c220g5/memtis/"
+    },
+    {
+      "line": 1234,
+      "command": "sudo chmod -R 777 times/c220g5/memtis/"
+    },
+    {
+      "line": 1499,
+      "command": "rm -rf /tmp"
+    },
+    {
+      "line": 1509,
+      "command": "rm -rf logs.zip "
+    },
+    {
+      "line": 1521,
+      "command": "rm -rf LULESH/"
+    },
+    {
+      "line": 1523,
+      "command": "rm -rf wiredtiger/"
+    },
+    {
+      "line": 1526,
+      "command": "rm -rf rocksdb/"
+    },
+    {
+      "line": 1535,
+      "command": "rm -rf mlc"
+    },
+    {
+      "line": 1539,
+      "command": "rm -rf YCSB-cpp/"
+    },
+    {
+      "line": 1568,
+      "command": "rm -rf benchmark_old/"
+    },
+    {
+      "line": 1655,
+      "command": "/users/zimooo2/memtis/rebuild_kernel.sh"
+    },
+    {
+      "line": 1676,
+      "command": "cd /users/zimooo2/memtis"
+    },
+    {
+      "line": 1677,
+      "command": "sudo dpkg -i   linux-image-5.15.19-htmm-node0-fix1_5.15.19-htmm-node0-fix1-20260907170847_amd64.deb   linux-headers-5.15.19-htmm-node0-fix1_5.15.19-htmm-node0-fix1-20260907170847_amd64.deb"
+    },
+    {
+      "line": 1691,
+      "command": "cd memtis"
+    },
+    {
+      "line": 1706,
+      "command": "(   set -e;   cd /users/zimooo2/memtis/linux;   make -j24 CC=gcc-11 HOSTCC=gcc-11 LOCALVERSION=-node0-fix2;   sudo make CC=gcc-11 HOSTCC=gcc-11 LOCALVERSION=-node0-fix2 modules_install install;   sudo update-grub; )"
+    }
+  ],
+  "history_limit": "No per-command timestamps: sequence is suggestive, not an exact deletion date.",
+  "commands": [
+    {
+      "command": [
+        "df",
+        "-hT",
+        "/users/zimooo2/tiering_solutions",
+        "/users/zimooo2/gapbs/benchmark",
+        "/users/zimooo2/tiering_solutions/logs"
+      ],
+      "returncode": 0,
+      "stdout": "Filesystem     Type  Size  Used Avail Use% Mounted on\n/dev/sdb3      ext3  432G  348G   66G  85% /users/zimooo2/tiering_solutions\n/dev/sda       ext4  1.1T  595G  449G  57% /users/zimooo2/gapbs/benchmark\n/dev/sda       ext4  1.1T  595G  449G  57% /users/zimooo2/tiering_solutions/logs\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "lsblk",
+        "-o",
+        "NAME,SIZE,ROTA,FSTYPE,MODEL"
+      ],
+      "returncode": 0,
+      "stdout": "NAME        SIZE ROTA FSTYPE MODEL\nsda         1.1T    1 ext4   ST1200MM0088\nsdb       447.1G    0        INTEL SSDSC2BB48\n\u251c\u2500sdb1      256M    0 vfat   \n\u251c\u2500sdb2        1M    0        \n\u251c\u2500sdb3    438.9G    0 ext3   \n\u2514\u2500sdb99       8G    0 swap   \nsdc           8M    0        scsi_debug\nmtdblock0     4M    0        \nmtdblock1   128M    0        \nmtdblock2    32M    0        \nnbd0          0B    0        \nnbd1          0B    0        \nnbd2          0B    0        \nnbd3          0B    0        \nnbd4          0B    0        \nnbd5          0B    0        \nnbd6          0B    0        \nnbd7          0B    0        \nnullb0      250G    0        \nzram0         0B    0        \npmem6        16M    0        \npmem0       256M    0        \npmem7        90G    0        \nnbd8          0B    0        \nnbd9          0B    0        \nnbd10         0B    0        \nnbd11         0B    0        \nnbd12         0B    0        \nnbd13         0B    0        \nnbd14         0B    0        \nnbd15         0B    0        \n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "filefrag",
+        "data/graphs/twitter.sg",
+        "data/graphs/kron.sg",
+        "/users/zimooo2/gapbs/benchmark/graphs/twitter.sg",
+        "/users/zimooo2/gapbs/benchmark/graphs/kron.sg"
+      ],
+      "returncode": 0,
+      "stdout": "data/graphs/twitter.sg: 221 extents found\ndata/graphs/kron.sg: 316 extents found\n/users/zimooo2/gapbs/benchmark/graphs/twitter.sg: 62 extents found\n/users/zimooo2/gapbs/benchmark/graphs/kron.sg: 170 extents found\n",
+      "stderr": ""
+    }
+  ],
+  "trim_query": {
+    "command": "sudo journalctl -u fstrim.service --since '2026-08-20 00:00:00' --until '2026-09-10 00:00:00' --no-pager -o short-iso -n 60",
+    "exit_code": 0,
+    "output": "-- No entries --",
+    "limit": "No retained service entries is not proof that no TRIM ran."
+  }
+}

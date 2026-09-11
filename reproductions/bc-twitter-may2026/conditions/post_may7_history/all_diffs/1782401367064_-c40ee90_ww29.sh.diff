@@ -1,0 +1,37 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-c40ee90/fiT2.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-c40ee90/ww29.sh
+@@ -4,7 +4,7 @@
+ SRC_ROOT="${1:-c220g5}"
+ DEST_ROOT="${2:-c220g5_final}"
+ VERSION_TAG="${3:-6.18}"
+-RUN_GLOB="${4:-6041MiB_run*}"
++RUN_SIZES="${4:-4041 6041 8041 1041}"
+ DATASET_SUFFIX="${5:-long}"
+ 
+ TIERS=(arms model)
+@@ -30,14 +30,18 @@
+ 
+ 		mkdir -p "${dst_dir}"
+ 
+-		matches=("${src_dir}"/${RUN_GLOB})
+-		if (( ${#matches[@]} == 0 )); then
+-			echo "Skipping (no match): ${src_dir}/${RUN_GLOB}"
+-			continue
+-		fi
++		for run_size in ${RUN_SIZES}; do
++			run_glob="${run_size}MiB_run*"
++			matches=("${src_dir}"/${run_glob})
+ 
+-		cp "${matches[@]}" "${dst_dir}/"
+-		echo "Copied ${#matches[@]} file(s): ${src_dir}/${RUN_GLOB} -> ${dst_dir}/"
++			if (( ${#matches[@]} == 0 )); then
++				echo "Skipping (no match): ${src_dir}/${run_glob}"
++				continue
++			fi
++
++			cp "${matches[@]}" "${dst_dir}/"
++			echo "Copied ${#matches[@]} file(s): ${src_dir}/${run_glob} -> ${dst_dir}/"
++		done
+ 	done
+ done
+ 

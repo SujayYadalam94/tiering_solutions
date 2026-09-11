@@ -1,0 +1,36 @@
+diff --git a/logging.h b/logging.h
+index 3de629786..4b5080923 100755
+--- a/logging.h
++++ b/logging.h
+@@ -8,6 +8,7 @@
+ #include <stdbool.h>
+ #include <stddef.h>
+ #include <stdint.h>
++#include <string>
+ #include <stdio.h>
+ #include <sys/types.h>
+ #include <unistd.h>
+@@ -98,7 +99,7 @@ struct data_row
+     uint32_t age;
+     int num_demotions;
+     int num_promotions;
+-    float step_offcore_write_l3_miss_rate;
++    uint64_t step_unc_m_cas_count_wr;
+ 
+     // Reward Componants computed at the end
+     struct data_row *prev;
+@@ -208,7 +209,6 @@ class access_log
+ 
+     int get_disk_usage(const pid_t pid);
+     int get_cpu_usage(const pid_t pid);
+-    void print_row(std::ostream &os, struct data_row *row, bool header);
+     void finalize_log();
+ 
+   public:
+@@ -223,4 +223,4 @@ class access_log
+     bool overlaps_with_logging_region(uint64_t addr, uint64_t length) const;
+ };
+ 
+-extern struct access_log *access_log;
+\ No newline at end of file
++extern struct access_log *access_log;

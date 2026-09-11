@@ -1,0 +1,213 @@
+[
+  {
+    "path": "/users/zimooo2/.bash_history-09434.tmp",
+    "hits": [
+      {
+        "line": 13,
+        "text": "sudo wrmsr --processor 39 0x620 0x707"
+      },
+      {
+        "line": 22,
+        "text": "sudo wrmsr --processor 39 0x620 0x707"
+      },
+      {
+        "line": 59,
+        "text": "taskset: failed to set pid 239's affinity: Invalid argument"
+      },
+      {
+        "line": 63,
+        "text": "numactl"
+      },
+      {
+        "line": 78,
+        "text": "numactl -H"
+      },
+      {
+        "line": 83,
+        "text": "numactl -H"
+      },
+      {
+        "line": 94,
+        "text": "numactl -M"
+      },
+      {
+        "line": 95,
+        "text": "numactl -H"
+      },
+      {
+        "line": 97,
+        "text": "numactl -M"
+      },
+      {
+        "line": 98,
+        "text": "numactl -m"
+      },
+      {
+        "line": 122,
+        "text": "numactl -H"
+      },
+      {
+        "line": 237,
+        "text": "numactl -m"
+      },
+      {
+        "line": 238,
+        "text": "numactl -M"
+      },
+      {
+        "line": 321,
+        "text": "sudo mkdir /sys/fs/cgroup/cpuset/my_app"
+      },
+      {
+        "line": 322,
+        "text": "sudo mkdir /sys/fs/cgroup/benchmarking"
+      },
+      {
+        "line": 540,
+        "text": "cat /sys/fs/cgroup/cpuset.mems.effective "
+      },
+      {
+        "line": 561,
+        "text": "cat /proc/sys/kernel/nmi_watchdog"
+      },
+      {
+        "line": 571,
+        "text": "sysctl kernel.perf_event_max_sample_rate        kernel.perf_cpu_time_max_percent        kernel.perf_event_max_stack        kernel.perf_event_max_contexts_per_stack        kernel.nmi_watchdog        kernel.watchdog"
+      },
+      {
+        "line": 573,
+        "text": "echo '=== cpufreq ==='"
+      },
+      {
+        "line": 574,
+        "text": "grep . /sys/devices/system/cpu/cpufreq/policy*/scaling_governor 2>/dev/null"
+      },
+      {
+        "line": 575,
+        "text": "grep . /sys/devices/system/cpu/cpufreq/policy*/scaling_min_freq 2>/dev/null"
+      },
+      {
+        "line": 576,
+        "text": "grep . /sys/devices/system/cpu/cpufreq/policy*/scaling_max_freq 2>/dev/null"
+      },
+      {
+        "line": 577,
+        "text": "grep . /sys/devices/system/cpu/cpufreq/policy*/scaling_cur_freq 2>/dev/null"
+      },
+      {
+        "line": 585,
+        "text": "grep . /sys/devices/system/cpu/cpufreq/policy*/scaling_max_freq 2>/dev/null"
+      },
+      {
+        "line": 586,
+        "text": "grep . /sys/devices/system/cpu/cpufreq/policy*/cpuinfo_max_freq 2>/dev/null"
+      },
+      {
+        "line": 592,
+        "text": "sudo sysctl -w kernel.nmi_watchdog=0"
+      },
+      {
+        "line": 859,
+        "text": "numactl -,"
+      },
+      {
+        "line": 860,
+        "text": "numactl -m"
+      },
+      {
+        "line": 976,
+        "text": "numactl -m"
+      },
+      {
+        "line": 1083,
+        "text": "numactl -m"
+      },
+      {
+        "line": 1459,
+        "text": "numactl -m"
+      }
+    ]
+  },
+  {
+    "path": "/users/zimooo2/.bash_history-05835.tmp",
+    "hits": [
+      {
+        "line": 806,
+        "text": "sudo wrmsr --processor 39  0x620 0x707"
+      },
+      {
+        "line": 880,
+        "text": "numactl -m 1 -N 0 ./mlc --idle_latency"
+      },
+      {
+        "line": 881,
+        "text": "sudo numactl -m 1 -N 0 ./mlc --idle_latency"
+      },
+      {
+        "line": 882,
+        "text": "sudo numactl -m 1 -N 0 ./mlc --help"
+      },
+      {
+        "line": 883,
+        "text": "sudo numactl -m 1 -N 0 ./mlc --loaded_latency -W6"
+      },
+      {
+        "line": 884,
+        "text": "sudo numactl -m 1 -N 0 ./mlc --loaded_latency -W6 -h"
+      },
+      {
+        "line": 885,
+        "text": "sudo numactl -m 1 -N 0 ./mlc --loaded_latency -W6 -L"
+      },
+      {
+        "line": 886,
+        "text": "sudo numactl -m 1 -N 0 ./mlc --loaded_latency -W6"
+      },
+      {
+        "line": 901,
+        "text": "sudo modprobe msr && ./mlc --c2c_latency"
+      },
+      {
+        "line": 902,
+        "text": "sudo modprobe msr && sudo ./mlc --c2c_latency"
+      },
+      {
+        "line": 903,
+        "text": "sudo modprobe msr && numactl -m 1 -N 1 sudo ./mlc --c2c_latency"
+      },
+      {
+        "line": 904,
+        "text": "./msr"
+      },
+      {
+        "line": 917,
+        "text": "numactl -m 0 -N 0 sudo ./mlc --c2c_latency -C10"
+      },
+      {
+        "line": 918,
+        "text": "numactl -m 1 -N 1 sudo ./mlc --c2c_latency -C10"
+      }
+    ]
+  },
+  {
+    "path": "/users/zimooo2/.bash_history",
+    "hits": [
+      {
+        "line": 1228,
+        "text": "sudo wrmsr --processor 11 0x620 0x707"
+      },
+      {
+        "line": 1706,
+        "text": "(   set -e;   cd /users/zimooo2/memtis/linux;   make -j24 CC=gcc-11 HOSTCC=gcc-11 LOCALVERSION=-node0-fix2;   sudo make CC=gcc-11 HOSTCC=gcc-11 LOCALVERSION=-node0-fix2 modules_install install;   sudo update-grub; )"
+      },
+      {
+        "line": 1969,
+        "text": "sudo turbostat --debug --interval 1 --num_iterations 1"
+      },
+      {
+        "line": 1971,
+        "text": "sudo turbostat --debug --interval 1 --num_iterations 1"
+      }
+    ]
+  }
+]

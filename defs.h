@@ -26,6 +26,11 @@ extern bool initialized;
 #define PRINT_TRAINING_DATA (false)
 #endif
 
+#ifndef MODEL_TIMING_TELEMETRY
+#define MODEL_TIMING_TELEMETRY (true)
+#endif
+#define MODEL_TIMING_TELEMETRY_ENABLED (MODEL_TIMING_TELEMETRY && USE_MODEL && PRINT_TRAINING_DATA)
+
 #ifndef NEAR_MEM_TRACING_RUN
 #define NEAR_MEM_TRACING_RUN (false)
 #endif
@@ -289,7 +294,7 @@ extern bool initialized;
 // ==============================================================================
 
 #if USE_MODEL == (true)
-#define PERF_PAGES (1 + (1 << 12)) // Has to be == 1+2^n, here 64MB
+#define PERF_PAGES (1 + (1 << 10)) // Has to be == 1+2^n, here 64MB
 #else
 #define PERF_PAGES (1 + (1 << 11)) // 128MB because of double sampling rate
 #endif

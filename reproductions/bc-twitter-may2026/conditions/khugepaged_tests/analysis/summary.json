@@ -1,0 +1,1547 @@
+{
+  "generated_utc": "2026-09-09T17:37:25.069930+00:00",
+  "sessions": [
+    "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T170421Z-382094",
+    "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T171055Z-389918",
+    "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T171729Z-396978",
+    "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T172342Z-403992",
+    "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T172954Z-411197",
+    "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T173344Z-414920"
+  ],
+  "explicit_baseline_sessions": [
+    "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T170421Z-382094"
+  ],
+  "input_manifest_sha256": {
+    "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T170421Z-382094": "1758cb83a23080e8a6cdfb0b5a02f10da90717f4857819de9142774047a4b783",
+    "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T171055Z-389918": "017414438da20d41863a180c6dd29bc5107c4130f1222a35743b5d750951788f",
+    "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T171729Z-396978": "4b5e05f239f63cbeaabfaed89c4328abb86051fe7972359c4467cabc476fa2c2",
+    "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T172342Z-403992": "c99176640ef644a269ecd3679f27d210257acd4ed59d4c27badb154addc416dc",
+    "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T172954Z-411197": "c99176640ef644a269ecd3679f27d210257acd4ed59d4c27badb154addc416dc",
+    "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T173344Z-414920": "1758cb83a23080e8a6cdfb0b5a02f10da90717f4857819de9142774047a4b783"
+  },
+  "caveats": [
+    "VM counters are whole-system before/after event deltas, not process attribution or seconds spent compacting.",
+    "Optional khugepaged full_scans/pages_collapsed values are also whole-system counter snapshots and deltas; missing older snapshots remain null.",
+    "System/user CPU seconds accumulate across threads and may exceed wall-clock time.",
+    "Before/after node/global memory values are snapshots around process execution; after is not peak/in-run usage.",
+    "latest_status.txt often lacks AnonHugePages; missing values stay null. RssAnon is separately labeled and is not huge-page usage.",
+    "Control shorthand d/a/s means khugepaged defrag / allocation sleep milliseconds / scan sleep milliseconds.",
+    "Baseline differences use only explicitly named, valid matching runs. Test minus baseline is negative for an improvement in runtime. Sequential measurements are not randomized causal estimates."
+  ],
+  "runs": [
+    {
+      "session": "20260909T170421Z-382094",
+      "session_path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T170421Z-382094",
+      "case": "may07_arms",
+      "repetition": 1,
+      "valid": true,
+      "knob": "none",
+      "condition_preset": "may04_full",
+      "before_utc": "2026-09-09T17:05:55.126876+00:00",
+      "after_utc": "2026-09-09T17:07:42.833573+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+      "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+      "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+      "binary_sha256": "744d57aee15e1bb6af4a796d725f4b686a1f2063c335dc7facb0327316b18449",
+      "library_sha256": "f845a9711cfa2744eaa135a77f9954a8b4250239b2cb431aa4b01ac093da3615",
+      "perf_rate_effective": "1000000",
+      "release_pmem_metadata": false,
+      "elapsed_seconds": 107.6,
+      "read_seconds": 39.6214,
+      "average_iteration_seconds": 6.75623,
+      "trial_count": 10,
+      "trial_compute_seconds": 67.56228,
+      "user_cpu_seconds": 999.1,
+      "system_cpu_seconds": 154.03,
+      "resource_exit_status": 0.0,
+      "node0_memfree_before_kib": 2576620,
+      "node0_memfree_after_kib": 2305456,
+      "node0_anon_hugepages_before_kib": 0,
+      "node0_anon_hugepages_after_kib": 0,
+      "global_anon_hugepages_before_kib": 890880,
+      "global_anon_hugepages_after_kib": 890880,
+      "latest_status_anon_hugepages_kib": null,
+      "latest_status_rssanon_kib": 13262964,
+      "latest_status_vmrss_kib": 13267792,
+      "latest_status_file_mtime_utc": "2026-09-09T17:07:35.920676+00:00",
+      "effective_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "effective_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "requested_controls": {
+        "defrag": null,
+        "alloc_sleep_millisecs": null,
+        "scan_sleep_millisecs": null
+      },
+      "requested_control_matches": {
+        "defrag": null,
+        "alloc_sleep_millisecs": null,
+        "scan_sleep_millisecs": null
+      },
+      "vmstat_deltas_global_not_process_attribution": {
+        "compact_stall": 70375,
+        "compact_fail": 70340,
+        "compact_success": 35,
+        "compact_migrate_scanned": 19463982,
+        "compact_free_scanned": 3785531,
+        "compact_isolated": 1988344,
+        "compact_daemon_wake": 5,
+        "compact_daemon_migrate_scanned": 1062432,
+        "compact_daemon_free_scanned": 767287,
+        "thp_fault_alloc": 13670,
+        "thp_fault_fallback": 0,
+        "thp_fault_fallback_charge": 0,
+        "thp_collapse_alloc": 1939,
+        "thp_collapse_alloc_failed": 31473,
+        "thp_split_page": 3669,
+        "thp_split_page_failed": 0,
+        "thp_deferred_split_page": 385,
+        "thp_split_pmd": 4865,
+        "thp_scan_exceed_none_pte": 19004,
+        "thp_scan_exceed_swap_pte": 83,
+        "thp_scan_exceed_share_pte": 355,
+        "pgmigrate_success": 4962722,
+        "pgmigrate_fail": 93806,
+        "thp_migration_success": 4246,
+        "thp_migration_fail": 3669,
+        "thp_migration_split": 3669
+      },
+      "khugepaged_counters_global_not_process_attribution": {
+        "full_scans": {
+          "before": 9175473,
+          "after": 9188559,
+          "delta": 13086
+        },
+        "pages_collapsed": {
+          "before": 123181,
+          "after": 125052,
+          "delta": 1871
+        }
+      },
+      "runner_restored": true,
+      "restoration_error_count": 0,
+      "target_controls_restored": {
+        "defrag": true,
+        "alloc_sleep_millisecs": true,
+        "scan_sleep_millisecs": true
+      },
+      "restoration_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "restoration_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "preparation_seconds": 49.74196058799862,
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T170421Z-382094/results/20260909T170421Z-382094/01-may07_arms",
+      "warnings": [
+        "latest_status.txt has no AnonHugePages; RSS is not used as a substitute"
+      ],
+      "is_explicit_baseline": true,
+      "baseline_reference": null
+    },
+    {
+      "session": "20260909T170421Z-382094",
+      "session_path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T170421Z-382094",
+      "case": "may07_model",
+      "repetition": 1,
+      "valid": true,
+      "knob": "none",
+      "condition_preset": "may04_full",
+      "before_utc": "2026-09-09T17:08:28.038172+00:00",
+      "after_utc": "2026-09-09T17:10:07.065077+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+      "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+      "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+      "binary_sha256": "744d57aee15e1bb6af4a796d725f4b686a1f2063c335dc7facb0327316b18449",
+      "library_sha256": "c0f06d1b3febb5c3fea8359e87332a5c3068b6e6d62754251be7b5ebd6ecc1e6",
+      "perf_rate_effective": "1000000",
+      "release_pmem_metadata": false,
+      "elapsed_seconds": 98.93,
+      "read_seconds": 39.6764,
+      "average_iteration_seconds": 5.90007,
+      "trial_count": 10,
+      "trial_compute_seconds": 59.00071,
+      "user_cpu_seconds": 980.99,
+      "system_cpu_seconds": 70.3,
+      "resource_exit_status": 0.0,
+      "node0_memfree_before_kib": 2592008,
+      "node0_memfree_after_kib": 2478068,
+      "node0_anon_hugepages_before_kib": 0,
+      "node0_anon_hugepages_after_kib": 0,
+      "global_anon_hugepages_before_kib": 890880,
+      "global_anon_hugepages_after_kib": 888832,
+      "latest_status_anon_hugepages_kib": null,
+      "latest_status_rssanon_kib": 13715524,
+      "latest_status_vmrss_kib": 13720524,
+      "latest_status_file_mtime_utc": "2026-09-09T17:09:58.697660+00:00",
+      "effective_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "effective_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "requested_controls": {
+        "defrag": null,
+        "alloc_sleep_millisecs": null,
+        "scan_sleep_millisecs": null
+      },
+      "requested_control_matches": {
+        "defrag": null,
+        "alloc_sleep_millisecs": null,
+        "scan_sleep_millisecs": null
+      },
+      "vmstat_deltas_global_not_process_attribution": {
+        "compact_stall": 30805,
+        "compact_fail": 30797,
+        "compact_success": 8,
+        "compact_migrate_scanned": 5263050,
+        "compact_free_scanned": 111810,
+        "compact_isolated": 85615,
+        "compact_daemon_wake": 0,
+        "compact_daemon_migrate_scanned": 2065920,
+        "compact_daemon_free_scanned": 17513,
+        "thp_fault_alloc": 13654,
+        "thp_fault_fallback": 0,
+        "thp_fault_fallback_charge": 0,
+        "thp_collapse_alloc": 619,
+        "thp_collapse_alloc_failed": 15092,
+        "thp_split_page": 282,
+        "thp_split_page_failed": 0,
+        "thp_deferred_split_page": 402,
+        "thp_split_pmd": 1443,
+        "thp_scan_exceed_none_pte": 18303,
+        "thp_scan_exceed_swap_pte": 42,
+        "thp_scan_exceed_share_pte": 339,
+        "pgmigrate_success": 3662795,
+        "pgmigrate_fail": 11812,
+        "thp_migration_success": 6806,
+        "thp_migration_fail": 282,
+        "thp_migration_split": 282
+      },
+      "khugepaged_counters_global_not_process_attribution": {
+        "full_scans": {
+          "before": 9205610,
+          "after": 9223577,
+          "delta": 17967
+        },
+        "pages_collapsed": {
+          "before": 125322,
+          "after": 125906,
+          "delta": 584
+        }
+      },
+      "runner_restored": true,
+      "restoration_error_count": 0,
+      "target_controls_restored": {
+        "defrag": true,
+        "alloc_sleep_millisecs": true,
+        "scan_sleep_millisecs": true
+      },
+      "restoration_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "restoration_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "preparation_seconds": 44.94103228899985,
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T170421Z-382094/results/20260909T170421Z-382094/01-may07_model",
+      "warnings": [
+        "latest_status.txt has no AnonHugePages; RSS is not used as a substitute"
+      ],
+      "is_explicit_baseline": true,
+      "baseline_reference": null
+    },
+    {
+      "session": "20260909T171055Z-389918",
+      "session_path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T171055Z-389918",
+      "case": "may07_arms",
+      "repetition": 1,
+      "valid": true,
+      "knob": "khugepaged_defrag0",
+      "condition_preset": "may04_full",
+      "before_utc": "2026-09-09T17:12:31.315729+00:00",
+      "after_utc": "2026-09-09T17:14:14.627073+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+      "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+      "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+      "binary_sha256": "744d57aee15e1bb6af4a796d725f4b686a1f2063c335dc7facb0327316b18449",
+      "library_sha256": "f845a9711cfa2744eaa135a77f9954a8b4250239b2cb431aa4b01ac093da3615",
+      "perf_rate_effective": "1000000",
+      "release_pmem_metadata": false,
+      "elapsed_seconds": 103.22,
+      "read_seconds": 39.32052,
+      "average_iteration_seconds": 6.35255,
+      "trial_count": 10,
+      "trial_compute_seconds": 63.52553,
+      "user_cpu_seconds": 1002.66,
+      "system_cpu_seconds": 88.13,
+      "resource_exit_status": 0.0,
+      "node0_memfree_before_kib": 2597204,
+      "node0_memfree_after_kib": 2320508,
+      "node0_anon_hugepages_before_kib": 0,
+      "node0_anon_hugepages_after_kib": 0,
+      "global_anon_hugepages_before_kib": 890880,
+      "global_anon_hugepages_after_kib": 890880,
+      "latest_status_anon_hugepages_kib": null,
+      "latest_status_rssanon_kib": 13710360,
+      "latest_status_vmrss_kib": 13715032,
+      "latest_status_file_mtime_utc": "2026-09-09T17:14:12.054181+00:00",
+      "effective_controls_before": {
+        "defrag": "0",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "effective_controls_after": {
+        "defrag": "0",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "requested_controls": {
+        "defrag": "0",
+        "alloc_sleep_millisecs": null,
+        "scan_sleep_millisecs": null
+      },
+      "requested_control_matches": {
+        "defrag": true,
+        "alloc_sleep_millisecs": null,
+        "scan_sleep_millisecs": null
+      },
+      "vmstat_deltas_global_not_process_attribution": {
+        "compact_stall": 6449,
+        "compact_fail": 6446,
+        "compact_success": 3,
+        "compact_migrate_scanned": 14027788,
+        "compact_free_scanned": 2300554,
+        "compact_isolated": 1707300,
+        "compact_daemon_wake": 0,
+        "compact_daemon_migrate_scanned": 1766400,
+        "compact_daemon_free_scanned": 71626,
+        "thp_fault_alloc": 13664,
+        "thp_fault_fallback": 0,
+        "thp_fault_fallback_charge": 0,
+        "thp_collapse_alloc": 1316,
+        "thp_collapse_alloc_failed": 46143,
+        "thp_split_page": 3206,
+        "thp_split_page_failed": 0,
+        "thp_deferred_split_page": 215,
+        "thp_split_pmd": 3909,
+        "thp_scan_exceed_none_pte": 19698,
+        "thp_scan_exceed_swap_pte": 119,
+        "thp_scan_exceed_share_pte": 125,
+        "pgmigrate_success": 4701202,
+        "pgmigrate_fail": 63839,
+        "thp_migration_success": 4410,
+        "thp_migration_fail": 3206,
+        "thp_migration_split": 3206
+      },
+      "khugepaged_counters_global_not_process_attribution": {
+        "full_scans": {
+          "before": 9287122,
+          "after": 9300592,
+          "delta": 13470
+        },
+        "pages_collapsed": {
+          "before": 126315,
+          "after": 127577,
+          "delta": 1262
+        }
+      },
+      "runner_restored": true,
+      "restoration_error_count": 0,
+      "target_controls_restored": {
+        "defrag": true,
+        "alloc_sleep_millisecs": true,
+        "scan_sleep_millisecs": true
+      },
+      "restoration_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "restoration_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "preparation_seconds": 51.24135258500246,
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T171055Z-389918/results/20260909T171055Z-389918/01-may07_arms",
+      "warnings": [
+        "latest_status.txt has no AnonHugePages; RSS is not used as a substitute"
+      ],
+      "is_explicit_baseline": false,
+      "baseline_reference": {
+        "n": 1,
+        "sessions": [
+          "20260909T170421Z-382094"
+        ],
+        "method": "arithmetic mean of explicitly selected, valid matching baseline runs",
+        "deltas": {
+          "elapsed_seconds": {
+            "baseline_mean": 107.6,
+            "test_minus_baseline": -4.3799999999999955,
+            "percent_test_minus_baseline": -4.070631970260219
+          },
+          "read_seconds": {
+            "baseline_mean": 39.6214,
+            "test_minus_baseline": -0.30087999999999937,
+            "percent_test_minus_baseline": -0.7593876036687229
+          },
+          "average_iteration_seconds": {
+            "baseline_mean": 6.75623,
+            "test_minus_baseline": -0.4036800000000005,
+            "percent_test_minus_baseline": -5.974929805527646
+          },
+          "trial_compute_seconds": {
+            "baseline_mean": 67.56228,
+            "test_minus_baseline": -4.036749999999998,
+            "percent_test_minus_baseline": -5.974857568453873
+          },
+          "user_cpu_seconds": {
+            "baseline_mean": 999.1,
+            "test_minus_baseline": 3.5599999999999454,
+            "percent_test_minus_baseline": 0.3563206886197523
+          },
+          "system_cpu_seconds": {
+            "baseline_mean": 154.03,
+            "test_minus_baseline": -65.9,
+            "percent_test_minus_baseline": -42.78387327144063
+          }
+        }
+      }
+    },
+    {
+      "session": "20260909T171055Z-389918",
+      "session_path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T171055Z-389918",
+      "case": "may07_model",
+      "repetition": 1,
+      "valid": true,
+      "knob": "khugepaged_defrag0",
+      "condition_preset": "may04_full",
+      "before_utc": "2026-09-09T17:14:58.911843+00:00",
+      "after_utc": "2026-09-09T17:16:37.179023+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+      "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+      "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+      "binary_sha256": "744d57aee15e1bb6af4a796d725f4b686a1f2063c335dc7facb0327316b18449",
+      "library_sha256": "c0f06d1b3febb5c3fea8359e87332a5c3068b6e6d62754251be7b5ebd6ecc1e6",
+      "perf_rate_effective": "1000000",
+      "release_pmem_metadata": false,
+      "elapsed_seconds": 98.15,
+      "read_seconds": 39.71929,
+      "average_iteration_seconds": 5.81773,
+      "trial_count": 10,
+      "trial_compute_seconds": 58.17729,
+      "user_cpu_seconds": 976.54,
+      "system_cpu_seconds": 62.03,
+      "resource_exit_status": 0.0,
+      "node0_memfree_before_kib": 2590136,
+      "node0_memfree_after_kib": 2576428,
+      "node0_anon_hugepages_before_kib": 0,
+      "node0_anon_hugepages_after_kib": 0,
+      "global_anon_hugepages_before_kib": 890880,
+      "global_anon_hugepages_after_kib": 890880,
+      "latest_status_anon_hugepages_kib": null,
+      "latest_status_rssanon_kib": 13727892,
+      "latest_status_vmrss_kib": 13732880,
+      "latest_status_file_mtime_utc": "2026-09-09T17:16:29.651093+00:00",
+      "effective_controls_before": {
+        "defrag": "0",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "effective_controls_after": {
+        "defrag": "0",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "requested_controls": {
+        "defrag": "0",
+        "alloc_sleep_millisecs": null,
+        "scan_sleep_millisecs": null
+      },
+      "requested_control_matches": {
+        "defrag": true,
+        "alloc_sleep_millisecs": null,
+        "scan_sleep_millisecs": null
+      },
+      "vmstat_deltas_global_not_process_attribution": {
+        "compact_stall": 29,
+        "compact_fail": 21,
+        "compact_success": 8,
+        "compact_migrate_scanned": 2383308,
+        "compact_free_scanned": 15515,
+        "compact_isolated": 7483,
+        "compact_daemon_wake": 0,
+        "compact_daemon_migrate_scanned": 2368252,
+        "compact_daemon_free_scanned": 14941,
+        "thp_fault_alloc": 13662,
+        "thp_fault_fallback": 0,
+        "thp_fault_fallback_charge": 0,
+        "thp_collapse_alloc": 264,
+        "thp_collapse_alloc_failed": 0,
+        "thp_split_page": 1,
+        "thp_split_page_failed": 0,
+        "thp_deferred_split_page": 254,
+        "thp_split_pmd": 760,
+        "thp_scan_exceed_none_pte": 22960,
+        "thp_scan_exceed_swap_pte": 0,
+        "thp_scan_exceed_share_pte": 258,
+        "pgmigrate_success": 3568460,
+        "pgmigrate_fail": 3733,
+        "thp_migration_success": 6964,
+        "thp_migration_fail": 1,
+        "thp_migration_split": 1
+      },
+      "khugepaged_counters_global_not_process_attribution": {
+        "full_scans": {
+          "before": 9316436,
+          "after": 9340602,
+          "delta": 24166
+        },
+        "pages_collapsed": {
+          "before": 127708,
+          "after": 127968,
+          "delta": 260
+        }
+      },
+      "runner_restored": true,
+      "restoration_error_count": 0,
+      "target_controls_restored": {
+        "defrag": true,
+        "alloc_sleep_millisecs": true,
+        "scan_sleep_millisecs": true
+      },
+      "restoration_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "restoration_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "preparation_seconds": 44.044863097002235,
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T171055Z-389918/results/20260909T171055Z-389918/01-may07_model",
+      "warnings": [
+        "latest_status.txt has no AnonHugePages; RSS is not used as a substitute"
+      ],
+      "is_explicit_baseline": false,
+      "baseline_reference": {
+        "n": 1,
+        "sessions": [
+          "20260909T170421Z-382094"
+        ],
+        "method": "arithmetic mean of explicitly selected, valid matching baseline runs",
+        "deltas": {
+          "elapsed_seconds": {
+            "baseline_mean": 98.93,
+            "test_minus_baseline": -0.7800000000000011,
+            "percent_test_minus_baseline": -0.7884362680683323
+          },
+          "read_seconds": {
+            "baseline_mean": 39.6764,
+            "test_minus_baseline": 0.04288999999999987,
+            "percent_test_minus_baseline": 0.1080995251585322
+          },
+          "average_iteration_seconds": {
+            "baseline_mean": 5.90007,
+            "test_minus_baseline": -0.0823400000000003,
+            "percent_test_minus_baseline": -1.3955766626497703
+          },
+          "trial_compute_seconds": {
+            "baseline_mean": 59.00071,
+            "test_minus_baseline": -0.8234199999999987,
+            "percent_test_minus_baseline": -1.3956103240113529
+          },
+          "user_cpu_seconds": {
+            "baseline_mean": 980.99,
+            "test_minus_baseline": -4.4500000000000455,
+            "percent_test_minus_baseline": -0.45362338046259854
+          },
+          "system_cpu_seconds": {
+            "baseline_mean": 70.3,
+            "test_minus_baseline": -8.269999999999996,
+            "percent_test_minus_baseline": -11.763869132290178
+          }
+        }
+      }
+    },
+    {
+      "session": "20260909T171729Z-396978",
+      "session_path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T171729Z-396978",
+      "case": "may07_arms",
+      "repetition": 1,
+      "valid": true,
+      "knob": "khugepaged_alloc1000",
+      "condition_preset": "may04_full",
+      "before_utc": "2026-09-09T17:19:03.059416+00:00",
+      "after_utc": "2026-09-09T17:20:45.180838+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+      "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+      "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+      "binary_sha256": "744d57aee15e1bb6af4a796d725f4b686a1f2063c335dc7facb0327316b18449",
+      "library_sha256": "f845a9711cfa2744eaa135a77f9954a8b4250239b2cb431aa4b01ac093da3615",
+      "perf_rate_effective": "1000000",
+      "release_pmem_metadata": false,
+      "elapsed_seconds": 101.99,
+      "read_seconds": 39.64317,
+      "average_iteration_seconds": 6.18846,
+      "trial_count": 10,
+      "trial_compute_seconds": 61.88462,
+      "user_cpu_seconds": 996.6,
+      "system_cpu_seconds": 83.84,
+      "resource_exit_status": 0.0,
+      "node0_memfree_before_kib": 2593980,
+      "node0_memfree_after_kib": 2593204,
+      "node0_anon_hugepages_before_kib": 0,
+      "node0_anon_hugepages_after_kib": 0,
+      "global_anon_hugepages_before_kib": 888832,
+      "global_anon_hugepages_after_kib": 872448,
+      "latest_status_anon_hugepages_kib": null,
+      "latest_status_rssanon_kib": 13722972,
+      "latest_status_vmrss_kib": 13727328,
+      "latest_status_file_mtime_utc": "2026-09-09T17:20:43.985627+00:00",
+      "effective_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1000",
+        "scan_sleep_millisecs": "0"
+      },
+      "effective_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1000",
+        "scan_sleep_millisecs": "0"
+      },
+      "requested_controls": {
+        "defrag": null,
+        "alloc_sleep_millisecs": "1000",
+        "scan_sleep_millisecs": null
+      },
+      "requested_control_matches": {
+        "defrag": null,
+        "alloc_sleep_millisecs": true,
+        "scan_sleep_millisecs": null
+      },
+      "vmstat_deltas_global_not_process_attribution": {
+        "compact_stall": 4693,
+        "compact_fail": 4668,
+        "compact_success": 25,
+        "compact_migrate_scanned": 6402900,
+        "compact_free_scanned": 2795254,
+        "compact_isolated": 904184,
+        "compact_daemon_wake": 7,
+        "compact_daemon_migrate_scanned": 1604608,
+        "compact_daemon_free_scanned": 1170814,
+        "thp_fault_alloc": 13654,
+        "thp_fault_fallback": 0,
+        "thp_fault_fallback_charge": 0,
+        "thp_collapse_alloc": 339,
+        "thp_collapse_alloc_failed": 94,
+        "thp_split_page": 2286,
+        "thp_split_page_failed": 0,
+        "thp_deferred_split_page": 119,
+        "thp_split_pmd": 3034,
+        "thp_scan_exceed_none_pte": 11005,
+        "thp_scan_exceed_swap_pte": 3,
+        "thp_scan_exceed_share_pte": 72,
+        "pgmigrate_success": 4318492,
+        "pgmigrate_fail": 31527,
+        "thp_migration_success": 5378,
+        "thp_migration_fail": 2276,
+        "thp_migration_split": 2276
+      },
+      "khugepaged_counters_global_not_process_attribution": {
+        "full_scans": {
+          "before": 9407332,
+          "after": 9418318,
+          "delta": 10986
+        },
+        "pages_collapsed": {
+          "before": 128608,
+          "after": 128944,
+          "delta": 336
+        }
+      },
+      "runner_restored": true,
+      "restoration_error_count": 0,
+      "target_controls_restored": {
+        "defrag": true,
+        "alloc_sleep_millisecs": true,
+        "scan_sleep_millisecs": true
+      },
+      "restoration_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "restoration_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "preparation_seconds": 47.83408713300014,
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T171729Z-396978/results/20260909T171730Z-396978/01-may07_arms",
+      "warnings": [
+        "latest_status.txt has no AnonHugePages; RSS is not used as a substitute"
+      ],
+      "is_explicit_baseline": false,
+      "baseline_reference": {
+        "n": 1,
+        "sessions": [
+          "20260909T170421Z-382094"
+        ],
+        "method": "arithmetic mean of explicitly selected, valid matching baseline runs",
+        "deltas": {
+          "elapsed_seconds": {
+            "baseline_mean": 107.6,
+            "test_minus_baseline": -5.609999999999999,
+            "percent_test_minus_baseline": -5.213754646840148
+          },
+          "read_seconds": {
+            "baseline_mean": 39.6214,
+            "test_minus_baseline": 0.021769999999996514,
+            "percent_test_minus_baseline": 0.05494505494504614
+          },
+          "average_iteration_seconds": {
+            "baseline_mean": 6.75623,
+            "test_minus_baseline": -0.5677700000000003,
+            "percent_test_minus_baseline": -8.403651148643553
+          },
+          "trial_compute_seconds": {
+            "baseline_mean": 67.56228,
+            "test_minus_baseline": -5.677660000000003,
+            "percent_test_minus_baseline": -8.40359443168585
+          },
+          "user_cpu_seconds": {
+            "baseline_mean": 999.1,
+            "test_minus_baseline": -2.5,
+            "percent_test_minus_baseline": -0.25022520268241416
+          },
+          "system_cpu_seconds": {
+            "baseline_mean": 154.03,
+            "test_minus_baseline": -70.19,
+            "percent_test_minus_baseline": -45.56904499123547
+          }
+        }
+      }
+    },
+    {
+      "session": "20260909T171729Z-396978",
+      "session_path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T171729Z-396978",
+      "case": "may07_model",
+      "repetition": 1,
+      "valid": true,
+      "knob": "khugepaged_alloc1000",
+      "condition_preset": "may04_full",
+      "before_utc": "2026-09-09T17:21:28.805222+00:00",
+      "after_utc": "2026-09-09T17:23:08.726285+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+      "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+      "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+      "binary_sha256": "744d57aee15e1bb6af4a796d725f4b686a1f2063c335dc7facb0327316b18449",
+      "library_sha256": "c0f06d1b3febb5c3fea8359e87332a5c3068b6e6d62754251be7b5ebd6ecc1e6",
+      "perf_rate_effective": "1000000",
+      "release_pmem_metadata": false,
+      "elapsed_seconds": 99.84,
+      "read_seconds": 41.29855,
+      "average_iteration_seconds": 5.82779,
+      "trial_count": 10,
+      "trial_compute_seconds": 58.27788,
+      "user_cpu_seconds": 982.76,
+      "system_cpu_seconds": 60.29,
+      "resource_exit_status": 0.0,
+      "node0_memfree_before_kib": 2596552,
+      "node0_memfree_after_kib": 2463240,
+      "node0_anon_hugepages_before_kib": 0,
+      "node0_anon_hugepages_after_kib": 0,
+      "global_anon_hugepages_before_kib": 888832,
+      "global_anon_hugepages_after_kib": 888832,
+      "latest_status_anon_hugepages_kib": null,
+      "latest_status_rssanon_kib": 13693748,
+      "latest_status_vmrss_kib": 13698756,
+      "latest_status_file_mtime_utc": "2026-09-09T17:22:59.410508+00:00",
+      "effective_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1000",
+        "scan_sleep_millisecs": "0"
+      },
+      "effective_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1000",
+        "scan_sleep_millisecs": "0"
+      },
+      "requested_controls": {
+        "defrag": null,
+        "alloc_sleep_millisecs": "1000",
+        "scan_sleep_millisecs": null
+      },
+      "requested_control_matches": {
+        "defrag": null,
+        "alloc_sleep_millisecs": true,
+        "scan_sleep_millisecs": null
+      },
+      "vmstat_deltas_global_not_process_attribution": {
+        "compact_stall": 0,
+        "compact_fail": 0,
+        "compact_success": 0,
+        "compact_migrate_scanned": 2303488,
+        "compact_free_scanned": 15260,
+        "compact_isolated": 5547,
+        "compact_daemon_wake": 0,
+        "compact_daemon_migrate_scanned": 2303488,
+        "compact_daemon_free_scanned": 15260,
+        "thp_fault_alloc": 13662,
+        "thp_fault_fallback": 0,
+        "thp_fault_fallback_charge": 0,
+        "thp_collapse_alloc": 297,
+        "thp_collapse_alloc_failed": 0,
+        "thp_split_page": 0,
+        "thp_split_page_failed": 0,
+        "thp_deferred_split_page": 289,
+        "thp_split_pmd": 897,
+        "thp_scan_exceed_none_pte": 22885,
+        "thp_scan_exceed_swap_pte": 0,
+        "thp_scan_exceed_share_pte": 396,
+        "pgmigrate_success": 3578711,
+        "pgmigrate_fail": 2835,
+        "thp_migration_success": 6985,
+        "thp_migration_fail": 0,
+        "thp_migration_split": 0
+      },
+      "khugepaged_counters_global_not_process_attribution": {
+        "full_scans": {
+          "before": 9433988,
+          "after": 9458026,
+          "delta": 24038
+        },
+        "pages_collapsed": {
+          "before": 129088,
+          "after": 129382,
+          "delta": 294
+        }
+      },
+      "runner_restored": true,
+      "restoration_error_count": 0,
+      "target_controls_restored": {
+        "defrag": true,
+        "alloc_sleep_millisecs": true,
+        "scan_sleep_millisecs": true
+      },
+      "restoration_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "restoration_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "preparation_seconds": 43.38950115099942,
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T171729Z-396978/results/20260909T171730Z-396978/01-may07_model",
+      "warnings": [
+        "latest_status.txt has no AnonHugePages; RSS is not used as a substitute"
+      ],
+      "is_explicit_baseline": false,
+      "baseline_reference": {
+        "n": 1,
+        "sessions": [
+          "20260909T170421Z-382094"
+        ],
+        "method": "arithmetic mean of explicitly selected, valid matching baseline runs",
+        "deltas": {
+          "elapsed_seconds": {
+            "baseline_mean": 98.93,
+            "test_minus_baseline": 0.9099999999999966,
+            "percent_test_minus_baseline": 0.9198423127463828
+          },
+          "read_seconds": {
+            "baseline_mean": 39.6764,
+            "test_minus_baseline": 1.6221499999999978,
+            "percent_test_minus_baseline": 4.0884505650714225
+          },
+          "average_iteration_seconds": {
+            "baseline_mean": 5.90007,
+            "test_minus_baseline": -0.07228000000000012,
+            "percent_test_minus_baseline": -1.2250702110313965
+          },
+          "trial_compute_seconds": {
+            "baseline_mean": 59.00071,
+            "test_minus_baseline": -0.7228299999999948,
+            "percent_test_minus_baseline": -1.225120850240607
+          },
+          "user_cpu_seconds": {
+            "baseline_mean": 980.99,
+            "test_minus_baseline": 1.7699999999999818,
+            "percent_test_minus_baseline": 0.1804299738019737
+          },
+          "system_cpu_seconds": {
+            "baseline_mean": 70.3,
+            "test_minus_baseline": -10.009999999999998,
+            "percent_test_minus_baseline": -14.238975817923183
+          }
+        }
+      }
+    },
+    {
+      "session": "20260909T172342Z-403992",
+      "session_path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T172342Z-403992",
+      "case": "may07_arms",
+      "repetition": 1,
+      "valid": true,
+      "knob": "khugepaged_scan1000",
+      "condition_preset": "may04_full",
+      "before_utc": "2026-09-09T17:25:16.421565+00:00",
+      "after_utc": "2026-09-09T17:26:57.932585+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+      "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+      "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+      "binary_sha256": "744d57aee15e1bb6af4a796d725f4b686a1f2063c335dc7facb0327316b18449",
+      "library_sha256": "f845a9711cfa2744eaa135a77f9954a8b4250239b2cb431aa4b01ac093da3615",
+      "perf_rate_effective": "1000000",
+      "release_pmem_metadata": false,
+      "elapsed_seconds": 101.4,
+      "read_seconds": 40.92347,
+      "average_iteration_seconds": 6.00241,
+      "trial_count": 10,
+      "trial_compute_seconds": 60.02405,
+      "user_cpu_seconds": 984.84,
+      "system_cpu_seconds": 73.26,
+      "resource_exit_status": 0.0,
+      "node0_memfree_before_kib": 2575396,
+      "node0_memfree_after_kib": 2531972,
+      "node0_anon_hugepages_before_kib": 0,
+      "node0_anon_hugepages_after_kib": 0,
+      "global_anon_hugepages_before_kib": 894976,
+      "global_anon_hugepages_after_kib": 866304,
+      "latest_status_anon_hugepages_kib": null,
+      "latest_status_rssanon_kib": 13723860,
+      "latest_status_vmrss_kib": 13728340,
+      "latest_status_file_mtime_utc": "2026-09-09T17:26:57.259813+00:00",
+      "effective_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "1000"
+      },
+      "effective_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "1000"
+      },
+      "requested_controls": {
+        "defrag": null,
+        "alloc_sleep_millisecs": null,
+        "scan_sleep_millisecs": "1000"
+      },
+      "requested_control_matches": {
+        "defrag": null,
+        "alloc_sleep_millisecs": null,
+        "scan_sleep_millisecs": true
+      },
+      "vmstat_deltas_global_not_process_attribution": {
+        "compact_stall": 2497,
+        "compact_fail": 2458,
+        "compact_success": 39,
+        "compact_migrate_scanned": 4381344,
+        "compact_free_scanned": 1484120,
+        "compact_isolated": 493155,
+        "compact_daemon_wake": 2,
+        "compact_daemon_migrate_scanned": 1531222,
+        "compact_daemon_free_scanned": 585356,
+        "thp_fault_alloc": 13652,
+        "thp_fault_fallback": 0,
+        "thp_fault_fallback_charge": 0,
+        "thp_collapse_alloc": 2,
+        "thp_collapse_alloc_failed": 1,
+        "thp_split_page": 1270,
+        "thp_split_page_failed": 0,
+        "thp_deferred_split_page": 14,
+        "thp_split_pmd": 1583,
+        "thp_scan_exceed_none_pte": 0,
+        "thp_scan_exceed_swap_pte": 0,
+        "thp_scan_exceed_share_pte": 0,
+        "pgmigrate_success": 4039057,
+        "pgmigrate_fail": 18673,
+        "thp_migration_success": 6254,
+        "thp_migration_fail": 1256,
+        "thp_migration_split": 1256
+      },
+      "khugepaged_counters_global_not_process_attribution": {
+        "full_scans": {
+          "before": 9513418,
+          "after": 9513418,
+          "delta": 0
+        },
+        "pages_collapsed": {
+          "before": 129970,
+          "after": 129972,
+          "delta": 2
+        }
+      },
+      "runner_restored": true,
+      "restoration_error_count": 0,
+      "target_controls_restored": {
+        "defrag": true,
+        "alloc_sleep_millisecs": true,
+        "scan_sleep_millisecs": true
+      },
+      "restoration_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "restoration_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "preparation_seconds": 49.19473070300228,
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T172342Z-403992/results/20260909T172343Z-403992/01-may07_arms",
+      "warnings": [
+        "latest_status.txt has no AnonHugePages; RSS is not used as a substitute"
+      ],
+      "is_explicit_baseline": false,
+      "baseline_reference": {
+        "n": 1,
+        "sessions": [
+          "20260909T170421Z-382094"
+        ],
+        "method": "arithmetic mean of explicitly selected, valid matching baseline runs",
+        "deltas": {
+          "elapsed_seconds": {
+            "baseline_mean": 107.6,
+            "test_minus_baseline": -6.199999999999989,
+            "percent_test_minus_baseline": -5.762081784386607
+          },
+          "read_seconds": {
+            "baseline_mean": 39.6214,
+            "test_minus_baseline": 1.3020700000000005,
+            "percent_test_minus_baseline": 3.2862796367619533
+          },
+          "average_iteration_seconds": {
+            "baseline_mean": 6.75623,
+            "test_minus_baseline": -0.7538200000000002,
+            "percent_test_minus_baseline": -11.157405831358615
+          },
+          "trial_compute_seconds": {
+            "baseline_mean": 67.56228,
+            "test_minus_baseline": -7.538229999999999,
+            "percent_test_minus_baseline": -11.157453537684042
+          },
+          "user_cpu_seconds": {
+            "baseline_mean": 999.1,
+            "test_minus_baseline": -14.259999999999991,
+            "percent_test_minus_baseline": -1.4272845561004894
+          },
+          "system_cpu_seconds": {
+            "baseline_mean": 154.03,
+            "test_minus_baseline": -80.77,
+            "percent_test_minus_baseline": -52.43783678504187
+          }
+        }
+      }
+    },
+    {
+      "session": "20260909T172342Z-403992",
+      "session_path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T172342Z-403992",
+      "case": "may07_model",
+      "repetition": 1,
+      "valid": true,
+      "knob": "khugepaged_scan1000",
+      "condition_preset": "may04_full",
+      "before_utc": "2026-09-09T17:27:42.620507+00:00",
+      "after_utc": "2026-09-09T17:29:20.834394+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+      "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+      "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+      "binary_sha256": "744d57aee15e1bb6af4a796d725f4b686a1f2063c335dc7facb0327316b18449",
+      "library_sha256": "c0f06d1b3febb5c3fea8359e87332a5c3068b6e6d62754251be7b5ebd6ecc1e6",
+      "perf_rate_effective": "1000000",
+      "release_pmem_metadata": false,
+      "elapsed_seconds": 98.12,
+      "read_seconds": 39.60838,
+      "average_iteration_seconds": 5.82721,
+      "trial_count": 10,
+      "trial_compute_seconds": 58.27205,
+      "user_cpu_seconds": 979.78,
+      "system_cpu_seconds": 60.58,
+      "resource_exit_status": 0.0,
+      "node0_memfree_before_kib": 2594140,
+      "node0_memfree_after_kib": 2481416,
+      "node0_anon_hugepages_before_kib": 0,
+      "node0_anon_hugepages_after_kib": 0,
+      "global_anon_hugepages_before_kib": 894976,
+      "global_anon_hugepages_after_kib": 866304,
+      "latest_status_anon_hugepages_kib": null,
+      "latest_status_rssanon_kib": 13725896,
+      "latest_status_vmrss_kib": 13730896,
+      "latest_status_file_mtime_utc": "2026-09-09T17:29:13.343703+00:00",
+      "effective_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "1000"
+      },
+      "effective_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "1000"
+      },
+      "requested_controls": {
+        "defrag": null,
+        "alloc_sleep_millisecs": null,
+        "scan_sleep_millisecs": "1000"
+      },
+      "requested_control_matches": {
+        "defrag": null,
+        "alloc_sleep_millisecs": null,
+        "scan_sleep_millisecs": true
+      },
+      "vmstat_deltas_global_not_process_attribution": {
+        "compact_stall": 27,
+        "compact_fail": 19,
+        "compact_success": 8,
+        "compact_migrate_scanned": 2479499,
+        "compact_free_scanned": 18927,
+        "compact_isolated": 7208,
+        "compact_daemon_wake": 0,
+        "compact_daemon_migrate_scanned": 2271232,
+        "compact_daemon_free_scanned": 16346,
+        "thp_fault_alloc": 13662,
+        "thp_fault_fallback": 0,
+        "thp_fault_fallback_charge": 0,
+        "thp_collapse_alloc": 1,
+        "thp_collapse_alloc_failed": 0,
+        "thp_split_page": 0,
+        "thp_split_page_failed": 0,
+        "thp_deferred_split_page": 15,
+        "thp_split_pmd": 350,
+        "thp_scan_exceed_none_pte": 0,
+        "thp_scan_exceed_swap_pte": 0,
+        "thp_scan_exceed_share_pte": 0,
+        "pgmigrate_success": 3579165,
+        "pgmigrate_fail": 3700,
+        "thp_migration_success": 6985,
+        "thp_migration_fail": 0,
+        "thp_migration_split": 0
+      },
+      "khugepaged_counters_global_not_process_attribution": {
+        "full_scans": {
+          "before": 9530605,
+          "after": 9530605,
+          "delta": 0
+        },
+        "pages_collapsed": {
+          "before": 130100,
+          "after": 130101,
+          "delta": 1
+        }
+      },
+      "runner_restored": true,
+      "restoration_error_count": 0,
+      "target_controls_restored": {
+        "defrag": true,
+        "alloc_sleep_millisecs": true,
+        "scan_sleep_millisecs": true
+      },
+      "restoration_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "restoration_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "preparation_seconds": 44.4423511199966,
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T172342Z-403992/results/20260909T172343Z-403992/01-may07_model",
+      "warnings": [
+        "latest_status.txt has no AnonHugePages; RSS is not used as a substitute"
+      ],
+      "is_explicit_baseline": false,
+      "baseline_reference": {
+        "n": 1,
+        "sessions": [
+          "20260909T170421Z-382094"
+        ],
+        "method": "arithmetic mean of explicitly selected, valid matching baseline runs",
+        "deltas": {
+          "elapsed_seconds": {
+            "baseline_mean": 98.93,
+            "test_minus_baseline": -0.8100000000000023,
+            "percent_test_minus_baseline": -0.8187607399171154
+          },
+          "read_seconds": {
+            "baseline_mean": 39.6764,
+            "test_minus_baseline": -0.06802000000000419,
+            "percent_test_minus_baseline": -0.1714369247210034
+          },
+          "average_iteration_seconds": {
+            "baseline_mean": 5.90007,
+            "test_minus_baseline": -0.07286000000000037,
+            "percent_test_minus_baseline": -1.2349006028742093
+          },
+          "trial_compute_seconds": {
+            "baseline_mean": 59.00071,
+            "test_minus_baseline": -0.7286599999999979,
+            "percent_test_minus_baseline": -1.235002087263014
+          },
+          "user_cpu_seconds": {
+            "baseline_mean": 980.99,
+            "test_minus_baseline": -1.2100000000000364,
+            "percent_test_minus_baseline": -0.12334478435050678
+          },
+          "system_cpu_seconds": {
+            "baseline_mean": 70.3,
+            "test_minus_baseline": -9.719999999999999,
+            "percent_test_minus_baseline": -13.826458036984352
+          }
+        }
+      }
+    },
+    {
+      "session": "20260909T172954Z-411197",
+      "session_path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T172954Z-411197",
+      "case": "may07_arms",
+      "repetition": 1,
+      "valid": true,
+      "knob": "khugepaged_scan1000",
+      "condition_preset": "may04_full",
+      "before_utc": "2026-09-09T17:31:27.862724+00:00",
+      "after_utc": "2026-09-09T17:33:08.482694+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+      "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+      "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+      "binary_sha256": "744d57aee15e1bb6af4a796d725f4b686a1f2063c335dc7facb0327316b18449",
+      "library_sha256": "f845a9711cfa2744eaa135a77f9954a8b4250239b2cb431aa4b01ac093da3615",
+      "perf_rate_effective": "1000000",
+      "release_pmem_metadata": false,
+      "elapsed_seconds": 100.51,
+      "read_seconds": 39.92178,
+      "average_iteration_seconds": 6.01563,
+      "trial_count": 10,
+      "trial_compute_seconds": 60.15633,
+      "user_cpu_seconds": 984.79,
+      "system_cpu_seconds": 73.16,
+      "resource_exit_status": 0.0,
+      "node0_memfree_before_kib": 2607828,
+      "node0_memfree_after_kib": 2446028,
+      "node0_anon_hugepages_before_kib": 0,
+      "node0_anon_hugepages_after_kib": 0,
+      "global_anon_hugepages_before_kib": 892928,
+      "global_anon_hugepages_after_kib": 768000,
+      "latest_status_anon_hugepages_kib": null,
+      "latest_status_rssanon_kib": 13668208,
+      "latest_status_vmrss_kib": 13672752,
+      "latest_status_file_mtime_utc": "2026-09-09T17:32:58.636813+00:00",
+      "effective_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "1000"
+      },
+      "effective_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "1000"
+      },
+      "requested_controls": {
+        "defrag": null,
+        "alloc_sleep_millisecs": null,
+        "scan_sleep_millisecs": "1000"
+      },
+      "requested_control_matches": {
+        "defrag": null,
+        "alloc_sleep_millisecs": null,
+        "scan_sleep_millisecs": true
+      },
+      "vmstat_deltas_global_not_process_attribution": {
+        "compact_stall": 2654,
+        "compact_fail": 2631,
+        "compact_success": 23,
+        "compact_migrate_scanned": 4615705,
+        "compact_free_scanned": 1131997,
+        "compact_isolated": 505112,
+        "compact_daemon_wake": 1,
+        "compact_daemon_migrate_scanned": 1482752,
+        "compact_daemon_free_scanned": 262466,
+        "thp_fault_alloc": 13664,
+        "thp_fault_fallback": 0,
+        "thp_fault_fallback_charge": 0,
+        "thp_collapse_alloc": 0,
+        "thp_collapse_alloc_failed": 0,
+        "thp_split_page": 1378,
+        "thp_split_page_failed": 0,
+        "thp_deferred_split_page": 61,
+        "thp_split_pmd": 1524,
+        "thp_scan_exceed_none_pte": 1,
+        "thp_scan_exceed_swap_pte": 0,
+        "thp_scan_exceed_share_pte": 0,
+        "pgmigrate_success": 4036343,
+        "pgmigrate_fail": 21605,
+        "thp_migration_success": 6187,
+        "thp_migration_fail": 1317,
+        "thp_migration_split": 1317
+      },
+      "khugepaged_counters_global_not_process_attribution": {
+        "full_scans": {
+          "before": 9586612,
+          "after": 9586612,
+          "delta": 0
+        },
+        "pages_collapsed": {
+          "before": 130592,
+          "after": 130592,
+          "delta": 0
+        }
+      },
+      "runner_restored": true,
+      "restoration_error_count": 0,
+      "target_controls_restored": {
+        "defrag": true,
+        "alloc_sleep_millisecs": true,
+        "scan_sleep_millisecs": true
+      },
+      "restoration_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "restoration_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "preparation_seconds": 47.93301524400158,
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T172954Z-411197/results/20260909T172954Z-411197/01-may07_arms",
+      "warnings": [
+        "latest_status.txt has no AnonHugePages; RSS is not used as a substitute"
+      ],
+      "is_explicit_baseline": false,
+      "baseline_reference": {
+        "n": 1,
+        "sessions": [
+          "20260909T170421Z-382094"
+        ],
+        "method": "arithmetic mean of explicitly selected, valid matching baseline runs",
+        "deltas": {
+          "elapsed_seconds": {
+            "baseline_mean": 107.6,
+            "test_minus_baseline": -7.089999999999989,
+            "percent_test_minus_baseline": -6.589219330855009
+          },
+          "read_seconds": {
+            "baseline_mean": 39.6214,
+            "test_minus_baseline": 0.300379999999997,
+            "percent_test_minus_baseline": 0.7581256593658906
+          },
+          "average_iteration_seconds": {
+            "baseline_mean": 6.75623,
+            "test_minus_baseline": -0.7406000000000006,
+            "percent_test_minus_baseline": -10.961734576827617
+          },
+          "trial_compute_seconds": {
+            "baseline_mean": 67.56228,
+            "test_minus_baseline": -7.405950000000004,
+            "percent_test_minus_baseline": -10.961663815963588
+          },
+          "user_cpu_seconds": {
+            "baseline_mean": 999.1,
+            "test_minus_baseline": -14.31000000000006,
+            "percent_test_minus_baseline": -1.4322890601541447
+          },
+          "system_cpu_seconds": {
+            "baseline_mean": 154.03,
+            "test_minus_baseline": -80.87,
+            "percent_test_minus_baseline": -52.50275920275271
+          }
+        }
+      }
+    },
+    {
+      "session": "20260909T173344Z-414920",
+      "session_path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T173344Z-414920",
+      "case": "may07_arms",
+      "repetition": 1,
+      "valid": true,
+      "knob": "none",
+      "condition_preset": "may04_full",
+      "before_utc": "2026-09-09T17:35:17.317878+00:00",
+      "after_utc": "2026-09-09T17:37:03.227004+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+      "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+      "graph_sha256": "4b7e5193a8e3384b8319359dc8c92534b8aee8e48d6c3bd0820451bb307d6eea",
+      "binary_sha256": "744d57aee15e1bb6af4a796d725f4b686a1f2063c335dc7facb0327316b18449",
+      "library_sha256": "f845a9711cfa2744eaa135a77f9954a8b4250239b2cb431aa4b01ac093da3615",
+      "perf_rate_effective": "1000000",
+      "release_pmem_metadata": false,
+      "elapsed_seconds": 105.8,
+      "read_seconds": 39.61655,
+      "average_iteration_seconds": 6.57701,
+      "trial_count": 10,
+      "trial_compute_seconds": 65.7701,
+      "user_cpu_seconds": 986.87,
+      "system_cpu_seconds": 135.64,
+      "resource_exit_status": 0.0,
+      "node0_memfree_before_kib": 2609820,
+      "node0_memfree_after_kib": 2411756,
+      "node0_anon_hugepages_before_kib": 0,
+      "node0_anon_hugepages_after_kib": 0,
+      "global_anon_hugepages_before_kib": 892928,
+      "global_anon_hugepages_after_kib": 892928,
+      "latest_status_anon_hugepages_kib": null,
+      "latest_status_rssanon_kib": 13663536,
+      "latest_status_vmrss_kib": 13668380,
+      "latest_status_file_mtime_utc": "2026-09-09T17:36:58.380128+00:00",
+      "effective_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "effective_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "requested_controls": {
+        "defrag": null,
+        "alloc_sleep_millisecs": null,
+        "scan_sleep_millisecs": null
+      },
+      "requested_control_matches": {
+        "defrag": null,
+        "alloc_sleep_millisecs": null,
+        "scan_sleep_millisecs": null
+      },
+      "vmstat_deltas_global_not_process_attribution": {
+        "compact_stall": 64880,
+        "compact_fail": 64855,
+        "compact_success": 25,
+        "compact_migrate_scanned": 18543014,
+        "compact_free_scanned": 2834365,
+        "compact_isolated": 1951141,
+        "compact_daemon_wake": 0,
+        "compact_daemon_migrate_scanned": 2009088,
+        "compact_daemon_free_scanned": 72803,
+        "thp_fault_alloc": 13652,
+        "thp_fault_fallback": 0,
+        "thp_fault_fallback_charge": 0,
+        "thp_collapse_alloc": 1771,
+        "thp_collapse_alloc_failed": 29486,
+        "thp_split_page": 2911,
+        "thp_split_page_failed": 0,
+        "thp_deferred_split_page": 261,
+        "thp_split_pmd": 3739,
+        "thp_scan_exceed_none_pte": 24918,
+        "thp_scan_exceed_swap_pte": 72,
+        "thp_scan_exceed_share_pte": 108,
+        "pgmigrate_success": 4884450,
+        "pgmigrate_fail": 96371,
+        "thp_migration_success": 4875,
+        "thp_migration_fail": 2911,
+        "thp_migration_split": 2911
+      },
+      "khugepaged_counters_global_not_process_attribution": {
+        "full_scans": {
+          "before": 9643649,
+          "after": 9657145,
+          "delta": 13496
+        },
+        "pages_collapsed": {
+          "before": 131113,
+          "after": 132787,
+          "delta": 1674
+        }
+      },
+      "runner_restored": true,
+      "restoration_error_count": 0,
+      "target_controls_restored": {
+        "defrag": true,
+        "alloc_sleep_millisecs": true,
+        "scan_sleep_millisecs": true
+      },
+      "restoration_controls_before": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "restoration_controls_after": {
+        "defrag": "1",
+        "alloc_sleep_millisecs": "1",
+        "scan_sleep_millisecs": "0"
+      },
+      "preparation_seconds": 48.33244727000056,
+      "path": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T173344Z-414920/results/20260909T173344Z-414920/01-may07_arms",
+      "warnings": [
+        "latest_status.txt has no AnonHugePages; RSS is not used as a substitute"
+      ],
+      "is_explicit_baseline": false,
+      "baseline_reference": {
+        "n": 1,
+        "sessions": [
+          "20260909T170421Z-382094"
+        ],
+        "method": "arithmetic mean of explicitly selected, valid matching baseline runs",
+        "deltas": {
+          "elapsed_seconds": {
+            "baseline_mean": 107.6,
+            "test_minus_baseline": -1.7999999999999972,
+            "percent_test_minus_baseline": -1.672862453531596
+          },
+          "read_seconds": {
+            "baseline_mean": 39.6214,
+            "test_minus_baseline": -0.004850000000004684,
+            "percent_test_minus_baseline": -0.012240859737426451
+          },
+          "average_iteration_seconds": {
+            "baseline_mean": 6.75623,
+            "test_minus_baseline": -0.17922000000000082,
+            "percent_test_minus_baseline": -2.652662801592024
+          },
+          "trial_compute_seconds": {
+            "baseline_mean": 67.56228,
+            "test_minus_baseline": -1.7921800000000019,
+            "percent_test_minus_baseline": -2.652633984525096
+          },
+          "user_cpu_seconds": {
+            "baseline_mean": 999.1,
+            "test_minus_baseline": -12.230000000000018,
+            "percent_test_minus_baseline": -1.224101691522372
+          },
+          "system_cpu_seconds": {
+            "baseline_mean": 154.03,
+            "test_minus_baseline": -18.390000000000015,
+            "percent_test_minus_baseline": -11.939232617022668
+          }
+        }
+      }
+    }
+  ]
+}

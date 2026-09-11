@@ -1,0 +1,2575 @@
+--- may04
++++ may14
+@@ -1770,7 +1770,7 @@
+     1769:	66 0f ef d2          	pxor   %xmm2,%xmm2
+     176d:	39 c5                	cmp    %eax,%ebp
+     176f:	0f 46 c5             	cmovbe %ebp,%eax
+-    1772:	f3 0f 10 8c 82 10 0e 	movss  0xe10(%rdx,%rax,4),%xmm1
++    1772:	f3 0f 10 8c 82 60 09 	movss  0x960(%rdx,%rax,4),%xmm1
+     1779:	00 00 
+     177b:	48 85 ed             	test   %rbp,%rbp
+     177e:	75 4f                	jne    17cf <observe_virtual_step_duration_ms(double)+0x15f>
+@@ -2201,142 +2201,139 @@
+     1c56:	0f be f0             	movsbl %al,%esi
+     1c59:	eb bb                	jmp    1c16 <set_application_thread_near_memory_preferred()+0x56>
+     1c5b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+-    1c60:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 1c67 <set_application_thread_near_memory_preferred()+0xa7>
++    1c60:	48 8b 1d 00 00 00 00 	mov    0x0(%rip),%rbx        # 1c67 <set_application_thread_near_memory_preferred()+0xa7>
+ 			1c63: R_X86_64_REX_GOTPCRELX	std::cerr-0x4
+     1c67:	ba 3d 00 00 00       	mov    $0x3d,%edx
+     1c6c:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 1c73 <set_application_thread_near_memory_preferred()+0xb3>
+ 			1c6f: R_X86_64_PC32	.LC29-0x4
+-    1c73:	e8 00 00 00 00       	call   1c78 <set_application_thread_near_memory_preferred()+0xb8>
+-			1c74: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-    1c78:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 1c7f <set_application_thread_near_memory_preferred()+0xbf>
+-			1c7b: R_X86_64_REX_GOTPCRELX	std::cerr-0x4
+-    1c7f:	48 83 c4 10          	add    $0x10,%rsp
+-    1c83:	5b                   	pop    %rbx
+-    1c84:	e9 77 f3 ff ff       	jmp    1000 <std::basic_ostream<char, std::char_traits<char> >& std::endl<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&) [clone .isra.0]>
+-    1c89:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+-
+-0000000000001c90 <is_access_log_page(unsigned long)>:
+-    1c90:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 1c97 <is_access_log_page(unsigned long)+0x7>
+-			1c93: R_X86_64_REX_GOTPCRELX	access_log-0x4
+-    1c97:	48 89 fe             	mov    %rdi,%rsi
+-    1c9a:	48 8b 38             	mov    (%rax),%rdi
+-    1c9d:	48 85 ff             	test   %rdi,%rdi
+-    1ca0:	74 0e                	je     1cb0 <is_access_log_page(unsigned long)+0x20>
+-    1ca2:	ba 00 00 20 00       	mov    $0x200000,%edx
+-    1ca7:	e9 00 00 00 00       	jmp    1cac <is_access_log_page(unsigned long)+0x1c>
+-			1ca8: R_X86_64_PLT32	access_log::overlaps_with_logging_region(unsigned long, unsigned long) const-0x4
+-    1cac:	0f 1f 40 00          	nopl   0x0(%rax)
+-    1cb0:	31 c0                	xor    %eax,%eax
+-    1cb2:	c3                   	ret
+-    1cb3:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+-    1cba:	00 00 00 00 
+-    1cbe:	66 90                	xchg   %ax,%ax
+-
+-0000000000001cc0 <is_kernel_page(unsigned long)>:
+-    1cc0:	48 b8 fe ff ff ff ff 	movabs $0x7ffffffffffe,%rax
+-    1cc7:	7f 00 00 
+-    1cca:	48 39 f8             	cmp    %rdi,%rax
+-    1ccd:	0f 92 c0             	setb   %al
+-    1cd0:	c3                   	ret
+-    1cd1:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+-    1cd8:	00 00 00 00 
+-    1cdc:	0f 1f 40 00          	nopl   0x0(%rax)
+-
+-0000000000001ce0 <get_tracked_page(unsigned long)>:
+-    1ce0:	41 54                	push   %r12
+-    1ce2:	49 89 f4             	mov    %rsi,%r12
+-    1ce5:	55                   	push   %rbp
+-    1ce6:	48 89 fd             	mov    %rdi,%rbp
+-    1ce9:	53                   	push   %rbx
+-    1cea:	48 8b 1d 00 00 00 00 	mov    0x0(%rip),%rbx        # 1cf1 <get_tracked_page(unsigned long)+0x11>
+-			1ced: R_X86_64_REX_GOTPCRELX	pages_map_lock-0x4
+-    1cf1:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+-    1cf8:	00 00 00 00 
+-    1cfc:	0f 1f 40 00          	nopl   0x0(%rax)
+-    1d00:	48 89 df             	mov    %rbx,%rdi
+-    1d03:	e8 00 00 00 00       	call   1d08 <get_tracked_page(unsigned long)+0x28>
+-			1d04: R_X86_64_PLT32	pthread_rwlock_rdlock-0x4
+-    1d08:	83 f8 0b             	cmp    $0xb,%eax
+-    1d0b:	74 f3                	je     1d00 <get_tracked_page(unsigned long)+0x20>
+-    1d0d:	83 f8 23             	cmp    $0x23,%eax
+-    1d10:	0f 84 00 00 00 00    	je     1d16 <get_tracked_page(unsigned long)+0x36>
+-			1d12: R_X86_64_PC32	.text.unlikely+0xa6
+-    1d16:	48 8b 0d 00 00 00 00 	mov    0x0(%rip),%rcx        # 1d1d <get_tracked_page(unsigned long)+0x3d>
+-			1d19: R_X86_64_REX_GOTPCRELX	pages_map-0x4
+-    1d1d:	49 81 e4 00 00 e0 ff 	and    $0xffffffffffe00000,%r12
+-    1d24:	48 83 79 18 00       	cmpq   $0x0,0x18(%rcx)
+-    1d29:	0f 84 a1 00 00 00    	je     1dd0 <get_tracked_page(unsigned long)+0xf0>
+-    1d2f:	4c 8b 49 08          	mov    0x8(%rcx),%r9
+-    1d33:	4c 89 e0             	mov    %r12,%rax
+-    1d36:	31 d2                	xor    %edx,%edx
+-    1d38:	49 f7 f1             	div    %r9
+-    1d3b:	48 8b 01             	mov    (%rcx),%rax
+-    1d3e:	48 8b 3c d0          	mov    (%rax,%rdx,8),%rdi
+-    1d42:	49 89 d2             	mov    %rdx,%r10
+-    1d45:	48 85 ff             	test   %rdi,%rdi
+-    1d48:	0f 84 b2 00 00 00    	je     1e00 <get_tracked_page(unsigned long)+0x120>
+-    1d4e:	48 8b 07             	mov    (%rdi),%rax
+-    1d51:	48 8b 48 08          	mov    0x8(%rax),%rcx
+-    1d55:	49 39 cc             	cmp    %rcx,%r12
+-    1d58:	74 36                	je     1d90 <get_tracked_page(unsigned long)+0xb0>
+-    1d5a:	4c 8b 00             	mov    (%rax),%r8
+-    1d5d:	4d 85 c0             	test   %r8,%r8
+-    1d60:	0f 84 9a 00 00 00    	je     1e00 <get_tracked_page(unsigned long)+0x120>
+-    1d66:	49 8b 48 08          	mov    0x8(%r8),%rcx
+-    1d6a:	48 89 c7             	mov    %rax,%rdi
+-    1d6d:	31 d2                	xor    %edx,%edx
+-    1d6f:	48 89 c8             	mov    %rcx,%rax
+-    1d72:	49 f7 f1             	div    %r9
+-    1d75:	4c 39 d2             	cmp    %r10,%rdx
+-    1d78:	0f 85 82 00 00 00    	jne    1e00 <get_tracked_page(unsigned long)+0x120>
+-    1d7e:	4c 89 c0             	mov    %r8,%rax
+-    1d81:	49 39 cc             	cmp    %rcx,%r12
+-    1d84:	75 d4                	jne    1d5a <get_tracked_page(unsigned long)+0x7a>
+-    1d86:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+-    1d8d:	00 00 00 
+-    1d90:	48 8b 07             	mov    (%rdi),%rax
+-    1d93:	48 85 c0             	test   %rax,%rax
+-    1d96:	74 68                	je     1e00 <get_tracked_page(unsigned long)+0x120>
+-    1d98:	f3 0f 6f 40 10       	movdqu 0x10(%rax),%xmm0
+-    1d9d:	0f 12 c8             	movhlps %xmm0,%xmm1
+-    1da0:	0f 11 45 00          	movups %xmm0,0x0(%rbp)
+-    1da4:	66 48 0f 7e c8       	movq   %xmm1,%rax
+-    1da9:	48 85 c0             	test   %rax,%rax
+-    1dac:	74 10                	je     1dbe <get_tracked_page(unsigned long)+0xde>
+-    1dae:	48 8b 15 00 00 00 00 	mov    0x0(%rip),%rdx        # 1db5 <get_tracked_page(unsigned long)+0xd5>
+-			1db1: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
+-    1db5:	80 3a 00             	cmpb   $0x0,(%rdx)
+-    1db8:	74 66                	je     1e20 <get_tracked_page(unsigned long)+0x140>
+-    1dba:	83 40 08 01          	addl   $0x1,0x8(%rax)
+-    1dbe:	48 89 df             	mov    %rbx,%rdi
+-    1dc1:	e8 00 00 00 00       	call   1dc6 <get_tracked_page(unsigned long)+0xe6>
+-			1dc2: R_X86_64_PLT32	pthread_rwlock_unlock-0x4
+-    1dc6:	48 89 e8             	mov    %rbp,%rax
+-    1dc9:	5b                   	pop    %rbx
+-    1dca:	5d                   	pop    %rbp
+-    1dcb:	41 5c                	pop    %r12
+-    1dcd:	c3                   	ret
+-    1dce:	66 90                	xchg   %ax,%ax
+-    1dd0:	48 8b 51 10          	mov    0x10(%rcx),%rdx
+-    1dd4:	48 85 d2             	test   %rdx,%rdx
+-    1dd7:	74 27                	je     1e00 <get_tracked_page(unsigned long)+0x120>
+-    1dd9:	48 8d 79 10          	lea    0x10(%rcx),%rdi
+-    1ddd:	eb 0f                	jmp    1dee <get_tracked_page(unsigned long)+0x10e>
+-    1ddf:	90                   	nop
++    1c73:	e9 74 ff ff ff       	jmp    1bec <set_application_thread_near_memory_preferred()+0x2c>
++    1c78:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
++    1c7f:	00 
++
++0000000000001c80 <is_access_log_page(unsigned long)>:
++    1c80:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 1c87 <is_access_log_page(unsigned long)+0x7>
++			1c83: R_X86_64_REX_GOTPCRELX	access_log-0x4
++    1c87:	48 89 fe             	mov    %rdi,%rsi
++    1c8a:	48 8b 38             	mov    (%rax),%rdi
++    1c8d:	48 85 ff             	test   %rdi,%rdi
++    1c90:	74 0e                	je     1ca0 <is_access_log_page(unsigned long)+0x20>
++    1c92:	ba 00 00 20 00       	mov    $0x200000,%edx
++    1c97:	e9 00 00 00 00       	jmp    1c9c <is_access_log_page(unsigned long)+0x1c>
++			1c98: R_X86_64_PLT32	access_log::overlaps_with_logging_region(unsigned long, unsigned long) const-0x4
++    1c9c:	0f 1f 40 00          	nopl   0x0(%rax)
++    1ca0:	31 c0                	xor    %eax,%eax
++    1ca2:	c3                   	ret
++    1ca3:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
++    1caa:	00 00 00 00 
++    1cae:	66 90                	xchg   %ax,%ax
++
++0000000000001cb0 <is_kernel_page(unsigned long)>:
++    1cb0:	48 b8 fe ff ff ff ff 	movabs $0x7ffffffffffe,%rax
++    1cb7:	7f 00 00 
++    1cba:	48 39 f8             	cmp    %rdi,%rax
++    1cbd:	0f 92 c0             	setb   %al
++    1cc0:	c3                   	ret
++    1cc1:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
++    1cc8:	00 00 00 00 
++    1ccc:	0f 1f 40 00          	nopl   0x0(%rax)
++
++0000000000001cd0 <get_tracked_page(unsigned long)>:
++    1cd0:	41 54                	push   %r12
++    1cd2:	49 89 f4             	mov    %rsi,%r12
++    1cd5:	55                   	push   %rbp
++    1cd6:	48 89 fd             	mov    %rdi,%rbp
++    1cd9:	53                   	push   %rbx
++    1cda:	48 8b 1d 00 00 00 00 	mov    0x0(%rip),%rbx        # 1ce1 <get_tracked_page(unsigned long)+0x11>
++			1cdd: R_X86_64_REX_GOTPCRELX	pages_map_lock-0x4
++    1ce1:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
++    1ce8:	00 00 00 00 
++    1cec:	0f 1f 40 00          	nopl   0x0(%rax)
++    1cf0:	48 89 df             	mov    %rbx,%rdi
++    1cf3:	e8 00 00 00 00       	call   1cf8 <get_tracked_page(unsigned long)+0x28>
++			1cf4: R_X86_64_PLT32	pthread_rwlock_rdlock-0x4
++    1cf8:	83 f8 0b             	cmp    $0xb,%eax
++    1cfb:	74 f3                	je     1cf0 <get_tracked_page(unsigned long)+0x20>
++    1cfd:	83 f8 23             	cmp    $0x23,%eax
++    1d00:	0f 84 00 00 00 00    	je     1d06 <get_tracked_page(unsigned long)+0x36>
++			1d02: R_X86_64_PC32	.text.unlikely+0xa6
++    1d06:	48 8b 0d 00 00 00 00 	mov    0x0(%rip),%rcx        # 1d0d <get_tracked_page(unsigned long)+0x3d>
++			1d09: R_X86_64_REX_GOTPCRELX	pages_map-0x4
++    1d0d:	49 81 e4 00 00 e0 ff 	and    $0xffffffffffe00000,%r12
++    1d14:	48 83 79 18 00       	cmpq   $0x0,0x18(%rcx)
++    1d19:	0f 84 a1 00 00 00    	je     1dc0 <get_tracked_page(unsigned long)+0xf0>
++    1d1f:	4c 8b 49 08          	mov    0x8(%rcx),%r9
++    1d23:	4c 89 e0             	mov    %r12,%rax
++    1d26:	31 d2                	xor    %edx,%edx
++    1d28:	49 f7 f1             	div    %r9
++    1d2b:	48 8b 01             	mov    (%rcx),%rax
++    1d2e:	48 8b 3c d0          	mov    (%rax,%rdx,8),%rdi
++    1d32:	49 89 d2             	mov    %rdx,%r10
++    1d35:	48 85 ff             	test   %rdi,%rdi
++    1d38:	0f 84 c2 00 00 00    	je     1e00 <get_tracked_page(unsigned long)+0x130>
++    1d3e:	48 8b 07             	mov    (%rdi),%rax
++    1d41:	48 8b 48 08          	mov    0x8(%rax),%rcx
++    1d45:	49 39 cc             	cmp    %rcx,%r12
++    1d48:	74 36                	je     1d80 <get_tracked_page(unsigned long)+0xb0>
++    1d4a:	4c 8b 00             	mov    (%rax),%r8
++    1d4d:	4d 85 c0             	test   %r8,%r8
++    1d50:	0f 84 aa 00 00 00    	je     1e00 <get_tracked_page(unsigned long)+0x130>
++    1d56:	49 8b 48 08          	mov    0x8(%r8),%rcx
++    1d5a:	48 89 c7             	mov    %rax,%rdi
++    1d5d:	31 d2                	xor    %edx,%edx
++    1d5f:	48 89 c8             	mov    %rcx,%rax
++    1d62:	49 f7 f1             	div    %r9
++    1d65:	4c 39 d2             	cmp    %r10,%rdx
++    1d68:	0f 85 92 00 00 00    	jne    1e00 <get_tracked_page(unsigned long)+0x130>
++    1d6e:	4c 89 c0             	mov    %r8,%rax
++    1d71:	49 39 cc             	cmp    %rcx,%r12
++    1d74:	75 d4                	jne    1d4a <get_tracked_page(unsigned long)+0x7a>
++    1d76:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
++    1d7d:	00 00 00 
++    1d80:	48 8b 07             	mov    (%rdi),%rax
++    1d83:	48 85 c0             	test   %rax,%rax
++    1d86:	74 78                	je     1e00 <get_tracked_page(unsigned long)+0x130>
++    1d88:	f3 0f 6f 40 10       	movdqu 0x10(%rax),%xmm0
++    1d8d:	0f 12 c8             	movhlps %xmm0,%xmm1
++    1d90:	0f 11 45 00          	movups %xmm0,0x0(%rbp)
++    1d94:	66 48 0f 7e c8       	movq   %xmm1,%rax
++    1d99:	48 85 c0             	test   %rax,%rax
++    1d9c:	74 10                	je     1dae <get_tracked_page(unsigned long)+0xde>
++    1d9e:	48 8b 15 00 00 00 00 	mov    0x0(%rip),%rdx        # 1da5 <get_tracked_page(unsigned long)+0xd5>
++			1da1: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
++    1da5:	80 3a 00             	cmpb   $0x0,(%rdx)
++    1da8:	74 76                	je     1e20 <get_tracked_page(unsigned long)+0x150>
++    1daa:	83 40 08 01          	addl   $0x1,0x8(%rax)
++    1dae:	48 89 df             	mov    %rbx,%rdi
++    1db1:	e8 00 00 00 00       	call   1db6 <get_tracked_page(unsigned long)+0xe6>
++			1db2: R_X86_64_PLT32	pthread_rwlock_unlock-0x4
++    1db6:	48 89 e8             	mov    %rbp,%rax
++    1db9:	5b                   	pop    %rbx
++    1dba:	5d                   	pop    %rbp
++    1dbb:	41 5c                	pop    %r12
++    1dbd:	c3                   	ret
++    1dbe:	66 90                	xchg   %ax,%ax
++    1dc0:	48 8b 51 10          	mov    0x10(%rcx),%rdx
++    1dc4:	48 85 d2             	test   %rdx,%rdx
++    1dc7:	74 37                	je     1e00 <get_tracked_page(unsigned long)+0x130>
++    1dc9:	48 8d 79 10          	lea    0x10(%rcx),%rdi
++    1dcd:	eb 1f                	jmp    1dee <get_tracked_page(unsigned long)+0x11e>
++    1dcf:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
++    1dd6:	00 00 00 00 
++    1dda:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+     1de0:	48 8b 0a             	mov    (%rdx),%rcx
+     1de3:	48 89 d7             	mov    %rdx,%rdi
+     1de6:	48 85 c9             	test   %rcx,%rcx
+-    1de9:	74 15                	je     1e00 <get_tracked_page(unsigned long)+0x120>
++    1de9:	74 15                	je     1e00 <get_tracked_page(unsigned long)+0x130>
+     1deb:	48 89 ca             	mov    %rcx,%rdx
+     1dee:	4c 3b 62 08          	cmp    0x8(%rdx),%r12
+-    1df2:	75 ec                	jne    1de0 <get_tracked_page(unsigned long)+0x100>
+-    1df4:	eb 9a                	jmp    1d90 <get_tracked_page(unsigned long)+0xb0>
++    1df2:	75 ec                	jne    1de0 <get_tracked_page(unsigned long)+0x110>
++    1df4:	eb 8a                	jmp    1d80 <get_tracked_page(unsigned long)+0xb0>
+     1df6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+     1dfd:	00 00 00 
+     1e00:	66 0f ef c0          	pxor   %xmm0,%xmm0
+     1e04:	48 89 df             	mov    %rbx,%rdi
+     1e07:	0f 11 45 00          	movups %xmm0,0x0(%rbp)
+-    1e0b:	e8 00 00 00 00       	call   1e10 <get_tracked_page(unsigned long)+0x130>
++    1e0b:	e8 00 00 00 00       	call   1e10 <get_tracked_page(unsigned long)+0x140>
+ 			1e0c: R_X86_64_PLT32	pthread_rwlock_unlock-0x4
+     1e10:	48 89 e8             	mov    %rbp,%rax
+     1e13:	5b                   	pop    %rbx
+@@ -2347,7 +2344,7 @@
+     1e1f:	00 
+     1e20:	f0 83 40 08 01       	lock addl $0x1,0x8(%rax)
+     1e25:	48 89 df             	mov    %rbx,%rdi
+-    1e28:	e8 00 00 00 00       	call   1e2d <get_tracked_page(unsigned long)+0x14d>
++    1e28:	e8 00 00 00 00       	call   1e2d <get_tracked_page(unsigned long)+0x15d>
+ 			1e29: R_X86_64_PLT32	pthread_rwlock_unlock-0x4
+     1e2d:	48 89 e8             	mov    %rbp,%rax
+     1e30:	5b                   	pop    %rbx
+@@ -9542,7 +9539,7 @@
+     8696:	48 89 df             	mov    %rbx,%rdi
+     8699:	e8 00 00 00 00       	call   869e <arms_start_tiering()+0x11e>
+ 			869a: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-    869e:	be 03 00 00 00       	mov    $0x3,%esi
++    869e:	be 02 00 00 00       	mov    $0x2,%esi
+     86a3:	48 89 df             	mov    %rbx,%rdi
+     86a6:	e8 00 00 00 00       	call   86ab <arms_start_tiering()+0x12b>
+ 			86a7: R_X86_64_PLT32	std::ostream::operator<<(int)-0x4
+@@ -9677,7 +9674,7 @@
+     8851:	48 89 df             	mov    %rbx,%rdi
+     8854:	e8 00 00 00 00       	call   8859 <arms_start_tiering()+0x2d9>
+ 			8855: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-    8859:	be 03 00 00 00       	mov    $0x3,%esi
++    8859:	be 02 00 00 00       	mov    $0x2,%esi
+     885e:	48 89 df             	mov    %rbx,%rdi
+     8861:	e8 00 00 00 00       	call   8866 <arms_start_tiering()+0x2e6>
+ 			8862: R_X86_64_PLT32	std::ostream::operator<<(int)-0x4
+@@ -10402,7 +10399,7 @@
+     91fb:	74 f3                	je     91f0 <update_scores_and_migrate(unsigned long)+0x40>
+     91fd:	83 f8 23             	cmp    $0x23,%eax
+     9200:	0f 84 00 00 00 00    	je     9206 <update_scores_and_migrate(unsigned long)+0x56>
+-			9202: R_X86_64_PC32	.text.unlikely+0xcb7
++			9202: R_X86_64_PC32	.text.unlikely+0xcf8
+     9206:	4c 8b 2d 00 00 00 00 	mov    0x0(%rip),%r13        # 920d <update_scores_and_migrate(unsigned long)+0x5d>
+ 			9209: R_X86_64_REX_GOTPCRELX	pages_map-0x4
+     920d:	4d 8b 65 18          	mov    0x18(%r13),%r12
+@@ -10436,7 +10433,7 @@
+     9274:	48 8b 4c 24 10       	mov    0x10(%rsp),%rcx
+     9279:	48 89 c3             	mov    %rax,%rbx
+     927c:	49 39 cf             	cmp    %rcx,%r15
+-    927f:	0f 84 a5 12 00 00    	je     a52a <update_scores_and_migrate(unsigned long)+0x137a>
++    927f:	0f 84 5a 12 00 00    	je     a4df <update_scores_and_migrate(unsigned long)+0x132f>
+     9285:	48 83 e9 10          	sub    $0x10,%rcx
+     9289:	31 c0                	xor    %eax,%eax
+     928b:	31 d2                	xor    %edx,%edx
+@@ -10481,7 +10478,7 @@
+     9315:	48 8b 0d 00 00 00 00 	mov    0x0(%rip),%rcx        # 931c <update_scores_and_migrate(unsigned long)+0x16c>
+ 			9318: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
+     931c:	80 39 00             	cmpb   $0x0,(%rcx)
+-    931f:	0f 84 5b 0d 00 00    	je     a080 <update_scores_and_migrate(unsigned long)+0xed0>
++    931f:	0f 84 bb 0c 00 00    	je     9fe0 <update_scores_and_migrate(unsigned long)+0xe30>
+     9325:	83 42 08 01          	addl   $0x1,0x8(%rdx)
+     9329:	48 8b 1b             	mov    (%rbx),%rbx
+     932c:	48 83 c0 10          	add    $0x10,%rax
+@@ -10516,7 +10513,7 @@
+     938f:	48 89 c2             	mov    %rax,%rdx
+     9392:	48 c1 fa 04          	sar    $0x4,%rdx
+     9396:	48 39 c1             	cmp    %rax,%rcx
+-    9399:	0f 82 d9 13 00 00    	jb     a778 <update_scores_and_migrate(unsigned long)+0x15c8>
++    9399:	0f 82 61 13 00 00    	jb     a700 <update_scores_and_migrate(unsigned long)+0x1550>
+     939f:	48 8b 5c 24 60       	mov    0x60(%rsp),%rbx
+     93a4:	4c 8b 6c 24 70       	mov    0x70(%rsp),%r13
+     93a9:	48 b9 ab aa aa aa aa 	movabs $0xaaaaaaaaaaaaaaab,%rcx
+@@ -10573,10 +10570,10 @@
+     9465:	4d 01 cd             	add    %r9,%r13
+     9468:	4c 89 6c 24 68       	mov    %r13,0x68(%rsp)
+     946d:	49 39 ef             	cmp    %rbp,%r15
+-    9470:	0f 84 3c 12 00 00    	je     a6b2 <update_scores_and_migrate(unsigned long)+0x1502>
+-    9476:	4c 8b 25 00 00 00 00 	mov    0x0(%rip),%r12        # 947d <update_scores_and_migrate(unsigned long)+0x2cd>
++    9470:	0f 84 cc 10 00 00    	je     a542 <update_scores_and_migrate(unsigned long)+0x1392>
++    9476:	4c 8b 2d 00 00 00 00 	mov    0x0(%rip),%r13        # 947d <update_scores_and_migrate(unsigned long)+0x2cd>
+ 			9479: R_X86_64_REX_GOTPCRELX	prev_access_version-0x4
+-    947d:	4c 8b 2d 00 00 00 00 	mov    0x0(%rip),%r13        # 9484 <update_scores_and_migrate(unsigned long)+0x2d4>
++    947d:	4c 8b 25 00 00 00 00 	mov    0x0(%rip),%r12        # 9484 <update_scores_and_migrate(unsigned long)+0x2d4>
+ 			9480: R_X86_64_REX_GOTPCRELX	sampling_mode-0x4
+     9484:	4d 89 fe             	mov    %r15,%r14
+     9487:	eb 4d                	jmp    94d6 <update_scores_and_migrate(unsigned long)+0x326>
+@@ -10596,8 +10593,8 @@
+     94c8:	4c 89 7c 24 68       	mov    %r15,0x68(%rsp)
+     94cd:	4c 39 f5             	cmp    %r14,%rbp
+     94d0:	0f 84 4a 02 00 00    	je     9720 <update_scores_and_migrate(unsigned long)+0x570>
+-    94d6:	41 0f b6 34 24       	movzbl (%r12),%esi
+-    94db:	41 8b 55 00          	mov    0x0(%r13),%edx
++    94d6:	41 0f b6 75 00       	movzbl 0x0(%r13),%esi
++    94db:	41 8b 14 24          	mov    (%r12),%edx
+     94df:	49 8b 3e             	mov    (%r14),%rdi
+     94e2:	e8 00 00 00 00       	call   94e7 <update_scores_and_migrate(unsigned long)+0x337>
+ 			94e3: R_X86_64_PLT32	page_info::update_window(unsigned char, sampling_modes)-0x4
+@@ -10617,8 +10614,8 @@
+     9519:	f3 0f 10 4a 68       	movss  0x68(%rdx),%xmm1
+     951e:	f3 0f 59 48 04       	mulss  0x4(%rax),%xmm1
+     9523:	f3 0f 58 c8          	addss  %xmm0,%xmm1
+-    9527:	f3 0f 10 40 08       	movss  0x8(%rax),%xmm0
+-    952c:	f3 0f 59 42 6c       	mulss  0x6c(%rdx),%xmm0
++    9527:	f3 0f 10 42 6c       	movss  0x6c(%rdx),%xmm0
++    952c:	f3 0f 59 40 08       	mulss  0x8(%rax),%xmm0
+     9531:	f3 0f 58 c1          	addss  %xmm1,%xmm0
+     9535:	f3 0f 10 48 0c       	movss  0xc(%rax),%xmm1
+     953a:	f3 0f 59 4a 70       	mulss  0x70(%rdx),%xmm1
+@@ -10653,7 +10650,7 @@
+     95b6:	55 55 05 
+     95b9:	48 39 c7             	cmp    %rax,%rdi
+     95bc:	0f 84 00 00 00 00    	je     95c2 <update_scores_and_migrate(unsigned long)+0x412>
+-			95be: R_X86_64_PC32	.text.unlikely+0xce7
++			95be: R_X86_64_PC32	.text.unlikely+0xd28
+     95c2:	48 85 ff             	test   %rdi,%rdi
+     95c5:	b8 01 00 00 00       	mov    $0x1,%eax
+     95ca:	4c 89 5c 24 30       	mov    %r11,0x30(%rsp)
+@@ -10684,7 +10681,7 @@
+     9636:	48 8b 74 24 20       	mov    0x20(%rsp),%rsi
+     963b:	42 0f 11 04 18       	movups %xmm0,(%rax,%r11,1)
+     9640:	f3 42 0f 11 4c 18 10 	movss  %xmm1,0x10(%rax,%r11,1)
+-    9647:	0f 84 4b 10 00 00    	je     a698 <update_scores_and_migrate(unsigned long)+0x14e8>
++    9647:	0f 84 db 0e 00 00    	je     a528 <update_scores_and_migrate(unsigned long)+0x1378>
+     964d:	4c 89 c8             	mov    %r9,%rax
+     9650:	4c 89 d2             	mov    %r10,%rdx
+     9653:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+@@ -10709,12 +10706,12 @@
+     96a6:	48 b9 ab aa aa aa aa 	movabs $0xaaaaaaaaaaaaaab,%rcx
+     96ad:	aa aa 0a 
+     96b0:	49 8d 47 e8          	lea    -0x18(%r15),%rax
+-    96b4:	4c 29 c8             	sub    %r9,%rax
+-    96b7:	48 c1 e8 03          	shr    $0x3,%rax
+-    96bb:	48 0f af c1          	imul   %rcx,%rax
+-    96bf:	48 b9 ff ff ff ff ff 	movabs $0x1fffffffffffffff,%rcx
+-    96c6:	ff ff 1f 
+-    96c9:	48 21 c8             	and    %rcx,%rax
++    96b4:	48 bf ff ff ff ff ff 	movabs $0x1fffffffffffffff,%rdi
++    96bb:	ff ff 1f 
++    96be:	4c 29 c8             	sub    %r9,%rax
++    96c1:	48 c1 e8 03          	shr    $0x3,%rax
++    96c5:	48 0f af c1          	imul   %rcx,%rax
++    96c9:	48 21 f8             	and    %rdi,%rax
+     96cc:	48 8d 44 40 03       	lea    0x3(%rax,%rax,2),%rax
+     96d1:	49 8d 0c c2          	lea    (%r10,%rax,8),%rcx
+     96d5:	4c 8d 79 18          	lea    0x18(%rcx),%r15
+@@ -10743,7 +10740,7 @@
+     972d:	48 89 d8             	mov    %rbx,%rax
+     9730:	66 0f ef c0          	pxor   %xmm0,%xmm0
+     9734:	4c 39 fb             	cmp    %r15,%rbx
+-    9737:	0f 84 7f 0f 00 00    	je     a6bc <update_scores_and_migrate(unsigned long)+0x150c>
++    9737:	0f 84 0f 0e 00 00    	je     a54c <update_scores_and_migrate(unsigned long)+0x139c>
+     973d:	0f 1f 00             	nopl   (%rax)
+     9740:	48 8b 10             	mov    (%rax),%rdx
+     9743:	80 7a 10 00          	cmpb   $0x0,0x10(%rdx)
+@@ -10755,7 +10752,7 @@
+     9756:	f2 0f 11 44 24 08    	movsd  %xmm0,0x8(%rsp)
+     975c:	e8 00 00 00 00       	call   9761 <update_scores_and_migrate(unsigned long)+0x5b1>
+ 			975d: R_X86_64_PLT32	get_fasttier_free_mem()-0x4
+-    9761:	48 89 c5             	mov    %rax,%rbp
++    9761:	48 89 c3             	mov    %rax,%rbx
+     9764:	e8 00 00 00 00       	call   9769 <update_scores_and_migrate(unsigned long)+0x5b9>
+ 			9765: R_X86_64_PLT32	get_fasttier_total_mem()-0x4
+     9769:	48 89 c1             	mov    %rax,%rcx
+@@ -10770,23 +10767,23 @@
+     978f:	48 c1 f9 3f          	sar    $0x3f,%rcx
+     9793:	48 c1 fa 06          	sar    $0x6,%rdx
+     9797:	48 29 d1             	sub    %rdx,%rcx
+-    979a:	48 8d 1c 89          	lea    (%rcx,%rcx,4),%rbx
++    979a:	48 8d 2c 89          	lea    (%rcx,%rcx,4),%rbp
+     979e:	48 8b 0d 00 00 00 00 	mov    0x0(%rip),%rcx        # 97a5 <update_scores_and_migrate(unsigned long)+0x5f5>
+ 			97a1: R_X86_64_REX_GOTPCRELX	promotion_cost_avg-0x4
+-    97a5:	48 01 eb             	add    %rbp,%rbx
+-    97a8:	48 0f 48 d8          	cmovs  %rax,%rbx
++    97a5:	48 01 dd             	add    %rbx,%rbp
++    97a8:	48 0f 48 e8          	cmovs  %rax,%rbp
+     97ac:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 97b3 <update_scores_and_migrate(unsigned long)+0x603>
+ 			97af: R_X86_64_REX_GOTPCRELX	policy_thread_interval-0x4
+     97b3:	f3 0f 10 09          	movss  (%rcx),%xmm1
+-    97b7:	48 c1 e3 0a          	shl    $0xa,%rbx
++    97b7:	48 c1 e5 0a          	shl    $0xa,%rbp
+     97bb:	8b 00                	mov    (%rax),%eax
+-    97bd:	48 c1 eb 15          	shr    $0x15,%rbx
+-    97c1:	f3 48 0f 2a d3       	cvtsi2ss %rbx,%xmm2
++    97bd:	48 c1 ed 15          	shr    $0x15,%rbp
++    97c1:	f3 48 0f 2a d5       	cvtsi2ss %rbp,%xmm2
+     97c6:	f3 0f 2a e0          	cvtsi2ss %eax,%xmm4
+     97ca:	0f 28 da             	movaps %xmm2,%xmm3
+     97cd:	f3 0f 59 d9          	mulss  %xmm1,%xmm3
+     97d1:	0f 2f dc             	comiss %xmm4,%xmm3
+-    97d4:	0f 83 be 08 00 00    	jae    a098 <update_scores_and_migrate(unsigned long)+0xee8>
++    97d4:	0f 83 1e 08 00 00    	jae    9ff8 <update_scores_and_migrate(unsigned long)+0xe48>
+     97da:	f3 0f 2c d3          	cvttss2si %xmm3,%edx
+     97de:	66 0f ef db          	pxor   %xmm3,%xmm3
+     97e2:	29 d0                	sub    %edx,%eax
+@@ -10798,1020 +10795,971 @@
+     97f7:	f3 0f 58 da          	addss  %xmm2,%xmm3
+     97fb:	66 41 0f 7e df       	movd   %xmm3,%r15d
+     9800:	4c 8b 74 24 68       	mov    0x68(%rsp),%r14
+-    9805:	4c 8b 64 24 60       	mov    0x60(%rsp),%r12
++    9805:	4c 8b 6c 24 60       	mov    0x60(%rsp),%r13
+     980a:	48 ba ab aa aa aa aa 	movabs $0xaaaaaaaaaaaaaaab,%rdx
+     9811:	aa aa aa 
+-    9814:	4c 89 f5             	mov    %r14,%rbp
+-    9817:	4c 29 e5             	sub    %r12,%rbp
+-    981a:	48 89 e8             	mov    %rbp,%rax
+-    981d:	48 c1 f8 03          	sar    $0x3,%rax
+-    9821:	48 0f af c2          	imul   %rdx,%rax
+-    9825:	49 89 c5             	mov    %rax,%r13
+-    9828:	4d 39 e6             	cmp    %r12,%r14
+-    982b:	0f 84 4b 01 00 00    	je     997c <update_scores_and_migrate(unsigned long)+0x7cc>
+-    9831:	f2 0f 11 44 24 08    	movsd  %xmm0,0x8(%rsp)
+-    9837:	48 85 ed             	test   %rbp,%rbp
+-    983a:	0f 84 60 0c 00 00    	je     a4a0 <update_scores_and_migrate(unsigned long)+0x12f0>
+-    9840:	48 0f bd d0          	bsr    %rax,%rdx
+-    9844:	4c 89 f6             	mov    %r14,%rsi
+-    9847:	4c 89 e7             	mov    %r12,%rdi
+-    984a:	48 63 d2             	movslq %edx,%rdx
+-    984d:	48 01 d2             	add    %rdx,%rdx
+-    9850:	e8 5b 97 ff ff       	call   2fb0 <void std::__introsort_loop<__gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, long, __gnu_cxx::__ops::_Iter_comp_iter<rank_scores_for_migration(unsigned long, unsigned long, std::vector<score_entry, std::allocator<score_entry> >&)::{lambda(score_entry const&, score_entry const&)#1}> >(__gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, __gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, long, __gnu_cxx::__ops::_Iter_comp_iter<rank_scores_for_migration(unsigned long, unsigned long, std::vector<score_entry, std::allocator<score_entry> >&)::{lambda(score_entry const&, score_entry const&)#1}>) [clone .isra.0]>
+-    9855:	48 81 fd 80 01 00 00 	cmp    $0x180,%rbp
+-    985c:	f2 0f 10 44 24 08    	movsd  0x8(%rsp),%xmm0
+-    9862:	0f 8e 50 0c 00 00    	jle    a4b8 <update_scores_and_migrate(unsigned long)+0x1308>
+-    9868:	49 8d ac 24 80 01 00 	lea    0x180(%r12),%rbp
+-    986f:	00 
+-    9870:	4c 89 e7             	mov    %r12,%rdi
+-    9873:	48 89 ee             	mov    %rbp,%rsi
+-    9876:	49 89 ec             	mov    %rbp,%r12
+-    9879:	e8 82 93 ff ff       	call   2c00 <void std::__insertion_sort<__gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, __gnu_cxx::__ops::_Iter_comp_iter<rank_scores_for_migration(unsigned long, unsigned long, std::vector<score_entry, std::allocator<score_entry> >&)::{lambda(score_entry const&, score_entry const&)#1}> >(__gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, __gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, __gnu_cxx::__ops::_Iter_comp_iter<rank_scores_for_migration(unsigned long, unsigned long, std::vector<score_entry, std::allocator<score_entry> >&)::{lambda(score_entry const&, score_entry const&)#1}>) [clone .isra.0]>
+-    987e:	49 39 ee             	cmp    %rbp,%r14
+-    9881:	f2 0f 10 44 24 08    	movsd  0x8(%rsp),%xmm0
+-    9887:	66 0f ef d2          	pxor   %xmm2,%xmm2
+-    988b:	0f 84 c6 00 00 00    	je     9957 <update_scores_and_migrate(unsigned long)+0x7a7>
+-    9891:	f2 0f 11 44 24 20    	movsd  %xmm0,0x20(%rsp)
+-    9897:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+-    989e:	00 00 
++    9814:	4d 89 f4             	mov    %r14,%r12
++    9817:	4c 89 e9             	mov    %r13,%rcx
++    981a:	4d 29 ec             	sub    %r13,%r12
++    981d:	4c 89 e0             	mov    %r12,%rax
++    9820:	48 c1 f8 03          	sar    $0x3,%rax
++    9824:	48 0f af c2          	imul   %rdx,%rax
++    9828:	48 89 c3             	mov    %rax,%rbx
++    982b:	4d 39 ee             	cmp    %r13,%r14
++    982e:	0f 84 46 01 00 00    	je     997a <update_scores_and_migrate(unsigned long)+0x7ca>
++    9834:	f2 0f 11 44 24 08    	movsd  %xmm0,0x8(%rsp)
++    983a:	4d 85 e4             	test   %r12,%r12
++    983d:	0f 84 c5 0b 00 00    	je     a408 <update_scores_and_migrate(unsigned long)+0x1258>
++    9843:	48 0f bd d0          	bsr    %rax,%rdx
++    9847:	4c 89 f6             	mov    %r14,%rsi
++    984a:	4c 89 ef             	mov    %r13,%rdi
++    984d:	48 63 d2             	movslq %edx,%rdx
++    9850:	48 01 d2             	add    %rdx,%rdx
++    9853:	e8 58 97 ff ff       	call   2fb0 <void std::__introsort_loop<__gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, long, __gnu_cxx::__ops::_Iter_comp_iter<rank_scores_for_migration(unsigned long, unsigned long, std::vector<score_entry, std::allocator<score_entry> >&)::{lambda(score_entry const&, score_entry const&)#1}> >(__gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, __gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, long, __gnu_cxx::__ops::_Iter_comp_iter<rank_scores_for_migration(unsigned long, unsigned long, std::vector<score_entry, std::allocator<score_entry> >&)::{lambda(score_entry const&, score_entry const&)#1}>) [clone .isra.0]>
++    9858:	49 81 fc 80 01 00 00 	cmp    $0x180,%r12
++    985f:	f2 0f 10 44 24 08    	movsd  0x8(%rsp),%xmm0
++    9865:	0f 8e b5 0b 00 00    	jle    a420 <update_scores_and_migrate(unsigned long)+0x1270>
++    986b:	4d 8d a5 80 01 00 00 	lea    0x180(%r13),%r12
++    9872:	4c 89 ef             	mov    %r13,%rdi
++    9875:	4c 89 e6             	mov    %r12,%rsi
++    9878:	e8 83 93 ff ff       	call   2c00 <void std::__insertion_sort<__gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, __gnu_cxx::__ops::_Iter_comp_iter<rank_scores_for_migration(unsigned long, unsigned long, std::vector<score_entry, std::allocator<score_entry> >&)::{lambda(score_entry const&, score_entry const&)#1}> >(__gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, __gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, __gnu_cxx::__ops::_Iter_comp_iter<rank_scores_for_migration(unsigned long, unsigned long, std::vector<score_entry, std::allocator<score_entry> >&)::{lambda(score_entry const&, score_entry const&)#1}>) [clone .isra.0]>
++    987d:	4d 39 e6             	cmp    %r12,%r14
++    9880:	f2 0f 10 44 24 08    	movsd  0x8(%rsp),%xmm0
++    9886:	66 0f ef d2          	pxor   %xmm2,%xmm2
++    988a:	0f 84 c5 00 00 00    	je     9955 <update_scores_and_migrate(unsigned long)+0x7a5>
++    9890:	f2 0f 11 44 24 20    	movsd  %xmm0,0x20(%rsp)
++    9896:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
++    989d:	00 00 00 
+     98a0:	f3 41 0f 10 4c 24 10 	movss  0x10(%r12),%xmm1
+     98a7:	41 0f 2f 4c 24 f8    	comiss -0x8(%r12),%xmm1
+     98ad:	4d 89 e5             	mov    %r12,%r13
+     98b0:	f3 41 0f 6f 1c 24    	movdqu (%r12),%xmm3
+     98b6:	41 0f 11 14 24       	movups %xmm2,(%r12)
+-    98bb:	0f 86 3f 08 00 00    	jbe    a100 <update_scores_and_migrate(unsigned long)+0xf50>
+-    98c1:	49 8d 6c 24 e8       	lea    -0x18(%r12),%rbp
+-    98c6:	f3 0f 6f 65 00       	movdqu 0x0(%rbp),%xmm4
+-    98cb:	48 8b 7d 20          	mov    0x20(%rbp),%rdi
+-    98cf:	49 89 ed             	mov    %rbp,%r13
+-    98d2:	0f 11 55 00          	movups %xmm2,0x0(%rbp)
+-    98d6:	0f 11 65 18          	movups %xmm4,0x18(%rbp)
+-    98da:	48 85 ff             	test   %rdi,%rdi
+-    98dd:	0f 84 3d 08 00 00    	je     a120 <update_scores_and_migrate(unsigned long)+0xf70>
+-    98e3:	0f 29 5c 24 10       	movaps %xmm3,0x10(%rsp)
+-    98e8:	48 83 ed 18          	sub    $0x18,%rbp
+-    98ec:	f3 0f 11 4c 24 08    	movss  %xmm1,0x8(%rsp)
+-    98f2:	e8 00 00 00 00       	call   98f7 <update_scores_and_migrate(unsigned long)+0x747>
+-			98f3: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
+-    98f7:	f3 0f 10 65 28       	movss  0x28(%rbp),%xmm4
+-    98fc:	f3 0f 10 4c 24 08    	movss  0x8(%rsp),%xmm1
+-    9902:	66 0f ef d2          	pxor   %xmm2,%xmm2
+-    9906:	66 0f 6f 5c 24 10    	movdqa 0x10(%rsp),%xmm3
+-    990c:	f3 0f 11 65 40       	movss  %xmm4,0x40(%rbp)
+-    9911:	0f 2f 4d 10          	comiss 0x10(%rbp),%xmm1
+-    9915:	77 af                	ja     98c6 <update_scores_and_migrate(unsigned long)+0x716>
+-    9917:	49 8b 7d 08          	mov    0x8(%r13),%rdi
+-    991b:	41 0f 11 5d 00       	movups %xmm3,0x0(%r13)
+-    9920:	48 85 ff             	test   %rdi,%rdi
+-    9923:	0f 84 dc 07 00 00    	je     a105 <update_scores_and_migrate(unsigned long)+0xf55>
+-    9929:	f3 0f 11 4c 24 08    	movss  %xmm1,0x8(%rsp)
+-    992f:	49 83 c4 18          	add    $0x18,%r12
+-    9933:	e8 00 00 00 00       	call   9938 <update_scores_and_migrate(unsigned long)+0x788>
+-			9934: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
+-    9938:	f3 0f 10 4c 24 08    	movss  0x8(%rsp),%xmm1
+-    993e:	4d 39 e6             	cmp    %r12,%r14
+-    9941:	66 0f ef d2          	pxor   %xmm2,%xmm2
+-    9945:	f3 41 0f 11 4d 10    	movss  %xmm1,0x10(%r13)
+-    994b:	0f 85 4f ff ff ff    	jne    98a0 <update_scores_and_migrate(unsigned long)+0x6f0>
+-    9951:	f2 0f 10 44 24 20    	movsd  0x20(%rsp),%xmm0
+-    9957:	4c 8b 64 24 60       	mov    0x60(%rsp),%r12
+-    995c:	48 8b 6c 24 68       	mov    0x68(%rsp),%rbp
+-    9961:	48 b8 ab aa aa aa aa 	movabs $0xaaaaaaaaaaaaaaab,%rax
+-    9968:	aa aa aa 
+-    996b:	4c 29 e5             	sub    %r12,%rbp
+-    996e:	48 89 e9             	mov    %rbp,%rcx
+-    9971:	48 c1 f9 03          	sar    $0x3,%rcx
+-    9975:	48 0f af c8          	imul   %rax,%rcx
+-    9979:	49 89 cd             	mov    %rcx,%r13
+-    997c:	48 85 ed             	test   %rbp,%rbp
+-    997f:	74 5d                	je     99de <update_scores_and_migrate(unsigned long)+0x82e>
+-    9981:	f2 0f 10 0d 00 00 00 	movsd  0x0(%rip),%xmm1        # 9989 <update_scores_and_migrate(unsigned long)+0x7d9>
+-    9988:	00 
+-			9985: R_X86_64_PC32	.LC207-0x4
+-    9989:	66 0f 2f c1          	comisd %xmm1,%xmm0
+-    998d:	0f 83 f5 0a 00 00    	jae    a488 <update_scores_and_migrate(unsigned long)+0x12d8>
+-    9993:	f2 4c 0f 2c f0       	cvttsd2si %xmm0,%r14
+-    9998:	49 01 de             	add    %rbx,%r14
+-    999b:	31 db                	xor    %ebx,%ebx
+-    999d:	0f 1f 00             	nopl   (%rax)
+-    99a0:	48 8d 04 5b          	lea    (%rbx,%rbx,2),%rax
+-    99a4:	48 89 da             	mov    %rbx,%rdx
+-    99a7:	4c 89 f6             	mov    %r14,%rsi
+-    99aa:	49 8b 3c c4          	mov    (%r12,%rax,8),%rdi
+-    99ae:	e8 00 00 00 00       	call   99b3 <update_scores_and_migrate(unsigned long)+0x803>
+-			99af: R_X86_64_PLT32	page_info::update_can_promote(unsigned long, unsigned long)-0x4
+-    99b3:	48 83 c3 01          	add    $0x1,%rbx
+-    99b7:	4c 8b 64 24 60       	mov    0x60(%rsp),%r12
+-    99bc:	4c 39 eb             	cmp    %r13,%rbx
+-    99bf:	72 df                	jb     99a0 <update_scores_and_migrate(unsigned long)+0x7f0>
+-    99c1:	48 b8 ab aa aa aa aa 	movabs $0xaaaaaaaaaaaaaaab,%rax
+-    99c8:	aa aa aa 
+-    99cb:	48 8b 4c 24 68       	mov    0x68(%rsp),%rcx
+-    99d0:	4c 29 e1             	sub    %r12,%rcx
+-    99d3:	48 c1 f9 03          	sar    $0x3,%rcx
+-    99d7:	48 0f af c8          	imul   %rax,%rcx
+-    99db:	49 89 cd             	mov    %rcx,%r13
+-    99de:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    99e2:	49 83 ed 01          	sub    $0x1,%r13
+-    99e6:	48 c7 84 24 f0 00 00 	movq   $0x0,0xf0(%rsp)
+-    99ed:	00 00 00 00 00 
+-    99f2:	0f 29 84 24 c0 00 00 	movaps %xmm0,0xc0(%rsp)
+-    99f9:	00 
+-    99fa:	0f 29 84 24 d0 00 00 	movaps %xmm0,0xd0(%rsp)
+-    9a01:	00 
+-    9a02:	0f 29 84 24 e0 00 00 	movaps %xmm0,0xe0(%rsp)
+-    9a09:	00 
+-    9a0a:	e8 00 00 00 00       	call   9a0f <update_scores_and_migrate(unsigned long)+0x85f>
+-			9a0b: R_X86_64_PLT32	get_fasttier_free_mem()-0x4
+-    9a0f:	48 89 c3             	mov    %rax,%rbx
+-    9a12:	e8 00 00 00 00       	call   9a17 <update_scores_and_migrate(unsigned long)+0x867>
+-			9a13: R_X86_64_PLT32	get_fasttier_total_mem()-0x4
+-    9a17:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    9a1b:	48 89 c6             	mov    %rax,%rsi
+-    9a1e:	48 c7 84 24 b0 00 00 	movq   $0x0,0xb0(%rsp)
+-    9a25:	00 00 00 00 00 
+-    9a2a:	0f 29 84 24 a0 00 00 	movaps %xmm0,0xa0(%rsp)
+-    9a31:	00 
+-    9a32:	4d 85 ed             	test   %r13,%r13
+-    9a35:	0f 84 e5 03 00 00    	je     9e20 <update_scores_and_migrate(unsigned long)+0xc70>
+-    9a3b:	48 b8 0b d7 a3 70 3d 	movabs $0xa3d70a3d70a3d70b,%rax
+-    9a42:	0a d7 a3 
+-    9a45:	66 41 0f 6e f7       	movd   %r15d,%xmm6
+-    9a4a:	66 0f ef d2          	pxor   %xmm2,%xmm2
+-    9a4e:	48 f7 ee             	imul   %rsi
+-    9a51:	b8 00 00 00 00       	mov    $0x0,%eax
+-    9a56:	48 01 f2             	add    %rsi,%rdx
+-    9a59:	48 c1 fe 3f          	sar    $0x3f,%rsi
+-    9a5d:	48 c1 fa 06          	sar    $0x6,%rdx
+-    9a61:	48 29 d6             	sub    %rdx,%rsi
+-    9a64:	48 8d 2c b6          	lea    (%rsi,%rsi,4),%rbp
+-    9a68:	48 01 dd             	add    %rbx,%rbp
+-    9a6b:	48 0f 48 e8          	cmovs  %rax,%rbp
+-    9a6f:	f3 48 0f 2c c6       	cvttss2si %xmm6,%rax
+-    9a74:	45 31 f6             	xor    %r14d,%r14d
+-    9a77:	45 31 ff             	xor    %r15d,%r15d
+-    9a7a:	48 c1 e5 0a          	shl    $0xa,%rbp
+-    9a7e:	48 c1 ed 15          	shr    $0x15,%rbp
+-    9a82:	8d 04 80             	lea    (%rax,%rax,4),%eax
+-    9a85:	01 c0                	add    %eax,%eax
+-    9a87:	89 c0                	mov    %eax,%eax
+-    9a89:	f2 48 0f 2a d0       	cvtsi2sd %rax,%xmm2
+-    9a8e:	e9 1a 02 00 00       	jmp    9cad <update_scores_and_migrate(unsigned long)+0xafd>
+-    9a93:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+-    9a98:	48 8b 35 00 00 00 00 	mov    0x0(%rip),%rsi        # 9a9f <update_scores_and_migrate(unsigned long)+0x8ef>
+-			9a9b: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
+-    9a9f:	49 89 c4             	mov    %rax,%r12
+-    9aa2:	80 3e 00             	cmpb   $0x0,(%rsi)
+-    9aa5:	0f 84 05 06 00 00    	je     a0b0 <update_scores_and_migrate(unsigned long)+0xf00>
+-    9aab:	83 40 08 01          	addl   $0x1,0x8(%rax)
+-    9aaf:	80 7b 10 00          	cmpb   $0x0,0x10(%rbx)
+-    9ab3:	0f 85 51 02 00 00    	jne    9d0a <update_scores_and_migrate(unsigned long)+0xb5a>
+-    9ab9:	8b b3 0c 03 00 00    	mov    0x30c(%rbx),%esi
+-    9abf:	85 f6                	test   %esi,%esi
+-    9ac1:	0f 8f 39 02 00 00    	jg     9d00 <update_scores_and_migrate(unsigned long)+0xb50>
+-    9ac7:	80 bb 1a 01 00 00 00 	cmpb   $0x0,0x11a(%rbx)
+-    9ace:	0f 84 2c 02 00 00    	je     9d00 <update_scores_and_migrate(unsigned long)+0xb50>
+-    9ad4:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 9adb <update_scores_and_migrate(unsigned long)+0x92b>
+-			9ad7: R_X86_64_REX_GOTPCRELX	promotion_cost_avg-0x4
+-    9adb:	66 0f ef c9          	pxor   %xmm1,%xmm1
+-    9adf:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    9ae3:	f3 0f 5a 08          	cvtss2sd (%rax),%xmm1
+-    9ae7:	0f b7 83 18 01 00 00 	movzwl 0x118(%rbx),%eax
+-    9aee:	f2 0f 59 0d 00 00 00 	mulsd  0x0(%rip),%xmm1        # 9af6 <update_scores_and_migrate(unsigned long)+0x946>
+-    9af5:	00 
+-			9af2: R_X86_64_PC32	.LC181-0x4
+-    9af6:	f3 0f 2a c0          	cvtsi2ss %eax,%xmm0
+-    9afa:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 9b01 <update_scores_and_migrate(unsigned long)+0x951>
+-			9afd: R_X86_64_REX_GOTPCRELX	latency_diff-0x4
+-    9b01:	f3 0f 59 83 10 01 00 	mulss  0x110(%rbx),%xmm0
+-    9b08:	00 
+-    9b09:	f3 0f 59 05 00 00 00 	mulss  0x0(%rip),%xmm0        # 9b11 <update_scores_and_migrate(unsigned long)+0x961>
+-    9b10:	00 
+-			9b0d: R_X86_64_PC32	.LC208-0x4
+-    9b11:	f3 0f 59 00          	mulss  (%rax),%xmm0
+-    9b15:	f3 0f 5a c0          	cvtss2sd %xmm0,%xmm0
+-    9b19:	66 0f 2f c8          	comisd %xmm0,%xmm1
+-    9b1d:	0f 87 56 0b 00 00    	ja     a679 <update_scores_and_migrate(unsigned long)+0x14c9>
+-    9b23:	66 0f ef db          	pxor   %xmm3,%xmm3
+-    9b27:	0f 29 5c 24 50       	movaps %xmm3,0x50(%rsp)
+-    9b2c:	48 85 ed             	test   %rbp,%rbp
+-    9b2f:	0f 8e db 06 00 00    	jle    a210 <update_scores_and_migrate(unsigned long)+0x1060>
+-    9b35:	66 0f 2f c1          	comisd %xmm1,%xmm0
+-    9b39:	0f 97 43 13          	seta   0x13(%rbx)
+-    9b3d:	80 7b 12 00          	cmpb   $0x0,0x12(%rbx)
+-    9b41:	0f 84 89 05 00 00    	je     a0d0 <update_scores_and_migrate(unsigned long)+0xf20>
+-    9b47:	66 0f 2f c1          	comisd %xmm1,%xmm0
+-    9b4b:	0f 86 3f 08 00 00    	jbe    a390 <update_scores_and_migrate(unsigned long)+0x11e0>
+-    9b51:	48 8b 44 24 50       	mov    0x50(%rsp),%rax
+-    9b56:	48 85 c0             	test   %rax,%rax
+-    9b59:	74 7b                	je     9bd6 <update_scores_and_migrate(unsigned long)+0xa26>
+-    9b5b:	83 80 10 03 00 00 01 	addl   $0x1,0x310(%rax)
+-    9b62:	48 8b b4 24 e0 00 00 	mov    0xe0(%rsp),%rsi
+-    9b69:	00 
+-    9b6a:	c6 40 13 01          	movb   $0x1,0x13(%rax)
+-    9b6e:	48 3b b4 24 e8 00 00 	cmp    0xe8(%rsp),%rsi
+-    9b75:	00 
+-    9b76:	0f 84 5c 09 00 00    	je     a4d8 <update_scores_and_migrate(unsigned long)+0x1328>
+-    9b7c:	48 8b 7c 24 58       	mov    0x58(%rsp),%rdi
+-    9b81:	48 89 06             	mov    %rax,(%rsi)
+-    9b84:	48 89 7e 08          	mov    %rdi,0x8(%rsi)
+-    9b88:	48 85 ff             	test   %rdi,%rdi
+-    9b8b:	74 15                	je     9ba2 <update_scores_and_migrate(unsigned long)+0x9f2>
+-    9b8d:	4c 8b 0d 00 00 00 00 	mov    0x0(%rip),%r9        # 9b94 <update_scores_and_migrate(unsigned long)+0x9e4>
+-			9b90: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
+-    9b94:	41 80 39 00          	cmpb   $0x0,(%r9)
+-    9b98:	0f 84 02 0b 00 00    	je     a6a0 <update_scores_and_migrate(unsigned long)+0x14f0>
+-    9b9e:	83 47 08 01          	addl   $0x1,0x8(%rdi)
+-    9ba2:	48 83 c6 10          	add    $0x10,%rsi
+-    9ba6:	48 89 b4 24 e0 00 00 	mov    %rsi,0xe0(%rsp)
+-    9bad:	00 
+-    9bae:	f2 0f 10 05 00 00 00 	movsd  0x0(%rip),%xmm0        # 9bb6 <update_scores_and_migrate(unsigned long)+0xa06>
+-    9bb5:	00 
+-			9bb2: R_X86_64_PC32	.LC23-0x4
+-    9bb6:	48 83 c5 01          	add    $0x1,%rbp
+-    9bba:	f2 0f 58 84 24 f0 00 	addsd  0xf0(%rsp),%xmm0
+-    9bc1:	00 00 
+-    9bc3:	c7 80 0c 03 00 00 00 	movl   $0x0,0x30c(%rax)
+-    9bca:	00 00 00 
+-    9bcd:	f2 0f 11 84 24 f0 00 	movsd  %xmm0,0xf0(%rsp)
+-    9bd4:	00 00 
+-    9bd6:	83 83 14 03 00 00 01 	addl   $0x1,0x314(%rbx)
+-    9bdd:	48 8b 84 24 c8 00 00 	mov    0xc8(%rsp),%rax
+-    9be4:	00 
+-    9be5:	48 3b 84 24 d0 00 00 	cmp    0xd0(%rsp),%rax
+-    9bec:	00 
+-    9bed:	0f 84 5d 08 00 00    	je     a450 <update_scores_and_migrate(unsigned long)+0x12a0>
+-    9bf3:	66 0f 6f 44 24 40    	movdqa 0x40(%rsp),%xmm0
+-    9bf9:	0f 12 e0             	movhlps %xmm0,%xmm4
+-    9bfc:	0f 11 00             	movups %xmm0,(%rax)
+-    9bff:	66 48 0f 7e e6       	movq   %xmm4,%rsi
+-    9c04:	48 85 f6             	test   %rsi,%rsi
+-    9c07:	74 14                	je     9c1d <update_scores_and_migrate(unsigned long)+0xa6d>
+-    9c09:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 9c10 <update_scores_and_migrate(unsigned long)+0xa60>
+-			9c0c: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
+-    9c10:	80 3f 00             	cmpb   $0x0,(%rdi)
+-    9c13:	0f 84 ff 08 00 00    	je     a518 <update_scores_and_migrate(unsigned long)+0x1368>
+-    9c19:	83 46 08 01          	addl   $0x1,0x8(%rsi)
+-    9c1d:	48 83 c0 10          	add    $0x10,%rax
+-    9c21:	48 89 84 24 c8 00 00 	mov    %rax,0xc8(%rsp)
+-    9c28:	00 
+-    9c29:	f2 0f 10 05 00 00 00 	movsd  0x0(%rip),%xmm0        # 9c31 <update_scores_and_migrate(unsigned long)+0xa81>
+-    9c30:	00 
+-			9c2d: R_X86_64_PC32	.LC23-0x4
+-    9c31:	48 83 ed 01          	sub    $0x1,%rbp
+-    9c35:	f2 0f 58 84 24 f0 00 	addsd  0xf0(%rsp),%xmm0
+-    9c3c:	00 00 
+-    9c3e:	c7 83 0c 03 00 00 00 	movl   $0x0,0x30c(%rbx)
+-    9c45:	00 00 00 
+-    9c48:	f2 0f 11 84 24 f0 00 	movsd  %xmm0,0xf0(%rsp)
+-    9c4f:	00 00 
+-    9c51:	66 0f 2f c2          	comisd %xmm2,%xmm0
+-    9c55:	48 8b 7c 24 58       	mov    0x58(%rsp),%rdi
+-    9c5a:	0f 83 0f 0a 00 00    	jae    a66f <update_scores_and_migrate(unsigned long)+0x14bf>
+-    9c60:	48 85 ff             	test   %rdi,%rdi
+-    9c63:	74 11                	je     9c76 <update_scores_and_migrate(unsigned long)+0xac6>
+-    9c65:	f2 0f 11 54 24 08    	movsd  %xmm2,0x8(%rsp)
+-    9c6b:	e8 00 00 00 00       	call   9c70 <update_scores_and_migrate(unsigned long)+0xac0>
+-			9c6c: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
+-    9c70:	f2 0f 10 54 24 08    	movsd  0x8(%rsp),%xmm2
+-    9c76:	48 8b 7c 24 48       	mov    0x48(%rsp),%rdi
+-    9c7b:	48 85 ff             	test   %rdi,%rdi
+-    9c7e:	74 20                	je     9ca0 <update_scores_and_migrate(unsigned long)+0xaf0>
+-    9c80:	f2 0f 11 54 24 08    	movsd  %xmm2,0x8(%rsp)
+-    9c86:	e8 00 00 00 00       	call   9c8b <update_scores_and_migrate(unsigned long)+0xadb>
+-			9c87: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
+-    9c8b:	f2 0f 10 54 24 08    	movsd  0x8(%rsp),%xmm2
+-    9c91:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+-    9c98:	00 00 00 00 
+-    9c9c:	0f 1f 40 00          	nopl   0x0(%rax)
+-    9ca0:	49 83 c6 18          	add    $0x18,%r14
+-    9ca4:	4d 39 ef             	cmp    %r13,%r15
+-    9ca7:	0f 83 c3 00 00 00    	jae    9d70 <update_scores_and_migrate(unsigned long)+0xbc0>
+-    9cad:	f2 0f 10 84 24 f0 00 	movsd  0xf0(%rsp),%xmm0
+-    9cb4:	00 00 
+-    9cb6:	66 0f 2f c2          	comisd %xmm2,%xmm0
+-    9cba:	0f 83 b0 00 00 00    	jae    9d70 <update_scores_and_migrate(unsigned long)+0xbc0>
+-    9cc0:	48 8b 44 24 60       	mov    0x60(%rsp),%rax
+-    9cc5:	49 83 c7 01          	add    $0x1,%r15
+-    9cc9:	f3 42 0f 6f 04 30    	movdqu (%rax,%r14,1),%xmm0
+-    9ccf:	0f 12 e8             	movhlps %xmm0,%xmm5
+-    9cd2:	66 48 0f 7e c3       	movq   %xmm0,%rbx
+-    9cd7:	0f 29 44 24 40       	movaps %xmm0,0x40(%rsp)
+-    9cdc:	66 48 0f 7e e8       	movq   %xmm5,%rax
+-    9ce1:	48 85 c0             	test   %rax,%rax
+-    9ce4:	0f 85 ae fd ff ff    	jne    9a98 <update_scores_and_migrate(unsigned long)+0x8e8>
+-    9cea:	80 7b 10 00          	cmpb   $0x0,0x10(%rbx)
+-    9cee:	75 b0                	jne    9ca0 <update_scores_and_migrate(unsigned long)+0xaf0>
+-    9cf0:	8b b3 0c 03 00 00    	mov    0x30c(%rbx),%esi
+-    9cf6:	85 f6                	test   %esi,%esi
+-    9cf8:	0f 8e c9 fd ff ff    	jle    9ac7 <update_scores_and_migrate(unsigned long)+0x917>
+-    9cfe:	66 90                	xchg   %ax,%ax
+-    9d00:	4c 8b 64 24 48       	mov    0x48(%rsp),%r12
+-    9d05:	4d 85 e4             	test   %r12,%r12
+-    9d08:	74 96                	je     9ca0 <update_scores_and_migrate(unsigned long)+0xaf0>
+-    9d0a:	49 8b 74 24 08       	mov    0x8(%r12),%rsi
+-    9d0f:	49 8d 7c 24 08       	lea    0x8(%r12),%rdi
+-    9d14:	48 b8 01 00 00 00 01 	movabs $0x100000001,%rax
+-    9d1b:	00 00 00 
+-    9d1e:	48 39 c6             	cmp    %rax,%rsi
+-    9d21:	0f 84 19 04 00 00    	je     a140 <update_scores_and_migrate(unsigned long)+0xf90>
+-    9d27:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 9d2e <update_scores_and_migrate(unsigned long)+0xb7e>
+-			9d2a: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
+-    9d2e:	80 38 00             	cmpb   $0x0,(%rax)
+-    9d31:	0f 84 b9 03 00 00    	je     a0f0 <update_scores_and_migrate(unsigned long)+0xf40>
+-    9d37:	41 8b 44 24 08       	mov    0x8(%r12),%eax
+-    9d3c:	8d 70 ff             	lea    -0x1(%rax),%esi
+-    9d3f:	41 89 74 24 08       	mov    %esi,0x8(%r12)
+-    9d44:	83 f8 01             	cmp    $0x1,%eax
+-    9d47:	0f 85 53 ff ff ff    	jne    9ca0 <update_scores_and_migrate(unsigned long)+0xaf0>
+-    9d4d:	4c 89 e7             	mov    %r12,%rdi
+-    9d50:	f2 0f 11 54 24 08    	movsd  %xmm2,0x8(%rsp)
+-    9d56:	49 83 c6 18          	add    $0x18,%r14
+-    9d5a:	e8 00 00 00 00       	call   9d5f <update_scores_and_migrate(unsigned long)+0xbaf>
+-			9d5b: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release_last_use_cold()-0x4
+-    9d5f:	f2 0f 10 54 24 08    	movsd  0x8(%rsp),%xmm2
+-    9d65:	4d 39 ef             	cmp    %r13,%r15
+-    9d68:	0f 82 3f ff ff ff    	jb     9cad <update_scores_and_migrate(unsigned long)+0xafd>
+-    9d6e:	66 90                	xchg   %ax,%ax
+-    9d70:	4c 8b a4 24 a8 00 00 	mov    0xa8(%rsp),%r12
+-    9d77:	00 
+-    9d78:	48 8b 9c 24 a0 00 00 	mov    0xa0(%rsp),%rbx
+-    9d7f:	00 
+-    9d80:	49 be 01 00 00 00 01 	movabs $0x100000001,%r14
+-    9d87:	00 00 00 
+-    9d8a:	49 39 dc             	cmp    %rbx,%r12
+-    9d8d:	75 20                	jne    9daf <update_scores_and_migrate(unsigned long)+0xbff>
+-    9d8f:	eb 77                	jmp    9e08 <update_scores_and_migrate(unsigned long)+0xc58>
+-    9d91:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+-    9d98:	8b 45 08             	mov    0x8(%rbp),%eax
+-    9d9b:	8d 50 ff             	lea    -0x1(%rax),%edx
+-    9d9e:	89 55 08             	mov    %edx,0x8(%rbp)
+-    9da1:	83 f8 01             	cmp    $0x1,%eax
+-    9da4:	74 3d                	je     9de3 <update_scores_and_migrate(unsigned long)+0xc33>
+-    9da6:	48 83 c3 10          	add    $0x10,%rbx
+-    9daa:	49 39 dc             	cmp    %rbx,%r12
+-    9dad:	74 51                	je     9e00 <update_scores_and_migrate(unsigned long)+0xc50>
+-    9daf:	48 8b 6b 08          	mov    0x8(%rbx),%rbp
+-    9db3:	48 85 ed             	test   %rbp,%rbp
+-    9db6:	74 ee                	je     9da6 <update_scores_and_migrate(unsigned long)+0xbf6>
+-    9db8:	48 8b 45 08          	mov    0x8(%rbp),%rax
+-    9dbc:	48 8d 55 08          	lea    0x8(%rbp),%rdx
+-    9dc0:	4c 39 f0             	cmp    %r14,%rax
+-    9dc3:	0f 84 cf 03 00 00    	je     a198 <update_scores_and_migrate(unsigned long)+0xfe8>
+-    9dc9:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 9dd0 <update_scores_and_migrate(unsigned long)+0xc20>
+-			9dcc: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
+-    9dd0:	80 38 00             	cmpb   $0x0,(%rax)
+-    9dd3:	75 c3                	jne    9d98 <update_scores_and_migrate(unsigned long)+0xbe8>
+-    9dd5:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+-    9dda:	f0 0f c1 02          	lock xadd %eax,(%rdx)
+-    9dde:	83 f8 01             	cmp    $0x1,%eax
+-    9de1:	75 c3                	jne    9da6 <update_scores_and_migrate(unsigned long)+0xbf6>
+-    9de3:	48 89 ef             	mov    %rbp,%rdi
+-    9de6:	48 83 c3 10          	add    $0x10,%rbx
+-    9dea:	e8 00 00 00 00       	call   9def <update_scores_and_migrate(unsigned long)+0xc3f>
+-			9deb: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release_last_use_cold()-0x4
+-    9def:	49 39 dc             	cmp    %rbx,%r12
+-    9df2:	75 bb                	jne    9daf <update_scores_and_migrate(unsigned long)+0xbff>
+-    9df4:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+-    9dfb:	00 00 00 00 
+-    9dff:	90                   	nop
+-    9e00:	48 8b 9c 24 a0 00 00 	mov    0xa0(%rsp),%rbx
+-    9e07:	00 
+-    9e08:	48 8b b4 24 b0 00 00 	mov    0xb0(%rsp),%rsi
+-    9e0f:	00 
+-    9e10:	48 29 de             	sub    %rbx,%rsi
+-    9e13:	48 85 db             	test   %rbx,%rbx
+-    9e16:	74 08                	je     9e20 <update_scores_and_migrate(unsigned long)+0xc70>
+-    9e18:	48 89 df             	mov    %rbx,%rdi
+-    9e1b:	e8 00 00 00 00       	call   9e20 <update_scores_and_migrate(unsigned long)+0xc70>
+-			9e1c: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
+-    9e20:	48 8b 84 24 c0 00 00 	mov    0xc0(%rsp),%rax
++    98bb:	0f 86 9f 07 00 00    	jbe    a060 <update_scores_and_migrate(unsigned long)+0xeb0>
++    98c1:	49 8d 5c 24 e8       	lea    -0x18(%r12),%rbx
++    98c6:	f3 0f 6f 23          	movdqu (%rbx),%xmm4
++    98ca:	48 8b 7b 20          	mov    0x20(%rbx),%rdi
++    98ce:	49 89 dd             	mov    %rbx,%r13
++    98d1:	0f 11 13             	movups %xmm2,(%rbx)
++    98d4:	0f 11 63 18          	movups %xmm4,0x18(%rbx)
++    98d8:	48 85 ff             	test   %rdi,%rdi
++    98db:	0f 84 9f 07 00 00    	je     a080 <update_scores_and_migrate(unsigned long)+0xed0>
++    98e1:	0f 29 5c 24 10       	movaps %xmm3,0x10(%rsp)
++    98e6:	48 83 eb 18          	sub    $0x18,%rbx
++    98ea:	f3 0f 11 4c 24 08    	movss  %xmm1,0x8(%rsp)
++    98f0:	e8 00 00 00 00       	call   98f5 <update_scores_and_migrate(unsigned long)+0x745>
++			98f1: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
++    98f5:	f3 0f 10 63 28       	movss  0x28(%rbx),%xmm4
++    98fa:	f3 0f 10 4c 24 08    	movss  0x8(%rsp),%xmm1
++    9900:	66 0f ef d2          	pxor   %xmm2,%xmm2
++    9904:	66 0f 6f 5c 24 10    	movdqa 0x10(%rsp),%xmm3
++    990a:	f3 0f 11 63 40       	movss  %xmm4,0x40(%rbx)
++    990f:	0f 2f 4b 10          	comiss 0x10(%rbx),%xmm1
++    9913:	77 b1                	ja     98c6 <update_scores_and_migrate(unsigned long)+0x716>
++    9915:	49 8b 7d 08          	mov    0x8(%r13),%rdi
++    9919:	41 0f 11 5d 00       	movups %xmm3,0x0(%r13)
++    991e:	48 85 ff             	test   %rdi,%rdi
++    9921:	0f 84 3e 07 00 00    	je     a065 <update_scores_and_migrate(unsigned long)+0xeb5>
++    9927:	f3 0f 11 4c 24 08    	movss  %xmm1,0x8(%rsp)
++    992d:	49 83 c4 18          	add    $0x18,%r12
++    9931:	e8 00 00 00 00       	call   9936 <update_scores_and_migrate(unsigned long)+0x786>
++			9932: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
++    9936:	f3 0f 10 4c 24 08    	movss  0x8(%rsp),%xmm1
++    993c:	4d 39 e6             	cmp    %r12,%r14
++    993f:	66 0f ef d2          	pxor   %xmm2,%xmm2
++    9943:	f3 41 0f 11 4d 10    	movss  %xmm1,0x10(%r13)
++    9949:	0f 85 51 ff ff ff    	jne    98a0 <update_scores_and_migrate(unsigned long)+0x6f0>
++    994f:	f2 0f 10 44 24 20    	movsd  0x20(%rsp),%xmm0
++    9955:	4c 8b 6c 24 68       	mov    0x68(%rsp),%r13
++    995a:	48 8b 4c 24 60       	mov    0x60(%rsp),%rcx
++    995f:	48 b8 ab aa aa aa aa 	movabs $0xaaaaaaaaaaaaaaab,%rax
++    9966:	aa aa aa 
++    9969:	4d 89 ec             	mov    %r13,%r12
++    996c:	49 29 cc             	sub    %rcx,%r12
++    996f:	4c 89 e3             	mov    %r12,%rbx
++    9972:	48 c1 fb 03          	sar    $0x3,%rbx
++    9976:	48 0f af d8          	imul   %rax,%rbx
++    997a:	4d 85 e4             	test   %r12,%r12
++    997d:	74 7d                	je     99fc <update_scores_and_migrate(unsigned long)+0x84c>
++    997f:	f2 0f 10 0d 00 00 00 	movsd  0x0(%rip),%xmm1        # 9987 <update_scores_and_migrate(unsigned long)+0x7d7>
++    9986:	00 
++			9983: R_X86_64_PC32	.LC207-0x4
++    9987:	66 0f 2f c1          	comisd %xmm1,%xmm0
++    998b:	0f 83 5f 0a 00 00    	jae    a3f0 <update_scores_and_migrate(unsigned long)+0x1240>
++    9991:	f2 48 0f 2c d0       	cvttsd2si %xmm0,%rdx
++    9996:	4c 8d 34 2a          	lea    (%rdx,%rbp,1),%r14
++    999a:	45 31 e4             	xor    %r12d,%r12d
++    999d:	48 bd ab aa aa aa aa 	movabs $0xaaaaaaaaaaaaaaab,%rbp
++    99a4:	aa aa aa 
++    99a7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
++    99ae:	00 00 
++    99b0:	4c 89 ea             	mov    %r13,%rdx
++    99b3:	4b 8d 34 64          	lea    (%r12,%r12,2),%rsi
++    99b7:	48 29 ca             	sub    %rcx,%rdx
++    99ba:	48 8b 3c f1          	mov    (%rcx,%rsi,8),%rdi
++    99be:	4c 89 e1             	mov    %r12,%rcx
++    99c1:	4c 89 f6             	mov    %r14,%rsi
++    99c4:	48 c1 fa 03          	sar    $0x3,%rdx
++    99c8:	48 0f af d5          	imul   %rbp,%rdx
++    99cc:	e8 00 00 00 00       	call   99d1 <update_scores_and_migrate(unsigned long)+0x821>
++			99cd: R_X86_64_PLT32	page_info::update_can_promote(unsigned long, unsigned long, unsigned long)-0x4
++    99d1:	49 83 c4 01          	add    $0x1,%r12
++    99d5:	4c 8b 6c 24 68       	mov    0x68(%rsp),%r13
++    99da:	48 8b 4c 24 60       	mov    0x60(%rsp),%rcx
++    99df:	49 39 dc             	cmp    %rbx,%r12
++    99e2:	72 cc                	jb     99b0 <update_scores_and_migrate(unsigned long)+0x800>
++    99e4:	48 bb ab aa aa aa aa 	movabs $0xaaaaaaaaaaaaaaab,%rbx
++    99eb:	aa aa aa 
++    99ee:	4c 89 ef             	mov    %r13,%rdi
++    99f1:	48 29 cf             	sub    %rcx,%rdi
++    99f4:	48 c1 ff 03          	sar    $0x3,%rdi
++    99f8:	48 0f af df          	imul   %rdi,%rbx
++    99fc:	66 0f ef c0          	pxor   %xmm0,%xmm0
++    9a00:	4c 8d 6b ff          	lea    -0x1(%rbx),%r13
++    9a04:	48 c7 84 24 f0 00 00 	movq   $0x0,0xf0(%rsp)
++    9a0b:	00 00 00 00 00 
++    9a10:	0f 29 84 24 c0 00 00 	movaps %xmm0,0xc0(%rsp)
++    9a17:	00 
++    9a18:	0f 29 84 24 d0 00 00 	movaps %xmm0,0xd0(%rsp)
++    9a1f:	00 
++    9a20:	0f 29 84 24 e0 00 00 	movaps %xmm0,0xe0(%rsp)
++    9a27:	00 
++    9a28:	e8 00 00 00 00       	call   9a2d <update_scores_and_migrate(unsigned long)+0x87d>
++			9a29: R_X86_64_PLT32	get_fasttier_free_mem()-0x4
++    9a2d:	48 89 c3             	mov    %rax,%rbx
++    9a30:	e8 00 00 00 00       	call   9a35 <update_scores_and_migrate(unsigned long)+0x885>
++			9a31: R_X86_64_PLT32	get_fasttier_total_mem()-0x4
++    9a35:	66 0f ef c0          	pxor   %xmm0,%xmm0
++    9a39:	48 89 c6             	mov    %rax,%rsi
++    9a3c:	48 c7 84 24 b0 00 00 	movq   $0x0,0xb0(%rsp)
++    9a43:	00 00 00 00 00 
++    9a48:	0f 29 84 24 a0 00 00 	movaps %xmm0,0xa0(%rsp)
++    9a4f:	00 
++    9a50:	4d 85 ed             	test   %r13,%r13
++    9a53:	0f 84 73 0c 00 00    	je     a6cc <update_scores_and_migrate(unsigned long)+0x151c>
++    9a59:	48 b8 0b d7 a3 70 3d 	movabs $0xa3d70a3d70a3d70b,%rax
++    9a60:	0a d7 a3 
++    9a63:	66 41 0f 6e f7       	movd   %r15d,%xmm6
++    9a68:	66 0f ef db          	pxor   %xmm3,%xmm3
++    9a6c:	48 f7 ee             	imul   %rsi
++    9a6f:	b8 00 00 00 00       	mov    $0x0,%eax
++    9a74:	48 01 f2             	add    %rsi,%rdx
++    9a77:	48 c1 fe 3f          	sar    $0x3f,%rsi
++    9a7b:	48 c1 fa 06          	sar    $0x6,%rdx
++    9a7f:	48 29 d6             	sub    %rdx,%rsi
++    9a82:	48 8d 2c b6          	lea    (%rsi,%rsi,4),%rbp
++    9a86:	48 01 dd             	add    %rbx,%rbp
++    9a89:	48 0f 48 e8          	cmovs  %rax,%rbp
++    9a8d:	f3 48 0f 2c c6       	cvttss2si %xmm6,%rax
++    9a92:	45 31 ff             	xor    %r15d,%r15d
++    9a95:	45 31 e4             	xor    %r12d,%r12d
++    9a98:	48 c1 e5 0a          	shl    $0xa,%rbp
++    9a9c:	48 c1 ed 15          	shr    $0x15,%rbp
++    9aa0:	8d 04 80             	lea    (%rax,%rax,4),%eax
++    9aa3:	01 c0                	add    %eax,%eax
++    9aa5:	89 c0                	mov    %eax,%eax
++    9aa7:	f2 48 0f 2a d8       	cvtsi2sd %rax,%xmm3
++    9aac:	48 8d 84 24 c0 00 00 	lea    0xc0(%rsp),%rax
++    9ab3:	00 
++    9ab4:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
++    9ab9:	e9 0f 02 00 00       	jmp    9ccd <update_scores_and_migrate(unsigned long)+0xb1d>
++    9abe:	66 90                	xchg   %ax,%ax
++    9ac0:	48 8b 35 00 00 00 00 	mov    0x0(%rip),%rsi        # 9ac7 <update_scores_and_migrate(unsigned long)+0x917>
++			9ac3: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
++    9ac7:	49 89 c6             	mov    %rax,%r14
++    9aca:	80 3e 00             	cmpb   $0x0,(%rsi)
++    9acd:	0f 84 3d 05 00 00    	je     a010 <update_scores_and_migrate(unsigned long)+0xe60>
++    9ad3:	83 40 08 01          	addl   $0x1,0x8(%rax)
++    9ad7:	80 7b 10 00          	cmpb   $0x0,0x10(%rbx)
++    9adb:	0f 85 49 02 00 00    	jne    9d2a <update_scores_and_migrate(unsigned long)+0xb7a>
++    9ae1:	44 8b 8b 0c 03 00 00 	mov    0x30c(%rbx),%r9d
++    9ae8:	45 85 c9             	test   %r9d,%r9d
++    9aeb:	0f 8f 2f 02 00 00    	jg     9d20 <update_scores_and_migrate(unsigned long)+0xb70>
++    9af1:	80 bb 1a 01 00 00 00 	cmpb   $0x0,0x11a(%rbx)
++    9af8:	0f 84 22 02 00 00    	je     9d20 <update_scores_and_migrate(unsigned long)+0xb70>
++    9afe:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 9b05 <update_scores_and_migrate(unsigned long)+0x955>
++			9b01: R_X86_64_REX_GOTPCRELX	promotion_cost_avg-0x4
++    9b05:	66 0f ef c9          	pxor   %xmm1,%xmm1
++    9b09:	66 0f ef c0          	pxor   %xmm0,%xmm0
++    9b0d:	f3 0f 5a 08          	cvtss2sd (%rax),%xmm1
++    9b11:	0f b7 83 18 01 00 00 	movzwl 0x118(%rbx),%eax
++    9b18:	f2 0f 59 0d 00 00 00 	mulsd  0x0(%rip),%xmm1        # 9b20 <update_scores_and_migrate(unsigned long)+0x970>
++    9b1f:	00 
++			9b1c: R_X86_64_PC32	.LC181-0x4
++    9b20:	f3 0f 2a c0          	cvtsi2ss %eax,%xmm0
++    9b24:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 9b2b <update_scores_and_migrate(unsigned long)+0x97b>
++			9b27: R_X86_64_REX_GOTPCRELX	latency_diff-0x4
++    9b2b:	f3 0f 59 83 10 01 00 	mulss  0x110(%rbx),%xmm0
++    9b32:	00 
++    9b33:	f3 0f 59 05 00 00 00 	mulss  0x0(%rip),%xmm0        # 9b3b <update_scores_and_migrate(unsigned long)+0x98b>
++    9b3a:	00 
++			9b37: R_X86_64_PC32	.LC208-0x4
++    9b3b:	f3 0f 59 00          	mulss  (%rax),%xmm0
++    9b3f:	f3 0f 5a c0          	cvtss2sd %xmm0,%xmm0
++    9b43:	66 0f 2f c8          	comisd %xmm0,%xmm1
++    9b47:	0f 87 bd 09 00 00    	ja     a50a <update_scores_and_migrate(unsigned long)+0x135a>
++    9b4d:	66 0f ef d2          	pxor   %xmm2,%xmm2
++    9b51:	0f 29 54 24 50       	movaps %xmm2,0x50(%rsp)
++    9b56:	48 85 ed             	test   %rbp,%rbp
++    9b59:	0f 8e e9 05 00 00    	jle    a148 <update_scores_and_migrate(unsigned long)+0xf98>
++    9b5f:	66 0f 2f c1          	comisd %xmm1,%xmm0
++    9b63:	0f 97 43 13          	seta   0x13(%rbx)
++    9b67:	80 7b 12 00          	cmpb   $0x0,0x12(%rbx)
++    9b6b:	0f 84 bf 04 00 00    	je     a030 <update_scores_and_migrate(unsigned long)+0xe80>
++    9b71:	66 0f 2f c1          	comisd %xmm1,%xmm0
++    9b75:	0f 86 ad 07 00 00    	jbe    a328 <update_scores_and_migrate(unsigned long)+0x1178>
++    9b7b:	48 8b 44 24 50       	mov    0x50(%rsp),%rax
++    9b80:	48 85 c0             	test   %rax,%rax
++    9b83:	74 7b                	je     9c00 <update_scores_and_migrate(unsigned long)+0xa50>
++    9b85:	83 80 10 03 00 00 01 	addl   $0x1,0x310(%rax)
++    9b8c:	48 8b b4 24 e0 00 00 	mov    0xe0(%rsp),%rsi
++    9b93:	00 
++    9b94:	c6 40 13 01          	movb   $0x1,0x13(%rax)
++    9b98:	48 3b b4 24 e8 00 00 	cmp    0xe8(%rsp),%rsi
++    9b9f:	00 
++    9ba0:	0f 84 9a 08 00 00    	je     a440 <update_scores_and_migrate(unsigned long)+0x1290>
++    9ba6:	48 8b 7c 24 58       	mov    0x58(%rsp),%rdi
++    9bab:	48 89 06             	mov    %rax,(%rsi)
++    9bae:	48 89 7e 08          	mov    %rdi,0x8(%rsi)
++    9bb2:	48 85 ff             	test   %rdi,%rdi
++    9bb5:	74 15                	je     9bcc <update_scores_and_migrate(unsigned long)+0xa1c>
++    9bb7:	4c 8b 0d 00 00 00 00 	mov    0x0(%rip),%r9        # 9bbe <update_scores_and_migrate(unsigned long)+0xa0e>
++			9bba: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
++    9bbe:	41 80 39 00          	cmpb   $0x0,(%r9)
++    9bc2:	0f 84 68 09 00 00    	je     a530 <update_scores_and_migrate(unsigned long)+0x1380>
++    9bc8:	83 47 08 01          	addl   $0x1,0x8(%rdi)
++    9bcc:	48 83 c6 10          	add    $0x10,%rsi
++    9bd0:	48 89 b4 24 e0 00 00 	mov    %rsi,0xe0(%rsp)
++    9bd7:	00 
++    9bd8:	f2 0f 10 05 00 00 00 	movsd  0x0(%rip),%xmm0        # 9be0 <update_scores_and_migrate(unsigned long)+0xa30>
++    9bdf:	00 
++			9bdc: R_X86_64_PC32	.LC23-0x4
++    9be0:	48 83 c5 01          	add    $0x1,%rbp
++    9be4:	f2 0f 58 84 24 f0 00 	addsd  0xf0(%rsp),%xmm0
++    9beb:	00 00 
++    9bed:	c7 80 0c 03 00 00 00 	movl   $0x0,0x30c(%rax)
++    9bf4:	00 00 00 
++    9bf7:	f2 0f 11 84 24 f0 00 	movsd  %xmm0,0xf0(%rsp)
++    9bfe:	00 00 
++    9c00:	83 83 14 03 00 00 01 	addl   $0x1,0x314(%rbx)
++    9c07:	48 8b 84 24 c8 00 00 	mov    0xc8(%rsp),%rax
++    9c0e:	00 
++    9c0f:	48 3b 84 24 d0 00 00 	cmp    0xd0(%rsp),%rax
++    9c16:	00 
++    9c17:	0f 84 a3 07 00 00    	je     a3c0 <update_scores_and_migrate(unsigned long)+0x1210>
++    9c1d:	66 0f 6f 44 24 40    	movdqa 0x40(%rsp),%xmm0
++    9c23:	0f 12 e0             	movhlps %xmm0,%xmm4
++    9c26:	0f 11 00             	movups %xmm0,(%rax)
++    9c29:	66 48 0f 7e e6       	movq   %xmm4,%rsi
++    9c2e:	48 85 f6             	test   %rsi,%rsi
++    9c31:	74 14                	je     9c47 <update_scores_and_migrate(unsigned long)+0xa97>
++    9c33:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 9c3a <update_scores_and_migrate(unsigned long)+0xa8a>
++			9c36: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
++    9c3a:	80 3f 00             	cmpb   $0x0,(%rdi)
++    9c3d:	0f 84 2d 08 00 00    	je     a470 <update_scores_and_migrate(unsigned long)+0x12c0>
++    9c43:	83 46 08 01          	addl   $0x1,0x8(%rsi)
++    9c47:	48 83 c0 10          	add    $0x10,%rax
++    9c4b:	48 89 84 24 c8 00 00 	mov    %rax,0xc8(%rsp)
++    9c52:	00 
++    9c53:	f2 0f 10 05 00 00 00 	movsd  0x0(%rip),%xmm0        # 9c5b <update_scores_and_migrate(unsigned long)+0xaab>
++    9c5a:	00 
++			9c57: R_X86_64_PC32	.LC23-0x4
++    9c5b:	48 83 ed 01          	sub    $0x1,%rbp
++    9c5f:	f2 0f 58 84 24 f0 00 	addsd  0xf0(%rsp),%xmm0
++    9c66:	00 00 
++    9c68:	c7 83 0c 03 00 00 00 	movl   $0x0,0x30c(%rbx)
++    9c6f:	00 00 00 
++    9c72:	f2 0f 11 84 24 f0 00 	movsd  %xmm0,0xf0(%rsp)
++    9c79:	00 00 
++    9c7b:	66 0f 2f c3          	comisd %xmm3,%xmm0
++    9c7f:	48 8b 7c 24 58       	mov    0x58(%rsp),%rdi
++    9c84:	0f 83 76 08 00 00    	jae    a500 <update_scores_and_migrate(unsigned long)+0x1350>
++    9c8a:	48 85 ff             	test   %rdi,%rdi
++    9c8d:	74 11                	je     9ca0 <update_scores_and_migrate(unsigned long)+0xaf0>
++    9c8f:	f2 0f 11 5c 24 10    	movsd  %xmm3,0x10(%rsp)
++    9c95:	e8 00 00 00 00       	call   9c9a <update_scores_and_migrate(unsigned long)+0xaea>
++			9c96: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
++    9c9a:	f2 0f 10 5c 24 10    	movsd  0x10(%rsp),%xmm3
++    9ca0:	48 8b 7c 24 48       	mov    0x48(%rsp),%rdi
++    9ca5:	48 85 ff             	test   %rdi,%rdi
++    9ca8:	74 16                	je     9cc0 <update_scores_and_migrate(unsigned long)+0xb10>
++    9caa:	f2 0f 11 5c 24 10    	movsd  %xmm3,0x10(%rsp)
++    9cb0:	e8 00 00 00 00       	call   9cb5 <update_scores_and_migrate(unsigned long)+0xb05>
++			9cb1: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
++    9cb5:	f2 0f 10 5c 24 10    	movsd  0x10(%rsp),%xmm3
++    9cbb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
++    9cc0:	49 83 c7 18          	add    $0x18,%r15
++    9cc4:	4d 39 ec             	cmp    %r13,%r12
++    9cc7:	0f 83 c3 00 00 00    	jae    9d90 <update_scores_and_migrate(unsigned long)+0xbe0>
++    9ccd:	f2 0f 10 84 24 f0 00 	movsd  0xf0(%rsp),%xmm0
++    9cd4:	00 00 
++    9cd6:	66 0f 2f c3          	comisd %xmm3,%xmm0
++    9cda:	0f 83 b0 00 00 00    	jae    9d90 <update_scores_and_migrate(unsigned long)+0xbe0>
++    9ce0:	48 8b 44 24 60       	mov    0x60(%rsp),%rax
++    9ce5:	49 83 c4 01          	add    $0x1,%r12
++    9ce9:	f3 42 0f 6f 04 38    	movdqu (%rax,%r15,1),%xmm0
++    9cef:	0f 12 e8             	movhlps %xmm0,%xmm5
++    9cf2:	66 48 0f 7e c3       	movq   %xmm0,%rbx
++    9cf7:	0f 29 44 24 40       	movaps %xmm0,0x40(%rsp)
++    9cfc:	66 48 0f 7e e8       	movq   %xmm5,%rax
++    9d01:	48 85 c0             	test   %rax,%rax
++    9d04:	0f 85 b6 fd ff ff    	jne    9ac0 <update_scores_and_migrate(unsigned long)+0x910>
++    9d0a:	80 7b 10 00          	cmpb   $0x0,0x10(%rbx)
++    9d0e:	75 b0                	jne    9cc0 <update_scores_and_migrate(unsigned long)+0xb10>
++    9d10:	44 8b 8b 0c 03 00 00 	mov    0x30c(%rbx),%r9d
++    9d17:	45 85 c9             	test   %r9d,%r9d
++    9d1a:	0f 8e d1 fd ff ff    	jle    9af1 <update_scores_and_migrate(unsigned long)+0x941>
++    9d20:	4c 8b 74 24 48       	mov    0x48(%rsp),%r14
++    9d25:	4d 85 f6             	test   %r14,%r14
++    9d28:	74 96                	je     9cc0 <update_scores_and_migrate(unsigned long)+0xb10>
++    9d2a:	49 8b 76 08          	mov    0x8(%r14),%rsi
++    9d2e:	49 8d 7e 08          	lea    0x8(%r14),%rdi
++    9d32:	48 b8 01 00 00 00 01 	movabs $0x100000001,%rax
++    9d39:	00 00 00 
++    9d3c:	48 39 c6             	cmp    %rax,%rsi
++    9d3f:	0f 84 5b 03 00 00    	je     a0a0 <update_scores_and_migrate(unsigned long)+0xef0>
++    9d45:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 9d4c <update_scores_and_migrate(unsigned long)+0xb9c>
++			9d48: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
++    9d4c:	80 38 00             	cmpb   $0x0,(%rax)
++    9d4f:	0f 84 fb 02 00 00    	je     a050 <update_scores_and_migrate(unsigned long)+0xea0>
++    9d55:	41 8b 46 08          	mov    0x8(%r14),%eax
++    9d59:	8d 70 ff             	lea    -0x1(%rax),%esi
++    9d5c:	41 89 76 08          	mov    %esi,0x8(%r14)
++    9d60:	83 f8 01             	cmp    $0x1,%eax
++    9d63:	0f 85 57 ff ff ff    	jne    9cc0 <update_scores_and_migrate(unsigned long)+0xb10>
++    9d69:	4c 89 f7             	mov    %r14,%rdi
++    9d6c:	f2 0f 11 5c 24 10    	movsd  %xmm3,0x10(%rsp)
++    9d72:	49 83 c7 18          	add    $0x18,%r15
++    9d76:	e8 00 00 00 00       	call   9d7b <update_scores_and_migrate(unsigned long)+0xbcb>
++			9d77: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release_last_use_cold()-0x4
++    9d7b:	f2 0f 10 5c 24 10    	movsd  0x10(%rsp),%xmm3
++    9d81:	4d 39 ec             	cmp    %r13,%r12
++    9d84:	0f 82 43 ff ff ff    	jb     9ccd <update_scores_and_migrate(unsigned long)+0xb1d>
++    9d8a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
++    9d90:	4c 8b b4 24 a8 00 00 	mov    0xa8(%rsp),%r14
++    9d97:	00 
++    9d98:	48 8b 9c 24 a0 00 00 	mov    0xa0(%rsp),%rbx
++    9d9f:	00 
++    9da0:	49 bc 01 00 00 00 01 	movabs $0x100000001,%r12
++    9da7:	00 00 00 
++    9daa:	49 39 de             	cmp    %rbx,%r14
++    9dad:	75 20                	jne    9dcf <update_scores_and_migrate(unsigned long)+0xc1f>
++    9daf:	eb 77                	jmp    9e28 <update_scores_and_migrate(unsigned long)+0xc78>
++    9db1:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
++    9db8:	8b 45 08             	mov    0x8(%rbp),%eax
++    9dbb:	8d 50 ff             	lea    -0x1(%rax),%edx
++    9dbe:	89 55 08             	mov    %edx,0x8(%rbp)
++    9dc1:	83 f8 01             	cmp    $0x1,%eax
++    9dc4:	74 3d                	je     9e03 <update_scores_and_migrate(unsigned long)+0xc53>
++    9dc6:	48 83 c3 10          	add    $0x10,%rbx
++    9dca:	49 39 de             	cmp    %rbx,%r14
++    9dcd:	74 51                	je     9e20 <update_scores_and_migrate(unsigned long)+0xc70>
++    9dcf:	48 8b 6b 08          	mov    0x8(%rbx),%rbp
++    9dd3:	48 85 ed             	test   %rbp,%rbp
++    9dd6:	74 ee                	je     9dc6 <update_scores_and_migrate(unsigned long)+0xc16>
++    9dd8:	48 8b 45 08          	mov    0x8(%rbp),%rax
++    9ddc:	48 8d 55 08          	lea    0x8(%rbp),%rdx
++    9de0:	4c 39 e0             	cmp    %r12,%rax
++    9de3:	0f 84 0f 03 00 00    	je     a0f8 <update_scores_and_migrate(unsigned long)+0xf48>
++    9de9:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 9df0 <update_scores_and_migrate(unsigned long)+0xc40>
++			9dec: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
++    9df0:	80 38 00             	cmpb   $0x0,(%rax)
++    9df3:	75 c3                	jne    9db8 <update_scores_and_migrate(unsigned long)+0xc08>
++    9df5:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
++    9dfa:	f0 0f c1 02          	lock xadd %eax,(%rdx)
++    9dfe:	83 f8 01             	cmp    $0x1,%eax
++    9e01:	75 c3                	jne    9dc6 <update_scores_and_migrate(unsigned long)+0xc16>
++    9e03:	48 89 ef             	mov    %rbp,%rdi
++    9e06:	48 83 c3 10          	add    $0x10,%rbx
++    9e0a:	e8 00 00 00 00       	call   9e0f <update_scores_and_migrate(unsigned long)+0xc5f>
++			9e0b: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release_last_use_cold()-0x4
++    9e0f:	49 39 de             	cmp    %rbx,%r14
++    9e12:	75 bb                	jne    9dcf <update_scores_and_migrate(unsigned long)+0xc1f>
++    9e14:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
++    9e1b:	00 00 00 00 
++    9e1f:	90                   	nop
++    9e20:	48 8b 9c 24 a0 00 00 	mov    0xa0(%rsp),%rbx
+     9e27:	00 
+-    9e28:	48 39 84 24 c8 00 00 	cmp    %rax,0xc8(%rsp)
++    9e28:	48 8b b4 24 b0 00 00 	mov    0xb0(%rsp),%rsi
+     9e2f:	00 
+-    9e30:	0f 84 aa 05 00 00    	je     a3e0 <update_scores_and_migrate(unsigned long)+0x1230>
+-    9e36:	48 8d 84 24 d8 00 00 	lea    0xd8(%rsp),%rax
+-    9e3d:	00 
+-    9e3e:	48 8d bc 24 c0 00 00 	lea    0xc0(%rsp),%rdi
+-    9e45:	00 
+-    9e46:	48 89 c6             	mov    %rax,%rsi
+-    9e49:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+-    9e4e:	e8 00 00 00 00       	call   9e53 <update_scores_and_migrate(unsigned long)+0xca3>
+-			9e4f: R_X86_64_PLT32	enqueue_migration_task(std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&)-0x4
+-    9e53:	4c 8b a4 24 e0 00 00 	mov    0xe0(%rsp),%r12
+-    9e5a:	00 
+-    9e5b:	48 8b 9c 24 d8 00 00 	mov    0xd8(%rsp),%rbx
++    9e30:	48 29 de             	sub    %rbx,%rsi
++    9e33:	48 85 db             	test   %rbx,%rbx
++    9e36:	74 08                	je     9e40 <update_scores_and_migrate(unsigned long)+0xc90>
++    9e38:	48 89 df             	mov    %rbx,%rdi
++    9e3b:	e8 00 00 00 00       	call   9e40 <update_scores_and_migrate(unsigned long)+0xc90>
++			9e3c: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
++    9e40:	48 8b 84 24 c0 00 00 	mov    0xc0(%rsp),%rax
++    9e47:	00 
++    9e48:	48 39 84 24 c8 00 00 	cmp    %rax,0xc8(%rsp)
++    9e4f:	00 
++    9e50:	0f 84 fa 04 00 00    	je     a350 <update_scores_and_migrate(unsigned long)+0x11a0>
++    9e56:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
++    9e5b:	48 8d b4 24 d8 00 00 	lea    0xd8(%rsp),%rsi
+     9e62:	00 
+-    9e63:	48 8b 84 24 c0 00 00 	mov    0xc0(%rsp),%rax
+-    9e6a:	00 
+-    9e6b:	48 39 84 24 c8 00 00 	cmp    %rax,0xc8(%rsp)
+-    9e72:	00 
+-    9e73:	0f 84 c7 06 00 00    	je     a540 <update_scores_and_migrate(unsigned long)+0x1390>
+-    9e79:	49 39 dc             	cmp    %rbx,%r12
+-    9e7c:	74 7a                	je     9ef8 <update_scores_and_migrate(unsigned long)+0xd48>
+-    9e7e:	49 bd 01 00 00 00 01 	movabs $0x100000001,%r13
+-    9e85:	00 00 00 
+-    9e88:	eb 1d                	jmp    9ea7 <update_scores_and_migrate(unsigned long)+0xcf7>
+-    9e8a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    9e90:	8b 45 08             	mov    0x8(%rbp),%eax
+-    9e93:	8d 50 ff             	lea    -0x1(%rax),%edx
+-    9e96:	89 55 08             	mov    %edx,0x8(%rbp)
+-    9e99:	83 f8 01             	cmp    $0x1,%eax
+-    9e9c:	74 3d                	je     9edb <update_scores_and_migrate(unsigned long)+0xd2b>
+-    9e9e:	48 83 c3 10          	add    $0x10,%rbx
+-    9ea2:	4c 39 e3             	cmp    %r12,%rbx
+-    9ea5:	74 49                	je     9ef0 <update_scores_and_migrate(unsigned long)+0xd40>
+-    9ea7:	48 8b 6b 08          	mov    0x8(%rbx),%rbp
+-    9eab:	48 85 ed             	test   %rbp,%rbp
+-    9eae:	74 ee                	je     9e9e <update_scores_and_migrate(unsigned long)+0xcee>
+-    9eb0:	48 8b 45 08          	mov    0x8(%rbp),%rax
+-    9eb4:	48 8d 55 08          	lea    0x8(%rbp),%rdx
+-    9eb8:	4c 39 e8             	cmp    %r13,%rax
+-    9ebb:	0f 84 ff 02 00 00    	je     a1c0 <update_scores_and_migrate(unsigned long)+0x1010>
+-    9ec1:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 9ec8 <update_scores_and_migrate(unsigned long)+0xd18>
+-			9ec4: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
+-    9ec8:	80 38 00             	cmpb   $0x0,(%rax)
+-    9ecb:	75 c3                	jne    9e90 <update_scores_and_migrate(unsigned long)+0xce0>
+-    9ecd:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+-    9ed2:	f0 0f c1 02          	lock xadd %eax,(%rdx)
+-    9ed6:	83 f8 01             	cmp    $0x1,%eax
+-    9ed9:	75 c3                	jne    9e9e <update_scores_and_migrate(unsigned long)+0xcee>
+-    9edb:	48 89 ef             	mov    %rbp,%rdi
+-    9ede:	48 83 c3 10          	add    $0x10,%rbx
+-    9ee2:	e8 00 00 00 00       	call   9ee7 <update_scores_and_migrate(unsigned long)+0xd37>
+-			9ee3: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release_last_use_cold()-0x4
+-    9ee7:	4c 39 e3             	cmp    %r12,%rbx
+-    9eea:	75 bb                	jne    9ea7 <update_scores_and_migrate(unsigned long)+0xcf7>
+-    9eec:	0f 1f 40 00          	nopl   0x0(%rax)
+-    9ef0:	48 8b 9c 24 d8 00 00 	mov    0xd8(%rsp),%rbx
+-    9ef7:	00 
+-    9ef8:	48 85 db             	test   %rbx,%rbx
+-    9efb:	74 13                	je     9f10 <update_scores_and_migrate(unsigned long)+0xd60>
+-    9efd:	48 8b b4 24 e8 00 00 	mov    0xe8(%rsp),%rsi
+-    9f04:	00 
+-    9f05:	48 89 df             	mov    %rbx,%rdi
+-    9f08:	48 29 de             	sub    %rbx,%rsi
+-    9f0b:	e8 00 00 00 00       	call   9f10 <update_scores_and_migrate(unsigned long)+0xd60>
+-			9f0c: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
+-    9f10:	4c 8b a4 24 c8 00 00 	mov    0xc8(%rsp),%r12
+-    9f17:	00 
+-    9f18:	48 8b 9c 24 c0 00 00 	mov    0xc0(%rsp),%rbx
+-    9f1f:	00 
+-    9f20:	49 39 dc             	cmp    %rbx,%r12
+-    9f23:	0f 84 7f 00 00 00    	je     9fa8 <update_scores_and_migrate(unsigned long)+0xdf8>
+-    9f29:	49 bd 01 00 00 00 01 	movabs $0x100000001,%r13
+-    9f30:	00 00 00 
+-    9f33:	eb 1a                	jmp    9f4f <update_scores_and_migrate(unsigned long)+0xd9f>
+-    9f35:	0f 1f 00             	nopl   (%rax)
+-    9f38:	8b 45 08             	mov    0x8(%rbp),%eax
+-    9f3b:	8d 50 ff             	lea    -0x1(%rax),%edx
+-    9f3e:	89 55 08             	mov    %edx,0x8(%rbp)
+-    9f41:	83 f8 01             	cmp    $0x1,%eax
+-    9f44:	74 3d                	je     9f83 <update_scores_and_migrate(unsigned long)+0xdd3>
+-    9f46:	48 83 c3 10          	add    $0x10,%rbx
+-    9f4a:	49 39 dc             	cmp    %rbx,%r12
+-    9f4d:	74 51                	je     9fa0 <update_scores_and_migrate(unsigned long)+0xdf0>
+-    9f4f:	48 8b 6b 08          	mov    0x8(%rbx),%rbp
+-    9f53:	48 85 ed             	test   %rbp,%rbp
+-    9f56:	74 ee                	je     9f46 <update_scores_and_migrate(unsigned long)+0xd96>
+-    9f58:	48 8b 45 08          	mov    0x8(%rbp),%rax
+-    9f5c:	48 8d 55 08          	lea    0x8(%rbp),%rdx
+-    9f60:	4c 39 e8             	cmp    %r13,%rax
+-    9f63:	0f 84 7f 02 00 00    	je     a1e8 <update_scores_and_migrate(unsigned long)+0x1038>
+-    9f69:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 9f70 <update_scores_and_migrate(unsigned long)+0xdc0>
+-			9f6c: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
+-    9f70:	80 38 00             	cmpb   $0x0,(%rax)
+-    9f73:	75 c3                	jne    9f38 <update_scores_and_migrate(unsigned long)+0xd88>
+-    9f75:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+-    9f7a:	f0 0f c1 02          	lock xadd %eax,(%rdx)
+-    9f7e:	83 f8 01             	cmp    $0x1,%eax
+-    9f81:	75 c3                	jne    9f46 <update_scores_and_migrate(unsigned long)+0xd96>
+-    9f83:	48 89 ef             	mov    %rbp,%rdi
+-    9f86:	48 83 c3 10          	add    $0x10,%rbx
+-    9f8a:	e8 00 00 00 00       	call   9f8f <update_scores_and_migrate(unsigned long)+0xddf>
+-			9f8b: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release_last_use_cold()-0x4
+-    9f8f:	49 39 dc             	cmp    %rbx,%r12
+-    9f92:	75 bb                	jne    9f4f <update_scores_and_migrate(unsigned long)+0xd9f>
+-    9f94:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+-    9f9b:	00 00 00 00 
+-    9f9f:	90                   	nop
+-    9fa0:	48 8b 9c 24 c0 00 00 	mov    0xc0(%rsp),%rbx
+-    9fa7:	00 
+-    9fa8:	48 85 db             	test   %rbx,%rbx
+-    9fab:	74 13                	je     9fc0 <update_scores_and_migrate(unsigned long)+0xe10>
+-    9fad:	48 8b b4 24 d0 00 00 	mov    0xd0(%rsp),%rsi
+-    9fb4:	00 
+-    9fb5:	48 89 df             	mov    %rbx,%rdi
+-    9fb8:	48 29 de             	sub    %rbx,%rsi
+-    9fbb:	e8 00 00 00 00       	call   9fc0 <update_scores_and_migrate(unsigned long)+0xe10>
+-			9fbc: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
+-    9fc0:	48 8b 3c 24          	mov    (%rsp),%rdi
+-    9fc4:	e8 00 00 00 00       	call   9fc9 <update_scores_and_migrate(unsigned long)+0xe19>
+-			9fc5: R_X86_64_PLT32	std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > >::~vector()-0x4
+-    9fc9:	4c 8b 64 24 68       	mov    0x68(%rsp),%r12
+-    9fce:	48 8b 5c 24 60       	mov    0x60(%rsp),%rbx
+-    9fd3:	49 39 dc             	cmp    %rbx,%r12
+-    9fd6:	74 7d                	je     a055 <update_scores_and_migrate(unsigned long)+0xea5>
+-    9fd8:	49 bd 01 00 00 00 01 	movabs $0x100000001,%r13
+-    9fdf:	00 00 00 
+-    9fe2:	eb 1b                	jmp    9fff <update_scores_and_migrate(unsigned long)+0xe4f>
+-    9fe4:	0f 1f 40 00          	nopl   0x0(%rax)
+-    9fe8:	8b 45 08             	mov    0x8(%rbp),%eax
+-    9feb:	8d 50 ff             	lea    -0x1(%rax),%edx
+-    9fee:	89 55 08             	mov    %edx,0x8(%rbp)
+-    9ff1:	83 f8 01             	cmp    $0x1,%eax
+-    9ff4:	74 3d                	je     a033 <update_scores_and_migrate(unsigned long)+0xe83>
+-    9ff6:	48 83 c3 18          	add    $0x18,%rbx
+-    9ffa:	49 39 dc             	cmp    %rbx,%r12
+-    9ffd:	74 51                	je     a050 <update_scores_and_migrate(unsigned long)+0xea0>
+-    9fff:	48 8b 6b 08          	mov    0x8(%rbx),%rbp
+-    a003:	48 85 ed             	test   %rbp,%rbp
+-    a006:	74 ee                	je     9ff6 <update_scores_and_migrate(unsigned long)+0xe46>
+-    a008:	48 8b 45 08          	mov    0x8(%rbp),%rax
+-    a00c:	48 8d 55 08          	lea    0x8(%rbp),%rdx
+-    a010:	4c 39 e8             	cmp    %r13,%rax
+-    a013:	0f 84 57 01 00 00    	je     a170 <update_scores_and_migrate(unsigned long)+0xfc0>
+-    a019:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # a020 <update_scores_and_migrate(unsigned long)+0xe70>
+-			a01c: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
+-    a020:	80 38 00             	cmpb   $0x0,(%rax)
+-    a023:	75 c3                	jne    9fe8 <update_scores_and_migrate(unsigned long)+0xe38>
+-    a025:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+-    a02a:	f0 0f c1 02          	lock xadd %eax,(%rdx)
+-    a02e:	83 f8 01             	cmp    $0x1,%eax
+-    a031:	75 c3                	jne    9ff6 <update_scores_and_migrate(unsigned long)+0xe46>
+-    a033:	48 89 ef             	mov    %rbp,%rdi
+-    a036:	48 83 c3 18          	add    $0x18,%rbx
+-    a03a:	e8 00 00 00 00       	call   a03f <update_scores_and_migrate(unsigned long)+0xe8f>
+-			a03b: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release_last_use_cold()-0x4
+-    a03f:	49 39 dc             	cmp    %rbx,%r12
+-    a042:	75 bb                	jne    9fff <update_scores_and_migrate(unsigned long)+0xe4f>
+-    a044:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+-    a04b:	00 00 00 00 
+-    a04f:	90                   	nop
+-    a050:	48 8b 5c 24 60       	mov    0x60(%rsp),%rbx
+-    a055:	48 85 db             	test   %rbx,%rbx
+-    a058:	74 10                	je     a06a <update_scores_and_migrate(unsigned long)+0xeba>
+-    a05a:	48 8b 74 24 70       	mov    0x70(%rsp),%rsi
+-    a05f:	48 89 df             	mov    %rbx,%rdi
+-    a062:	48 29 de             	sub    %rbx,%rsi
+-    a065:	e8 00 00 00 00       	call   a06a <update_scores_and_migrate(unsigned long)+0xeba>
+-			a066: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
+-    a06a:	48 81 c4 08 01 00 00 	add    $0x108,%rsp
+-    a071:	5b                   	pop    %rbx
+-    a072:	5d                   	pop    %rbp
+-    a073:	41 5c                	pop    %r12
+-    a075:	41 5d                	pop    %r13
+-    a077:	41 5e                	pop    %r14
+-    a079:	41 5f                	pop    %r15
+-    a07b:	c3                   	ret
+-    a07c:	0f 1f 40 00          	nopl   0x0(%rax)
+-    a080:	f0 83 42 08 01       	lock addl $0x1,0x8(%rdx)
+-    a085:	48 8b 84 24 88 00 00 	mov    0x88(%rsp),%rax
+-    a08c:	00 
+-    a08d:	e9 97 f2 ff ff       	jmp    9329 <update_scores_and_migrate(unsigned long)+0x179>
+-    a092:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    a098:	f3 0f 5e e1          	divss  %xmm1,%xmm4
+-    a09c:	66 41 0f 7e e7       	movd   %xmm4,%r15d
+-    a0a1:	e9 5a f7 ff ff       	jmp    9800 <update_scores_and_migrate(unsigned long)+0x650>
+-    a0a6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+-    a0ad:	00 00 00 
+-    a0b0:	f0 83 40 08 01       	lock addl $0x1,0x8(%rax)
+-    a0b5:	48 8b 5c 24 40       	mov    0x40(%rsp),%rbx
+-    a0ba:	80 7b 10 00          	cmpb   $0x0,0x10(%rbx)
+-    a0be:	0f 84 f5 f9 ff ff    	je     9ab9 <update_scores_and_migrate(unsigned long)+0x909>
+-    a0c4:	e9 37 fc ff ff       	jmp    9d00 <update_scores_and_migrate(unsigned long)+0xb50>
+-    a0c9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+-    a0d0:	66 0f 2f c1          	comisd %xmm1,%xmm0
+-    a0d4:	0f 87 77 fa ff ff    	ja     9b51 <update_scores_and_migrate(unsigned long)+0x9a1>
+-    a0da:	f2 0f 10 84 24 f0 00 	movsd  0xf0(%rsp),%xmm0
+-    a0e1:	00 00 
+-    a0e3:	e9 69 fb ff ff       	jmp    9c51 <update_scores_and_migrate(unsigned long)+0xaa1>
+-    a0e8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+-    a0ef:	00 
+-    a0f0:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+-    a0f5:	f0 0f c1 07          	lock xadd %eax,(%rdi)
+-    a0f9:	e9 46 fc ff ff       	jmp    9d44 <update_scores_and_migrate(unsigned long)+0xb94>
+-    a0fe:	66 90                	xchg   %ax,%ax
+-    a100:	41 0f 11 1c 24       	movups %xmm3,(%r12)
+-    a105:	49 83 c4 18          	add    $0x18,%r12
+-    a109:	f3 41 0f 11 4d 10    	movss  %xmm1,0x10(%r13)
+-    a10f:	4d 39 e6             	cmp    %r12,%r14
+-    a112:	0f 85 88 f7 ff ff    	jne    98a0 <update_scores_and_migrate(unsigned long)+0x6f0>
+-    a118:	e9 34 f8 ff ff       	jmp    9951 <update_scores_and_migrate(unsigned long)+0x7a1>
+-    a11d:	0f 1f 00             	nopl   (%rax)
+-    a120:	f3 0f 10 65 10       	movss  0x10(%rbp),%xmm4
+-    a125:	48 83 ed 18          	sub    $0x18,%rbp
+-    a129:	f3 0f 11 65 40       	movss  %xmm4,0x40(%rbp)
+-    a12e:	0f 2f 4d 10          	comiss 0x10(%rbp),%xmm1
+-    a132:	0f 87 8e f7 ff ff    	ja     98c6 <update_scores_and_migrate(unsigned long)+0x716>
+-    a138:	e9 da f7 ff ff       	jmp    9917 <update_scores_and_migrate(unsigned long)+0x767>
+-    a13d:	0f 1f 00             	nopl   (%rax)
+-    a140:	49 8b 04 24          	mov    (%r12),%rax
+-    a144:	f2 0f 11 54 24 08    	movsd  %xmm2,0x8(%rsp)
+-    a14a:	4c 89 e7             	mov    %r12,%rdi
+-    a14d:	49 c7 44 24 08 00 00 	movq   $0x0,0x8(%r12)
+-    a154:	00 00 
+-    a156:	ff 50 10             	call   *0x10(%rax)
+-    a159:	49 8b 04 24          	mov    (%r12),%rax
+-    a15d:	4c 89 e7             	mov    %r12,%rdi
+-    a160:	ff 50 18             	call   *0x18(%rax)
+-    a163:	f2 0f 10 54 24 08    	movsd  0x8(%rsp),%xmm2
+-    a169:	e9 32 fb ff ff       	jmp    9ca0 <update_scores_and_migrate(unsigned long)+0xaf0>
+-    a16e:	66 90                	xchg   %ax,%ax
+-    a170:	48 8b 45 00          	mov    0x0(%rbp),%rax
+-    a174:	48 89 ef             	mov    %rbp,%rdi
+-    a177:	48 c7 45 08 00 00 00 	movq   $0x0,0x8(%rbp)
+-    a17e:	00 
+-    a17f:	ff 50 10             	call   *0x10(%rax)
+-    a182:	48 8b 45 00          	mov    0x0(%rbp),%rax
+-    a186:	48 89 ef             	mov    %rbp,%rdi
+-    a189:	ff 50 18             	call   *0x18(%rax)
+-    a18c:	e9 65 fe ff ff       	jmp    9ff6 <update_scores_and_migrate(unsigned long)+0xe46>
+-    a191:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+-    a198:	48 8b 45 00          	mov    0x0(%rbp),%rax
+-    a19c:	48 89 ef             	mov    %rbp,%rdi
+-    a19f:	48 c7 45 08 00 00 00 	movq   $0x0,0x8(%rbp)
+-    a1a6:	00 
+-    a1a7:	ff 50 10             	call   *0x10(%rax)
+-    a1aa:	48 8b 45 00          	mov    0x0(%rbp),%rax
+-    a1ae:	48 89 ef             	mov    %rbp,%rdi
+-    a1b1:	ff 50 18             	call   *0x18(%rax)
+-    a1b4:	e9 ed fb ff ff       	jmp    9da6 <update_scores_and_migrate(unsigned long)+0xbf6>
+-    a1b9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+-    a1c0:	48 8b 45 00          	mov    0x0(%rbp),%rax
+-    a1c4:	48 89 ef             	mov    %rbp,%rdi
+-    a1c7:	48 c7 45 08 00 00 00 	movq   $0x0,0x8(%rbp)
+-    a1ce:	00 
+-    a1cf:	ff 50 10             	call   *0x10(%rax)
+-    a1d2:	48 8b 45 00          	mov    0x0(%rbp),%rax
+-    a1d6:	48 89 ef             	mov    %rbp,%rdi
+-    a1d9:	ff 50 18             	call   *0x18(%rax)
+-    a1dc:	e9 bd fc ff ff       	jmp    9e9e <update_scores_and_migrate(unsigned long)+0xcee>
+-    a1e1:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+-    a1e8:	48 8b 45 00          	mov    0x0(%rbp),%rax
+-    a1ec:	48 89 ef             	mov    %rbp,%rdi
+-    a1ef:	48 c7 45 08 00 00 00 	movq   $0x0,0x8(%rbp)
+-    a1f6:	00 
+-    a1f7:	ff 50 10             	call   *0x10(%rax)
+-    a1fa:	48 8b 45 00          	mov    0x0(%rbp),%rax
+-    a1fe:	48 89 ef             	mov    %rbp,%rdi
+-    a201:	ff 50 18             	call   *0x18(%rax)
+-    a204:	e9 3d fd ff ff       	jmp    9f46 <update_scores_and_migrate(unsigned long)+0xd96>
+-    a209:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+-    a210:	4d 39 fd             	cmp    %r15,%r13
+-    a213:	0f 8e 1c f9 ff ff    	jle    9b35 <update_scores_and_migrate(unsigned long)+0x985>
+-    a219:	4d 85 ed             	test   %r13,%r13
+-    a21c:	0f 88 13 f9 ff ff    	js     9b35 <update_scores_and_migrate(unsigned long)+0x985>
+-    a222:	4f 8d 4c 6d 00       	lea    0x0(%r13,%r13,2),%r9
+-    a227:	f2 0f 11 4c 24 08    	movsd  %xmm1,0x8(%rsp)
+-    a22d:	f2 0f 11 44 24 10    	movsd  %xmm0,0x10(%rsp)
+-    a233:	4e 8d 24 cd 00 00 00 	lea    0x0(,%r9,8),%r12
+-    a23a:	00 
+-    a23b:	f2 0f 11 54 24 20    	movsd  %xmm2,0x20(%rsp)
+-    a241:	e9 a4 00 00 00       	jmp    a2ea <update_scores_and_migrate(unsigned long)+0x113a>
+-    a246:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+-    a24d:	00 00 00 
+-    a250:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # a257 <update_scores_and_migrate(unsigned long)+0x10a7>
+-			a253: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
+-    a257:	80 38 00             	cmpb   $0x0,(%rax)
+-    a25a:	0f 84 c0 00 00 00    	je     a320 <update_scores_and_migrate(unsigned long)+0x1170>
+-    a260:	83 47 08 01          	addl   $0x1,0x8(%rdi)
+-    a264:	8b 96 0c 03 00 00    	mov    0x30c(%rsi),%edx
+-    a26a:	85 d2                	test   %edx,%edx
+-    a26c:	0f 8f c1 00 00 00    	jg     a333 <update_scores_and_migrate(unsigned long)+0x1183>
+-    a272:	f3 0f 10 53 6c       	movss  0x6c(%rbx),%xmm2
+-    a277:	f3 0f 10 5e 6c       	movss  0x6c(%rsi),%xmm3
+-    a27c:	f3 0f 5d 53 64       	minss  0x64(%rbx),%xmm2
+-    a281:	f3 0f 5f 5e 64       	maxss  0x64(%rsi),%xmm3
+-    a286:	0f 2f da             	comiss %xmm2,%xmm3
+-    a289:	0f 87 c1 02 00 00    	ja     a550 <update_scores_and_migrate(unsigned long)+0x13a0>
+-    a28f:	80 7e 10 00          	cmpb   $0x0,0x10(%rsi)
+-    a293:	0f 85 07 03 00 00    	jne    a5a0 <update_scores_and_migrate(unsigned long)+0x13f0>
+-    a299:	48 85 ff             	test   %rdi,%rdi
+-    a29c:	74 3d                	je     a2db <update_scores_and_migrate(unsigned long)+0x112b>
+-    a29e:	48 8b 47 08          	mov    0x8(%rdi),%rax
+-    a2a2:	48 8d 57 08          	lea    0x8(%rdi),%rdx
+-    a2a6:	48 b9 01 00 00 00 01 	movabs $0x100000001,%rcx
+-    a2ad:	00 00 00 
+-    a2b0:	48 39 c8             	cmp    %rcx,%rax
+-    a2b3:	0f 84 ff 00 00 00    	je     a3b8 <update_scores_and_migrate(unsigned long)+0x1208>
+-    a2b9:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # a2c0 <update_scores_and_migrate(unsigned long)+0x1110>
+-			a2bc: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
+-    a2c0:	80 38 00             	cmpb   $0x0,(%rax)
+-    a2c3:	0f 84 a7 00 00 00    	je     a370 <update_scores_and_migrate(unsigned long)+0x11c0>
+-    a2c9:	8b 47 08             	mov    0x8(%rdi),%eax
+-    a2cc:	8d 50 ff             	lea    -0x1(%rax),%edx
+-    a2cf:	89 57 08             	mov    %edx,0x8(%rdi)
+-    a2d2:	83 f8 01             	cmp    $0x1,%eax
+-    a2d5:	0f 84 a7 00 00 00    	je     a382 <update_scores_and_migrate(unsigned long)+0x11d2>
+-    a2db:	49 83 ec 18          	sub    $0x18,%r12
+-    a2df:	49 83 fd ff          	cmp    $0xffffffffffffffff,%r13
+-    a2e3:	74 6b                	je     a350 <update_scores_and_migrate(unsigned long)+0x11a0>
+-    a2e5:	4d 39 fd             	cmp    %r15,%r13
+-    a2e8:	7e 66                	jle    a350 <update_scores_and_migrate(unsigned long)+0x11a0>
+-    a2ea:	48 8b 44 24 60       	mov    0x60(%rsp),%rax
+-    a2ef:	49 83 ed 01          	sub    $0x1,%r13
+-    a2f3:	4c 01 e0             	add    %r12,%rax
+-    a2f6:	48 8b 78 08          	mov    0x8(%rax),%rdi
+-    a2fa:	48 8b 30             	mov    (%rax),%rsi
+-    a2fd:	48 85 ff             	test   %rdi,%rdi
+-    a300:	0f 85 4a ff ff ff    	jne    a250 <update_scores_and_migrate(unsigned long)+0x10a0>
+-    a306:	8b 8e 0c 03 00 00    	mov    0x30c(%rsi),%ecx
+-    a30c:	85 c9                	test   %ecx,%ecx
+-    a30e:	0f 8e 5e ff ff ff    	jle    a272 <update_scores_and_migrate(unsigned long)+0x10c2>
+-    a314:	eb c5                	jmp    a2db <update_scores_and_migrate(unsigned long)+0x112b>
+-    a316:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+-    a31d:	00 00 00 
+-    a320:	f0 83 47 08 01       	lock addl $0x1,0x8(%rdi)
+-    a325:	8b 86 0c 03 00 00    	mov    0x30c(%rsi),%eax
+-    a32b:	85 c0                	test   %eax,%eax
+-    a32d:	0f 8e 3f ff ff ff    	jle    a272 <update_scores_and_migrate(unsigned long)+0x10c2>
+-    a333:	e8 00 00 00 00       	call   a338 <update_scores_and_migrate(unsigned long)+0x1188>
+-			a334: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
+-    a338:	49 83 ec 18          	sub    $0x18,%r12
+-    a33c:	49 83 fd ff          	cmp    $0xffffffffffffffff,%r13
+-    a340:	75 a3                	jne    a2e5 <update_scores_and_migrate(unsigned long)+0x1135>
+-    a342:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+-    a349:	00 00 00 00 
+-    a34d:	0f 1f 00             	nopl   (%rax)
+-    a350:	f2 0f 10 4c 24 08    	movsd  0x8(%rsp),%xmm1
+-    a356:	f2 0f 10 44 24 10    	movsd  0x10(%rsp),%xmm0
+-    a35c:	f2 0f 10 54 24 20    	movsd  0x20(%rsp),%xmm2
+-    a362:	e9 ce f7 ff ff       	jmp    9b35 <update_scores_and_migrate(unsigned long)+0x985>
+-    a367:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+-    a36e:	00 00 
+-    a370:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+-    a375:	f0 0f c1 02          	lock xadd %eax,(%rdx)
+-    a379:	83 f8 01             	cmp    $0x1,%eax
+-    a37c:	0f 85 59 ff ff ff    	jne    a2db <update_scores_and_migrate(unsigned long)+0x112b>
+-    a382:	e8 00 00 00 00       	call   a387 <update_scores_and_migrate(unsigned long)+0x11d7>
+-			a383: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release_last_use_cold()-0x4
+-    a387:	e9 4f ff ff ff       	jmp    a2db <update_scores_and_migrate(unsigned long)+0x112b>
+-    a38c:	0f 1f 40 00          	nopl   0x0(%rax)
+-    a390:	48 8b 7c 24 58       	mov    0x58(%rsp),%rdi
+-    a395:	48 85 ff             	test   %rdi,%rdi
+-    a398:	0f 84 62 f9 ff ff    	je     9d00 <update_scores_and_migrate(unsigned long)+0xb50>
+-    a39e:	f2 0f 11 54 24 08    	movsd  %xmm2,0x8(%rsp)
+-    a3a4:	e8 00 00 00 00       	call   a3a9 <update_scores_and_migrate(unsigned long)+0x11f9>
+-			a3a5: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
+-    a3a9:	f2 0f 10 54 24 08    	movsd  0x8(%rsp),%xmm2
+-    a3af:	e9 4c f9 ff ff       	jmp    9d00 <update_scores_and_migrate(unsigned long)+0xb50>
+-    a3b4:	0f 1f 40 00          	nopl   0x0(%rax)
+-    a3b8:	48 8b 07             	mov    (%rdi),%rax
+-    a3bb:	48 89 7c 24 28       	mov    %rdi,0x28(%rsp)
+-    a3c0:	48 c7 47 08 00 00 00 	movq   $0x0,0x8(%rdi)
+-    a3c7:	00 
+-    a3c8:	ff 50 10             	call   *0x10(%rax)
+-    a3cb:	48 8b 7c 24 28       	mov    0x28(%rsp),%rdi
+-    a3d0:	48 8b 07             	mov    (%rdi),%rax
+-    a3d3:	ff 50 18             	call   *0x18(%rax)
+-    a3d6:	e9 00 ff ff ff       	jmp    a2db <update_scores_and_migrate(unsigned long)+0x112b>
+-    a3db:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+-    a3e0:	48 8b 9c 24 d8 00 00 	mov    0xd8(%rsp),%rbx
+-    a3e7:	00 
+-    a3e8:	48 39 9c 24 e0 00 00 	cmp    %rbx,0xe0(%rsp)
++    9e63:	e8 00 00 00 00       	call   9e68 <update_scores_and_migrate(unsigned long)+0xcb8>
++			9e64: R_X86_64_PLT32	enqueue_migration_task(std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&)-0x4
++    9e68:	4c 8b b4 24 e0 00 00 	mov    0xe0(%rsp),%r14
++    9e6f:	00 
++    9e70:	48 8b 9c 24 d8 00 00 	mov    0xd8(%rsp),%rbx
++    9e77:	00 
++    9e78:	48 8b 84 24 c0 00 00 	mov    0xc0(%rsp),%rax
++    9e7f:	00 
++    9e80:	48 39 84 24 c8 00 00 	cmp    %rax,0xc8(%rsp)
++    9e87:	00 
++    9e88:	0f 84 62 06 00 00    	je     a4f0 <update_scores_and_migrate(unsigned long)+0x1340>
++    9e8e:	49 39 de             	cmp    %rbx,%r14
++    9e91:	74 75                	je     9f08 <update_scores_and_migrate(unsigned long)+0xd58>
++    9e93:	49 bc 01 00 00 00 01 	movabs $0x100000001,%r12
++    9e9a:	00 00 00 
++    9e9d:	eb 18                	jmp    9eb7 <update_scores_and_migrate(unsigned long)+0xd07>
++    9e9f:	90                   	nop
++    9ea0:	8b 45 08             	mov    0x8(%rbp),%eax
++    9ea3:	8d 50 ff             	lea    -0x1(%rax),%edx
++    9ea6:	89 55 08             	mov    %edx,0x8(%rbp)
++    9ea9:	83 f8 01             	cmp    $0x1,%eax
++    9eac:	74 3d                	je     9eeb <update_scores_and_migrate(unsigned long)+0xd3b>
++    9eae:	48 83 c3 10          	add    $0x10,%rbx
++    9eb2:	4c 39 f3             	cmp    %r14,%rbx
++    9eb5:	74 49                	je     9f00 <update_scores_and_migrate(unsigned long)+0xd50>
++    9eb7:	48 8b 6b 08          	mov    0x8(%rbx),%rbp
++    9ebb:	48 85 ed             	test   %rbp,%rbp
++    9ebe:	74 ee                	je     9eae <update_scores_and_migrate(unsigned long)+0xcfe>
++    9ec0:	48 8b 45 08          	mov    0x8(%rbp),%rax
++    9ec4:	48 8d 55 08          	lea    0x8(%rbp),%rdx
++    9ec8:	4c 39 e0             	cmp    %r12,%rax
++    9ecb:	0f 84 4f 02 00 00    	je     a120 <update_scores_and_migrate(unsigned long)+0xf70>
++    9ed1:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 9ed8 <update_scores_and_migrate(unsigned long)+0xd28>
++			9ed4: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
++    9ed8:	80 38 00             	cmpb   $0x0,(%rax)
++    9edb:	75 c3                	jne    9ea0 <update_scores_and_migrate(unsigned long)+0xcf0>
++    9edd:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
++    9ee2:	f0 0f c1 02          	lock xadd %eax,(%rdx)
++    9ee6:	83 f8 01             	cmp    $0x1,%eax
++    9ee9:	75 c3                	jne    9eae <update_scores_and_migrate(unsigned long)+0xcfe>
++    9eeb:	48 89 ef             	mov    %rbp,%rdi
++    9eee:	48 83 c3 10          	add    $0x10,%rbx
++    9ef2:	e8 00 00 00 00       	call   9ef7 <update_scores_and_migrate(unsigned long)+0xd47>
++			9ef3: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release_last_use_cold()-0x4
++    9ef7:	4c 39 f3             	cmp    %r14,%rbx
++    9efa:	75 bb                	jne    9eb7 <update_scores_and_migrate(unsigned long)+0xd07>
++    9efc:	0f 1f 40 00          	nopl   0x0(%rax)
++    9f00:	48 8b 9c 24 d8 00 00 	mov    0xd8(%rsp),%rbx
++    9f07:	00 
++    9f08:	48 85 db             	test   %rbx,%rbx
++    9f0b:	74 13                	je     9f20 <update_scores_and_migrate(unsigned long)+0xd70>
++    9f0d:	48 8b b4 24 e8 00 00 	mov    0xe8(%rsp),%rsi
++    9f14:	00 
++    9f15:	48 89 df             	mov    %rbx,%rdi
++    9f18:	48 29 de             	sub    %rbx,%rsi
++    9f1b:	e8 00 00 00 00       	call   9f20 <update_scores_and_migrate(unsigned long)+0xd70>
++			9f1c: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
++    9f20:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
++    9f25:	e8 00 00 00 00       	call   9f2a <update_scores_and_migrate(unsigned long)+0xd7a>
++			9f26: R_X86_64_PLT32	std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > >::~vector()-0x4
++    9f2a:	48 8b 3c 24          	mov    (%rsp),%rdi
++    9f2e:	e8 00 00 00 00       	call   9f33 <update_scores_and_migrate(unsigned long)+0xd83>
++			9f2f: R_X86_64_PLT32	std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > >::~vector()-0x4
++    9f33:	4c 8b 64 24 68       	mov    0x68(%rsp),%r12
++    9f38:	48 8b 5c 24 60       	mov    0x60(%rsp),%rbx
++    9f3d:	49 39 dc             	cmp    %rbx,%r12
++    9f40:	74 73                	je     9fb5 <update_scores_and_migrate(unsigned long)+0xe05>
++    9f42:	49 bd 01 00 00 00 01 	movabs $0x100000001,%r13
++    9f49:	00 00 00 
++    9f4c:	eb 19                	jmp    9f67 <update_scores_and_migrate(unsigned long)+0xdb7>
++    9f4e:	66 90                	xchg   %ax,%ax
++    9f50:	8b 45 08             	mov    0x8(%rbp),%eax
++    9f53:	8d 50 ff             	lea    -0x1(%rax),%edx
++    9f56:	89 55 08             	mov    %edx,0x8(%rbp)
++    9f59:	83 f8 01             	cmp    $0x1,%eax
++    9f5c:	74 3d                	je     9f9b <update_scores_and_migrate(unsigned long)+0xdeb>
++    9f5e:	48 83 c3 18          	add    $0x18,%rbx
++    9f62:	49 39 dc             	cmp    %rbx,%r12
++    9f65:	74 49                	je     9fb0 <update_scores_and_migrate(unsigned long)+0xe00>
++    9f67:	48 8b 6b 08          	mov    0x8(%rbx),%rbp
++    9f6b:	48 85 ed             	test   %rbp,%rbp
++    9f6e:	74 ee                	je     9f5e <update_scores_and_migrate(unsigned long)+0xdae>
++    9f70:	48 8b 45 08          	mov    0x8(%rbp),%rax
++    9f74:	48 8d 55 08          	lea    0x8(%rbp),%rdx
++    9f78:	4c 39 e8             	cmp    %r13,%rax
++    9f7b:	0f 84 4f 01 00 00    	je     a0d0 <update_scores_and_migrate(unsigned long)+0xf20>
++    9f81:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 9f88 <update_scores_and_migrate(unsigned long)+0xdd8>
++			9f84: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
++    9f88:	80 38 00             	cmpb   $0x0,(%rax)
++    9f8b:	75 c3                	jne    9f50 <update_scores_and_migrate(unsigned long)+0xda0>
++    9f8d:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
++    9f92:	f0 0f c1 02          	lock xadd %eax,(%rdx)
++    9f96:	83 f8 01             	cmp    $0x1,%eax
++    9f99:	75 c3                	jne    9f5e <update_scores_and_migrate(unsigned long)+0xdae>
++    9f9b:	48 89 ef             	mov    %rbp,%rdi
++    9f9e:	48 83 c3 18          	add    $0x18,%rbx
++    9fa2:	e8 00 00 00 00       	call   9fa7 <update_scores_and_migrate(unsigned long)+0xdf7>
++			9fa3: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release_last_use_cold()-0x4
++    9fa7:	49 39 dc             	cmp    %rbx,%r12
++    9faa:	75 bb                	jne    9f67 <update_scores_and_migrate(unsigned long)+0xdb7>
++    9fac:	0f 1f 40 00          	nopl   0x0(%rax)
++    9fb0:	48 8b 5c 24 60       	mov    0x60(%rsp),%rbx
++    9fb5:	48 85 db             	test   %rbx,%rbx
++    9fb8:	74 10                	je     9fca <update_scores_and_migrate(unsigned long)+0xe1a>
++    9fba:	48 8b 74 24 70       	mov    0x70(%rsp),%rsi
++    9fbf:	48 89 df             	mov    %rbx,%rdi
++    9fc2:	48 29 de             	sub    %rbx,%rsi
++    9fc5:	e8 00 00 00 00       	call   9fca <update_scores_and_migrate(unsigned long)+0xe1a>
++			9fc6: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
++    9fca:	48 81 c4 08 01 00 00 	add    $0x108,%rsp
++    9fd1:	5b                   	pop    %rbx
++    9fd2:	5d                   	pop    %rbp
++    9fd3:	41 5c                	pop    %r12
++    9fd5:	41 5d                	pop    %r13
++    9fd7:	41 5e                	pop    %r14
++    9fd9:	41 5f                	pop    %r15
++    9fdb:	c3                   	ret
++    9fdc:	0f 1f 40 00          	nopl   0x0(%rax)
++    9fe0:	f0 83 42 08 01       	lock addl $0x1,0x8(%rdx)
++    9fe5:	48 8b 84 24 88 00 00 	mov    0x88(%rsp),%rax
++    9fec:	00 
++    9fed:	e9 37 f3 ff ff       	jmp    9329 <update_scores_and_migrate(unsigned long)+0x179>
++    9ff2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
++    9ff8:	f3 0f 5e e1          	divss  %xmm1,%xmm4
++    9ffc:	66 41 0f 7e e7       	movd   %xmm4,%r15d
++    a001:	e9 fa f7 ff ff       	jmp    9800 <update_scores_and_migrate(unsigned long)+0x650>
++    a006:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
++    a00d:	00 00 00 
++    a010:	f0 83 40 08 01       	lock addl $0x1,0x8(%rax)
++    a015:	48 8b 5c 24 40       	mov    0x40(%rsp),%rbx
++    a01a:	80 7b 10 00          	cmpb   $0x0,0x10(%rbx)
++    a01e:	0f 84 bd fa ff ff    	je     9ae1 <update_scores_and_migrate(unsigned long)+0x931>
++    a024:	e9 f7 fc ff ff       	jmp    9d20 <update_scores_and_migrate(unsigned long)+0xb70>
++    a029:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
++    a030:	66 0f 2f c1          	comisd %xmm1,%xmm0
++    a034:	0f 87 41 fb ff ff    	ja     9b7b <update_scores_and_migrate(unsigned long)+0x9cb>
++    a03a:	f2 0f 10 84 24 f0 00 	movsd  0xf0(%rsp),%xmm0
++    a041:	00 00 
++    a043:	e9 33 fc ff ff       	jmp    9c7b <update_scores_and_migrate(unsigned long)+0xacb>
++    a048:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
++    a04f:	00 
++    a050:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
++    a055:	f0 0f c1 07          	lock xadd %eax,(%rdi)
++    a059:	e9 02 fd ff ff       	jmp    9d60 <update_scores_and_migrate(unsigned long)+0xbb0>
++    a05e:	66 90                	xchg   %ax,%ax
++    a060:	41 0f 11 1c 24       	movups %xmm3,(%r12)
++    a065:	49 83 c4 18          	add    $0x18,%r12
++    a069:	f3 41 0f 11 4d 10    	movss  %xmm1,0x10(%r13)
++    a06f:	4d 39 e6             	cmp    %r12,%r14
++    a072:	0f 85 28 f8 ff ff    	jne    98a0 <update_scores_and_migrate(unsigned long)+0x6f0>
++    a078:	e9 d2 f8 ff ff       	jmp    994f <update_scores_and_migrate(unsigned long)+0x79f>
++    a07d:	0f 1f 00             	nopl   (%rax)
++    a080:	f3 0f 10 63 10       	movss  0x10(%rbx),%xmm4
++    a085:	48 83 eb 18          	sub    $0x18,%rbx
++    a089:	f3 0f 11 63 40       	movss  %xmm4,0x40(%rbx)
++    a08e:	0f 2f 4b 10          	comiss 0x10(%rbx),%xmm1
++    a092:	0f 87 2e f8 ff ff    	ja     98c6 <update_scores_and_migrate(unsigned long)+0x716>
++    a098:	e9 78 f8 ff ff       	jmp    9915 <update_scores_and_migrate(unsigned long)+0x765>
++    a09d:	0f 1f 00             	nopl   (%rax)
++    a0a0:	49 8b 06             	mov    (%r14),%rax
++    a0a3:	f2 0f 11 5c 24 10    	movsd  %xmm3,0x10(%rsp)
++    a0a9:	4c 89 f7             	mov    %r14,%rdi
++    a0ac:	49 c7 46 08 00 00 00 	movq   $0x0,0x8(%r14)
++    a0b3:	00 
++    a0b4:	ff 50 10             	call   *0x10(%rax)
++    a0b7:	49 8b 06             	mov    (%r14),%rax
++    a0ba:	4c 89 f7             	mov    %r14,%rdi
++    a0bd:	ff 50 18             	call   *0x18(%rax)
++    a0c0:	f2 0f 10 5c 24 10    	movsd  0x10(%rsp),%xmm3
++    a0c6:	e9 f5 fb ff ff       	jmp    9cc0 <update_scores_and_migrate(unsigned long)+0xb10>
++    a0cb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
++    a0d0:	48 8b 45 00          	mov    0x0(%rbp),%rax
++    a0d4:	48 89 ef             	mov    %rbp,%rdi
++    a0d7:	48 c7 45 08 00 00 00 	movq   $0x0,0x8(%rbp)
++    a0de:	00 
++    a0df:	ff 50 10             	call   *0x10(%rax)
++    a0e2:	48 8b 45 00          	mov    0x0(%rbp),%rax
++    a0e6:	48 89 ef             	mov    %rbp,%rdi
++    a0e9:	ff 50 18             	call   *0x18(%rax)
++    a0ec:	e9 6d fe ff ff       	jmp    9f5e <update_scores_and_migrate(unsigned long)+0xdae>
++    a0f1:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
++    a0f8:	48 8b 45 00          	mov    0x0(%rbp),%rax
++    a0fc:	48 89 ef             	mov    %rbp,%rdi
++    a0ff:	48 c7 45 08 00 00 00 	movq   $0x0,0x8(%rbp)
++    a106:	00 
++    a107:	ff 50 10             	call   *0x10(%rax)
++    a10a:	48 8b 45 00          	mov    0x0(%rbp),%rax
++    a10e:	48 89 ef             	mov    %rbp,%rdi
++    a111:	ff 50 18             	call   *0x18(%rax)
++    a114:	e9 ad fc ff ff       	jmp    9dc6 <update_scores_and_migrate(unsigned long)+0xc16>
++    a119:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
++    a120:	48 8b 45 00          	mov    0x0(%rbp),%rax
++    a124:	48 89 ef             	mov    %rbp,%rdi
++    a127:	48 c7 45 08 00 00 00 	movq   $0x0,0x8(%rbp)
++    a12e:	00 
++    a12f:	ff 50 10             	call   *0x10(%rax)
++    a132:	48 8b 45 00          	mov    0x0(%rbp),%rax
++    a136:	48 89 ef             	mov    %rbp,%rdi
++    a139:	ff 50 18             	call   *0x18(%rax)
++    a13c:	e9 6d fd ff ff       	jmp    9eae <update_scores_and_migrate(unsigned long)+0xcfe>
++    a141:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
++    a148:	4d 39 e5             	cmp    %r12,%r13
++    a14b:	0f 8e 0e fa ff ff    	jle    9b5f <update_scores_and_migrate(unsigned long)+0x9af>
++    a151:	4d 85 ed             	test   %r13,%r13
++    a154:	0f 88 05 fa ff ff    	js     9b5f <update_scores_and_migrate(unsigned long)+0x9af>
++    a15a:	4f 8d 4c 6d 00       	lea    0x0(%r13,%r13,2),%r9
++    a15f:	48 89 6c 24 10       	mov    %rbp,0x10(%rsp)
++    a164:	4c 89 e5             	mov    %r12,%rbp
++    a167:	49 ba 01 00 00 00 01 	movabs $0x100000001,%r10
++    a16e:	00 00 00 
++    a171:	49 89 dc             	mov    %rbx,%r12
++    a174:	f2 0f 11 4c 24 20    	movsd  %xmm1,0x20(%rsp)
++    a17a:	4a 8d 1c cd 00 00 00 	lea    0x0(,%r9,8),%rbx
++    a181:	00 
++    a182:	f2 0f 11 44 24 28    	movsd  %xmm0,0x28(%rsp)
++    a188:	f2 0f 11 5c 24 30    	movsd  %xmm3,0x30(%rsp)
++    a18e:	e9 b1 00 00 00       	jmp    a244 <update_scores_and_migrate(unsigned long)+0x1094>
++    a193:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
++    a198:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # a19f <update_scores_and_migrate(unsigned long)+0xfef>
++			a19b: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
++    a19f:	49 8d 4e 08          	lea    0x8(%r14),%rcx
++    a1a3:	80 38 00             	cmpb   $0x0,(%rax)
++    a1a6:	0f 84 cc 00 00 00    	je     a278 <update_scores_and_migrate(unsigned long)+0x10c8>
++    a1ac:	41 83 46 08 01       	addl   $0x1,0x8(%r14)
++    a1b1:	8b be 0c 03 00 00    	mov    0x30c(%rsi),%edi
++    a1b7:	85 ff                	test   %edi,%edi
++    a1b9:	0f 8f cd 00 00 00    	jg     a28c <update_scores_and_migrate(unsigned long)+0x10dc>
++    a1bf:	f3 41 0f 10 4c 24 6c 	movss  0x6c(%r12),%xmm1
++    a1c6:	f3 0f 10 56 6c       	movss  0x6c(%rsi),%xmm2
++    a1cb:	f3 41 0f 5d 4c 24 64 	minss  0x64(%r12),%xmm1
++    a1d2:	f3 0f 5f 56 64       	maxss  0x64(%rsi),%xmm2
++    a1d7:	0f 2f d1             	comiss %xmm1,%xmm2
++    a1da:	0f 87 a8 02 00 00    	ja     a488 <update_scores_and_migrate(unsigned long)+0x12d8>
++    a1e0:	80 7e 10 00          	cmpb   $0x0,0x10(%rsi)
++    a1e4:	74 0d                	je     a1f3 <update_scores_and_migrate(unsigned long)+0x1043>
++    a1e6:	80 be 1b 01 00 00 00 	cmpb   $0x0,0x11b(%rsi)
++    a1ed:	0f 85 d5 03 00 00    	jne    a5c8 <update_scores_and_migrate(unsigned long)+0x1418>
++    a1f3:	4d 85 f6             	test   %r14,%r14
++    a1f6:	74 35                	je     a22d <update_scores_and_migrate(unsigned long)+0x107d>
++    a1f8:	49 8b 46 08          	mov    0x8(%r14),%rax
++    a1fc:	49 8d 4e 08          	lea    0x8(%r14),%rcx
++    a200:	4c 39 d0             	cmp    %r10,%rax
++    a203:	0f 84 90 00 00 00    	je     a299 <update_scores_and_migrate(unsigned long)+0x10e9>
++    a209:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # a210 <update_scores_and_migrate(unsigned long)+0x1060>
++			a20c: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
++    a210:	80 38 00             	cmpb   $0x0,(%rax)
++    a213:	0f 84 df 00 00 00    	je     a2f8 <update_scores_and_migrate(unsigned long)+0x1148>
++    a219:	41 8b 46 08          	mov    0x8(%r14),%eax
++    a21d:	8d 48 ff             	lea    -0x1(%rax),%ecx
++    a220:	41 89 4e 08          	mov    %ecx,0x8(%r14)
++    a224:	83 f8 01             	cmp    $0x1,%eax
++    a227:	0f 84 dd 00 00 00    	je     a30a <update_scores_and_migrate(unsigned long)+0x115a>
++    a22d:	48 83 eb 18          	sub    $0x18,%rbx
++    a231:	49 83 fd ff          	cmp    $0xffffffffffffffff,%r13
++    a235:	0f 84 95 00 00 00    	je     a2d0 <update_scores_and_migrate(unsigned long)+0x1120>
++    a23b:	49 39 ed             	cmp    %rbp,%r13
++    a23e:	0f 8e 8c 00 00 00    	jle    a2d0 <update_scores_and_migrate(unsigned long)+0x1120>
++    a244:	48 8b 44 24 60       	mov    0x60(%rsp),%rax
++    a249:	49 83 ed 01          	sub    $0x1,%r13
++    a24d:	48 01 d8             	add    %rbx,%rax
++    a250:	4c 8b 70 08          	mov    0x8(%rax),%r14
++    a254:	48 8b 30             	mov    (%rax),%rsi
++    a257:	4d 85 f6             	test   %r14,%r14
++    a25a:	0f 85 38 ff ff ff    	jne    a198 <update_scores_and_migrate(unsigned long)+0xfe8>
++    a260:	44 8b 86 0c 03 00 00 	mov    0x30c(%rsi),%r8d
++    a267:	45 85 c0             	test   %r8d,%r8d
++    a26a:	0f 8e 4f ff ff ff    	jle    a1bf <update_scores_and_migrate(unsigned long)+0x100f>
++    a270:	eb bb                	jmp    a22d <update_scores_and_migrate(unsigned long)+0x107d>
++    a272:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
++    a278:	f0 41 83 46 08 01    	lock addl $0x1,0x8(%r14)
++    a27e:	8b 96 0c 03 00 00    	mov    0x30c(%rsi),%edx
++    a284:	85 d2                	test   %edx,%edx
++    a286:	0f 8e 33 ff ff ff    	jle    a1bf <update_scores_and_migrate(unsigned long)+0x100f>
++    a28c:	49 8b 76 08          	mov    0x8(%r14),%rsi
++    a290:	4c 39 d6             	cmp    %r10,%rsi
++    a293:	0f 85 77 ff ff ff    	jne    a210 <update_scores_and_migrate(unsigned long)+0x1060>
++    a299:	49 8b 06             	mov    (%r14),%rax
++    a29c:	4c 89 f7             	mov    %r14,%rdi
++    a29f:	49 c7 46 08 00 00 00 	movq   $0x0,0x8(%r14)
++    a2a6:	00 
++    a2a7:	48 83 eb 18          	sub    $0x18,%rbx
++    a2ab:	ff 50 10             	call   *0x10(%rax)
++    a2ae:	49 8b 06             	mov    (%r14),%rax
++    a2b1:	4c 89 f7             	mov    %r14,%rdi
++    a2b4:	ff 50 18             	call   *0x18(%rax)
++    a2b7:	49 ba 01 00 00 00 01 	movabs $0x100000001,%r10
++    a2be:	00 00 00 
++    a2c1:	49 83 fd ff          	cmp    $0xffffffffffffffff,%r13
++    a2c5:	0f 85 70 ff ff ff    	jne    a23b <update_scores_and_migrate(unsigned long)+0x108b>
++    a2cb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
++    a2d0:	4c 89 e3             	mov    %r12,%rbx
++    a2d3:	f2 0f 10 4c 24 20    	movsd  0x20(%rsp),%xmm1
++    a2d9:	49 89 ec             	mov    %rbp,%r12
++    a2dc:	f2 0f 10 44 24 28    	movsd  0x28(%rsp),%xmm0
++    a2e2:	48 8b 6c 24 10       	mov    0x10(%rsp),%rbp
++    a2e7:	f2 0f 10 5c 24 30    	movsd  0x30(%rsp),%xmm3
++    a2ed:	e9 6d f8 ff ff       	jmp    9b5f <update_scores_and_migrate(unsigned long)+0x9af>
++    a2f2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
++    a2f8:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
++    a2fd:	f0 0f c1 01          	lock xadd %eax,(%rcx)
++    a301:	83 f8 01             	cmp    $0x1,%eax
++    a304:	0f 85 23 ff ff ff    	jne    a22d <update_scores_and_migrate(unsigned long)+0x107d>
++    a30a:	4c 89 f7             	mov    %r14,%rdi
++    a30d:	e8 00 00 00 00       	call   a312 <update_scores_and_migrate(unsigned long)+0x1162>
++			a30e: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release_last_use_cold()-0x4
++    a312:	49 ba 01 00 00 00 01 	movabs $0x100000001,%r10
++    a319:	00 00 00 
++    a31c:	e9 0c ff ff ff       	jmp    a22d <update_scores_and_migrate(unsigned long)+0x107d>
++    a321:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
++    a328:	48 8b 7c 24 58       	mov    0x58(%rsp),%rdi
++    a32d:	48 85 ff             	test   %rdi,%rdi
++    a330:	0f 84 ea f9 ff ff    	je     9d20 <update_scores_and_migrate(unsigned long)+0xb70>
++    a336:	f2 0f 11 5c 24 10    	movsd  %xmm3,0x10(%rsp)
++    a33c:	e8 00 00 00 00       	call   a341 <update_scores_and_migrate(unsigned long)+0x1191>
++			a33d: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
++    a341:	f2 0f 10 5c 24 10    	movsd  0x10(%rsp),%xmm3
++    a347:	e9 d4 f9 ff ff       	jmp    9d20 <update_scores_and_migrate(unsigned long)+0xb70>
++    a34c:	0f 1f 40 00          	nopl   0x0(%rax)
++    a350:	48 8b 9c 24 d8 00 00 	mov    0xd8(%rsp),%rbx
++    a357:	00 
++    a358:	48 39 9c 24 e0 00 00 	cmp    %rbx,0xe0(%rsp)
++    a35f:	00 
++    a360:	0f 85 f0 fa ff ff    	jne    9e56 <update_scores_and_migrate(unsigned long)+0xca6>
++    a366:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # a36d <update_scores_and_migrate(unsigned long)+0x11bd>
++			a369: R_X86_64_REX_GOTPCRELX	promotion_cost_avg-0x4
++    a36d:	f2 0f 10 1d 00 00 00 	movsd  0x0(%rip),%xmm3        # a375 <update_scores_and_migrate(unsigned long)+0x11c5>
++    a374:	00 
++			a371: R_X86_64_PC32	.LC181-0x4
++    a375:	66 0f ef d2          	pxor   %xmm2,%xmm2
++    a379:	f2 0f 10 05 00 00 00 	movsd  0x0(%rip),%xmm0        # a381 <update_scores_and_migrate(unsigned long)+0x11d1>
++    a380:	00 
++			a37d: R_X86_64_PC32	.LC209-0x4
++    a381:	f3 0f 5a 10          	cvtss2sd (%rax),%xmm2
++    a385:	f2 0f 5e d3          	divsd  %xmm3,%xmm2
++    a389:	66 0f 28 c8          	movapd %xmm0,%xmm1
++    a38d:	f2 0f 5f ca          	maxsd  %xmm2,%xmm1
++    a391:	f2 0f 5a c9          	cvtsd2ss %xmm1,%xmm1
++    a395:	f3 0f 11 08          	movss  %xmm1,(%rax)
++    a399:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # a3a0 <update_scores_and_migrate(unsigned long)+0x11f0>
++			a39c: R_X86_64_REX_GOTPCRELX	demotion_cost_avg-0x4
++    a3a0:	66 0f ef c9          	pxor   %xmm1,%xmm1
++    a3a4:	f3 0f 5a 08          	cvtss2sd (%rax),%xmm1
++    a3a8:	f2 0f 5e cb          	divsd  %xmm3,%xmm1
++    a3ac:	f2 0f 5f c1          	maxsd  %xmm1,%xmm0
++    a3b0:	f2 0f 5a c0          	cvtsd2ss %xmm0,%xmm0
++    a3b4:	f3 0f 11 00          	movss  %xmm0,(%rax)
++    a3b8:	e9 4b fb ff ff       	jmp    9f08 <update_scores_and_migrate(unsigned long)+0xd58>
++    a3bd:	0f 1f 00             	nopl   (%rax)
++    a3c0:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
++    a3c5:	48 8d 74 24 40       	lea    0x40(%rsp),%rsi
++    a3ca:	f2 0f 11 5c 24 10    	movsd  %xmm3,0x10(%rsp)
++    a3d0:	4c 8d b4 24 d8 00 00 	lea    0xd8(%rsp),%r14
++    a3d7:	00 
++    a3d8:	e8 00 00 00 00       	call   a3dd <update_scores_and_migrate(unsigned long)+0x122d>
++			a3d9: R_X86_64_PLT32	void std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > >::_M_realloc_append<std::shared_ptr<page_info> const&>(std::shared_ptr<page_info> const&)-0x4
++    a3dd:	f2 0f 10 5c 24 10    	movsd  0x10(%rsp),%xmm3
++    a3e3:	e9 6b f8 ff ff       	jmp    9c53 <update_scores_and_migrate(unsigned long)+0xaa3>
++    a3e8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+     a3ef:	00 
+-    a3f0:	0f 85 40 fa ff ff    	jne    9e36 <update_scores_and_migrate(unsigned long)+0xc86>
+-    a3f6:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # a3fd <update_scores_and_migrate(unsigned long)+0x124d>
+-			a3f9: R_X86_64_REX_GOTPCRELX	promotion_cost_avg-0x4
+-    a3fd:	f2 0f 10 1d 00 00 00 	movsd  0x0(%rip),%xmm3        # a405 <update_scores_and_migrate(unsigned long)+0x1255>
+-    a404:	00 
+-			a401: R_X86_64_PC32	.LC181-0x4
+-    a405:	66 0f ef d2          	pxor   %xmm2,%xmm2
+-    a409:	f2 0f 10 05 00 00 00 	movsd  0x0(%rip),%xmm0        # a411 <update_scores_and_migrate(unsigned long)+0x1261>
+-    a410:	00 
+-			a40d: R_X86_64_PC32	.LC209-0x4
+-    a411:	f3 0f 5a 10          	cvtss2sd (%rax),%xmm2
+-    a415:	f2 0f 5e d3          	divsd  %xmm3,%xmm2
+-    a419:	66 0f 28 c8          	movapd %xmm0,%xmm1
+-    a41d:	f2 0f 5f ca          	maxsd  %xmm2,%xmm1
+-    a421:	f2 0f 5a c9          	cvtsd2ss %xmm1,%xmm1
+-    a425:	f3 0f 11 08          	movss  %xmm1,(%rax)
+-    a429:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # a430 <update_scores_and_migrate(unsigned long)+0x1280>
+-			a42c: R_X86_64_REX_GOTPCRELX	demotion_cost_avg-0x4
+-    a430:	66 0f ef c9          	pxor   %xmm1,%xmm1
+-    a434:	f3 0f 5a 08          	cvtss2sd (%rax),%xmm1
+-    a438:	f2 0f 5e cb          	divsd  %xmm3,%xmm1
+-    a43c:	f2 0f 5f c1          	maxsd  %xmm1,%xmm0
+-    a440:	f2 0f 5a c0          	cvtsd2ss %xmm0,%xmm0
+-    a444:	f3 0f 11 00          	movss  %xmm0,(%rax)
+-    a448:	e9 ab fa ff ff       	jmp    9ef8 <update_scores_and_migrate(unsigned long)+0xd48>
+-    a44d:	0f 1f 00             	nopl   (%rax)
+-    a450:	4c 8d a4 24 c0 00 00 	lea    0xc0(%rsp),%r12
+-    a457:	00 
+-    a458:	48 8d 84 24 d8 00 00 	lea    0xd8(%rsp),%rax
+-    a45f:	00 
+-    a460:	f2 0f 11 54 24 10    	movsd  %xmm2,0x10(%rsp)
+-    a466:	48 8d 74 24 40       	lea    0x40(%rsp),%rsi
+-    a46b:	4c 89 e7             	mov    %r12,%rdi
+-    a46e:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+-    a473:	e8 00 00 00 00       	call   a478 <update_scores_and_migrate(unsigned long)+0x12c8>
+-			a474: R_X86_64_PLT32	void std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > >::_M_realloc_append<std::shared_ptr<page_info> const&>(std::shared_ptr<page_info> const&)-0x4
+-    a478:	f2 0f 10 54 24 10    	movsd  0x10(%rsp),%xmm2
+-    a47e:	e9 a6 f7 ff ff       	jmp    9c29 <update_scores_and_migrate(unsigned long)+0xa79>
+-    a483:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+-    a488:	f2 0f 5c c1          	subsd  %xmm1,%xmm0
+-    a48c:	f2 4c 0f 2c f0       	cvttsd2si %xmm0,%r14
+-    a491:	49 0f ba fe 3f       	btc    $0x3f,%r14
+-    a496:	e9 fd f4 ff ff       	jmp    9998 <update_scores_and_migrate(unsigned long)+0x7e8>
+-    a49b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+-    a4a0:	48 c7 c2 fe ff ff ff 	mov    $0xfffffffffffffffe,%rdx
+-    a4a7:	4c 89 f6             	mov    %r14,%rsi
+-    a4aa:	4c 89 e7             	mov    %r12,%rdi
+-    a4ad:	e8 fe 8a ff ff       	call   2fb0 <void std::__introsort_loop<__gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, long, __gnu_cxx::__ops::_Iter_comp_iter<rank_scores_for_migration(unsigned long, unsigned long, std::vector<score_entry, std::allocator<score_entry> >&)::{lambda(score_entry const&, score_entry const&)#1}> >(__gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, __gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, long, __gnu_cxx::__ops::_Iter_comp_iter<rank_scores_for_migration(unsigned long, unsigned long, std::vector<score_entry, std::allocator<score_entry> >&)::{lambda(score_entry const&, score_entry const&)#1}>) [clone .isra.0]>
+-    a4b2:	f2 0f 10 44 24 08    	movsd  0x8(%rsp),%xmm0
+-    a4b8:	4c 89 f6             	mov    %r14,%rsi
+-    a4bb:	4c 89 e7             	mov    %r12,%rdi
+-    a4be:	f2 0f 11 44 24 08    	movsd  %xmm0,0x8(%rsp)
+-    a4c4:	e8 37 87 ff ff       	call   2c00 <void std::__insertion_sort<__gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, __gnu_cxx::__ops::_Iter_comp_iter<rank_scores_for_migration(unsigned long, unsigned long, std::vector<score_entry, std::allocator<score_entry> >&)::{lambda(score_entry const&, score_entry const&)#1}> >(__gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, __gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, __gnu_cxx::__ops::_Iter_comp_iter<rank_scores_for_migration(unsigned long, unsigned long, std::vector<score_entry, std::allocator<score_entry> >&)::{lambda(score_entry const&, score_entry const&)#1}>) [clone .isra.0]>
+-    a4c9:	f2 0f 10 44 24 08    	movsd  0x8(%rsp),%xmm0
+-    a4cf:	e9 83 f4 ff ff       	jmp    9957 <update_scores_and_migrate(unsigned long)+0x7a7>
+-    a4d4:	0f 1f 40 00          	nopl   0x0(%rax)
+-    a4d8:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+-    a4dd:	48 8d 84 24 d8 00 00 	lea    0xd8(%rsp),%rax
+-    a4e4:	00 
+-    a4e5:	48 8d 74 24 50       	lea    0x50(%rsp),%rsi
+-    a4ea:	48 89 c7             	mov    %rax,%rdi
+-    a4ed:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+-    a4f2:	4c 8d a4 24 c0 00 00 	lea    0xc0(%rsp),%r12
+-    a4f9:	00 
+-    a4fa:	f2 0f 11 54 24 20    	movsd  %xmm2,0x20(%rsp)
+-    a500:	e8 00 00 00 00       	call   a505 <update_scores_and_migrate(unsigned long)+0x1355>
+-			a501: R_X86_64_PLT32	void std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > >::_M_realloc_append<std::shared_ptr<page_info> const&>(std::shared_ptr<page_info> const&)-0x4
+-    a505:	f2 0f 10 54 24 20    	movsd  0x20(%rsp),%xmm2
+-    a50b:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+-    a510:	e9 99 f6 ff ff       	jmp    9bae <update_scores_and_migrate(unsigned long)+0x9fe>
+-    a515:	0f 1f 00             	nopl   (%rax)
+-    a518:	f0 83 46 08 01       	lock addl $0x1,0x8(%rsi)
+-    a51d:	48 8b 84 24 c8 00 00 	mov    0xc8(%rsp),%rax
+-    a524:	00 
+-    a525:	e9 f3 f6 ff ff       	jmp    9c1d <update_scores_and_migrate(unsigned long)+0xa6d>
+-    a52a:	4d 85 ff             	test   %r15,%r15
+-    a52d:	0f 84 8f ed ff ff    	je     92c2 <update_scores_and_migrate(unsigned long)+0x112>
+-    a533:	e9 7f ed ff ff       	jmp    92b7 <update_scores_and_migrate(unsigned long)+0x107>
+-    a538:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+-    a53f:	00 
+-    a540:	49 39 dc             	cmp    %rbx,%r12
+-    a543:	0f 85 35 f9 ff ff    	jne    9e7e <update_scores_and_migrate(unsigned long)+0xcce>
+-    a549:	e9 a8 fe ff ff       	jmp    a3f6 <update_scores_and_migrate(unsigned long)+0x1246>
+-    a54e:	66 90                	xchg   %ax,%ax
+-    a550:	f2 0f 10 4c 24 08    	movsd  0x8(%rsp),%xmm1
+-    a556:	f2 0f 10 44 24 10    	movsd  0x10(%rsp),%xmm0
+-    a55c:	49 89 fc             	mov    %rdi,%r12
+-    a55f:	f2 0f 10 54 24 20    	movsd  0x20(%rsp),%xmm2
+-    a565:	4d 85 e4             	test   %r12,%r12
+-    a568:	0f 84 c7 f5 ff ff    	je     9b35 <update_scores_and_migrate(unsigned long)+0x985>
+-    a56e:	4c 89 e7             	mov    %r12,%rdi
+-    a571:	f2 0f 11 54 24 20    	movsd  %xmm2,0x20(%rsp)
+-    a577:	f2 0f 11 44 24 10    	movsd  %xmm0,0x10(%rsp)
+-    a57d:	f2 0f 11 4c 24 08    	movsd  %xmm1,0x8(%rsp)
+-    a583:	e8 00 00 00 00       	call   a588 <update_scores_and_migrate(unsigned long)+0x13d8>
+-			a584: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
+-    a588:	f2 0f 10 4c 24 08    	movsd  0x8(%rsp),%xmm1
+-    a58e:	f2 0f 10 44 24 10    	movsd  0x10(%rsp),%xmm0
+-    a594:	f2 0f 10 54 24 20    	movsd  0x20(%rsp),%xmm2
+-    a59a:	e9 96 f5 ff ff       	jmp    9b35 <update_scores_and_migrate(unsigned long)+0x985>
+-    a59f:	90                   	nop
+-    a5a0:	49 89 fc             	mov    %rdi,%r12
+-    a5a3:	48 8b 7c 24 58       	mov    0x58(%rsp),%rdi
+-    a5a8:	48 89 74 24 50       	mov    %rsi,0x50(%rsp)
+-    a5ad:	f2 0f 10 4c 24 08    	movsd  0x8(%rsp),%xmm1
+-    a5b3:	f2 0f 10 44 24 10    	movsd  0x10(%rsp),%xmm0
+-    a5b9:	f2 0f 10 54 24 20    	movsd  0x20(%rsp),%xmm2
+-    a5bf:	49 39 fc             	cmp    %rdi,%r12
+-    a5c2:	74 59                	je     a61d <update_scores_and_migrate(unsigned long)+0x146d>
+-    a5c4:	4d 85 e4             	test   %r12,%r12
+-    a5c7:	74 17                	je     a5e0 <update_scores_and_migrate(unsigned long)+0x1430>
+-    a5c9:	4c 8b 0d 00 00 00 00 	mov    0x0(%rip),%r9        # a5d0 <update_scores_and_migrate(unsigned long)+0x1420>
+-			a5cc: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
+-    a5d0:	41 80 39 00          	cmpb   $0x0,(%r9)
+-    a5d4:	0f 84 7e 01 00 00    	je     a758 <update_scores_and_migrate(unsigned long)+0x15a8>
+-    a5da:	41 83 44 24 08 01    	addl   $0x1,0x8(%r12)
+-    a5e0:	48 85 ff             	test   %rdi,%rdi
+-    a5e3:	74 33                	je     a618 <update_scores_and_migrate(unsigned long)+0x1468>
+-    a5e5:	48 89 74 24 20       	mov    %rsi,0x20(%rsp)
+-    a5ea:	f2 0f 11 54 24 28    	movsd  %xmm2,0x28(%rsp)
+-    a5f0:	f2 0f 11 44 24 10    	movsd  %xmm0,0x10(%rsp)
+-    a5f6:	f2 0f 11 4c 24 08    	movsd  %xmm1,0x8(%rsp)
+-    a5fc:	e8 00 00 00 00       	call   a601 <update_scores_and_migrate(unsigned long)+0x1451>
+-			a5fd: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
+-    a601:	f2 0f 10 54 24 28    	movsd  0x28(%rsp),%xmm2
+-    a607:	48 8b 74 24 20       	mov    0x20(%rsp),%rsi
+-    a60c:	f2 0f 10 44 24 10    	movsd  0x10(%rsp),%xmm0
+-    a612:	f2 0f 10 4c 24 08    	movsd  0x8(%rsp),%xmm1
+-    a618:	4c 89 64 24 58       	mov    %r12,0x58(%rsp)
+-    a61d:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # a624 <update_scores_and_migrate(unsigned long)+0x1474>
+-			a620: R_X86_64_REX_GOTPCRELX	demotion_cost_avg-0x4
+-    a624:	66 0f ef db          	pxor   %xmm3,%xmm3
+-    a628:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # a62f <update_scores_and_migrate(unsigned long)+0x147f>
+-			a62b: R_X86_64_REX_GOTPCRELX	latency_diff-0x4
+-    a62f:	f3 0f 5a 1f          	cvtss2sd (%rdi),%xmm3
+-    a633:	f2 0f 59 1d 00 00 00 	mulsd  0x0(%rip),%xmm3        # a63b <update_scores_and_migrate(unsigned long)+0x148b>
+-    a63a:	00 
+-			a637: R_X86_64_PC32	.LC181-0x4
+-    a63b:	0f b7 bb 18 01 00 00 	movzwl 0x118(%rbx),%edi
+-    a642:	f2 0f 58 cb          	addsd  %xmm3,%xmm1
+-    a646:	66 0f ef db          	pxor   %xmm3,%xmm3
+-    a64a:	f3 0f 2a df          	cvtsi2ss %edi,%xmm3
+-    a64e:	f3 0f 59 9e 10 01 00 	mulss  0x110(%rsi),%xmm3
+-    a655:	00 
+-    a656:	f3 0f 59 1d 00 00 00 	mulss  0x0(%rip),%xmm3        # a65e <update_scores_and_migrate(unsigned long)+0x14ae>
+-    a65d:	00 
+-			a65a: R_X86_64_PC32	.LC208-0x4
+-    a65e:	f3 0f 59 18          	mulss  (%rax),%xmm3
+-    a662:	f3 0f 5a db          	cvtss2sd %xmm3,%xmm3
+-    a666:	f2 0f 5c c3          	subsd  %xmm3,%xmm0
+-    a66a:	e9 f6 fe ff ff       	jmp    a565 <update_scores_and_migrate(unsigned long)+0x13b5>
+-    a66f:	48 85 ff             	test   %rdi,%rdi
+-    a672:	74 05                	je     a679 <update_scores_and_migrate(unsigned long)+0x14c9>
+-    a674:	e8 00 00 00 00       	call   a679 <update_scores_and_migrate(unsigned long)+0x14c9>
+-			a675: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
+-    a679:	48 8b 7c 24 48       	mov    0x48(%rsp),%rdi
+-    a67e:	48 85 ff             	test   %rdi,%rdi
+-    a681:	0f 84 e9 f6 ff ff    	je     9d70 <update_scores_and_migrate(unsigned long)+0xbc0>
+-    a687:	e8 00 00 00 00       	call   a68c <update_scores_and_migrate(unsigned long)+0x14dc>
+-			a688: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
+-    a68c:	e9 df f6 ff ff       	jmp    9d70 <update_scores_and_migrate(unsigned long)+0xbc0>
+-    a691:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+-    a698:	48 89 c1             	mov    %rax,%rcx
+-    a69b:	e9 35 f0 ff ff       	jmp    96d5 <update_scores_and_migrate(unsigned long)+0x525>
+-    a6a0:	f0 83 47 08 01       	lock addl $0x1,0x8(%rdi)
+-    a6a5:	48 8b b4 24 e0 00 00 	mov    0xe0(%rsp),%rsi
++    a3f0:	f2 0f 5c c1          	subsd  %xmm1,%xmm0
++    a3f4:	f2 48 0f 2c d0       	cvttsd2si %xmm0,%rdx
++    a3f9:	48 0f ba fa 3f       	btc    $0x3f,%rdx
++    a3fe:	e9 93 f5 ff ff       	jmp    9996 <update_scores_and_migrate(unsigned long)+0x7e6>
++    a403:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
++    a408:	48 c7 c2 fe ff ff ff 	mov    $0xfffffffffffffffe,%rdx
++    a40f:	4c 89 f6             	mov    %r14,%rsi
++    a412:	4c 89 ef             	mov    %r13,%rdi
++    a415:	e8 96 8b ff ff       	call   2fb0 <void std::__introsort_loop<__gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, long, __gnu_cxx::__ops::_Iter_comp_iter<rank_scores_for_migration(unsigned long, unsigned long, std::vector<score_entry, std::allocator<score_entry> >&)::{lambda(score_entry const&, score_entry const&)#1}> >(__gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, __gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, long, __gnu_cxx::__ops::_Iter_comp_iter<rank_scores_for_migration(unsigned long, unsigned long, std::vector<score_entry, std::allocator<score_entry> >&)::{lambda(score_entry const&, score_entry const&)#1}>) [clone .isra.0]>
++    a41a:	f2 0f 10 44 24 08    	movsd  0x8(%rsp),%xmm0
++    a420:	4c 89 f6             	mov    %r14,%rsi
++    a423:	4c 89 ef             	mov    %r13,%rdi
++    a426:	f2 0f 11 44 24 08    	movsd  %xmm0,0x8(%rsp)
++    a42c:	e8 cf 87 ff ff       	call   2c00 <void std::__insertion_sort<__gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, __gnu_cxx::__ops::_Iter_comp_iter<rank_scores_for_migration(unsigned long, unsigned long, std::vector<score_entry, std::allocator<score_entry> >&)::{lambda(score_entry const&, score_entry const&)#1}> >(__gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, __gnu_cxx::__normal_iterator<score_entry*, std::vector<score_entry, std::allocator<score_entry> > >, __gnu_cxx::__ops::_Iter_comp_iter<rank_scores_for_migration(unsigned long, unsigned long, std::vector<score_entry, std::allocator<score_entry> >&)::{lambda(score_entry const&, score_entry const&)#1}>) [clone .isra.0]>
++    a431:	f2 0f 10 44 24 08    	movsd  0x8(%rsp),%xmm0
++    a437:	e9 19 f5 ff ff       	jmp    9955 <update_scores_and_migrate(unsigned long)+0x7a5>
++    a43c:	0f 1f 40 00          	nopl   0x0(%rax)
++    a440:	4c 8d b4 24 d8 00 00 	lea    0xd8(%rsp),%r14
++    a447:	00 
++    a448:	48 8d 74 24 50       	lea    0x50(%rsp),%rsi
++    a44d:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
++    a452:	4c 89 f7             	mov    %r14,%rdi
++    a455:	f2 0f 11 5c 24 20    	movsd  %xmm3,0x20(%rsp)
++    a45b:	e8 00 00 00 00       	call   a460 <update_scores_and_migrate(unsigned long)+0x12b0>
++			a45c: R_X86_64_PLT32	void std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > >::_M_realloc_append<std::shared_ptr<page_info> const&>(std::shared_ptr<page_info> const&)-0x4
++    a460:	f2 0f 10 5c 24 20    	movsd  0x20(%rsp),%xmm3
++    a466:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
++    a46b:	e9 68 f7 ff ff       	jmp    9bd8 <update_scores_and_migrate(unsigned long)+0xa28>
++    a470:	f0 83 46 08 01       	lock addl $0x1,0x8(%rsi)
++    a475:	48 8b 84 24 c8 00 00 	mov    0xc8(%rsp),%rax
++    a47c:	00 
++    a47d:	e9 c5 f7 ff ff       	jmp    9c47 <update_scores_and_migrate(unsigned long)+0xa97>
++    a482:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
++    a488:	4c 89 e3             	mov    %r12,%rbx
++    a48b:	f2 0f 10 4c 24 20    	movsd  0x20(%rsp),%xmm1
++    a491:	49 89 ec             	mov    %rbp,%r12
++    a494:	f2 0f 10 44 24 28    	movsd  0x28(%rsp),%xmm0
++    a49a:	48 8b 6c 24 10       	mov    0x10(%rsp),%rbp
++    a49f:	f2 0f 10 5c 24 30    	movsd  0x30(%rsp),%xmm3
++    a4a5:	4d 85 f6             	test   %r14,%r14
++    a4a8:	0f 84 b1 f6 ff ff    	je     9b5f <update_scores_and_migrate(unsigned long)+0x9af>
++    a4ae:	4c 89 f7             	mov    %r14,%rdi
++    a4b1:	f2 0f 11 5c 24 28    	movsd  %xmm3,0x28(%rsp)
++    a4b7:	f2 0f 11 44 24 20    	movsd  %xmm0,0x20(%rsp)
++    a4bd:	f2 0f 11 4c 24 10    	movsd  %xmm1,0x10(%rsp)
++    a4c3:	e8 00 00 00 00       	call   a4c8 <update_scores_and_migrate(unsigned long)+0x1318>
++			a4c4: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
++    a4c8:	f2 0f 10 4c 24 10    	movsd  0x10(%rsp),%xmm1
++    a4ce:	f2 0f 10 44 24 20    	movsd  0x20(%rsp),%xmm0
++    a4d4:	f2 0f 10 5c 24 28    	movsd  0x28(%rsp),%xmm3
++    a4da:	e9 80 f6 ff ff       	jmp    9b5f <update_scores_and_migrate(unsigned long)+0x9af>
++    a4df:	4d 85 ff             	test   %r15,%r15
++    a4e2:	0f 84 da ed ff ff    	je     92c2 <update_scores_and_migrate(unsigned long)+0x112>
++    a4e8:	e9 ca ed ff ff       	jmp    92b7 <update_scores_and_migrate(unsigned long)+0x107>
++    a4ed:	0f 1f 00             	nopl   (%rax)
++    a4f0:	49 39 de             	cmp    %rbx,%r14
++    a4f3:	0f 85 9a f9 ff ff    	jne    9e93 <update_scores_and_migrate(unsigned long)+0xce3>
++    a4f9:	e9 68 fe ff ff       	jmp    a366 <update_scores_and_migrate(unsigned long)+0x11b6>
++    a4fe:	66 90                	xchg   %ax,%ax
++    a500:	48 85 ff             	test   %rdi,%rdi
++    a503:	74 05                	je     a50a <update_scores_and_migrate(unsigned long)+0x135a>
++    a505:	e8 00 00 00 00       	call   a50a <update_scores_and_migrate(unsigned long)+0x135a>
++			a506: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
++    a50a:	48 8b 7c 24 48       	mov    0x48(%rsp),%rdi
++    a50f:	48 85 ff             	test   %rdi,%rdi
++    a512:	0f 84 78 f8 ff ff    	je     9d90 <update_scores_and_migrate(unsigned long)+0xbe0>
++    a518:	e8 00 00 00 00       	call   a51d <update_scores_and_migrate(unsigned long)+0x136d>
++			a519: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
++    a51d:	e9 6e f8 ff ff       	jmp    9d90 <update_scores_and_migrate(unsigned long)+0xbe0>
++    a522:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
++    a528:	48 89 c1             	mov    %rax,%rcx
++    a52b:	e9 a5 f1 ff ff       	jmp    96d5 <update_scores_and_migrate(unsigned long)+0x525>
++    a530:	f0 83 47 08 01       	lock addl $0x1,0x8(%rdi)
++    a535:	48 8b b4 24 e0 00 00 	mov    0xe0(%rsp),%rsi
++    a53c:	00 
++    a53d:	e9 8a f6 ff ff       	jmp    9bcc <update_scores_and_migrate(unsigned long)+0xa1c>
++    a542:	4c 8b 7c 24 68       	mov    0x68(%rsp),%r15
++    a547:	e9 d9 f1 ff ff       	jmp    9725 <update_scores_and_migrate(unsigned long)+0x575>
++    a54c:	48 8b 3c 24          	mov    (%rsp),%rdi
++    a550:	e8 00 00 00 00       	call   a555 <update_scores_and_migrate(unsigned long)+0x13a5>
++			a551: R_X86_64_PLT32	std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > >::~vector()-0x4
++    a555:	4c 8b 64 24 68       	mov    0x68(%rsp),%r12
++    a55a:	48 8b 5c 24 60       	mov    0x60(%rsp),%rbx
++    a55f:	49 39 dc             	cmp    %rbx,%r12
++    a562:	0f 84 4d fa ff ff    	je     9fb5 <update_scores_and_migrate(unsigned long)+0xe05>
++    a568:	49 bd 01 00 00 00 01 	movabs $0x100000001,%r13
++    a56f:	00 00 00 
++    a572:	eb 23                	jmp    a597 <update_scores_and_migrate(unsigned long)+0x13e7>
++    a574:	0f 1f 40 00          	nopl   0x0(%rax)
++    a578:	8b 45 08             	mov    0x8(%rbp),%eax
++    a57b:	8d 50 ff             	lea    -0x1(%rax),%edx
++    a57e:	89 55 08             	mov    %edx,0x8(%rbp)
++    a581:	83 f8 01             	cmp    $0x1,%eax
++    a584:	0f 84 35 01 00 00    	je     a6bf <update_scores_and_migrate(unsigned long)+0x150f>
++    a58a:	48 83 c3 18          	add    $0x18,%rbx
++    a58e:	49 39 dc             	cmp    %rbx,%r12
++    a591:	0f 84 19 fa ff ff    	je     9fb0 <update_scores_and_migrate(unsigned long)+0xe00>
++    a597:	48 8b 6b 08          	mov    0x8(%rbx),%rbp
++    a59b:	48 85 ed             	test   %rbp,%rbp
++    a59e:	74 ea                	je     a58a <update_scores_and_migrate(unsigned long)+0x13da>
++    a5a0:	48 8b 45 08          	mov    0x8(%rbp),%rax
++    a5a4:	48 8d 55 08          	lea    0x8(%rbp),%rdx
++    a5a8:	4c 39 e8             	cmp    %r13,%rax
++    a5ab:	0f 84 ed 00 00 00    	je     a69e <update_scores_and_migrate(unsigned long)+0x14ee>
++    a5b1:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # a5b8 <update_scores_and_migrate(unsigned long)+0x1408>
++			a5b4: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
++    a5b8:	80 38 00             	cmpb   $0x0,(%rax)
++    a5bb:	75 bb                	jne    a578 <update_scores_and_migrate(unsigned long)+0x13c8>
++    a5bd:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
++    a5c2:	f0 0f c1 02          	lock xadd %eax,(%rdx)
++    a5c6:	eb b9                	jmp    a581 <update_scores_and_migrate(unsigned long)+0x13d1>
++    a5c8:	48 8b 7c 24 58       	mov    0x58(%rsp),%rdi
++    a5cd:	4c 89 e3             	mov    %r12,%rbx
++    a5d0:	49 89 ec             	mov    %rbp,%r12
++    a5d3:	48 89 74 24 50       	mov    %rsi,0x50(%rsp)
++    a5d8:	48 8b 6c 24 10       	mov    0x10(%rsp),%rbp
++    a5dd:	f2 0f 10 4c 24 20    	movsd  0x20(%rsp),%xmm1
++    a5e3:	f2 0f 10 44 24 28    	movsd  0x28(%rsp),%xmm0
++    a5e9:	f2 0f 10 5c 24 30    	movsd  0x30(%rsp),%xmm3
++    a5ef:	49 39 fe             	cmp    %rdi,%r14
++    a5f2:	74 58                	je     a64c <update_scores_and_migrate(unsigned long)+0x149c>
++    a5f4:	4d 85 f6             	test   %r14,%r14
++    a5f7:	74 16                	je     a60f <update_scores_and_migrate(unsigned long)+0x145f>
++    a5f9:	4c 8b 0d 00 00 00 00 	mov    0x0(%rip),%r9        # a600 <update_scores_and_migrate(unsigned long)+0x1450>
++			a5fc: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
++    a600:	41 80 39 00          	cmpb   $0x0,(%r9)
++    a604:	0f 84 d4 00 00 00    	je     a6de <update_scores_and_migrate(unsigned long)+0x152e>
++    a60a:	41 83 46 08 01       	addl   $0x1,0x8(%r14)
++    a60f:	48 85 ff             	test   %rdi,%rdi
++    a612:	74 33                	je     a647 <update_scores_and_migrate(unsigned long)+0x1497>
++    a614:	48 89 74 24 28       	mov    %rsi,0x28(%rsp)
++    a619:	f2 0f 11 5c 24 30    	movsd  %xmm3,0x30(%rsp)
++    a61f:	f2 0f 11 44 24 20    	movsd  %xmm0,0x20(%rsp)
++    a625:	f2 0f 11 4c 24 10    	movsd  %xmm1,0x10(%rsp)
++    a62b:	e8 00 00 00 00       	call   a630 <update_scores_and_migrate(unsigned long)+0x1480>
++			a62c: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
++    a630:	f2 0f 10 5c 24 30    	movsd  0x30(%rsp),%xmm3
++    a636:	48 8b 74 24 28       	mov    0x28(%rsp),%rsi
++    a63b:	f2 0f 10 44 24 20    	movsd  0x20(%rsp),%xmm0
++    a641:	f2 0f 10 4c 24 10    	movsd  0x10(%rsp),%xmm1
++    a647:	4c 89 74 24 58       	mov    %r14,0x58(%rsp)
++    a64c:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # a653 <update_scores_and_migrate(unsigned long)+0x14a3>
++			a64f: R_X86_64_REX_GOTPCRELX	demotion_cost_avg-0x4
++    a653:	66 0f ef d2          	pxor   %xmm2,%xmm2
++    a657:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # a65e <update_scores_and_migrate(unsigned long)+0x14ae>
++			a65a: R_X86_64_REX_GOTPCRELX	latency_diff-0x4
++    a65e:	f3 0f 5a 17          	cvtss2sd (%rdi),%xmm2
++    a662:	f2 0f 59 15 00 00 00 	mulsd  0x0(%rip),%xmm2        # a66a <update_scores_and_migrate(unsigned long)+0x14ba>
++    a669:	00 
++			a666: R_X86_64_PC32	.LC181-0x4
++    a66a:	0f b7 bb 18 01 00 00 	movzwl 0x118(%rbx),%edi
++    a671:	f2 0f 58 ca          	addsd  %xmm2,%xmm1
++    a675:	66 0f ef d2          	pxor   %xmm2,%xmm2
++    a679:	f3 0f 2a d7          	cvtsi2ss %edi,%xmm2
++    a67d:	f3 0f 59 96 10 01 00 	mulss  0x110(%rsi),%xmm2
++    a684:	00 
++    a685:	f3 0f 59 15 00 00 00 	mulss  0x0(%rip),%xmm2        # a68d <update_scores_and_migrate(unsigned long)+0x14dd>
++    a68c:	00 
++			a689: R_X86_64_PC32	.LC208-0x4
++    a68d:	f3 0f 59 10          	mulss  (%rax),%xmm2
++    a691:	f3 0f 5a d2          	cvtss2sd %xmm2,%xmm2
++    a695:	f2 0f 5c c2          	subsd  %xmm2,%xmm0
++    a699:	e9 07 fe ff ff       	jmp    a4a5 <update_scores_and_migrate(unsigned long)+0x12f5>
++    a69e:	48 8b 45 00          	mov    0x0(%rbp),%rax
++    a6a2:	48 89 ef             	mov    %rbp,%rdi
++    a6a5:	48 c7 45 08 00 00 00 	movq   $0x0,0x8(%rbp)
+     a6ac:	00 
+-    a6ad:	e9 f0 f4 ff ff       	jmp    9ba2 <update_scores_and_migrate(unsigned long)+0x9f2>
+-    a6b2:	4c 8b 7c 24 68       	mov    0x68(%rsp),%r15
+-    a6b7:	e9 69 f0 ff ff       	jmp    9725 <update_scores_and_migrate(unsigned long)+0x575>
+-    a6bc:	48 8b 3c 24          	mov    (%rsp),%rdi
+-    a6c0:	e8 00 00 00 00       	call   a6c5 <update_scores_and_migrate(unsigned long)+0x1515>
+-			a6c1: R_X86_64_PLT32	std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > >::~vector()-0x4
+-    a6c5:	4c 8b 64 24 68       	mov    0x68(%rsp),%r12
+-    a6ca:	48 8b 5c 24 60       	mov    0x60(%rsp),%rbx
+-    a6cf:	49 39 dc             	cmp    %rbx,%r12
+-    a6d2:	0f 84 7d f9 ff ff    	je     a055 <update_scores_and_migrate(unsigned long)+0xea5>
+-    a6d8:	49 bd 01 00 00 00 01 	movabs $0x100000001,%r13
+-    a6df:	00 00 00 
+-    a6e2:	eb 1f                	jmp    a703 <update_scores_and_migrate(unsigned long)+0x1553>
+-    a6e4:	0f 1f 40 00          	nopl   0x0(%rax)
+-    a6e8:	8b 45 08             	mov    0x8(%rbp),%eax
+-    a6eb:	8d 50 ff             	lea    -0x1(%rax),%edx
+-    a6ee:	89 55 08             	mov    %edx,0x8(%rbp)
+-    a6f1:	83 f8 01             	cmp    $0x1,%eax
+-    a6f4:	74 58                	je     a74e <update_scores_and_migrate(unsigned long)+0x159e>
+-    a6f6:	48 83 c3 18          	add    $0x18,%rbx
+-    a6fa:	49 39 dc             	cmp    %rbx,%r12
+-    a6fd:	0f 84 4d f9 ff ff    	je     a050 <update_scores_and_migrate(unsigned long)+0xea0>
+-    a703:	48 8b 6b 08          	mov    0x8(%rbx),%rbp
+-    a707:	48 85 ed             	test   %rbp,%rbp
+-    a70a:	74 ea                	je     a6f6 <update_scores_and_migrate(unsigned long)+0x1546>
+-    a70c:	48 8b 45 08          	mov    0x8(%rbp),%rax
+-    a710:	48 8d 55 08          	lea    0x8(%rbp),%rdx
+-    a714:	4c 39 e8             	cmp    %r13,%rax
+-    a717:	74 17                	je     a730 <update_scores_and_migrate(unsigned long)+0x1580>
+-    a719:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # a720 <update_scores_and_migrate(unsigned long)+0x1570>
+-			a71c: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
+-    a720:	80 38 00             	cmpb   $0x0,(%rax)
+-    a723:	75 c3                	jne    a6e8 <update_scores_and_migrate(unsigned long)+0x1538>
+-    a725:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+-    a72a:	f0 0f c1 02          	lock xadd %eax,(%rdx)
+-    a72e:	eb c1                	jmp    a6f1 <update_scores_and_migrate(unsigned long)+0x1541>
+-    a730:	48 8b 45 00          	mov    0x0(%rbp),%rax
+-    a734:	48 89 ef             	mov    %rbp,%rdi
+-    a737:	48 c7 45 08 00 00 00 	movq   $0x0,0x8(%rbp)
+-    a73e:	00 
+-    a73f:	ff 50 10             	call   *0x10(%rax)
+-    a742:	48 8b 45 00          	mov    0x0(%rbp),%rax
+-    a746:	48 89 ef             	mov    %rbp,%rdi
+-    a749:	ff 50 18             	call   *0x18(%rax)
+-    a74c:	eb a8                	jmp    a6f6 <update_scores_and_migrate(unsigned long)+0x1546>
+-    a74e:	48 89 ef             	mov    %rbp,%rdi
+-    a751:	e8 00 00 00 00       	call   a756 <update_scores_and_migrate(unsigned long)+0x15a6>
+-			a752: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release_last_use_cold()-0x4
+-    a756:	eb 9e                	jmp    a6f6 <update_scores_and_migrate(unsigned long)+0x1546>
+-    a758:	f0 41 83 44 24 08 01 	lock addl $0x1,0x8(%r12)
+-    a75f:	48 8b 7c 24 58       	mov    0x58(%rsp),%rdi
+-    a764:	e9 77 fe ff ff       	jmp    a5e0 <update_scores_and_migrate(unsigned long)+0x1430>
+-    a769:	e9 00 00 00 00       	jmp    a76e <update_scores_and_migrate(unsigned long)+0x15be>
+-			a76a: R_X86_64_PC32	.text.unlikely+0xc91
+-    a76e:	e9 00 00 00 00       	jmp    a773 <update_scores_and_migrate(unsigned long)+0x15c3>
+-			a76f: R_X86_64_PC32	.text.unlikely+0xcd2
+-    a773:	e9 00 00 00 00       	jmp    a778 <update_scores_and_migrate(unsigned long)+0x15c8>
+-			a774: R_X86_64_PC32	.text.unlikely+0xcf3
+-    a778:	e9 00 00 00 00       	jmp    a77d <update_scores_and_migrate(unsigned long)+0x15cd>
+-			a779: R_X86_64_PC32	.text.unlikely+0xcf8
+-    a77d:	48 89 c3             	mov    %rax,%rbx
+-    a780:	48 8d 84 24 d8 00 00 	lea    0xd8(%rsp),%rax
+-    a787:	00 
+-    a788:	4c 8d a4 24 c0 00 00 	lea    0xc0(%rsp),%r12
+-    a78f:	00 
+-    a790:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+-    a795:	e9 00 00 00 00       	jmp    a79a <update_scores_and_migrate(unsigned long)+0x15ea>
+-			a796: R_X86_64_PC32	.text.unlikely+0xd2f
+-    a79a:	48 89 c3             	mov    %rax,%rbx
+-    a79d:	e9 00 00 00 00       	jmp    a7a2 <update_scores_and_migrate(unsigned long)+0x15f2>
+-			a79e: R_X86_64_PC32	.text.unlikely+0xd46
+-    a7a2:	48 89 c3             	mov    %rax,%rbx
+-    a7a5:	e9 00 00 00 00       	jmp    a7aa <update_scores_and_migrate(unsigned long)+0x15fa>
+-			a7a6: R_X86_64_PC32	.text.unlikely+0xd04
++    a6ad:	ff 50 10             	call   *0x10(%rax)
++    a6b0:	48 8b 45 00          	mov    0x0(%rbp),%rax
++    a6b4:	48 89 ef             	mov    %rbp,%rdi
++    a6b7:	ff 50 18             	call   *0x18(%rax)
++    a6ba:	e9 cb fe ff ff       	jmp    a58a <update_scores_and_migrate(unsigned long)+0x13da>
++    a6bf:	48 89 ef             	mov    %rbp,%rdi
++    a6c2:	e8 00 00 00 00       	call   a6c7 <update_scores_and_migrate(unsigned long)+0x1517>
++			a6c3: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release_last_use_cold()-0x4
++    a6c7:	e9 be fe ff ff       	jmp    a58a <update_scores_and_migrate(unsigned long)+0x13da>
++    a6cc:	48 8d 84 24 c0 00 00 	lea    0xc0(%rsp),%rax
++    a6d3:	00 
++    a6d4:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
++    a6d9:	e9 62 f7 ff ff       	jmp    9e40 <update_scores_and_migrate(unsigned long)+0xc90>
++    a6de:	f0 41 83 46 08 01    	lock addl $0x1,0x8(%r14)
++    a6e4:	48 8b 7c 24 58       	mov    0x58(%rsp),%rdi
++    a6e9:	e9 21 ff ff ff       	jmp    a60f <update_scores_and_migrate(unsigned long)+0x145f>
++    a6ee:	48 89 c3             	mov    %rax,%rbx
++    a6f1:	e9 00 00 00 00       	jmp    a6f6 <update_scores_and_migrate(unsigned long)+0x1546>
++			a6f2: R_X86_64_PC32	.text.unlikely+0xc91
++    a6f6:	e9 00 00 00 00       	jmp    a6fb <update_scores_and_migrate(unsigned long)+0x154b>
++			a6f7: R_X86_64_PC32	.text.unlikely+0xd13
++    a6fb:	e9 00 00 00 00       	jmp    a700 <update_scores_and_migrate(unsigned long)+0x1550>
++			a6fc: R_X86_64_PC32	.text.unlikely+0xd34
++    a700:	e9 00 00 00 00       	jmp    a705 <update_scores_and_migrate(unsigned long)+0x1555>
++			a701: R_X86_64_PC32	.text.unlikely+0xd39
++    a705:	48 89 c3             	mov    %rax,%rbx
++    a708:	48 8d 84 24 c0 00 00 	lea    0xc0(%rsp),%rax
++    a70f:	00 
++    a710:	4c 8d b4 24 d8 00 00 	lea    0xd8(%rsp),%r14
++    a717:	00 
++    a718:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
++    a71d:	e9 00 00 00 00       	jmp    a722 <update_scores_and_migrate(unsigned long)+0x1572>
++			a71e: R_X86_64_PC32	.text.unlikely+0xcb7
++    a722:	48 89 c3             	mov    %rax,%rbx
++    a725:	e9 00 00 00 00       	jmp    a72a <update_scores_and_migrate(unsigned long)+0x157a>
++			a726: R_X86_64_PC32	.text.unlikely+0xd45
++    a72a:	e9 00 00 00 00       	jmp    a72f <update_scores_and_migrate(unsigned long)+0x157f>
++			a72b: R_X86_64_PC32	.text.unlikely+0xccb
+ 
+ Disassembly of section .text._ZNKSt5ctypeIcE8do_widenEc:
+ 
+@@ -13405,74 +13353,75 @@
+  c8c:	48 89 04 24          	mov    %rax,(%rsp)
+  c90:	e8 00 00 00 00       	call   c95 <update_scores_and_migrate(unsigned long) [clone .cold]+0x18>
+ 			c91: R_X86_64_PLT32	std::__throw_length_error(char const*)-0x4
+- c95:	48 89 ef             	mov    %rbp,%rdi
+- c98:	48 89 c3             	mov    %rax,%rbx
+- c9b:	e8 00 00 00 00       	call   ca0 <update_scores_and_migrate(unsigned long) [clone .cold]+0x23>
+-			c9c: R_X86_64_PLT32	pthread_rwlock_unlock-0x4
+- ca0:	48 8b 3c 24          	mov    (%rsp),%rdi
+- ca4:	e8 00 00 00 00       	call   ca9 <update_scores_and_migrate(unsigned long) [clone .cold]+0x2c>
+-			ca5: R_X86_64_PLT32	std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > >::~vector()-0x4
+- ca9:	48 8d 7c 24 60       	lea    0x60(%rsp),%rdi
+- cae:	e8 00 00 00 00       	call   cb3 <update_scores_and_migrate(unsigned long) [clone .cold]+0x36>
+-			caf: R_X86_64_PLT32	std::vector<score_entry, std::allocator<score_entry> >::~vector()-0x4
+- cb3:	48 89 df             	mov    %rbx,%rdi
++ c95:	48 8b 7c 24 58       	mov    0x58(%rsp),%rdi
++ c9a:	48 85 ff             	test   %rdi,%rdi
++ c9d:	74 05                	je     ca4 <update_scores_and_migrate(unsigned long) [clone .cold]+0x27>
++ c9f:	e8 00 00 00 00       	call   ca4 <update_scores_and_migrate(unsigned long) [clone .cold]+0x27>
++			ca0: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
++ ca4:	48 8b 7c 24 48       	mov    0x48(%rsp),%rdi
++ ca9:	48 85 ff             	test   %rdi,%rdi
++ cac:	75 47                	jne    cf5 <update_scores_and_migrate(unsigned long) [clone .cold]+0x78>
++ cae:	48 8d bc 24 a0 00 00 	lea    0xa0(%rsp),%rdi
++ cb5:	00 
+  cb6:	e8 00 00 00 00       	call   cbb <update_scores_and_migrate(unsigned long) [clone .cold]+0x3e>
+-			cb7: R_X86_64_PLT32	_Unwind_Resume-0x4
+- cbb:	bf 23 00 00 00       	mov    $0x23,%edi
+- cc0:	e8 00 00 00 00       	call   cc5 <update_scores_and_migrate(unsigned long) [clone .cold]+0x48>
+-			cc1: R_X86_64_PLT32	std::__throw_system_error(int)-0x4
+- cc5:	48 89 c3             	mov    %rax,%rbx
+- cc8:	48 8d 84 24 80 00 00 	lea    0x80(%rsp),%rax
+- ccf:	00 
+- cd0:	48 89 04 24          	mov    %rax,(%rsp)
+- cd4:	eb ca                	jmp    ca0 <update_scores_and_migrate(unsigned long) [clone .cold]+0x23>
+- cd6:	48 89 c5             	mov    %rax,%rbp
+- cd9:	48 85 db             	test   %rbx,%rbx
+- cdc:	74 08                	je     ce6 <update_scores_and_migrate(unsigned long) [clone .cold]+0x69>
+- cde:	48 89 df             	mov    %rbx,%rdi
+- ce1:	e8 00 00 00 00       	call   ce6 <update_scores_and_migrate(unsigned long) [clone .cold]+0x69>
+-			ce2: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
+- ce6:	48 89 eb             	mov    %rbp,%rbx
+- ce9:	eb b5                	jmp    ca0 <update_scores_and_migrate(unsigned long) [clone .cold]+0x23>
+- ceb:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # cf2 <update_scores_and_migrate(unsigned long) [clone .cold]+0x75>
+-			cee: R_X86_64_PC32	.LC0-0x4
+- cf2:	e8 00 00 00 00       	call   cf7 <update_scores_and_migrate(unsigned long) [clone .cold]+0x7a>
+-			cf3: R_X86_64_PLT32	std::__throw_length_error(char const*)-0x4
+- cf7:	48 89 c3             	mov    %rax,%rbx
+- cfa:	eb a4                	jmp    ca0 <update_scores_and_migrate(unsigned long) [clone .cold]+0x23>
+- cfc:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # d03 <update_scores_and_migrate(unsigned long) [clone .cold]+0x86>
+-			cff: R_X86_64_PC32	.LC70-0x4
+- d03:	e8 00 00 00 00       	call   d08 <update_scores_and_migrate(unsigned long) [clone .cold]+0x8b>
+-			d04: R_X86_64_PLT32	std::__throw_length_error(char const*)-0x4
+- d08:	48 8b 7c 24 58       	mov    0x58(%rsp),%rdi
+- d0d:	48 85 ff             	test   %rdi,%rdi
+- d10:	74 05                	je     d17 <update_scores_and_migrate(unsigned long) [clone .cold]+0x9a>
+- d12:	e8 00 00 00 00       	call   d17 <update_scores_and_migrate(unsigned long) [clone .cold]+0x9a>
+-			d13: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
+- d17:	48 8b 7c 24 48       	mov    0x48(%rsp),%rdi
+- d1c:	48 85 ff             	test   %rdi,%rdi
+- d1f:	74 05                	je     d26 <update_scores_and_migrate(unsigned long) [clone .cold]+0xa9>
+- d21:	e8 00 00 00 00       	call   d26 <update_scores_and_migrate(unsigned long) [clone .cold]+0xa9>
+-			d22: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
+- d26:	48 8d bc 24 a0 00 00 	lea    0xa0(%rsp),%rdi
+- d2d:	00 
+- d2e:	e8 00 00 00 00       	call   d33 <update_scores_and_migrate(unsigned long) [clone .cold]+0xb6>
+-			d2f: R_X86_64_PLT32	std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > >::~vector()-0x4
+- d33:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+- d38:	e8 00 00 00 00       	call   d3d <update_scores_and_migrate(unsigned long) [clone .cold]+0xc0>
+-			d39: R_X86_64_PLT32	std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > >::~vector()-0x4
+- d3d:	4c 89 e7             	mov    %r12,%rdi
+- d40:	e8 00 00 00 00       	call   d45 <update_scores_and_migrate(unsigned long) [clone .cold]+0xc8>
+-			d41: R_X86_64_PLT32	std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > >::~vector()-0x4
+- d45:	e9 56 ff ff ff       	jmp    ca0 <update_scores_and_migrate(unsigned long) [clone .cold]+0x23>
+- d4a:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+- d4f:	e8 00 00 00 00       	call   d54 <update_scores_and_migrate(unsigned long) [clone .cold]+0xd7>
+-			d50: R_X86_64_PLT32	std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > >::~vector()-0x4
+- d54:	48 8d bc 24 c0 00 00 	lea    0xc0(%rsp),%rdi
+- d5b:	00 
+- d5c:	e8 00 00 00 00       	call   d61 <update_scores_and_migrate(unsigned long) [clone .cold]+0xe4>
+-			d5d: R_X86_64_PLT32	std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > >::~vector()-0x4
+- d61:	e9 3a ff ff ff       	jmp    ca0 <update_scores_and_migrate(unsigned long) [clone .cold]+0x23>
++			cb7: R_X86_64_PLT32	std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > >::~vector()-0x4
++ cbb:	4c 89 f7             	mov    %r14,%rdi
++ cbe:	e8 00 00 00 00       	call   cc3 <update_scores_and_migrate(unsigned long) [clone .cold]+0x46>
++			cbf: R_X86_64_PLT32	std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > >::~vector()-0x4
++ cc3:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
++ cc8:	e8 00 00 00 00       	call   ccd <update_scores_and_migrate(unsigned long) [clone .cold]+0x50>
++			cc9: R_X86_64_PLT32	std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > >::~vector()-0x4
++ ccd:	eb 0b                	jmp    cda <update_scores_and_migrate(unsigned long) [clone .cold]+0x5d>
++ ccf:	48 89 ef             	mov    %rbp,%rdi
++ cd2:	48 89 c3             	mov    %rax,%rbx
++ cd5:	e8 00 00 00 00       	call   cda <update_scores_and_migrate(unsigned long) [clone .cold]+0x5d>
++			cd6: R_X86_64_PLT32	pthread_rwlock_unlock-0x4
++ cda:	48 8b 3c 24          	mov    (%rsp),%rdi
++ cde:	e8 00 00 00 00       	call   ce3 <update_scores_and_migrate(unsigned long) [clone .cold]+0x66>
++			cdf: R_X86_64_PLT32	std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > >::~vector()-0x4
++ ce3:	48 8d 7c 24 60       	lea    0x60(%rsp),%rdi
++ ce8:	e8 00 00 00 00       	call   ced <update_scores_and_migrate(unsigned long) [clone .cold]+0x70>
++			ce9: R_X86_64_PLT32	std::vector<score_entry, std::allocator<score_entry> >::~vector()-0x4
++ ced:	48 89 df             	mov    %rbx,%rdi
++ cf0:	e8 00 00 00 00       	call   cf5 <update_scores_and_migrate(unsigned long) [clone .cold]+0x78>
++			cf1: R_X86_64_PLT32	_Unwind_Resume-0x4
++ cf5:	e8 00 00 00 00       	call   cfa <update_scores_and_migrate(unsigned long) [clone .cold]+0x7d>
++			cf6: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
++ cfa:	eb b2                	jmp    cae <update_scores_and_migrate(unsigned long) [clone .cold]+0x31>
++ cfc:	bf 23 00 00 00       	mov    $0x23,%edi
++ d01:	e8 00 00 00 00       	call   d06 <update_scores_and_migrate(unsigned long) [clone .cold]+0x89>
++			d02: R_X86_64_PLT32	std::__throw_system_error(int)-0x4
++ d06:	48 89 c3             	mov    %rax,%rbx
++ d09:	48 8d 84 24 80 00 00 	lea    0x80(%rsp),%rax
++ d10:	00 
++ d11:	48 89 04 24          	mov    %rax,(%rsp)
++ d15:	eb c3                	jmp    cda <update_scores_and_migrate(unsigned long) [clone .cold]+0x5d>
++ d17:	48 89 c5             	mov    %rax,%rbp
++ d1a:	48 85 db             	test   %rbx,%rbx
++ d1d:	74 08                	je     d27 <update_scores_and_migrate(unsigned long) [clone .cold]+0xaa>
++ d1f:	48 89 df             	mov    %rbx,%rdi
++ d22:	e8 00 00 00 00       	call   d27 <update_scores_and_migrate(unsigned long) [clone .cold]+0xaa>
++			d23: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release()-0x4
++ d27:	48 89 eb             	mov    %rbp,%rbx
++ d2a:	eb ae                	jmp    cda <update_scores_and_migrate(unsigned long) [clone .cold]+0x5d>
++ d2c:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # d33 <update_scores_and_migrate(unsigned long) [clone .cold]+0xb6>
++			d2f: R_X86_64_PC32	.LC0-0x4
++ d33:	e8 00 00 00 00       	call   d38 <update_scores_and_migrate(unsigned long) [clone .cold]+0xbb>
++			d34: R_X86_64_PLT32	std::__throw_length_error(char const*)-0x4
++ d38:	48 89 c3             	mov    %rax,%rbx
++ d3b:	eb 9d                	jmp    cda <update_scores_and_migrate(unsigned long) [clone .cold]+0x5d>
++ d3d:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # d44 <update_scores_and_migrate(unsigned long) [clone .cold]+0xc7>
++			d40: R_X86_64_PC32	.LC70-0x4
++ d44:	e8 00 00 00 00       	call   d49 <update_scores_and_migrate(unsigned long) [clone .cold]+0xcc>
++			d45: R_X86_64_PLT32	std::__throw_length_error(char const*)-0x4
++ d49:	48 8d bc 24 d8 00 00 	lea    0xd8(%rsp),%rdi
++ d50:	00 
++ d51:	e8 00 00 00 00       	call   d56 <update_scores_and_migrate(unsigned long) [clone .cold]+0xd9>
++			d52: R_X86_64_PLT32	std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > >::~vector()-0x4
++ d56:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
++ d5b:	e8 00 00 00 00       	call   d60 <update_scores_and_migrate(unsigned long) [clone .cold]+0xe3>
++			d5c: R_X86_64_PLT32	std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > >::~vector()-0x4
++ d60:	e9 75 ff ff ff       	jmp    cda <update_scores_and_migrate(unsigned long) [clone .cold]+0x5d>
+ 
+ Disassembly of section .text._ZNSt23_Sp_counted_ptr_inplaceI9page_infoSaIvELN9__gnu_cxx12_Lock_policyE2EE14_M_get_deleterERKSt9type_info:
+ 

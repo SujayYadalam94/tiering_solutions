@@ -1,0 +1,13 @@
+{
+  "path": "mlc_loaded_latency_runs/20260421_180236/loaded_latency_R.txt",
+  "command": [
+    "# command=numactl -N 0 -m 1 /users/zimooo2/mlc/Linux/mlc --loaded_latency -R -g/users/zimooo2/tiering_solutions/mlc_loaded_latency_runs/20260421_180236/delays.txt"
+  ],
+  "warning": [
+    "*** Unable to modify prefetchers (try executing 'modprobe msr')",
+    "*** So, enabling random access for latency measurements"
+  ],
+  "first_saturation_row": " 00100\t1334.33\t 18779.5",
+  "last_row": " 50000\t234.25\t   511.9",
+  "limitation": "April calibration, not May/June benchmark boot readbacks; removed original MLC executable, so not an exact present replay."
+}

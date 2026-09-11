@@ -1,0 +1,3007 @@
+--- may14
++++ current
+@@ -2,2244 +2,816 @@
+ Disassembly of section .text:
+ 
+ 0000000000000000 <access_log::access_log()>:
+-       0:	48 c7 87 c0 00 00 00 	movq   $0x0,0xc0(%rdi)
+-       7:	00 00 00 00 
+-       b:	48 c7 87 c8 00 00 00 	movq   $0x0,0xc8(%rdi)
+-      12:	00 00 00 00 
+-      16:	c3                   	ret
+-      17:	90                   	nop
+-      18:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+-      1f:	00 
++   0:	48 c7 87 c0 00 00 00 	movq   $0x0,0xc0(%rdi)
++   7:	00 00 00 00 
++   b:	48 c7 87 c8 00 00 00 	movq   $0x0,0xc8(%rdi)
++  12:	00 00 00 00 
++  16:	c3                   	ret
++  17:	90                   	nop
++  18:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
++  1f:	00 
+ 
+ 0000000000000020 <access_log::get_gb_allocated()>:
+-      20:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-      24:	c3                   	ret
+-      25:	90                   	nop
+-      26:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+-      2d:	00 00 00 
++  20:	66 0f ef c0          	pxor   %xmm0,%xmm0
++  24:	c3                   	ret
++  25:	90                   	nop
++  26:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
++  2d:	00 00 00 
+ 
+ 0000000000000030 <access_log::get_disk_usage(int)>:
+-      30:	41 54                	push   %r12
+-      32:	89 f1                	mov    %esi,%ecx
+-      34:	31 c0                	xor    %eax,%eax
+-      36:	be 32 00 00 00       	mov    $0x32,%esi
+-      3b:	55                   	push   %rbp
+-      3c:	49 89 fc             	mov    %rdi,%r12
+-      3f:	48 8d 15 00 00 00 00 	lea    0x0(%rip),%rdx        # 46 <access_log::get_disk_usage(int)+0x16>
++  30:	41 54                	push   %r12
++  32:	89 f1                	mov    %esi,%ecx
++  34:	31 c0                	xor    %eax,%eax
++  36:	be 32 00 00 00       	mov    $0x32,%esi
++  3b:	55                   	push   %rbp
++  3c:	49 89 fc             	mov    %rdi,%r12
++  3f:	48 8d 15 00 00 00 00 	lea    0x0(%rip),%rdx        # 46 <access_log::get_disk_usage(int)+0x16>
+ 			42: R_X86_64_PC32	.LC1-0x4
+-      46:	53                   	push   %rbx
+-      47:	48 81 ec 40 01 00 00 	sub    $0x140,%rsp
+-      4e:	f3 0f 6f 87 90 00 00 	movdqu 0x90(%rdi),%xmm0
+-      55:	00 
+-      56:	0f 11 47 60          	movups %xmm0,0x60(%rdi)
+-      5a:	f3 0f 6f 87 a0 00 00 	movdqu 0xa0(%rdi),%xmm0
+-      61:	00 
+-      62:	0f 11 47 70          	movups %xmm0,0x70(%rdi)
+-      66:	f3 0f 6f 87 b0 00 00 	movdqu 0xb0(%rdi),%xmm0
+-      6d:	00 
+-      6e:	0f 11 87 80 00 00 00 	movups %xmm0,0x80(%rdi)
+-      75:	48 89 e7             	mov    %rsp,%rdi
+-      78:	e8 00 00 00 00       	call   7d <access_log::get_disk_usage(int)+0x4d>
++  46:	53                   	push   %rbx
++  47:	48 81 ec 40 01 00 00 	sub    $0x140,%rsp
++  4e:	f3 0f 6f 87 90 00 00 	movdqu 0x90(%rdi),%xmm0
++  55:	00 
++  56:	0f 11 47 60          	movups %xmm0,0x60(%rdi)
++  5a:	f3 0f 6f 87 a0 00 00 	movdqu 0xa0(%rdi),%xmm0
++  61:	00 
++  62:	0f 11 47 70          	movups %xmm0,0x70(%rdi)
++  66:	f3 0f 6f 87 b0 00 00 	movdqu 0xb0(%rdi),%xmm0
++  6d:	00 
++  6e:	0f 11 87 80 00 00 00 	movups %xmm0,0x80(%rdi)
++  75:	48 89 e7             	mov    %rsp,%rdi
++  78:	e8 00 00 00 00       	call   7d <access_log::get_disk_usage(int)+0x4d>
+ 			79: R_X86_64_PLT32	snprintf-0x4
+-      7d:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 84 <access_log::get_disk_usage(int)+0x54>
++  7d:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 84 <access_log::get_disk_usage(int)+0x54>
+ 			80: R_X86_64_PC32	.LC2-0x4
+-      84:	48 89 e7             	mov    %rsp,%rdi
+-      87:	e8 00 00 00 00       	call   8c <access_log::get_disk_usage(int)+0x5c>
++  84:	48 89 e7             	mov    %rsp,%rdi
++  87:	e8 00 00 00 00       	call   8c <access_log::get_disk_usage(int)+0x5c>
+ 			88: R_X86_64_PLT32	fopen-0x4
+-      8c:	48 85 c0             	test   %rax,%rax
+-      8f:	0f 84 00 00 00 00    	je     95 <access_log::get_disk_usage(int)+0x65>
++  8c:	48 85 c0             	test   %rax,%rax
++  8f:	0f 84 00 00 00 00    	je     95 <access_log::get_disk_usage(int)+0x65>
+ 			91: R_X86_64_PC32	.text.unlikely-0x4
+-      95:	48 89 c5             	mov    %rax,%rbp
+-      98:	48 8d 5c 24 40       	lea    0x40(%rsp),%rbx
+-      9d:	48 89 ea             	mov    %rbp,%rdx
+-      a0:	be 00 01 00 00       	mov    $0x100,%esi
+-      a5:	48 89 df             	mov    %rbx,%rdi
+-      a8:	e8 00 00 00 00       	call   ad <access_log::get_disk_usage(int)+0x7d>
++  95:	48 89 c5             	mov    %rax,%rbp
++  98:	48 8d 5c 24 40       	lea    0x40(%rsp),%rbx
++  9d:	48 89 ea             	mov    %rbp,%rdx
++  a0:	be 00 01 00 00       	mov    $0x100,%esi
++  a5:	48 89 df             	mov    %rbx,%rdi
++  a8:	e8 00 00 00 00       	call   ad <access_log::get_disk_usage(int)+0x7d>
+ 			a9: R_X86_64_PLT32	fgets-0x4
+-      ad:	48 85 c0             	test   %rax,%rax
+-      b0:	0f 84 ea 00 00 00    	je     1a0 <access_log::get_disk_usage(int)+0x170>
+-      b6:	81 3b 72 63 68 61    	cmpl   $0x61686372,(%rbx)
+-      bc:	74 5a                	je     118 <access_log::get_disk_usage(int)+0xe8>
+-      be:	81 3b 77 63 68 61    	cmpl   $0x61686377,(%rbx)
+-      c4:	74 7a                	je     140 <access_log::get_disk_usage(int)+0x110>
+-      c6:	81 3b 73 79 73 63    	cmpl   $0x63737973,(%rbx)
+-      cc:	0f 84 9e 00 00 00    	je     170 <access_log::get_disk_usage(int)+0x140>
+-      d2:	81 3b 73 79 73 63    	cmpl   $0x63737973,(%rbx)
+-      d8:	0f 84 e2 00 00 00    	je     1c0 <access_log::get_disk_usage(int)+0x190>
+-      de:	81 3b 72 65 61 64    	cmpl   $0x64616572,(%rbx)
+-      e4:	0f 84 06 01 00 00    	je     1f0 <access_log::get_disk_usage(int)+0x1c0>
+-      ea:	81 3b 77 72 69 74    	cmpl   $0x74697277,(%rbx)
+-      f0:	75 ab                	jne    9d <access_log::get_disk_usage(int)+0x6d>
+-      f2:	66 81 7b 04 65 5f    	cmpw   $0x5f65,0x4(%rbx)
+-      f8:	75 a3                	jne    9d <access_log::get_disk_usage(int)+0x6d>
+-      fa:	49 8d 94 24 b8 00 00 	lea    0xb8(%r12),%rdx
+-     101:	00 
+-     102:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 109 <access_log::get_disk_usage(int)+0xd9>
++  ad:	48 85 c0             	test   %rax,%rax
++  b0:	0f 84 ea 00 00 00    	je     1a0 <access_log::get_disk_usage(int)+0x170>
++  b6:	81 3b 72 63 68 61    	cmpl   $0x61686372,(%rbx)
++  bc:	74 5a                	je     118 <access_log::get_disk_usage(int)+0xe8>
++  be:	81 3b 77 63 68 61    	cmpl   $0x61686377,(%rbx)
++  c4:	74 7a                	je     140 <access_log::get_disk_usage(int)+0x110>
++  c6:	81 3b 73 79 73 63    	cmpl   $0x63737973,(%rbx)
++  cc:	0f 84 9e 00 00 00    	je     170 <access_log::get_disk_usage(int)+0x140>
++  d2:	81 3b 73 79 73 63    	cmpl   $0x63737973,(%rbx)
++  d8:	0f 84 e2 00 00 00    	je     1c0 <access_log::get_disk_usage(int)+0x190>
++  de:	81 3b 72 65 61 64    	cmpl   $0x64616572,(%rbx)
++  e4:	0f 84 06 01 00 00    	je     1f0 <access_log::get_disk_usage(int)+0x1c0>
++  ea:	81 3b 77 72 69 74    	cmpl   $0x74697277,(%rbx)
++  f0:	75 ab                	jne    9d <access_log::get_disk_usage(int)+0x6d>
++  f2:	66 81 7b 04 65 5f    	cmpw   $0x5f65,0x4(%rbx)
++  f8:	75 a3                	jne    9d <access_log::get_disk_usage(int)+0x6d>
++  fa:	49 8d 94 24 b8 00 00 	lea    0xb8(%r12),%rdx
++ 101:	00 
++ 102:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 109 <access_log::get_disk_usage(int)+0xd9>
+ 			105: R_X86_64_PC32	.LC15-0x4
+-     109:	48 89 df             	mov    %rbx,%rdi
+-     10c:	31 c0                	xor    %eax,%eax
+-     10e:	e8 00 00 00 00       	call   113 <access_log::get_disk_usage(int)+0xe3>
++ 109:	48 89 df             	mov    %rbx,%rdi
++ 10c:	31 c0                	xor    %eax,%eax
++ 10e:	e8 00 00 00 00       	call   113 <access_log::get_disk_usage(int)+0xe3>
+ 			10f: R_X86_64_PLT32	__isoc23_sscanf-0x4
+-     113:	eb 88                	jmp    9d <access_log::get_disk_usage(int)+0x6d>
+-     115:	0f 1f 00             	nopl   (%rax)
+-     118:	66 81 7b 04 72 3a    	cmpw   $0x3a72,0x4(%rbx)
+-     11e:	75 9e                	jne    be <access_log::get_disk_usage(int)+0x8e>
+-     120:	49 8d 94 24 90 00 00 	lea    0x90(%r12),%rdx
+-     127:	00 
+-     128:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 12f <access_log::get_disk_usage(int)+0xff>
++ 113:	eb 88                	jmp    9d <access_log::get_disk_usage(int)+0x6d>
++ 115:	0f 1f 00             	nopl   (%rax)
++ 118:	66 81 7b 04 72 3a    	cmpw   $0x3a72,0x4(%rbx)
++ 11e:	75 9e                	jne    be <access_log::get_disk_usage(int)+0x8e>
++ 120:	49 8d 94 24 90 00 00 	lea    0x90(%r12),%rdx
++ 127:	00 
++ 128:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 12f <access_log::get_disk_usage(int)+0xff>
+ 			12b: R_X86_64_PC32	.LC5-0x4
+-     12f:	48 89 df             	mov    %rbx,%rdi
+-     132:	31 c0                	xor    %eax,%eax
+-     134:	e8 00 00 00 00       	call   139 <access_log::get_disk_usage(int)+0x109>
++ 12f:	48 89 df             	mov    %rbx,%rdi
++ 132:	31 c0                	xor    %eax,%eax
++ 134:	e8 00 00 00 00       	call   139 <access_log::get_disk_usage(int)+0x109>
+ 			135: R_X86_64_PLT32	__isoc23_sscanf-0x4
+-     139:	e9 5f ff ff ff       	jmp    9d <access_log::get_disk_usage(int)+0x6d>
+-     13e:	66 90                	xchg   %ax,%ax
+-     140:	66 81 7b 04 72 3a    	cmpw   $0x3a72,0x4(%rbx)
+-     146:	0f 85 7a ff ff ff    	jne    c6 <access_log::get_disk_usage(int)+0x96>
+-     14c:	49 8d 94 24 98 00 00 	lea    0x98(%r12),%rdx
+-     153:	00 
+-     154:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 15b <access_log::get_disk_usage(int)+0x12b>
++ 139:	e9 5f ff ff ff       	jmp    9d <access_log::get_disk_usage(int)+0x6d>
++ 13e:	66 90                	xchg   %ax,%ax
++ 140:	66 81 7b 04 72 3a    	cmpw   $0x3a72,0x4(%rbx)
++ 146:	0f 85 7a ff ff ff    	jne    c6 <access_log::get_disk_usage(int)+0x96>
++ 14c:	49 8d 94 24 98 00 00 	lea    0x98(%r12),%rdx
++ 153:	00 
++ 154:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 15b <access_log::get_disk_usage(int)+0x12b>
+ 			157: R_X86_64_PC32	.LC7-0x4
+-     15b:	48 89 df             	mov    %rbx,%rdi
+-     15e:	31 c0                	xor    %eax,%eax
+-     160:	e8 00 00 00 00       	call   165 <access_log::get_disk_usage(int)+0x135>
++ 15b:	48 89 df             	mov    %rbx,%rdi
++ 15e:	31 c0                	xor    %eax,%eax
++ 160:	e8 00 00 00 00       	call   165 <access_log::get_disk_usage(int)+0x135>
+ 			161: R_X86_64_PLT32	__isoc23_sscanf-0x4
+-     165:	e9 33 ff ff ff       	jmp    9d <access_log::get_disk_usage(int)+0x6d>
+-     16a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-     170:	66 81 7b 04 72 3a    	cmpw   $0x3a72,0x4(%rbx)
+-     176:	0f 85 56 ff ff ff    	jne    d2 <access_log::get_disk_usage(int)+0xa2>
+-     17c:	49 8d 94 24 a0 00 00 	lea    0xa0(%r12),%rdx
+-     183:	00 
+-     184:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 18b <access_log::get_disk_usage(int)+0x15b>
++ 165:	e9 33 ff ff ff       	jmp    9d <access_log::get_disk_usage(int)+0x6d>
++ 16a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
++ 170:	66 81 7b 04 72 3a    	cmpw   $0x3a72,0x4(%rbx)
++ 176:	0f 85 56 ff ff ff    	jne    d2 <access_log::get_disk_usage(int)+0xa2>
++ 17c:	49 8d 94 24 a0 00 00 	lea    0xa0(%r12),%rdx
++ 183:	00 
++ 184:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 18b <access_log::get_disk_usage(int)+0x15b>
+ 			187: R_X86_64_PC32	.LC9-0x4
+-     18b:	48 89 df             	mov    %rbx,%rdi
+-     18e:	31 c0                	xor    %eax,%eax
+-     190:	e8 00 00 00 00       	call   195 <access_log::get_disk_usage(int)+0x165>
++ 18b:	48 89 df             	mov    %rbx,%rdi
++ 18e:	31 c0                	xor    %eax,%eax
++ 190:	e8 00 00 00 00       	call   195 <access_log::get_disk_usage(int)+0x165>
+ 			191: R_X86_64_PLT32	__isoc23_sscanf-0x4
+-     195:	e9 03 ff ff ff       	jmp    9d <access_log::get_disk_usage(int)+0x6d>
+-     19a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-     1a0:	48 89 ef             	mov    %rbp,%rdi
+-     1a3:	e8 00 00 00 00       	call   1a8 <access_log::get_disk_usage(int)+0x178>
++ 195:	e9 03 ff ff ff       	jmp    9d <access_log::get_disk_usage(int)+0x6d>
++ 19a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
++ 1a0:	48 89 ef             	mov    %rbp,%rdi
++ 1a3:	e8 00 00 00 00       	call   1a8 <access_log::get_disk_usage(int)+0x178>
+ 			1a4: R_X86_64_PLT32	fclose-0x4
+-     1a8:	31 c0                	xor    %eax,%eax
+-     1aa:	48 81 c4 40 01 00 00 	add    $0x140,%rsp
+-     1b1:	5b                   	pop    %rbx
+-     1b2:	5d                   	pop    %rbp
+-     1b3:	41 5c                	pop    %r12
+-     1b5:	c3                   	ret
+-     1b6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+-     1bd:	00 00 00 
+-     1c0:	66 81 7b 04 77 3a    	cmpw   $0x3a77,0x4(%rbx)
+-     1c6:	0f 85 12 ff ff ff    	jne    de <access_log::get_disk_usage(int)+0xae>
+-     1cc:	49 8d 94 24 a8 00 00 	lea    0xa8(%r12),%rdx
+-     1d3:	00 
+-     1d4:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 1db <access_log::get_disk_usage(int)+0x1ab>
++ 1a8:	31 c0                	xor    %eax,%eax
++ 1aa:	48 81 c4 40 01 00 00 	add    $0x140,%rsp
++ 1b1:	5b                   	pop    %rbx
++ 1b2:	5d                   	pop    %rbp
++ 1b3:	41 5c                	pop    %r12
++ 1b5:	c3                   	ret
++ 1b6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
++ 1bd:	00 00 00 
++ 1c0:	66 81 7b 04 77 3a    	cmpw   $0x3a77,0x4(%rbx)
++ 1c6:	0f 85 12 ff ff ff    	jne    de <access_log::get_disk_usage(int)+0xae>
++ 1cc:	49 8d 94 24 a8 00 00 	lea    0xa8(%r12),%rdx
++ 1d3:	00 
++ 1d4:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 1db <access_log::get_disk_usage(int)+0x1ab>
+ 			1d7: R_X86_64_PC32	.LC11-0x4
+-     1db:	48 89 df             	mov    %rbx,%rdi
+-     1de:	31 c0                	xor    %eax,%eax
+-     1e0:	e8 00 00 00 00       	call   1e5 <access_log::get_disk_usage(int)+0x1b5>
++ 1db:	48 89 df             	mov    %rbx,%rdi
++ 1de:	31 c0                	xor    %eax,%eax
++ 1e0:	e8 00 00 00 00       	call   1e5 <access_log::get_disk_usage(int)+0x1b5>
+ 			1e1: R_X86_64_PLT32	__isoc23_sscanf-0x4
+-     1e5:	e9 b3 fe ff ff       	jmp    9d <access_log::get_disk_usage(int)+0x6d>
+-     1ea:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-     1f0:	66 81 7b 04 5f 62    	cmpw   $0x625f,0x4(%rbx)
+-     1f6:	0f 85 ee fe ff ff    	jne    ea <access_log::get_disk_usage(int)+0xba>
+-     1fc:	49 8d 94 24 b0 00 00 	lea    0xb0(%r12),%rdx
+-     203:	00 
+-     204:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 20b <access_log::get_disk_usage(int)+0x1db>
++ 1e5:	e9 b3 fe ff ff       	jmp    9d <access_log::get_disk_usage(int)+0x6d>
++ 1ea:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
++ 1f0:	66 81 7b 04 5f 62    	cmpw   $0x625f,0x4(%rbx)
++ 1f6:	0f 85 ee fe ff ff    	jne    ea <access_log::get_disk_usage(int)+0xba>
++ 1fc:	49 8d 94 24 b0 00 00 	lea    0xb0(%r12),%rdx
++ 203:	00 
++ 204:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 20b <access_log::get_disk_usage(int)+0x1db>
+ 			207: R_X86_64_PC32	.LC13-0x4
+-     20b:	48 89 df             	mov    %rbx,%rdi
+-     20e:	31 c0                	xor    %eax,%eax
+-     210:	e8 00 00 00 00       	call   215 <access_log::get_disk_usage(int)+0x1e5>
++ 20b:	48 89 df             	mov    %rbx,%rdi
++ 20e:	31 c0                	xor    %eax,%eax
++ 210:	e8 00 00 00 00       	call   215 <access_log::get_disk_usage(int)+0x1e5>
+ 			211: R_X86_64_PLT32	__isoc23_sscanf-0x4
+-     215:	e9 83 fe ff ff       	jmp    9d <access_log::get_disk_usage(int)+0x6d>
+-     21a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
++ 215:	e9 83 fe ff ff       	jmp    9d <access_log::get_disk_usage(int)+0x6d>
++ 21a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+ 
+ 0000000000000220 <access_log::get_cpu_usage(int)>:
+-     220:	55                   	push   %rbp
+-     221:	89 f1                	mov    %esi,%ecx
+-     223:	31 c0                	xor    %eax,%eax
+-     225:	be 32 00 00 00       	mov    $0x32,%esi
+-     22a:	53                   	push   %rbx
+-     22b:	48 8d 15 00 00 00 00 	lea    0x0(%rip),%rdx        # 232 <access_log::get_cpu_usage(int)+0x12>
++ 220:	55                   	push   %rbp
++ 221:	89 f1                	mov    %esi,%ecx
++ 223:	31 c0                	xor    %eax,%eax
++ 225:	be 32 00 00 00       	mov    $0x32,%esi
++ 22a:	53                   	push   %rbx
++ 22b:	48 8d 15 00 00 00 00 	lea    0x0(%rip),%rdx        # 232 <access_log::get_cpu_usage(int)+0x12>
+ 			22e: R_X86_64_PC32	.LC17-0x4
+-     232:	48 89 fb             	mov    %rdi,%rbx
+-     235:	48 83 ec 58          	sub    $0x58,%rsp
+-     239:	f3 0f 6f 47 30       	movdqu 0x30(%rdi),%xmm0
+-     23e:	48 8d 6c 24 10       	lea    0x10(%rsp),%rbp
+-     243:	0f 11 07             	movups %xmm0,(%rdi)
+-     246:	f3 0f 6f 47 40       	movdqu 0x40(%rdi),%xmm0
+-     24b:	0f 11 47 10          	movups %xmm0,0x10(%rdi)
+-     24f:	f3 0f 6f 47 50       	movdqu 0x50(%rdi),%xmm0
+-     254:	0f 11 47 20          	movups %xmm0,0x20(%rdi)
+-     258:	48 89 ef             	mov    %rbp,%rdi
+-     25b:	e8 00 00 00 00       	call   260 <access_log::get_cpu_usage(int)+0x40>
++ 232:	48 89 fb             	mov    %rdi,%rbx
++ 235:	48 83 ec 58          	sub    $0x58,%rsp
++ 239:	f3 0f 6f 47 30       	movdqu 0x30(%rdi),%xmm0
++ 23e:	48 8d 6c 24 10       	lea    0x10(%rsp),%rbp
++ 243:	0f 11 07             	movups %xmm0,(%rdi)
++ 246:	f3 0f 6f 47 40       	movdqu 0x40(%rdi),%xmm0
++ 24b:	0f 11 47 10          	movups %xmm0,0x10(%rdi)
++ 24f:	f3 0f 6f 47 50       	movdqu 0x50(%rdi),%xmm0
++ 254:	0f 11 47 20          	movups %xmm0,0x20(%rdi)
++ 258:	48 89 ef             	mov    %rbp,%rdi
++ 25b:	e8 00 00 00 00       	call   260 <access_log::get_cpu_usage(int)+0x40>
+ 			25c: R_X86_64_PLT32	snprintf-0x4
+-     260:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 267 <access_log::get_cpu_usage(int)+0x47>
++ 260:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 267 <access_log::get_cpu_usage(int)+0x47>
+ 			263: R_X86_64_PC32	.LC2-0x4
+-     267:	48 89 ef             	mov    %rbp,%rdi
+-     26a:	e8 00 00 00 00       	call   26f <access_log::get_cpu_usage(int)+0x4f>
++ 267:	48 89 ef             	mov    %rbp,%rdi
++ 26a:	e8 00 00 00 00       	call   26f <access_log::get_cpu_usage(int)+0x4f>
+ 			26b: R_X86_64_PLT32	fopen-0x4
+-     26f:	48 85 c0             	test   %rax,%rax
+-     272:	0f 84 00 00 00 00    	je     278 <access_log::get_cpu_usage(int)+0x58>
++ 26f:	48 85 c0             	test   %rax,%rax
++ 272:	0f 84 00 00 00 00    	je     278 <access_log::get_cpu_usage(int)+0x58>
+ 			274: R_X86_64_PC32	.text.unlikely+0x10
+-     278:	48 8d 53 30          	lea    0x30(%rbx),%rdx
+-     27c:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-     280:	48 8d 4b 40          	lea    0x40(%rbx),%rcx
+-     284:	48 89 c5             	mov    %rax,%rbp
+-     287:	48 8d 44 24 08       	lea    0x8(%rsp),%rax
+-     28c:	0f 11 43 30          	movups %xmm0,0x30(%rbx)
+-     290:	48 89 ef             	mov    %rbp,%rdi
+-     293:	4c 8d 4b 48          	lea    0x48(%rbx),%r9
+-     297:	0f 11 42 10          	movups %xmm0,0x10(%rdx)
+-     29b:	4c 8d 43 38          	lea    0x38(%rbx),%r8
+-     29f:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 2a6 <access_log::get_cpu_usage(int)+0x86>
++ 278:	48 8d 53 30          	lea    0x30(%rbx),%rdx
++ 27c:	66 0f ef c0          	pxor   %xmm0,%xmm0
++ 280:	48 8d 4b 40          	lea    0x40(%rbx),%rcx
++ 284:	48 89 c5             	mov    %rax,%rbp
++ 287:	48 8d 44 24 08       	lea    0x8(%rsp),%rax
++ 28c:	0f 11 43 30          	movups %xmm0,0x30(%rbx)
++ 290:	48 89 ef             	mov    %rbp,%rdi
++ 293:	4c 8d 4b 48          	lea    0x48(%rbx),%r9
++ 297:	0f 11 42 10          	movups %xmm0,0x10(%rdx)
++ 29b:	4c 8d 43 38          	lea    0x38(%rbx),%r8
++ 29f:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 2a6 <access_log::get_cpu_usage(int)+0x86>
+ 			2a2: R_X86_64_PC32	.LC18-0x4
+-     2a6:	0f 11 42 20          	movups %xmm0,0x20(%rdx)
+-     2aa:	50                   	push   %rax
+-     2ab:	48 8d 43 50          	lea    0x50(%rbx),%rax
+-     2af:	50                   	push   %rax
+-     2b0:	31 c0                	xor    %eax,%eax
+-     2b2:	e8 00 00 00 00       	call   2b7 <access_log::get_cpu_usage(int)+0x97>
++ 2a6:	0f 11 42 20          	movups %xmm0,0x20(%rdx)
++ 2aa:	50                   	push   %rax
++ 2ab:	48 8d 43 50          	lea    0x50(%rbx),%rax
++ 2af:	50                   	push   %rax
++ 2b0:	31 c0                	xor    %eax,%eax
++ 2b2:	e8 00 00 00 00       	call   2b7 <access_log::get_cpu_usage(int)+0x97>
+ 			2b3: R_X86_64_PLT32	__isoc23_fscanf-0x4
+-     2b7:	5a                   	pop    %rdx
+-     2b8:	48 89 ef             	mov    %rbp,%rdi
+-     2bb:	59                   	pop    %rcx
+-     2bc:	83 f8 ff             	cmp    $0xffffffff,%eax
+-     2bf:	74 1f                	je     2e0 <access_log::get_cpu_usage(int)+0xc0>
+-     2c1:	e8 00 00 00 00       	call   2c6 <access_log::get_cpu_usage(int)+0xa6>
++ 2b7:	5a                   	pop    %rdx
++ 2b8:	48 89 ef             	mov    %rbp,%rdi
++ 2bb:	59                   	pop    %rcx
++ 2bc:	83 f8 ff             	cmp    $0xffffffff,%eax
++ 2bf:	74 1f                	je     2e0 <access_log::get_cpu_usage(int)+0xc0>
++ 2c1:	e8 00 00 00 00       	call   2c6 <access_log::get_cpu_usage(int)+0xa6>
+ 			2c2: R_X86_64_PLT32	fclose-0x4
+-     2c6:	e8 00 00 00 00       	call   2cb <access_log::get_cpu_usage(int)+0xab>
++ 2c6:	e8 00 00 00 00       	call   2cb <access_log::get_cpu_usage(int)+0xab>
+ 			2c7: R_X86_64_PLT32	getpagesize-0x4
+-     2cb:	48 98                	cltq
+-     2cd:	48 0f af 44 24 08    	imul   0x8(%rsp),%rax
+-     2d3:	48 89 43 58          	mov    %rax,0x58(%rbx)
+-     2d7:	31 c0                	xor    %eax,%eax
+-     2d9:	48 83 c4 58          	add    $0x58,%rsp
+-     2dd:	5b                   	pop    %rbx
+-     2de:	5d                   	pop    %rbp
+-     2df:	c3                   	ret
+-     2e0:	e8 00 00 00 00       	call   2e5 <access_log::get_cpu_usage(int)+0xc5>
++ 2cb:	48 98                	cltq
++ 2cd:	48 0f af 44 24 08    	imul   0x8(%rsp),%rax
++ 2d3:	48 89 43 58          	mov    %rax,0x58(%rbx)
++ 2d7:	31 c0                	xor    %eax,%eax
++ 2d9:	48 83 c4 58          	add    $0x58,%rsp
++ 2dd:	5b                   	pop    %rbx
++ 2de:	5d                   	pop    %rbp
++ 2df:	c3                   	ret
++ 2e0:	e8 00 00 00 00       	call   2e5 <access_log::get_cpu_usage(int)+0xc5>
+ 			2e1: R_X86_64_PLT32	fclose-0x4
+-     2e5:	83 c8 ff             	or     $0xffffffff,%eax
+-     2e8:	eb ef                	jmp    2d9 <access_log::get_cpu_usage(int)+0xb9>
+-     2ea:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
++ 2e5:	83 c8 ff             	or     $0xffffffff,%eax
++ 2e8:	eb ef                	jmp    2d9 <access_log::get_cpu_usage(int)+0xb9>
++ 2ea:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+ 
+ 00000000000002f0 <access_log::calc_cpu_usage_pct()>:
+-     2f0:	48 8b 47 40          	mov    0x40(%rdi),%rax
+-     2f4:	48 03 47 30          	add    0x30(%rdi),%rax
+-     2f8:	48 2b 07             	sub    (%rdi),%rax
+-     2fb:	48 2b 47 10          	sub    0x10(%rdi),%rax
+-     2ff:	78 0f                	js     310 <access_log::calc_cpu_usage_pct()+0x20>
+-     301:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-     305:	f3 48 0f 2a c0       	cvtsi2ss %rax,%xmm0
+-     30a:	c3                   	ret
+-     30b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+-     310:	48 89 c2             	mov    %rax,%rdx
+-     313:	83 e0 01             	and    $0x1,%eax
+-     316:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-     31a:	48 d1 ea             	shr    $1,%rdx
+-     31d:	48 09 c2             	or     %rax,%rdx
+-     320:	f3 48 0f 2a c2       	cvtsi2ss %rdx,%xmm0
+-     325:	f3 0f 58 c0          	addss  %xmm0,%xmm0
+-     329:	c3                   	ret
+-     32a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
++ 2f0:	48 8b 47 40          	mov    0x40(%rdi),%rax
++ 2f4:	48 03 47 30          	add    0x30(%rdi),%rax
++ 2f8:	48 2b 07             	sub    (%rdi),%rax
++ 2fb:	48 2b 47 10          	sub    0x10(%rdi),%rax
++ 2ff:	78 0f                	js     310 <access_log::calc_cpu_usage_pct()+0x20>
++ 301:	66 0f ef c0          	pxor   %xmm0,%xmm0
++ 305:	f3 48 0f 2a c0       	cvtsi2ss %rax,%xmm0
++ 30a:	c3                   	ret
++ 30b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
++ 310:	48 89 c2             	mov    %rax,%rdx
++ 313:	83 e0 01             	and    $0x1,%eax
++ 316:	66 0f ef c0          	pxor   %xmm0,%xmm0
++ 31a:	48 d1 ea             	shr    $1,%rdx
++ 31d:	48 09 c2             	or     %rax,%rdx
++ 320:	f3 48 0f 2a c2       	cvtsi2ss %rdx,%xmm0
++ 325:	f3 0f 58 c0          	addss  %xmm0,%xmm0
++ 329:	c3                   	ret
++ 32a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+ 
+ 0000000000000330 <access_log::update_proc_stats()>:
+-     330:	8b 35 00 00 00 00    	mov    0x0(%rip),%esi        # 336 <access_log::update_proc_stats()+0x6>
++ 330:	8b 35 00 00 00 00    	mov    0x0(%rip),%esi        # 336 <access_log::update_proc_stats()+0x6>
+ 			332: R_X86_64_PC32	.bss+0x4
+-     336:	53                   	push   %rbx
+-     337:	48 89 fb             	mov    %rdi,%rbx
+-     33a:	85 f6                	test   %esi,%esi
+-     33c:	74 6a                	je     3a8 <access_log::update_proc_stats()+0x78>
+-     33e:	f3 0f 6f 47 30       	movdqu 0x30(%rdi),%xmm0
+-     343:	0f 11 07             	movups %xmm0,(%rdi)
+-     346:	f3 0f 6f 47 40       	movdqu 0x40(%rdi),%xmm0
+-     34b:	0f 11 47 10          	movups %xmm0,0x10(%rdi)
+-     34f:	f3 0f 6f 47 50       	movdqu 0x50(%rdi),%xmm0
+-     354:	0f 11 47 20          	movups %xmm0,0x20(%rdi)
+-     358:	f3 0f 6f 87 90 00 00 	movdqu 0x90(%rdi),%xmm0
+-     35f:	00 
+-     360:	0f 11 47 60          	movups %xmm0,0x60(%rdi)
+-     364:	f3 0f 6f 87 a0 00 00 	movdqu 0xa0(%rdi),%xmm0
+-     36b:	00 
+-     36c:	0f 11 47 70          	movups %xmm0,0x70(%rdi)
+-     370:	f3 0f 6f 87 b0 00 00 	movdqu 0xb0(%rdi),%xmm0
+-     377:	00 
+-     378:	0f 11 87 80 00 00 00 	movups %xmm0,0x80(%rdi)
+-     37f:	48 89 df             	mov    %rbx,%rdi
+-     382:	e8 00 00 00 00       	call   387 <access_log::update_proc_stats()+0x57>
++ 336:	53                   	push   %rbx
++ 337:	48 89 fb             	mov    %rdi,%rbx
++ 33a:	85 f6                	test   %esi,%esi
++ 33c:	74 6a                	je     3a8 <access_log::update_proc_stats()+0x78>
++ 33e:	f3 0f 6f 47 30       	movdqu 0x30(%rdi),%xmm0
++ 343:	0f 11 07             	movups %xmm0,(%rdi)
++ 346:	f3 0f 6f 47 40       	movdqu 0x40(%rdi),%xmm0
++ 34b:	0f 11 47 10          	movups %xmm0,0x10(%rdi)
++ 34f:	f3 0f 6f 47 50       	movdqu 0x50(%rdi),%xmm0
++ 354:	0f 11 47 20          	movups %xmm0,0x20(%rdi)
++ 358:	f3 0f 6f 87 90 00 00 	movdqu 0x90(%rdi),%xmm0
++ 35f:	00 
++ 360:	0f 11 47 60          	movups %xmm0,0x60(%rdi)
++ 364:	f3 0f 6f 87 a0 00 00 	movdqu 0xa0(%rdi),%xmm0
++ 36b:	00 
++ 36c:	0f 11 47 70          	movups %xmm0,0x70(%rdi)
++ 370:	f3 0f 6f 87 b0 00 00 	movdqu 0xb0(%rdi),%xmm0
++ 377:	00 
++ 378:	0f 11 87 80 00 00 00 	movups %xmm0,0x80(%rdi)
++ 37f:	48 89 df             	mov    %rbx,%rdi
++ 382:	e8 00 00 00 00       	call   387 <access_log::update_proc_stats()+0x57>
+ 			383: R_X86_64_PLT32	access_log::get_cpu_usage(int)-0x4
+-     387:	83 f8 ff             	cmp    $0xffffffff,%eax
+-     38a:	74 36                	je     3c2 <access_log::update_proc_stats()+0x92>
+-     38c:	8b 35 00 00 00 00    	mov    0x0(%rip),%esi        # 392 <access_log::update_proc_stats()+0x62>
++ 387:	83 f8 ff             	cmp    $0xffffffff,%eax
++ 38a:	74 36                	je     3c2 <access_log::update_proc_stats()+0x92>
++ 38c:	8b 35 00 00 00 00    	mov    0x0(%rip),%esi        # 392 <access_log::update_proc_stats()+0x62>
+ 			38e: R_X86_64_PC32	.bss+0x4
+-     392:	48 89 df             	mov    %rbx,%rdi
+-     395:	e8 00 00 00 00       	call   39a <access_log::update_proc_stats()+0x6a>
++ 392:	48 89 df             	mov    %rbx,%rdi
++ 395:	e8 00 00 00 00       	call   39a <access_log::update_proc_stats()+0x6a>
+ 			396: R_X86_64_PLT32	access_log::get_disk_usage(int)-0x4
+-     39a:	83 f8 ff             	cmp    $0xffffffff,%eax
+-     39d:	74 31                	je     3d0 <access_log::update_proc_stats()+0xa0>
+-     39f:	5b                   	pop    %rbx
+-     3a0:	c3                   	ret
+-     3a1:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+-     3a8:	e8 00 00 00 00       	call   3ad <access_log::update_proc_stats()+0x7d>
++ 39a:	83 f8 ff             	cmp    $0xffffffff,%eax
++ 39d:	74 31                	je     3d0 <access_log::update_proc_stats()+0xa0>
++ 39f:	5b                   	pop    %rbx
++ 3a0:	c3                   	ret
++ 3a1:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
++ 3a8:	e8 00 00 00 00       	call   3ad <access_log::update_proc_stats()+0x7d>
+ 			3a9: R_X86_64_PLT32	getpid-0x4
+-     3ad:	48 89 df             	mov    %rbx,%rdi
+-     3b0:	89 c6                	mov    %eax,%esi
+-     3b2:	89 05 00 00 00 00    	mov    %eax,0x0(%rip)        # 3b8 <access_log::update_proc_stats()+0x88>
++ 3ad:	48 89 df             	mov    %rbx,%rdi
++ 3b0:	89 c6                	mov    %eax,%esi
++ 3b2:	89 05 00 00 00 00    	mov    %eax,0x0(%rip)        # 3b8 <access_log::update_proc_stats()+0x88>
+ 			3b4: R_X86_64_PC32	.bss+0x4
+-     3b8:	e8 00 00 00 00       	call   3bd <access_log::update_proc_stats()+0x8d>
++ 3b8:	e8 00 00 00 00       	call   3bd <access_log::update_proc_stats()+0x8d>
+ 			3b9: R_X86_64_PLT32	access_log::get_cpu_usage(int)-0x4
+-     3bd:	83 f8 ff             	cmp    $0xffffffff,%eax
+-     3c0:	75 ca                	jne    38c <access_log::update_proc_stats()+0x5c>
+-     3c2:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 3c9 <access_log::update_proc_stats()+0x99>
++ 3bd:	83 f8 ff             	cmp    $0xffffffff,%eax
++ 3c0:	75 ca                	jne    38c <access_log::update_proc_stats()+0x5c>
++ 3c2:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 3c9 <access_log::update_proc_stats()+0x99>
+ 			3c5: R_X86_64_PC32	.LC20-0x4
+-     3c9:	e8 00 00 00 00       	call   3ce <access_log::update_proc_stats()+0x9e>
++ 3c9:	e8 00 00 00 00       	call   3ce <access_log::update_proc_stats()+0x9e>
+ 			3ca: R_X86_64_PLT32	puts-0x4
+-     3ce:	eb bc                	jmp    38c <access_log::update_proc_stats()+0x5c>
+-     3d0:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 3d7 <access_log::update_proc_stats()+0xa7>
++ 3ce:	eb bc                	jmp    38c <access_log::update_proc_stats()+0x5c>
++ 3d0:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 3d7 <access_log::update_proc_stats()+0xa7>
+ 			3d3: R_X86_64_PC32	.LC20-0x4
+-     3d7:	5b                   	pop    %rbx
+-     3d8:	e9 00 00 00 00       	jmp    3dd <access_log::update_proc_stats()+0xad>
++ 3d7:	5b                   	pop    %rbx
++ 3d8:	e9 00 00 00 00       	jmp    3dd <access_log::update_proc_stats()+0xad>
+ 			3d9: R_X86_64_PLT32	puts-0x4
+-     3dd:	90                   	nop
+-     3de:	66 90                	xchg   %ax,%ax
+-
+-00000000000003e0 <access_log::print_row(std::ostream&, data_row*, bool)>:
+-     3e0:	41 57                	push   %r15
+-     3e2:	41 56                	push   %r14
+-     3e4:	49 89 d6             	mov    %rdx,%r14
+-     3e7:	41 55                	push   %r13
+-     3e9:	41 54                	push   %r12
+-     3eb:	41 89 cc             	mov    %ecx,%r12d
+-     3ee:	55                   	push   %rbp
+-     3ef:	53                   	push   %rbx
+-     3f0:	48 89 f3             	mov    %rsi,%rbx
+-     3f3:	48 83 ec 68          	sub    $0x68,%rsp
+-     3f7:	48 8b 06             	mov    (%rsi),%rax
+-     3fa:	48 8b 48 e8          	mov    -0x18(%rax),%rcx
+-     3fe:	48 01 f1             	add    %rsi,%rcx
+-     401:	48 89 c8             	mov    %rcx,%rax
+-     404:	8b 49 18             	mov    0x18(%rcx),%ecx
+-     407:	48 8b 50 08          	mov    0x8(%rax),%rdx
+-     40b:	48 c7 40 08 06 00 00 	movq   $0x6,0x8(%rax)
+-     412:	00 
+-     413:	89 4c 24 0c          	mov    %ecx,0xc(%rsp)
+-     417:	81 e1 fb fe ff ff    	and    $0xfffffefb,%ecx
+-     41d:	48 89 14 24          	mov    %rdx,(%rsp)
+-     421:	89 ca                	mov    %ecx,%edx
+-     423:	83 ca 04             	or     $0x4,%edx
+-     426:	89 50 18             	mov    %edx,0x18(%rax)
+-     429:	45 84 e4             	test   %r12b,%r12b
+-     42c:	0f 84 9e 14 00 00    	je     18d0 <access_log::print_row(std::ostream&, data_row*, bool)+0x14f0>
+-     432:	ba 04 00 00 00       	mov    $0x4,%edx
+-     437:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 43e <access_log::print_row(std::ostream&, data_row*, bool)+0x5e>
+-			43a: R_X86_64_PC32	.LC21-0x4
+-     43e:	48 89 df             	mov    %rbx,%rdi
+-     441:	e8 00 00 00 00       	call   446 <access_log::print_row(std::ostream&, data_row*, bool)+0x66>
+-			442: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     446:	48 8b 03             	mov    (%rbx),%rax
+-     449:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     44e:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     452:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     458:	0f 84 52 14 00 00    	je     18b0 <access_log::print_row(std::ostream&, data_row*, bool)+0x14d0>
+-     45e:	48 8d 6c 24 20       	lea    0x20(%rsp),%rbp
+-     463:	ba 01 00 00 00       	mov    $0x1,%edx
+-     468:	48 89 df             	mov    %rbx,%rdi
+-     46b:	48 89 ee             	mov    %rbp,%rsi
+-     46e:	e8 00 00 00 00       	call   473 <access_log::print_row(std::ostream&, data_row*, bool)+0x93>
+-			46f: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     473:	45 84 e4             	test   %r12b,%r12b
+-     476:	0f 84 1c 14 00 00    	je     1898 <access_log::print_row(std::ostream&, data_row*, bool)+0x14b8>
+-     47c:	ba 04 00 00 00       	mov    $0x4,%edx
+-     481:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 488 <access_log::print_row(std::ostream&, data_row*, bool)+0xa8>
+-			484: R_X86_64_PC32	.LC22-0x4
+-     488:	48 89 df             	mov    %rbx,%rdi
+-     48b:	e8 00 00 00 00       	call   490 <access_log::print_row(std::ostream&, data_row*, bool)+0xb0>
+-			48c: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     490:	48 8b 03             	mov    (%rbx),%rax
+-     493:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     498:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     49c:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     4a2:	0f 84 d8 13 00 00    	je     1880 <access_log::print_row(std::ostream&, data_row*, bool)+0x14a0>
+-     4a8:	ba 01 00 00 00       	mov    $0x1,%edx
+-     4ad:	48 89 ee             	mov    %rbp,%rsi
+-     4b0:	48 89 df             	mov    %rbx,%rdi
+-     4b3:	e8 00 00 00 00       	call   4b8 <access_log::print_row(std::ostream&, data_row*, bool)+0xd8>
+-			4b4: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     4b8:	45 84 e4             	test   %r12b,%r12b
+-     4bb:	0f 84 a7 13 00 00    	je     1868 <access_log::print_row(std::ostream&, data_row*, bool)+0x1488>
+-     4c1:	ba 04 00 00 00       	mov    $0x4,%edx
+-     4c6:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 4cd <access_log::print_row(std::ostream&, data_row*, bool)+0xed>
+-			4c9: R_X86_64_PC32	.LC23-0x4
+-     4cd:	48 89 df             	mov    %rbx,%rdi
+-     4d0:	e8 00 00 00 00       	call   4d5 <access_log::print_row(std::ostream&, data_row*, bool)+0xf5>
+-			4d1: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     4d5:	48 8b 03             	mov    (%rbx),%rax
+-     4d8:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     4dd:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     4e1:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     4e7:	0f 84 63 13 00 00    	je     1850 <access_log::print_row(std::ostream&, data_row*, bool)+0x1470>
+-     4ed:	ba 01 00 00 00       	mov    $0x1,%edx
+-     4f2:	48 89 ee             	mov    %rbp,%rsi
+-     4f5:	48 89 df             	mov    %rbx,%rdi
+-     4f8:	e8 00 00 00 00       	call   4fd <access_log::print_row(std::ostream&, data_row*, bool)+0x11d>
+-			4f9: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     4fd:	45 84 e4             	test   %r12b,%r12b
+-     500:	0f 84 32 13 00 00    	je     1838 <access_log::print_row(std::ostream&, data_row*, bool)+0x1458>
+-     506:	ba 05 00 00 00       	mov    $0x5,%edx
+-     50b:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 512 <access_log::print_row(std::ostream&, data_row*, bool)+0x132>
+-			50e: R_X86_64_PC32	.LC24-0x4
+-     512:	48 89 df             	mov    %rbx,%rdi
+-     515:	e8 00 00 00 00       	call   51a <access_log::print_row(std::ostream&, data_row*, bool)+0x13a>
+-			516: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     51a:	48 8b 03             	mov    (%rbx),%rax
+-     51d:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     522:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     526:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     52c:	0f 84 ee 12 00 00    	je     1820 <access_log::print_row(std::ostream&, data_row*, bool)+0x1440>
+-     532:	ba 01 00 00 00       	mov    $0x1,%edx
+-     537:	48 89 ee             	mov    %rbp,%rsi
+-     53a:	48 89 df             	mov    %rbx,%rdi
+-     53d:	e8 00 00 00 00       	call   542 <access_log::print_row(std::ostream&, data_row*, bool)+0x162>
+-			53e: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     542:	45 84 e4             	test   %r12b,%r12b
+-     545:	0f 84 bd 12 00 00    	je     1808 <access_log::print_row(std::ostream&, data_row*, bool)+0x1428>
+-     54b:	ba 05 00 00 00       	mov    $0x5,%edx
+-     550:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 557 <access_log::print_row(std::ostream&, data_row*, bool)+0x177>
+-			553: R_X86_64_PC32	.LC25-0x4
+-     557:	48 89 df             	mov    %rbx,%rdi
+-     55a:	e8 00 00 00 00       	call   55f <access_log::print_row(std::ostream&, data_row*, bool)+0x17f>
+-			55b: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     55f:	48 8b 03             	mov    (%rbx),%rax
+-     562:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     567:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     56b:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     571:	0f 84 79 12 00 00    	je     17f0 <access_log::print_row(std::ostream&, data_row*, bool)+0x1410>
+-     577:	ba 01 00 00 00       	mov    $0x1,%edx
+-     57c:	48 89 ee             	mov    %rbp,%rsi
+-     57f:	48 89 df             	mov    %rbx,%rdi
+-     582:	e8 00 00 00 00       	call   587 <access_log::print_row(std::ostream&, data_row*, bool)+0x1a7>
+-			583: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     587:	45 84 e4             	test   %r12b,%r12b
+-     58a:	0f 84 48 12 00 00    	je     17d8 <access_log::print_row(std::ostream&, data_row*, bool)+0x13f8>
+-     590:	ba 13 00 00 00       	mov    $0x13,%edx
+-     595:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 59c <access_log::print_row(std::ostream&, data_row*, bool)+0x1bc>
+-			598: R_X86_64_PC32	.LC26-0x4
+-     59c:	48 89 df             	mov    %rbx,%rdi
+-     59f:	e8 00 00 00 00       	call   5a4 <access_log::print_row(std::ostream&, data_row*, bool)+0x1c4>
+-			5a0: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     5a4:	48 8b 03             	mov    (%rbx),%rax
+-     5a7:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     5ac:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     5b0:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     5b6:	0f 84 04 12 00 00    	je     17c0 <access_log::print_row(std::ostream&, data_row*, bool)+0x13e0>
+-     5bc:	ba 01 00 00 00       	mov    $0x1,%edx
+-     5c1:	48 89 ee             	mov    %rbp,%rsi
+-     5c4:	48 89 df             	mov    %rbx,%rdi
+-     5c7:	e8 00 00 00 00       	call   5cc <access_log::print_row(std::ostream&, data_row*, bool)+0x1ec>
+-			5c8: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     5cc:	45 84 e4             	test   %r12b,%r12b
+-     5cf:	0f 84 d3 11 00 00    	je     17a8 <access_log::print_row(std::ostream&, data_row*, bool)+0x13c8>
+-     5d5:	ba 19 00 00 00       	mov    $0x19,%edx
+-     5da:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 5e1 <access_log::print_row(std::ostream&, data_row*, bool)+0x201>
+-			5dd: R_X86_64_PC32	.LC27-0x4
+-     5e1:	48 89 df             	mov    %rbx,%rdi
+-     5e4:	e8 00 00 00 00       	call   5e9 <access_log::print_row(std::ostream&, data_row*, bool)+0x209>
+-			5e5: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     5e9:	48 8b 03             	mov    (%rbx),%rax
+-     5ec:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     5f1:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     5f5:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     5fb:	0f 84 8f 11 00 00    	je     1790 <access_log::print_row(std::ostream&, data_row*, bool)+0x13b0>
+-     601:	ba 01 00 00 00       	mov    $0x1,%edx
+-     606:	48 89 ee             	mov    %rbp,%rsi
+-     609:	48 89 df             	mov    %rbx,%rdi
+-     60c:	e8 00 00 00 00       	call   611 <access_log::print_row(std::ostream&, data_row*, bool)+0x231>
+-			60d: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     611:	45 84 e4             	test   %r12b,%r12b
+-     614:	0f 84 5e 11 00 00    	je     1778 <access_log::print_row(std::ostream&, data_row*, bool)+0x1398>
+-     61a:	ba 06 00 00 00       	mov    $0x6,%edx
+-     61f:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 626 <access_log::print_row(std::ostream&, data_row*, bool)+0x246>
+-			622: R_X86_64_PC32	.LC28-0x4
+-     626:	48 89 df             	mov    %rbx,%rdi
+-     629:	e8 00 00 00 00       	call   62e <access_log::print_row(std::ostream&, data_row*, bool)+0x24e>
+-			62a: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     62e:	48 8b 03             	mov    (%rbx),%rax
+-     631:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     636:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     63a:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     640:	0f 84 1a 11 00 00    	je     1760 <access_log::print_row(std::ostream&, data_row*, bool)+0x1380>
+-     646:	ba 01 00 00 00       	mov    $0x1,%edx
+-     64b:	48 89 ee             	mov    %rbp,%rsi
+-     64e:	48 89 df             	mov    %rbx,%rdi
+-     651:	e8 00 00 00 00       	call   656 <access_log::print_row(std::ostream&, data_row*, bool)+0x276>
+-			652: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     656:	45 84 e4             	test   %r12b,%r12b
+-     659:	0f 84 e9 10 00 00    	je     1748 <access_log::print_row(std::ostream&, data_row*, bool)+0x1368>
+-     65f:	ba 08 00 00 00       	mov    $0x8,%edx
+-     664:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 66b <access_log::print_row(std::ostream&, data_row*, bool)+0x28b>
+-			667: R_X86_64_PC32	.LC29-0x4
+-     66b:	48 89 df             	mov    %rbx,%rdi
+-     66e:	e8 00 00 00 00       	call   673 <access_log::print_row(std::ostream&, data_row*, bool)+0x293>
+-			66f: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     673:	48 8b 03             	mov    (%rbx),%rax
+-     676:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     67b:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     67f:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     685:	0f 84 a5 10 00 00    	je     1730 <access_log::print_row(std::ostream&, data_row*, bool)+0x1350>
+-     68b:	ba 01 00 00 00       	mov    $0x1,%edx
+-     690:	48 89 ee             	mov    %rbp,%rsi
+-     693:	48 89 df             	mov    %rbx,%rdi
+-     696:	e8 00 00 00 00       	call   69b <access_log::print_row(std::ostream&, data_row*, bool)+0x2bb>
+-			697: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     69b:	45 84 e4             	test   %r12b,%r12b
+-     69e:	0f 84 74 10 00 00    	je     1718 <access_log::print_row(std::ostream&, data_row*, bool)+0x1338>
+-     6a4:	ba 08 00 00 00       	mov    $0x8,%edx
+-     6a9:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 6b0 <access_log::print_row(std::ostream&, data_row*, bool)+0x2d0>
+-			6ac: R_X86_64_PC32	.LC30-0x4
+-     6b0:	48 89 df             	mov    %rbx,%rdi
+-     6b3:	e8 00 00 00 00       	call   6b8 <access_log::print_row(std::ostream&, data_row*, bool)+0x2d8>
+-			6b4: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     6b8:	48 8b 03             	mov    (%rbx),%rax
+-     6bb:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     6c0:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     6c4:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     6ca:	0f 84 30 10 00 00    	je     1700 <access_log::print_row(std::ostream&, data_row*, bool)+0x1320>
+-     6d0:	ba 01 00 00 00       	mov    $0x1,%edx
+-     6d5:	48 89 ee             	mov    %rbp,%rsi
+-     6d8:	48 89 df             	mov    %rbx,%rdi
+-     6db:	e8 00 00 00 00       	call   6e0 <access_log::print_row(std::ostream&, data_row*, bool)+0x300>
+-			6dc: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     6e0:	45 84 e4             	test   %r12b,%r12b
+-     6e3:	0f 84 ff 0f 00 00    	je     16e8 <access_log::print_row(std::ostream&, data_row*, bool)+0x1308>
+-     6e9:	ba 06 00 00 00       	mov    $0x6,%edx
+-     6ee:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 6f5 <access_log::print_row(std::ostream&, data_row*, bool)+0x315>
+-			6f1: R_X86_64_PC32	.LC31-0x4
+-     6f5:	48 89 df             	mov    %rbx,%rdi
+-     6f8:	e8 00 00 00 00       	call   6fd <access_log::print_row(std::ostream&, data_row*, bool)+0x31d>
+-			6f9: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     6fd:	48 8b 03             	mov    (%rbx),%rax
+-     700:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     705:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     709:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     70f:	0f 84 bb 0f 00 00    	je     16d0 <access_log::print_row(std::ostream&, data_row*, bool)+0x12f0>
+-     715:	ba 01 00 00 00       	mov    $0x1,%edx
+-     71a:	48 89 ee             	mov    %rbp,%rsi
+-     71d:	48 89 df             	mov    %rbx,%rdi
+-     720:	e8 00 00 00 00       	call   725 <access_log::print_row(std::ostream&, data_row*, bool)+0x345>
+-			721: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     725:	45 84 e4             	test   %r12b,%r12b
+-     728:	0f 84 8a 0f 00 00    	je     16b8 <access_log::print_row(std::ostream&, data_row*, bool)+0x12d8>
+-     72e:	ba 08 00 00 00       	mov    $0x8,%edx
+-     733:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 73a <access_log::print_row(std::ostream&, data_row*, bool)+0x35a>
+-			736: R_X86_64_PC32	.LC32-0x4
+-     73a:	48 89 df             	mov    %rbx,%rdi
+-     73d:	e8 00 00 00 00       	call   742 <access_log::print_row(std::ostream&, data_row*, bool)+0x362>
+-			73e: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     742:	48 8b 03             	mov    (%rbx),%rax
+-     745:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     74a:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     74e:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     754:	0f 84 46 0f 00 00    	je     16a0 <access_log::print_row(std::ostream&, data_row*, bool)+0x12c0>
+-     75a:	ba 01 00 00 00       	mov    $0x1,%edx
+-     75f:	48 89 ee             	mov    %rbp,%rsi
+-     762:	48 89 df             	mov    %rbx,%rdi
+-     765:	e8 00 00 00 00       	call   76a <access_log::print_row(std::ostream&, data_row*, bool)+0x38a>
+-			766: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     76a:	45 84 e4             	test   %r12b,%r12b
+-     76d:	0f 84 15 0f 00 00    	je     1688 <access_log::print_row(std::ostream&, data_row*, bool)+0x12a8>
+-     773:	ba 08 00 00 00       	mov    $0x8,%edx
+-     778:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 77f <access_log::print_row(std::ostream&, data_row*, bool)+0x39f>
+-			77b: R_X86_64_PC32	.LC33-0x4
+-     77f:	48 89 df             	mov    %rbx,%rdi
+-     782:	e8 00 00 00 00       	call   787 <access_log::print_row(std::ostream&, data_row*, bool)+0x3a7>
+-			783: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     787:	48 8b 03             	mov    (%rbx),%rax
+-     78a:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     78f:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     793:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     799:	0f 84 d1 0e 00 00    	je     1670 <access_log::print_row(std::ostream&, data_row*, bool)+0x1290>
+-     79f:	ba 01 00 00 00       	mov    $0x1,%edx
+-     7a4:	48 89 ee             	mov    %rbp,%rsi
+-     7a7:	48 89 df             	mov    %rbx,%rdi
+-     7aa:	e8 00 00 00 00       	call   7af <access_log::print_row(std::ostream&, data_row*, bool)+0x3cf>
+-			7ab: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     7af:	45 84 e4             	test   %r12b,%r12b
+-     7b2:	0f 84 a0 0e 00 00    	je     1658 <access_log::print_row(std::ostream&, data_row*, bool)+0x1278>
+-     7b8:	ba 07 00 00 00       	mov    $0x7,%edx
+-     7bd:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 7c4 <access_log::print_row(std::ostream&, data_row*, bool)+0x3e4>
+-			7c0: R_X86_64_PC32	.LC34-0x4
+-     7c4:	48 89 df             	mov    %rbx,%rdi
+-     7c7:	e8 00 00 00 00       	call   7cc <access_log::print_row(std::ostream&, data_row*, bool)+0x3ec>
+-			7c8: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     7cc:	48 8b 03             	mov    (%rbx),%rax
+-     7cf:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     7d4:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     7d8:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     7de:	0f 84 5c 0e 00 00    	je     1640 <access_log::print_row(std::ostream&, data_row*, bool)+0x1260>
+-     7e4:	ba 01 00 00 00       	mov    $0x1,%edx
+-     7e9:	48 89 ee             	mov    %rbp,%rsi
+-     7ec:	48 89 df             	mov    %rbx,%rdi
+-     7ef:	e8 00 00 00 00       	call   7f4 <access_log::print_row(std::ostream&, data_row*, bool)+0x414>
+-			7f0: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     7f4:	45 84 e4             	test   %r12b,%r12b
+-     7f7:	0f 84 2b 0e 00 00    	je     1628 <access_log::print_row(std::ostream&, data_row*, bool)+0x1248>
+-     7fd:	ba 09 00 00 00       	mov    $0x9,%edx
+-     802:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 809 <access_log::print_row(std::ostream&, data_row*, bool)+0x429>
+-			805: R_X86_64_PC32	.LC35-0x4
+-     809:	48 89 df             	mov    %rbx,%rdi
+-     80c:	e8 00 00 00 00       	call   811 <access_log::print_row(std::ostream&, data_row*, bool)+0x431>
+-			80d: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     811:	48 8b 03             	mov    (%rbx),%rax
+-     814:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     819:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     81d:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     823:	0f 84 e7 0d 00 00    	je     1610 <access_log::print_row(std::ostream&, data_row*, bool)+0x1230>
+-     829:	ba 01 00 00 00       	mov    $0x1,%edx
+-     82e:	48 89 ee             	mov    %rbp,%rsi
+-     831:	48 89 df             	mov    %rbx,%rdi
+-     834:	e8 00 00 00 00       	call   839 <access_log::print_row(std::ostream&, data_row*, bool)+0x459>
+-			835: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     839:	45 84 e4             	test   %r12b,%r12b
+-     83c:	0f 84 b6 0d 00 00    	je     15f8 <access_log::print_row(std::ostream&, data_row*, bool)+0x1218>
+-     842:	ba 09 00 00 00       	mov    $0x9,%edx
+-     847:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 84e <access_log::print_row(std::ostream&, data_row*, bool)+0x46e>
+-			84a: R_X86_64_PC32	.LC36-0x4
+-     84e:	48 89 df             	mov    %rbx,%rdi
+-     851:	e8 00 00 00 00       	call   856 <access_log::print_row(std::ostream&, data_row*, bool)+0x476>
+-			852: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     856:	48 8b 03             	mov    (%rbx),%rax
+-     859:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     85e:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     862:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     868:	0f 84 72 0d 00 00    	je     15e0 <access_log::print_row(std::ostream&, data_row*, bool)+0x1200>
+-     86e:	ba 01 00 00 00       	mov    $0x1,%edx
+-     873:	48 89 ee             	mov    %rbp,%rsi
+-     876:	48 89 df             	mov    %rbx,%rdi
+-     879:	e8 00 00 00 00       	call   87e <access_log::print_row(std::ostream&, data_row*, bool)+0x49e>
+-			87a: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     87e:	45 84 e4             	test   %r12b,%r12b
+-     881:	0f 84 41 0d 00 00    	je     15c8 <access_log::print_row(std::ostream&, data_row*, bool)+0x11e8>
+-     887:	ba 08 00 00 00       	mov    $0x8,%edx
+-     88c:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 893 <access_log::print_row(std::ostream&, data_row*, bool)+0x4b3>
+-			88f: R_X86_64_PC32	.LC37-0x4
+-     893:	48 89 df             	mov    %rbx,%rdi
+-     896:	e8 00 00 00 00       	call   89b <access_log::print_row(std::ostream&, data_row*, bool)+0x4bb>
+-			897: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     89b:	48 8b 03             	mov    (%rbx),%rax
+-     89e:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     8a3:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     8a7:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     8ad:	0f 84 fd 0c 00 00    	je     15b0 <access_log::print_row(std::ostream&, data_row*, bool)+0x11d0>
+-     8b3:	ba 01 00 00 00       	mov    $0x1,%edx
+-     8b8:	48 89 ee             	mov    %rbp,%rsi
+-     8bb:	48 89 df             	mov    %rbx,%rdi
+-     8be:	e8 00 00 00 00       	call   8c3 <access_log::print_row(std::ostream&, data_row*, bool)+0x4e3>
+-			8bf: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     8c3:	45 84 e4             	test   %r12b,%r12b
+-     8c6:	0f 84 cc 0c 00 00    	je     1598 <access_log::print_row(std::ostream&, data_row*, bool)+0x11b8>
+-     8cc:	ba 0a 00 00 00       	mov    $0xa,%edx
+-     8d1:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 8d8 <access_log::print_row(std::ostream&, data_row*, bool)+0x4f8>
+-			8d4: R_X86_64_PC32	.LC38-0x4
+-     8d8:	48 89 df             	mov    %rbx,%rdi
+-     8db:	e8 00 00 00 00       	call   8e0 <access_log::print_row(std::ostream&, data_row*, bool)+0x500>
+-			8dc: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     8e0:	48 8b 03             	mov    (%rbx),%rax
+-     8e3:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     8e8:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     8ec:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     8f2:	0f 84 88 0c 00 00    	je     1580 <access_log::print_row(std::ostream&, data_row*, bool)+0x11a0>
+-     8f8:	ba 01 00 00 00       	mov    $0x1,%edx
+-     8fd:	48 89 ee             	mov    %rbp,%rsi
+-     900:	48 89 df             	mov    %rbx,%rdi
+-     903:	e8 00 00 00 00       	call   908 <access_log::print_row(std::ostream&, data_row*, bool)+0x528>
+-			904: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     908:	45 84 e4             	test   %r12b,%r12b
+-     90b:	0f 84 57 0c 00 00    	je     1568 <access_log::print_row(std::ostream&, data_row*, bool)+0x1188>
+-     911:	ba 0a 00 00 00       	mov    $0xa,%edx
+-     916:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 91d <access_log::print_row(std::ostream&, data_row*, bool)+0x53d>
+-			919: R_X86_64_PC32	.LC39-0x4
+-     91d:	48 89 df             	mov    %rbx,%rdi
+-     920:	e8 00 00 00 00       	call   925 <access_log::print_row(std::ostream&, data_row*, bool)+0x545>
+-			921: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     925:	48 8b 03             	mov    (%rbx),%rax
+-     928:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     92d:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     931:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     937:	0f 84 13 0c 00 00    	je     1550 <access_log::print_row(std::ostream&, data_row*, bool)+0x1170>
+-     93d:	ba 01 00 00 00       	mov    $0x1,%edx
+-     942:	48 89 ee             	mov    %rbp,%rsi
+-     945:	48 89 df             	mov    %rbx,%rdi
+-     948:	e8 00 00 00 00       	call   94d <access_log::print_row(std::ostream&, data_row*, bool)+0x56d>
+-			949: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     94d:	45 84 e4             	test   %r12b,%r12b
+-     950:	0f 84 e2 0b 00 00    	je     1538 <access_log::print_row(std::ostream&, data_row*, bool)+0x1158>
+-     956:	ba 17 00 00 00       	mov    $0x17,%edx
+-     95b:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 962 <access_log::print_row(std::ostream&, data_row*, bool)+0x582>
+-			95e: R_X86_64_PC32	.LC40-0x4
+-     962:	48 89 df             	mov    %rbx,%rdi
+-     965:	e8 00 00 00 00       	call   96a <access_log::print_row(std::ostream&, data_row*, bool)+0x58a>
+-			966: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     96a:	48 8b 03             	mov    (%rbx),%rax
+-     96d:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     972:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     976:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     97c:	0f 84 9e 0b 00 00    	je     1520 <access_log::print_row(std::ostream&, data_row*, bool)+0x1140>
+-     982:	ba 01 00 00 00       	mov    $0x1,%edx
+-     987:	48 89 ee             	mov    %rbp,%rsi
+-     98a:	48 89 df             	mov    %rbx,%rdi
+-     98d:	e8 00 00 00 00       	call   992 <access_log::print_row(std::ostream&, data_row*, bool)+0x5b2>
+-			98e: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     992:	45 84 e4             	test   %r12b,%r12b
+-     995:	0f 84 6d 0b 00 00    	je     1508 <access_log::print_row(std::ostream&, data_row*, bool)+0x1128>
+-     99b:	ba 04 00 00 00       	mov    $0x4,%edx
+-     9a0:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 9a7 <access_log::print_row(std::ostream&, data_row*, bool)+0x5c7>
+-			9a3: R_X86_64_PC32	.LC41-0x4
+-     9a7:	48 89 df             	mov    %rbx,%rdi
+-     9aa:	e8 00 00 00 00       	call   9af <access_log::print_row(std::ostream&, data_row*, bool)+0x5cf>
+-			9ab: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     9af:	48 8b 03             	mov    (%rbx),%rax
+-     9b2:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     9b7:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     9bb:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     9c1:	0f 84 29 0b 00 00    	je     14f0 <access_log::print_row(std::ostream&, data_row*, bool)+0x1110>
+-     9c7:	ba 01 00 00 00       	mov    $0x1,%edx
+-     9cc:	48 89 ee             	mov    %rbp,%rsi
+-     9cf:	48 89 df             	mov    %rbx,%rdi
+-     9d2:	e8 00 00 00 00       	call   9d7 <access_log::print_row(std::ostream&, data_row*, bool)+0x5f7>
+-			9d3: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     9d7:	45 84 e4             	test   %r12b,%r12b
+-     9da:	0f 84 f8 0a 00 00    	je     14d8 <access_log::print_row(std::ostream&, data_row*, bool)+0x10f8>
+-     9e0:	ba 0f 00 00 00       	mov    $0xf,%edx
+-     9e5:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 9ec <access_log::print_row(std::ostream&, data_row*, bool)+0x60c>
+-			9e8: R_X86_64_PC32	.LC42-0x4
+-     9ec:	48 89 df             	mov    %rbx,%rdi
+-     9ef:	e8 00 00 00 00       	call   9f4 <access_log::print_row(std::ostream&, data_row*, bool)+0x614>
+-			9f0: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     9f4:	48 8b 03             	mov    (%rbx),%rax
+-     9f7:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     9fc:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     a00:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     a06:	0f 84 b4 0a 00 00    	je     14c0 <access_log::print_row(std::ostream&, data_row*, bool)+0x10e0>
+-     a0c:	ba 01 00 00 00       	mov    $0x1,%edx
+-     a11:	48 89 ee             	mov    %rbp,%rsi
+-     a14:	48 89 df             	mov    %rbx,%rdi
+-     a17:	e8 00 00 00 00       	call   a1c <access_log::print_row(std::ostream&, data_row*, bool)+0x63c>
+-			a18: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     a1c:	45 84 e4             	test   %r12b,%r12b
+-     a1f:	0f 84 83 0a 00 00    	je     14a8 <access_log::print_row(std::ostream&, data_row*, bool)+0x10c8>
+-     a25:	ba 0a 00 00 00       	mov    $0xa,%edx
+-     a2a:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # a31 <access_log::print_row(std::ostream&, data_row*, bool)+0x651>
+-			a2d: R_X86_64_PC32	.LC43-0x4
+-     a31:	48 89 df             	mov    %rbx,%rdi
+-     a34:	e8 00 00 00 00       	call   a39 <access_log::print_row(std::ostream&, data_row*, bool)+0x659>
+-			a35: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     a39:	48 8b 03             	mov    (%rbx),%rax
+-     a3c:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     a41:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     a45:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     a4b:	0f 84 3f 0a 00 00    	je     1490 <access_log::print_row(std::ostream&, data_row*, bool)+0x10b0>
+-     a51:	ba 01 00 00 00       	mov    $0x1,%edx
+-     a56:	48 89 ee             	mov    %rbp,%rsi
+-     a59:	48 89 df             	mov    %rbx,%rdi
+-     a5c:	e8 00 00 00 00       	call   a61 <access_log::print_row(std::ostream&, data_row*, bool)+0x681>
+-			a5d: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     a61:	45 84 e4             	test   %r12b,%r12b
+-     a64:	0f 84 06 0a 00 00    	je     1470 <access_log::print_row(std::ostream&, data_row*, bool)+0x1090>
+-     a6a:	ba 0a 00 00 00       	mov    $0xa,%edx
+-     a6f:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # a76 <access_log::print_row(std::ostream&, data_row*, bool)+0x696>
+-			a72: R_X86_64_PC32	.LC44-0x4
+-     a76:	48 89 df             	mov    %rbx,%rdi
+-     a79:	e8 00 00 00 00       	call   a7e <access_log::print_row(std::ostream&, data_row*, bool)+0x69e>
+-			a7a: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     a7e:	48 8b 03             	mov    (%rbx),%rax
+-     a81:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     a86:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     a8a:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     a90:	0f 84 c2 09 00 00    	je     1458 <access_log::print_row(std::ostream&, data_row*, bool)+0x1078>
+-     a96:	ba 01 00 00 00       	mov    $0x1,%edx
+-     a9b:	48 89 ee             	mov    %rbp,%rsi
+-     a9e:	48 89 df             	mov    %rbx,%rdi
+-     aa1:	e8 00 00 00 00       	call   aa6 <access_log::print_row(std::ostream&, data_row*, bool)+0x6c6>
+-			aa2: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     aa6:	45 84 e4             	test   %r12b,%r12b
+-     aa9:	0f 84 b9 08 00 00    	je     1368 <access_log::print_row(std::ostream&, data_row*, bool)+0xf88>
+-     aaf:	ba 0b 00 00 00       	mov    $0xb,%edx
+-     ab4:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # abb <access_log::print_row(std::ostream&, data_row*, bool)+0x6db>
+-			ab7: R_X86_64_PC32	.LC45-0x4
+-     abb:	48 89 df             	mov    %rbx,%rdi
+-     abe:	e8 00 00 00 00       	call   ac3 <access_log::print_row(std::ostream&, data_row*, bool)+0x6e3>
+-			abf: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     ac3:	48 8b 03             	mov    (%rbx),%rax
+-     ac6:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     acb:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     acf:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     ad5:	0f 84 75 08 00 00    	je     1350 <access_log::print_row(std::ostream&, data_row*, bool)+0xf70>
+-     adb:	ba 01 00 00 00       	mov    $0x1,%edx
+-     ae0:	48 89 ee             	mov    %rbp,%rsi
+-     ae3:	48 89 df             	mov    %rbx,%rdi
+-     ae6:	e8 00 00 00 00       	call   aeb <access_log::print_row(std::ostream&, data_row*, bool)+0x70b>
+-			ae7: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     aeb:	45 84 e4             	test   %r12b,%r12b
+-     aee:	0f 84 44 08 00 00    	je     1338 <access_log::print_row(std::ostream&, data_row*, bool)+0xf58>
+-     af4:	ba 0c 00 00 00       	mov    $0xc,%edx
+-     af9:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # b00 <access_log::print_row(std::ostream&, data_row*, bool)+0x720>
+-			afc: R_X86_64_PC32	.LC46-0x4
+-     b00:	48 89 df             	mov    %rbx,%rdi
+-     b03:	e8 00 00 00 00       	call   b08 <access_log::print_row(std::ostream&, data_row*, bool)+0x728>
+-			b04: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     b08:	48 8b 03             	mov    (%rbx),%rax
+-     b0b:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     b10:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     b14:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     b1a:	0f 84 00 08 00 00    	je     1320 <access_log::print_row(std::ostream&, data_row*, bool)+0xf40>
+-     b20:	ba 01 00 00 00       	mov    $0x1,%edx
+-     b25:	48 89 ee             	mov    %rbp,%rsi
+-     b28:	48 89 df             	mov    %rbx,%rdi
+-     b2b:	e8 00 00 00 00       	call   b30 <access_log::print_row(std::ostream&, data_row*, bool)+0x750>
+-			b2c: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     b30:	45 84 e4             	test   %r12b,%r12b
+-     b33:	0f 85 77 06 00 00    	jne    11b0 <access_log::print_row(std::ostream&, data_row*, bool)+0xdd0>
+-     b39:	49 c7 c5 f9 ff ff ff 	mov    $0xfffffffffffffff9,%r13
+-     b40:	4c 8d 3d 00 00 00 00 	lea    0x0(%rip),%r15        # b47 <access_log::print_row(std::ostream&, data_row*, bool)+0x767>
+-			b43: R_X86_64_PC32	.LC48-0x4
+-     b47:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+-     b4e:	00 00 
+-     b50:	4c 8d 05 00 00 00 00 	lea    0x0(%rip),%r8        # b57 <access_log::print_row(std::ostream&, data_row*, bool)+0x777>
+-			b53: R_X86_64_PC32	.LC47-0x4
+-     b57:	44 89 e9             	mov    %r13d,%ecx
+-     b5a:	4c 89 fa             	mov    %r15,%rdx
+-     b5d:	48 89 ef             	mov    %rbp,%rdi
+-     b60:	be 40 00 00 00       	mov    $0x40,%esi
+-     b65:	31 c0                	xor    %eax,%eax
+-     b67:	e8 00 00 00 00       	call   b6c <access_log::print_row(std::ostream&, data_row*, bool)+0x78c>
+-			b68: R_X86_64_PLT32	snprintf-0x4
+-     b6c:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-     b70:	48 89 df             	mov    %rbx,%rdi
+-     b73:	f3 43 0f 5a 84 ae d8 	cvtss2sd 0xd8(%r14,%r13,4),%xmm0
+-     b7a:	00 00 00 
+-     b7d:	e8 00 00 00 00       	call   b82 <access_log::print_row(std::ostream&, data_row*, bool)+0x7a2>
+-			b7e: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-     b82:	48 8b 03             	mov    (%rbx),%rax
+-     b85:	c6 44 24 1f 2c       	movb   $0x2c,0x1f(%rsp)
+-     b8a:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     b8e:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     b94:	0f 85 66 04 00 00    	jne    1000 <access_log::print_row(std::ostream&, data_row*, bool)+0xc20>
+-     b9a:	be 2c 00 00 00       	mov    $0x2c,%esi
+-     b9f:	48 89 df             	mov    %rbx,%rdi
+-     ba2:	49 83 c5 01          	add    $0x1,%r13
+-     ba6:	e8 00 00 00 00       	call   bab <access_log::print_row(std::ostream&, data_row*, bool)+0x7cb>
+-			ba7: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-     bab:	49 83 fd 08          	cmp    $0x8,%r13
+-     baf:	75 9f                	jne    b50 <access_log::print_row(std::ostream&, data_row*, bool)+0x770>
+-     bb1:	49 c7 c5 f9 ff ff ff 	mov    $0xfffffffffffffff9,%r13
+-     bb8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+-     bbf:	00 
+-     bc0:	4c 8d 05 00 00 00 00 	lea    0x0(%rip),%r8        # bc7 <access_log::print_row(std::ostream&, data_row*, bool)+0x7e7>
+-			bc3: R_X86_64_PC32	.LC49-0x4
+-     bc7:	44 89 e9             	mov    %r13d,%ecx
+-     bca:	4c 89 fa             	mov    %r15,%rdx
+-     bcd:	48 89 ef             	mov    %rbp,%rdi
+-     bd0:	be 40 00 00 00       	mov    $0x40,%esi
+-     bd5:	31 c0                	xor    %eax,%eax
+-     bd7:	e8 00 00 00 00       	call   bdc <access_log::print_row(std::ostream&, data_row*, bool)+0x7fc>
+-			bd8: R_X86_64_PLT32	snprintf-0x4
+-     bdc:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-     be0:	48 89 df             	mov    %rbx,%rdi
+-     be3:	f3 43 0f 5a 84 ae 9c 	cvtss2sd 0x9c(%r14,%r13,4),%xmm0
+-     bea:	00 00 00 
+-     bed:	e8 00 00 00 00       	call   bf2 <access_log::print_row(std::ostream&, data_row*, bool)+0x812>
+-			bee: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-     bf2:	48 8b 03             	mov    (%rbx),%rax
+-     bf5:	c6 44 24 1f 2c       	movb   $0x2c,0x1f(%rsp)
+-     bfa:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     bfe:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     c04:	0f 85 ce 03 00 00    	jne    fd8 <access_log::print_row(std::ostream&, data_row*, bool)+0xbf8>
+-     c0a:	be 2c 00 00 00       	mov    $0x2c,%esi
+-     c0f:	48 89 df             	mov    %rbx,%rdi
+-     c12:	49 83 c5 01          	add    $0x1,%r13
+-     c16:	e8 00 00 00 00       	call   c1b <access_log::print_row(std::ostream&, data_row*, bool)+0x83b>
+-			c17: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-     c1b:	49 83 fd 08          	cmp    $0x8,%r13
+-     c1f:	75 9f                	jne    bc0 <access_log::print_row(std::ostream&, data_row*, bool)+0x7e0>
+-     c21:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-     c25:	48 89 df             	mov    %rbx,%rdi
+-     c28:	f3 41 0f 5a 86 f8 00 	cvtss2sd 0xf8(%r14),%xmm0
+-     c2f:	00 00 
+-     c31:	e8 00 00 00 00       	call   c36 <access_log::print_row(std::ostream&, data_row*, bool)+0x856>
+-			c32: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-     c36:	48 8b 03             	mov    (%rbx),%rax
+-     c39:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     c3e:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     c42:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     c48:	0f 84 ba 06 00 00    	je     1308 <access_log::print_row(std::ostream&, data_row*, bool)+0xf28>
+-     c4e:	ba 01 00 00 00       	mov    $0x1,%edx
+-     c53:	48 89 ee             	mov    %rbp,%rsi
+-     c56:	48 89 df             	mov    %rbx,%rdi
+-     c59:	e8 00 00 00 00       	call   c5e <access_log::print_row(std::ostream&, data_row*, bool)+0x87e>
+-			c5a: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     c5e:	45 84 e4             	test   %r12b,%r12b
+-     c61:	0f 84 89 06 00 00    	je     12f0 <access_log::print_row(std::ostream&, data_row*, bool)+0xf10>
+-     c67:	ba 0f 00 00 00       	mov    $0xf,%edx
+-     c6c:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # c73 <access_log::print_row(std::ostream&, data_row*, bool)+0x893>
+-			c6f: R_X86_64_PC32	.LC50-0x4
+-     c73:	48 89 df             	mov    %rbx,%rdi
+-     c76:	e8 00 00 00 00       	call   c7b <access_log::print_row(std::ostream&, data_row*, bool)+0x89b>
+-			c77: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     c7b:	48 8b 03             	mov    (%rbx),%rax
+-     c7e:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     c83:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     c87:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     c8d:	0f 84 ad 07 00 00    	je     1440 <access_log::print_row(std::ostream&, data_row*, bool)+0x1060>
+-     c93:	ba 01 00 00 00       	mov    $0x1,%edx
+-     c98:	48 89 ee             	mov    %rbp,%rsi
+-     c9b:	48 89 df             	mov    %rbx,%rdi
+-     c9e:	e8 00 00 00 00       	call   ca3 <access_log::print_row(std::ostream&, data_row*, bool)+0x8c3>
+-			c9f: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     ca3:	45 84 e4             	test   %r12b,%r12b
+-     ca6:	0f 84 74 07 00 00    	je     1420 <access_log::print_row(std::ostream&, data_row*, bool)+0x1040>
+-     cac:	ba 0b 00 00 00       	mov    $0xb,%edx
+-     cb1:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # cb8 <access_log::print_row(std::ostream&, data_row*, bool)+0x8d8>
+-			cb4: R_X86_64_PC32	.LC51-0x4
+-     cb8:	48 89 df             	mov    %rbx,%rdi
+-     cbb:	e8 00 00 00 00       	call   cc0 <access_log::print_row(std::ostream&, data_row*, bool)+0x8e0>
+-			cbc: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     cc0:	48 8b 03             	mov    (%rbx),%rax
+-     cc3:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     cc8:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     ccc:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     cd2:	0f 84 30 07 00 00    	je     1408 <access_log::print_row(std::ostream&, data_row*, bool)+0x1028>
+-     cd8:	ba 01 00 00 00       	mov    $0x1,%edx
+-     cdd:	48 89 ee             	mov    %rbp,%rsi
+-     ce0:	48 89 df             	mov    %rbx,%rdi
+-     ce3:	e8 00 00 00 00       	call   ce8 <access_log::print_row(std::ostream&, data_row*, bool)+0x908>
+-			ce4: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     ce8:	45 84 e4             	test   %r12b,%r12b
+-     ceb:	0f 84 f7 06 00 00    	je     13e8 <access_log::print_row(std::ostream&, data_row*, bool)+0x1008>
+-     cf1:	ba 0a 00 00 00       	mov    $0xa,%edx
+-     cf6:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # cfd <access_log::print_row(std::ostream&, data_row*, bool)+0x91d>
+-			cf9: R_X86_64_PC32	.LC52-0x4
+-     cfd:	48 89 df             	mov    %rbx,%rdi
+-     d00:	e8 00 00 00 00       	call   d05 <access_log::print_row(std::ostream&, data_row*, bool)+0x925>
+-			d01: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     d05:	48 8b 03             	mov    (%rbx),%rax
+-     d08:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     d0d:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     d11:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     d17:	0f 84 b3 06 00 00    	je     13d0 <access_log::print_row(std::ostream&, data_row*, bool)+0xff0>
+-     d1d:	ba 01 00 00 00       	mov    $0x1,%edx
+-     d22:	48 89 ee             	mov    %rbp,%rsi
+-     d25:	48 89 df             	mov    %rbx,%rdi
+-     d28:	e8 00 00 00 00       	call   d2d <access_log::print_row(std::ostream&, data_row*, bool)+0x94d>
+-			d29: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     d2d:	45 84 e4             	test   %r12b,%r12b
+-     d30:	0f 84 7a 06 00 00    	je     13b0 <access_log::print_row(std::ostream&, data_row*, bool)+0xfd0>
+-     d36:	ba 05 00 00 00       	mov    $0x5,%edx
+-     d3b:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # d42 <access_log::print_row(std::ostream&, data_row*, bool)+0x962>
+-			d3e: R_X86_64_PC32	.LC53-0x4
+-     d42:	48 89 df             	mov    %rbx,%rdi
+-     d45:	e8 00 00 00 00       	call   d4a <access_log::print_row(std::ostream&, data_row*, bool)+0x96a>
+-			d46: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     d4a:	48 8b 03             	mov    (%rbx),%rax
+-     d4d:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     d52:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     d56:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     d5c:	0f 84 36 06 00 00    	je     1398 <access_log::print_row(std::ostream&, data_row*, bool)+0xfb8>
+-     d62:	ba 01 00 00 00       	mov    $0x1,%edx
+-     d67:	48 89 ee             	mov    %rbp,%rsi
+-     d6a:	48 89 df             	mov    %rbx,%rdi
+-     d6d:	e8 00 00 00 00       	call   d72 <access_log::print_row(std::ostream&, data_row*, bool)+0x992>
+-			d6e: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     d72:	45 84 e4             	test   %r12b,%r12b
+-     d75:	0f 84 05 06 00 00    	je     1380 <access_log::print_row(std::ostream&, data_row*, bool)+0xfa0>
+-     d7b:	ba 07 00 00 00       	mov    $0x7,%edx
+-     d80:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # d87 <access_log::print_row(std::ostream&, data_row*, bool)+0x9a7>
+-			d83: R_X86_64_PC32	.LC54-0x4
+-     d87:	48 89 df             	mov    %rbx,%rdi
+-     d8a:	e8 00 00 00 00       	call   d8f <access_log::print_row(std::ostream&, data_row*, bool)+0x9af>
+-			d8b: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     d8f:	48 8b 03             	mov    (%rbx),%rax
+-     d92:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     d97:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     d9b:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     da1:	0f 84 d9 03 00 00    	je     1180 <access_log::print_row(std::ostream&, data_row*, bool)+0xda0>
+-     da7:	ba 01 00 00 00       	mov    $0x1,%edx
+-     dac:	48 89 ee             	mov    %rbp,%rsi
+-     daf:	48 89 df             	mov    %rbx,%rdi
+-     db2:	e8 00 00 00 00       	call   db7 <access_log::print_row(std::ostream&, data_row*, bool)+0x9d7>
+-			db3: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     db7:	45 84 e4             	test   %r12b,%r12b
+-     dba:	0f 84 a8 03 00 00    	je     1168 <access_log::print_row(std::ostream&, data_row*, bool)+0xd88>
+-     dc0:	ba 03 00 00 00       	mov    $0x3,%edx
+-     dc5:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # dcc <access_log::print_row(std::ostream&, data_row*, bool)+0x9ec>
+-			dc8: R_X86_64_PC32	.LC55-0x4
+-     dcc:	48 89 df             	mov    %rbx,%rdi
+-     dcf:	e8 00 00 00 00       	call   dd4 <access_log::print_row(std::ostream&, data_row*, bool)+0x9f4>
+-			dd0: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     dd4:	48 8b 03             	mov    (%rbx),%rax
+-     dd7:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     ddc:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     de0:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     de6:	0f 84 64 03 00 00    	je     1150 <access_log::print_row(std::ostream&, data_row*, bool)+0xd70>
+-     dec:	ba 01 00 00 00       	mov    $0x1,%edx
+-     df1:	48 89 ee             	mov    %rbp,%rsi
+-     df4:	48 89 df             	mov    %rbx,%rdi
+-     df7:	e8 00 00 00 00       	call   dfc <access_log::print_row(std::ostream&, data_row*, bool)+0xa1c>
+-			df8: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     dfc:	45 84 e4             	test   %r12b,%r12b
+-     dff:	0f 84 33 03 00 00    	je     1138 <access_log::print_row(std::ostream&, data_row*, bool)+0xd58>
+-     e05:	ba 0d 00 00 00       	mov    $0xd,%edx
+-     e0a:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # e11 <access_log::print_row(std::ostream&, data_row*, bool)+0xa31>
+-			e0d: R_X86_64_PC32	.LC56-0x4
+-     e11:	48 89 df             	mov    %rbx,%rdi
+-     e14:	e8 00 00 00 00       	call   e19 <access_log::print_row(std::ostream&, data_row*, bool)+0xa39>
+-			e15: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     e19:	48 8b 03             	mov    (%rbx),%rax
+-     e1c:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     e21:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     e25:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     e2b:	0f 84 ef 02 00 00    	je     1120 <access_log::print_row(std::ostream&, data_row*, bool)+0xd40>
+-     e31:	ba 01 00 00 00       	mov    $0x1,%edx
+-     e36:	48 89 ee             	mov    %rbp,%rsi
+-     e39:	48 89 df             	mov    %rbx,%rdi
+-     e3c:	e8 00 00 00 00       	call   e41 <access_log::print_row(std::ostream&, data_row*, bool)+0xa61>
+-			e3d: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     e41:	45 84 e4             	test   %r12b,%r12b
+-     e44:	0f 84 be 02 00 00    	je     1108 <access_log::print_row(std::ostream&, data_row*, bool)+0xd28>
+-     e4a:	ba 0e 00 00 00       	mov    $0xe,%edx
+-     e4f:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # e56 <access_log::print_row(std::ostream&, data_row*, bool)+0xa76>
+-			e52: R_X86_64_PC32	.LC57-0x4
+-     e56:	48 89 df             	mov    %rbx,%rdi
+-     e59:	e8 00 00 00 00       	call   e5e <access_log::print_row(std::ostream&, data_row*, bool)+0xa7e>
+-			e5a: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     e5e:	48 8b 03             	mov    (%rbx),%rax
+-     e61:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     e66:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     e6a:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     e70:	0f 84 7a 02 00 00    	je     10f0 <access_log::print_row(std::ostream&, data_row*, bool)+0xd10>
+-     e76:	ba 01 00 00 00       	mov    $0x1,%edx
+-     e7b:	48 89 ee             	mov    %rbp,%rsi
+-     e7e:	48 89 df             	mov    %rbx,%rdi
+-     e81:	e8 00 00 00 00       	call   e86 <access_log::print_row(std::ostream&, data_row*, bool)+0xaa6>
+-			e82: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     e86:	45 84 e4             	test   %r12b,%r12b
+-     e89:	0f 84 41 02 00 00    	je     10d0 <access_log::print_row(std::ostream&, data_row*, bool)+0xcf0>
+-     e8f:	ba 14 00 00 00       	mov    $0x14,%edx
+-     e94:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # e9b <access_log::print_row(std::ostream&, data_row*, bool)+0xabb>
+-			e97: R_X86_64_PC32	.LC58-0x4
+-     e9b:	48 89 df             	mov    %rbx,%rdi
+-     e9e:	e8 00 00 00 00       	call   ea3 <access_log::print_row(std::ostream&, data_row*, bool)+0xac3>
+-			e9f: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     ea3:	48 8b 03             	mov    (%rbx),%rax
+-     ea6:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     eab:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     eaf:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     eb5:	0f 84 fd 01 00 00    	je     10b8 <access_log::print_row(std::ostream&, data_row*, bool)+0xcd8>
+-     ebb:	ba 01 00 00 00       	mov    $0x1,%edx
+-     ec0:	48 89 ee             	mov    %rbp,%rsi
+-     ec3:	48 89 df             	mov    %rbx,%rdi
+-     ec6:	e8 00 00 00 00       	call   ecb <access_log::print_row(std::ostream&, data_row*, bool)+0xaeb>
+-			ec7: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     ecb:	45 84 e4             	test   %r12b,%r12b
+-     ece:	0f 84 c4 01 00 00    	je     1098 <access_log::print_row(std::ostream&, data_row*, bool)+0xcb8>
+-     ed4:	ba 14 00 00 00       	mov    $0x14,%edx
+-     ed9:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # ee0 <access_log::print_row(std::ostream&, data_row*, bool)+0xb00>
+-			edc: R_X86_64_PC32	.LC59-0x4
+-     ee0:	48 89 df             	mov    %rbx,%rdi
+-     ee3:	e8 00 00 00 00       	call   ee8 <access_log::print_row(std::ostream&, data_row*, bool)+0xb08>
+-			ee4: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     ee8:	48 8b 03             	mov    (%rbx),%rax
+-     eeb:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     ef0:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     ef4:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     efa:	0f 84 80 01 00 00    	je     1080 <access_log::print_row(std::ostream&, data_row*, bool)+0xca0>
+-     f00:	ba 01 00 00 00       	mov    $0x1,%edx
+-     f05:	48 89 ee             	mov    %rbp,%rsi
+-     f08:	48 89 df             	mov    %rbx,%rdi
+-     f0b:	e8 00 00 00 00       	call   f10 <access_log::print_row(std::ostream&, data_row*, bool)+0xb30>
+-			f0c: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     f10:	45 84 e4             	test   %r12b,%r12b
+-     f13:	0f 84 47 01 00 00    	je     1060 <access_log::print_row(std::ostream&, data_row*, bool)+0xc80>
+-     f19:	ba 14 00 00 00       	mov    $0x14,%edx
+-     f1e:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # f25 <access_log::print_row(std::ostream&, data_row*, bool)+0xb45>
+-			f21: R_X86_64_PC32	.LC60-0x4
+-     f25:	48 89 df             	mov    %rbx,%rdi
+-     f28:	e8 00 00 00 00       	call   f2d <access_log::print_row(std::ostream&, data_row*, bool)+0xb4d>
+-			f29: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     f2d:	48 8b 03             	mov    (%rbx),%rax
+-     f30:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     f35:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     f39:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     f3f:	0f 84 03 01 00 00    	je     1048 <access_log::print_row(std::ostream&, data_row*, bool)+0xc68>
+-     f45:	ba 01 00 00 00       	mov    $0x1,%edx
+-     f4a:	48 89 ee             	mov    %rbp,%rsi
+-     f4d:	48 89 df             	mov    %rbx,%rdi
+-     f50:	e8 00 00 00 00       	call   f55 <access_log::print_row(std::ostream&, data_row*, bool)+0xb75>
+-			f51: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     f55:	45 84 e4             	test   %r12b,%r12b
+-     f58:	0f 84 ca 00 00 00    	je     1028 <access_log::print_row(std::ostream&, data_row*, bool)+0xc48>
+-     f5e:	ba 1f 00 00 00       	mov    $0x1f,%edx
+-     f63:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # f6a <access_log::print_row(std::ostream&, data_row*, bool)+0xb8a>
+-			f66: R_X86_64_PC32	.LC61-0x4
+-     f6a:	48 89 df             	mov    %rbx,%rdi
+-     f6d:	e8 00 00 00 00       	call   f72 <access_log::print_row(std::ostream&, data_row*, bool)+0xb92>
+-			f6e: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     f72:	48 8b 03             	mov    (%rbx),%rax
+-     f75:	c6 44 24 20 2c       	movb   $0x2c,0x20(%rsp)
+-     f7a:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-     f7e:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-     f84:	0f 84 0e 02 00 00    	je     1198 <access_log::print_row(std::ostream&, data_row*, bool)+0xdb8>
+-     f8a:	ba 01 00 00 00       	mov    $0x1,%edx
+-     f8f:	48 89 ee             	mov    %rbp,%rsi
+-     f92:	48 89 df             	mov    %rbx,%rdi
+-     f95:	e8 00 00 00 00       	call   f9a <access_log::print_row(std::ostream&, data_row*, bool)+0xbba>
+-			f96: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     f9a:	48 89 df             	mov    %rbx,%rdi
+-     f9d:	ba 01 00 00 00       	mov    $0x1,%edx
+-     fa2:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # fa9 <access_log::print_row(std::ostream&, data_row*, bool)+0xbc9>
+-			fa5: R_X86_64_PC32	.LC62-0x4
+-     fa9:	e8 00 00 00 00       	call   fae <access_log::print_row(std::ostream&, data_row*, bool)+0xbce>
+-			faa: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     fae:	48 8b 03             	mov    (%rbx),%rax
+-     fb1:	48 03 58 e8          	add    -0x18(%rax),%rbx
+-     fb5:	8b 44 24 0c          	mov    0xc(%rsp),%eax
+-     fb9:	89 43 18             	mov    %eax,0x18(%rbx)
+-     fbc:	48 8b 04 24          	mov    (%rsp),%rax
+-     fc0:	48 89 43 08          	mov    %rax,0x8(%rbx)
+-     fc4:	48 83 c4 68          	add    $0x68,%rsp
+-     fc8:	5b                   	pop    %rbx
+-     fc9:	5d                   	pop    %rbp
+-     fca:	41 5c                	pop    %r12
+-     fcc:	41 5d                	pop    %r13
+-     fce:	41 5e                	pop    %r14
+-     fd0:	41 5f                	pop    %r15
+-     fd2:	c3                   	ret
+-     fd3:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+-     fd8:	48 8d 74 24 1f       	lea    0x1f(%rsp),%rsi
+-     fdd:	ba 01 00 00 00       	mov    $0x1,%edx
+-     fe2:	48 89 df             	mov    %rbx,%rdi
+-     fe5:	49 83 c5 01          	add    $0x1,%r13
+-     fe9:	e8 00 00 00 00       	call   fee <access_log::print_row(std::ostream&, data_row*, bool)+0xc0e>
+-			fea: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-     fee:	49 83 fd 08          	cmp    $0x8,%r13
+-     ff2:	0f 85 c8 fb ff ff    	jne    bc0 <access_log::print_row(std::ostream&, data_row*, bool)+0x7e0>
+-     ff8:	e9 24 fc ff ff       	jmp    c21 <access_log::print_row(std::ostream&, data_row*, bool)+0x841>
+-     ffd:	0f 1f 00             	nopl   (%rax)
+-    1000:	48 8d 74 24 1f       	lea    0x1f(%rsp),%rsi
+-    1005:	ba 01 00 00 00       	mov    $0x1,%edx
+-    100a:	48 89 df             	mov    %rbx,%rdi
+-    100d:	49 83 c5 01          	add    $0x1,%r13
+-    1011:	e8 00 00 00 00       	call   1016 <access_log::print_row(std::ostream&, data_row*, bool)+0xc36>
+-			1012: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-    1016:	49 83 fd 08          	cmp    $0x8,%r13
+-    101a:	0f 85 30 fb ff ff    	jne    b50 <access_log::print_row(std::ostream&, data_row*, bool)+0x770>
+-    1020:	e9 8c fb ff ff       	jmp    bb1 <access_log::print_row(std::ostream&, data_row*, bool)+0x7d1>
+-    1025:	0f 1f 00             	nopl   (%rax)
+-    1028:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    102c:	48 89 df             	mov    %rbx,%rdi
+-    102f:	f3 41 0f 5a 86 24 01 	cvtss2sd 0x124(%r14),%xmm0
+-    1036:	00 00 
+-    1038:	e8 00 00 00 00       	call   103d <access_log::print_row(std::ostream&, data_row*, bool)+0xc5d>
+-			1039: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    103d:	e9 30 ff ff ff       	jmp    f72 <access_log::print_row(std::ostream&, data_row*, bool)+0xb92>
+-    1042:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1048:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    104d:	48 89 df             	mov    %rbx,%rdi
+-    1050:	e8 00 00 00 00       	call   1055 <access_log::print_row(std::ostream&, data_row*, bool)+0xc75>
+-			1051: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    1055:	e9 fb fe ff ff       	jmp    f55 <access_log::print_row(std::ostream&, data_row*, bool)+0xb75>
+-    105a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1060:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    1064:	48 89 df             	mov    %rbx,%rdi
+-    1067:	f3 41 0f 5a 86 38 01 	cvtss2sd 0x138(%r14),%xmm0
+-    106e:	00 00 
+-    1070:	e8 00 00 00 00       	call   1075 <access_log::print_row(std::ostream&, data_row*, bool)+0xc95>
+-			1071: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    1075:	e9 b3 fe ff ff       	jmp    f2d <access_log::print_row(std::ostream&, data_row*, bool)+0xb4d>
+-    107a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1080:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    1085:	48 89 df             	mov    %rbx,%rdi
+-    1088:	e8 00 00 00 00       	call   108d <access_log::print_row(std::ostream&, data_row*, bool)+0xcad>
+-			1089: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    108d:	e9 7e fe ff ff       	jmp    f10 <access_log::print_row(std::ostream&, data_row*, bool)+0xb30>
+-    1092:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1098:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    109c:	48 89 df             	mov    %rbx,%rdi
+-    109f:	f3 41 0f 5a 86 34 01 	cvtss2sd 0x134(%r14),%xmm0
+-    10a6:	00 00 
+-    10a8:	e8 00 00 00 00       	call   10ad <access_log::print_row(std::ostream&, data_row*, bool)+0xccd>
+-			10a9: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    10ad:	e9 36 fe ff ff       	jmp    ee8 <access_log::print_row(std::ostream&, data_row*, bool)+0xb08>
+-    10b2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    10b8:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    10bd:	48 89 df             	mov    %rbx,%rdi
+-    10c0:	e8 00 00 00 00       	call   10c5 <access_log::print_row(std::ostream&, data_row*, bool)+0xce5>
+-			10c1: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    10c5:	e9 01 fe ff ff       	jmp    ecb <access_log::print_row(std::ostream&, data_row*, bool)+0xaeb>
+-    10ca:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    10d0:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    10d4:	48 89 df             	mov    %rbx,%rdi
+-    10d7:	f3 41 0f 5a 86 30 01 	cvtss2sd 0x130(%r14),%xmm0
+-    10de:	00 00 
+-    10e0:	e8 00 00 00 00       	call   10e5 <access_log::print_row(std::ostream&, data_row*, bool)+0xd05>
+-			10e1: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    10e5:	e9 b9 fd ff ff       	jmp    ea3 <access_log::print_row(std::ostream&, data_row*, bool)+0xac3>
+-    10ea:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    10f0:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    10f5:	48 89 df             	mov    %rbx,%rdi
+-    10f8:	e8 00 00 00 00       	call   10fd <access_log::print_row(std::ostream&, data_row*, bool)+0xd1d>
+-			10f9: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    10fd:	e9 84 fd ff ff       	jmp    e86 <access_log::print_row(std::ostream&, data_row*, bool)+0xaa6>
+-    1102:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1108:	41 8b b6 20 01 00 00 	mov    0x120(%r14),%esi
+-    110f:	48 89 df             	mov    %rbx,%rdi
+-    1112:	e8 00 00 00 00       	call   1117 <access_log::print_row(std::ostream&, data_row*, bool)+0xd37>
+-			1113: R_X86_64_PLT32	std::ostream::operator<<(int)-0x4
+-    1117:	e9 42 fd ff ff       	jmp    e5e <access_log::print_row(std::ostream&, data_row*, bool)+0xa7e>
+-    111c:	0f 1f 40 00          	nopl   0x0(%rax)
+-    1120:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    1125:	48 89 df             	mov    %rbx,%rdi
+-    1128:	e8 00 00 00 00       	call   112d <access_log::print_row(std::ostream&, data_row*, bool)+0xd4d>
+-			1129: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    112d:	e9 0f fd ff ff       	jmp    e41 <access_log::print_row(std::ostream&, data_row*, bool)+0xa61>
+-    1132:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1138:	41 8b b6 1c 01 00 00 	mov    0x11c(%r14),%esi
+-    113f:	48 89 df             	mov    %rbx,%rdi
+-    1142:	e8 00 00 00 00       	call   1147 <access_log::print_row(std::ostream&, data_row*, bool)+0xd67>
+-			1143: R_X86_64_PLT32	std::ostream::operator<<(int)-0x4
+-    1147:	e9 cd fc ff ff       	jmp    e19 <access_log::print_row(std::ostream&, data_row*, bool)+0xa39>
+-    114c:	0f 1f 40 00          	nopl   0x0(%rax)
+-    1150:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    1155:	48 89 df             	mov    %rbx,%rdi
+-    1158:	e8 00 00 00 00       	call   115d <access_log::print_row(std::ostream&, data_row*, bool)+0xd7d>
+-			1159: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    115d:	e9 9a fc ff ff       	jmp    dfc <access_log::print_row(std::ostream&, data_row*, bool)+0xa1c>
+-    1162:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1168:	41 8b b6 18 01 00 00 	mov    0x118(%r14),%esi
+-    116f:	48 89 df             	mov    %rbx,%rdi
+-    1172:	e8 00 00 00 00       	call   1177 <access_log::print_row(std::ostream&, data_row*, bool)+0xd97>
+-			1173: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<unsigned long>(unsigned long)-0x4
+-    1177:	e9 58 fc ff ff       	jmp    dd4 <access_log::print_row(std::ostream&, data_row*, bool)+0x9f4>
+-    117c:	0f 1f 40 00          	nopl   0x0(%rax)
+-    1180:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    1185:	48 89 df             	mov    %rbx,%rdi
+-    1188:	e8 00 00 00 00       	call   118d <access_log::print_row(std::ostream&, data_row*, bool)+0xdad>
+-			1189: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    118d:	e9 25 fc ff ff       	jmp    db7 <access_log::print_row(std::ostream&, data_row*, bool)+0x9d7>
+-    1192:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1198:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    119d:	48 89 df             	mov    %rbx,%rdi
+-    11a0:	e8 00 00 00 00       	call   11a5 <access_log::print_row(std::ostream&, data_row*, bool)+0xdc5>
+-			11a1: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    11a5:	e9 f0 fd ff ff       	jmp    f9a <access_log::print_row(std::ostream&, data_row*, bool)+0xbba>
+-    11aa:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    11b0:	41 bd f9 ff ff ff    	mov    $0xfffffff9,%r13d
+-    11b6:	4c 8d 3d 00 00 00 00 	lea    0x0(%rip),%r15        # 11bd <access_log::print_row(std::ostream&, data_row*, bool)+0xddd>
+-			11b9: R_X86_64_PC32	.LC48-0x4
+-    11bd:	0f 1f 00             	nopl   (%rax)
+-    11c0:	4c 8d 05 00 00 00 00 	lea    0x0(%rip),%r8        # 11c7 <access_log::print_row(std::ostream&, data_row*, bool)+0xde7>
+-			11c3: R_X86_64_PC32	.LC47-0x4
+-    11c7:	44 89 e9             	mov    %r13d,%ecx
+-    11ca:	4c 89 fa             	mov    %r15,%rdx
+-    11cd:	48 89 ef             	mov    %rbp,%rdi
+-    11d0:	be 40 00 00 00       	mov    $0x40,%esi
+-    11d5:	31 c0                	xor    %eax,%eax
+-    11d7:	e8 00 00 00 00       	call   11dc <access_log::print_row(std::ostream&, data_row*, bool)+0xdfc>
+-			11d8: R_X86_64_PLT32	snprintf-0x4
+-    11dc:	48 89 ef             	mov    %rbp,%rdi
+-    11df:	e8 00 00 00 00       	call   11e4 <access_log::print_row(std::ostream&, data_row*, bool)+0xe04>
+-			11e0: R_X86_64_PLT32	strlen-0x4
+-    11e4:	48 89 ee             	mov    %rbp,%rsi
+-    11e7:	48 89 df             	mov    %rbx,%rdi
+-    11ea:	48 89 c2             	mov    %rax,%rdx
+-    11ed:	e8 00 00 00 00       	call   11f2 <access_log::print_row(std::ostream&, data_row*, bool)+0xe12>
+-			11ee: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-    11f2:	48 8b 03             	mov    (%rbx),%rax
+-    11f5:	c6 44 24 1f 2c       	movb   $0x2c,0x1f(%rsp)
+-    11fa:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-    11fe:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-    1204:	0f 84 c6 00 00 00    	je     12d0 <access_log::print_row(std::ostream&, data_row*, bool)+0xef0>
+-    120a:	48 8d 74 24 1f       	lea    0x1f(%rsp),%rsi
+-    120f:	ba 01 00 00 00       	mov    $0x1,%edx
+-    1214:	48 89 df             	mov    %rbx,%rdi
+-    1217:	41 83 c5 01          	add    $0x1,%r13d
+-    121b:	e8 00 00 00 00       	call   1220 <access_log::print_row(std::ostream&, data_row*, bool)+0xe40>
+-			121c: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-    1220:	41 83 fd 08          	cmp    $0x8,%r13d
+-    1224:	75 9a                	jne    11c0 <access_log::print_row(std::ostream&, data_row*, bool)+0xde0>
+-    1226:	41 bd f9 ff ff ff    	mov    $0xfffffff9,%r13d
+-    122c:	0f 1f 40 00          	nopl   0x0(%rax)
+-    1230:	4c 8d 05 00 00 00 00 	lea    0x0(%rip),%r8        # 1237 <access_log::print_row(std::ostream&, data_row*, bool)+0xe57>
+-			1233: R_X86_64_PC32	.LC49-0x4
+-    1237:	44 89 e9             	mov    %r13d,%ecx
+-    123a:	4c 89 fa             	mov    %r15,%rdx
+-    123d:	48 89 ef             	mov    %rbp,%rdi
+-    1240:	be 40 00 00 00       	mov    $0x40,%esi
+-    1245:	31 c0                	xor    %eax,%eax
+-    1247:	e8 00 00 00 00       	call   124c <access_log::print_row(std::ostream&, data_row*, bool)+0xe6c>
+-			1248: R_X86_64_PLT32	snprintf-0x4
+-    124c:	48 89 ef             	mov    %rbp,%rdi
+-    124f:	e8 00 00 00 00       	call   1254 <access_log::print_row(std::ostream&, data_row*, bool)+0xe74>
+-			1250: R_X86_64_PLT32	strlen-0x4
+-    1254:	48 89 ee             	mov    %rbp,%rsi
+-    1257:	48 89 df             	mov    %rbx,%rdi
+-    125a:	48 89 c2             	mov    %rax,%rdx
+-    125d:	e8 00 00 00 00       	call   1262 <access_log::print_row(std::ostream&, data_row*, bool)+0xe82>
+-			125e: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-    1262:	48 8b 03             	mov    (%rbx),%rax
+-    1265:	c6 44 24 1f 2c       	movb   $0x2c,0x1f(%rsp)
+-    126a:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-    126e:	48 83 7c 03 10 00    	cmpq   $0x0,0x10(%rbx,%rax,1)
+-    1274:	74 3a                	je     12b0 <access_log::print_row(std::ostream&, data_row*, bool)+0xed0>
+-    1276:	48 8d 74 24 1f       	lea    0x1f(%rsp),%rsi
+-    127b:	ba 01 00 00 00       	mov    $0x1,%edx
+-    1280:	48 89 df             	mov    %rbx,%rdi
+-    1283:	41 83 c5 01          	add    $0x1,%r13d
+-    1287:	e8 00 00 00 00       	call   128c <access_log::print_row(std::ostream&, data_row*, bool)+0xeac>
+-			1288: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-    128c:	41 83 fd 08          	cmp    $0x8,%r13d
+-    1290:	75 9e                	jne    1230 <access_log::print_row(std::ostream&, data_row*, bool)+0xe50>
+-    1292:	ba 0f 00 00 00       	mov    $0xf,%edx
+-    1297:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 129e <access_log::print_row(std::ostream&, data_row*, bool)+0xebe>
+-			129a: R_X86_64_PC32	.LC63-0x4
+-    129e:	48 89 df             	mov    %rbx,%rdi
+-    12a1:	e8 00 00 00 00       	call   12a6 <access_log::print_row(std::ostream&, data_row*, bool)+0xec6>
+-			12a2: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-    12a6:	e9 8b f9 ff ff       	jmp    c36 <access_log::print_row(std::ostream&, data_row*, bool)+0x856>
+-    12ab:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+-    12b0:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    12b5:	48 89 df             	mov    %rbx,%rdi
+-    12b8:	41 83 c5 01          	add    $0x1,%r13d
+-    12bc:	e8 00 00 00 00       	call   12c1 <access_log::print_row(std::ostream&, data_row*, bool)+0xee1>
+-			12bd: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    12c1:	41 83 fd 08          	cmp    $0x8,%r13d
+-    12c5:	0f 85 65 ff ff ff    	jne    1230 <access_log::print_row(std::ostream&, data_row*, bool)+0xe50>
+-    12cb:	eb c5                	jmp    1292 <access_log::print_row(std::ostream&, data_row*, bool)+0xeb2>
+-    12cd:	0f 1f 00             	nopl   (%rax)
+-    12d0:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    12d5:	48 89 df             	mov    %rbx,%rdi
+-    12d8:	41 83 c5 01          	add    $0x1,%r13d
+-    12dc:	e8 00 00 00 00       	call   12e1 <access_log::print_row(std::ostream&, data_row*, bool)+0xf01>
+-			12dd: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    12e1:	41 83 fd 08          	cmp    $0x8,%r13d
+-    12e5:	0f 85 d5 fe ff ff    	jne    11c0 <access_log::print_row(std::ostream&, data_row*, bool)+0xde0>
+-    12eb:	e9 36 ff ff ff       	jmp    1226 <access_log::print_row(std::ostream&, data_row*, bool)+0xe46>
+-    12f0:	49 8b b6 00 01 00 00 	mov    0x100(%r14),%rsi
+-    12f7:	48 89 df             	mov    %rbx,%rdi
+-    12fa:	e8 00 00 00 00       	call   12ff <access_log::print_row(std::ostream&, data_row*, bool)+0xf1f>
+-			12fb: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<unsigned long>(unsigned long)-0x4
+-    12ff:	e9 77 f9 ff ff       	jmp    c7b <access_log::print_row(std::ostream&, data_row*, bool)+0x89b>
+-    1304:	0f 1f 40 00          	nopl   0x0(%rax)
+-    1308:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    130d:	48 89 df             	mov    %rbx,%rdi
+-    1310:	e8 00 00 00 00       	call   1315 <access_log::print_row(std::ostream&, data_row*, bool)+0xf35>
+-			1311: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    1315:	e9 44 f9 ff ff       	jmp    c5e <access_log::print_row(std::ostream&, data_row*, bool)+0x87e>
+-    131a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1320:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    1325:	48 89 df             	mov    %rbx,%rdi
+-    1328:	e8 00 00 00 00       	call   132d <access_log::print_row(std::ostream&, data_row*, bool)+0xf4d>
+-			1329: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    132d:	e9 fe f7 ff ff       	jmp    b30 <access_log::print_row(std::ostream&, data_row*, bool)+0x750>
+-    1332:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1338:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    133c:	48 89 df             	mov    %rbx,%rdi
+-    133f:	f3 41 0f 5a 46 7c    	cvtss2sd 0x7c(%r14),%xmm0
+-    1345:	e8 00 00 00 00       	call   134a <access_log::print_row(std::ostream&, data_row*, bool)+0xf6a>
+-			1346: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    134a:	e9 b9 f7 ff ff       	jmp    b08 <access_log::print_row(std::ostream&, data_row*, bool)+0x728>
+-    134f:	90                   	nop
+-    1350:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    1355:	48 89 df             	mov    %rbx,%rdi
+-    1358:	e8 00 00 00 00       	call   135d <access_log::print_row(std::ostream&, data_row*, bool)+0xf7d>
+-			1359: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    135d:	e9 89 f7 ff ff       	jmp    aeb <access_log::print_row(std::ostream&, data_row*, bool)+0x70b>
+-    1362:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1368:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    136c:	48 89 df             	mov    %rbx,%rdi
+-    136f:	f3 41 0f 5a 46 78    	cvtss2sd 0x78(%r14),%xmm0
+-    1375:	e8 00 00 00 00       	call   137a <access_log::print_row(std::ostream&, data_row*, bool)+0xf9a>
+-			1376: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    137a:	e9 44 f7 ff ff       	jmp    ac3 <access_log::print_row(std::ostream&, data_row*, bool)+0x6e3>
+-    137f:	90                   	nop
+-    1380:	41 0f b6 b6 14 01 00 	movzbl 0x114(%r14),%esi
+-    1387:	00 
+-    1388:	48 89 df             	mov    %rbx,%rdi
+-    138b:	e8 00 00 00 00       	call   1390 <access_log::print_row(std::ostream&, data_row*, bool)+0xfb0>
+-			138c: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<bool>(bool)-0x4
+-    1390:	e9 fa f9 ff ff       	jmp    d8f <access_log::print_row(std::ostream&, data_row*, bool)+0x9af>
+-    1395:	0f 1f 00             	nopl   (%rax)
+-    1398:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    139d:	48 89 df             	mov    %rbx,%rdi
+-    13a0:	e8 00 00 00 00       	call   13a5 <access_log::print_row(std::ostream&, data_row*, bool)+0xfc5>
+-			13a1: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    13a5:	e9 c8 f9 ff ff       	jmp    d72 <access_log::print_row(std::ostream&, data_row*, bool)+0x992>
+-    13aa:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    13b0:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    13b4:	48 89 df             	mov    %rbx,%rdi
+-    13b7:	f3 41 0f 5a 86 10 01 	cvtss2sd 0x110(%r14),%xmm0
+-    13be:	00 00 
+-    13c0:	e8 00 00 00 00       	call   13c5 <access_log::print_row(std::ostream&, data_row*, bool)+0xfe5>
+-			13c1: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    13c5:	e9 80 f9 ff ff       	jmp    d4a <access_log::print_row(std::ostream&, data_row*, bool)+0x96a>
+-    13ca:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    13d0:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    13d5:	48 89 df             	mov    %rbx,%rdi
+-    13d8:	e8 00 00 00 00       	call   13dd <access_log::print_row(std::ostream&, data_row*, bool)+0xffd>
+-			13d9: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    13dd:	e9 4b f9 ff ff       	jmp    d2d <access_log::print_row(std::ostream&, data_row*, bool)+0x94d>
+-    13e2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    13e8:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    13ec:	48 89 df             	mov    %rbx,%rdi
+-    13ef:	f3 41 0f 5a 86 0c 01 	cvtss2sd 0x10c(%r14),%xmm0
+-    13f6:	00 00 
+-    13f8:	e8 00 00 00 00       	call   13fd <access_log::print_row(std::ostream&, data_row*, bool)+0x101d>
+-			13f9: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    13fd:	e9 03 f9 ff ff       	jmp    d05 <access_log::print_row(std::ostream&, data_row*, bool)+0x925>
+-    1402:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1408:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    140d:	48 89 df             	mov    %rbx,%rdi
+-    1410:	e8 00 00 00 00       	call   1415 <access_log::print_row(std::ostream&, data_row*, bool)+0x1035>
+-			1411: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    1415:	e9 ce f8 ff ff       	jmp    ce8 <access_log::print_row(std::ostream&, data_row*, bool)+0x908>
+-    141a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1420:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    1424:	48 89 df             	mov    %rbx,%rdi
+-    1427:	f3 41 0f 5a 86 08 01 	cvtss2sd 0x108(%r14),%xmm0
+-    142e:	00 00 
+-    1430:	e8 00 00 00 00       	call   1435 <access_log::print_row(std::ostream&, data_row*, bool)+0x1055>
+-			1431: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    1435:	e9 86 f8 ff ff       	jmp    cc0 <access_log::print_row(std::ostream&, data_row*, bool)+0x8e0>
+-    143a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1440:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    1445:	48 89 df             	mov    %rbx,%rdi
+-    1448:	e8 00 00 00 00       	call   144d <access_log::print_row(std::ostream&, data_row*, bool)+0x106d>
+-			1449: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    144d:	e9 51 f8 ff ff       	jmp    ca3 <access_log::print_row(std::ostream&, data_row*, bool)+0x8c3>
+-    1452:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1458:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    145d:	48 89 df             	mov    %rbx,%rdi
+-    1460:	e8 00 00 00 00       	call   1465 <access_log::print_row(std::ostream&, data_row*, bool)+0x1085>
+-			1461: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    1465:	e9 3c f6 ff ff       	jmp    aa6 <access_log::print_row(std::ostream&, data_row*, bool)+0x6c6>
+-    146a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1470:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    1474:	48 89 df             	mov    %rbx,%rdi
+-    1477:	f3 41 0f 5a 46 74    	cvtss2sd 0x74(%r14),%xmm0
+-    147d:	e8 00 00 00 00       	call   1482 <access_log::print_row(std::ostream&, data_row*, bool)+0x10a2>
+-			147e: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    1482:	e9 f7 f5 ff ff       	jmp    a7e <access_log::print_row(std::ostream&, data_row*, bool)+0x69e>
+-    1487:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+-    148e:	00 00 
+-    1490:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    1495:	48 89 df             	mov    %rbx,%rdi
+-    1498:	e8 00 00 00 00       	call   149d <access_log::print_row(std::ostream&, data_row*, bool)+0x10bd>
+-			1499: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    149d:	e9 bf f5 ff ff       	jmp    a61 <access_log::print_row(std::ostream&, data_row*, bool)+0x681>
+-    14a2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    14a8:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    14ac:	48 89 df             	mov    %rbx,%rdi
+-    14af:	f3 41 0f 5a 46 70    	cvtss2sd 0x70(%r14),%xmm0
+-    14b5:	e8 00 00 00 00       	call   14ba <access_log::print_row(std::ostream&, data_row*, bool)+0x10da>
+-			14b6: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    14ba:	e9 7a f5 ff ff       	jmp    a39 <access_log::print_row(std::ostream&, data_row*, bool)+0x659>
+-    14bf:	90                   	nop
+-    14c0:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    14c5:	48 89 df             	mov    %rbx,%rdi
+-    14c8:	e8 00 00 00 00       	call   14cd <access_log::print_row(std::ostream&, data_row*, bool)+0x10ed>
+-			14c9: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    14cd:	e9 4a f5 ff ff       	jmp    a1c <access_log::print_row(std::ostream&, data_row*, bool)+0x63c>
+-    14d2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    14d8:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    14dc:	48 89 df             	mov    %rbx,%rdi
+-    14df:	f3 41 0f 5a 46 6c    	cvtss2sd 0x6c(%r14),%xmm0
+-    14e5:	e8 00 00 00 00       	call   14ea <access_log::print_row(std::ostream&, data_row*, bool)+0x110a>
+-			14e6: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    14ea:	e9 05 f5 ff ff       	jmp    9f4 <access_log::print_row(std::ostream&, data_row*, bool)+0x614>
+-    14ef:	90                   	nop
+-    14f0:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    14f5:	48 89 df             	mov    %rbx,%rdi
+-    14f8:	e8 00 00 00 00       	call   14fd <access_log::print_row(std::ostream&, data_row*, bool)+0x111d>
+-			14f9: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    14fd:	e9 d5 f4 ff ff       	jmp    9d7 <access_log::print_row(std::ostream&, data_row*, bool)+0x5f7>
+-    1502:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1508:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    150c:	48 89 df             	mov    %rbx,%rdi
+-    150f:	f3 41 0f 5a 46 68    	cvtss2sd 0x68(%r14),%xmm0
+-    1515:	e8 00 00 00 00       	call   151a <access_log::print_row(std::ostream&, data_row*, bool)+0x113a>
+-			1516: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    151a:	e9 90 f4 ff ff       	jmp    9af <access_log::print_row(std::ostream&, data_row*, bool)+0x5cf>
+-    151f:	90                   	nop
+-    1520:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    1525:	48 89 df             	mov    %rbx,%rdi
+-    1528:	e8 00 00 00 00       	call   152d <access_log::print_row(std::ostream&, data_row*, bool)+0x114d>
+-			1529: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    152d:	e9 60 f4 ff ff       	jmp    992 <access_log::print_row(std::ostream&, data_row*, bool)+0x5b2>
+-    1532:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1538:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    153c:	48 89 df             	mov    %rbx,%rdi
+-    153f:	f3 41 0f 5a 46 60    	cvtss2sd 0x60(%r14),%xmm0
+-    1545:	e8 00 00 00 00       	call   154a <access_log::print_row(std::ostream&, data_row*, bool)+0x116a>
+-			1546: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    154a:	e9 1b f4 ff ff       	jmp    96a <access_log::print_row(std::ostream&, data_row*, bool)+0x58a>
+-    154f:	90                   	nop
+-    1550:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    1555:	48 89 df             	mov    %rbx,%rdi
+-    1558:	e8 00 00 00 00       	call   155d <access_log::print_row(std::ostream&, data_row*, bool)+0x117d>
+-			1559: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    155d:	e9 eb f3 ff ff       	jmp    94d <access_log::print_row(std::ostream&, data_row*, bool)+0x56d>
+-    1562:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1568:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    156c:	48 89 df             	mov    %rbx,%rdi
+-    156f:	f3 41 0f 5a 46 5c    	cvtss2sd 0x5c(%r14),%xmm0
+-    1575:	e8 00 00 00 00       	call   157a <access_log::print_row(std::ostream&, data_row*, bool)+0x119a>
+-			1576: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    157a:	e9 a6 f3 ff ff       	jmp    925 <access_log::print_row(std::ostream&, data_row*, bool)+0x545>
+-    157f:	90                   	nop
+-    1580:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    1585:	48 89 df             	mov    %rbx,%rdi
+-    1588:	e8 00 00 00 00       	call   158d <access_log::print_row(std::ostream&, data_row*, bool)+0x11ad>
+-			1589: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    158d:	e9 76 f3 ff ff       	jmp    908 <access_log::print_row(std::ostream&, data_row*, bool)+0x528>
+-    1592:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1598:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    159c:	48 89 df             	mov    %rbx,%rdi
+-    159f:	f3 41 0f 5a 46 58    	cvtss2sd 0x58(%r14),%xmm0
+-    15a5:	e8 00 00 00 00       	call   15aa <access_log::print_row(std::ostream&, data_row*, bool)+0x11ca>
+-			15a6: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    15aa:	e9 31 f3 ff ff       	jmp    8e0 <access_log::print_row(std::ostream&, data_row*, bool)+0x500>
+-    15af:	90                   	nop
+-    15b0:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    15b5:	48 89 df             	mov    %rbx,%rdi
+-    15b8:	e8 00 00 00 00       	call   15bd <access_log::print_row(std::ostream&, data_row*, bool)+0x11dd>
+-			15b9: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    15bd:	e9 01 f3 ff ff       	jmp    8c3 <access_log::print_row(std::ostream&, data_row*, bool)+0x4e3>
+-    15c2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    15c8:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    15cc:	48 89 df             	mov    %rbx,%rdi
+-    15cf:	f3 41 0f 5a 46 54    	cvtss2sd 0x54(%r14),%xmm0
+-    15d5:	e8 00 00 00 00       	call   15da <access_log::print_row(std::ostream&, data_row*, bool)+0x11fa>
+-			15d6: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    15da:	e9 bc f2 ff ff       	jmp    89b <access_log::print_row(std::ostream&, data_row*, bool)+0x4bb>
+-    15df:	90                   	nop
+-    15e0:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    15e5:	48 89 df             	mov    %rbx,%rdi
+-    15e8:	e8 00 00 00 00       	call   15ed <access_log::print_row(std::ostream&, data_row*, bool)+0x120d>
+-			15e9: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    15ed:	e9 8c f2 ff ff       	jmp    87e <access_log::print_row(std::ostream&, data_row*, bool)+0x49e>
+-    15f2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    15f8:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    15fc:	48 89 df             	mov    %rbx,%rdi
+-    15ff:	f3 41 0f 5a 46 50    	cvtss2sd 0x50(%r14),%xmm0
+-    1605:	e8 00 00 00 00       	call   160a <access_log::print_row(std::ostream&, data_row*, bool)+0x122a>
+-			1606: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    160a:	e9 47 f2 ff ff       	jmp    856 <access_log::print_row(std::ostream&, data_row*, bool)+0x476>
+-    160f:	90                   	nop
+-    1610:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    1615:	48 89 df             	mov    %rbx,%rdi
+-    1618:	e8 00 00 00 00       	call   161d <access_log::print_row(std::ostream&, data_row*, bool)+0x123d>
+-			1619: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    161d:	e9 17 f2 ff ff       	jmp    839 <access_log::print_row(std::ostream&, data_row*, bool)+0x459>
+-    1622:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1628:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    162c:	48 89 df             	mov    %rbx,%rdi
+-    162f:	f3 41 0f 5a 46 4c    	cvtss2sd 0x4c(%r14),%xmm0
+-    1635:	e8 00 00 00 00       	call   163a <access_log::print_row(std::ostream&, data_row*, bool)+0x125a>
+-			1636: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    163a:	e9 d2 f1 ff ff       	jmp    811 <access_log::print_row(std::ostream&, data_row*, bool)+0x431>
+-    163f:	90                   	nop
+-    1640:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    1645:	48 89 df             	mov    %rbx,%rdi
+-    1648:	e8 00 00 00 00       	call   164d <access_log::print_row(std::ostream&, data_row*, bool)+0x126d>
+-			1649: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    164d:	e9 a2 f1 ff ff       	jmp    7f4 <access_log::print_row(std::ostream&, data_row*, bool)+0x414>
+-    1652:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1658:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    165c:	48 89 df             	mov    %rbx,%rdi
+-    165f:	f3 41 0f 5a 46 48    	cvtss2sd 0x48(%r14),%xmm0
+-    1665:	e8 00 00 00 00       	call   166a <access_log::print_row(std::ostream&, data_row*, bool)+0x128a>
+-			1666: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    166a:	e9 5d f1 ff ff       	jmp    7cc <access_log::print_row(std::ostream&, data_row*, bool)+0x3ec>
+-    166f:	90                   	nop
+-    1670:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    1675:	48 89 df             	mov    %rbx,%rdi
+-    1678:	e8 00 00 00 00       	call   167d <access_log::print_row(std::ostream&, data_row*, bool)+0x129d>
+-			1679: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    167d:	e9 2d f1 ff ff       	jmp    7af <access_log::print_row(std::ostream&, data_row*, bool)+0x3cf>
+-    1682:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1688:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    168c:	48 89 df             	mov    %rbx,%rdi
+-    168f:	f3 41 0f 5a 46 44    	cvtss2sd 0x44(%r14),%xmm0
+-    1695:	e8 00 00 00 00       	call   169a <access_log::print_row(std::ostream&, data_row*, bool)+0x12ba>
+-			1696: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    169a:	e9 e8 f0 ff ff       	jmp    787 <access_log::print_row(std::ostream&, data_row*, bool)+0x3a7>
+-    169f:	90                   	nop
+-    16a0:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    16a5:	48 89 df             	mov    %rbx,%rdi
+-    16a8:	e8 00 00 00 00       	call   16ad <access_log::print_row(std::ostream&, data_row*, bool)+0x12cd>
+-			16a9: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    16ad:	e9 b8 f0 ff ff       	jmp    76a <access_log::print_row(std::ostream&, data_row*, bool)+0x38a>
+-    16b2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    16b8:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    16bc:	48 89 df             	mov    %rbx,%rdi
+-    16bf:	f3 41 0f 5a 46 40    	cvtss2sd 0x40(%r14),%xmm0
+-    16c5:	e8 00 00 00 00       	call   16ca <access_log::print_row(std::ostream&, data_row*, bool)+0x12ea>
+-			16c6: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    16ca:	e9 73 f0 ff ff       	jmp    742 <access_log::print_row(std::ostream&, data_row*, bool)+0x362>
+-    16cf:	90                   	nop
+-    16d0:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    16d5:	48 89 df             	mov    %rbx,%rdi
+-    16d8:	e8 00 00 00 00       	call   16dd <access_log::print_row(std::ostream&, data_row*, bool)+0x12fd>
+-			16d9: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    16dd:	e9 43 f0 ff ff       	jmp    725 <access_log::print_row(std::ostream&, data_row*, bool)+0x345>
+-    16e2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    16e8:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    16ec:	48 89 df             	mov    %rbx,%rdi
+-    16ef:	f3 41 0f 5a 46 3c    	cvtss2sd 0x3c(%r14),%xmm0
+-    16f5:	e8 00 00 00 00       	call   16fa <access_log::print_row(std::ostream&, data_row*, bool)+0x131a>
+-			16f6: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    16fa:	e9 fe ef ff ff       	jmp    6fd <access_log::print_row(std::ostream&, data_row*, bool)+0x31d>
+-    16ff:	90                   	nop
+-    1700:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    1705:	48 89 df             	mov    %rbx,%rdi
+-    1708:	e8 00 00 00 00       	call   170d <access_log::print_row(std::ostream&, data_row*, bool)+0x132d>
+-			1709: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    170d:	e9 ce ef ff ff       	jmp    6e0 <access_log::print_row(std::ostream&, data_row*, bool)+0x300>
+-    1712:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1718:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    171c:	48 89 df             	mov    %rbx,%rdi
+-    171f:	f3 41 0f 5a 46 38    	cvtss2sd 0x38(%r14),%xmm0
+-    1725:	e8 00 00 00 00       	call   172a <access_log::print_row(std::ostream&, data_row*, bool)+0x134a>
+-			1726: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    172a:	e9 89 ef ff ff       	jmp    6b8 <access_log::print_row(std::ostream&, data_row*, bool)+0x2d8>
+-    172f:	90                   	nop
+-    1730:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    1735:	48 89 df             	mov    %rbx,%rdi
+-    1738:	e8 00 00 00 00       	call   173d <access_log::print_row(std::ostream&, data_row*, bool)+0x135d>
+-			1739: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    173d:	e9 59 ef ff ff       	jmp    69b <access_log::print_row(std::ostream&, data_row*, bool)+0x2bb>
+-    1742:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1748:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    174c:	48 89 df             	mov    %rbx,%rdi
+-    174f:	f3 41 0f 5a 46 34    	cvtss2sd 0x34(%r14),%xmm0
+-    1755:	e8 00 00 00 00       	call   175a <access_log::print_row(std::ostream&, data_row*, bool)+0x137a>
+-			1756: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    175a:	e9 14 ef ff ff       	jmp    673 <access_log::print_row(std::ostream&, data_row*, bool)+0x293>
+-    175f:	90                   	nop
+-    1760:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    1765:	48 89 df             	mov    %rbx,%rdi
+-    1768:	e8 00 00 00 00       	call   176d <access_log::print_row(std::ostream&, data_row*, bool)+0x138d>
+-			1769: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    176d:	e9 e4 ee ff ff       	jmp    656 <access_log::print_row(std::ostream&, data_row*, bool)+0x276>
+-    1772:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1778:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    177c:	48 89 df             	mov    %rbx,%rdi
+-    177f:	f3 41 0f 5a 46 30    	cvtss2sd 0x30(%r14),%xmm0
+-    1785:	e8 00 00 00 00       	call   178a <access_log::print_row(std::ostream&, data_row*, bool)+0x13aa>
+-			1786: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    178a:	e9 9f ee ff ff       	jmp    62e <access_log::print_row(std::ostream&, data_row*, bool)+0x24e>
+-    178f:	90                   	nop
+-    1790:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    1795:	48 89 df             	mov    %rbx,%rdi
+-    1798:	e8 00 00 00 00       	call   179d <access_log::print_row(std::ostream&, data_row*, bool)+0x13bd>
+-			1799: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    179d:	e9 6f ee ff ff       	jmp    611 <access_log::print_row(std::ostream&, data_row*, bool)+0x231>
+-    17a2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    17a8:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    17ac:	48 89 df             	mov    %rbx,%rdi
+-    17af:	f3 41 0f 5a 46 2c    	cvtss2sd 0x2c(%r14),%xmm0
+-    17b5:	e8 00 00 00 00       	call   17ba <access_log::print_row(std::ostream&, data_row*, bool)+0x13da>
+-			17b6: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    17ba:	e9 2a ee ff ff       	jmp    5e9 <access_log::print_row(std::ostream&, data_row*, bool)+0x209>
+-    17bf:	90                   	nop
+-    17c0:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    17c5:	48 89 df             	mov    %rbx,%rdi
+-    17c8:	e8 00 00 00 00       	call   17cd <access_log::print_row(std::ostream&, data_row*, bool)+0x13ed>
+-			17c9: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    17cd:	e9 fa ed ff ff       	jmp    5cc <access_log::print_row(std::ostream&, data_row*, bool)+0x1ec>
+-    17d2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    17d8:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    17dc:	48 89 df             	mov    %rbx,%rdi
+-    17df:	f3 41 0f 5a 46 28    	cvtss2sd 0x28(%r14),%xmm0
+-    17e5:	e8 00 00 00 00       	call   17ea <access_log::print_row(std::ostream&, data_row*, bool)+0x140a>
+-			17e6: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<double>(double)-0x4
+-    17ea:	e9 b5 ed ff ff       	jmp    5a4 <access_log::print_row(std::ostream&, data_row*, bool)+0x1c4>
+-    17ef:	90                   	nop
+-    17f0:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    17f5:	48 89 df             	mov    %rbx,%rdi
+-    17f8:	e8 00 00 00 00       	call   17fd <access_log::print_row(std::ostream&, data_row*, bool)+0x141d>
+-			17f9: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    17fd:	e9 85 ed ff ff       	jmp    587 <access_log::print_row(std::ostream&, data_row*, bool)+0x1a7>
+-    1802:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1808:	49 8b 76 20          	mov    0x20(%r14),%rsi
+-    180c:	48 89 df             	mov    %rbx,%rdi
+-    180f:	e8 00 00 00 00       	call   1814 <access_log::print_row(std::ostream&, data_row*, bool)+0x1434>
+-			1810: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<unsigned long>(unsigned long)-0x4
+-    1814:	e9 46 ed ff ff       	jmp    55f <access_log::print_row(std::ostream&, data_row*, bool)+0x17f>
+-    1819:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+-    1820:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    1825:	48 89 df             	mov    %rbx,%rdi
+-    1828:	e8 00 00 00 00       	call   182d <access_log::print_row(std::ostream&, data_row*, bool)+0x144d>
+-			1829: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    182d:	e9 10 ed ff ff       	jmp    542 <access_log::print_row(std::ostream&, data_row*, bool)+0x162>
+-    1832:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1838:	49 8b 76 18          	mov    0x18(%r14),%rsi
+-    183c:	48 89 df             	mov    %rbx,%rdi
+-    183f:	e8 00 00 00 00       	call   1844 <access_log::print_row(std::ostream&, data_row*, bool)+0x1464>
+-			1840: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<unsigned long>(unsigned long)-0x4
+-    1844:	e9 d1 ec ff ff       	jmp    51a <access_log::print_row(std::ostream&, data_row*, bool)+0x13a>
+-    1849:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+-    1850:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    1855:	48 89 df             	mov    %rbx,%rdi
+-    1858:	e8 00 00 00 00       	call   185d <access_log::print_row(std::ostream&, data_row*, bool)+0x147d>
+-			1859: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    185d:	e9 9b ec ff ff       	jmp    4fd <access_log::print_row(std::ostream&, data_row*, bool)+0x11d>
+-    1862:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1868:	49 8b 76 10          	mov    0x10(%r14),%rsi
+-    186c:	48 89 df             	mov    %rbx,%rdi
+-    186f:	e8 00 00 00 00       	call   1874 <access_log::print_row(std::ostream&, data_row*, bool)+0x1494>
+-			1870: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<unsigned long>(unsigned long)-0x4
+-    1874:	e9 5c ec ff ff       	jmp    4d5 <access_log::print_row(std::ostream&, data_row*, bool)+0xf5>
+-    1879:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+-    1880:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    1885:	48 89 df             	mov    %rbx,%rdi
+-    1888:	e8 00 00 00 00       	call   188d <access_log::print_row(std::ostream&, data_row*, bool)+0x14ad>
+-			1889: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    188d:	e9 26 ec ff ff       	jmp    4b8 <access_log::print_row(std::ostream&, data_row*, bool)+0xd8>
+-    1892:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1898:	49 8b 76 08          	mov    0x8(%r14),%rsi
+-    189c:	48 89 df             	mov    %rbx,%rdi
+-    189f:	e8 00 00 00 00       	call   18a4 <access_log::print_row(std::ostream&, data_row*, bool)+0x14c4>
+-			18a0: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<unsigned long>(unsigned long)-0x4
+-    18a4:	e9 e7 eb ff ff       	jmp    490 <access_log::print_row(std::ostream&, data_row*, bool)+0xb0>
+-    18a9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+-    18b0:	be 2c 00 00 00       	mov    $0x2c,%esi
+-    18b5:	48 89 df             	mov    %rbx,%rdi
+-    18b8:	48 8d 6c 24 20       	lea    0x20(%rsp),%rbp
+-    18bd:	e8 00 00 00 00       	call   18c2 <access_log::print_row(std::ostream&, data_row*, bool)+0x14e2>
+-			18be: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    18c2:	e9 ac eb ff ff       	jmp    473 <access_log::print_row(std::ostream&, data_row*, bool)+0x93>
+-    18c7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+-    18ce:	00 00 
+-    18d0:	49 8b 36             	mov    (%r14),%rsi
+-    18d3:	48 89 df             	mov    %rbx,%rdi
+-    18d6:	e8 00 00 00 00       	call   18db <access_log::print_row(std::ostream&, data_row*, bool)+0x14fb>
+-			18d7: R_X86_64_PLT32	std::ostream& std::ostream::_M_insert<unsigned long>(unsigned long)-0x4
+-    18db:	e9 66 eb ff ff       	jmp    446 <access_log::print_row(std::ostream&, data_row*, bool)+0x66>
+-
+-00000000000018e0 <access_log::finalize_log()>:
+-    18e0:	48 8b 87 c0 00 00 00 	mov    0xc0(%rdi),%rax
+-    18e7:	48 85 c0             	test   %rax,%rax
+-    18ea:	0f 8e ff 00 00 00    	jle    19ef <access_log::finalize_log()+0x10f>
+-    18f0:	48 8b b7 c8 00 00 00 	mov    0xc8(%rdi),%rsi
+-    18f7:	ba 80 96 98 00       	mov    $0x989680,%edx
+-    18fc:	0f 28 1d 00 00 00 00 	movaps 0x0(%rip),%xmm3        # 1903 <access_log::finalize_log()+0x23>
+-			18ff: R_X86_64_PC32	.LC66-0x4
+-    1903:	f3 0f 10 15 00 00 00 	movss  0x0(%rip),%xmm2        # 190b <access_log::finalize_log()+0x2b>
+-    190a:	00 
+-			1907: R_X86_64_PC32	.LC65-0x4
+-    190b:	48 81 ee 20 01 00 00 	sub    $0x120,%rsi
+-    1912:	48 39 d0             	cmp    %rdx,%rax
+-    1915:	48 0f 4f c2          	cmovg  %rdx,%rax
+-    1919:	48 8d 14 80          	lea    (%rax,%rax,4),%rdx
+-    191d:	48 c1 e2 06          	shl    $0x6,%rdx
+-    1921:	48 01 f2             	add    %rsi,%rdx
+-    1924:	eb 2a                	jmp    1950 <access_log::finalize_log()+0x70>
+-    1926:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+-    192d:	00 00 00 00 
+-    1931:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+-    1938:	00 00 00 00 
+-    193c:	0f 1f 40 00          	nopl   0x0(%rax)
+-    1940:	48 81 ea 40 01 00 00 	sub    $0x140,%rdx
+-    1947:	48 39 f2             	cmp    %rsi,%rdx
+-    194a:	0f 84 9f 00 00 00    	je     19ef <access_log::finalize_log()+0x10f>
+-    1950:	48 8b 8a 08 01 00 00 	mov    0x108(%rdx),%rcx
+-    1957:	48 85 c9             	test   %rcx,%rcx
+-    195a:	74 e4                	je     1940 <access_log::finalize_log()+0x60>
+-    195c:	48 8b 02             	mov    (%rdx),%rax
+-    195f:	48 85 c0             	test   %rax,%rax
+-    1962:	0f 88 88 00 00 00    	js     19f0 <access_log::finalize_log()+0x110>
+-    1968:	66 0f ef e4          	pxor   %xmm4,%xmm4
+-    196c:	f3 48 0f 2a e0       	cvtsi2ss %rax,%xmm4
+-    1971:	f3 0f 7e 82 10 01 00 	movq   0x110(%rdx),%xmm0
+-    1978:	00 
+-    1979:	0f 28 cc             	movaps %xmm4,%xmm1
+-    197c:	8b 82 f8 00 00 00    	mov    0xf8(%rdx),%eax
+-    1982:	0f c6 c9 e0          	shufps $0xe0,%xmm1,%xmm1
+-    1986:	f3 0f 7e c9          	movq   %xmm1,%xmm1
+-    198a:	2b 81 18 01 00 00    	sub    0x118(%rcx),%eax
+-    1990:	0f 59 c3             	mulps  %xmm3,%xmm0
+-    1993:	83 e8 01             	sub    $0x1,%eax
+-    1996:	f3 0f 7e c0          	movq   %xmm0,%xmm0
+-    199a:	0f 58 c1             	addps  %xmm1,%xmm0
+-    199d:	0f 13 81 30 01 00 00 	movlps %xmm0,0x130(%rcx)
+-    19a4:	f3 0f 10 8a 18 01 00 	movss  0x118(%rdx),%xmm1
+-    19ab:	00 
+-    19ac:	f3 0f 59 ca          	mulss  %xmm2,%xmm1
+-    19b0:	f3 0f 58 cc          	addss  %xmm4,%xmm1
+-    19b4:	f3 0f 11 89 38 01 00 	movss  %xmm1,0x138(%rcx)
+-    19bb:	00 
+-    19bc:	85 c0                	test   %eax,%eax
+-    19be:	7e 80                	jle    1940 <access_log::finalize_log()+0x60>
+-    19c0:	f3 0f 59 ca          	mulss  %xmm2,%xmm1
+-    19c4:	f3 0f 7e c0          	movq   %xmm0,%xmm0
+-    19c8:	0f 59 c3             	mulps  %xmm3,%xmm0
+-    19cb:	83 e8 01             	sub    $0x1,%eax
+-    19ce:	75 f0                	jne    19c0 <access_log::finalize_log()+0xe0>
+-    19d0:	48 81 ea 40 01 00 00 	sub    $0x140,%rdx
+-    19d7:	0f 13 81 30 01 00 00 	movlps %xmm0,0x130(%rcx)
+-    19de:	f3 0f 11 89 38 01 00 	movss  %xmm1,0x138(%rcx)
+-    19e5:	00 
+-    19e6:	48 39 f2             	cmp    %rsi,%rdx
+-    19e9:	0f 85 61 ff ff ff    	jne    1950 <access_log::finalize_log()+0x70>
+-    19ef:	c3                   	ret
+-    19f0:	48 89 c7             	mov    %rax,%rdi
+-    19f3:	83 e0 01             	and    $0x1,%eax
+-    19f6:	66 0f ef e4          	pxor   %xmm4,%xmm4
+-    19fa:	48 d1 ef             	shr    $1,%rdi
+-    19fd:	48 09 c7             	or     %rax,%rdi
+-    1a00:	f3 48 0f 2a e7       	cvtsi2ss %rdi,%xmm4
+-    1a05:	f3 0f 58 e4          	addss  %xmm4,%xmm4
+-    1a09:	e9 63 ff ff ff       	jmp    1971 <access_log::finalize_log()+0x91>
+-    1a0e:	66 90                	xchg   %ax,%ax
+-
+-0000000000001a10 <build_model()>:
+-    1a10:	c3                   	ret
+-    1a11:	90                   	nop
+-    1a12:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+-    1a19:	00 00 00 00 
+-    1a1d:	0f 1f 00             	nopl   (%rax)
+-
+-0000000000001a20 <access_log::pebs_write_log()>:
+-    1a20:	c3                   	ret
+-    1a21:	90                   	nop
+-    1a22:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+-    1a29:	00 00 00 00 
+-    1a2d:	0f 1f 00             	nopl   (%rax)
+-
+-0000000000001a30 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)>:
+-    1a30:	55                   	push   %rbp
+-    1a31:	31 c0                	xor    %eax,%eax
+-    1a33:	48 89 cd             	mov    %rcx,%rbp
+-    1a36:	b9 28 00 00 00       	mov    $0x28,%ecx
+-    1a3b:	53                   	push   %rbx
+-    1a3c:	48 89 fb             	mov    %rdi,%rbx
+-    1a3f:	66 0f ef e4          	pxor   %xmm4,%xmm4
+-    1a43:	48 81 ec 88 00 00 00 	sub    $0x88,%rsp
+-    1a4a:	f3 48 ab             	rep stos %rax,%es:(%rdi)
+-    1a4d:	48 89 13             	mov    %rdx,(%rbx)
+-    1a50:	48 8b 55 00          	mov    0x0(%rbp),%rdx
+-    1a54:	f3 0f 10 8a d8 00 00 	movss  0xd8(%rdx),%xmm1
+-    1a5b:	00 
+-    1a5c:	f3 0f 10 82 c8 00 00 	movss  0xc8(%rdx),%xmm0
+-    1a63:	00 
+-    1a64:	f2 0f 5a a2 00 01 00 	cvtsd2ss 0x100(%rdx),%xmm4
+-    1a6b:	00 
+-    1a6c:	f3 0f 10 92 d4 00 00 	movss  0xd4(%rdx),%xmm2
+-    1a73:	00 
+-    1a74:	f3 0f 10 9a cc 00 00 	movss  0xcc(%rdx),%xmm3
+-    1a7b:	00 
+-    1a7c:	0f 14 c1             	unpcklps %xmm1,%xmm0
+-    1a7f:	f3 0f 10 8a b8 00 00 	movss  0xb8(%rdx),%xmm1
+-    1a86:	00 
+-    1a87:	8b 4a 14             	mov    0x14(%rdx),%ecx
+-    1a8a:	f3 0f 10 aa c4 00 00 	movss  0xc4(%rdx),%xmm5
+-    1a91:	00 
+-    1a92:	48 8b 32             	mov    (%rdx),%rsi
+-    1a95:	0f 14 d1             	unpcklps %xmm1,%xmm2
+-    1a98:	f3 0f 10 8a c0 00 00 	movss  0xc0(%rdx),%xmm1
+-    1a9f:	00 
+-    1aa0:	8b 7a 18             	mov    0x18(%rdx),%edi
+-    1aa3:	48 89 4b 10          	mov    %rcx,0x10(%rbx)
+-    1aa7:	0f 16 d0             	movlhps %xmm0,%xmm2
+-    1aaa:	f3 0f 10 82 dc 00 00 	movss  0xdc(%rdx),%xmm0
+-    1ab1:	00 
+-    1ab2:	8b 4a 1c             	mov    0x1c(%rdx),%ecx
+-    1ab5:	48 89 73 08          	mov    %rsi,0x8(%rbx)
+-    1ab9:	48 89 7b 18          	mov    %rdi,0x18(%rbx)
+-    1abd:	48 89 e7             	mov    %rsp,%rdi
+-    1ac0:	0f 14 c1             	unpcklps %xmm1,%xmm0
+-    1ac3:	f3 0f 10 8a bc 00 00 	movss  0xbc(%rdx),%xmm1
+-    1aca:	00 
+-    1acb:	48 89 4b 20          	mov    %rcx,0x20(%rbx)
+-    1acf:	0f 11 53 38          	movups %xmm2,0x38(%rbx)
+-    1ad3:	0f 14 cb             	unpcklps %xmm3,%xmm1
+-    1ad6:	f3 0f 10 9a b4 00 00 	movss  0xb4(%rdx),%xmm3
+-    1add:	00 
+-    1ade:	0f 16 c8             	movlhps %xmm0,%xmm1
+-    1ae1:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    1ae5:	0f 11 4b 48          	movups %xmm1,0x48(%rbx)
+-    1ae9:	f2 0f 5a 82 f8 00 00 	cvtsd2ss 0xf8(%rdx),%xmm0
+-    1af0:	00 
+-    1af1:	0f 14 dd             	unpcklps %xmm5,%xmm3
+-    1af4:	0f 14 c4             	unpcklps %xmm4,%xmm0
+-    1af7:	0f 16 c3             	movlhps %xmm3,%xmm0
+-    1afa:	0f 11 43 28          	movups %xmm0,0x28(%rbx)
+-    1afe:	f3 0f 10 82 d0 00 00 	movss  0xd0(%rdx),%xmm0
+-    1b05:	00 
+-    1b06:	f3 0f 10 8a a4 00 00 	movss  0xa4(%rdx),%xmm1
+-    1b0d:	00 
+-    1b0e:	48 8b 8a ac 00 00 00 	mov    0xac(%rdx),%rcx
+-    1b15:	f3 0f 10 92 0c 01 00 	movss  0x10c(%rdx),%xmm2
+-    1b1c:	00 
+-    1b1d:	f3 0f 11 43 58       	movss  %xmm0,0x58(%rbx)
+-    1b22:	f3 0f 10 82 e0 00 00 	movss  0xe0(%rdx),%xmm0
+-    1b29:	00 
+-    1b2a:	48 89 4b 78          	mov    %rcx,0x78(%rbx)
+-    1b2e:	b9 0f 00 00 00       	mov    $0xf,%ecx
+-    1b33:	f3 48 ab             	rep stos %rax,%es:(%rdi)
+-    1b36:	f3 0f 11 43 5c       	movss  %xmm0,0x5c(%rbx)
+-    1b3b:	f3 0f 10 82 a8 00 00 	movss  0xa8(%rdx),%xmm0
+-    1b42:	00 
+-    1b43:	4c 89 c7             	mov    %r8,%rdi
+-    1b46:	0f 14 c8             	unpcklps %xmm0,%xmm1
+-    1b49:	f3 0f 10 82 08 01 00 	movss  0x108(%rdx),%xmm0
+-    1b50:	00 
+-    1b51:	8b 92 30 01 00 00    	mov    0x130(%rdx),%edx
+-    1b57:	0f 14 c2             	unpcklps %xmm2,%xmm0
+-    1b5a:	89 93 18 01 00 00    	mov    %edx,0x118(%rbx)
+-    1b60:	48 89 e2             	mov    %rsp,%rdx
+-    1b63:	0f 16 c1             	movlhps %xmm1,%xmm0
+-    1b66:	0f 11 43 68          	movups %xmm0,0x68(%rbx)
+-    1b6a:	e8 00 00 00 00       	call   1b6f <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x13f>
+-			1b6b: R_X86_64_PLT32	get_group_window(group_tracker*, unsigned long, page_group**)-0x4
+-    1b6f:	48 8b 04 24          	mov    (%rsp),%rax
+-    1b73:	48 85 c0             	test   %rax,%rax
+-    1b76:	0f 84 ec 03 00 00    	je     1f68 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x538>
+-    1b7c:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
+-    1b81:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
+-    1b86:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+-    1b8b:	f3 0f 11 8b 80 00 00 	movss  %xmm1,0x80(%rbx)
+-    1b92:	00 
+-    1b93:	f3 0f 11 83 bc 00 00 	movss  %xmm0,0xbc(%rbx)
+-    1b9a:	00 
+-    1b9b:	48 85 c0             	test   %rax,%rax
+-    1b9e:	0f 84 a4 04 00 00    	je     2048 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x618>
+-    1ba4:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
+-    1ba9:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
+-    1bae:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+-    1bb3:	f3 0f 11 8b 84 00 00 	movss  %xmm1,0x84(%rbx)
+-    1bba:	00 
+-    1bbb:	f3 0f 11 83 c0 00 00 	movss  %xmm0,0xc0(%rbx)
+-    1bc2:	00 
+-    1bc3:	48 85 c0             	test   %rax,%rax
+-    1bc6:	0f 84 6c 04 00 00    	je     2038 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x608>
+-    1bcc:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
+-    1bd1:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
+-    1bd6:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
+-    1bdb:	f3 0f 11 8b 88 00 00 	movss  %xmm1,0x88(%rbx)
+-    1be2:	00 
+-    1be3:	f3 0f 11 83 c4 00 00 	movss  %xmm0,0xc4(%rbx)
+-    1bea:	00 
+-    1beb:	48 85 c0             	test   %rax,%rax
+-    1bee:	0f 84 34 04 00 00    	je     2028 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x5f8>
+-    1bf4:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
+-    1bf9:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
+-    1bfe:	48 8b 44 24 20       	mov    0x20(%rsp),%rax
+-    1c03:	f3 0f 11 8b 8c 00 00 	movss  %xmm1,0x8c(%rbx)
+-    1c0a:	00 
+-    1c0b:	f3 0f 11 83 c8 00 00 	movss  %xmm0,0xc8(%rbx)
+-    1c12:	00 
+-    1c13:	48 85 c0             	test   %rax,%rax
+-    1c16:	0f 84 fc 03 00 00    	je     2018 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x5e8>
+-    1c1c:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
+-    1c21:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
+-    1c26:	48 8b 44 24 28       	mov    0x28(%rsp),%rax
+-    1c2b:	f3 0f 11 8b 90 00 00 	movss  %xmm1,0x90(%rbx)
+-    1c32:	00 
+-    1c33:	f3 0f 11 83 cc 00 00 	movss  %xmm0,0xcc(%rbx)
+-    1c3a:	00 
+-    1c3b:	48 85 c0             	test   %rax,%rax
+-    1c3e:	0f 84 c4 03 00 00    	je     2008 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x5d8>
+-    1c44:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
+-    1c49:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
+-    1c4e:	48 8b 44 24 30       	mov    0x30(%rsp),%rax
+-    1c53:	f3 0f 11 8b 94 00 00 	movss  %xmm1,0x94(%rbx)
+-    1c5a:	00 
+-    1c5b:	f3 0f 11 83 d0 00 00 	movss  %xmm0,0xd0(%rbx)
+-    1c62:	00 
+-    1c63:	48 85 c0             	test   %rax,%rax
+-    1c66:	0f 84 8c 03 00 00    	je     1ff8 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x5c8>
+-    1c6c:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
+-    1c71:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
+-    1c76:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
+-    1c7b:	f3 0f 11 8b 98 00 00 	movss  %xmm1,0x98(%rbx)
+-    1c82:	00 
+-    1c83:	f3 0f 11 83 d4 00 00 	movss  %xmm0,0xd4(%rbx)
+-    1c8a:	00 
+-    1c8b:	48 85 c0             	test   %rax,%rax
+-    1c8e:	0f 84 54 03 00 00    	je     1fe8 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x5b8>
+-    1c94:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
+-    1c99:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
+-    1c9e:	48 8b 44 24 40       	mov    0x40(%rsp),%rax
+-    1ca3:	f3 0f 11 8b 9c 00 00 	movss  %xmm1,0x9c(%rbx)
+-    1caa:	00 
+-    1cab:	f3 0f 11 83 d8 00 00 	movss  %xmm0,0xd8(%rbx)
+-    1cb2:	00 
+-    1cb3:	48 85 c0             	test   %rax,%rax
+-    1cb6:	0f 84 1c 03 00 00    	je     1fd8 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x5a8>
+-    1cbc:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
+-    1cc1:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
+-    1cc6:	48 8b 44 24 48       	mov    0x48(%rsp),%rax
+-    1ccb:	f3 0f 11 8b a0 00 00 	movss  %xmm1,0xa0(%rbx)
+-    1cd2:	00 
+-    1cd3:	f3 0f 11 83 dc 00 00 	movss  %xmm0,0xdc(%rbx)
+-    1cda:	00 
+-    1cdb:	48 85 c0             	test   %rax,%rax
+-    1cde:	0f 84 e4 02 00 00    	je     1fc8 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x598>
+-    1ce4:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
+-    1ce9:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
+-    1cee:	48 8b 44 24 50       	mov    0x50(%rsp),%rax
+-    1cf3:	f3 0f 11 8b a4 00 00 	movss  %xmm1,0xa4(%rbx)
+-    1cfa:	00 
+-    1cfb:	f3 0f 11 83 e0 00 00 	movss  %xmm0,0xe0(%rbx)
+-    1d02:	00 
+-    1d03:	48 85 c0             	test   %rax,%rax
+-    1d06:	0f 84 ac 02 00 00    	je     1fb8 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x588>
+-    1d0c:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
+-    1d11:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
+-    1d16:	48 8b 44 24 58       	mov    0x58(%rsp),%rax
+-    1d1b:	f3 0f 11 8b a8 00 00 	movss  %xmm1,0xa8(%rbx)
+-    1d22:	00 
+-    1d23:	f3 0f 11 83 e4 00 00 	movss  %xmm0,0xe4(%rbx)
+-    1d2a:	00 
+-    1d2b:	48 85 c0             	test   %rax,%rax
+-    1d2e:	0f 84 74 02 00 00    	je     1fa8 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x578>
+-    1d34:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
+-    1d39:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
+-    1d3e:	48 8b 44 24 60       	mov    0x60(%rsp),%rax
+-    1d43:	f3 0f 11 8b ac 00 00 	movss  %xmm1,0xac(%rbx)
+-    1d4a:	00 
+-    1d4b:	f3 0f 11 83 e8 00 00 	movss  %xmm0,0xe8(%rbx)
+-    1d52:	00 
+-    1d53:	48 85 c0             	test   %rax,%rax
+-    1d56:	0f 84 3c 02 00 00    	je     1f98 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x568>
+-    1d5c:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
+-    1d61:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
+-    1d66:	48 8b 44 24 68       	mov    0x68(%rsp),%rax
+-    1d6b:	f3 0f 11 8b b0 00 00 	movss  %xmm1,0xb0(%rbx)
+-    1d72:	00 
+-    1d73:	f3 0f 11 83 ec 00 00 	movss  %xmm0,0xec(%rbx)
+-    1d7a:	00 
+-    1d7b:	48 85 c0             	test   %rax,%rax
+-    1d7e:	0f 84 04 02 00 00    	je     1f88 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x558>
+-    1d84:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
+-    1d89:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
+-    1d8e:	48 8b 44 24 70       	mov    0x70(%rsp),%rax
+-    1d93:	f3 0f 11 8b b4 00 00 	movss  %xmm1,0xb4(%rbx)
+-    1d9a:	00 
+-    1d9b:	f3 0f 11 83 f0 00 00 	movss  %xmm0,0xf0(%rbx)
+-    1da2:	00 
+-    1da3:	48 85 c0             	test   %rax,%rax
+-    1da6:	0f 84 cc 01 00 00    	je     1f78 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x548>
+-    1dac:	f3 0f 10 40 24       	movss  0x24(%rax),%xmm0
+-    1db1:	f3 0f 10 50 30       	movss  0x30(%rax),%xmm2
+-    1db6:	0f 10 a3 bc 00 00 00 	movups 0xbc(%rbx),%xmm4
+-    1dbd:	66 0f ef db          	pxor   %xmm3,%xmm3
+-    1dc1:	f3 0f 11 83 b8 00 00 	movss  %xmm0,0xb8(%rbx)
+-    1dc8:	00 
+-    1dc9:	f3 44 0f 10 8b ec 00 	movss  0xec(%rbx),%xmm9
+-    1dd0:	00 00 
+-    1dd2:	48 8b 45 00          	mov    0x0(%rbp),%rax
+-    1dd6:	0f 28 c4             	movaps %xmm4,%xmm0
+-    1dd9:	0f 28 f4             	movaps %xmm4,%xmm6
+-    1ddc:	0f 28 cc             	movaps %xmm4,%xmm1
+-    1ddf:	f3 0f 58 c3          	addss  %xmm3,%xmm0
+-    1de3:	0f 59 f4             	mulps  %xmm4,%xmm6
+-    1de6:	0f c6 cc 55          	shufps $0x55,%xmm4,%xmm1
+-    1dea:	0f 28 fc             	movaps %xmm4,%xmm7
+-    1ded:	0f 15 fc             	unpckhps %xmm4,%xmm7
+-    1df0:	0f c6 e4 ff          	shufps $0xff,%xmm4,%xmm4
+-    1df4:	48 8b 90 38 01 00 00 	mov    0x138(%rax),%rdx
+-    1dfb:	f3 0f 58 c1          	addss  %xmm1,%xmm0
+-    1dff:	48 89 93 00 01 00 00 	mov    %rdx,0x100(%rbx)
+-    1e06:	0f b6 50 10          	movzbl 0x10(%rax),%edx
+-    1e0a:	48 8b 80 10 03 00 00 	mov    0x310(%rax),%rax
+-    1e11:	0f 28 ce             	movaps %xmm6,%xmm1
+-    1e14:	0f 28 ee             	movaps %xmm6,%xmm5
+-    1e17:	88 93 14 01 00 00    	mov    %dl,0x114(%rbx)
+-    1e1d:	f3 0f 58 c7          	addss  %xmm7,%xmm0
+-    1e21:	f3 0f 58 cb          	addss  %xmm3,%xmm1
+-    1e25:	0f c6 ee 55          	shufps $0x55,%xmm6,%xmm5
+-    1e29:	48 89 83 1c 01 00 00 	mov    %rax,0x11c(%rbx)
+-    1e30:	48 89 d8             	mov    %rbx,%rax
+-    1e33:	f3 0f 58 c4          	addss  %xmm4,%xmm0
+-    1e37:	0f 10 a3 cc 00 00 00 	movups 0xcc(%rbx),%xmm4
+-    1e3e:	f3 0f 58 e9          	addss  %xmm1,%xmm5
+-    1e42:	0f 28 ce             	movaps %xmm6,%xmm1
+-    1e45:	0f 15 ce             	unpckhps %xmm6,%xmm1
+-    1e48:	0f c6 f6 ff          	shufps $0xff,%xmm6,%xmm6
+-    1e4c:	0f 28 fc             	movaps %xmm4,%xmm7
+-    1e4f:	f3 0f 58 c4          	addss  %xmm4,%xmm0
+-    1e53:	f3 0f 58 cd          	addss  %xmm5,%xmm1
+-    1e57:	0f 28 ec             	movaps %xmm4,%xmm5
+-    1e5a:	0f c6 ec 55          	shufps $0x55,%xmm4,%xmm5
+-    1e5e:	0f 15 fc             	unpckhps %xmm4,%xmm7
+-    1e61:	f3 0f 58 c5          	addss  %xmm5,%xmm0
+-    1e65:	0f 28 ec             	movaps %xmm4,%xmm5
+-    1e68:	f3 0f 58 ce          	addss  %xmm6,%xmm1
+-    1e6c:	0f 59 ec             	mulps  %xmm4,%xmm5
+-    1e6f:	0f c6 e4 ff          	shufps $0xff,%xmm4,%xmm4
+-    1e73:	f3 0f 58 c7          	addss  %xmm7,%xmm0
+-    1e77:	f3 0f 58 cd          	addss  %xmm5,%xmm1
+-    1e7b:	0f 28 f5             	movaps %xmm5,%xmm6
+-    1e7e:	f3 0f 58 c4          	addss  %xmm4,%xmm0
+-    1e82:	0f 10 a3 dc 00 00 00 	movups 0xdc(%rbx),%xmm4
+-    1e89:	0f c6 f5 55          	shufps $0x55,%xmm5,%xmm6
+-    1e8d:	0f 28 fc             	movaps %xmm4,%xmm7
+-    1e90:	44 0f 28 c4          	movaps %xmm4,%xmm8
+-    1e94:	f3 0f 58 ce          	addss  %xmm6,%xmm1
+-    1e98:	0f 28 f5             	movaps %xmm5,%xmm6
+-    1e9b:	44 0f 15 c4          	unpckhps %xmm4,%xmm8
+-    1e9f:	0f 59 fc             	mulps  %xmm4,%xmm7
+-    1ea2:	0f 15 f5             	unpckhps %xmm5,%xmm6
+-    1ea5:	0f c6 ed ff          	shufps $0xff,%xmm5,%xmm5
+-    1ea9:	f3 0f 58 ce          	addss  %xmm6,%xmm1
+-    1ead:	0f 28 f4             	movaps %xmm4,%xmm6
+-    1eb0:	f3 0f 58 f0          	addss  %xmm0,%xmm6
+-    1eb4:	0f 28 c4             	movaps %xmm4,%xmm0
+-    1eb7:	0f c6 c4 55          	shufps $0x55,%xmm4,%xmm0
+-    1ebb:	0f c6 e4 ff          	shufps $0xff,%xmm4,%xmm4
+-    1ebf:	f3 0f 58 cd          	addss  %xmm5,%xmm1
+-    1ec3:	0f 28 ef             	movaps %xmm7,%xmm5
+-    1ec6:	f3 0f 58 f0          	addss  %xmm0,%xmm6
+-    1eca:	0f 28 c7             	movaps %xmm7,%xmm0
+-    1ecd:	0f c6 c7 55          	shufps $0x55,%xmm7,%xmm0
+-    1ed1:	f3 0f 58 e9          	addss  %xmm1,%xmm5
+-    1ed5:	0f 28 cf             	movaps %xmm7,%xmm1
+-    1ed8:	f3 41 0f 58 f0       	addss  %xmm8,%xmm6
+-    1edd:	0f 15 cf             	unpckhps %xmm7,%xmm1
+-    1ee0:	0f c6 ff ff          	shufps $0xff,%xmm7,%xmm7
+-    1ee4:	f3 0f 58 e8          	addss  %xmm0,%xmm5
+-    1ee8:	f3 0f 10 83 f0 00 00 	movss  0xf0(%rbx),%xmm0
+-    1eef:	00 
+-    1ef0:	f3 0f 58 f4          	addss  %xmm4,%xmm6
+-    1ef4:	f3 0f 7e a3 ec 00 00 	movq   0xec(%rbx),%xmm4
+-    1efb:	00 
+-    1efc:	f3 0f 58 e9          	addss  %xmm1,%xmm5
+-    1f00:	0f 59 e4             	mulps  %xmm4,%xmm4
+-    1f03:	0f 28 cf             	movaps %xmm7,%xmm1
+-    1f06:	f3 41 0f 58 f1       	addss  %xmm9,%xmm6
+-    1f0b:	f3 0f 58 cd          	addss  %xmm5,%xmm1
+-    1f0f:	f3 0f 10 2d 00 00 00 	movss  0x0(%rip),%xmm5        # 1f17 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x4e7>
+-    1f16:	00 
+-			1f13: R_X86_64_PC32	.LC67-0x4
+-    1f17:	f3 0f 58 c6          	addss  %xmm6,%xmm0
+-    1f1b:	f3 0f 58 cc          	addss  %xmm4,%xmm1
+-    1f1f:	0f c6 e4 e5          	shufps $0xe5,%xmm4,%xmm4
+-    1f23:	f3 0f 58 c2          	addss  %xmm2,%xmm0
+-    1f27:	f3 0f 58 e1          	addss  %xmm1,%xmm4
+-    1f2b:	0f 28 ca             	movaps %xmm2,%xmm1
+-    1f2e:	f3 0f 59 ca          	mulss  %xmm2,%xmm1
+-    1f32:	f3 0f 5e c5          	divss  %xmm5,%xmm0
+-    1f36:	f3 0f 58 cc          	addss  %xmm4,%xmm1
+-    1f3a:	f3 0f 5e cd          	divss  %xmm5,%xmm1
+-    1f3e:	f3 0f 59 c0          	mulss  %xmm0,%xmm0
+-    1f42:	f3 0f 5c c8          	subss  %xmm0,%xmm1
+-    1f46:	f3 0f c2 d9 01       	cmpltss %xmm1,%xmm3
+-    1f4b:	0f 54 cb             	andps  %xmm3,%xmm1
+-    1f4e:	0f 14 d1             	unpcklps %xmm1,%xmm2
+-    1f51:	0f 13 93 f4 00 00 00 	movlps %xmm2,0xf4(%rbx)
+-    1f58:	48 81 c4 88 00 00 00 	add    $0x88,%rsp
+-    1f5f:	5b                   	pop    %rbx
+-    1f60:	5d                   	pop    %rbp
+-    1f61:	c3                   	ret
+-    1f62:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1f68:	66 0f ef c9          	pxor   %xmm1,%xmm1
+-    1f6c:	0f 28 c1             	movaps %xmm1,%xmm0
+-    1f6f:	e9 12 fc ff ff       	jmp    1b86 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x156>
+-    1f74:	0f 1f 40 00          	nopl   0x0(%rax)
+-    1f78:	66 0f ef c0          	pxor   %xmm0,%xmm0
+-    1f7c:	0f 28 d0             	movaps %xmm0,%xmm2
+-    1f7f:	e9 32 fe ff ff       	jmp    1db6 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x386>
+-    1f84:	0f 1f 40 00          	nopl   0x0(%rax)
+-    1f88:	66 0f ef c9          	pxor   %xmm1,%xmm1
+-    1f8c:	0f 28 c1             	movaps %xmm1,%xmm0
+-    1f8f:	e9 fa fd ff ff       	jmp    1d8e <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x35e>
+-    1f94:	0f 1f 40 00          	nopl   0x0(%rax)
+-    1f98:	66 0f ef c9          	pxor   %xmm1,%xmm1
+-    1f9c:	0f 28 c1             	movaps %xmm1,%xmm0
+-    1f9f:	e9 c2 fd ff ff       	jmp    1d66 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x336>
+-    1fa4:	0f 1f 40 00          	nopl   0x0(%rax)
+-    1fa8:	66 0f ef c9          	pxor   %xmm1,%xmm1
+-    1fac:	0f 28 c1             	movaps %xmm1,%xmm0
+-    1faf:	e9 8a fd ff ff       	jmp    1d3e <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x30e>
+-    1fb4:	0f 1f 40 00          	nopl   0x0(%rax)
+-    1fb8:	66 0f ef c9          	pxor   %xmm1,%xmm1
+-    1fbc:	0f 28 c1             	movaps %xmm1,%xmm0
+-    1fbf:	e9 52 fd ff ff       	jmp    1d16 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x2e6>
+-    1fc4:	0f 1f 40 00          	nopl   0x0(%rax)
+-    1fc8:	66 0f ef c9          	pxor   %xmm1,%xmm1
+-    1fcc:	0f 28 c1             	movaps %xmm1,%xmm0
+-    1fcf:	e9 1a fd ff ff       	jmp    1cee <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x2be>
+-    1fd4:	0f 1f 40 00          	nopl   0x0(%rax)
+-    1fd8:	66 0f ef c9          	pxor   %xmm1,%xmm1
+-    1fdc:	0f 28 c1             	movaps %xmm1,%xmm0
+-    1fdf:	e9 e2 fc ff ff       	jmp    1cc6 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x296>
+-    1fe4:	0f 1f 40 00          	nopl   0x0(%rax)
+-    1fe8:	66 0f ef c9          	pxor   %xmm1,%xmm1
+-    1fec:	0f 28 c1             	movaps %xmm1,%xmm0
+-    1fef:	e9 aa fc ff ff       	jmp    1c9e <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x26e>
+-    1ff4:	0f 1f 40 00          	nopl   0x0(%rax)
+-    1ff8:	66 0f ef c9          	pxor   %xmm1,%xmm1
+-    1ffc:	0f 28 c1             	movaps %xmm1,%xmm0
+-    1fff:	e9 72 fc ff ff       	jmp    1c76 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x246>
+-    2004:	0f 1f 40 00          	nopl   0x0(%rax)
+-    2008:	66 0f ef c9          	pxor   %xmm1,%xmm1
+-    200c:	0f 28 c1             	movaps %xmm1,%xmm0
+-    200f:	e9 3a fc ff ff       	jmp    1c4e <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x21e>
+-    2014:	0f 1f 40 00          	nopl   0x0(%rax)
+-    2018:	66 0f ef c9          	pxor   %xmm1,%xmm1
+-    201c:	0f 28 c1             	movaps %xmm1,%xmm0
+-    201f:	e9 02 fc ff ff       	jmp    1c26 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x1f6>
+-    2024:	0f 1f 40 00          	nopl   0x0(%rax)
+-    2028:	66 0f ef c9          	pxor   %xmm1,%xmm1
+-    202c:	0f 28 c1             	movaps %xmm1,%xmm0
+-    202f:	e9 ca fb ff ff       	jmp    1bfe <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x1ce>
+-    2034:	0f 1f 40 00          	nopl   0x0(%rax)
+-    2038:	66 0f ef c9          	pxor   %xmm1,%xmm1
+-    203c:	0f 28 c1             	movaps %xmm1,%xmm0
+-    203f:	e9 92 fb ff ff       	jmp    1bd6 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x1a6>
+-    2044:	0f 1f 40 00          	nopl   0x0(%rax)
+-    2048:	66 0f ef c9          	pxor   %xmm1,%xmm1
+-    204c:	0f 28 c1             	movaps %xmm1,%xmm0
+-    204f:	e9 5a fb ff ff       	jmp    1bae <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x17e>
+-    2054:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+-    205b:	00 00 00 00 
+-    205f:	90                   	nop
+-
+-0000000000002060 <access_log::log_row(std::shared_ptr<page_info> const&, data_row&)>:
+-    2060:	c3                   	ret
+-    2061:	90                   	nop
+-    2062:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+-    2069:	00 00 00 00 
+-    206d:	0f 1f 00             	nopl   (%rax)
+-
+-0000000000002070 <access_log::overlaps_with_logging_region(unsigned long, unsigned long) const>:
+-    2070:	31 c0                	xor    %eax,%eax
+-    2072:	48 85 d2             	test   %rdx,%rdx
+-    2075:	74 47                	je     20be <access_log::overlaps_with_logging_region(unsigned long, unsigned long) const+0x4e>
+-    2077:	48 01 f2             	add    %rsi,%rdx
+-    207a:	48 c7 c0 ff ff ff ff 	mov    $0xffffffffffffffff,%rax
+-    2081:	48 0f 42 d0          	cmovb  %rax,%rdx
+-    2085:	48 8d 87 d0 00 00 00 	lea    0xd0(%rdi),%rax
+-    208c:	48 39 c6             	cmp    %rax,%rsi
+-    208f:	0f 92 c0             	setb   %al
+-    2092:	48 39 d7             	cmp    %rdx,%rdi
+-    2095:	0f 92 c1             	setb   %cl
+-    2098:	20 c8                	and    %cl,%al
+-    209a:	75 22                	jne    20be <access_log::overlaps_with_logging_region(unsigned long, unsigned long) const+0x4e>
+-    209c:	48 8b 8f c8 00 00 00 	mov    0xc8(%rdi),%rcx
+-    20a3:	48 85 c9             	test   %rcx,%rcx
+-    20a6:	74 16                	je     20be <access_log::overlaps_with_logging_region(unsigned long, unsigned long) const+0x4e>
+-    20a8:	b8 00 20 bc be       	mov    $0xbebc2000,%eax
+-    20ad:	48 01 c8             	add    %rcx,%rax
+-    20b0:	48 39 c6             	cmp    %rax,%rsi
+-    20b3:	0f 92 c0             	setb   %al
+-    20b6:	48 39 d1             	cmp    %rdx,%rcx
+-    20b9:	0f 92 c2             	setb   %dl
+-    20bc:	21 d0                	and    %edx,%eax
+-    20be:	c3                   	ret
++ 3dd:	90                   	nop
++ 3de:	66 90                	xchg   %ax,%ax
++
++00000000000003e0 <access_log::finalize_log()>:
++ 3e0:	48 8b 87 c0 00 00 00 	mov    0xc0(%rdi),%rax
++ 3e7:	48 85 c0             	test   %rax,%rax
++ 3ea:	0f 8e df 00 00 00    	jle    4cf <access_log::finalize_log()+0xef>
++ 3f0:	ba 00 2d 31 01       	mov    $0x1312d00,%edx
++ 3f5:	48 8b b7 c8 00 00 00 	mov    0xc8(%rdi),%rsi
++ 3fc:	0f 28 1d 00 00 00 00 	movaps 0x0(%rip),%xmm3        # 403 <access_log::finalize_log()+0x23>
++			3ff: R_X86_64_PC32	.LC23-0x4
++ 403:	48 39 d0             	cmp    %rdx,%rax
++ 406:	f3 0f 10 15 00 00 00 	movss  0x0(%rip),%xmm2        # 40e <access_log::finalize_log()+0x2e>
++ 40d:	00 
++			40a: R_X86_64_PC32	.LC22-0x4
++ 40e:	48 0f 4e d0          	cmovle %rax,%rdx
++ 412:	48 69 d2 48 01 00 00 	imul   $0x148,%rdx,%rdx
++ 419:	48 01 f2             	add    %rsi,%rdx
++ 41c:	eb 12                	jmp    430 <access_log::finalize_log()+0x50>
++ 41e:	66 90                	xchg   %ax,%ax
++ 420:	48 81 ea 48 01 00 00 	sub    $0x148,%rdx
++ 427:	48 39 f2             	cmp    %rsi,%rdx
++ 42a:	0f 84 9f 00 00 00    	je     4cf <access_log::finalize_log()+0xef>
++ 430:	48 8b 4a e8          	mov    -0x18(%rdx),%rcx
++ 434:	48 85 c9             	test   %rcx,%rcx
++ 437:	74 e7                	je     420 <access_log::finalize_log()+0x40>
++ 439:	48 8b 82 d8 fe ff ff 	mov    -0x128(%rdx),%rax
++ 440:	48 85 c0             	test   %rax,%rax
++ 443:	0f 88 87 00 00 00    	js     4d0 <access_log::finalize_log()+0xf0>
++ 449:	66 0f ef e4          	pxor   %xmm4,%xmm4
++ 44d:	f3 48 0f 2a e0       	cvtsi2ss %rax,%xmm4
++ 452:	f3 0f 7e 42 f0       	movq   -0x10(%rdx),%xmm0
++ 457:	0f 28 cc             	movaps %xmm4,%xmm1
++ 45a:	8b 42 d0             	mov    -0x30(%rdx),%eax
++ 45d:	0f c6 c9 e0          	shufps $0xe0,%xmm1,%xmm1
++ 461:	f3 0f 7e c9          	movq   %xmm1,%xmm1
++ 465:	2b 81 18 01 00 00    	sub    0x118(%rcx),%eax
++ 46b:	0f 59 c3             	mulps  %xmm3,%xmm0
++ 46e:	83 e8 01             	sub    $0x1,%eax
++ 471:	f3 0f 7e c0          	movq   %xmm0,%xmm0
++ 475:	0f 58 c1             	addps  %xmm1,%xmm0
++ 478:	0f 13 81 38 01 00 00 	movlps %xmm0,0x138(%rcx)
++ 47f:	f3 0f 10 4a f8       	movss  -0x8(%rdx),%xmm1
++ 484:	f3 0f 59 ca          	mulss  %xmm2,%xmm1
++ 488:	f3 0f 58 cc          	addss  %xmm4,%xmm1
++ 48c:	f3 0f 11 89 40 01 00 	movss  %xmm1,0x140(%rcx)
++ 493:	00 
++ 494:	85 c0                	test   %eax,%eax
++ 496:	7e 88                	jle    420 <access_log::finalize_log()+0x40>
++ 498:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
++ 49f:	00 
++ 4a0:	f3 0f 59 ca          	mulss  %xmm2,%xmm1
++ 4a4:	f3 0f 7e c0          	movq   %xmm0,%xmm0
++ 4a8:	0f 59 c3             	mulps  %xmm3,%xmm0
++ 4ab:	83 e8 01             	sub    $0x1,%eax
++ 4ae:	75 f0                	jne    4a0 <access_log::finalize_log()+0xc0>
++ 4b0:	48 81 ea 48 01 00 00 	sub    $0x148,%rdx
++ 4b7:	0f 13 81 38 01 00 00 	movlps %xmm0,0x138(%rcx)
++ 4be:	f3 0f 11 89 40 01 00 	movss  %xmm1,0x140(%rcx)
++ 4c5:	00 
++ 4c6:	48 39 f2             	cmp    %rsi,%rdx
++ 4c9:	0f 85 61 ff ff ff    	jne    430 <access_log::finalize_log()+0x50>
++ 4cf:	c3                   	ret
++ 4d0:	48 89 c7             	mov    %rax,%rdi
++ 4d3:	83 e0 01             	and    $0x1,%eax
++ 4d6:	66 0f ef e4          	pxor   %xmm4,%xmm4
++ 4da:	48 d1 ef             	shr    $1,%rdi
++ 4dd:	48 09 c7             	or     %rax,%rdi
++ 4e0:	f3 48 0f 2a e7       	cvtsi2ss %rdi,%xmm4
++ 4e5:	f3 0f 58 e4          	addss  %xmm4,%xmm4
++ 4e9:	e9 64 ff ff ff       	jmp    452 <access_log::finalize_log()+0x72>
++ 4ee:	66 90                	xchg   %ax,%ax
++
++00000000000004f0 <build_model()>:
++ 4f0:	c3                   	ret
++ 4f1:	90                   	nop
++ 4f2:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
++ 4f9:	00 00 00 00 
++ 4fd:	0f 1f 00             	nopl   (%rax)
++
++0000000000000500 <access_log::pebs_write_log()>:
++ 500:	c3                   	ret
++ 501:	90                   	nop
++ 502:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
++ 509:	00 00 00 00 
++ 50d:	0f 1f 00             	nopl   (%rax)
++
++0000000000000510 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)>:
++ 510:	55                   	push   %rbp
++ 511:	31 c0                	xor    %eax,%eax
++ 513:	48 89 cd             	mov    %rcx,%rbp
++ 516:	b9 29 00 00 00       	mov    $0x29,%ecx
++ 51b:	53                   	push   %rbx
++ 51c:	48 89 fb             	mov    %rdi,%rbx
++ 51f:	66 0f ef e4          	pxor   %xmm4,%xmm4
++ 523:	48 81 ec 88 00 00 00 	sub    $0x88,%rsp
++ 52a:	f3 48 ab             	rep stos %rax,%es:(%rdi)
++ 52d:	48 89 13             	mov    %rdx,(%rbx)
++ 530:	48 8b 55 00          	mov    0x0(%rbp),%rdx
++ 534:	f3 0f 10 8a d8 00 00 	movss  0xd8(%rdx),%xmm1
++ 53b:	00 
++ 53c:	f3 0f 10 82 c8 00 00 	movss  0xc8(%rdx),%xmm0
++ 543:	00 
++ 544:	f2 0f 5a a2 00 01 00 	cvtsd2ss 0x100(%rdx),%xmm4
++ 54b:	00 
++ 54c:	f3 0f 10 92 d4 00 00 	movss  0xd4(%rdx),%xmm2
++ 553:	00 
++ 554:	f3 0f 10 9a cc 00 00 	movss  0xcc(%rdx),%xmm3
++ 55b:	00 
++ 55c:	0f 14 c1             	unpcklps %xmm1,%xmm0
++ 55f:	f3 0f 10 8a b8 00 00 	movss  0xb8(%rdx),%xmm1
++ 566:	00 
++ 567:	8b 4a 14             	mov    0x14(%rdx),%ecx
++ 56a:	f3 0f 10 aa c4 00 00 	movss  0xc4(%rdx),%xmm5
++ 571:	00 
++ 572:	48 8b 32             	mov    (%rdx),%rsi
++ 575:	0f 14 d1             	unpcklps %xmm1,%xmm2
++ 578:	f3 0f 10 8a c0 00 00 	movss  0xc0(%rdx),%xmm1
++ 57f:	00 
++ 580:	8b 7a 18             	mov    0x18(%rdx),%edi
++ 583:	48 89 4b 10          	mov    %rcx,0x10(%rbx)
++ 587:	0f 16 d0             	movlhps %xmm0,%xmm2
++ 58a:	f3 0f 10 82 dc 00 00 	movss  0xdc(%rdx),%xmm0
++ 591:	00 
++ 592:	8b 4a 1c             	mov    0x1c(%rdx),%ecx
++ 595:	48 89 73 08          	mov    %rsi,0x8(%rbx)
++ 599:	48 89 7b 18          	mov    %rdi,0x18(%rbx)
++ 59d:	48 89 e7             	mov    %rsp,%rdi
++ 5a0:	0f 14 c1             	unpcklps %xmm1,%xmm0
++ 5a3:	f3 0f 10 8a bc 00 00 	movss  0xbc(%rdx),%xmm1
++ 5aa:	00 
++ 5ab:	48 89 4b 20          	mov    %rcx,0x20(%rbx)
++ 5af:	0f 11 53 38          	movups %xmm2,0x38(%rbx)
++ 5b3:	0f 14 cb             	unpcklps %xmm3,%xmm1
++ 5b6:	f3 0f 10 9a b4 00 00 	movss  0xb4(%rdx),%xmm3
++ 5bd:	00 
++ 5be:	0f 16 c8             	movlhps %xmm0,%xmm1
++ 5c1:	66 0f ef c0          	pxor   %xmm0,%xmm0
++ 5c5:	0f 11 4b 48          	movups %xmm1,0x48(%rbx)
++ 5c9:	f2 0f 5a 82 f8 00 00 	cvtsd2ss 0xf8(%rdx),%xmm0
++ 5d0:	00 
++ 5d1:	0f 14 dd             	unpcklps %xmm5,%xmm3
++ 5d4:	0f 14 c4             	unpcklps %xmm4,%xmm0
++ 5d7:	0f 16 c3             	movlhps %xmm3,%xmm0
++ 5da:	0f 11 43 28          	movups %xmm0,0x28(%rbx)
++ 5de:	f3 0f 10 82 d0 00 00 	movss  0xd0(%rdx),%xmm0
++ 5e5:	00 
++ 5e6:	f3 0f 10 8a a4 00 00 	movss  0xa4(%rdx),%xmm1
++ 5ed:	00 
++ 5ee:	48 8b 8a ac 00 00 00 	mov    0xac(%rdx),%rcx
++ 5f5:	f3 0f 10 92 0c 01 00 	movss  0x10c(%rdx),%xmm2
++ 5fc:	00 
++ 5fd:	f3 0f 11 43 58       	movss  %xmm0,0x58(%rbx)
++ 602:	f3 0f 10 82 e0 00 00 	movss  0xe0(%rdx),%xmm0
++ 609:	00 
++ 60a:	48 89 4b 78          	mov    %rcx,0x78(%rbx)
++ 60e:	b9 0f 00 00 00       	mov    $0xf,%ecx
++ 613:	f3 48 ab             	rep stos %rax,%es:(%rdi)
++ 616:	f3 0f 11 43 5c       	movss  %xmm0,0x5c(%rbx)
++ 61b:	f3 0f 10 82 a8 00 00 	movss  0xa8(%rdx),%xmm0
++ 622:	00 
++ 623:	4c 89 c7             	mov    %r8,%rdi
++ 626:	0f 14 c8             	unpcklps %xmm0,%xmm1
++ 629:	f3 0f 10 82 08 01 00 	movss  0x108(%rdx),%xmm0
++ 630:	00 
++ 631:	8b 92 30 01 00 00    	mov    0x130(%rdx),%edx
++ 637:	0f 14 c2             	unpcklps %xmm2,%xmm0
++ 63a:	89 93 18 01 00 00    	mov    %edx,0x118(%rbx)
++ 640:	48 89 e2             	mov    %rsp,%rdx
++ 643:	0f 16 c1             	movlhps %xmm1,%xmm0
++ 646:	0f 11 43 68          	movups %xmm0,0x68(%rbx)
++ 64a:	e8 00 00 00 00       	call   64f <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x13f>
++			64b: R_X86_64_PLT32	get_group_window(group_tracker*, unsigned long, page_group**)-0x4
++ 64f:	48 8b 04 24          	mov    (%rsp),%rax
++ 653:	48 85 c0             	test   %rax,%rax
++ 656:	0f 84 ec 03 00 00    	je     a48 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x538>
++ 65c:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
++ 661:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
++ 666:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
++ 66b:	f3 0f 11 8b 80 00 00 	movss  %xmm1,0x80(%rbx)
++ 672:	00 
++ 673:	f3 0f 11 83 bc 00 00 	movss  %xmm0,0xbc(%rbx)
++ 67a:	00 
++ 67b:	48 85 c0             	test   %rax,%rax
++ 67e:	0f 84 a4 04 00 00    	je     b28 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x618>
++ 684:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
++ 689:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
++ 68e:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
++ 693:	f3 0f 11 8b 84 00 00 	movss  %xmm1,0x84(%rbx)
++ 69a:	00 
++ 69b:	f3 0f 11 83 c0 00 00 	movss  %xmm0,0xc0(%rbx)
++ 6a2:	00 
++ 6a3:	48 85 c0             	test   %rax,%rax
++ 6a6:	0f 84 6c 04 00 00    	je     b18 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x608>
++ 6ac:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
++ 6b1:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
++ 6b6:	48 8b 44 24 18       	mov    0x18(%rsp),%rax
++ 6bb:	f3 0f 11 8b 88 00 00 	movss  %xmm1,0x88(%rbx)
++ 6c2:	00 
++ 6c3:	f3 0f 11 83 c4 00 00 	movss  %xmm0,0xc4(%rbx)
++ 6ca:	00 
++ 6cb:	48 85 c0             	test   %rax,%rax
++ 6ce:	0f 84 34 04 00 00    	je     b08 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x5f8>
++ 6d4:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
++ 6d9:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
++ 6de:	48 8b 44 24 20       	mov    0x20(%rsp),%rax
++ 6e3:	f3 0f 11 8b 8c 00 00 	movss  %xmm1,0x8c(%rbx)
++ 6ea:	00 
++ 6eb:	f3 0f 11 83 c8 00 00 	movss  %xmm0,0xc8(%rbx)
++ 6f2:	00 
++ 6f3:	48 85 c0             	test   %rax,%rax
++ 6f6:	0f 84 fc 03 00 00    	je     af8 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x5e8>
++ 6fc:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
++ 701:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
++ 706:	48 8b 44 24 28       	mov    0x28(%rsp),%rax
++ 70b:	f3 0f 11 8b 90 00 00 	movss  %xmm1,0x90(%rbx)
++ 712:	00 
++ 713:	f3 0f 11 83 cc 00 00 	movss  %xmm0,0xcc(%rbx)
++ 71a:	00 
++ 71b:	48 85 c0             	test   %rax,%rax
++ 71e:	0f 84 c4 03 00 00    	je     ae8 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x5d8>
++ 724:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
++ 729:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
++ 72e:	48 8b 44 24 30       	mov    0x30(%rsp),%rax
++ 733:	f3 0f 11 8b 94 00 00 	movss  %xmm1,0x94(%rbx)
++ 73a:	00 
++ 73b:	f3 0f 11 83 d0 00 00 	movss  %xmm0,0xd0(%rbx)
++ 742:	00 
++ 743:	48 85 c0             	test   %rax,%rax
++ 746:	0f 84 8c 03 00 00    	je     ad8 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x5c8>
++ 74c:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
++ 751:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
++ 756:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
++ 75b:	f3 0f 11 8b 98 00 00 	movss  %xmm1,0x98(%rbx)
++ 762:	00 
++ 763:	f3 0f 11 83 d4 00 00 	movss  %xmm0,0xd4(%rbx)
++ 76a:	00 
++ 76b:	48 85 c0             	test   %rax,%rax
++ 76e:	0f 84 54 03 00 00    	je     ac8 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x5b8>
++ 774:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
++ 779:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
++ 77e:	48 8b 44 24 40       	mov    0x40(%rsp),%rax
++ 783:	f3 0f 11 8b 9c 00 00 	movss  %xmm1,0x9c(%rbx)
++ 78a:	00 
++ 78b:	f3 0f 11 83 d8 00 00 	movss  %xmm0,0xd8(%rbx)
++ 792:	00 
++ 793:	48 85 c0             	test   %rax,%rax
++ 796:	0f 84 1c 03 00 00    	je     ab8 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x5a8>
++ 79c:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
++ 7a1:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
++ 7a6:	48 8b 44 24 48       	mov    0x48(%rsp),%rax
++ 7ab:	f3 0f 11 8b a0 00 00 	movss  %xmm1,0xa0(%rbx)
++ 7b2:	00 
++ 7b3:	f3 0f 11 83 dc 00 00 	movss  %xmm0,0xdc(%rbx)
++ 7ba:	00 
++ 7bb:	48 85 c0             	test   %rax,%rax
++ 7be:	0f 84 e4 02 00 00    	je     aa8 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x598>
++ 7c4:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
++ 7c9:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
++ 7ce:	48 8b 44 24 50       	mov    0x50(%rsp),%rax
++ 7d3:	f3 0f 11 8b a4 00 00 	movss  %xmm1,0xa4(%rbx)
++ 7da:	00 
++ 7db:	f3 0f 11 83 e0 00 00 	movss  %xmm0,0xe0(%rbx)
++ 7e2:	00 
++ 7e3:	48 85 c0             	test   %rax,%rax
++ 7e6:	0f 84 ac 02 00 00    	je     a98 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x588>
++ 7ec:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
++ 7f1:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
++ 7f6:	48 8b 44 24 58       	mov    0x58(%rsp),%rax
++ 7fb:	f3 0f 11 8b a8 00 00 	movss  %xmm1,0xa8(%rbx)
++ 802:	00 
++ 803:	f3 0f 11 83 e4 00 00 	movss  %xmm0,0xe4(%rbx)
++ 80a:	00 
++ 80b:	48 85 c0             	test   %rax,%rax
++ 80e:	0f 84 74 02 00 00    	je     a88 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x578>
++ 814:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
++ 819:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
++ 81e:	48 8b 44 24 60       	mov    0x60(%rsp),%rax
++ 823:	f3 0f 11 8b ac 00 00 	movss  %xmm1,0xac(%rbx)
++ 82a:	00 
++ 82b:	f3 0f 11 83 e8 00 00 	movss  %xmm0,0xe8(%rbx)
++ 832:	00 
++ 833:	48 85 c0             	test   %rax,%rax
++ 836:	0f 84 3c 02 00 00    	je     a78 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x568>
++ 83c:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
++ 841:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
++ 846:	48 8b 44 24 68       	mov    0x68(%rsp),%rax
++ 84b:	f3 0f 11 8b b0 00 00 	movss  %xmm1,0xb0(%rbx)
++ 852:	00 
++ 853:	f3 0f 11 83 ec 00 00 	movss  %xmm0,0xec(%rbx)
++ 85a:	00 
++ 85b:	48 85 c0             	test   %rax,%rax
++ 85e:	0f 84 04 02 00 00    	je     a68 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x558>
++ 864:	f3 0f 10 48 24       	movss  0x24(%rax),%xmm1
++ 869:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
++ 86e:	48 8b 44 24 70       	mov    0x70(%rsp),%rax
++ 873:	f3 0f 11 8b b4 00 00 	movss  %xmm1,0xb4(%rbx)
++ 87a:	00 
++ 87b:	f3 0f 11 83 f0 00 00 	movss  %xmm0,0xf0(%rbx)
++ 882:	00 
++ 883:	48 85 c0             	test   %rax,%rax
++ 886:	0f 84 cc 01 00 00    	je     a58 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x548>
++ 88c:	f3 0f 10 40 24       	movss  0x24(%rax),%xmm0
++ 891:	f3 0f 10 50 30       	movss  0x30(%rax),%xmm2
++ 896:	0f 10 a3 bc 00 00 00 	movups 0xbc(%rbx),%xmm4
++ 89d:	66 0f ef db          	pxor   %xmm3,%xmm3
++ 8a1:	f3 0f 11 83 b8 00 00 	movss  %xmm0,0xb8(%rbx)
++ 8a8:	00 
++ 8a9:	f3 44 0f 10 8b ec 00 	movss  0xec(%rbx),%xmm9
++ 8b0:	00 00 
++ 8b2:	48 8b 45 00          	mov    0x0(%rbp),%rax
++ 8b6:	0f 28 c4             	movaps %xmm4,%xmm0
++ 8b9:	0f 28 f4             	movaps %xmm4,%xmm6
++ 8bc:	0f 28 cc             	movaps %xmm4,%xmm1
++ 8bf:	f3 0f 58 c3          	addss  %xmm3,%xmm0
++ 8c3:	0f 59 f4             	mulps  %xmm4,%xmm6
++ 8c6:	0f c6 cc 55          	shufps $0x55,%xmm4,%xmm1
++ 8ca:	0f 28 fc             	movaps %xmm4,%xmm7
++ 8cd:	0f 15 fc             	unpckhps %xmm4,%xmm7
++ 8d0:	0f c6 e4 ff          	shufps $0xff,%xmm4,%xmm4
++ 8d4:	48 8b 90 38 01 00 00 	mov    0x138(%rax),%rdx
++ 8db:	f3 0f 58 c1          	addss  %xmm1,%xmm0
++ 8df:	48 89 93 00 01 00 00 	mov    %rdx,0x100(%rbx)
++ 8e6:	0f b6 50 10          	movzbl 0x10(%rax),%edx
++ 8ea:	48 8b 80 10 03 00 00 	mov    0x310(%rax),%rax
++ 8f1:	0f 28 ce             	movaps %xmm6,%xmm1
++ 8f4:	0f 28 ee             	movaps %xmm6,%xmm5
++ 8f7:	88 93 14 01 00 00    	mov    %dl,0x114(%rbx)
++ 8fd:	f3 0f 58 c7          	addss  %xmm7,%xmm0
++ 901:	f3 0f 58 cb          	addss  %xmm3,%xmm1
++ 905:	0f c6 ee 55          	shufps $0x55,%xmm6,%xmm5
++ 909:	48 89 83 1c 01 00 00 	mov    %rax,0x11c(%rbx)
++ 910:	48 89 d8             	mov    %rbx,%rax
++ 913:	f3 0f 58 c4          	addss  %xmm4,%xmm0
++ 917:	0f 10 a3 cc 00 00 00 	movups 0xcc(%rbx),%xmm4
++ 91e:	f3 0f 58 e9          	addss  %xmm1,%xmm5
++ 922:	0f 28 ce             	movaps %xmm6,%xmm1
++ 925:	0f 15 ce             	unpckhps %xmm6,%xmm1
++ 928:	0f c6 f6 ff          	shufps $0xff,%xmm6,%xmm6
++ 92c:	0f 28 fc             	movaps %xmm4,%xmm7
++ 92f:	f3 0f 58 c4          	addss  %xmm4,%xmm0
++ 933:	f3 0f 58 cd          	addss  %xmm5,%xmm1
++ 937:	0f 28 ec             	movaps %xmm4,%xmm5
++ 93a:	0f c6 ec 55          	shufps $0x55,%xmm4,%xmm5
++ 93e:	0f 15 fc             	unpckhps %xmm4,%xmm7
++ 941:	f3 0f 58 c5          	addss  %xmm5,%xmm0
++ 945:	0f 28 ec             	movaps %xmm4,%xmm5
++ 948:	f3 0f 58 ce          	addss  %xmm6,%xmm1
++ 94c:	0f 59 ec             	mulps  %xmm4,%xmm5
++ 94f:	0f c6 e4 ff          	shufps $0xff,%xmm4,%xmm4
++ 953:	f3 0f 58 c7          	addss  %xmm7,%xmm0
++ 957:	f3 0f 58 cd          	addss  %xmm5,%xmm1
++ 95b:	0f 28 f5             	movaps %xmm5,%xmm6
++ 95e:	f3 0f 58 c4          	addss  %xmm4,%xmm0
++ 962:	0f 10 a3 dc 00 00 00 	movups 0xdc(%rbx),%xmm4
++ 969:	0f c6 f5 55          	shufps $0x55,%xmm5,%xmm6
++ 96d:	0f 28 fc             	movaps %xmm4,%xmm7
++ 970:	44 0f 28 c4          	movaps %xmm4,%xmm8
++ 974:	f3 0f 58 ce          	addss  %xmm6,%xmm1
++ 978:	0f 28 f5             	movaps %xmm5,%xmm6
++ 97b:	44 0f 15 c4          	unpckhps %xmm4,%xmm8
++ 97f:	0f 59 fc             	mulps  %xmm4,%xmm7
++ 982:	0f 15 f5             	unpckhps %xmm5,%xmm6
++ 985:	0f c6 ed ff          	shufps $0xff,%xmm5,%xmm5
++ 989:	f3 0f 58 ce          	addss  %xmm6,%xmm1
++ 98d:	0f 28 f4             	movaps %xmm4,%xmm6
++ 990:	f3 0f 58 f0          	addss  %xmm0,%xmm6
++ 994:	0f 28 c4             	movaps %xmm4,%xmm0
++ 997:	0f c6 c4 55          	shufps $0x55,%xmm4,%xmm0
++ 99b:	0f c6 e4 ff          	shufps $0xff,%xmm4,%xmm4
++ 99f:	f3 0f 58 cd          	addss  %xmm5,%xmm1
++ 9a3:	0f 28 ef             	movaps %xmm7,%xmm5
++ 9a6:	f3 0f 58 f0          	addss  %xmm0,%xmm6
++ 9aa:	0f 28 c7             	movaps %xmm7,%xmm0
++ 9ad:	0f c6 c7 55          	shufps $0x55,%xmm7,%xmm0
++ 9b1:	f3 0f 58 e9          	addss  %xmm1,%xmm5
++ 9b5:	0f 28 cf             	movaps %xmm7,%xmm1
++ 9b8:	f3 41 0f 58 f0       	addss  %xmm8,%xmm6
++ 9bd:	0f 15 cf             	unpckhps %xmm7,%xmm1
++ 9c0:	0f c6 ff ff          	shufps $0xff,%xmm7,%xmm7
++ 9c4:	f3 0f 58 e8          	addss  %xmm0,%xmm5
++ 9c8:	f3 0f 10 83 f0 00 00 	movss  0xf0(%rbx),%xmm0
++ 9cf:	00 
++ 9d0:	f3 0f 58 f4          	addss  %xmm4,%xmm6
++ 9d4:	f3 0f 7e a3 ec 00 00 	movq   0xec(%rbx),%xmm4
++ 9db:	00 
++ 9dc:	f3 0f 58 e9          	addss  %xmm1,%xmm5
++ 9e0:	0f 59 e4             	mulps  %xmm4,%xmm4
++ 9e3:	0f 28 cf             	movaps %xmm7,%xmm1
++ 9e6:	f3 41 0f 58 f1       	addss  %xmm9,%xmm6
++ 9eb:	f3 0f 58 cd          	addss  %xmm5,%xmm1
++ 9ef:	f3 0f 10 2d 00 00 00 	movss  0x0(%rip),%xmm5        # 9f7 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x4e7>
++ 9f6:	00 
++			9f3: R_X86_64_PC32	.LC24-0x4
++ 9f7:	f3 0f 58 c6          	addss  %xmm6,%xmm0
++ 9fb:	f3 0f 58 cc          	addss  %xmm4,%xmm1
++ 9ff:	0f c6 e4 e5          	shufps $0xe5,%xmm4,%xmm4
++ a03:	f3 0f 58 c2          	addss  %xmm2,%xmm0
++ a07:	f3 0f 58 e1          	addss  %xmm1,%xmm4
++ a0b:	0f 28 ca             	movaps %xmm2,%xmm1
++ a0e:	f3 0f 59 ca          	mulss  %xmm2,%xmm1
++ a12:	f3 0f 5e c5          	divss  %xmm5,%xmm0
++ a16:	f3 0f 58 cc          	addss  %xmm4,%xmm1
++ a1a:	f3 0f 5e cd          	divss  %xmm5,%xmm1
++ a1e:	f3 0f 59 c0          	mulss  %xmm0,%xmm0
++ a22:	f3 0f 5c c8          	subss  %xmm0,%xmm1
++ a26:	f3 0f c2 d9 01       	cmpltss %xmm1,%xmm3
++ a2b:	0f 54 cb             	andps  %xmm3,%xmm1
++ a2e:	0f 14 d1             	unpcklps %xmm1,%xmm2
++ a31:	0f 13 93 f4 00 00 00 	movlps %xmm2,0xf4(%rbx)
++ a38:	48 81 c4 88 00 00 00 	add    $0x88,%rsp
++ a3f:	5b                   	pop    %rbx
++ a40:	5d                   	pop    %rbp
++ a41:	c3                   	ret
++ a42:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
++ a48:	66 0f ef c9          	pxor   %xmm1,%xmm1
++ a4c:	0f 28 c1             	movaps %xmm1,%xmm0
++ a4f:	e9 12 fc ff ff       	jmp    666 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x156>
++ a54:	0f 1f 40 00          	nopl   0x0(%rax)
++ a58:	66 0f ef c0          	pxor   %xmm0,%xmm0
++ a5c:	0f 28 d0             	movaps %xmm0,%xmm2
++ a5f:	e9 32 fe ff ff       	jmp    896 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x386>
++ a64:	0f 1f 40 00          	nopl   0x0(%rax)
++ a68:	66 0f ef c9          	pxor   %xmm1,%xmm1
++ a6c:	0f 28 c1             	movaps %xmm1,%xmm0
++ a6f:	e9 fa fd ff ff       	jmp    86e <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x35e>
++ a74:	0f 1f 40 00          	nopl   0x0(%rax)
++ a78:	66 0f ef c9          	pxor   %xmm1,%xmm1
++ a7c:	0f 28 c1             	movaps %xmm1,%xmm0
++ a7f:	e9 c2 fd ff ff       	jmp    846 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x336>
++ a84:	0f 1f 40 00          	nopl   0x0(%rax)
++ a88:	66 0f ef c9          	pxor   %xmm1,%xmm1
++ a8c:	0f 28 c1             	movaps %xmm1,%xmm0
++ a8f:	e9 8a fd ff ff       	jmp    81e <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x30e>
++ a94:	0f 1f 40 00          	nopl   0x0(%rax)
++ a98:	66 0f ef c9          	pxor   %xmm1,%xmm1
++ a9c:	0f 28 c1             	movaps %xmm1,%xmm0
++ a9f:	e9 52 fd ff ff       	jmp    7f6 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x2e6>
++ aa4:	0f 1f 40 00          	nopl   0x0(%rax)
++ aa8:	66 0f ef c9          	pxor   %xmm1,%xmm1
++ aac:	0f 28 c1             	movaps %xmm1,%xmm0
++ aaf:	e9 1a fd ff ff       	jmp    7ce <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x2be>
++ ab4:	0f 1f 40 00          	nopl   0x0(%rax)
++ ab8:	66 0f ef c9          	pxor   %xmm1,%xmm1
++ abc:	0f 28 c1             	movaps %xmm1,%xmm0
++ abf:	e9 e2 fc ff ff       	jmp    7a6 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x296>
++ ac4:	0f 1f 40 00          	nopl   0x0(%rax)
++ ac8:	66 0f ef c9          	pxor   %xmm1,%xmm1
++ acc:	0f 28 c1             	movaps %xmm1,%xmm0
++ acf:	e9 aa fc ff ff       	jmp    77e <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x26e>
++ ad4:	0f 1f 40 00          	nopl   0x0(%rax)
++ ad8:	66 0f ef c9          	pxor   %xmm1,%xmm1
++ adc:	0f 28 c1             	movaps %xmm1,%xmm0
++ adf:	e9 72 fc ff ff       	jmp    756 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x246>
++ ae4:	0f 1f 40 00          	nopl   0x0(%rax)
++ ae8:	66 0f ef c9          	pxor   %xmm1,%xmm1
++ aec:	0f 28 c1             	movaps %xmm1,%xmm0
++ aef:	e9 3a fc ff ff       	jmp    72e <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x21e>
++ af4:	0f 1f 40 00          	nopl   0x0(%rax)
++ af8:	66 0f ef c9          	pxor   %xmm1,%xmm1
++ afc:	0f 28 c1             	movaps %xmm1,%xmm0
++ aff:	e9 02 fc ff ff       	jmp    706 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x1f6>
++ b04:	0f 1f 40 00          	nopl   0x0(%rax)
++ b08:	66 0f ef c9          	pxor   %xmm1,%xmm1
++ b0c:	0f 28 c1             	movaps %xmm1,%xmm0
++ b0f:	e9 ca fb ff ff       	jmp    6de <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x1ce>
++ b14:	0f 1f 40 00          	nopl   0x0(%rax)
++ b18:	66 0f ef c9          	pxor   %xmm1,%xmm1
++ b1c:	0f 28 c1             	movaps %xmm1,%xmm0
++ b1f:	e9 92 fb ff ff       	jmp    6b6 <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x1a6>
++ b24:	0f 1f 40 00          	nopl   0x0(%rax)
++ b28:	66 0f ef c9          	pxor   %xmm1,%xmm1
++ b2c:	0f 28 c1             	movaps %xmm1,%xmm0
++ b2f:	e9 5a fb ff ff       	jmp    68e <access_log::extract_row(unsigned long, std::shared_ptr<page_info> const&, group_tracker*, unsigned long)+0x17e>
++ b34:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
++ b3b:	00 00 00 00 
++ b3f:	90                   	nop
++
++0000000000000b40 <access_log::log_row(std::shared_ptr<page_info> const&, data_row&)>:
++ b40:	c3                   	ret
++ b41:	90                   	nop
++ b42:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
++ b49:	00 00 00 00 
++ b4d:	0f 1f 00             	nopl   (%rax)
++
++0000000000000b50 <access_log::overlaps_with_logging_region(unsigned long, unsigned long) const>:
++ b50:	31 c0                	xor    %eax,%eax
++ b52:	48 85 d2             	test   %rdx,%rdx
++ b55:	74 4c                	je     ba3 <access_log::overlaps_with_logging_region(unsigned long, unsigned long) const+0x53>
++ b57:	48 01 f2             	add    %rsi,%rdx
++ b5a:	48 c7 c0 ff ff ff ff 	mov    $0xffffffffffffffff,%rax
++ b61:	48 0f 42 d0          	cmovb  %rax,%rdx
++ b65:	48 8d 87 d0 00 00 00 	lea    0xd0(%rdi),%rax
++ b6c:	48 39 c6             	cmp    %rax,%rsi
++ b6f:	0f 92 c0             	setb   %al
++ b72:	48 39 d7             	cmp    %rdx,%rdi
++ b75:	0f 92 c1             	setb   %cl
++ b78:	20 c8                	and    %cl,%al
++ b7a:	75 27                	jne    ba3 <access_log::overlaps_with_logging_region(unsigned long, unsigned long) const+0x53>
++ b7c:	48 8b 8f c8 00 00 00 	mov    0xc8(%rdi),%rcx
++ b83:	48 85 c9             	test   %rcx,%rcx
++ b86:	74 1b                	je     ba3 <access_log::overlaps_with_logging_region(unsigned long, unsigned long) const+0x53>
++ b88:	48 b8 00 a8 01 87 01 	movabs $0x18701a800,%rax
++ b8f:	00 00 00 
++ b92:	48 01 c8             	add    %rcx,%rax
++ b95:	48 39 c6             	cmp    %rax,%rsi
++ b98:	0f 92 c0             	setb   %al
++ b9b:	48 39 d1             	cmp    %rdx,%rcx
++ b9e:	0f 92 c2             	setb   %dl
++ ba1:	21 d0                	and    %edx,%eax
++ ba3:	c3                   	ret
+ 
+ Disassembly of section .text.unlikely:
+ 

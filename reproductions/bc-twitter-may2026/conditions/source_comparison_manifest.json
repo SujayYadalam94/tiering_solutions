@@ -1,0 +1,209 @@
+{
+  "created_utc": "2026-09-09T12:23:55.738663+00:00",
+  "source_head": "671e0e64423d586c82b91dc6c9681946d54043e7",
+  "snapshots": {
+    "may04": {
+      "revision": "8d6a8bc66",
+      "sha256": {
+        "arms_kernel.cpp": "84aaf7f5bdfbc022c56e1252ff3e8fd8b9d230a560384eba34c4f03062833888",
+        "pebs_scan_thread.cpp": "2739e7afaac37f5b62ecfae867114c74a918ddbce07b98f28a4680f9fad906f2",
+        "pagemap_scan_thread.cpp": "150e974876abb5695ba6b4f5a33ebf611b0c8aba78b9b665354f11aeb8f8b4da",
+        "migration_worker.cpp": "482ee79f31be4da4220f35ff9b7fd1c07124490de4f4b88b4a99d8bee94479ad",
+        "policy_thread.cpp": "564c29b19a7ac8383908e9f692d52524daa03b9811b026a04755446a7f0573da",
+        "timer.cpp": "3a5b78e7ecc4c74f47da8edcc7d1ca3edab411df45db1db99374a17fc02097ad",
+        "hook/hook.cpp": "79a3ad38bd9e643ac5fbe2c65eeacd01ae3fecfd1f2981b0f72344a5e3f5095a",
+        "groups.cpp": "bef4fc32b98bc51820c828a282bb0de8651d0b9f2371fb5d44b860707ab89a92",
+        "page.cpp": "473250ed0d572f5751641ae08ed44d844bce614a1696986271d8abf97030410f",
+        "logging.cpp": "d1de2eb4181be32869cfacdb1568a9c449140425514934815e44deafc87c0cf3",
+        "model.cpp": "e72df0128deeffde90162ace1e53236b1974486615adf5f1dd4e561726c69e37",
+        "arms_kernel_threads.h": "ad17a0f3575d339464b20e2581bdf1977597d51022c43a48e60a47ef4b26bdc7",
+        "timer.h": "4466c6581fe3e6645d1f0d97d91de43261aac002b638855af5ad056b35a36aa1",
+        "groups.h": "80163712ee731af0b9d5c13e3bc820940c41bafc1f8ceefc41b31b9ae46e5b06",
+        "logging.h": "1c43ee5c5be98445d6c8ab899199149dbc2bca5aa712255eb80008e4f79ca21e",
+        "defs.h": "b8ead14a2d08cc66771e2e431f9cb161dd6b77853b0de4796027dbce0959daf9",
+        "model.h": "70862dbceef47a808212a203ae8853f1380f53a3ab3dad6045a90d29d3a706d0",
+        "arms_kernel.h": "ec4d569eb526d5e1f5b20bec59e5b26a508ac00144de310d05c932039443c773",
+        "page.h": "a7bb3203915a8cd34f84f12996b80f9ba66a57cd90cfb7ea33266fb41b4086a2"
+      }
+    },
+    "may09": {
+      "revision": "41e8adedd",
+      "sha256": {
+        "arms_kernel.cpp": "6f7822edc2ce63977ab0c5e49e17220eb3e0beb107ba66d6bb37796badf2c262",
+        "pebs_scan_thread.cpp": "2739e7afaac37f5b62ecfae867114c74a918ddbce07b98f28a4680f9fad906f2",
+        "pagemap_scan_thread.cpp": "150e974876abb5695ba6b4f5a33ebf611b0c8aba78b9b665354f11aeb8f8b4da",
+        "migration_worker.cpp": "482ee79f31be4da4220f35ff9b7fd1c07124490de4f4b88b4a99d8bee94479ad",
+        "policy_thread.cpp": "564c29b19a7ac8383908e9f692d52524daa03b9811b026a04755446a7f0573da",
+        "timer.cpp": "3a5b78e7ecc4c74f47da8edcc7d1ca3edab411df45db1db99374a17fc02097ad",
+        "hook/hook.cpp": "79a3ad38bd9e643ac5fbe2c65eeacd01ae3fecfd1f2981b0f72344a5e3f5095a",
+        "groups.cpp": "bef4fc32b98bc51820c828a282bb0de8651d0b9f2371fb5d44b860707ab89a92",
+        "page.cpp": "a3e0e3b02a59f3217352025166dbbccdf4805c8a33da88a49349b81652f12c8c",
+        "logging.cpp": "d1de2eb4181be32869cfacdb1568a9c449140425514934815e44deafc87c0cf3",
+        "model.cpp": "e72df0128deeffde90162ace1e53236b1974486615adf5f1dd4e561726c69e37",
+        "arms_kernel_threads.h": "ad17a0f3575d339464b20e2581bdf1977597d51022c43a48e60a47ef4b26bdc7",
+        "timer.h": "4466c6581fe3e6645d1f0d97d91de43261aac002b638855af5ad056b35a36aa1",
+        "groups.h": "80163712ee731af0b9d5c13e3bc820940c41bafc1f8ceefc41b31b9ae46e5b06",
+        "logging.h": "1c43ee5c5be98445d6c8ab899199149dbc2bca5aa712255eb80008e4f79ca21e",
+        "defs.h": "116aaf47651335b15dcd43dd6449d0f30ed58abeba9a356bfb0d908f4c3dbd7b",
+        "model.h": "70862dbceef47a808212a203ae8853f1380f53a3ab3dad6045a90d29d3a706d0",
+        "arms_kernel.h": "ec4d569eb526d5e1f5b20bec59e5b26a508ac00144de310d05c932039443c773",
+        "page.h": "e53c3af98bca61e1e2b8601d4921734f87fff4b6be036fb54f38b304c3baea35"
+      }
+    },
+    "current": {
+      "revision": "working tree",
+      "sha256": {
+        "arms_kernel.cpp": "acce698de0416986c58fd1085af9bf40c12faf4fc86c6300fb50ffcc5fb84add",
+        "pebs_scan_thread.cpp": "2739e7afaac37f5b62ecfae867114c74a918ddbce07b98f28a4680f9fad906f2",
+        "pagemap_scan_thread.cpp": "150e974876abb5695ba6b4f5a33ebf611b0c8aba78b9b665354f11aeb8f8b4da",
+        "migration_worker.cpp": "482ee79f31be4da4220f35ff9b7fd1c07124490de4f4b88b4a99d8bee94479ad",
+        "policy_thread.cpp": "4ea26234ad6137e3e557375d74bea5f191dad3b2427f42aac9132c7fd9e889ca",
+        "timer.cpp": "3a5b78e7ecc4c74f47da8edcc7d1ca3edab411df45db1db99374a17fc02097ad",
+        "hook/hook.cpp": "cc9bc97884dabe97f4d3c5c66d21b42d65c0357c1379473392b301095c99d2ee",
+        "groups.cpp": "bef4fc32b98bc51820c828a282bb0de8651d0b9f2371fb5d44b860707ab89a92",
+        "page.cpp": "9217c5919d498d583125fef063cf3bc7e1ebb0c002660d8aae55a19fb1c2fc7f",
+        "logging.cpp": "aa2dcd3c6f13fd92cc602d45213bfa1981dc799c346187d945916673f19ea71a",
+        "model.cpp": "94285a79e3c26ce6a84b69696e3d967bfb1c9efcd38e4d1b0fe2713855cb0c79",
+        "arms_kernel_threads.h": "5f76422f0c2829d822414f3b6dc1a43314763d663de17725db8d1338de12d34d",
+        "timer.h": "4466c6581fe3e6645d1f0d97d91de43261aac002b638855af5ad056b35a36aa1",
+        "groups.h": "80163712ee731af0b9d5c13e3bc820940c41bafc1f8ceefc41b31b9ae46e5b06",
+        "logging.h": "cf5258d32290c2f8bb1acd24a043329640452f2360e555f3faf5db745c2c7544",
+        "logging_parquet.h": "a2defe5e3a508bbb918cd370c7d291cacfb7228ffe939dc6c0109ce141b90e80",
+        "defs.h": "be3cd50105385e632e3103b614c2f523f182aa8fe84f1cfa49a0a48c6c5b5161",
+        "model.h": "70862dbceef47a808212a203ae8853f1380f53a3ab3dad6045a90d29d3a706d0",
+        "arms_kernel.h": "ec4d569eb526d5e1f5b20bec59e5b26a508ac00144de310d05c932039443c773",
+        "page.h": "e53c3af98bca61e1e2b8601d4921734f87fff4b6be036fb54f38b304c3baea35",
+        "logging_parquet.cpp": "d6c352d62fe1ff74884489a83ed08142534b7c884fcecf8d1531ea500f7f8879"
+      }
+    }
+  },
+  "models": {
+    "may03": {
+      "source": "models/old/model_discounted_reward_99_bc-twitter.sg_l2",
+      "training_repository_revision": "25cd9ed",
+      "training_repository_path": "process_data/models/model_discounted_reward_99_bc-twitter.sg_l2",
+      "sha256": {
+        ".o": "763ad7a415847b832a89389d6a20bca1a4f8d01871b0d69186aee7f943591585",
+        ".txt": "57c39dda632eddbb5a0e1f2006f81d7778ec967634243dd1803a8278eaf285df",
+        "_report.txt": "147338232f93db6f48bcc60ff6ea983b391d7fe7459399458a35ef9ad192729e"
+      }
+    },
+    "may14": {
+      "source": "models/with_age/model_discounted_reward_99_bc-twitter.sg_l2",
+      "training_repository_revision": "25cd9ed",
+      "training_repository_path": "process_data/model_discounted_reward_99_bc-twitter.sg_l2",
+      "sha256": {
+        ".o": "96148ddca2bbc531768cef66f9012cf91830696b683a82b6d7dbd52cfebb60dc",
+        ".txt": "a965a5dc3b9e69825e16a741b86c734d7e02a460e043664ee7396619800d41e9",
+        "_report.txt": "3a49dc8bcb05cc032353c09ed7d9653a1d4381e0a0616ebc466ac46f3ad92819"
+      }
+    },
+    "june18": {
+      "source": "models/model_discounted_reward_99_bc-twitter.sg_l2",
+      "training_repository_revision": null,
+      "training_repository_path": null,
+      "sha256": {
+        ".o": "1a0cf6217dbf4d07736f28b2a166d3fbdaf479a82bdf014da7a6f629bb44ceb6",
+        ".txt": "ddee33ea89113f2735d8adbda395cf45b169ba3c292f1da8989c4b21e0625b03",
+        "_report.txt": "18c86642f7a739cdcaa11b299a86c9c3cb7db037b6c721a99e0a11c259f40174"
+      }
+    }
+  },
+  "cases": {
+    "may07_arms": {
+      "source": "may04",
+      "model": null,
+      "configuration": null,
+      "library": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/libraries/may07_arms.so",
+      "library_sha256": "f845a9711cfa2744eaa135a77f9954a8b4250239b2cb431aa4b01ac093da3615"
+    },
+    "may07_model": {
+      "source": "may04",
+      "model": "may03",
+      "configuration": [
+        2,
+        10,
+        0.5
+      ],
+      "library": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/libraries/may07_model.so",
+      "library_sha256": "c0f06d1b3febb5c3fea8359e87332a5c3068b6e6d62754251be7b5ebd6ecc1e6"
+    },
+    "may10_model_candidate": {
+      "source": "may09",
+      "model": "may03",
+      "configuration": [
+        1,
+        10,
+        0.1
+      ],
+      "library": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/libraries/may10_model_candidate.so",
+      "library_sha256": "2eb706a7c35c4ca3cae06db7beb05fd2c771eef15dc9d9cc541c8a9ad8658516"
+    },
+    "current_arms": {
+      "source": "current",
+      "model": null,
+      "configuration": null,
+      "library": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/libraries/current_arms.so",
+      "library_sha256": "e1a8b8ed38d4b55c82eb10b772b577656e27ec228a993ffdd7742ca7b2eefb67"
+    },
+    "current_model": {
+      "source": "current",
+      "model": "june18",
+      "configuration": [
+        1,
+        10,
+        0.1
+      ],
+      "library": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/libraries/current_model.so",
+      "library_sha256": "6436b4c9f8879ab32fece56d1b6f6a6f93691aeac55eaaaa6950398ebf426d08"
+    },
+    "current_code_may07_model": {
+      "source": "current",
+      "model": "may03",
+      "configuration": [
+        2,
+        10,
+        0.5
+      ],
+      "library": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/libraries/current_code_may07_model.so",
+      "library_sha256": "41ebc4421a3d19672230bdbaedbda46efc4e6f71b14939d95ceb7cf4a600ba08"
+    },
+    "may07_code_june_model": {
+      "source": "may04",
+      "model": "june18",
+      "configuration": [
+        2,
+        10,
+        0.5
+      ],
+      "library": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/libraries/may07_code_june_model.so",
+      "library_sha256": "6f2d8983b2d319dff6fccda570062571d9824dcf0fac570c18d792a69474ec92"
+    },
+    "retained_april_arms": {
+      "source": "retained binary; exact source revision unknown",
+      "model": null,
+      "configuration": null,
+      "library": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/legacy_binary/libarms_kernel.so",
+      "library_sha256": "d6cfc27d1420ee40f588479f7c1be3b5e3353fe3d0f2738a899a7397b4c1845a"
+    }
+  },
+  "limitations": [
+    "May source commits are candidate reconstructions, not recorded hashes of benchmark libraries.",
+    "May 3 weights have surviving file timestamps and a byte-identical copy in the training repository, but no per-run model hash.",
+    "Runner reuses current system settings and drops only graph file cache; it does not run global setup or enforce the historical capacity label."
+  ],
+  "sources": [
+    "arms_kernel.cpp",
+    "pebs_scan_thread.cpp",
+    "pagemap_scan_thread.cpp",
+    "migration_worker.cpp",
+    "policy_thread.cpp",
+    "timer.cpp",
+    "hook/hook.cpp",
+    "groups.cpp",
+    "page.cpp",
+    "logging.cpp",
+    "model.cpp"
+  ],
+  "compiler": "g++ (GCC) 15.1.0"
+}

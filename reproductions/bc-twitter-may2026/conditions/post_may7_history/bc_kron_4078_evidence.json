@@ -1,0 +1,293 @@
+{
+  "cohorts": {
+    "may07_arms": {
+      "rows": [
+        {
+          "path": "times/c220g5/arms-6.18_new/bc-kron.sg/4009MiB_run1.time",
+          "seconds": 239.635,
+          "exit_status": 0,
+          "mtime_utc": "2026-05-07T07:44:22.855162+00:00",
+          "mtime_ns": 1778139862855162242,
+          "sha256": "a37621eebdecd6a3a336ee9334eff1e0be17af1e3d65232103fc64a7aff6b97d",
+          "final_copy": "times/c220g5_final/arms_6.18/bc-kron.sg/4009MiB_run1.time",
+          "final_copy_bytes_match": true
+        },
+        {
+          "path": "times/c220g5/arms-6.18_new/bc-kron.sg/4009MiB_run2.time",
+          "seconds": 243.843,
+          "exit_status": 0,
+          "mtime_utc": "2026-05-07T11:30:44.305409+00:00",
+          "mtime_ns": 1778153444305409321,
+          "sha256": "e710a6c665dd570eeec7c2a7efb53af53a3c2422cceeb2a99143645897c51b18",
+          "final_copy": "times/c220g5_final/arms_6.18/bc-kron.sg/4009MiB_run2.time",
+          "final_copy_bytes_match": true
+        },
+        {
+          "path": "times/c220g5/arms-6.18_new/bc-kron.sg/4009MiB_run3.time",
+          "seconds": 241.574,
+          "exit_status": 0,
+          "mtime_utc": "2026-05-07T15:17:02.929524+00:00",
+          "mtime_ns": 1778167022929524228,
+          "sha256": "9f6c1a5b9c49532ef83f2b6fbb0725a5322144638f920f664d934ce40b631de2",
+          "final_copy": "times/c220g5_final/arms_6.18/bc-kron.sg/4009MiB_run3.time",
+          "final_copy_bytes_match": true
+        }
+      ],
+      "mean_seconds": 241.684
+    },
+    "may07_model_cost_1p5": {
+      "rows": [
+        {
+          "path": "times/c220g5/model_6.18_new/bc-kron.sg/4009MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.5.time",
+          "seconds": 225.469,
+          "exit_status": 0,
+          "mtime_utc": "2026-05-07T08:08:24.350649+00:00",
+          "mtime_ns": 1778141304350649350,
+          "sha256": "560ec53f21d25c4d709de9534664c4ed29ebf83271dfd8e027bafe7a6a6d798c",
+          "final_copy": "times/c220g5_final/model_6.18_cost_ablation/bc-kron.sg/4009MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.5.time",
+          "final_copy_bytes_match": true
+        },
+        {
+          "path": "times/c220g5/model_6.18_new/bc-kron.sg/4009MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.5.time",
+          "seconds": 223.829,
+          "exit_status": 0,
+          "mtime_utc": "2026-05-07T11:54:32.813145+00:00",
+          "mtime_ns": 1778154872813145350,
+          "sha256": "700163f9c2d8d1f649d58b2a263ee9240cfff4d7cfdf45fb9e62bd8d7002351f",
+          "final_copy": "times/c220g5_final/model_6.18_cost_ablation/bc-kron.sg/4009MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.5.time",
+          "final_copy_bytes_match": true
+        },
+        {
+          "path": "times/c220g5/model_6.18_new/bc-kron.sg/4009MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.5.time",
+          "seconds": 221.873,
+          "exit_status": 0,
+          "mtime_utc": "2026-05-07T15:41:13.255432+00:00",
+          "mtime_ns": 1778168473255432468,
+          "sha256": "7a78268ce25c63178939226607cd959d6d9eb36ca6607114748ca373fcde897a",
+          "final_copy": "times/c220g5_final/model_6.18_cost_ablation/bc-kron.sg/4009MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-2_10_1.5.time",
+          "final_copy_bytes_match": true
+        }
+      ],
+      "mean_seconds": 223.72366666666667
+    },
+    "may10_model_minmax_0p1": {
+      "rows": [
+        {
+          "path": "times/c220g5/model_6.18_new/bc-kron.sg/4028MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+          "seconds": 219.827,
+          "exit_status": 0,
+          "mtime_utc": "2026-05-10T02:35:50.179616+00:00",
+          "mtime_ns": 1778380550179616135,
+          "sha256": "ef9f8b31c90c1027753ca45106ac16b26fd3eb8c94d450dc8affc6c44b5db2bf",
+          "final_copy": "times/c220g5_final/model_6.18/bc-kron.sg/4028MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+          "final_copy_bytes_match": true
+        },
+        {
+          "path": "times/c220g5/model_6.18_new/bc-kron.sg/4028MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+          "seconds": 221.003,
+          "exit_status": 0,
+          "mtime_utc": "2026-05-10T03:12:55.118544+00:00",
+          "mtime_ns": 1778382775118543546,
+          "sha256": "4ef941b44e0549674bc843091b81b1988502fe1bdd6f13d6d04affc2134776d4",
+          "final_copy": "times/c220g5_final/model_6.18/bc-kron.sg/4028MiB_run2_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+          "final_copy_bytes_match": true
+        },
+        {
+          "path": "times/c220g5/model_6.18_new/bc-kron.sg/4028MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+          "seconds": 222.175,
+          "exit_status": 0,
+          "mtime_utc": "2026-05-10T03:49:54.144614+00:00",
+          "mtime_ns": 1778384994144614526,
+          "sha256": "42fba49a19866510ac203f07c042633f53562fd8b832682fac9063adcd086af7",
+          "final_copy": "times/c220g5_final/model_6.18/bc-kron.sg/4028MiB_run3_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+          "final_copy_bytes_match": true
+        }
+      ],
+      "mean_seconds": 221.00166666666667
+    },
+    "current_arms": {
+      "rows": [
+        {
+          "path": "times/c220g5/arms/bc-kron.sg/4078MiB_run1.time",
+          "seconds": 221.905,
+          "exit_status": 0,
+          "mtime_utc": "2026-09-09T21:06:52.602006+00:00",
+          "mtime_ns": 1788988012602006188,
+          "sha256": "6bbe0a93c124a000f6b4a997289fff87a757b5184c627f11e06890d27252316f"
+        }
+      ],
+      "mean_seconds": 221.905
+    },
+    "current_model": {
+      "rows": [
+        {
+          "path": "times/c220g5/model/bc-kron.sg/4078MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+          "seconds": 219.06,
+          "exit_status": 0,
+          "mtime_utc": "2026-09-09T21:11:18.021600+00:00",
+          "mtime_ns": 1788988278021600188,
+          "sha256": "a43a77530f085d219004de19853d62cfa1a18d4cd8df64f407620939ab89599e"
+        }
+      ],
+      "mean_seconds": 219.06
+    }
+  },
+  "may07_predecessors": [
+    {
+      "run": 1,
+      "predecessor": {
+        "path": "times/c220g5/model_6.18_new/DuckDB-TPCH-sf100/4009MiB_run1_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-2_10_1.5.time",
+        "seconds": 207.359,
+        "exit_status": 0,
+        "mtime_utc": "2026-05-07T07:39:36.885461+00:00",
+        "mtime_ns": 1778139576885460995,
+        "sha256": "822562b50c13dcb4b8157b2e6b0783aabc46caf48222c1e764c90525a0c8ac9b"
+      },
+      "arms": {
+        "path": "times/c220g5/arms-6.18_new/bc-kron.sg/4009MiB_run1.time",
+        "seconds": 239.635,
+        "exit_status": 0,
+        "mtime_utc": "2026-05-07T07:44:22.855162+00:00",
+        "mtime_ns": 1778139862855162242,
+        "sha256": "a37621eebdecd6a3a336ee9334eff1e0be17af1e3d65232103fc64a7aff6b97d"
+      },
+      "inferred_preparation_seconds": 46.334701247
+    },
+    {
+      "run": 2,
+      "predecessor": {
+        "path": "times/c220g5/model_6.18_new/DuckDB-TPCH-sf100/4009MiB_run2_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-2_10_1.5.time",
+        "seconds": 207.072,
+        "exit_status": 0,
+        "mtime_utc": "2026-05-07T11:25:53.347905+00:00",
+        "mtime_ns": 1778153153347905411,
+        "sha256": "d8b85a390220a618bff8781b1f14cb78b068a6a4abc73a2ef125118a6c56f86c"
+      },
+      "arms": {
+        "path": "times/c220g5/arms-6.18_new/bc-kron.sg/4009MiB_run2.time",
+        "seconds": 243.843,
+        "exit_status": 0,
+        "mtime_utc": "2026-05-07T11:30:44.305409+00:00",
+        "mtime_ns": 1778153444305409321,
+        "sha256": "e710a6c665dd570eeec7c2a7efb53af53a3c2422cceeb2a99143645897c51b18"
+      },
+      "inferred_preparation_seconds": 47.114503910000025
+    },
+    {
+      "run": 3,
+      "predecessor": {
+        "path": "times/c220g5/model_6.18_new/DuckDB-TPCH-sf100/4009MiB_run3_model_discounted_reward_99_DuckDB-TPCH-sf100_l2-2_10_1.5.time",
+        "seconds": 205.262,
+        "exit_status": 0,
+        "mtime_utc": "2026-05-07T15:12:14.684854+00:00",
+        "mtime_ns": 1778166734684854097,
+        "sha256": "7afcafce6493814772476cf84b5728ef271a080d8ad1314e7f83a0ae1d4cfef4"
+      },
+      "arms": {
+        "path": "times/c220g5/arms-6.18_new/bc-kron.sg/4009MiB_run3.time",
+        "seconds": 241.574,
+        "exit_status": 0,
+        "mtime_utc": "2026-05-07T15:17:02.929524+00:00",
+        "mtime_ns": 1778167022929524228,
+        "sha256": "9f6c1a5b9c49532ef83f2b6fbb0725a5322144638f920f664d934ce40b631de2"
+      },
+      "inferred_preparation_seconds": 46.67067013100001
+    }
+  ],
+  "higher_capacity_arms": {
+    "6009": {
+      "rows": [
+        {
+          "path": "times/c220g5/arms-6.18_new/bc-kron.sg/6009MiB_run3.time",
+          "seconds": 205.386,
+          "exit_status": 0,
+          "mtime_utc": "2026-05-08T03:57:54.709622+00:00",
+          "mtime_ns": 1778212674709622449,
+          "sha256": "e2f027798417a1591669431bb271e2100b4314a2830b7ef14944edd3413c135a"
+        },
+        {
+          "path": "times/c220g5/arms-6.18_new/bc-kron.sg/6009MiB_run2.time",
+          "seconds": 206.448,
+          "exit_status": 0,
+          "mtime_utc": "2026-05-08T00:19:44.032158+00:00",
+          "mtime_ns": 1778199584032158209,
+          "sha256": "82788d87387b485300df5083a0eaae1a9317adb9a0f200ba954c51e64a74630c"
+        },
+        {
+          "path": "times/c220g5/arms-6.18_new/bc-kron.sg/6009MiB_run1.time",
+          "seconds": 204.773,
+          "exit_status": 0,
+          "mtime_utc": "2026-05-07T20:42:22.149557+00:00",
+          "mtime_ns": 1778186542149557376,
+          "sha256": "3261eb32e2581f41dad9c680c7ce85dc41adf0d9e360cac7ed2f8eb76acf40e6"
+        }
+      ],
+      "mean_seconds": 205.53566666666666
+    },
+    "8009": {
+      "rows": [
+        {
+          "path": "times/c220g5/arms-6.18_new/bc-kron.sg/8009MiB_run3.time",
+          "seconds": 204.59199999999998,
+          "exit_status": 0,
+          "mtime_utc": "2026-05-08T14:53:09.375500+00:00",
+          "mtime_ns": 1778251989375500131,
+          "sha256": "dbe802fd948a52092d69f6d66b49222f389d710943b3297de36c04fbc364e273"
+        },
+        {
+          "path": "times/c220g5/arms-6.18_new/bc-kron.sg/8009MiB_run1.time",
+          "seconds": 203.85399999999998,
+          "exit_status": 0,
+          "mtime_utc": "2026-05-08T07:41:39.019738+00:00",
+          "mtime_ns": 1778226099019738368,
+          "sha256": "10b41e1c0175a75154f7199faf75b686f4229c1e6dad1e864e16d531a7c7ffc3"
+        },
+        {
+          "path": "times/c220g5/arms-6.18_new/bc-kron.sg/8009MiB_run2.time",
+          "seconds": 203.778,
+          "exit_status": 0,
+          "mtime_utc": "2026-05-08T11:17:15.937272+00:00",
+          "mtime_ns": 1778239035937271477,
+          "sha256": "9fc8ea5fe691d6b08ecb476f1b4881bb615649c5b05d198e642f604149163629"
+        }
+      ],
+      "mean_seconds": 204.07466666666664
+    },
+    "10009": {
+      "rows": [
+        {
+          "path": "times/c220g5/arms-6.18_new/bc-kron.sg/10009MiB_run3.time",
+          "seconds": 202.613,
+          "exit_status": 0,
+          "mtime_utc": "2026-05-09T10:00:44.610092+00:00",
+          "mtime_ns": 1778320844610092245,
+          "sha256": "49c9be4e202dc52f09ee88e8c8f27037841dcbb6d74ef1fe65698f87bbff23a9"
+        },
+        {
+          "path": "times/c220g5/arms-6.18_new/bc-kron.sg/10009MiB_run1.time",
+          "seconds": 203.333,
+          "exit_status": 0,
+          "mtime_utc": "2026-05-09T07:40:08.147273+00:00",
+          "mtime_ns": 1778312408147273288,
+          "sha256": "67dd6c388e696f3284e8d6e0ec8be76496870486322f76f423d554f77e4e54d9"
+        },
+        {
+          "path": "times/c220g5/arms-6.18_new/bc-kron.sg/10009MiB_run2.time",
+          "seconds": 202.642,
+          "exit_status": 0,
+          "mtime_utc": "2026-05-09T08:50:32.242626+00:00",
+          "mtime_ns": 1778316632242626268,
+          "sha256": "2237fbb81f19cc24a420d26159650fcd670cf2e47b66ef839cf3327c37c4f911"
+        }
+      ],
+      "mean_seconds": 202.86266666666666
+    }
+  },
+  "changes_seconds": {
+    "old_gap": 17.960333333333324,
+    "current_gap": 2.844999999999999,
+    "arms_speedup": 19.778999999999996,
+    "model_speedup": 4.663666666666671,
+    "gap_reduction": 15.115333333333325
+  }
+}

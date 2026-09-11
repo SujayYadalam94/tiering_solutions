@@ -1,0 +1,1693 @@
+--- may14
++++ current
+@@ -214,7 +214,7 @@
+      307:	00 
+      308:	48 85 db             	test   %rbx,%rbx
+      30b:	0f 84 00 00 00 00    	je     311 <__libc_start_main+0x71>
+-			30d: R_X86_64_PC32	.text.unlikely+0x2fc
++			30d: R_X86_64_PC32	.text.unlikely+0x179
+      311:	80 7b 38 00          	cmpb   $0x0,0x38(%rbx)
+      315:	0f 84 7d 09 00 00    	je     c98 <__libc_start_main+0x9f8>
+      31b:	0f be 73 43          	movsbl 0x43(%rbx),%esi
+@@ -232,8 +232,8 @@
+      347:	e8 00 00 00 00       	call   34c <__libc_start_main+0xac>
+ 			348: R_X86_64_PLT32	atexit-0x4
+      34c:	4c 89 ef             	mov    %r13,%rdi
+-     34f:	4c 89 bd d8 e9 ff ff 	mov    %r15,-0x1628(%rbp)
+-     356:	4c 89 ad c8 e9 ff ff 	mov    %r13,-0x1638(%rbp)
++     34f:	4c 89 bd e0 e9 ff ff 	mov    %r15,-0x1620(%rbp)
++     356:	4c 89 ad d0 e9 ff ff 	mov    %r13,-0x1630(%rbp)
+      35d:	e8 00 00 00 00       	call   362 <__libc_start_main+0xc2>
+ 			35e: R_X86_64_PLT32	std::ios_base::ios_base()-0x4
+      362:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 369 <__libc_start_main+0xc9>
+@@ -268,7 +268,7 @@
+ 			3e1: R_X86_64_REX_GOTPCRELX	vtable for std::basic_ifstream<char, std::char_traits<char> >-0x4
+      3e5:	4c 8d b5 c0 eb ff ff 	lea    -0x1440(%rbp),%r14
+      3ec:	4c 89 f7             	mov    %r14,%rdi
+-     3ef:	4c 89 b5 d0 e9 ff ff 	mov    %r14,-0x1630(%rbp)
++     3ef:	4c 89 b5 d8 e9 ff ff 	mov    %r14,-0x1628(%rbp)
+      3f6:	48 83 c0 18          	add    $0x18,%rax
+      3fa:	48 89 85 b0 eb ff ff 	mov    %rax,-0x1450(%rbp)
+      401:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 408 <__libc_start_main+0x168>
+@@ -295,11 +295,11 @@
+      44e:	31 f6                	xor    %esi,%esi
+      450:	e8 00 00 00 00       	call   455 <__libc_start_main+0x1b5>
+ 			451: R_X86_64_PLT32	std::basic_ios<char, std::char_traits<char> >::clear(std::_Ios_Iostate)-0x4
+-     455:	48 8b bd d8 e9 ff ff 	mov    -0x1628(%rbp),%rdi
++     455:	48 8b bd e0 e9 ff ff 	mov    -0x1620(%rbp),%rdi
+      45c:	48 8d 85 e0 ea ff ff 	lea    -0x1520(%rbp),%rax
+      463:	48 8d b5 d0 ea ff ff 	lea    -0x1530(%rbp),%rsi
+      46a:	31 d2                	xor    %edx,%edx
+-     46c:	48 89 b5 e0 e9 ff ff 	mov    %rsi,-0x1620(%rbp)
++     46c:	48 89 b5 c8 e9 ff ff 	mov    %rsi,-0x1638(%rbp)
+      473:	48 89 85 c0 e9 ff ff 	mov    %rax,-0x1640(%rbp)
+      47a:	48 89 85 d0 ea ff ff 	mov    %rax,-0x1530(%rbp)
+      481:	48 c7 85 d8 ea ff ff 	movq   $0x0,-0x1528(%rbp)
+@@ -307,7 +307,7 @@
+      48c:	c6 85 e0 ea ff ff 00 	movb   $0x0,-0x1520(%rbp)
+      493:	e8 00 00 00 00       	call   498 <__libc_start_main+0x1f8>
+ 			494: R_X86_64_PLT32	std::basic_istream<char, std::char_traits<char> >& std::getline<char, std::char_traits<char>, std::allocator<char> >(std::basic_istream<char, std::char_traits<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, char)-0x4
+-     498:	48 8b bd e0 e9 ff ff 	mov    -0x1620(%rbp),%rdi
++     498:	48 8b bd c8 e9 ff ff 	mov    -0x1638(%rbp),%rdi
+      49f:	b9 01 00 00 00       	mov    $0x1,%ecx
+      4a4:	48 c7 c2 ff ff ff ff 	mov    $0xffffffffffffffff,%rdx
+      4ab:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 4b2 <__libc_start_main+0x212>
+@@ -318,13 +318,13 @@
+      4be:	48 83 c0 01          	add    $0x1,%rax
+      4c2:	49 39 c5             	cmp    %rax,%r13
+      4c5:	0f 82 00 00 00 00    	jb     4cb <__libc_start_main+0x22b>
+-			4c7: R_X86_64_PC32	.text.unlikely+0x301
++			4c7: R_X86_64_PC32	.text.unlikely+0x17e
+      4cb:	48 8d 8d f0 ea ff ff 	lea    -0x1510(%rbp),%rcx
+      4d2:	4c 8b b5 d0 ea ff ff 	mov    -0x1530(%rbp),%r14
+      4d9:	49 29 c5             	sub    %rax,%r13
+-     4dc:	48 89 8d 70 e9 ff ff 	mov    %rcx,-0x1690(%rbp)
++     4dc:	48 89 8d 68 e9 ff ff 	mov    %rcx,-0x1698(%rbp)
+      4e3:	48 8d 8d 00 eb ff ff 	lea    -0x1500(%rbp),%rcx
+-     4ea:	48 89 8d 08 ea ff ff 	mov    %rcx,-0x15f8(%rbp)
++     4ea:	48 89 8d 00 ea ff ff 	mov    %rcx,-0x1600(%rbp)
+      4f1:	49 01 c6             	add    %rax,%r14
+      4f4:	48 89 8d f0 ea ff ff 	mov    %rcx,-0x1510(%rbp)
+      4fb:	4c 89 ad d0 ef ff ff 	mov    %r13,-0x1030(%rbp)
+@@ -334,7 +334,7 @@
+      510:	0f 85 6a 07 00 00    	jne    c80 <__libc_start_main+0x9e0>
+      516:	41 0f b6 06          	movzbl (%r14),%eax
+      51a:	88 85 00 eb ff ff    	mov    %al,-0x1500(%rbp)
+-     520:	48 8b 85 08 ea ff ff 	mov    -0x15f8(%rbp),%rax
++     520:	48 8b 85 00 ea ff ff 	mov    -0x1600(%rbp),%rax
+      527:	4c 89 ad f8 ea ff ff 	mov    %r13,-0x1508(%rbp)
+      52e:	ba 10 00 00 00       	mov    $0x10,%edx
+      533:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 53a <__libc_start_main+0x29a>
+@@ -355,7 +355,7 @@
+      56e:	00 
+      56f:	4d 85 ed             	test   %r13,%r13
+      572:	0f 84 00 00 00 00    	je     578 <__libc_start_main+0x2d8>
+-			574: R_X86_64_PC32	.text.unlikely+0x341
++			574: R_X86_64_PC32	.text.unlikely+0x20e
+      578:	41 80 7d 38 00       	cmpb   $0x0,0x38(%r13)
+      57d:	0f 84 7d 07 00 00    	je     d00 <__libc_start_main+0xa60>
+      583:	41 0f be 75 43       	movsbl 0x43(%r13),%esi
+@@ -389,7 +389,7 @@
+      5ed:	00 
+      5ee:	4d 85 e4             	test   %r12,%r12
+      5f1:	0f 84 00 00 00 00    	je     5f7 <__libc_start_main+0x357>
+-			5f3: R_X86_64_PC32	.text.unlikely+0x337
++			5f3: R_X86_64_PC32	.text.unlikely+0x213
+      5f7:	41 80 7c 24 38 00    	cmpb   $0x0,0x38(%r12)
+      5fd:	0f 84 cd 06 00 00    	je     cd0 <__libc_start_main+0xa30>
+      603:	41 0f be 74 24 43    	movsbl 0x43(%r12),%esi
+@@ -416,7 +416,7 @@
+      65d:	4c 89 ef             	mov    %r13,%rdi
+      660:	48 89 85 50 e9 ff ff 	mov    %rax,-0x16b0(%rbp)
+      667:	48 8d 85 40 eb ff ff 	lea    -0x14c0(%rbp),%rax
+-     66e:	48 89 85 68 e9 ff ff 	mov    %rax,-0x1698(%rbp)
++     66e:	48 89 85 70 e9 ff ff 	mov    %rax,-0x1690(%rbp)
+      675:	48 89 85 30 eb ff ff 	mov    %rax,-0x14d0(%rbp)
+      67c:	e8 00 00 00 00       	call   681 <__libc_start_main+0x3e1>
+ 			67d: R_X86_64_PLT32	strlen-0x4
+@@ -428,13 +428,13 @@
+      699:	0f 84 91 0f 00 00    	je     1630 <__libc_start_main+0x1390>
+      69f:	48 85 c0             	test   %rax,%rax
+      6a2:	0f 85 c8 08 00 00    	jne    f70 <__libc_start_main+0xcd0>
+-     6a8:	48 8b 95 68 e9 ff ff 	mov    -0x1698(%rbp),%rdx
++     6a8:	48 8b 95 70 e9 ff ff 	mov    -0x1690(%rbp),%rdx
+      6af:	48 89 85 38 eb ff ff 	mov    %rax,-0x14c8(%rbp)
+      6b6:	4c 8d b5 c0 ee ff ff 	lea    -0x1140(%rbp),%r14
+      6bd:	4c 8d a5 c0 ed ff ff 	lea    -0x1240(%rbp),%r12
+      6c4:	c6 04 02 00          	movb   $0x0,(%rdx,%rax,1)
+      6c8:	4c 89 f7             	mov    %r14,%rdi
+-     6cb:	4c 89 b5 f0 e9 ff ff 	mov    %r14,-0x1610(%rbp)
++     6cb:	4c 89 b5 f8 e9 ff ff 	mov    %r14,-0x1608(%rbp)
+      6d2:	e8 00 00 00 00       	call   6d7 <__libc_start_main+0x437>
+ 			6d3: R_X86_64_PLT32	std::ios_base::ios_base()-0x4
+      6d7:	66 0f ef c0          	pxor   %xmm0,%xmm0
+@@ -465,7 +465,7 @@
+ 			747: R_X86_64_REX_GOTPCRELX	vtable for std::basic_ifstream<char, std::char_traits<char> >-0x4
+      74b:	4c 8d bd d0 ed ff ff 	lea    -0x1230(%rbp),%r15
+      752:	4c 89 ff             	mov    %r15,%rdi
+-     755:	4c 89 bd f8 e9 ff ff 	mov    %r15,-0x1608(%rbp)
++     755:	4c 89 bd f0 e9 ff ff 	mov    %r15,-0x1610(%rbp)
+      75c:	48 83 c0 18          	add    $0x18,%rax
+      760:	48 89 85 c0 ed ff ff 	mov    %rax,-0x1240(%rbp)
+      767:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 76e <__libc_start_main+0x4ce>
+@@ -503,11 +503,11 @@
+      7e0:	00 00 00 00 
+      7e4:	48 c7 85 10 ea ff ff 	movq   $0x0,-0x15f0(%rbp)
+      7eb:	00 00 00 00 
+-     7ef:	48 c7 85 00 ea ff ff 	movq   $0x0,-0x1600(%rbp)
++     7ef:	48 c7 85 08 ea ff ff 	movq   $0x0,-0x15f8(%rbp)
+      7f6:	00 00 00 00 
+      7fa:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 801 <__libc_start_main+0x561>
+ 			7fd: R_X86_64_REX_GOTPCRELX	vtable for std::basic_ifstream<char, std::char_traits<char> >-0x4
+-     801:	48 8b bd f8 e9 ff ff 	mov    -0x1608(%rbp),%rdi
++     801:	48 8b bd f0 e9 ff ff 	mov    -0x1610(%rbp),%rdi
+      808:	48 83 c0 18          	add    $0x18,%rax
+      80c:	48 89 85 c0 ed ff ff 	mov    %rax,-0x1240(%rbp)
+      813:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 81a <__libc_start_main+0x57a>
+@@ -535,7 +535,7 @@
+      870:	48 8b 43 e8          	mov    -0x18(%rbx),%rax
+      874:	4c 8b bd 20 ea ff ff 	mov    -0x15e0(%rbp),%r15
+      87b:	48 89 9d c0 ed ff ff 	mov    %rbx,-0x1240(%rbp)
+-     882:	4c 8b b5 f0 e9 ff ff 	mov    -0x1610(%rbp),%r14
++     882:	4c 8b b5 f8 e9 ff ff 	mov    -0x1608(%rbp),%r14
+      889:	4c 89 bc 05 c0 ed ff 	mov    %r15,-0x1240(%rbp,%rax,1)
+      890:	ff 
+      891:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 898 <__libc_start_main+0x5f8>
+@@ -571,7 +571,7 @@
+ 			913: R_X86_64_PLT32	std::basic_ios<char, std::char_traits<char> >::init(std::basic_streambuf<char, std::char_traits<char> >*)-0x4
+      917:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 91e <__libc_start_main+0x67e>
+ 			91a: R_X86_64_REX_GOTPCRELX	vtable for std::basic_ifstream<char, std::char_traits<char> >-0x4
+-     91e:	4c 8b bd f8 e9 ff ff 	mov    -0x1608(%rbp),%r15
++     91e:	4c 8b bd f0 e9 ff ff 	mov    -0x1610(%rbp),%r15
+      925:	48 83 c0 18          	add    $0x18,%rax
+      929:	4c 89 ff             	mov    %r15,%rdi
+      92c:	48 89 85 c0 ed ff ff 	mov    %rax,-0x1240(%rbp)
+@@ -581,7 +581,7 @@
+      93e:	48 89 85 c0 ee ff ff 	mov    %rax,-0x1140(%rbp)
+      945:	e8 00 00 00 00       	call   94a <__libc_start_main+0x6aa>
+ 			946: R_X86_64_PLT32	std::basic_filebuf<char, std::char_traits<char> >::basic_filebuf()-0x4
+-     94a:	48 8b bd f0 e9 ff ff 	mov    -0x1610(%rbp),%rdi
++     94a:	48 8b bd f8 e9 ff ff 	mov    -0x1608(%rbp),%rdi
+      951:	4c 89 fe             	mov    %r15,%rsi
+      954:	e8 00 00 00 00       	call   959 <__libc_start_main+0x6b9>
+ 			955: R_X86_64_PLT32	std::basic_ios<char, std::char_traits<char> >::init(std::basic_streambuf<char, std::char_traits<char> >*)-0x4
+@@ -618,7 +618,7 @@
+      9e3:	ff 
+      9e4:	4d 85 ed             	test   %r13,%r13
+      9e7:	0f 84 00 00 00 00    	je     9ed <__libc_start_main+0x74d>
+-			9e9: R_X86_64_PC32	.text.unlikely+0x9f
++			9e9: R_X86_64_PC32	.text.unlikely+0x133
+      9ed:	48 8d 85 50 eb ff ff 	lea    -0x14b0(%rbp),%rax
+      9f4:	45 31 ff             	xor    %r15d,%r15d
+      9f7:	48 c7 85 18 ea ff ff 	movq   $0x0,-0x15e8(%rbp)
+@@ -702,11 +702,11 @@
+      b70:	48 8d bd 90 eb ff ff 	lea    -0x1470(%rbp),%rdi
+      b77:	48 89 8d 90 eb ff ff 	mov    %rcx,-0x1470(%rbp)
+      b7e:	48 83 fa 0f          	cmp    $0xf,%rdx
+-     b82:	0f 87 b8 0e 00 00    	ja     1a40 <__libc_start_main+0x17a0>
++     b82:	0f 87 68 0e 00 00    	ja     19f0 <__libc_start_main+0x1750>
+      b88:	48 8d 42 01          	lea    0x1(%rdx),%rax
+      b8c:	48 89 cf             	mov    %rcx,%rdi
+      b8f:	48 85 d2             	test   %rdx,%rdx
+-     b92:	0f 84 88 0e 00 00    	je     1a20 <__libc_start_main+0x1780>
++     b92:	0f 84 38 0e 00 00    	je     19d0 <__libc_start_main+0x1730>
+      b98:	4c 89 ee             	mov    %r13,%rsi
+      b9b:	48 89 c2             	mov    %rax,%rdx
+      b9e:	48 89 8d 48 e9 ff ff 	mov    %rcx,-0x16b8(%rbp)
+@@ -742,7 +742,7 @@
+      c2b:	4c 8b ac 05 b0 ee ff 	mov    -0x1150(%rbp,%rax,1),%r13
+      c32:	ff 
+      c33:	4d 85 ed             	test   %r13,%r13
+-     c36:	0f 84 0f 11 00 00    	je     1d4b <__libc_start_main+0x1aab>
++     c36:	0f 84 a3 11 00 00    	je     1ddf <__libc_start_main+0x1b3f>
+      c3c:	41 80 7d 38 00       	cmpb   $0x0,0x38(%r13)
+      c41:	0f 85 c9 fd ff ff    	jne    a10 <__libc_start_main+0x770>
+      c47:	4c 89 ef             	mov    %r13,%rdi
+@@ -762,7 +762,7 @@
+      c7b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+      c80:	4d 85 ed             	test   %r13,%r13
+      c83:	0f 84 97 f8 ff ff    	je     520 <__libc_start_main+0x280>
+-     c89:	48 8b bd 08 ea ff ff 	mov    -0x15f8(%rbp),%rdi
++     c89:	48 8b bd 00 ea ff ff 	mov    -0x1600(%rbp),%rdi
+      c90:	e9 78 02 00 00       	jmp    f0d <__libc_start_main+0xc6d>
+      c95:	0f 1f 00             	nopl   (%rax)
+      c98:	48 89 df             	mov    %rbx,%rdi
+@@ -822,7 +822,7 @@
+      d5a:	00 
+      d5b:	4d 85 ed             	test   %r13,%r13
+      d5e:	0f 84 00 00 00 00    	je     d64 <__libc_start_main+0xac4>
+-			d60: R_X86_64_PC32	.text.unlikely+0x33c
++			d60: R_X86_64_PC32	.text.unlikely+0x114
+      d64:	41 80 7d 38 00       	cmpb   $0x0,0x38(%r13)
+      d69:	0f 84 d1 01 00 00    	je     f40 <__libc_start_main+0xca0>
+      d6f:	41 0f be 75 43       	movsbl 0x43(%r13),%esi
+@@ -858,7 +858,7 @@
+      ddb:	48 8b bd f0 ea ff ff 	mov    -0x1510(%rbp),%rdi
+      de2:	58                   	pop    %rax
+      de3:	5a                   	pop    %rdx
+-     de4:	48 3b bd 08 ea ff ff 	cmp    -0x15f8(%rbp),%rdi
++     de4:	48 3b bd 00 ea ff ff 	cmp    -0x1600(%rbp),%rdi
+      deb:	74 10                	je     dfd <__libc_start_main+0xb5d>
+      ded:	48 8b 85 00 eb ff ff 	mov    -0x1500(%rbp),%rax
+      df4:	48 8d 70 01          	lea    0x1(%rax),%rsi
+@@ -873,7 +873,7 @@
+ 			e19: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
+      e1d:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # e24 <__libc_start_main+0xb84>
+ 			e20: R_X86_64_REX_GOTPCRELX	vtable for std::basic_ifstream<char, std::char_traits<char> >-0x4
+-     e24:	48 8b bd d0 e9 ff ff 	mov    -0x1630(%rbp),%rdi
++     e24:	48 8b bd d8 e9 ff ff 	mov    -0x1628(%rbp),%rdi
+      e2b:	48 83 c0 18          	add    $0x18,%rax
+      e2f:	48 89 85 b0 eb ff ff 	mov    %rax,-0x1450(%rbp)
+      e36:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # e3d <__libc_start_main+0xb9d>
+@@ -899,7 +899,7 @@
+      e89:	48 8b 43 e8          	mov    -0x18(%rbx),%rax
+      e8d:	48 89 9d b0 eb ff ff 	mov    %rbx,-0x1450(%rbp)
+      e94:	48 8b 9d 20 ea ff ff 	mov    -0x15e0(%rbp),%rbx
+-     e9b:	48 8b bd c8 e9 ff ff 	mov    -0x1638(%rbp),%rdi
++     e9b:	48 8b bd d0 e9 ff ff 	mov    -0x1630(%rbp),%rdi
+      ea2:	48 89 9c 05 b0 eb ff 	mov    %rbx,-0x1450(%rbp,%rax,1)
+      ea9:	ff 
+      eaa:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # eb1 <__libc_start_main+0xc11>
+@@ -920,7 +920,7 @@
+      edc:	5d                   	pop    %rbp
+      edd:	c3                   	ret
+      ede:	66 90                	xchg   %ax,%ax
+-     ee0:	48 8b bd 70 e9 ff ff 	mov    -0x1690(%rbp),%rdi
++     ee0:	48 8b bd 68 e9 ff ff 	mov    -0x1698(%rbp),%rdi
+      ee7:	48 8d b5 d0 ef ff ff 	lea    -0x1030(%rbp),%rsi
+      eee:	31 d2                	xor    %edx,%edx
+      ef0:	e8 00 00 00 00       	call   ef5 <__libc_start_main+0xc55>
+@@ -956,7 +956,7 @@
+      f67:	0f be f0             	movsbl %al,%esi
+      f6a:	e9 05 fe ff ff       	jmp    d74 <__libc_start_main+0xad4>
+      f6f:	90                   	nop
+-     f70:	48 8b bd 68 e9 ff ff 	mov    -0x1698(%rbp),%rdi
++     f70:	48 8b bd 70 e9 ff ff 	mov    -0x1690(%rbp),%rdi
+      f77:	4c 89 e2             	mov    %r12,%rdx
+      f7a:	4c 89 ee             	mov    %r13,%rsi
+      f7d:	e8 00 00 00 00       	call   f82 <__libc_start_main+0xce2>
+@@ -974,7 +974,7 @@
+ 			fb0: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
+      fb4:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # fbb <__libc_start_main+0xd1b>
+ 			fb7: R_X86_64_REX_GOTPCRELX	vtable for std::basic_ifstream<char, std::char_traits<char> >-0x4
+-     fbb:	48 8b bd f8 e9 ff ff 	mov    -0x1608(%rbp),%rdi
++     fbb:	48 8b bd f0 e9 ff ff 	mov    -0x1610(%rbp),%rdi
+      fc2:	48 83 c0 18          	add    $0x18,%rax
+      fc6:	48 89 85 c0 ed ff ff 	mov    %rax,-0x1240(%rbp)
+      fcd:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # fd4 <__libc_start_main+0xd34>
+@@ -1000,7 +1000,7 @@
+     1020:	48 8b 43 e8          	mov    -0x18(%rbx),%rax
+     1024:	48 8b 8d 20 ea ff ff 	mov    -0x15e0(%rbp),%rcx
+     102b:	48 89 9d c0 ed ff ff 	mov    %rbx,-0x1240(%rbp)
+-    1032:	48 8b bd f0 e9 ff ff 	mov    -0x1610(%rbp),%rdi
++    1032:	48 8b bd f8 e9 ff ff 	mov    -0x1608(%rbp),%rdi
+     1039:	48 89 8c 05 c0 ed ff 	mov    %rcx,-0x1240(%rbp,%rax,1)
+     1040:	ff 
+     1041:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 1048 <__libc_start_main+0xda8>
+@@ -1012,7 +1012,7 @@
+     105e:	e8 00 00 00 00       	call   1063 <__libc_start_main+0xdc3>
+ 			105f: R_X86_64_PLT32	std::ios_base::~ios_base()-0x4
+     1063:	48 8b 95 10 ea ff ff 	mov    -0x15f0(%rbp),%rdx
+-    106a:	48 8b b5 00 ea ff ff 	mov    -0x1600(%rbp),%rsi
++    106a:	48 8b b5 08 ea ff ff 	mov    -0x15f8(%rbp),%rsi
+     1071:	48 8b bd 30 eb ff ff 	mov    -0x14d0(%rbp),%rdi
+     1078:	48 29 f2             	sub    %rsi,%rdx
+     107b:	48 c1 fa 04          	sar    $0x4,%rdx
+@@ -1024,11 +1024,11 @@
+     1091:	48 c1 fe 04          	sar    $0x4,%rsi
+     1095:	e8 00 00 00 00       	call   109a <__libc_start_main+0xdfa>
+ 			1096: R_X86_64_PLT32	set_helper_library_ip_ranges(ip_range const*, unsigned long)-0x4
+-    109a:	48 8b 8d 00 ea ff ff 	mov    -0x1600(%rbp),%rcx
++    109a:	48 8b 8d 08 ea ff ff 	mov    -0x15f8(%rbp),%rcx
+     10a1:	48 39 8d 10 ea ff ff 	cmp    %rcx,-0x15f0(%rbp)
+-    10a8:	0f 84 42 08 00 00    	je     18f0 <__libc_start_main+0x1650>
++    10a8:	0f 84 fa 07 00 00    	je     18a8 <__libc_start_main+0x1608>
+     10ae:	4c 39 bd 18 ea ff ff 	cmp    %r15,-0x15e8(%rbp)
+-    10b5:	0f 84 c5 08 00 00    	je     1980 <__libc_start_main+0x16e0>
++    10b5:	0f 84 75 08 00 00    	je     1930 <__libc_start_main+0x1690>
+     10bb:	48 8b bd 18 ea ff ff 	mov    -0x15e8(%rbp),%rdi
+     10c2:	48 85 ff             	test   %rdi,%rdi
+     10c5:	74 0f                	je     10d6 <__libc_start_main+0xe36>
+@@ -1036,7 +1036,7 @@
+     10ce:	48 29 fe             	sub    %rdi,%rsi
+     10d1:	e8 00 00 00 00       	call   10d6 <__libc_start_main+0xe36>
+ 			10d2: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
+-    10d6:	48 8b bd 00 ea ff ff 	mov    -0x1600(%rbp),%rdi
++    10d6:	48 8b bd 08 ea ff ff 	mov    -0x15f8(%rbp),%rdi
+     10dd:	48 85 ff             	test   %rdi,%rdi
+     10e0:	74 0f                	je     10f1 <__libc_start_main+0xe51>
+     10e2:	48 8b b5 60 e9 ff ff 	mov    -0x16a0(%rbp),%rsi
+@@ -1044,7 +1044,7 @@
+     10ec:	e8 00 00 00 00       	call   10f1 <__libc_start_main+0xe51>
+ 			10ed: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
+     10f1:	48 8b bd 30 eb ff ff 	mov    -0x14d0(%rbp),%rdi
+-    10f8:	48 3b bd 68 e9 ff ff 	cmp    -0x1698(%rbp),%rdi
++    10f8:	48 3b bd 70 e9 ff ff 	cmp    -0x1690(%rbp),%rdi
+     10ff:	0f 84 93 fc ff ff    	je     d98 <__libc_start_main+0xaf8>
+     1105:	48 8b 85 40 eb ff ff 	mov    -0x14c0(%rbp),%rax
+     110c:	48 8d 70 01          	lea    0x1(%rax),%rsi
+@@ -1086,10 +1086,10 @@
+     11b7:	48 89 bd 78 e9 ff ff 	mov    %rdi,-0x1688(%rbp)
+     11be:	48 89 bd 50 eb ff ff 	mov    %rdi,-0x14b0(%rbp)
+     11c5:	48 83 f9 0f          	cmp    $0xf,%rcx
+-    11c9:	0f 87 79 0a 00 00    	ja     1c48 <__libc_start_main+0x19a8>
++    11c9:	0f 87 14 0a 00 00    	ja     1be3 <__libc_start_main+0x1943>
+     11cf:	48 8d 51 01          	lea    0x1(%rcx),%rdx
+     11d3:	48 85 c9             	test   %rcx,%rcx
+-    11d6:	0f 84 54 0a 00 00    	je     1c30 <__libc_start_main+0x1990>
++    11d6:	0f 84 f5 09 00 00    	je     1bd1 <__libc_start_main+0x1931>
+     11dc:	4c 89 f6             	mov    %r14,%rsi
+     11df:	e8 00 00 00 00       	call   11e4 <__libc_start_main+0xf44>
+ 			11e0: R_X86_64_PLT32	memcpy-0x4
+@@ -1109,11 +1109,11 @@
+     1236:	ff 
+     1237:	4d 85 ed             	test   %r13,%r13
+     123a:	0f 84 00 00 00 00    	je     1240 <__libc_start_main+0xfa0>
+-			123c: R_X86_64_PC32	.text.unlikely+0x101
++			123c: R_X86_64_PC32	.text.unlikely+0x261
+     1240:	48 c7 85 10 ea ff ff 	movq   $0x0,-0x15f0(%rbp)
+     1247:	00 00 00 00 
+     124b:	4c 8d b5 70 eb ff ff 	lea    -0x1490(%rbp),%r14
+-    1252:	48 c7 85 00 ea ff ff 	movq   $0x0,-0x1600(%rbp)
++    1252:	48 c7 85 08 ea ff ff 	movq   $0x0,-0x15f8(%rbp)
+     1259:	00 00 00 00 
+     125d:	e9 7a 01 00 00       	jmp    13dc <__libc_start_main+0x113c>
+     1262:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+@@ -1197,7 +1197,7 @@
+     13cb:	4c 8b ac 05 b0 ee ff 	mov    -0x1150(%rbp,%rax,1),%r13
+     13d2:	ff 
+     13d3:	4d 85 ed             	test   %r13,%r13
+-    13d6:	0f 84 92 09 00 00    	je     1d6e <__libc_start_main+0x1ace>
++    13d6:	0f 84 08 0a 00 00    	je     1de4 <__libc_start_main+0x1b44>
+     13dc:	41 80 7d 38 00       	cmpb   $0x0,0x38(%r13)
+     13e1:	0f 85 81 fe ff ff    	jne    1268 <__libc_start_main+0xfc8>
+     13e7:	4c 89 ef             	mov    %r13,%rdi
+@@ -1236,7 +1236,7 @@
+     146f:	48 8b 85 10 ea ff ff 	mov    -0x15f0(%rbp),%rax
+     1476:	0f 16 85 58 ea ff ff 	movhps -0x15a8(%rbp),%xmm0
+     147d:	48 3b 85 60 e9 ff ff 	cmp    -0x16a0(%rbp),%rax
+-    1484:	0f 84 96 06 00 00    	je     1b20 <__libc_start_main+0x1880>
++    1484:	0f 84 46 06 00 00    	je     1ad0 <__libc_start_main+0x1830>
+     148a:	0f 11 00             	movups %xmm0,(%rax)
+     148d:	48 83 c0 10          	add    $0x10,%rax
+     1491:	48 89 85 10 ea ff ff 	mov    %rax,-0x15f0(%rbp)
+@@ -1266,7 +1266,7 @@
+     1500:	e9 f5 f2 ff ff       	jmp    7fa <__libc_start_main+0x55a>
+     1505:	0f 1f 00             	nopl   (%rax)
+     1508:	4c 39 ea             	cmp    %r13,%rdx
+-    150b:	0f 84 cf 04 00 00    	je     19e0 <__libc_start_main+0x1740>
++    150b:	0f 84 7f 04 00 00    	je     1990 <__libc_start_main+0x16f0>
+     1511:	0f 83 89 fe ff ff    	jae    13a0 <__libc_start_main+0x1100>
+     1517:	49 29 d5             	sub    %rdx,%r13
+     151a:	48 8b b5 50 eb ff ff 	mov    -0x14b0(%rbp),%rsi
+@@ -1287,7 +1287,7 @@
+     1567:	48 83 c0 01          	add    $0x1,%rax
+     156b:	49 39 c5             	cmp    %rax,%r13
+     156e:	0f 82 00 00 00 00    	jb     1574 <__libc_start_main+0x12d4>
+-			1570: R_X86_64_PC32	.text.unlikely+0x11f
++			1570: R_X86_64_PC32	.text.unlikely+0x218
+     1574:	4c 8b 85 70 eb ff ff 	mov    -0x1490(%rbp),%r8
+     157b:	48 8d 8d a0 eb ff ff 	lea    -0x1460(%rbp),%rcx
+     1582:	49 29 c5             	sub    %rax,%r13
+@@ -1296,11 +1296,11 @@
+     1593:	4c 89 ad 58 ea ff ff 	mov    %r13,-0x15a8(%rbp)
+     159a:	49 01 c0             	add    %rax,%r8
+     159d:	49 83 fd 0f          	cmp    $0xf,%r13
+-    15a1:	0f 87 09 05 00 00    	ja     1ab0 <__libc_start_main+0x1810>
++    15a1:	0f 87 b9 04 00 00    	ja     1a60 <__libc_start_main+0x17c0>
+     15a7:	49 83 fd 01          	cmp    $0x1,%r13
+-    15ab:	0f 84 ef 04 00 00    	je     1aa0 <__libc_start_main+0x1800>
++    15ab:	0f 84 9f 04 00 00    	je     1a50 <__libc_start_main+0x17b0>
+     15b1:	4d 85 ed             	test   %r13,%r13
+-    15b4:	0f 85 77 07 00 00    	jne    1d31 <__libc_start_main+0x1a91>
++    15b4:	0f 85 bb 07 00 00    	jne    1d75 <__libc_start_main+0x1ad5>
+     15ba:	48 89 c8             	mov    %rcx,%rax
+     15bd:	4c 89 ad 98 eb ff ff 	mov    %r13,-0x1468(%rbp)
+     15c4:	42 c6 04 28 00       	movb   $0x0,(%rax,%r13,1)
+@@ -1309,19 +1309,19 @@
+     15d7:	49 83 fd 06          	cmp    $0x6,%r13
+     15db:	0f 86 ef f5 ff ff    	jbe    bd0 <__libc_start_main+0x930>
+     15e1:	81 3f 6c 69 62 63    	cmpl   $0x6362696c,(%rdi)
+-    15e7:	0f 84 e5 06 00 00    	je     1cd2 <__libc_start_main+0x1a32>
++    15e7:	0f 84 08 07 00 00    	je     1cf5 <__libc_start_main+0x1a55>
+     15ed:	49 83 fd 0b          	cmp    $0xb,%r13
+-    15f1:	0f 87 3e 02 00 00    	ja     1835 <__libc_start_main+0x1595>
++    15f1:	0f 87 45 01 00 00    	ja     173c <__libc_start_main+0x149c>
+     15f7:	49 83 fd 09          	cmp    $0x9,%r13
+-    15fb:	0f 87 60 02 00 00    	ja     1861 <__libc_start_main+0x15c1>
+-    1601:	0f 84 35 01 00 00    	je     173c <__libc_start_main+0x149c>
++    15fb:	0f 87 67 01 00 00    	ja     1768 <__libc_start_main+0x14c8>
++    1601:	0f 84 87 01 00 00    	je     178e <__libc_start_main+0x14ee>
+     1607:	49 83 fd 08          	cmp    $0x8,%r13
+-    160b:	0f 84 3e 01 00 00    	je     174f <__libc_start_main+0x14af>
++    160b:	0f 84 ad 01 00 00    	je     17be <__libc_start_main+0x151e>
+     1611:	81 3f 6c 64 2d 6d    	cmpl   $0x6d2d646c,(%rdi)
+     1617:	0f 85 b3 f5 ff ff    	jne    bd0 <__libc_start_main+0x930>
+     161d:	81 7f 03 6d 75 73 6c 	cmpl   $0x6c73756d,0x3(%rdi)
+     1624:	0f 85 a6 f5 ff ff    	jne    bd0 <__libc_start_main+0x930>
+-    162a:	e9 33 01 00 00       	jmp    1762 <__libc_start_main+0x14c2>
++    162a:	e9 a2 01 00 00       	jmp    17d1 <__libc_start_main+0x1531>
+     162f:	90                   	nop
+     1630:	41 0f b6 55 00       	movzbl 0x0(%r13),%edx
+     1635:	88 95 40 eb ff ff    	mov    %dl,-0x14c0(%rbp)
+@@ -1359,7 +1359,7 @@
+     16c0:	49 83 c5 01          	add    $0x1,%r13
+     16c4:	4c 39 e9             	cmp    %r13,%rcx
+     16c7:	0f 82 00 00 00 00    	jb     16cd <__libc_start_main+0x142d>
+-			16c9: R_X86_64_PC32	.text.unlikely+0x168
++			16c9: R_X86_64_PC32	.text.unlikely+0xbb
+     16cd:	48 8d 85 50 eb ff ff 	lea    -0x14b0(%rbp),%rax
+     16d4:	4c 8b bd 30 eb ff ff 	mov    -0x14d0(%rbp),%r15
+     16db:	4c 29 e9             	sub    %r13,%rcx
+@@ -1371,404 +1371,422 @@
+     16f9:	48 89 85 50 eb ff ff 	mov    %rax,-0x14b0(%rbp)
+     1700:	48 89 8d d0 ef ff ff 	mov    %rcx,-0x1030(%rbp)
+     1707:	48 83 f9 0f          	cmp    $0xf,%rcx
+-    170b:	0f 87 8f 05 00 00    	ja     1ca0 <__libc_start_main+0x1a00>
++    170b:	0f 87 21 05 00 00    	ja     1c32 <__libc_start_main+0x1992>
+     1711:	48 83 f9 01          	cmp    $0x1,%rcx
+-    1715:	0f 84 6d 05 00 00    	je     1c88 <__libc_start_main+0x19e8>
++    1715:	0f 84 08 05 00 00    	je     1c23 <__libc_start_main+0x1983>
+     171b:	48 85 c9             	test   %rcx,%rcx
+-    171e:	0f 85 ea 04 00 00    	jne    1c0e <__libc_start_main+0x196e>
++    171e:	0f 85 8c 04 00 00    	jne    1bb0 <__libc_start_main+0x1910>
+     1724:	48 8b 85 78 e9 ff ff 	mov    -0x1688(%rbp),%rax
+     172b:	4c 89 b5 58 eb ff ff 	mov    %r14,-0x14a8(%rbp)
+     1732:	42 c6 04 30 00       	movb   $0x0,(%rax,%r14,1)
+     1737:	e9 b6 fa ff ff       	jmp    11f2 <__libc_start_main+0xf52>
+-    173c:	48 b8 6c 69 62 6f 6d 	movabs $0x732e706d6f62696c,%rax
+-    1743:	70 2e 73 
++    173c:	48 b8 6c 69 62 73 74 	movabs $0x2b6364747362696c,%rax
++    1743:	64 63 2b 
+     1746:	48 39 07             	cmp    %rax,(%rdi)
+-    1749:	0f 84 b0 04 00 00    	je     1bff <__libc_start_main+0x195f>
+-    174f:	48 b8 6c 64 2d 6c 69 	movabs $0x78756e696c2d646c,%rax
+-    1756:	6e 75 78 
+-    1759:	48 39 07             	cmp    %rax,(%rdi)
+-    175c:	0f 85 af fe ff ff    	jne    1611 <__libc_start_main+0x1371>
+-    1762:	48 39 cf             	cmp    %rcx,%rdi
+-    1765:	74 10                	je     1777 <__libc_start_main+0x14d7>
+-    1767:	48 8b 85 a0 eb ff ff 	mov    -0x1460(%rbp),%rax
+-    176e:	48 8d 70 01          	lea    0x1(%rax),%rsi
+-    1772:	e8 00 00 00 00       	call   1777 <__libc_start_main+0x14d7>
+-			1773: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
+-    1777:	48 8b 85 38 ea ff ff 	mov    -0x15c8(%rbp),%rax
+-    177e:	48 3b 85 40 ea ff ff 	cmp    -0x15c0(%rbp),%rax
+-    1785:	73 1d                	jae    17a4 <__libc_start_main+0x1504>
+-    1787:	66 48 0f 6e c0       	movq   %rax,%xmm0
+-    178c:	0f 16 85 40 ea ff ff 	movhps -0x15c0(%rbp),%xmm0
+-    1793:	4c 39 bd 80 e9 ff ff 	cmp    %r15,-0x1680(%rbp)
+-    179a:	74 34                	je     17d0 <__libc_start_main+0x1530>
+-    179c:	41 0f 11 07          	movups %xmm0,(%r15)
+-    17a0:	49 83 c7 10          	add    $0x10,%r15
+-    17a4:	48 8b bd 70 eb ff ff 	mov    -0x1490(%rbp),%rdi
+-    17ab:	48 8d 85 80 eb ff ff 	lea    -0x1480(%rbp),%rax
+-    17b2:	48 39 c7             	cmp    %rax,%rdi
+-    17b5:	0f 84 65 f4 ff ff    	je     c20 <__libc_start_main+0x980>
+-    17bb:	48 8b 85 80 eb ff ff 	mov    -0x1480(%rbp),%rax
+-    17c2:	48 8d 70 01          	lea    0x1(%rax),%rsi
+-    17c6:	e8 00 00 00 00       	call   17cb <__libc_start_main+0x152b>
+-			17c7: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
+-    17cb:	e9 50 f4 ff ff       	jmp    c20 <__libc_start_main+0x980>
+-    17d0:	48 8b 85 18 ea ff ff 	mov    -0x15e8(%rbp),%rax
+-    17d7:	48 8d b5 80 ea ff ff 	lea    -0x1580(%rbp),%rsi
+-    17de:	48 8d bd b0 ea ff ff 	lea    -0x1550(%rbp),%rdi
+-    17e5:	0f 29 85 80 ea ff ff 	movaps %xmm0,-0x1580(%rbp)
+-    17ec:	48 89 85 b0 ea ff ff 	mov    %rax,-0x1550(%rbp)
+-    17f3:	48 8b 85 80 e9 ff ff 	mov    -0x1680(%rbp),%rax
+-    17fa:	48 89 85 b8 ea ff ff 	mov    %rax,-0x1548(%rbp)
+-    1801:	48 89 85 c0 ea ff ff 	mov    %rax,-0x1540(%rbp)
+-    1808:	e8 00 00 00 00       	call   180d <__libc_start_main+0x156d>
+-			1809: R_X86_64_PLT32	void std::vector<ip_range, std::allocator<ip_range> >::_M_realloc_append<ip_range>(ip_range&&)-0x4
+-    180d:	48 8b 85 b0 ea ff ff 	mov    -0x1550(%rbp),%rax
+-    1814:	4c 8b bd b8 ea ff ff 	mov    -0x1548(%rbp),%r15
+-    181b:	48 89 85 18 ea ff ff 	mov    %rax,-0x15e8(%rbp)
+-    1822:	48 8b 85 c0 ea ff ff 	mov    -0x1540(%rbp),%rax
+-    1829:	48 89 85 80 e9 ff ff 	mov    %rax,-0x1680(%rbp)
+-    1830:	e9 6f ff ff ff       	jmp    17a4 <__libc_start_main+0x1504>
+-    1835:	48 b8 6c 69 62 73 74 	movabs $0x2b6364747362696c,%rax
+-    183c:	64 63 2b 
+-    183f:	48 39 07             	cmp    %rax,(%rdi)
+-    1842:	0f 84 9c 04 00 00    	je     1ce4 <__libc_start_main+0x1a44>
+-    1848:	49 83 fd 0c          	cmp    $0xc,%r13
+-    184c:	74 13                	je     1861 <__libc_start_main+0x15c1>
+-    184e:	48 b8 6c 69 62 70 74 	movabs $0x657268747062696c,%rax
+-    1855:	68 72 65 
+-    1858:	48 39 07             	cmp    %rax,(%rdi)
+-    185b:	0f 84 95 04 00 00    	je     1cf6 <__libc_start_main+0x1a56>
+-    1861:	48 b8 6c 69 62 6e 75 	movabs $0x2e616d756e62696c,%rax
+-    1868:	6d 61 2e 
+-    186b:	48 39 07             	cmp    %rax,(%rdi)
+-    186e:	0f 84 9b 04 00 00    	je     1d0f <__libc_start_main+0x1a6f>
+-    1874:	48 b8 6c 69 62 67 6f 	movabs $0x2e706d6f6762696c,%rax
+-    187b:	6d 70 2e 
+-    187e:	48 39 07             	cmp    %rax,(%rdi)
+-    1881:	0f 84 99 04 00 00    	je     1d20 <__libc_start_main+0x1a80>
+-    1887:	ba 09 00 00 00       	mov    $0x9,%edx
+-    188c:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 1893 <__libc_start_main+0x15f3>
+-			188f: R_X86_64_PC32	.LC19-0x4
+-    1893:	48 89 8d 40 e9 ff ff 	mov    %rcx,-0x16c0(%rbp)
+-    189a:	48 89 bd 48 e9 ff ff 	mov    %rdi,-0x16b8(%rbp)
+-    18a1:	e8 00 00 00 00       	call   18a6 <__libc_start_main+0x1606>
+-			18a2: R_X86_64_PLT32	memcmp-0x4
+-    18a6:	48 8b bd 48 e9 ff ff 	mov    -0x16b8(%rbp),%rdi
+-    18ad:	48 8b 8d 40 e9 ff ff 	mov    -0x16c0(%rbp),%rcx
+-    18b4:	85 c0                	test   %eax,%eax
+-    18b6:	0f 84 a6 fe ff ff    	je     1762 <__libc_start_main+0x14c2>
+-    18bc:	49 83 fd 0a          	cmp    $0xa,%r13
+-    18c0:	0f 84 89 fe ff ff    	je     174f <__libc_start_main+0x14af>
+-    18c6:	48 b8 6c 69 62 67 63 	movabs $0x735f63636762696c,%rax
+-    18cd:	63 5f 73 
+-    18d0:	48 39 07             	cmp    %rax,(%rdi)
+-    18d3:	0f 85 76 fe ff ff    	jne    174f <__libc_start_main+0x14af>
+-    18d9:	81 7f 07 73 2e 73 6f 	cmpl   $0x6f732e73,0x7(%rdi)
+-    18e0:	0f 85 69 fe ff ff    	jne    174f <__libc_start_main+0x14af>
+-    18e6:	e9 77 fe ff ff       	jmp    1762 <__libc_start_main+0x14c2>
+-    18eb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+-    18f0:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 18f7 <__libc_start_main+0x1657>
+-			18f3: R_X86_64_REX_GOTPCRELX	std::cerr-0x4
+-    18f7:	ba 42 00 00 00       	mov    $0x42,%edx
+-    18fc:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 1903 <__libc_start_main+0x1663>
+-			18ff: R_X86_64_PC32	.LC22-0x4
+-    1903:	e8 00 00 00 00       	call   1908 <__libc_start_main+0x1668>
+-			1904: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-    1908:	48 8b 95 38 eb ff ff 	mov    -0x14c8(%rbp),%rdx
+-    190f:	48 8b b5 30 eb ff ff 	mov    -0x14d0(%rbp),%rsi
+-    1916:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 191d <__libc_start_main+0x167d>
+-			1919: R_X86_64_REX_GOTPCRELX	std::cerr-0x4
++    1749:	0f 84 b8 05 00 00    	je     1d07 <__libc_start_main+0x1a67>
++    174f:	49 83 fd 0c          	cmp    $0xc,%r13
++    1753:	74 13                	je     1768 <__libc_start_main+0x14c8>
++    1755:	48 b8 6c 69 62 70 74 	movabs $0x657268747062696c,%rax
++    175c:	68 72 65 
++    175f:	48 39 07             	cmp    %rax,(%rdi)
++    1762:	0f 84 b1 05 00 00    	je     1d19 <__libc_start_main+0x1a79>
++    1768:	48 b8 6c 69 62 6e 75 	movabs $0x2e616d756e62696c,%rax
++    176f:	6d 61 2e 
++    1772:	48 39 07             	cmp    %rax,(%rdi)
++    1775:	0f 84 b7 05 00 00    	je     1d32 <__libc_start_main+0x1a92>
++    177b:	48 b8 6c 69 62 67 6f 	movabs $0x2e706d6f6762696c,%rax
++    1782:	6d 70 2e 
++    1785:	48 39 07             	cmp    %rax,(%rdi)
++    1788:	0f 84 b5 05 00 00    	je     1d43 <__libc_start_main+0x1aa3>
++    178e:	48 b8 6c 69 62 6f 6d 	movabs $0x732e706d6f62696c,%rax
++    1795:	70 2e 73 
++    1798:	48 39 07             	cmp    %rax,(%rdi)
++    179b:	0f 84 b3 05 00 00    	je     1d54 <__libc_start_main+0x1ab4>
++    17a1:	49 83 fd 0a          	cmp    $0xa,%r13
++    17a5:	0f 87 b9 04 00 00    	ja     1c64 <__libc_start_main+0x19c4>
++    17ab:	48 b8 6c 69 62 61 72 	movabs $0x776f72726162696c,%rax
++    17b2:	72 6f 77 
++    17b5:	48 39 07             	cmp    %rax,(%rdi)
++    17b8:	0f 84 e3 03 00 00    	je     1ba1 <__libc_start_main+0x1901>
++    17be:	48 b8 6c 64 2d 6c 69 	movabs $0x78756e696c2d646c,%rax
++    17c5:	6e 75 78 
++    17c8:	48 39 07             	cmp    %rax,(%rdi)
++    17cb:	0f 85 40 fe ff ff    	jne    1611 <__libc_start_main+0x1371>
++    17d1:	48 39 cf             	cmp    %rcx,%rdi
++    17d4:	74 10                	je     17e6 <__libc_start_main+0x1546>
++    17d6:	48 8b 85 a0 eb ff ff 	mov    -0x1460(%rbp),%rax
++    17dd:	48 8d 70 01          	lea    0x1(%rax),%rsi
++    17e1:	e8 00 00 00 00       	call   17e6 <__libc_start_main+0x1546>
++			17e2: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
++    17e6:	48 8b 85 38 ea ff ff 	mov    -0x15c8(%rbp),%rax
++    17ed:	48 3b 85 40 ea ff ff 	cmp    -0x15c0(%rbp),%rax
++    17f4:	73 1d                	jae    1813 <__libc_start_main+0x1573>
++    17f6:	66 48 0f 6e c0       	movq   %rax,%xmm0
++    17fb:	0f 16 85 40 ea ff ff 	movhps -0x15c0(%rbp),%xmm0
++    1802:	4c 39 bd 80 e9 ff ff 	cmp    %r15,-0x1680(%rbp)
++    1809:	74 35                	je     1840 <__libc_start_main+0x15a0>
++    180b:	41 0f 11 07          	movups %xmm0,(%r15)
++    180f:	49 83 c7 10          	add    $0x10,%r15
++    1813:	48 8b bd 70 eb ff ff 	mov    -0x1490(%rbp),%rdi
++    181a:	48 8d 85 80 eb ff ff 	lea    -0x1480(%rbp),%rax
++    1821:	48 39 c7             	cmp    %rax,%rdi
++    1824:	0f 84 f6 f3 ff ff    	je     c20 <__libc_start_main+0x980>
++    182a:	48 8b 85 80 eb ff ff 	mov    -0x1480(%rbp),%rax
++    1831:	48 8d 70 01          	lea    0x1(%rax),%rsi
++    1835:	e8 00 00 00 00       	call   183a <__libc_start_main+0x159a>
++			1836: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
++    183a:	e9 e1 f3 ff ff       	jmp    c20 <__libc_start_main+0x980>
++    183f:	90                   	nop
++    1840:	48 8b 85 18 ea ff ff 	mov    -0x15e8(%rbp),%rax
++    1847:	48 8d b5 80 ea ff ff 	lea    -0x1580(%rbp),%rsi
++    184e:	48 8d bd b0 ea ff ff 	lea    -0x1550(%rbp),%rdi
++    1855:	0f 29 85 80 ea ff ff 	movaps %xmm0,-0x1580(%rbp)
++    185c:	48 89 85 b0 ea ff ff 	mov    %rax,-0x1550(%rbp)
++    1863:	48 8b 85 80 e9 ff ff 	mov    -0x1680(%rbp),%rax
++    186a:	48 89 85 b8 ea ff ff 	mov    %rax,-0x1548(%rbp)
++    1871:	48 89 85 c0 ea ff ff 	mov    %rax,-0x1540(%rbp)
++    1878:	e8 00 00 00 00       	call   187d <__libc_start_main+0x15dd>
++			1879: R_X86_64_PLT32	void std::vector<ip_range, std::allocator<ip_range> >::_M_realloc_append<ip_range>(ip_range&&)-0x4
++    187d:	48 8b 85 b0 ea ff ff 	mov    -0x1550(%rbp),%rax
++    1884:	4c 8b bd b8 ea ff ff 	mov    -0x1548(%rbp),%r15
++    188b:	48 89 85 18 ea ff ff 	mov    %rax,-0x15e8(%rbp)
++    1892:	48 8b 85 c0 ea ff ff 	mov    -0x1540(%rbp),%rax
++    1899:	48 89 85 80 e9 ff ff 	mov    %rax,-0x1680(%rbp)
++    18a0:	e9 6e ff ff ff       	jmp    1813 <__libc_start_main+0x1573>
++    18a5:	0f 1f 00             	nopl   (%rax)
++    18a8:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 18af <__libc_start_main+0x160f>
++			18ab: R_X86_64_REX_GOTPCRELX	std::cerr-0x4
++    18af:	ba 42 00 00 00       	mov    $0x42,%edx
++    18b4:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 18bb <__libc_start_main+0x161b>
++			18b7: R_X86_64_PC32	.LC25-0x4
++    18bb:	e8 00 00 00 00       	call   18c0 <__libc_start_main+0x1620>
++			18bc: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
++    18c0:	48 8b 95 38 eb ff ff 	mov    -0x14c8(%rbp),%rdx
++    18c7:	48 8b b5 30 eb ff ff 	mov    -0x14d0(%rbp),%rsi
++    18ce:	48 8b 3d 00 00 00 00 	mov    0x0(%rip),%rdi        # 18d5 <__libc_start_main+0x1635>
++			18d1: R_X86_64_REX_GOTPCRELX	std::cerr-0x4
++    18d5:	e8 00 00 00 00       	call   18da <__libc_start_main+0x163a>
++			18d6: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
++    18da:	ba 21 00 00 00       	mov    $0x21,%edx
++    18df:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 18e6 <__libc_start_main+0x1646>
++			18e2: R_X86_64_PC32	.LC26-0x4
++    18e6:	48 89 c7             	mov    %rax,%rdi
++    18e9:	49 89 c4             	mov    %rax,%r12
++    18ec:	e8 00 00 00 00       	call   18f1 <__libc_start_main+0x1651>
++			18ed: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
++    18f1:	49 8b 04 24          	mov    (%r12),%rax
++    18f5:	48 8b 40 e8          	mov    -0x18(%rax),%rax
++    18f9:	4d 8b ac 04 f0 00 00 	mov    0xf0(%r12,%rax,1),%r13
++    1900:	00 
++    1901:	4d 85 ed             	test   %r13,%r13
++    1904:	0f 84 00 00 00 00    	je     190a <__libc_start_main+0x166a>
++			1906: R_X86_64_PC32	.text.unlikely+0xe
++    190a:	41 80 7d 38 00       	cmpb   $0x0,0x38(%r13)
++    190f:	0f 84 2e 02 00 00    	je     1b43 <__libc_start_main+0x18a3>
++    1915:	41 0f be 75 43       	movsbl 0x43(%r13),%esi
++    191a:	4c 89 e7             	mov    %r12,%rdi
+     191d:	e8 00 00 00 00       	call   1922 <__libc_start_main+0x1682>
+-			191e: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-    1922:	ba 21 00 00 00       	mov    $0x21,%edx
+-    1927:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 192e <__libc_start_main+0x168e>
+-			192a: R_X86_64_PC32	.LC23-0x4
+-    192e:	48 89 c7             	mov    %rax,%rdi
+-    1931:	49 89 c4             	mov    %rax,%r12
+-    1934:	e8 00 00 00 00       	call   1939 <__libc_start_main+0x1699>
+-			1935: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-    1939:	49 8b 04 24          	mov    (%r12),%rax
+-    193d:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-    1941:	4d 8b ac 04 f0 00 00 	mov    0xf0(%r12,%rax,1),%r13
+-    1948:	00 
+-    1949:	4d 85 ed             	test   %r13,%r13
+-    194c:	0f 84 00 00 00 00    	je     1952 <__libc_start_main+0x16b2>
+-			194e: R_X86_64_PC32	.text.unlikely+0x31c
+-    1952:	41 80 7d 38 00       	cmpb   $0x0,0x38(%r13)
+-    1957:	0f 84 3b 02 00 00    	je     1b98 <__libc_start_main+0x18f8>
+-    195d:	41 0f be 75 43       	movsbl 0x43(%r13),%esi
+-    1962:	4c 89 e7             	mov    %r12,%rdi
+-    1965:	e8 00 00 00 00       	call   196a <__libc_start_main+0x16ca>
+-			1966: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    196a:	48 89 c7             	mov    %rax,%rdi
+-    196d:	e8 00 00 00 00       	call   1972 <__libc_start_main+0x16d2>
+-			196e: R_X86_64_PLT32	std::ostream::flush()-0x4
+-    1972:	e9 37 f7 ff ff       	jmp    10ae <__libc_start_main+0xe0e>
+-    1977:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+-    197e:	00 00 
+-    1980:	4c 8b 25 00 00 00 00 	mov    0x0(%rip),%r12        # 1987 <__libc_start_main+0x16e7>
+-			1983: R_X86_64_REX_GOTPCRELX	std::cerr-0x4
+-    1987:	ba 60 00 00 00       	mov    $0x60,%edx
+-    198c:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 1993 <__libc_start_main+0x16f3>
+-			198f: R_X86_64_PC32	.LC24-0x4
+-    1993:	4c 89 e7             	mov    %r12,%rdi
+-    1996:	e8 00 00 00 00       	call   199b <__libc_start_main+0x16fb>
+-			1997: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
+-    199b:	49 8b 04 24          	mov    (%r12),%rax
+-    199f:	48 8b 40 e8          	mov    -0x18(%rax),%rax
+-    19a3:	4e 8b ac 20 f0 00 00 	mov    0xf0(%rax,%r12,1),%r13
+-    19aa:	00 
+-    19ab:	4d 85 ed             	test   %r13,%r13
+-    19ae:	0f 84 00 00 00 00    	je     19b4 <__libc_start_main+0x1714>
+-			19b0: R_X86_64_PC32	.text.unlikely+0x13a
+-    19b4:	41 80 7d 38 00       	cmpb   $0x0,0x38(%r13)
+-    19b9:	0f 84 11 02 00 00    	je     1bd0 <__libc_start_main+0x1930>
+-    19bf:	41 0f be 75 43       	movsbl 0x43(%r13),%esi
+-    19c4:	4c 89 e7             	mov    %r12,%rdi
+-    19c7:	e8 00 00 00 00       	call   19cc <__libc_start_main+0x172c>
+-			19c8: R_X86_64_PLT32	std::ostream::put(char)-0x4
+-    19cc:	48 89 c7             	mov    %rax,%rdi
+-    19cf:	e8 00 00 00 00       	call   19d4 <__libc_start_main+0x1734>
+-			19d0: R_X86_64_PLT32	std::ostream::flush()-0x4
+-    19d4:	e9 e2 f6 ff ff       	jmp    10bb <__libc_start_main+0xe1b>
+-    19d9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+-    19e0:	48 8b b5 50 eb ff ff 	mov    -0x14b0(%rbp),%rsi
+-    19e7:	4c 89 ea             	mov    %r13,%rdx
+-    19ea:	4c 89 c7             	mov    %r8,%rdi
+-    19ed:	4c 89 85 18 ea ff ff 	mov    %r8,-0x15e8(%rbp)
+-    19f4:	4c 89 85 58 e9 ff ff 	mov    %r8,-0x16a8(%rbp)
+-    19fb:	e8 00 00 00 00       	call   1a00 <__libc_start_main+0x1760>
+-			19fc: R_X86_64_PLT32	memcmp-0x4
+-    1a00:	48 8b 8d 18 ea ff ff 	mov    -0x15e8(%rbp),%rcx
+-    1a07:	85 c0                	test   %eax,%eax
+-    1a09:	0f 84 4b fa ff ff    	je     145a <__libc_start_main+0x11ba>
+-    1a0f:	49 89 c8             	mov    %rcx,%r8
+-    1a12:	e9 89 f9 ff ff       	jmp    13a0 <__libc_start_main+0x1100>
+-    1a17:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+-    1a1e:	00 00 
+-    1a20:	41 0f b6 45 00       	movzbl 0x0(%r13),%eax
+-    1a25:	88 07                	mov    %al,(%rdi)
+-    1a27:	4c 8b ad 58 ea ff ff 	mov    -0x15a8(%rbp),%r13
+-    1a2e:	48 8b bd 90 eb ff ff 	mov    -0x1470(%rbp),%rdi
+-    1a35:	e9 85 f1 ff ff       	jmp    bbf <__libc_start_main+0x91f>
+-    1a3a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1a40:	48 8d b5 58 ea ff ff 	lea    -0x15a8(%rbp),%rsi
+-    1a47:	31 d2                	xor    %edx,%edx
+-    1a49:	48 89 8d 48 e9 ff ff 	mov    %rcx,-0x16b8(%rbp)
+-    1a50:	e8 00 00 00 00       	call   1a55 <__libc_start_main+0x17b5>
+-			1a51: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_create(unsigned long&, unsigned long)-0x4
+-    1a55:	48 8b 95 58 ea ff ff 	mov    -0x15a8(%rbp),%rdx
+-    1a5c:	48 89 85 90 eb ff ff 	mov    %rax,-0x1470(%rbp)
+-    1a63:	48 89 c7             	mov    %rax,%rdi
+-    1a66:	48 8b 8d 48 e9 ff ff 	mov    -0x16b8(%rbp),%rcx
+-    1a6d:	48 85 d2             	test   %rdx,%rdx
+-    1a70:	48 89 95 a0 eb ff ff 	mov    %rdx,-0x1460(%rbp)
+-    1a77:	48 8d 42 01          	lea    0x1(%rdx),%rax
+-    1a7b:	74 a3                	je     1a20 <__libc_start_main+0x1780>
+-    1a7d:	48 85 c0             	test   %rax,%rax
+-    1a80:	0f 85 12 f1 ff ff    	jne    b98 <__libc_start_main+0x8f8>
+-    1a86:	48 c7 85 98 eb ff ff 	movq   $0xffffffffffffffff,-0x1468(%rbp)
+-    1a8d:	ff ff ff ff 
+-    1a91:	49 c7 c5 ff ff ff ff 	mov    $0xffffffffffffffff,%r13
+-    1a98:	e9 44 fb ff ff       	jmp    15e1 <__libc_start_main+0x1341>
+-    1a9d:	0f 1f 00             	nopl   (%rax)
+-    1aa0:	41 0f b6 00          	movzbl (%r8),%eax
+-    1aa4:	88 85 a0 eb ff ff    	mov    %al,-0x1460(%rbp)
+-    1aaa:	e9 0b fb ff ff       	jmp    15ba <__libc_start_main+0x131a>
+-    1aaf:	90                   	nop
+-    1ab0:	48 8d b5 58 ea ff ff 	lea    -0x15a8(%rbp),%rsi
+-    1ab7:	31 d2                	xor    %edx,%edx
+-    1ab9:	48 89 8d 40 e9 ff ff 	mov    %rcx,-0x16c0(%rbp)
+-    1ac0:	4c 89 85 48 e9 ff ff 	mov    %r8,-0x16b8(%rbp)
+-    1ac7:	e8 00 00 00 00       	call   1acc <__libc_start_main+0x182c>
+-			1ac8: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_create(unsigned long&, unsigned long)-0x4
+-    1acc:	48 89 85 90 eb ff ff 	mov    %rax,-0x1470(%rbp)
+-    1ad3:	48 89 c7             	mov    %rax,%rdi
+-    1ad6:	48 8b 85 58 ea ff ff 	mov    -0x15a8(%rbp),%rax
+-    1add:	4c 8b 85 48 e9 ff ff 	mov    -0x16b8(%rbp),%r8
+-    1ae4:	48 8b 8d 40 e9 ff ff 	mov    -0x16c0(%rbp),%rcx
+-    1aeb:	48 89 85 a0 eb ff ff 	mov    %rax,-0x1460(%rbp)
+-    1af2:	4c 89 ea             	mov    %r13,%rdx
+-    1af5:	4c 89 c6             	mov    %r8,%rsi
+-    1af8:	48 89 8d 48 e9 ff ff 	mov    %rcx,-0x16b8(%rbp)
+-    1aff:	e8 00 00 00 00       	call   1b04 <__libc_start_main+0x1864>
+-			1b00: R_X86_64_PLT32	memcpy-0x4
+-    1b04:	4c 8b ad 58 ea ff ff 	mov    -0x15a8(%rbp),%r13
+-    1b0b:	48 8b 85 90 eb ff ff 	mov    -0x1470(%rbp),%rax
+-    1b12:	48 8b 8d 48 e9 ff ff 	mov    -0x16b8(%rbp),%rcx
+-    1b19:	e9 9f fa ff ff       	jmp    15bd <__libc_start_main+0x131d>
+-    1b1e:	66 90                	xchg   %ax,%ax
+-    1b20:	48 8b 85 00 ea ff ff 	mov    -0x1600(%rbp),%rax
+-    1b27:	48 8d b5 60 ea ff ff 	lea    -0x15a0(%rbp),%rsi
+-    1b2e:	48 8d bd 90 ea ff ff 	lea    -0x1570(%rbp),%rdi
+-    1b35:	0f 29 85 60 ea ff ff 	movaps %xmm0,-0x15a0(%rbp)
+-    1b3c:	48 89 85 90 ea ff ff 	mov    %rax,-0x1570(%rbp)
+-    1b43:	48 8b 85 10 ea ff ff 	mov    -0x15f0(%rbp),%rax
+-    1b4a:	48 89 85 98 ea ff ff 	mov    %rax,-0x1568(%rbp)
+-    1b51:	48 89 85 a0 ea ff ff 	mov    %rax,-0x1560(%rbp)
+-    1b58:	e8 00 00 00 00       	call   1b5d <__libc_start_main+0x18bd>
+-			1b59: R_X86_64_PLT32	void std::vector<ip_range, std::allocator<ip_range> >::_M_realloc_append<ip_range>(ip_range&&)-0x4
+-    1b5d:	48 8b 85 90 ea ff ff 	mov    -0x1570(%rbp),%rax
+-    1b64:	48 8b 8d 90 eb ff ff 	mov    -0x1470(%rbp),%rcx
+-    1b6b:	48 89 85 00 ea ff ff 	mov    %rax,-0x1600(%rbp)
+-    1b72:	48 8b 85 98 ea ff ff 	mov    -0x1568(%rbp),%rax
+-    1b79:	48 89 85 10 ea ff ff 	mov    %rax,-0x15f0(%rbp)
+-    1b80:	48 8b 85 a0 ea ff ff 	mov    -0x1560(%rbp),%rax
+-    1b87:	48 89 85 60 e9 ff ff 	mov    %rax,-0x16a0(%rbp)
+-    1b8e:	e9 05 f9 ff ff       	jmp    1498 <__libc_start_main+0x11f8>
+-    1b93:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+-    1b98:	4c 89 ef             	mov    %r13,%rdi
+-    1b9b:	e8 00 00 00 00       	call   1ba0 <__libc_start_main+0x1900>
+-			1b9c: R_X86_64_PLT32	std::ctype<char>::_M_widen_init() const-0x4
+-    1ba0:	49 8b 45 00          	mov    0x0(%r13),%rax
+-    1ba4:	be 0a 00 00 00       	mov    $0xa,%esi
+-    1ba9:	48 8b 40 30          	mov    0x30(%rax),%rax
+-    1bad:	48 3b 05 00 00 00 00 	cmp    0x0(%rip),%rax        # 1bb4 <__libc_start_main+0x1914>
+-			1bb0: R_X86_64_REX_GOTPCRELX	std::ctype<char>::do_widen(char) const-0x4
+-    1bb4:	0f 84 a8 fd ff ff    	je     1962 <__libc_start_main+0x16c2>
+-    1bba:	4c 89 ef             	mov    %r13,%rdi
+-    1bbd:	ff d0                	call   *%rax
+-    1bbf:	0f be f0             	movsbl %al,%esi
+-    1bc2:	e9 9b fd ff ff       	jmp    1962 <__libc_start_main+0x16c2>
+-    1bc7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+-    1bce:	00 00 
+-    1bd0:	4c 89 ef             	mov    %r13,%rdi
+-    1bd3:	e8 00 00 00 00       	call   1bd8 <__libc_start_main+0x1938>
+-			1bd4: R_X86_64_PLT32	std::ctype<char>::_M_widen_init() const-0x4
+-    1bd8:	49 8b 45 00          	mov    0x0(%r13),%rax
+-    1bdc:	be 0a 00 00 00       	mov    $0xa,%esi
+-    1be1:	48 8b 40 30          	mov    0x30(%rax),%rax
+-    1be5:	48 3b 05 00 00 00 00 	cmp    0x0(%rip),%rax        # 1bec <__libc_start_main+0x194c>
+-			1be8: R_X86_64_REX_GOTPCRELX	std::ctype<char>::do_widen(char) const-0x4
+-    1bec:	0f 84 d2 fd ff ff    	je     19c4 <__libc_start_main+0x1724>
+-    1bf2:	4c 89 ef             	mov    %r13,%rdi
+-    1bf5:	ff d0                	call   *%rax
+-    1bf7:	0f be f0             	movsbl %al,%esi
+-    1bfa:	e9 c5 fd ff ff       	jmp    19c4 <__libc_start_main+0x1724>
+-    1bff:	80 7f 08 6f          	cmpb   $0x6f,0x8(%rdi)
+-    1c03:	0f 85 46 fb ff ff    	jne    174f <__libc_start_main+0x14af>
+-    1c09:	e9 54 fb ff ff       	jmp    1762 <__libc_start_main+0x14c2>
+-    1c0e:	48 89 c7             	mov    %rax,%rdi
+-    1c11:	4c 89 f2             	mov    %r14,%rdx
+-    1c14:	4c 89 fe             	mov    %r15,%rsi
+-    1c17:	e8 00 00 00 00       	call   1c1c <__libc_start_main+0x197c>
+-			1c18: R_X86_64_PLT32	memcpy-0x4
+-    1c1c:	4c 8b b5 d0 ef ff ff 	mov    -0x1030(%rbp),%r14
+-    1c23:	48 8b 85 50 eb ff ff 	mov    -0x14b0(%rbp),%rax
+-    1c2a:	e9 fc fa ff ff       	jmp    172b <__libc_start_main+0x148b>
+-    1c2f:	90                   	nop
+-    1c30:	41 0f b6 06          	movzbl (%r14),%eax
+-    1c34:	88 07                	mov    %al,(%rdi)
+-    1c36:	4c 8b ad d0 ef ff ff 	mov    -0x1030(%rbp),%r13
+-    1c3d:	e9 a9 f5 ff ff       	jmp    11eb <__libc_start_main+0xf4b>
+-    1c42:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-    1c48:	48 89 c7             	mov    %rax,%rdi
+-    1c4b:	48 8d b5 d0 ef ff ff 	lea    -0x1030(%rbp),%rsi
+-    1c52:	31 d2                	xor    %edx,%edx
+-    1c54:	e8 00 00 00 00       	call   1c59 <__libc_start_main+0x19b9>
+-			1c55: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_create(unsigned long&, unsigned long)-0x4
+-    1c59:	48 89 85 50 eb ff ff 	mov    %rax,-0x14b0(%rbp)
+-    1c60:	48 89 c7             	mov    %rax,%rdi
+-    1c63:	48 8b 85 d0 ef ff ff 	mov    -0x1030(%rbp),%rax
+-    1c6a:	48 89 85 60 eb ff ff 	mov    %rax,-0x14a0(%rbp)
+-    1c71:	48 8d 50 01          	lea    0x1(%rax),%rdx
+-    1c75:	48 85 c0             	test   %rax,%rax
+-    1c78:	74 b6                	je     1c30 <__libc_start_main+0x1990>
+-    1c7a:	48 85 d2             	test   %rdx,%rdx
+-    1c7d:	0f 84 68 f5 ff ff    	je     11eb <__libc_start_main+0xf4b>
+-    1c83:	e9 54 f5 ff ff       	jmp    11dc <__libc_start_main+0xf3c>
+-    1c88:	41 0f b6 07          	movzbl (%r15),%eax
+-    1c8c:	88 85 60 eb ff ff    	mov    %al,-0x14a0(%rbp)
+-    1c92:	e9 8d fa ff ff       	jmp    1724 <__libc_start_main+0x1484>
+-    1c97:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+-    1c9e:	00 00 
+-    1ca0:	48 8b bd 28 ea ff ff 	mov    -0x15d8(%rbp),%rdi
+-    1ca7:	48 8d b5 d0 ef ff ff 	lea    -0x1030(%rbp),%rsi
+-    1cae:	31 d2                	xor    %edx,%edx
+-    1cb0:	e8 00 00 00 00       	call   1cb5 <__libc_start_main+0x1a15>
+-			1cb1: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_create(unsigned long&, unsigned long)-0x4
+-    1cb5:	48 89 85 50 eb ff ff 	mov    %rax,-0x14b0(%rbp)
+-    1cbc:	48 89 c7             	mov    %rax,%rdi
+-    1cbf:	48 8b 85 d0 ef ff ff 	mov    -0x1030(%rbp),%rax
+-    1cc6:	48 89 85 60 eb ff ff 	mov    %rax,-0x14a0(%rbp)
+-    1ccd:	e9 3f ff ff ff       	jmp    1c11 <__libc_start_main+0x1971>
+-    1cd2:	81 7f 03 63 2e 73 6f 	cmpl   $0x6f732e63,0x3(%rdi)
+-    1cd9:	0f 85 0e f9 ff ff    	jne    15ed <__libc_start_main+0x134d>
+-    1cdf:	e9 7e fa ff ff       	jmp    1762 <__libc_start_main+0x14c2>
+-    1ce4:	81 7f 08 2b 2e 73 6f 	cmpl   $0x6f732e2b,0x8(%rdi)
+-    1ceb:	0f 85 57 fb ff ff    	jne    1848 <__libc_start_main+0x15a8>
+-    1cf1:	e9 6c fa ff ff       	jmp    1762 <__libc_start_main+0x14c2>
+-    1cf6:	48 b8 68 72 65 61 64 	movabs $0x6f732e6461657268,%rax
+-    1cfd:	2e 73 6f 
+-    1d00:	48 39 47 05          	cmp    %rax,0x5(%rdi)
+-    1d04:	0f 85 57 fb ff ff    	jne    1861 <__libc_start_main+0x15c1>
+-    1d0a:	e9 53 fa ff ff       	jmp    1762 <__libc_start_main+0x14c2>
+-    1d0f:	66 81 7f 08 73 6f    	cmpw   $0x6f73,0x8(%rdi)
+-    1d15:	0f 85 59 fb ff ff    	jne    1874 <__libc_start_main+0x15d4>
+-    1d1b:	e9 42 fa ff ff       	jmp    1762 <__libc_start_main+0x14c2>
+-    1d20:	66 81 7f 08 73 6f    	cmpw   $0x6f73,0x8(%rdi)
+-    1d26:	0f 85 5b fb ff ff    	jne    1887 <__libc_start_main+0x15e7>
+-    1d2c:	e9 31 fa ff ff       	jmp    1762 <__libc_start_main+0x14c2>
+-    1d31:	48 89 cf             	mov    %rcx,%rdi
+-    1d34:	e9 b9 fd ff ff       	jmp    1af2 <__libc_start_main+0x1852>
+-    1d39:	e9 00 00 00 00       	jmp    1d3e <__libc_start_main+0x1a9e>
+-			1d3a: R_X86_64_PC32	.text.unlikely+0xe
+-    1d3e:	e9 00 00 00 00       	jmp    1d43 <__libc_start_main+0x1aa3>
+-			1d3f: R_X86_64_PC32	.text.unlikely+0x20
+-    1d43:	48 89 c3             	mov    %rax,%rbx
+-    1d46:	e9 00 00 00 00       	jmp    1d4b <__libc_start_main+0x1aab>
+-			1d47: R_X86_64_PC32	.text.unlikely+0x32
+-    1d4b:	e9 00 00 00 00       	jmp    1d50 <__libc_start_main+0x1ab0>
+-			1d4c: R_X86_64_PC32	.text.unlikely+0xb6
+-    1d50:	e9 00 00 00 00       	jmp    1d55 <__libc_start_main+0x1ab5>
+-			1d51: R_X86_64_PC32	.text.unlikely+0xbb
+-    1d55:	e9 00 00 00 00       	jmp    1d5a <__libc_start_main+0x1aba>
+-			1d56: R_X86_64_PC32	.text.unlikely+0x117
+-    1d5a:	e9 00 00 00 00       	jmp    1d5f <__libc_start_main+0x1abf>
+-			1d5b: R_X86_64_PC32	.text.unlikely+0x23c
+-    1d5f:	e9 00 00 00 00       	jmp    1d64 <__libc_start_main+0x1ac4>
+-			1d60: R_X86_64_PC32	.text.unlikely+0x250
+-    1d64:	e9 00 00 00 00       	jmp    1d69 <__libc_start_main+0x1ac9>
+-			1d65: R_X86_64_PC32	.text.unlikely+0x2f4
+-    1d69:	e9 00 00 00 00       	jmp    1d6e <__libc_start_main+0x1ace>
+-			1d6a: R_X86_64_PC32	.text.unlikely+0x1bf
+-    1d6e:	e9 00 00 00 00       	jmp    1d73 <__libc_start_main+0x1ad3>
+-			1d6f: R_X86_64_PC32	.text.unlikely+0x112
+-    1d73:	48 89 c3             	mov    %rax,%rbx
+-    1d76:	e9 00 00 00 00       	jmp    1d7b <__libc_start_main+0x1adb>
+-			1d77: R_X86_64_PC32	.text.unlikely+0x13f
+-    1d7b:	48 89 c3             	mov    %rax,%rbx
+-    1d7e:	e9 00 00 00 00       	jmp    1d83 <__libc_start_main+0x1ae3>
+-			1d7f: R_X86_64_PC32	.text.unlikely+0x188
+-    1d83:	48 89 c3             	mov    %rax,%rbx
+-    1d86:	e9 00 00 00 00       	jmp    1d8b <__libc_start_main+0x1aeb>
+-			1d87: R_X86_64_PC32	.text.unlikely+0x188
+-    1d8b:	e9 00 00 00 00       	jmp    1d90 <__libc_start_main+0x1af0>
+-			1d8c: R_X86_64_PC32	.text.unlikely+0x19e
+-    1d90:	49 89 c7             	mov    %rax,%r15
+-    1d93:	e9 00 00 00 00       	jmp    1d98 <__libc_start_main+0x1af8>
+-			1d94: R_X86_64_PC32	.text.unlikely+0x1b0
+-    1d98:	48 89 c3             	mov    %rax,%rbx
+-    1d9b:	e9 00 00 00 00       	jmp    1da0 <__libc_start_main+0x1b00>
+-			1d9c: R_X86_64_PC32	.text.unlikely+0x276
+-    1da0:	49 89 c7             	mov    %rax,%r15
+-    1da3:	e9 00 00 00 00       	jmp    1da8 <__libc_start_main+0x1b08>
+-			1da4: R_X86_64_PC32	.text.unlikely+0x299
+-    1da8:	e9 00 00 00 00       	jmp    1dad <__libc_start_main+0x1b0d>
+-			1da9: R_X86_64_PC32	.text.unlikely+0x2a8
+-    1dad:	48 89 c3             	mov    %rax,%rbx
+-    1db0:	e9 00 00 00 00       	jmp    1db5 <__libc_start_main+0x1b15>
+-			1db1: R_X86_64_PC32	.text.unlikely+0x1e6
+-    1db5:	49 89 c7             	mov    %rax,%r15
+-    1db8:	e9 00 00 00 00       	jmp    1dbd <__libc_start_main+0x1b1d>
+-			1db9: R_X86_64_PC32	.text.unlikely+0x241
+-    1dbd:	48 89 c3             	mov    %rax,%rbx
++			191e: R_X86_64_PLT32	std::ostream::put(char)-0x4
++    1922:	48 89 c7             	mov    %rax,%rdi
++    1925:	e8 00 00 00 00       	call   192a <__libc_start_main+0x168a>
++			1926: R_X86_64_PLT32	std::ostream::flush()-0x4
++    192a:	e9 7f f7 ff ff       	jmp    10ae <__libc_start_main+0xe0e>
++    192f:	90                   	nop
++    1930:	4c 8b 25 00 00 00 00 	mov    0x0(%rip),%r12        # 1937 <__libc_start_main+0x1697>
++			1933: R_X86_64_REX_GOTPCRELX	std::cerr-0x4
++    1937:	ba 60 00 00 00       	mov    $0x60,%edx
++    193c:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 1943 <__libc_start_main+0x16a3>
++			193f: R_X86_64_PC32	.LC27-0x4
++    1943:	4c 89 e7             	mov    %r12,%rdi
++    1946:	e8 00 00 00 00       	call   194b <__libc_start_main+0x16ab>
++			1947: R_X86_64_PLT32	std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)-0x4
++    194b:	49 8b 04 24          	mov    (%r12),%rax
++    194f:	48 8b 40 e8          	mov    -0x18(%rax),%rax
++    1953:	4e 8b ac 20 f0 00 00 	mov    0xf0(%rax,%r12,1),%r13
++    195a:	00 
++    195b:	4d 85 ed             	test   %r13,%r13
++    195e:	0f 84 00 00 00 00    	je     1964 <__libc_start_main+0x16c4>
++			1960: R_X86_64_PC32	.text.unlikely+0x13
++    1964:	41 80 7d 38 00       	cmpb   $0x0,0x38(%r13)
++    1969:	0f 84 03 02 00 00    	je     1b72 <__libc_start_main+0x18d2>
++    196f:	41 0f be 75 43       	movsbl 0x43(%r13),%esi
++    1974:	4c 89 e7             	mov    %r12,%rdi
++    1977:	e8 00 00 00 00       	call   197c <__libc_start_main+0x16dc>
++			1978: R_X86_64_PLT32	std::ostream::put(char)-0x4
++    197c:	48 89 c7             	mov    %rax,%rdi
++    197f:	e8 00 00 00 00       	call   1984 <__libc_start_main+0x16e4>
++			1980: R_X86_64_PLT32	std::ostream::flush()-0x4
++    1984:	e9 32 f7 ff ff       	jmp    10bb <__libc_start_main+0xe1b>
++    1989:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
++    1990:	48 8b b5 50 eb ff ff 	mov    -0x14b0(%rbp),%rsi
++    1997:	4c 89 ea             	mov    %r13,%rdx
++    199a:	4c 89 c7             	mov    %r8,%rdi
++    199d:	4c 89 85 18 ea ff ff 	mov    %r8,-0x15e8(%rbp)
++    19a4:	4c 89 85 58 e9 ff ff 	mov    %r8,-0x16a8(%rbp)
++    19ab:	e8 00 00 00 00       	call   19b0 <__libc_start_main+0x1710>
++			19ac: R_X86_64_PLT32	memcmp-0x4
++    19b0:	48 8b 8d 18 ea ff ff 	mov    -0x15e8(%rbp),%rcx
++    19b7:	85 c0                	test   %eax,%eax
++    19b9:	0f 84 9b fa ff ff    	je     145a <__libc_start_main+0x11ba>
++    19bf:	49 89 c8             	mov    %rcx,%r8
++    19c2:	e9 d9 f9 ff ff       	jmp    13a0 <__libc_start_main+0x1100>
++    19c7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
++    19ce:	00 00 
++    19d0:	41 0f b6 45 00       	movzbl 0x0(%r13),%eax
++    19d5:	88 07                	mov    %al,(%rdi)
++    19d7:	4c 8b ad 58 ea ff ff 	mov    -0x15a8(%rbp),%r13
++    19de:	48 8b bd 90 eb ff ff 	mov    -0x1470(%rbp),%rdi
++    19e5:	e9 d5 f1 ff ff       	jmp    bbf <__libc_start_main+0x91f>
++    19ea:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
++    19f0:	48 8d b5 58 ea ff ff 	lea    -0x15a8(%rbp),%rsi
++    19f7:	31 d2                	xor    %edx,%edx
++    19f9:	48 89 8d 48 e9 ff ff 	mov    %rcx,-0x16b8(%rbp)
++    1a00:	e8 00 00 00 00       	call   1a05 <__libc_start_main+0x1765>
++			1a01: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_create(unsigned long&, unsigned long)-0x4
++    1a05:	48 8b 95 58 ea ff ff 	mov    -0x15a8(%rbp),%rdx
++    1a0c:	48 89 85 90 eb ff ff 	mov    %rax,-0x1470(%rbp)
++    1a13:	48 89 c7             	mov    %rax,%rdi
++    1a16:	48 8b 8d 48 e9 ff ff 	mov    -0x16b8(%rbp),%rcx
++    1a1d:	48 85 d2             	test   %rdx,%rdx
++    1a20:	48 89 95 a0 eb ff ff 	mov    %rdx,-0x1460(%rbp)
++    1a27:	48 8d 42 01          	lea    0x1(%rdx),%rax
++    1a2b:	74 a3                	je     19d0 <__libc_start_main+0x1730>
++    1a2d:	48 85 c0             	test   %rax,%rax
++    1a30:	0f 85 62 f1 ff ff    	jne    b98 <__libc_start_main+0x8f8>
++    1a36:	48 c7 85 98 eb ff ff 	movq   $0xffffffffffffffff,-0x1468(%rbp)
++    1a3d:	ff ff ff ff 
++    1a41:	49 c7 c5 ff ff ff ff 	mov    $0xffffffffffffffff,%r13
++    1a48:	e9 94 fb ff ff       	jmp    15e1 <__libc_start_main+0x1341>
++    1a4d:	0f 1f 00             	nopl   (%rax)
++    1a50:	41 0f b6 00          	movzbl (%r8),%eax
++    1a54:	88 85 a0 eb ff ff    	mov    %al,-0x1460(%rbp)
++    1a5a:	e9 5b fb ff ff       	jmp    15ba <__libc_start_main+0x131a>
++    1a5f:	90                   	nop
++    1a60:	48 8d b5 58 ea ff ff 	lea    -0x15a8(%rbp),%rsi
++    1a67:	31 d2                	xor    %edx,%edx
++    1a69:	48 89 8d 40 e9 ff ff 	mov    %rcx,-0x16c0(%rbp)
++    1a70:	4c 89 85 48 e9 ff ff 	mov    %r8,-0x16b8(%rbp)
++    1a77:	e8 00 00 00 00       	call   1a7c <__libc_start_main+0x17dc>
++			1a78: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_create(unsigned long&, unsigned long)-0x4
++    1a7c:	48 89 85 90 eb ff ff 	mov    %rax,-0x1470(%rbp)
++    1a83:	48 89 c7             	mov    %rax,%rdi
++    1a86:	48 8b 85 58 ea ff ff 	mov    -0x15a8(%rbp),%rax
++    1a8d:	4c 8b 85 48 e9 ff ff 	mov    -0x16b8(%rbp),%r8
++    1a94:	48 8b 8d 40 e9 ff ff 	mov    -0x16c0(%rbp),%rcx
++    1a9b:	48 89 85 a0 eb ff ff 	mov    %rax,-0x1460(%rbp)
++    1aa2:	4c 89 ea             	mov    %r13,%rdx
++    1aa5:	4c 89 c6             	mov    %r8,%rsi
++    1aa8:	48 89 8d 48 e9 ff ff 	mov    %rcx,-0x16b8(%rbp)
++    1aaf:	e8 00 00 00 00       	call   1ab4 <__libc_start_main+0x1814>
++			1ab0: R_X86_64_PLT32	memcpy-0x4
++    1ab4:	4c 8b ad 58 ea ff ff 	mov    -0x15a8(%rbp),%r13
++    1abb:	48 8b 85 90 eb ff ff 	mov    -0x1470(%rbp),%rax
++    1ac2:	48 8b 8d 48 e9 ff ff 	mov    -0x16b8(%rbp),%rcx
++    1ac9:	e9 ef fa ff ff       	jmp    15bd <__libc_start_main+0x131d>
++    1ace:	66 90                	xchg   %ax,%ax
++    1ad0:	48 8b 85 08 ea ff ff 	mov    -0x15f8(%rbp),%rax
++    1ad7:	48 8d b5 60 ea ff ff 	lea    -0x15a0(%rbp),%rsi
++    1ade:	48 8d bd 90 ea ff ff 	lea    -0x1570(%rbp),%rdi
++    1ae5:	0f 29 85 60 ea ff ff 	movaps %xmm0,-0x15a0(%rbp)
++    1aec:	48 89 85 90 ea ff ff 	mov    %rax,-0x1570(%rbp)
++    1af3:	48 8b 85 10 ea ff ff 	mov    -0x15f0(%rbp),%rax
++    1afa:	48 89 85 98 ea ff ff 	mov    %rax,-0x1568(%rbp)
++    1b01:	48 89 85 a0 ea ff ff 	mov    %rax,-0x1560(%rbp)
++    1b08:	e8 00 00 00 00       	call   1b0d <__libc_start_main+0x186d>
++			1b09: R_X86_64_PLT32	void std::vector<ip_range, std::allocator<ip_range> >::_M_realloc_append<ip_range>(ip_range&&)-0x4
++    1b0d:	48 8b 85 90 ea ff ff 	mov    -0x1570(%rbp),%rax
++    1b14:	48 8b 8d 90 eb ff ff 	mov    -0x1470(%rbp),%rcx
++    1b1b:	48 89 85 08 ea ff ff 	mov    %rax,-0x15f8(%rbp)
++    1b22:	48 8b 85 98 ea ff ff 	mov    -0x1568(%rbp),%rax
++    1b29:	48 89 85 10 ea ff ff 	mov    %rax,-0x15f0(%rbp)
++    1b30:	48 8b 85 a0 ea ff ff 	mov    -0x1560(%rbp),%rax
++    1b37:	48 89 85 60 e9 ff ff 	mov    %rax,-0x16a0(%rbp)
++    1b3e:	e9 55 f9 ff ff       	jmp    1498 <__libc_start_main+0x11f8>
++    1b43:	4c 89 ef             	mov    %r13,%rdi
++    1b46:	e8 00 00 00 00       	call   1b4b <__libc_start_main+0x18ab>
++			1b47: R_X86_64_PLT32	std::ctype<char>::_M_widen_init() const-0x4
++    1b4b:	49 8b 45 00          	mov    0x0(%r13),%rax
++    1b4f:	be 0a 00 00 00       	mov    $0xa,%esi
++    1b54:	48 8b 40 30          	mov    0x30(%rax),%rax
++    1b58:	48 3b 05 00 00 00 00 	cmp    0x0(%rip),%rax        # 1b5f <__libc_start_main+0x18bf>
++			1b5b: R_X86_64_REX_GOTPCRELX	std::ctype<char>::do_widen(char) const-0x4
++    1b5f:	0f 84 b5 fd ff ff    	je     191a <__libc_start_main+0x167a>
++    1b65:	4c 89 ef             	mov    %r13,%rdi
++    1b68:	ff d0                	call   *%rax
++    1b6a:	0f be f0             	movsbl %al,%esi
++    1b6d:	e9 a8 fd ff ff       	jmp    191a <__libc_start_main+0x167a>
++    1b72:	4c 89 ef             	mov    %r13,%rdi
++    1b75:	e8 00 00 00 00       	call   1b7a <__libc_start_main+0x18da>
++			1b76: R_X86_64_PLT32	std::ctype<char>::_M_widen_init() const-0x4
++    1b7a:	49 8b 45 00          	mov    0x0(%r13),%rax
++    1b7e:	be 0a 00 00 00       	mov    $0xa,%esi
++    1b83:	48 8b 40 30          	mov    0x30(%rax),%rax
++    1b87:	48 3b 05 00 00 00 00 	cmp    0x0(%rip),%rax        # 1b8e <__libc_start_main+0x18ee>
++			1b8a: R_X86_64_REX_GOTPCRELX	std::ctype<char>::do_widen(char) const-0x4
++    1b8e:	0f 84 e0 fd ff ff    	je     1974 <__libc_start_main+0x16d4>
++    1b94:	4c 89 ef             	mov    %r13,%rdi
++    1b97:	ff d0                	call   *%rax
++    1b99:	0f be f0             	movsbl %al,%esi
++    1b9c:	e9 d3 fd ff ff       	jmp    1974 <__libc_start_main+0x16d4>
++    1ba1:	80 7f 08 5f          	cmpb   $0x5f,0x8(%rdi)
++    1ba5:	0f 85 13 fc ff ff    	jne    17be <__libc_start_main+0x151e>
++    1bab:	e9 21 fc ff ff       	jmp    17d1 <__libc_start_main+0x1531>
++    1bb0:	48 89 c7             	mov    %rax,%rdi
++    1bb3:	4c 89 f2             	mov    %r14,%rdx
++    1bb6:	4c 89 fe             	mov    %r15,%rsi
++    1bb9:	e8 00 00 00 00       	call   1bbe <__libc_start_main+0x191e>
++			1bba: R_X86_64_PLT32	memcpy-0x4
++    1bbe:	4c 8b b5 d0 ef ff ff 	mov    -0x1030(%rbp),%r14
++    1bc5:	48 8b 85 50 eb ff ff 	mov    -0x14b0(%rbp),%rax
++    1bcc:	e9 5a fb ff ff       	jmp    172b <__libc_start_main+0x148b>
++    1bd1:	41 0f b6 06          	movzbl (%r14),%eax
++    1bd5:	88 07                	mov    %al,(%rdi)
++    1bd7:	4c 8b ad d0 ef ff ff 	mov    -0x1030(%rbp),%r13
++    1bde:	e9 08 f6 ff ff       	jmp    11eb <__libc_start_main+0xf4b>
++    1be3:	48 89 c7             	mov    %rax,%rdi
++    1be6:	48 8d b5 d0 ef ff ff 	lea    -0x1030(%rbp),%rsi
++    1bed:	31 d2                	xor    %edx,%edx
++    1bef:	e8 00 00 00 00       	call   1bf4 <__libc_start_main+0x1954>
++			1bf0: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_create(unsigned long&, unsigned long)-0x4
++    1bf4:	48 89 85 50 eb ff ff 	mov    %rax,-0x14b0(%rbp)
++    1bfb:	48 89 c7             	mov    %rax,%rdi
++    1bfe:	48 8b 85 d0 ef ff ff 	mov    -0x1030(%rbp),%rax
++    1c05:	48 89 85 60 eb ff ff 	mov    %rax,-0x14a0(%rbp)
++    1c0c:	48 8d 50 01          	lea    0x1(%rax),%rdx
++    1c10:	48 85 c0             	test   %rax,%rax
++    1c13:	74 bc                	je     1bd1 <__libc_start_main+0x1931>
++    1c15:	48 85 d2             	test   %rdx,%rdx
++    1c18:	0f 84 cd f5 ff ff    	je     11eb <__libc_start_main+0xf4b>
++    1c1e:	e9 b9 f5 ff ff       	jmp    11dc <__libc_start_main+0xf3c>
++    1c23:	41 0f b6 07          	movzbl (%r15),%eax
++    1c27:	88 85 60 eb ff ff    	mov    %al,-0x14a0(%rbp)
++    1c2d:	e9 f2 fa ff ff       	jmp    1724 <__libc_start_main+0x1484>
++    1c32:	48 8b bd 28 ea ff ff 	mov    -0x15d8(%rbp),%rdi
++    1c39:	48 8d b5 d0 ef ff ff 	lea    -0x1030(%rbp),%rsi
++    1c40:	31 d2                	xor    %edx,%edx
++    1c42:	e8 00 00 00 00       	call   1c47 <__libc_start_main+0x19a7>
++			1c43: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_create(unsigned long&, unsigned long)-0x4
++    1c47:	48 89 85 50 eb ff ff 	mov    %rax,-0x14b0(%rbp)
++    1c4e:	48 89 c7             	mov    %rax,%rdi
++    1c51:	48 8b 85 d0 ef ff ff 	mov    -0x1030(%rbp),%rax
++    1c58:	48 89 85 60 eb ff ff 	mov    %rax,-0x14a0(%rbp)
++    1c5f:	e9 4f ff ff ff       	jmp    1bb3 <__libc_start_main+0x1913>
++    1c64:	48 b8 6c 69 62 67 63 	movabs $0x735f63636762696c,%rax
++    1c6b:	63 5f 73 
++    1c6e:	48 39 07             	cmp    %rax,(%rdi)
++    1c71:	0f 84 06 01 00 00    	je     1d7d <__libc_start_main+0x1add>
++    1c77:	48 b8 6c 69 62 61 72 	movabs $0x776f72726162696c,%rax
++    1c7e:	72 6f 77 
++    1c81:	48 39 07             	cmp    %rax,(%rdi)
++    1c84:	0f 84 d9 00 00 00    	je     1d63 <__libc_start_main+0x1ac3>
++    1c8a:	ba 09 00 00 00       	mov    $0x9,%edx
++    1c8f:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 1c96 <__libc_start_main+0x19f6>
++			1c92: R_X86_64_PC32	.LC22-0x4
++    1c96:	48 89 8d 40 e9 ff ff 	mov    %rcx,-0x16c0(%rbp)
++    1c9d:	48 89 bd 48 e9 ff ff 	mov    %rdi,-0x16b8(%rbp)
++    1ca4:	e8 00 00 00 00       	call   1ca9 <__libc_start_main+0x1a09>
++			1ca5: R_X86_64_PLT32	memcmp-0x4
++    1ca9:	48 8b bd 48 e9 ff ff 	mov    -0x16b8(%rbp),%rdi
++    1cb0:	48 8b 8d 40 e9 ff ff 	mov    -0x16c0(%rbp),%rcx
++    1cb7:	85 c0                	test   %eax,%eax
++    1cb9:	0f 84 12 fb ff ff    	je     17d1 <__libc_start_main+0x1531>
++    1cbf:	49 83 fd 0c          	cmp    $0xc,%r13
++    1cc3:	0f 86 f5 fa ff ff    	jbe    17be <__libc_start_main+0x151e>
++    1cc9:	48 b8 6c 69 62 70 61 	movabs $0x757172617062696c,%rax
++    1cd0:	72 71 75 
++    1cd3:	48 39 07             	cmp    %rax,(%rdi)
++    1cd6:	0f 85 e2 fa ff ff    	jne    17be <__libc_start_main+0x151e>
++    1cdc:	48 b8 72 71 75 65 74 	movabs $0x6f732e7465757172,%rax
++    1ce3:	2e 73 6f 
++    1ce6:	48 39 47 05          	cmp    %rax,0x5(%rdi)
++    1cea:	0f 85 ce fa ff ff    	jne    17be <__libc_start_main+0x151e>
++    1cf0:	e9 dc fa ff ff       	jmp    17d1 <__libc_start_main+0x1531>
++    1cf5:	81 7f 03 63 2e 73 6f 	cmpl   $0x6f732e63,0x3(%rdi)
++    1cfc:	0f 85 eb f8 ff ff    	jne    15ed <__libc_start_main+0x134d>
++    1d02:	e9 ca fa ff ff       	jmp    17d1 <__libc_start_main+0x1531>
++    1d07:	81 7f 08 2b 2e 73 6f 	cmpl   $0x6f732e2b,0x8(%rdi)
++    1d0e:	0f 85 3b fa ff ff    	jne    174f <__libc_start_main+0x14af>
++    1d14:	e9 b8 fa ff ff       	jmp    17d1 <__libc_start_main+0x1531>
++    1d19:	48 b8 68 72 65 61 64 	movabs $0x6f732e6461657268,%rax
++    1d20:	2e 73 6f 
++    1d23:	48 39 47 05          	cmp    %rax,0x5(%rdi)
++    1d27:	0f 85 3b fa ff ff    	jne    1768 <__libc_start_main+0x14c8>
++    1d2d:	e9 9f fa ff ff       	jmp    17d1 <__libc_start_main+0x1531>
++    1d32:	66 81 7f 08 73 6f    	cmpw   $0x6f73,0x8(%rdi)
++    1d38:	0f 85 3d fa ff ff    	jne    177b <__libc_start_main+0x14db>
++    1d3e:	e9 8e fa ff ff       	jmp    17d1 <__libc_start_main+0x1531>
++    1d43:	66 81 7f 08 73 6f    	cmpw   $0x6f73,0x8(%rdi)
++    1d49:	0f 85 3f fa ff ff    	jne    178e <__libc_start_main+0x14ee>
++    1d4f:	e9 7d fa ff ff       	jmp    17d1 <__libc_start_main+0x1531>
++    1d54:	80 7f 08 6f          	cmpb   $0x6f,0x8(%rdi)
++    1d58:	0f 85 43 fa ff ff    	jne    17a1 <__libc_start_main+0x1501>
++    1d5e:	e9 6e fa ff ff       	jmp    17d1 <__libc_start_main+0x1531>
++    1d63:	81 7f 07 77 2e 73 6f 	cmpl   $0x6f732e77,0x7(%rdi)
++    1d6a:	0f 85 1a ff ff ff    	jne    1c8a <__libc_start_main+0x19ea>
++    1d70:	e9 5c fa ff ff       	jmp    17d1 <__libc_start_main+0x1531>
++    1d75:	48 89 cf             	mov    %rcx,%rdi
++    1d78:	e9 25 fd ff ff       	jmp    1aa2 <__libc_start_main+0x1802>
++    1d7d:	81 7f 07 73 2e 73 6f 	cmpl   $0x6f732e73,0x7(%rdi)
++    1d84:	0f 85 ed fe ff ff    	jne    1c77 <__libc_start_main+0x19d7>
++    1d8a:	e9 42 fa ff ff       	jmp    17d1 <__libc_start_main+0x1531>
++    1d8f:	48 89 c3             	mov    %rax,%rbx
++    1d92:	e9 00 00 00 00       	jmp    1d97 <__libc_start_main+0x1af7>
++			1d93: R_X86_64_PC32	.text.unlikely+0x1b
++    1d97:	48 89 c3             	mov    %rax,%rbx
++    1d9a:	e9 00 00 00 00       	jmp    1d9f <__libc_start_main+0x1aff>
++			1d9b: R_X86_64_PC32	.text.unlikely+0xd3
++    1d9f:	e9 00 00 00 00       	jmp    1da4 <__libc_start_main+0x1b04>
++			1da0: R_X86_64_PC32	.text.unlikely+0x121
++    1da4:	e9 00 00 00 00       	jmp    1da9 <__libc_start_main+0x1b09>
++			1da5: R_X86_64_PC32	.text.unlikely+0x14f
++    1da9:	e9 00 00 00 00       	jmp    1dae <__libc_start_main+0x1b0e>
++			1daa: R_X86_64_PC32	.text.unlikely+0x76
++    1dae:	e9 00 00 00 00       	jmp    1db3 <__libc_start_main+0x1b13>
++			1daf: R_X86_64_PC32	.text.unlikely+0x1fc
++    1db3:	e9 00 00 00 00       	jmp    1db8 <__libc_start_main+0x1b18>
++			1db4: R_X86_64_PC32	.text.unlikely+0x1b0
++    1db8:	48 89 c3             	mov    %rax,%rbx
++    1dbb:	e9 00 00 00 00       	jmp    1dc0 <__libc_start_main+0x1b20>
++			1dbc: R_X86_64_PC32	.text.unlikely+0x1d6
+     1dc0:	e9 00 00 00 00       	jmp    1dc5 <__libc_start_main+0x1b25>
+-			1dc1: R_X86_64_PC32	.text.unlikely+0x2ce
++			1dc1: R_X86_64_PC32	.text.unlikely+0x199
+     1dc5:	e9 00 00 00 00       	jmp    1dca <__libc_start_main+0x1b2a>
+-			1dc6: R_X86_64_PC32	.text.unlikely+0x180
+-    1dca:	e9 00 00 00 00       	jmp    1dcf <__libc_start_main+0x1b2f>
+-			1dcb: R_X86_64_PC32	.text.unlikely+0x321
++			1dc6: R_X86_64_PC32	.text.unlikely+0x119
++    1dca:	48 89 c3             	mov    %rax,%rbx
++    1dcd:	e9 00 00 00 00       	jmp    1dd2 <__libc_start_main+0x1b32>
++			1dce: R_X86_64_PC32	.text.unlikely+0x1b
++    1dd2:	48 89 c3             	mov    %rax,%rbx
++    1dd5:	e9 00 00 00 00       	jmp    1dda <__libc_start_main+0x1b3a>
++			1dd6: R_X86_64_PC32	.text.unlikely+0x233
++    1dda:	e9 00 00 00 00       	jmp    1ddf <__libc_start_main+0x1b3f>
++			1ddb: R_X86_64_PC32	.text.unlikely+0x25c
++    1ddf:	e9 00 00 00 00       	jmp    1de4 <__libc_start_main+0x1b44>
++			1de0: R_X86_64_PC32	.text.unlikely+0x14a
++    1de4:	e9 00 00 00 00       	jmp    1de9 <__libc_start_main+0x1b49>
++			1de5: R_X86_64_PC32	.text.unlikely+0x272
++    1de9:	e9 00 00 00 00       	jmp    1dee <__libc_start_main+0x1b4e>
++			1dea: R_X86_64_PC32	.text.unlikely+0x277
++    1dee:	49 89 c7             	mov    %rax,%r15
++    1df1:	e9 00 00 00 00       	jmp    1df6 <__libc_start_main+0x1b56>
++			1df2: R_X86_64_PC32	.text.unlikely+0x27f
++    1df6:	e9 00 00 00 00       	jmp    1dfb <__libc_start_main+0x1b5b>
++			1df7: R_X86_64_PC32	.text.unlikely+0x28e
++    1dfb:	48 89 c3             	mov    %rax,%rbx
++    1dfe:	e9 00 00 00 00       	jmp    1e03 <__libc_start_main+0x1b63>
++			1dff: R_X86_64_PC32	.text.unlikely+0x2b4
++    1e03:	e9 00 00 00 00       	jmp    1e08 <__libc_start_main+0x1b68>
++			1e04: R_X86_64_PC32	.text.unlikely+0x2d7
++    1e08:	49 89 c7             	mov    %rax,%r15
++    1e0b:	e9 00 00 00 00       	jmp    1e10 <__libc_start_main+0x1b70>
++			1e0c: R_X86_64_PC32	.text.unlikely+0x2e9
++    1e10:	e9 00 00 00 00       	jmp    1e15 <__libc_start_main+0x1b75>
++			1e11: R_X86_64_PC32	.text.unlikely+0x2f8
++    1e15:	48 89 c3             	mov    %rax,%rbx
++    1e18:	e9 00 00 00 00       	jmp    1e1d <__libc_start_main+0x1b7d>
++			1e19: R_X86_64_PC32	.text.unlikely+0x31f
++    1e1d:	49 89 c7             	mov    %rax,%r15
++    1e20:	e9 00 00 00 00       	jmp    1e25 <__libc_start_main+0x1b85>
++			1e21: R_X86_64_PC32	.text.unlikely+0x1a1
+ 
+ Disassembly of section .text._ZNKSt5ctypeIcE8do_widenEc:
+ 
+@@ -1787,222 +1805,222 @@
+ 			e: R_X86_64_PLT32	_Unwind_Resume-0x4
+ 
+ 0000000000000012 <__libc_start_main.cold>:
+-  12:	48 89 c7             	mov    %rax,%rdi
+-  15:	e8 00 00 00 00       	call   1a <__libc_start_main.cold+0x8>
+-			16: R_X86_64_PLT32	__cxa_begin_catch-0x4
+-  1a:	e8 00 00 00 00       	call   1f <__libc_start_main.cold+0xd>
+-			1b: R_X86_64_PLT32	__cxa_end_catch-0x4
+-  1f:	e9 00 00 00 00       	jmp    24 <__libc_start_main.cold+0x12>
+-			20: R_X86_64_PC32	.text+0xe5b
+-  24:	48 89 c7             	mov    %rax,%rdi
+-  27:	e8 00 00 00 00       	call   2c <__libc_start_main.cold+0x1a>
+-			28: R_X86_64_PLT32	__cxa_begin_catch-0x4
+-  2c:	e8 00 00 00 00       	call   31 <__libc_start_main.cold+0x1f>
+-			2d: R_X86_64_PLT32	__cxa_end_catch-0x4
+-  31:	e9 00 00 00 00       	jmp    36 <__libc_start_main.cold+0x24>
+-			32: R_X86_64_PC32	.text+0xff2
+-  36:	48 8b 85 90 ea ff ff 	mov    -0x1570(%rbp),%rax
+-  3d:	48 8d bd 90 eb ff ff 	lea    -0x1470(%rbp),%rdi
+-  44:	48 89 85 00 ea ff ff 	mov    %rax,-0x1600(%rbp)
+-  4b:	48 8b 85 a0 ea ff ff 	mov    -0x1560(%rbp),%rax
+-  52:	48 89 85 60 e9 ff ff 	mov    %rax,-0x16a0(%rbp)
+-  59:	e8 00 00 00 00       	call   5e <__libc_start_main.cold+0x4c>
+-			5a: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_dispose()-0x4
+-  5e:	4c 89 f7             	mov    %r14,%rdi
++  12:	e8 00 00 00 00       	call   17 <__libc_start_main.cold+0x5>
++			13: R_X86_64_PLT32	std::__throw_bad_cast()-0x4
++  17:	e8 00 00 00 00       	call   1c <__libc_start_main.cold+0xa>
++			18: R_X86_64_PLT32	std::__throw_bad_cast()-0x4
++  1c:	48 89 c3             	mov    %rax,%rbx
++  1f:	45 31 c9             	xor    %r9d,%r9d
++  22:	4c 89 8d 60 e9 ff ff 	mov    %r9,-0x16a0(%rbp)
++  29:	4c 89 8d 08 ea ff ff 	mov    %r9,-0x15f8(%rbp)
++  30:	4c 89 e7             	mov    %r12,%rdi
++  33:	e8 00 00 00 00       	call   38 <__libc_start_main.cold+0x26>
++			34: R_X86_64_PLT32	std::basic_ifstream<char, std::char_traits<char> >::~basic_ifstream()-0x4
++  38:	48 83 bd 08 ea ff ff 	cmpq   $0x0,-0x15f8(%rbp)
++  3f:	00 
++  40:	75 65                	jne    a7 <__libc_start_main.cold+0x95>
++  42:	48 8b bd 50 e9 ff ff 	mov    -0x16b0(%rbp),%rdi
++  49:	e8 00 00 00 00       	call   4e <__libc_start_main.cold+0x3c>
++			4a: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_dispose()-0x4
++  4e:	48 8b bd 68 e9 ff ff 	mov    -0x1698(%rbp),%rdi
++  55:	e8 00 00 00 00       	call   5a <__libc_start_main.cold+0x48>
++			56: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_dispose()-0x4
++  5a:	48 8b bd c8 e9 ff ff 	mov    -0x1638(%rbp),%rdi
+   61:	e8 00 00 00 00       	call   66 <__libc_start_main.cold+0x54>
+ 			62: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_dispose()-0x4
+-  66:	48 8b bd 28 ea ff ff 	mov    -0x15d8(%rbp),%rdi
++  66:	48 8b bd e0 e9 ff ff 	mov    -0x1620(%rbp),%rdi
+   6d:	e8 00 00 00 00       	call   72 <__libc_start_main.cold+0x60>
+-			6e: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_dispose()-0x4
+-  72:	4c 89 e7             	mov    %r12,%rdi
++			6e: R_X86_64_PLT32	std::basic_ifstream<char, std::char_traits<char> >::~basic_ifstream()-0x4
++  72:	48 89 df             	mov    %rbx,%rdi
+   75:	e8 00 00 00 00       	call   7a <__libc_start_main.cold+0x68>
+-			76: R_X86_64_PLT32	std::basic_ifstream<char, std::char_traits<char> >::~basic_ifstream()-0x4
+-  7a:	48 83 bd 00 ea ff ff 	cmpq   $0x0,-0x1600(%rbp)
+-  81:	00 
+-  82:	0f 84 80 01 00 00    	je     208 <__libc_start_main.cold+0x1f6>
+-  88:	48 8b b5 60 e9 ff ff 	mov    -0x16a0(%rbp),%rsi
+-  8f:	48 8b bd 00 ea ff ff 	mov    -0x1600(%rbp),%rdi
+-  96:	48 29 fe             	sub    %rdi,%rsi
+-  99:	e8 00 00 00 00       	call   9e <__libc_start_main.cold+0x8c>
+-			9a: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
+-  9e:	e9 65 01 00 00       	jmp    208 <__libc_start_main.cold+0x1f6>
+-  a3:	31 c9                	xor    %ecx,%ecx
+-  a5:	48 8d 85 50 eb ff ff 	lea    -0x14b0(%rbp),%rax
+-  ac:	48 89 8d 18 ea ff ff 	mov    %rcx,-0x15e8(%rbp)
+-  b3:	48 89 85 28 ea ff ff 	mov    %rax,-0x15d8(%rbp)
+-  ba:	e8 00 00 00 00       	call   bf <__libc_start_main.cold+0xad>
+-			bb: R_X86_64_PLT32	std::__throw_bad_cast()-0x4
+-  bf:	48 89 c3             	mov    %rax,%rbx
+-  c2:	48 8b bd 28 ea ff ff 	mov    -0x15d8(%rbp),%rdi
+-  c9:	e8 00 00 00 00       	call   ce <__libc_start_main.cold+0xbc>
+-			ca: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_dispose()-0x4
+-  ce:	4c 89 e7             	mov    %r12,%rdi
+-  d1:	e8 00 00 00 00       	call   d6 <__libc_start_main.cold+0xc4>
+-			d2: R_X86_64_PLT32	std::basic_ifstream<char, std::char_traits<char> >::~basic_ifstream()-0x4
+-  d6:	48 83 bd 18 ea ff ff 	cmpq   $0x0,-0x15e8(%rbp)
+-  dd:	00 
+-  de:	74 16                	je     f6 <__libc_start_main.cold+0xe4>
+-  e0:	48 8b b5 80 e9 ff ff 	mov    -0x1680(%rbp),%rsi
+-  e7:	48 8b bd 18 ea ff ff 	mov    -0x15e8(%rbp),%rdi
+-  ee:	48 29 fe             	sub    %rdi,%rsi
+-  f1:	e8 00 00 00 00       	call   f6 <__libc_start_main.cold+0xe4>
+-			f2: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
+-  f6:	48 83 bd 00 ea ff ff 	cmpq   $0x0,-0x1600(%rbp)
+-  fd:	00 
+-  fe:	75 88                	jne    88 <__libc_start_main.cold+0x76>
+- 100:	e9 03 01 00 00       	jmp    208 <__libc_start_main.cold+0x1f6>
+- 105:	45 31 c0             	xor    %r8d,%r8d
+- 108:	4c 8d b5 70 eb ff ff 	lea    -0x1490(%rbp),%r14
+- 10f:	4c 89 85 00 ea ff ff 	mov    %r8,-0x1600(%rbp)
+- 116:	e8 00 00 00 00       	call   11b <__libc_start_main.cold+0x109>
+-			117: R_X86_64_PLT32	std::__throw_bad_cast()-0x4
+- 11b:	48 89 c3             	mov    %rax,%rbx
+- 11e:	e9 3b ff ff ff       	jmp    5e <__libc_start_main.cold+0x4c>
+- 123:	48 89 c2             	mov    %rax,%rdx
+- 126:	4c 89 e9             	mov    %r13,%rcx
+- 129:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 130 <__libc_start_main.cold+0x11e>
+-			12c: R_X86_64_PC32	.LC6-0x4
+- 130:	31 c0                	xor    %eax,%eax
+- 132:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 139 <__libc_start_main.cold+0x127>
+-			135: R_X86_64_PC32	.LC7-0x4
+- 139:	e8 00 00 00 00       	call   13e <__libc_start_main.cold+0x12c>
+-			13a: R_X86_64_PLT32	std::__throw_out_of_range_fmt(char const*, ...)-0x4
+- 13e:	e8 00 00 00 00       	call   143 <__libc_start_main.cold+0x131>
+-			13f: R_X86_64_PLT32	std::__throw_bad_cast()-0x4
+- 143:	48 8b 85 b0 ea ff ff 	mov    -0x1550(%rbp),%rax
+- 14a:	48 89 85 18 ea ff ff 	mov    %rax,-0x15e8(%rbp)
+- 151:	48 8b 85 c0 ea ff ff 	mov    -0x1540(%rbp),%rax
+- 158:	48 89 85 80 e9 ff ff 	mov    %rax,-0x1680(%rbp)
+- 15f:	4c 89 f7             	mov    %r14,%rdi
+- 162:	e8 00 00 00 00       	call   167 <__libc_start_main.cold+0x155>
+-			163: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_dispose()-0x4
+- 167:	e9 56 ff ff ff       	jmp    c2 <__libc_start_main.cold+0xb0>
+- 16c:	4c 89 ea             	mov    %r13,%rdx
+- 16f:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 176 <__libc_start_main.cold+0x164>
+-			172: R_X86_64_PC32	.LC6-0x4
+- 176:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 17d <__libc_start_main.cold+0x16b>
+-			179: R_X86_64_PC32	.LC7-0x4
+- 17d:	31 c0                	xor    %eax,%eax
+- 17f:	e8 00 00 00 00       	call   184 <__libc_start_main.cold+0x172>
+-			180: R_X86_64_PLT32	std::__throw_out_of_range_fmt(char const*, ...)-0x4
+- 184:	48 89 c3             	mov    %rax,%rbx
+- 187:	eb d6                	jmp    15f <__libc_start_main.cold+0x14d>
+- 189:	48 89 c3             	mov    %rax,%rbx
+- 18c:	45 31 c9             	xor    %r9d,%r9d
+- 18f:	4c 89 8d 60 e9 ff ff 	mov    %r9,-0x16a0(%rbp)
+- 196:	4c 89 8d 00 ea ff ff 	mov    %r9,-0x1600(%rbp)
+- 19d:	e9 d0 fe ff ff       	jmp    72 <__libc_start_main.cold+0x60>
+- 1a2:	48 89 c7             	mov    %rax,%rdi
+- 1a5:	e8 00 00 00 00       	call   1aa <__libc_start_main.cold+0x198>
+-			1a6: R_X86_64_PLT32	__cxa_begin_catch-0x4
+- 1aa:	e8 00 00 00 00       	call   1af <__libc_start_main.cold+0x19d>
+-			1ab: R_X86_64_PLT32	__cxa_end_catch-0x4
+- 1af:	e9 00 00 00 00       	jmp    1b4 <__libc_start_main.cold+0x1a2>
+-			1b0: R_X86_64_PC32	.text+0x838
+- 1b4:	48 8b bd f8 e9 ff ff 	mov    -0x1608(%rbp),%rdi
+- 1bb:	e8 00 00 00 00       	call   1c0 <__libc_start_main.cold+0x1ae>
+-			1bc: R_X86_64_PLT32	std::basic_filebuf<char, std::char_traits<char> >::~basic_filebuf()-0x4
+- 1c0:	4c 89 f8             	mov    %r15,%rax
+- 1c3:	48 8b 53 e8          	mov    -0x18(%rbx),%rdx
+- 1c7:	48 89 9d c0 ed ff ff 	mov    %rbx,-0x1240(%rbp)
+- 1ce:	45 31 d2             	xor    %r10d,%r10d
+- 1d1:	48 8b 9d 20 ea ff ff 	mov    -0x15e0(%rbp),%rbx
+- 1d8:	48 89 9c 15 c0 ed ff 	mov    %rbx,-0x1240(%rbp,%rdx,1)
+- 1df:	ff 
+- 1e0:	48 89 c3             	mov    %rax,%rbx
+- 1e3:	4c 89 95 c8 ed ff ff 	mov    %r10,-0x1238(%rbp)
+- 1ea:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 1f1 <__libc_start_main.cold+0x1df>
+-			1ed: R_X86_64_REX_GOTPCRELX	vtable for std::basic_ios<char, std::char_traits<char> >-0x4
+- 1f1:	48 8b bd f0 e9 ff ff 	mov    -0x1610(%rbp),%rdi
+- 1f8:	48 83 c0 10          	add    $0x10,%rax
+- 1fc:	48 89 85 c0 ee ff ff 	mov    %rax,-0x1140(%rbp)
++			76: R_X86_64_PLT32	_Unwind_Resume-0x4
++  7a:	48 89 c3             	mov    %rax,%rbx
++  7d:	48 83 bd 18 ea ff ff 	cmpq   $0x0,-0x15e8(%rbp)
++  84:	00 
++  85:	74 16                	je     9d <__libc_start_main.cold+0x8b>
++  87:	48 8b b5 80 e9 ff ff 	mov    -0x1680(%rbp),%rsi
++  8e:	48 8b bd 18 ea ff ff 	mov    -0x15e8(%rbp),%rdi
++  95:	48 29 fe             	sub    %rdi,%rsi
++  98:	e8 00 00 00 00       	call   9d <__libc_start_main.cold+0x8b>
++			99: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
++  9d:	48 83 bd 08 ea ff ff 	cmpq   $0x0,-0x15f8(%rbp)
++  a4:	00 
++  a5:	74 9b                	je     42 <__libc_start_main.cold+0x30>
++  a7:	48 8b b5 60 e9 ff ff 	mov    -0x16a0(%rbp),%rsi
++  ae:	48 8b bd 08 ea ff ff 	mov    -0x15f8(%rbp),%rdi
++  b5:	48 29 fe             	sub    %rdi,%rsi
++  b8:	e8 00 00 00 00       	call   bd <__libc_start_main.cold+0xab>
++			b9: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
++  bd:	eb 83                	jmp    42 <__libc_start_main.cold+0x30>
++  bf:	4c 89 ea             	mov    %r13,%rdx
++  c2:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # c9 <__libc_start_main.cold+0xb7>
++			c5: R_X86_64_PC32	.LC6-0x4
++  c9:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # d0 <__libc_start_main.cold+0xbe>
++			cc: R_X86_64_PC32	.LC7-0x4
++  d0:	31 c0                	xor    %eax,%eax
++  d2:	e8 00 00 00 00       	call   d7 <__libc_start_main.cold+0xc5>
++			d3: R_X86_64_PLT32	std::__throw_out_of_range_fmt(char const*, ...)-0x4
++  d7:	48 8b 85 90 ea ff ff 	mov    -0x1570(%rbp),%rax
++  de:	48 8d bd 90 eb ff ff 	lea    -0x1470(%rbp),%rdi
++  e5:	48 89 85 08 ea ff ff 	mov    %rax,-0x15f8(%rbp)
++  ec:	48 8b 85 a0 ea ff ff 	mov    -0x1560(%rbp),%rax
++  f3:	48 89 85 60 e9 ff ff 	mov    %rax,-0x16a0(%rbp)
++  fa:	e8 00 00 00 00       	call   ff <__libc_start_main.cold+0xed>
++			fb: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_dispose()-0x4
++  ff:	4c 89 f7             	mov    %r14,%rdi
++ 102:	e8 00 00 00 00       	call   107 <__libc_start_main.cold+0xf5>
++			103: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_dispose()-0x4
++ 107:	48 8b bd 28 ea ff ff 	mov    -0x15d8(%rbp),%rdi
++ 10e:	e8 00 00 00 00       	call   113 <__libc_start_main.cold+0x101>
++			10f: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_dispose()-0x4
++ 113:	e9 18 ff ff ff       	jmp    30 <__libc_start_main.cold+0x1e>
++ 118:	e8 00 00 00 00       	call   11d <__libc_start_main.cold+0x10b>
++			119: R_X86_64_PLT32	std::__throw_bad_cast()-0x4
++ 11d:	48 89 c3             	mov    %rax,%rbx
++ 120:	e9 29 ff ff ff       	jmp    4e <__libc_start_main.cold+0x3c>
++ 125:	48 89 c7             	mov    %rax,%rdi
++ 128:	e8 00 00 00 00       	call   12d <__libc_start_main.cold+0x11b>
++			129: R_X86_64_PLT32	__cxa_begin_catch-0x4
++ 12d:	e8 00 00 00 00       	call   132 <__libc_start_main.cold+0x120>
++			12e: R_X86_64_PLT32	__cxa_end_catch-0x4
++ 132:	e9 00 00 00 00       	jmp    137 <__libc_start_main.cold+0x125>
++			133: R_X86_64_PC32	.text+0xe5b
++ 137:	31 c9                	xor    %ecx,%ecx
++ 139:	48 8d 85 50 eb ff ff 	lea    -0x14b0(%rbp),%rax
++ 140:	48 89 8d 18 ea ff ff 	mov    %rcx,-0x15e8(%rbp)
++ 147:	48 89 85 28 ea ff ff 	mov    %rax,-0x15d8(%rbp)
++ 14e:	e8 00 00 00 00       	call   153 <__libc_start_main.cold+0x141>
++			14f: R_X86_64_PLT32	std::__throw_bad_cast()-0x4
++ 153:	48 89 c3             	mov    %rax,%rbx
++ 156:	48 8b bd 28 ea ff ff 	mov    -0x15d8(%rbp),%rdi
++ 15d:	e8 00 00 00 00       	call   162 <__libc_start_main.cold+0x150>
++			15e: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_dispose()-0x4
++ 162:	4c 89 e7             	mov    %r12,%rdi
++ 165:	e8 00 00 00 00       	call   16a <__libc_start_main.cold+0x158>
++			166: R_X86_64_PLT32	std::basic_ifstream<char, std::char_traits<char> >::~basic_ifstream()-0x4
++ 16a:	48 83 bd 18 ea ff ff 	cmpq   $0x0,-0x15e8(%rbp)
++ 171:	00 
++ 172:	0f 85 0f ff ff ff    	jne    87 <__libc_start_main.cold+0x75>
++ 178:	e9 20 ff ff ff       	jmp    9d <__libc_start_main.cold+0x8b>
++ 17d:	e8 00 00 00 00       	call   182 <__libc_start_main.cold+0x170>
++			17e: R_X86_64_PLT32	std::__throw_bad_cast()-0x4
++ 182:	48 89 c2             	mov    %rax,%rdx
++ 185:	4c 89 e9             	mov    %r13,%rcx
++ 188:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 18f <__libc_start_main.cold+0x17d>
++			18b: R_X86_64_PC32	.LC6-0x4
++ 18f:	31 c0                	xor    %eax,%eax
++ 191:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 198 <__libc_start_main.cold+0x186>
++			194: R_X86_64_PC32	.LC7-0x4
++ 198:	e8 00 00 00 00       	call   19d <__libc_start_main.cold+0x18b>
++			199: R_X86_64_PLT32	std::__throw_out_of_range_fmt(char const*, ...)-0x4
++ 19d:	48 89 c3             	mov    %rax,%rbx
++ 1a0:	e9 b5 fe ff ff       	jmp    5a <__libc_start_main.cold+0x48>
++ 1a5:	48 8b bd d8 e9 ff ff 	mov    -0x1628(%rbp),%rdi
++ 1ac:	e8 00 00 00 00       	call   1b1 <__libc_start_main.cold+0x19f>
++			1ad: R_X86_64_PLT32	std::basic_filebuf<char, std::char_traits<char> >::~basic_filebuf()-0x4
++ 1b1:	4c 89 f8             	mov    %r15,%rax
++ 1b4:	48 8b 53 e8          	mov    -0x18(%rbx),%rdx
++ 1b8:	48 89 9d b0 eb ff ff 	mov    %rbx,-0x1450(%rbp)
++ 1bf:	48 8b 9d 20 ea ff ff 	mov    -0x15e0(%rbp),%rbx
++ 1c6:	48 89 9c 15 b0 eb ff 	mov    %rbx,-0x1450(%rbp,%rdx,1)
++ 1cd:	ff 
++ 1ce:	31 db                	xor    %ebx,%ebx
++ 1d0:	48 89 9d b8 eb ff ff 	mov    %rbx,-0x1448(%rbp)
++ 1d7:	48 89 c3             	mov    %rax,%rbx
++ 1da:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 1e1 <__libc_start_main.cold+0x1cf>
++			1dd: R_X86_64_REX_GOTPCRELX	vtable for std::basic_ios<char, std::char_traits<char> >-0x4
++ 1e1:	48 8b bd d0 e9 ff ff 	mov    -0x1630(%rbp),%rdi
++ 1e8:	48 83 c0 10          	add    $0x10,%rax
++ 1ec:	48 89 85 b0 ec ff ff 	mov    %rax,-0x1350(%rbp)
++ 1f3:	e8 00 00 00 00       	call   1f8 <__libc_start_main.cold+0x1e6>
++			1f4: R_X86_64_PLT32	std::ios_base::~ios_base()-0x4
++ 1f8:	48 89 df             	mov    %rbx,%rdi
++ 1fb:	e8 00 00 00 00       	call   200 <__libc_start_main.cold+0x1ee>
++			1fc: R_X86_64_PLT32	_Unwind_Resume-0x4
++ 200:	48 89 c7             	mov    %rax,%rdi
+  203:	e8 00 00 00 00       	call   208 <__libc_start_main.cold+0x1f6>
+-			204: R_X86_64_PLT32	std::ios_base::~ios_base()-0x4
+- 208:	48 8b bd 50 e9 ff ff 	mov    -0x16b0(%rbp),%rdi
+- 20f:	e8 00 00 00 00       	call   214 <__libc_start_main.cold+0x202>
+-			210: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_dispose()-0x4
+- 214:	48 8b bd 70 e9 ff ff 	mov    -0x1690(%rbp),%rdi
+- 21b:	e8 00 00 00 00       	call   220 <__libc_start_main.cold+0x20e>
+-			21c: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_dispose()-0x4
+- 220:	48 8b bd e0 e9 ff ff 	mov    -0x1620(%rbp),%rdi
+- 227:	e8 00 00 00 00       	call   22c <__libc_start_main.cold+0x21a>
+-			228: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_dispose()-0x4
+- 22c:	48 8b bd d8 e9 ff ff 	mov    -0x1628(%rbp),%rdi
+- 233:	e8 00 00 00 00       	call   238 <__libc_start_main.cold+0x226>
+-			234: R_X86_64_PLT32	std::basic_ifstream<char, std::char_traits<char> >::~basic_ifstream()-0x4
+- 238:	48 89 df             	mov    %rbx,%rdi
+- 23b:	e8 00 00 00 00       	call   240 <__libc_start_main.cold+0x22e>
+-			23c: R_X86_64_PLT32	_Unwind_Resume-0x4
+- 240:	48 89 c3             	mov    %rax,%rbx
+- 243:	eb db                	jmp    220 <__libc_start_main.cold+0x20e>
+- 245:	48 8b bd f8 e9 ff ff 	mov    -0x1608(%rbp),%rdi
+- 24c:	e8 00 00 00 00       	call   251 <__libc_start_main.cold+0x23f>
+-			24d: R_X86_64_PLT32	std::basic_filebuf<char, std::char_traits<char> >::~basic_filebuf()-0x4
+- 251:	4c 89 f8             	mov    %r15,%rax
+- 254:	48 8b 53 e8          	mov    -0x18(%rbx),%rdx
+- 258:	48 89 9d c0 ed ff ff 	mov    %rbx,-0x1240(%rbp)
+- 25f:	31 f6                	xor    %esi,%esi
+- 261:	48 8b 9d 20 ea ff ff 	mov    -0x15e0(%rbp),%rbx
+- 268:	48 89 9c 15 c0 ed ff 	mov    %rbx,-0x1240(%rbp,%rdx,1)
+- 26f:	ff 
+- 270:	48 89 c3             	mov    %rax,%rbx
+- 273:	48 89 b5 c8 ed ff ff 	mov    %rsi,-0x1238(%rbp)
+- 27a:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 281 <__libc_start_main.cold+0x26f>
+-			27d: R_X86_64_REX_GOTPCRELX	vtable for std::basic_ios<char, std::char_traits<char> >-0x4
+- 281:	48 8b bd f0 e9 ff ff 	mov    -0x1610(%rbp),%rdi
+- 288:	48 83 c0 10          	add    $0x10,%rax
+- 28c:	48 89 85 c0 ee ff ff 	mov    %rax,-0x1140(%rbp)
+- 293:	e8 00 00 00 00       	call   298 <__libc_start_main.cold+0x286>
+-			294: R_X86_64_PLT32	std::ios_base::~ios_base()-0x4
+- 298:	e9 59 fe ff ff       	jmp    f6 <__libc_start_main.cold+0xe4>
+- 29d:	48 8b bd d0 e9 ff ff 	mov    -0x1630(%rbp),%rdi
+- 2a4:	e8 00 00 00 00       	call   2a9 <__libc_start_main.cold+0x297>
+-			2a5: R_X86_64_PLT32	std::basic_filebuf<char, std::char_traits<char> >::~basic_filebuf()-0x4
+- 2a9:	4c 89 f8             	mov    %r15,%rax
+- 2ac:	48 8b 53 e8          	mov    -0x18(%rbx),%rdx
+- 2b0:	48 89 9d b0 eb ff ff 	mov    %rbx,-0x1450(%rbp)
+- 2b7:	48 8b 9d 20 ea ff ff 	mov    -0x15e0(%rbp),%rbx
+- 2be:	48 89 9c 15 b0 eb ff 	mov    %rbx,-0x1450(%rbp,%rdx,1)
+- 2c5:	ff 
+- 2c6:	31 db                	xor    %ebx,%ebx
+- 2c8:	48 89 9d b8 eb ff ff 	mov    %rbx,-0x1448(%rbp)
+- 2cf:	48 89 c3             	mov    %rax,%rbx
+- 2d2:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 2d9 <__libc_start_main.cold+0x2c7>
+-			2d5: R_X86_64_REX_GOTPCRELX	vtable for std::basic_ios<char, std::char_traits<char> >-0x4
+- 2d9:	48 8b bd c8 e9 ff ff 	mov    -0x1638(%rbp),%rdi
+- 2e0:	48 83 c0 10          	add    $0x10,%rax
+- 2e4:	48 89 85 b0 ec ff ff 	mov    %rax,-0x1350(%rbp)
+- 2eb:	e8 00 00 00 00       	call   2f0 <__libc_start_main.cold+0x2de>
+-			2ec: R_X86_64_PLT32	std::ios_base::~ios_base()-0x4
+- 2f0:	48 89 df             	mov    %rbx,%rdi
+- 2f3:	e8 00 00 00 00       	call   2f8 <__libc_start_main.cold+0x2e6>
+-			2f4: R_X86_64_PLT32	_Unwind_Resume-0x4
+- 2f8:	48 89 c3             	mov    %rax,%rbx
+- 2fb:	e9 14 ff ff ff       	jmp    214 <__libc_start_main.cold+0x202>
+- 300:	e8 00 00 00 00       	call   305 <__libc_start_main.cold+0x2f3>
+-			301: R_X86_64_PLT32	std::__throw_bad_cast()-0x4
+- 305:	48 89 c2             	mov    %rax,%rdx
+- 308:	4c 89 e9             	mov    %r13,%rcx
+- 30b:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 312 <__libc_start_main.cold+0x300>
+-			30e: R_X86_64_PC32	.LC6-0x4
+- 312:	31 c0                	xor    %eax,%eax
+- 314:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 31b <__libc_start_main.cold+0x309>
+-			317: R_X86_64_PC32	.LC7-0x4
+- 31b:	e8 00 00 00 00       	call   320 <__libc_start_main.cold+0x30e>
+-			31c: R_X86_64_PLT32	std::__throw_out_of_range_fmt(char const*, ...)-0x4
+- 320:	e8 00 00 00 00       	call   325 <__libc_start_main.cold+0x313>
+-			321: R_X86_64_PLT32	std::__throw_bad_cast()-0x4
+- 325:	48 89 c3             	mov    %rax,%rbx
+- 328:	48 83 bd 18 ea ff ff 	cmpq   $0x0,-0x15e8(%rbp)
+- 32f:	00 
+- 330:	0f 85 aa fd ff ff    	jne    e0 <__libc_start_main.cold+0xce>
+- 336:	e9 bb fd ff ff       	jmp    f6 <__libc_start_main.cold+0xe4>
+- 33b:	e8 00 00 00 00       	call   340 <__libc_start_main.cold+0x32e>
+-			33c: R_X86_64_PLT32	std::__throw_bad_cast()-0x4
+- 340:	e8 00 00 00 00       	call   345 <__libc_start_main.cold+0x333>
+-			341: R_X86_64_PLT32	std::__throw_bad_cast()-0x4
+- 345:	e8 00 00 00 00       	call   34a <__libc_start_main+0xaa>
+-			346: R_X86_64_PLT32	std::__throw_bad_cast()-0x4
++			204: R_X86_64_PLT32	__cxa_begin_catch-0x4
++ 208:	e8 00 00 00 00       	call   20d <__libc_start_main.cold+0x1fb>
++			209: R_X86_64_PLT32	__cxa_end_catch-0x4
++ 20d:	e9 00 00 00 00       	jmp    212 <__libc_start_main.cold+0x200>
++			20e: R_X86_64_PC32	.text+0xff2
++ 212:	e8 00 00 00 00       	call   217 <__libc_start_main.cold+0x205>
++			213: R_X86_64_PLT32	std::__throw_bad_cast()-0x4
++ 217:	e8 00 00 00 00       	call   21c <__libc_start_main.cold+0x20a>
++			218: R_X86_64_PLT32	std::__throw_bad_cast()-0x4
++ 21c:	48 89 c2             	mov    %rax,%rdx
++ 21f:	4c 89 e9             	mov    %r13,%rcx
++ 222:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 229 <__libc_start_main.cold+0x217>
++			225: R_X86_64_PC32	.LC6-0x4
++ 229:	31 c0                	xor    %eax,%eax
++ 22b:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 232 <__libc_start_main.cold+0x220>
++			22e: R_X86_64_PC32	.LC7-0x4
++ 232:	e8 00 00 00 00       	call   237 <__libc_start_main.cold+0x225>
++			233: R_X86_64_PLT32	std::__throw_out_of_range_fmt(char const*, ...)-0x4
++ 237:	48 8b 85 b0 ea ff ff 	mov    -0x1550(%rbp),%rax
++ 23e:	48 89 85 18 ea ff ff 	mov    %rax,-0x15e8(%rbp)
++ 245:	48 8b 85 c0 ea ff ff 	mov    -0x1540(%rbp),%rax
++ 24c:	48 89 85 80 e9 ff ff 	mov    %rax,-0x1680(%rbp)
++ 253:	4c 89 f7             	mov    %r14,%rdi
++ 256:	e8 00 00 00 00       	call   25b <__libc_start_main.cold+0x249>
++			257: R_X86_64_PLT32	std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_dispose()-0x4
++ 25b:	e9 f6 fe ff ff       	jmp    156 <__libc_start_main.cold+0x144>
++ 260:	48 89 c3             	mov    %rax,%rbx
++ 263:	eb ee                	jmp    253 <__libc_start_main.cold+0x241>
++ 265:	45 31 c0             	xor    %r8d,%r8d
++ 268:	4c 8d b5 70 eb ff ff 	lea    -0x1490(%rbp),%r14
++ 26f:	4c 89 85 08 ea ff ff 	mov    %r8,-0x15f8(%rbp)
++ 276:	e8 00 00 00 00       	call   27b <__libc_start_main.cold+0x269>
++			277: R_X86_64_PLT32	std::__throw_bad_cast()-0x4
++ 27b:	48 89 c3             	mov    %rax,%rbx
++ 27e:	e9 7c fe ff ff       	jmp    ff <__libc_start_main.cold+0xed>
++ 283:	48 8b bd f0 e9 ff ff 	mov    -0x1610(%rbp),%rdi
++ 28a:	e8 00 00 00 00       	call   28f <__libc_start_main.cold+0x27d>
++			28b: R_X86_64_PLT32	std::basic_filebuf<char, std::char_traits<char> >::~basic_filebuf()-0x4
++ 28f:	4c 89 f8             	mov    %r15,%rax
++ 292:	48 8b 53 e8          	mov    -0x18(%rbx),%rdx
++ 296:	48 89 9d c0 ed ff ff 	mov    %rbx,-0x1240(%rbp)
++ 29d:	31 f6                	xor    %esi,%esi
++ 29f:	48 8b 9d 20 ea ff ff 	mov    -0x15e0(%rbp),%rbx
++ 2a6:	48 89 9c 15 c0 ed ff 	mov    %rbx,-0x1240(%rbp,%rdx,1)
++ 2ad:	ff 
++ 2ae:	48 89 c3             	mov    %rax,%rbx
++ 2b1:	48 89 b5 c8 ed ff ff 	mov    %rsi,-0x1238(%rbp)
++ 2b8:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 2bf <__libc_start_main.cold+0x2ad>
++			2bb: R_X86_64_REX_GOTPCRELX	vtable for std::basic_ios<char, std::char_traits<char> >-0x4
++ 2bf:	48 8b bd f8 e9 ff ff 	mov    -0x1608(%rbp),%rdi
++ 2c6:	48 83 c0 10          	add    $0x10,%rax
++ 2ca:	48 89 85 c0 ee ff ff 	mov    %rax,-0x1140(%rbp)
++ 2d1:	e8 00 00 00 00       	call   2d6 <__libc_start_main.cold+0x2c4>
++			2d2: R_X86_64_PLT32	std::ios_base::~ios_base()-0x4
++ 2d6:	e9 c2 fd ff ff       	jmp    9d <__libc_start_main.cold+0x8b>
++ 2db:	48 89 c7             	mov    %rax,%rdi
++ 2de:	e8 00 00 00 00       	call   2e3 <__libc_start_main.cold+0x2d1>
++			2df: R_X86_64_PLT32	__cxa_begin_catch-0x4
++ 2e3:	e8 00 00 00 00       	call   2e8 <__libc_start_main.cold+0x2d6>
++			2e4: R_X86_64_PLT32	__cxa_end_catch-0x4
++ 2e8:	e9 00 00 00 00       	jmp    2ed <__libc_start_main.cold+0x2db>
++			2e9: R_X86_64_PC32	.text+0x838
++ 2ed:	48 8b bd f0 e9 ff ff 	mov    -0x1610(%rbp),%rdi
++ 2f4:	e8 00 00 00 00       	call   2f9 <__libc_start_main.cold+0x2e7>
++			2f5: R_X86_64_PLT32	std::basic_filebuf<char, std::char_traits<char> >::~basic_filebuf()-0x4
++ 2f9:	4c 89 f8             	mov    %r15,%rax
++ 2fc:	48 8b 53 e8          	mov    -0x18(%rbx),%rdx
++ 300:	48 89 9d c0 ed ff ff 	mov    %rbx,-0x1240(%rbp)
++ 307:	45 31 d2             	xor    %r10d,%r10d
++ 30a:	48 8b 9d 20 ea ff ff 	mov    -0x15e0(%rbp),%rbx
++ 311:	48 89 9c 15 c0 ed ff 	mov    %rbx,-0x1240(%rbp,%rdx,1)
++ 318:	ff 
++ 319:	48 89 c3             	mov    %rax,%rbx
++ 31c:	4c 89 95 c8 ed ff ff 	mov    %r10,-0x1238(%rbp)
++ 323:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 32a <__libc_start_main.cold+0x318>
++			326: R_X86_64_REX_GOTPCRELX	vtable for std::basic_ios<char, std::char_traits<char> >-0x4
++ 32a:	48 8b bd f8 e9 ff ff 	mov    -0x1608(%rbp),%rdi
++ 331:	48 83 c0 10          	add    $0x10,%rax
++ 335:	48 89 85 c0 ee ff ff 	mov    %rax,-0x1140(%rbp)
++ 33c:	e8 00 00 00 00       	call   341 <__libc_start_main.cold+0x32f>
++			33d: R_X86_64_PLT32	std::ios_base::~ios_base()-0x4
++ 341:	e9 fc fc ff ff       	jmp    42 <__libc_start_main.cold+0x30>
+ 
+ Disassembly of section .text._ZNSt6vectorI8ip_rangeSaIS0_EE17_M_realloc_appendIJS0_EEEvDpOT_:
+ 
+@@ -2070,5 +2088,5 @@
+   bd:	c3                   	ret
+   be:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # c5 <void std::vector<ip_range, std::allocator<ip_range> >::_M_realloc_append<ip_range>(ip_range&&)+0xc5>
+ 			c1: R_X86_64_PC32	.LC2-0x4
+-  c5:	e8 00 00 00 00       	call   ca <.LC19+0x1a>
++  c5:	e8 00 00 00 00       	call   ca <.LC13+0x2a>
+ 			c6: R_X86_64_PLT32	std::__throw_length_error(char const*)-0x4

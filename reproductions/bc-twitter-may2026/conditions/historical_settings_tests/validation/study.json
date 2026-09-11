@@ -1,0 +1,46 @@
+{
+  "created_utc": "2026-09-09T17:05:02.273261+00:00",
+  "expected_boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+  "kernel": "6.18.1-061801-generic",
+  "graph": "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg",
+  "device": "/dev/sda3",
+  "rotational": 0,
+  "manifest": "reproductions/bc-twitter-may2026/manifest.json",
+  "cases": [
+    "may07_arms",
+    "may07_model"
+  ],
+  "model_configuration": [
+    2,
+    10,
+    0.5
+  ],
+  "libraries_instrumented": false,
+  "initial_cases": [
+    {
+      "knob": "none",
+      "session": "20260909T170421Z-382094"
+    }
+  ],
+  "protocol": [
+    "Fresh baseline pair followed by one ARMS/model pair for each separate override.",
+    "Full historical preparation before each case; seven THP/compaction controls read back after final defrag.",
+    "All knobs and captured host controls restored after each session.",
+    "Repeat a promising change and restored baseline if the first pass warrants confirmation.",
+    "Use uninstrumented frozen May libraries; no rebuild or normal-source modification."
+  ],
+  "confirmation_cases": [
+    {
+      "knob": "none",
+      "session": "20260909T173344Z-414920",
+      "cases": [
+        "may07_arms"
+      ]
+    }
+  ],
+  "completed": true,
+  "completed_runs": 3,
+  "result_report": "results.md",
+  "restoration_verified": true,
+  "purpose": "Offline validation against previously completed baselines only"
+}

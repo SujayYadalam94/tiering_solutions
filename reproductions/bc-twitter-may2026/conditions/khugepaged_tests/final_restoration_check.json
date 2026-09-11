@@ -1,0 +1,45 @@
+{
+  "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+  "boot_unchanged": true,
+  "checks": [
+    {
+      "session": "20260909T170421Z-382094",
+      "knob": "none",
+      "runner_restoration_errors": [],
+      "current_differences": []
+    },
+    {
+      "session": "20260909T171055Z-389918",
+      "knob": "khugepaged_defrag0",
+      "runner_restoration_errors": [],
+      "current_differences": []
+    },
+    {
+      "session": "20260909T171729Z-396978",
+      "knob": "khugepaged_alloc1000",
+      "runner_restoration_errors": [],
+      "current_differences": []
+    },
+    {
+      "session": "20260909T172342Z-403992",
+      "knob": "khugepaged_scan1000",
+      "runner_restoration_errors": [],
+      "current_differences": []
+    },
+    {
+      "session": "20260909T172954Z-411197",
+      "knob": "khugepaged_scan1000",
+      "runner_restoration_errors": [],
+      "current_differences": []
+    },
+    {
+      "session": "20260909T173344Z-414920",
+      "knob": "none",
+      "runner_restoration_errors": [],
+      "current_differences": []
+    }
+  ],
+  "active_benchmarks": [],
+  "pmem7_driver": "/sys/bus/nd/drivers/nd_pmem",
+  "passed": true
+}

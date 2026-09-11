@@ -1,0 +1,23 @@
+{
+  "created_utc": "2026-09-09T20:23:08.765554+00:00",
+  "purpose": "Check whether historical cost1.5 really speeds the HDD model relative to historical cost0.5. Only configurations present in the May7 cost sweep.",
+  "graph": "/users/zimooo2/gapbs/benchmark/graphs/twitter.sg",
+  "source": "8d6a8bc66 frozen",
+  "forest": "May3 candidate",
+  "history_mode": 2,
+  "history_length": 10,
+  "discount": 99,
+  "alpha_index": 3,
+  "virtual_step_samples": 10000,
+  "case_order": [
+    "cost0.5",
+    "cost1.5",
+    "cost1.5",
+    "cost0.5"
+  ],
+  "repetitions_per_case": 2,
+  "trials_per_run": 10,
+  "preparation": "Historical setup plus double defrag before every run; existing runner restores controls at session exit.",
+  "evaluation": "Compare read time, mean iteration time and total separately; retain old single-run results but do not infer a speedup from their load-time ranking alone.",
+  "production_changes": "None"
+}

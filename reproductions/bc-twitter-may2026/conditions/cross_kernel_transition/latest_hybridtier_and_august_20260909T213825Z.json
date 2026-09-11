@@ -1,0 +1,297 @@
+{
+  "captured_utc": "2026-09-09T21:38:25.450438+00:00",
+  "kernel": "6.2.0-hybridtier+",
+  "boot_id": "e13e95e3-ec26-4b1d-b233-aabf3a89d60c",
+  "cmdline": "BOOT_IMAGE=/boot/vmlinuz-6.2.0-hybridtier+ root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=92G!2G",
+  "rows": [
+    {
+      "path": "times/c220g5/arms/bc-kron.sg/4078MiB_run1.time",
+      "mtime_ns": 1788989319868173543,
+      "mtime_utc": "2026-09-09T21:28:39.868174+00:00",
+      "sha256": "a86e0b6a8ffa6ed513688d937cf9983ed132c4336d806fe103b15b95daa5decb",
+      "elapsed_s": 0.412,
+      "contents": "\nreal\t0m0.412s\nuser\t0m0.016s\nsys\t0m0.026s\n",
+      "boot_by_mtime": {
+        "epoch": 1788988843,
+        "utc": "2026-09-09T21:20:43+00:00",
+        "kernel": "6.2.0-hybridtier+",
+        "source": "/var/log/wtmp"
+      },
+      "size_label": 4078,
+      "policy": "arms",
+      "workload": "bc-kron.sg"
+    },
+    {
+      "path": "times/c220g5/arms/bc-twitter.sg/4078MiB_run1.time",
+      "mtime_ns": 1788989107637444155,
+      "mtime_utc": "2026-09-09T21:25:07.637444+00:00",
+      "sha256": "1ae40d71f5775379c84e9e2a065694e69a48e8a5b75bebf4ae6ea44640cb220e",
+      "elapsed_s": 134.981,
+      "contents": "\nreal\t2m14.981s\nuser\t0m0.015s\nsys\t0m0.025s\nexit_status=0\ntimed_out=0\nelapsed_seconds=135\ntimeout_seconds=12000\nkill_after_seconds=30\n",
+      "boot_by_mtime": {
+        "epoch": 1788988843,
+        "utc": "2026-09-09T21:20:43+00:00",
+        "kernel": "6.2.0-hybridtier+",
+        "source": "/var/log/wtmp"
+      },
+      "size_label": 4078,
+      "policy": "arms",
+      "workload": "bc-twitter.sg"
+    },
+    {
+      "path": "times/c220g5/arms/bc-twitter.sg/4078MiB_run2.time",
+      "mtime_ns": 1788968130386100811,
+      "mtime_utc": "2026-09-09T15:35:30.386101+00:00",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "elapsed_s": null,
+      "contents": "",
+      "boot_by_mtime": {
+        "epoch": 1788952506,
+        "utc": "2026-09-09T11:15:06+00:00",
+        "kernel": "6.18.1-061801-generic",
+        "source": "/var/log/wtmp"
+      },
+      "size_label": 4078,
+      "policy": "arms",
+      "workload": "bc-twitter.sg"
+    },
+    {
+      "path": "times/c220g5/model/bc-kron.sg/4078MiB_run1_model_discounted_reward_99_bc-kron.sg_l2-1_10_0.1.time",
+      "mtime_ns": 1788988278021600188,
+      "mtime_utc": "2026-09-09T21:11:18.021600+00:00",
+      "sha256": "a43a77530f085d219004de19853d62cfa1a18d4cd8df64f407620939ab89599e",
+      "elapsed_s": 219.06,
+      "contents": "\nreal\t3m39.060s\nuser\t0m0.019s\nsys\t0m0.021s\nexit_status=0\ntimed_out=0\nelapsed_seconds=220\ntimeout_seconds=12000\nkill_after_seconds=30\n",
+      "boot_by_mtime": {
+        "epoch": 1788987401,
+        "utc": "2026-09-09T20:56:41+00:00",
+        "kernel": "6.18.1-061801-generic",
+        "source": "/var/log/wtmp"
+      },
+      "size_label": 4078,
+      "policy": "model",
+      "workload": "bc-kron.sg"
+    },
+    {
+      "path": "times/c220g5/model/bc-twitter.sg/4078MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+      "mtime_ns": 1788989315910125019,
+      "mtime_utc": "2026-09-09T21:28:35.910125+00:00",
+      "sha256": "2b607dbf5f0af9e77e625aa63ae3274c9e84d70d10d62f5fc2c4c09d15b54e8e",
+      "elapsed_s": 130.877,
+      "contents": "\nreal\t2m10.877s\nuser\t0m0.015s\nsys\t0m0.024s\nexit_status=0\ntimed_out=0\nelapsed_seconds=130\ntimeout_seconds=12000\nkill_after_seconds=30\n",
+      "boot_by_mtime": {
+        "epoch": 1788988843,
+        "utc": "2026-09-09T21:20:43+00:00",
+        "kernel": "6.2.0-hybridtier+",
+        "source": "/var/log/wtmp"
+      },
+      "size_label": 4078,
+      "policy": "model",
+      "workload": "bc-twitter.sg"
+    },
+    {
+      "path": "times/c220g5/arms/bc-kron.sg/4053MiB_run1.time",
+      "mtime_ns": 1787816566792296463,
+      "mtime_utc": "2026-08-27T07:42:46.792296+00:00",
+      "sha256": "a09068b313b1e4c556b58a9f4c54d04b001bcff1d2da6b2427cd8e39a2099e31",
+      "elapsed_s": 280.33,
+      "contents": "\nreal\t4m40.330s\nuser\t0m0.013s\nsys\t0m0.028s\nexit_status=0\ntimed_out=0\nelapsed_seconds=280\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+      "boot_by_mtime": {
+        "epoch": 1787750261,
+        "utc": "2026-08-26T13:17:41+00:00",
+        "kernel": "6.2.0-hybridtier+",
+        "source": "/var/log/wtmp.1"
+      },
+      "size_label": 4053,
+      "policy": "arms",
+      "workload": "bc-kron.sg"
+    },
+    {
+      "path": "times/c220g5/arms/bc-kron.sg/4053MiB_run2.time",
+      "mtime_ns": 1787819460210765845,
+      "mtime_utc": "2026-08-27T08:31:00.210766+00:00",
+      "sha256": "fda57caf364e4d15cdfc60f6adb3ed7d88b181833ddeb95e2bf98989c6f46a1c",
+      "elapsed_s": 285.213,
+      "contents": "\nreal\t4m45.213s\nuser\t0m0.012s\nsys\t0m0.030s\nexit_status=0\ntimed_out=0\nelapsed_seconds=286\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+      "boot_by_mtime": {
+        "epoch": 1787750261,
+        "utc": "2026-08-26T13:17:41+00:00",
+        "kernel": "6.2.0-hybridtier+",
+        "source": "/var/log/wtmp.1"
+      },
+      "size_label": 4053,
+      "policy": "arms",
+      "workload": "bc-kron.sg"
+    },
+    {
+      "path": "times/c220g5/arms/bc-kron.sg/4053MiB_run3.time",
+      "mtime_ns": 1787822320267680204,
+      "mtime_utc": "2026-08-27T09:18:40.267680+00:00",
+      "sha256": "ed362df3259f59adf0c201802606b6419d40ca980a6447c6d18a079116e5f9ca",
+      "elapsed_s": 281.305,
+      "contents": "\nreal\t4m41.305s\nuser\t0m0.016s\nsys\t0m0.026s\nexit_status=0\ntimed_out=0\nelapsed_seconds=282\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+      "boot_by_mtime": {
+        "epoch": 1787750261,
+        "utc": "2026-08-26T13:17:41+00:00",
+        "kernel": "6.2.0-hybridtier+",
+        "source": "/var/log/wtmp.1"
+      },
+      "size_label": 4053,
+      "policy": "arms",
+      "workload": "bc-kron.sg"
+    },
+    {
+      "path": "times/c220g5/arms/bc-twitter.sg/4053MiB_run1.time",
+      "mtime_ns": 1787818062409719837,
+      "mtime_utc": "2026-08-27T08:07:42.409720+00:00",
+      "sha256": "6ba061b17b2d2e64190e0f0c4e1ff019ab9ea101924eb29ce971b94a423eda0b",
+      "elapsed_s": 134.192,
+      "contents": "\nreal\t2m14.192s\nuser\t0m0.010s\nsys\t0m0.031s\nexit_status=0\ntimed_out=0\nelapsed_seconds=134\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+      "boot_by_mtime": {
+        "epoch": 1787750261,
+        "utc": "2026-08-26T13:17:41+00:00",
+        "kernel": "6.2.0-hybridtier+",
+        "source": "/var/log/wtmp.1"
+      },
+      "size_label": 4053,
+      "policy": "arms",
+      "workload": "bc-twitter.sg"
+    },
+    {
+      "path": "times/c220g5/arms/bc-twitter.sg/4053MiB_run2.time",
+      "mtime_ns": 1787820944649885543,
+      "mtime_utc": "2026-08-27T08:55:44.649886+00:00",
+      "sha256": "f3a126e68b2d5c019977e5802e303f82c0582d804068e407a4330cdd6dbd45bf",
+      "elapsed_s": 128.651,
+      "contents": "\nreal\t2m8.651s\nuser\t0m0.015s\nsys\t0m0.026s\nexit_status=0\ntimed_out=0\nelapsed_seconds=129\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+      "boot_by_mtime": {
+        "epoch": 1787750261,
+        "utc": "2026-08-26T13:17:41+00:00",
+        "kernel": "6.2.0-hybridtier+",
+        "source": "/var/log/wtmp.1"
+      },
+      "size_label": 4053,
+      "policy": "arms",
+      "workload": "bc-twitter.sg"
+    },
+    {
+      "path": "times/c220g5/arms/bc-twitter.sg/4053MiB_run3.time",
+      "mtime_ns": 1787823752924318991,
+      "mtime_utc": "2026-08-27T09:42:32.924319+00:00",
+      "sha256": "6dbff94d75655a58577d25bda177643fc89058a03d74e7726fcec2a4d1bb6f0f",
+      "elapsed_s": 126.669,
+      "contents": "\nreal\t2m6.669s\nuser\t0m0.009s\nsys\t0m0.032s\nexit_status=0\ntimed_out=0\nelapsed_seconds=126\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+      "boot_by_mtime": {
+        "epoch": 1787750261,
+        "utc": "2026-08-26T13:17:41+00:00",
+        "kernel": "6.2.0-hybridtier+",
+        "source": "/var/log/wtmp.1"
+      },
+      "size_label": 4053,
+      "policy": "arms",
+      "workload": "bc-twitter.sg"
+    },
+    {
+      "path": "times/c220g5/model/wl_bc-kron.sg_model_all/4053MiB_run1_model_discounted_reward_99_all_l2-1_10_0.1.time",
+      "mtime_ns": 1787816983661666521,
+      "mtime_utc": "2026-08-27T07:49:43.661667+00:00",
+      "sha256": "112f7e830b821ff2a0be3b6199d28e4e98fa36e71f2dd5459852b99f68078294",
+      "elapsed_s": 338.004,
+      "contents": "\nreal\t5m38.004s\nuser\t0m0.009s\nsys\t0m0.032s\nexit_status=0\ntimed_out=0\nelapsed_seconds=338\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+      "boot_by_mtime": {
+        "epoch": 1787750261,
+        "utc": "2026-08-26T13:17:41+00:00",
+        "kernel": "6.2.0-hybridtier+",
+        "source": "/var/log/wtmp.1"
+      },
+      "size_label": 4053,
+      "policy": "model",
+      "workload": "wl_bc-kron.sg_model_all"
+    },
+    {
+      "path": "times/c220g5/model/wl_bc-kron.sg_model_all/4053MiB_run2_model_discounted_reward_99_all_l2-1_10_0.1.time",
+      "mtime_ns": 1787819860969918860,
+      "mtime_utc": "2026-08-27T08:37:40.969919+00:00",
+      "sha256": "ef7b4bbd90f8952854b8914645bd495884ed21118316bc52c0eaae1d640d8ed1",
+      "elapsed_s": 323.572,
+      "contents": "\nreal\t5m23.572s\nuser\t0m0.017s\nsys\t0m0.024s\nexit_status=0\ntimed_out=0\nelapsed_seconds=323\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+      "boot_by_mtime": {
+        "epoch": 1787750261,
+        "utc": "2026-08-26T13:17:41+00:00",
+        "kernel": "6.2.0-hybridtier+",
+        "source": "/var/log/wtmp.1"
+      },
+      "size_label": 4053,
+      "policy": "model",
+      "workload": "wl_bc-kron.sg_model_all"
+    },
+    {
+      "path": "times/c220g5/model/wl_bc-kron.sg_model_all/4053MiB_run3_model_discounted_reward_99_all_l2-1_10_0.1.time",
+      "mtime_ns": 1787822698661624761,
+      "mtime_utc": "2026-08-27T09:24:58.661625+00:00",
+      "sha256": "fe1b07c95dc354939c79cbba378e15bc6b0544c99f511a494ca69cb793bef8b8",
+      "elapsed_s": 301.403,
+      "contents": "\nreal\t5m1.403s\nuser\t0m0.016s\nsys\t0m0.025s\nexit_status=0\ntimed_out=0\nelapsed_seconds=301\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+      "boot_by_mtime": {
+        "epoch": 1787750261,
+        "utc": "2026-08-26T13:17:41+00:00",
+        "kernel": "6.2.0-hybridtier+",
+        "source": "/var/log/wtmp.1"
+      },
+      "size_label": 4053,
+      "policy": "model",
+      "workload": "wl_bc-kron.sg_model_all"
+    },
+    {
+      "path": "times/c220g5/model/wl_bc-twitter.sg_model_all/4053MiB_run1_model_discounted_reward_99_all_l2-1_10_0.1.time",
+      "mtime_ns": 1787818275527496159,
+      "mtime_utc": "2026-08-27T08:11:15.527496+00:00",
+      "sha256": "cb176aa0cbff00c66beb0614c60752b3a9357a1304bfffb03a4bced83a087032",
+      "elapsed_s": 128.381,
+      "contents": "\nreal\t2m8.381s\nuser\t0m0.012s\nsys\t0m0.028s\nexit_status=0\ntimed_out=0\nelapsed_seconds=128\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+      "boot_by_mtime": {
+        "epoch": 1787750261,
+        "utc": "2026-08-26T13:17:41+00:00",
+        "kernel": "6.2.0-hybridtier+",
+        "source": "/var/log/wtmp.1"
+      },
+      "size_label": 4053,
+      "policy": "model",
+      "workload": "wl_bc-twitter.sg_model_all"
+    },
+    {
+      "path": "times/c220g5/model/wl_bc-twitter.sg_model_all/4053MiB_run2_model_discounted_reward_99_all_l2-1_10_0.1.time",
+      "mtime_ns": 1787821147300499150,
+      "mtime_utc": "2026-08-27T08:59:07.300499+00:00",
+      "sha256": "56698ada36132679298403743c2807934c8f91991c14b5a70b04c9cf46afd9c4",
+      "elapsed_s": 124.881,
+      "contents": "\nreal\t2m4.881s\nuser\t0m0.011s\nsys\t0m0.028s\nexit_status=0\ntimed_out=0\nelapsed_seconds=125\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+      "boot_by_mtime": {
+        "epoch": 1787750261,
+        "utc": "2026-08-26T13:17:41+00:00",
+        "kernel": "6.2.0-hybridtier+",
+        "source": "/var/log/wtmp.1"
+      },
+      "size_label": 4053,
+      "policy": "model",
+      "workload": "wl_bc-twitter.sg_model_all"
+    },
+    {
+      "path": "times/c220g5/model/wl_bc-twitter.sg_model_all/4053MiB_run3_model_discounted_reward_99_all_l2-1_10_0.1.time",
+      "mtime_ns": 1787823955889951849,
+      "mtime_utc": "2026-08-27T09:45:55.889952+00:00",
+      "sha256": "96d6b28bbe901a2af8a65211dcc5e6fbeda3e8407028fc72719c1e147ced1b54",
+      "elapsed_s": 125.991,
+      "contents": "\nreal\t2m5.991s\nuser\t0m0.013s\nsys\t0m0.030s\nexit_status=0\ntimed_out=0\nelapsed_seconds=126\ntimeout_seconds=6000\nkill_after_seconds=30\n",
+      "boot_by_mtime": {
+        "epoch": 1787750261,
+        "utc": "2026-08-26T13:17:41+00:00",
+        "kernel": "6.2.0-hybridtier+",
+        "source": "/var/log/wtmp.1"
+      },
+      "size_label": 4053,
+      "policy": "model",
+      "workload": "wl_bc-twitter.sg_model_all"
+    }
+  ]
+}

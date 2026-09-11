@@ -1,0 +1,43 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-2c506191/oT6S.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-2c506191/UAeV.sh
+@@ -56,7 +56,7 @@
+     fi
+ }
+ 
+-SIZES=(6072)
++SIZES=(6073)
+ RUNS=3
+ 
+ ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}
+@@ -94,20 +94,9 @@
+             #fi
+ 
+             # MEMTIS
+-            #if [[ -x "${SCRIPT_DIR}/measurement_memtis.sh" ]]; then
+-            #    # Use the normal pre-run cleanup so existing process memory is
+-            #    # migrated away from the fast node before MEMTIS reserves its
+-            #    # sampler buffers. The workload itself can still use both nodes.
+-            #    run_measurement_setup "${size}" memtis
+-            #    sudo -E "${SCRIPT_DIR}/measurement_memtis.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
+-            #else
+-            #    echo "WARNING: ./measurement_memtis.sh not found or not executable; skipping MEMTIS"
+-            #fi
+-
+-            # MEMTIS near-first variant
+-            if [[ -x "${SCRIPT_DIR}/measurement_memtis_near.sh" ]]; then
++            if [[ -x "${SCRIPT_DIR}/measurement_memtis.sh" ]]; then
+                 # The runner holds its lock across setup, measurement, and teardown.
+-                if sudo -E env MEMTIS_RUN_SETUP=1 "${SCRIPT_DIR}/measurement_memtis_near.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"; then
++                if sudo -E env MEMTIS_RUN_SETUP=1 "${SCRIPT_DIR}/measurement_memtis.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"; then
+                     :
+                 else
+                     status=$?
+@@ -115,7 +104,7 @@
+                     exit "${status}"
+                 fi
+             else
+-                echo "ERROR: ./measurement_memtis_near.sh not found or not executable" >&2
++                echo "ERROR: ./measurement_memtis.sh not found or not executable" >&2
+                 exit 1
+             fi
+ 

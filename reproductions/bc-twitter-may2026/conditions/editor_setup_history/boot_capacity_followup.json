@@ -1,0 +1,30 @@
+{
+  "generated_utc": "2026-09-09T13:19:47.429937+00:00",
+  "current_cmdline": "BOOT_IMAGE=/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS1,115200 emulabcnet=44:a8:42:47:4a:0b memmap=92G!2G",
+  "current_node0_memtotal_kib": 4737988,
+  "sample_node0_memfree_kib": 2550064,
+  "reservation_current": {
+    "start_gib": 2,
+    "length_gib": 92,
+    "end_exclusive_gib": 94
+  },
+  "reservation_march_backup": {
+    "start_gib": 2,
+    "length_gib": 90,
+    "end_exclusive_gib": 92
+  },
+  "physical_difference_kib": 2097152,
+  "conditional_estimate": {
+    "node0_memtotal_kib_if_2gib_added_without_other_changes": 6835140,
+    "node0_memfree_kib_if_2gib_added_without_other_changes": 4647216,
+    "node0_memtotal_gib": 6.518497467041016,
+    "node0_memfree_gib": 4.4319305419921875
+  },
+  "limits": [
+    "March backup does not establish May command line.",
+    "Additional RAM changes kernel metadata, reserves, and allocations; figures are conditional arithmetic, not measured reboot outcomes.",
+    "All current generated kernel boot entries use memmap=92G!2G; no separate6GBentry in40_custom or41_custom.",
+    "No GRUB/boot config resource or relevant command-line/free-memory values in VSCodeeditorhistory resource indexes or ChatEdit metadata.",
+    "No additional historical command-line/free-memory record found in targetedcollectedlogs."
+  ]
+}

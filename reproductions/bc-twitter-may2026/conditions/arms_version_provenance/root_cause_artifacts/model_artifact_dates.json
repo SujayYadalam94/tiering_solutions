@@ -1,0 +1,86 @@
+[
+  {
+    "path": "models/model_discounted_reward_99_bc-twitter.sg_l2.o",
+    "size": 273968,
+    "mtime_utc": "2026-06-18T16:26:10.946931+00:00",
+    "sha256": "1a0cf6217dbf4d07736f28b2a166d3fbdaf479a82bdf014da7a6f629bb44ceb6"
+  },
+  {
+    "path": "models/model_discounted_reward_99_bc-twitter.sg_l2.txt",
+    "size": 329466,
+    "mtime_utc": "2026-06-18T16:26:05.747259+00:00",
+    "sha256": "ddee33ea89113f2735d8adbda395cf45b169ba3c292f1da8989c4b21e0625b03"
+  },
+  {
+    "path": "models/no_age/model_discounted_reward_99_bc-twitter.sg_l2.o",
+    "size": 546784,
+    "mtime_utc": "2026-05-14T06:06:16.830332+00:00",
+    "sha256": "96148ddca2bbc531768cef66f9012cf91830696b683a82b6d7dbd52cfebb60dc"
+  },
+  {
+    "path": "models/no_age/model_discounted_reward_99_bc-twitter.sg_l2.txt",
+    "size": 606891,
+    "mtime_utc": "2026-05-14T06:06:03.121149+00:00",
+    "sha256": "a965a5dc3b9e69825e16a741b86c734d7e02a460e043664ee7396619800d41e9"
+  },
+  {
+    "path": "models/models_old/model_discounted_reward_99_bc-twitter.sg_l2.o",
+    "size": 555720,
+    "mtime_utc": "2026-04-24T01:41:09.129076+00:00",
+    "sha256": "112f3bd3220e46efe11f4f7151eecc49d074e5d27d5ea6101c4f86a765793adb"
+  },
+  {
+    "path": "models/models_old/model_discounted_reward_99_bc-twitter.sg_l2.txt",
+    "size": 612582,
+    "mtime_utc": "2026-04-24T01:41:09.134076+00:00",
+    "sha256": "8fd18abfe89fb3c90915ab528e607954fd7b03b3fbdc6cd3df4a8b883bb90cca"
+  },
+  {
+    "path": "models/model_100k/model_discounted_reward_99_bc-twitter.sg_l2.o",
+    "size": 4456328,
+    "mtime_utc": "2026-04-24T01:41:08.439067+00:00",
+    "sha256": "21f1f504929c61e1d4f2e84a59e44ea9a44f5b57da323ff70b486e18bff66c87"
+  },
+  {
+    "path": "models/model_100k/model_discounted_reward_99_bc-twitter.sg_l2.txt",
+    "size": 4261544,
+    "mtime_utc": "2026-04-24T01:41:08.486067+00:00",
+    "sha256": "61a0bd30383d4bd93526ce075d87447079c226e76de98ba9135fe8918af66d52"
+  },
+  {
+    "path": "models/old/model_discounted_reward_99_bc-twitter.sg_l2.o",
+    "size": 316136,
+    "mtime_utc": "2026-05-03T16:50:18.524548+00:00",
+    "sha256": "763ad7a415847b832a89389d6a20bca1a4f8d01871b0d69186aee7f943591585"
+  },
+  {
+    "path": "models/old/model_discounted_reward_99_bc-twitter.sg_l2.txt",
+    "size": 359050,
+    "mtime_utc": "2026-05-03T16:50:18.554548+00:00",
+    "sha256": "57c39dda632eddbb5a0e1f2006f81d7778ec967634243dd1803a8278eaf285df"
+  },
+  {
+    "path": "models/with_age/model_discounted_reward_99_bc-twitter.sg_l2.o",
+    "size": 546784,
+    "mtime_utc": "2026-05-14T06:10:59.423106+00:00",
+    "sha256": "96148ddca2bbc531768cef66f9012cf91830696b683a82b6d7dbd52cfebb60dc"
+  },
+  {
+    "path": "models/with_age/model_discounted_reward_99_bc-twitter.sg_l2.txt",
+    "size": 606891,
+    "mtime_utc": "2026-05-14T06:10:59.473107+00:00",
+    "sha256": "a965a5dc3b9e69825e16a741b86c734d7e02a460e043664ee7396619800d41e9"
+  },
+  {
+    "path": "models/models/model_discounted_reward_99_bc-twitter.sg_l2.o",
+    "size": 316136,
+    "mtime_utc": "2026-05-03T02:34:19.364877+00:00",
+    "sha256": "763ad7a415847b832a89389d6a20bca1a4f8d01871b0d69186aee7f943591585"
+  },
+  {
+    "path": "models/models/model_discounted_reward_99_bc-twitter.sg_l2.txt",
+    "size": 359050,
+    "mtime_utc": "2026-05-03T02:34:12.719783+00:00",
+    "sha256": "57c39dda632eddbb5a0e1f2006f81d7778ec967634243dd1803a8278eaf285df"
+  }
+]

@@ -1,0 +1,28 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-2c506191/oCFU.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-2c506191/vK7Z.sh
+@@ -56,8 +56,8 @@
+     fi
+ }
+ 
+-SIZES=(4061)
+-RUNS=3
++SIZES=(6061)
++RUNS=1
+ 
+ ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}
+ 
+@@ -102,6 +102,14 @@
+                 sudo -E "${SCRIPT_DIR}/measurement_memtis.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
+             else
+                 echo "WARNING: ./measurement_memtis.sh not found or not executable; skipping MEMTIS"
++            fi
++
++            # MEMTIS near-first variant
++            if [[ -x "${SCRIPT_DIR}/measurement_memtis_near.sh" ]]; then
++                run_measurement_setup "${size}" memtis
++                sudo -E "${SCRIPT_DIR}/measurement_memtis_near.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
++            else
++                echo "WARNING: ./measurement_memtis_near.sh not found or not executable; skipping MEMTIS near-first"
+             fi
+ 
+             # Model

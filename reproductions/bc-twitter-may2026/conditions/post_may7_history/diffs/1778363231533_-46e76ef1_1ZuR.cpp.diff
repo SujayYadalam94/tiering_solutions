@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-46e76ef1/KdGc.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-46e76ef1/1ZuR.cpp
+@@ -442,7 +442,7 @@
+ #else
+     if (rank < num_dram_pages * 0.75)
+     {
+-        this->can_promote = true
++        this->can_promote = true;
+     }
+     else
+     {

@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-3fe4908d/mub3.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-3fe4908d/dwrV.cpp
+@@ -83,7 +83,7 @@
+     features[i++] = group_neg_mean;
+     features[i++] = group_pos_mean;
+     features[i++] = group_0_mean;
+-    features[i++] = static_cast<double>(row.age > 100 ? 100 : row.age) / 100.0; // Normalize age to [0,1] with a cap at 100
++    features[i++] = static_cast<double>(row.age > );
+     features[i++] = r_ratio_20;
+     features[i++] = r_ratio_100;
+     features[i++] = round_to_6(row.group_ewma5_var);

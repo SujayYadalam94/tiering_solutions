@@ -1,0 +1,353 @@
+[
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/local-index.1.db",
+    "database_mtime": "2026-03-17T15:44:14.538992+00:00",
+    "uri": "file:///users/zimooo2/tiering_solutions/setup.sh",
+    "contentVersionId": "2943-1773116880103",
+    "chunks": [
+      [
+        1,
+        35,
+        "SIZE_MIB=${1:-}\nif [[ -z \"${SIZE_MIB}\" ]]; then\n\techo \"Usage: $0 <sizeMiB>\" >&2\n\texit 1\nfi\nIRQ_AFFINITY=${IRQ_AFFINITY:-10-19,30-39}\nPROCESS_CPUSET=${PROCESS_CPUSET:-10-19,30-39}\nwrite_sysfs_value() {\n\tlocal path=$1\n\tlocal value=$2\n\tprintf '%s' \"${value}\" | sudo tee \"${path}\" >/dev/null\n}\nwrite_sysctl_value() {\n\tlocal key=$1\n\tlocal value=$2\n\tsudo sysctl -w \"${key}=${value}\"\n}\nset_irq_affinity() {\n\tfor f in /proc/irq/*/smp_affinity_list; do\n\t  echo \"${IRQ_AFFINITY}\" | sudo tee \"$f\" >/dev/null 2>&1 || true\n\tdone\n}\nmigrate_all_processes_to_slow_tier() {\n\tfor pid in $(ps -e -o pid=); do\n\t\tsudo migratepages \"$pid\" 0 1\n\t\tsudo taskset -pc \"${PROCESS_CPUSET}\" \"$pid\"\n\tdone\n}\nwrite_sysctl_value vm.overcommit_memory 1"
+      ],
+      [
+        36,
+        52,
+        "write_sysctl_value vm.watermark_scale_factor 1\nwrite_sysctl_value vm.watermark_boost_factor 0\n# Shrink kernel reserves so nearly all RAM is usable by memeater and later apps.\nwrite_sysctl_value vm.min_free_kbytes 16384\nwrite_sysctl_value vm.user_reserve_kbytes 16384\nwrite_sysctl_value vm.admin_reserve_kbytes 16384\n#sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\"\n#sudo sysctl -w vm.zone_reclaim_mode=0\n#sudo sysctl -w vm.dirty_background_ratio=1\n#sudo sysctl -w vm.dirty_ratio=20\nwrite_sysctl_value kernel.numa_balancing 0\nwrite_sysfs_value /proc/sys/vm/zone_reclaim_mode 0\nwrite_sysfs_value /proc/sys/kernel/numa_balancing 0\nwrite_sysfs_value /sys/kernel/mm/numa/demotion_enabled 0\nwrite_sysfs_value /proc/sys/vm/watermark_scale_factor 10\nwrite_sysfs_value /sys/kernel/mm/lru_gen/enabled 0x0000\necho \"Turning huge page ON\""
+      ],
+      [
+        53,
+        75,
+        "write_sysfs_value /sys/kernel/mm/transparent_hugepage/enabled always\nwrite_sysfs_value /sys/kernel/mm/transparent_hugepage/defrag always\nwrite_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/defrag 1\nwrite_sysfs_value /proc/sys/vm/compaction_proactiveness 50\nsudo wrmsr --processor 39 0x620 0x707\nsudo swapoff -a\n#sudo systemctl set-property --runtime system.slice AllowedCPUs=10-19,30-39 AllowedMemoryNodes=1\n#sudo systemctl set-property --runtime user.slice   AllowedCPUs=10-19,30-39 AllowedMemoryNodes=1\n# future IRQs default\n#echo \"10-19,30-39\" | sudo tee /proc/irq/default_smp_affinity_list\n# existing IRQs\nset_irq_affinity\n# Migrate memory of all running user processes to NUMA node 1\nmigrate_all_processes_to_slow_tier\n# Free page cache and reclaimable slab so allocations match the requested headroom.\nwrite_sysctl_value vm.vfs_cache_pressure 2000 >/dev/null\nbash defrag.sh"
+      ],
+      [
+        77,
+        90,
+        "pushd ~/colloid/tpp/memeater\nexport local_size=\"${SIZE_MIB}\"\necho \"Setting up memeater module with size ${local_size}MiB\"\n# Use NUMA node0 MemFree because memeater allocates only on node0.\nnode0_free_mib=$(numastat -m | awk '/MemFree/ {printf \"%d\", $2}')\nalloc_mib=$((node0_free_mib - local_size))\nif (( alloc_mib <= 0 )); then\n\techo \"Requested headroom ${local_size}MiB exceeds node0 free ${node0_free_mib}MiB\" >&2\n\texit 1\nfi\n#sudo insmod memeater.ko sizeMiB=${alloc_mib}\npopd\nbash defrag.sh"
+      ]
+    ]
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/local-index.1.db",
+    "database_mtime": "2026-03-17T15:44:14.538992+00:00",
+    "uri": "file:///users/zimooo2/tiering_solutions/run_all_measurements.sh",
+    "contentVersionId": "2986-1773728089903",
+    "chunks": [
+      [
+        0,
+        30,
+        "#!/bin/bash\nSCRIPT_DIR=$(cd -- \"$(dirname -- \"${BASH_SOURCE[0]}\")\" && pwd)\n# shellcheck source=measurement_common.sh\nsource \"${SCRIPT_DIR}/measurement_common.sh\"\n# shellcheck source=measurement_workloads.sh\nsource \"${SCRIPT_DIR}/measurement_workloads.sh\"\nSTART_EPOCH=$(date +%s)\nformat_duration_hms() {\n    local total_seconds=$1\n    local hours=$((total_seconds / 3600))\n    local minutes=$(((total_seconds % 3600) / 60))\n    local seconds=$((total_seconds % 60))\n    printf '%02d:%02d:%02d' \"${hours}\" \"${minutes}\" \"${seconds}\"\n}\nsend_completion_email() {\n    local elapsed_seconds=$1\n    local elapsed_hms\n    elapsed_hms=$(format_duration_hms \"${elapsed_seconds}\")\n    local recipient=${MEASUREMENT_NOTIFY_EMAIL:-${EMAIL:-freischuetz@wisc.edu}}\n    if [[ -z \"${recipient}\" ]]; then\n        echo \"No email recipient configured. Set MEASUREMENT_NOTIFY_EMAIL (or EMAIL) to enable notifications.\"\n        return\n    fi\n    local subject=\"run_all_measurements completed in ${elapsed_hms}\"\n    local body"
+      ],
+      [
+        31,
+        57,
+        "    body=$(cat <<EOF\nrun_all_measurements.sh has finished.\nHost: $(hostname)\nStart: $(date -d \"@${START_EPOCH}\" '+%Y-%m-%d %H:%M:%S %Z')\nEnd:   $(date '+%Y-%m-%d %H:%M:%S %Z')\nElapsed: ${elapsed_hms} (${elapsed_seconds}s)\nTimeout per workload command: ${MEASUREMENT_TIMEOUT_SECONDS:-2700}s\nEOF\n)\n    if command -v mail >/dev/null 2>&1; then\n        printf '%s\\n' \"${body}\" | mail -s \"${subject}\" \"${recipient}\"\n        echo \"Completion email sent to ${recipient}\"\n    elif command -v mailx >/dev/null 2>&1; then\n        printf '%s\\n' \"${body}\" | mailx -s \"${subject}\" \"${recipient}\"\n        echo \"Completion email sent to ${recipient}\"\n    else\n        echo \"WARNING: neither 'mail' nor 'mailx' is available; could not send completion email to ${recipient}.\"\n    fi\n}\nSIZES=(6000)\nRUNS=3\nmapfile -t WORKLOAD_IDS < <(measurement_list_default_workloads)"
+      ],
+      [
+        59,
+        87,
+        "for size in \"${SIZES[@]}\"; do\n    echo \"== Running measurements with size ${size}MiB ==\"\n    for run in $(seq 1 ${RUNS}); do\n        echo \"-- Run ${run}/${RUNS} for size ${size}MiB --\"\n        for workload_id in \"${WORKLOAD_IDS[@]}\"; do\n            echo \"---- Workload ${workload_id}: ARMS then HybridTier ----\"\n            run_measurement_setup \"${size}\"\n            \"${SCRIPT_DIR}/measurement_arms.sh\" \"${size}\" \"${run}\" \"\" \"${workload_id}\"\n            run_measurement_setup \"${size}\"\n            if [[ -x \"${SCRIPT_DIR}/measurement_hybridtier.sh\" ]]; then\n                sudo -E \"${SCRIPT_DIR}/measurement_hybridtier.sh\" \"${size}\" \"${run}\" huge \"${workload_id}\"\n            else\n                echo \"WARNING: ./measurement_hybridtier.sh not found or not executable; skipping HybridTier\"\n            fi\n            run_measurement_teardown\n        done\n    done\ndone\nEND_EPOCH=$(date +%s)\nELAPSED_SECONDS=$((END_EPOCH - START_EPOCH))\nELAPSED_HMS=$(format_duration_hms \"${ELAPSED_SECONDS}\")"
+      ],
+      [
+        89,
+        90,
+        "echo \"All measurements finished in ${ELAPSED_HMS} (${ELAPSED_SECONDS}s)\"\nsend_completion_email \"${ELAPSED_SECONDS}\""
+      ]
+    ]
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/local-index.1.db",
+    "database_mtime": "2026-03-17T15:44:14.538992+00:00",
+    "uri": "file:///users/zimooo2/tiering_solutions/measurement_hybridtier.sh",
+    "contentVersionId": "6492-1773728089903",
+    "chunks": [
+      [
+        0,
+        27,
+        "#!/bin/bash\nset -euo pipefail\nSCRIPT_DIR=$(cd -- \"$(dirname -- \"${BASH_SOURCE[0]}\")\" && pwd)\n# shellcheck source=measurement_common.sh\nsource \"${SCRIPT_DIR}/measurement_common.sh\"\n# shellcheck source=measurement_workloads.sh\nsource \"${SCRIPT_DIR}/measurement_workloads.sh\"\nSIZE_MIB=${1:-}\nRUN_ID=${2:-}\nPAGE_TYPE=${3:-huge} # regular | huge\nif [[ -z \"${SIZE_MIB}\" || -z \"${RUN_ID}\" ]]; then\n    echo \"Usage: $0 <fastTierMiB> <runNumber> [pageType]\" >&2\n    echo \"  pageType: regular (default) | huge\" >&2\n    exit 1\nfi\nif [[ \"${PAGE_TYPE}\" != \"regular\" && \"${PAGE_TYPE}\" != \"huge\" ]]; then\n    echo \"ERROR: invalid pageType '${PAGE_TYPE}' (expected regular|huge)\" >&2\n    exit 1\nfi\nif [[ ${EUID} -ne 0 ]]; then\n    echo \"This script must be run using sudo (use: sudo -E $0 ...)\" >&2\n    exit 1\nfi"
+      ],
+      [
+        29,
+        50,
+        "WORKSPACE_ROOT=$(cd -- \"${SCRIPT_DIR}/..\" && pwd)\nBENCH_ROOT=${BENCH_ROOT:-/users/zimooo2}\nNUMA_MEM_NODES=${NUMA_MEM_NODES:-0,1}\nTASKSET_CPUS=${TASKSET_CPUS:-0-9,20-29}\nNUMA_CPU_NODE=${NUMA_CPU_NODE:-0}\nSTRICT_FAILURES=${STRICT_FAILURES:-0}\nWORKLOAD_ARGS=(\"${@:4}\")\nmapfile -t WORKLOAD_IDS < <(measurement_expand_workloads \"${WORKLOAD_ARGS[@]}\")\ndeclare -a FAILED_RUNS=()\n# Convert MiB -> GiB (ceil), because HybridTier runtime takes FAST_MEMORY_SIZE_GB.\nFAST_TIER_SIZE_GB=$(( (SIZE_MIB + 1023) / 1024 ))\nif [[ ${FAST_TIER_SIZE_GB} -lt 1 ]]; then\n    FAST_TIER_SIZE_GB=1\nfi\necho \"Fast tier size: ${SIZE_MIB} MiB (compiling as ${FAST_TIER_SIZE_GB} GB)\"\ntime_root=\"${SCRIPT_DIR}/times\"\nlog_root=\"${SCRIPT_DIR}/logs\""
+      ],
+      [
+        51,
+        80,
+        "mkdir -p \"${time_root}\" \"${log_root}\" \"${time_root}/hybridtier\"\nHYBRIDTIER_ROOT=${HYBRIDTIER_ROOT:-\"${WORKSPACE_ROOT}/hybridtier-asplos25-artifact\"}\nHOOK_DIR=\"${HYBRIDTIER_ROOT}/hook\"\nHOOK_SO=\"${HOOK_DIR}/hook.so\"\ncleanup_run_outputs() {\n    local time_file=$1\n    local log_file=$2\n    local max_dram_file=$3\n    cleanup_measurement_outputs \"${time_file}\" \"${log_file}\" \"${max_dram_file}\"\n}\nextract_leading_env_assignments() {\n    local rest=$1\n    local env_kv=\"\"\n    while [[ \"${rest}\" =~ ^([A-Za-z_][A-Za-z0-9_]*)=([^[:space:]]+)[[:space:]]+(.+)$ ]]; do\n        env_kv+=\" ${BASH_REMATCH[1]}=${BASH_REMATCH[2]}\"\n        rest=\"${BASH_REMATCH[3]}\"\n    done\n    printf '%s\\n%s\\n' \"${env_kv}\" \"${rest}\"\n}\nbuild_hook() {\n    local exe_name=$1\n    if [[ ! -d \"${HOOK_DIR}\" ]]; then"
+      ],
+      [
+        81,
+        113,
+        "        echo \"ERROR: HybridTier hook dir not found: ${HOOK_DIR}\" >&2\n        exit 1\n    fi\n    local dpage_define=\"HYBRIDTIER_REGULAR\"\n    if [[ \"${PAGE_TYPE}\" == \"huge\" ]]; then\n        dpage_define=\"HYBRIDTIER_HUGE\"\n    fi\n    pushd \"${HOOK_DIR}\" > /dev/null\n    # Build exactly like run_exp_common.sh\n    g++ -shared -fPIC -g hook.cpp -o hook.so -O3 \\\n        -ldl -lpthread -lnuma \\\n        -DFAST_MEMORY_SIZE_GB=${FAST_TIER_SIZE_GB} \\\n        -DTARGET_EXE_NAME=\\\"${exe_name}\\\" \\\n        -D${dpage_define}\n    popd > /dev/null\n    if [[ ! -f \"${HOOK_SO}\" ]]; then\n        echo \"ERROR: hook build failed; missing ${HOOK_SO}\" >&2\n        exit 1\n    fi\n}\nrun_program() {\n    local program_str=$1\n    local exe_name=$2\n    local output=$3\n    local run=$4\n    local time_basename=\"${SIZE_MIB}MiB_run${run}\""
+      ],
+      [
+        114,
+        137,
+        "local time_dir=\"${time_root}/hybridtier/${output}\"\nlocal log_dir=\"${log_root}/${output}\"\nmkdir -p \"${time_dir}\" \"${log_dir}\"\nlocal time_file=\"${time_dir}/${time_basename}.time\"\nlocal log_file=\"${log_dir}/${time_basename}_hybridtier.log\"\nlocal max_dram_file=\"${time_dir}/max_dram_hugepages_${time_basename}.log\"\ncleanup_run_outputs \"${time_file}\" \"${log_file}\" \"${max_dram_file}\"\nbuild_hook \"${exe_name}\"\necho \"Running ${output} (exe=${exe_name}) run ${run}\"\n# Keep compute placement/pinning similar to existing ARM measurements.\nlocal pin=\"taskset -c ${TASKSET_CPUS}\"\nlocal numa=\"/usr/bin/numactl --cpunodebind=${NUMA_CPU_NODE}\"\n# Extract leading environment assignments (e.g., \"OMP_NUM_THREADS=16 \") so we can\n# apply them without wrapping the workload in an extra shell process.\nlocal env_parse_output\nenv_parse_output=$(extract_leading_env_assignments \"${program_str}\")\nlocal env_kv"
+      ],
+      [
+        138,
+        166,
+        "env_kv=$(printf '%s' \"${env_parse_output}\" | sed -n '1p')\nlocal rest\nrest=$(printf '%s' \"${env_parse_output}\" | sed -n '2p')\n# Disable glob expansion so args like \".*benchmark\" are passed literally.\necho \"${pin} ${numa} env LD_PRELOAD=\\\"${HOOK_SO}\\\"${env_kv} ${rest}\"\nlocal status=0\nlocal timed_out=0\nset +e\nset -f\n{\n    time timeout --foreground --signal=TERM \\\n        --kill-after=\"${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS}s\" \\\n        \"${MEASUREMENT_TIMEOUT_SECONDS}s\" \\\n        bash -lc \"set -f; ${pin} ${numa} env LD_PRELOAD=\\\"${HOOK_SO}\\\"${env_kv} ${rest}\" \\\n        &>> \"${log_file}\"\n} 2> \"${time_file}\"\nstatus=$?\nset +f\nset -e\nif [[ ${status} -eq 124 || ${status} -eq 137 ]]; then\n    timed_out=1\nfi\n{\n    echo \"exit_status=${status}\""
+      ],
+      [
+        167,
+        191,
+        "        echo \"timed_out=${timed_out}\"\n        echo \"timeout_seconds=${MEASUREMENT_TIMEOUT_SECONDS}\"\n    } >> \"${time_file}\"\n    if [[ ${status} -ne 0 ]]; then\n        if [[ ${timed_out} -eq 1 ]]; then\n            echo \"WARNING: ${output} run ${run} timed out after ${MEASUREMENT_TIMEOUT_SECONDS}s. See ${log_file}\" >&2\n            FAILED_RUNS+=(\"${output}:run${run}:timeout${MEASUREMENT_TIMEOUT_SECONDS}s\")\n        else\n            echo \"WARNING: ${output} run ${run} failed with status ${status}. See ${log_file}\" >&2\n            FAILED_RUNS+=(\"${output}:run${run}:status${status}\")\n        fi\n        if [[ \"${STRICT_FAILURES}\" == \"1\" ]]; then\n            exit ${status}\n        fi\n    fi\n    move_max_dram_log_if_present \"${max_dram_file}\"\n}\n# ---------------- Workloads (mirrors measurement_arms.sh) ----------------\nfor workload_id in \"${WORKLOAD_IDS[@]}\"; do\n    measurement_load_workload \"${workload_id}\" || exit 1\n    if ! measurement_workload_supports_system hybridtier; then"
+      ],
+      [
+        192,
+        210,
+        "        echo \"Skipping ${workload_id}: not supported by HybridTier\"\n        continue\n    fi\n    echo \"Running workload: ${WORKLOAD_ID}\"\n    run_program \"${WORKLOAD_COMMAND}\" \"${WORKLOAD_EXE_NAME}\" \"${WORKLOAD_OUTPUT}\" \"${RUN_ID}\"\ndone\nif [[ ${#FAILED_RUNS[@]} -gt 0 ]]; then\n    echo \"\"\n    echo \"Completed with failures (${#FAILED_RUNS[@]}):\" >&2\n    for item in \"${FAILED_RUNS[@]}\"; do\n        echo \"  - ${item}\" >&2\n    done\n    echo \"Set STRICT_FAILURES=1 to stop immediately on first failure.\" >&2\nelse\n    echo \"\"\n    echo \"All workloads completed successfully.\"\nfi"
+      ]
+    ]
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/local-index.1.db",
+    "database_mtime": "2026-03-17T15:44:14.538992+00:00",
+    "uri": "file:///users/zimooo2/tiering_solutions/measurement_arms.sh",
+    "contentVersionId": "2313-1773728089903",
+    "chunks": [
+      [
+        0,
+        27,
+        "#!/bin/bash\nSCRIPT_DIR=$(cd -- \"$(dirname -- \"${BASH_SOURCE[0]}\")\" && pwd)\n# shellcheck source=measurement_common.sh\nsource \"${SCRIPT_DIR}/measurement_common.sh\"\n# shellcheck source=measurement_workloads.sh\nsource \"${SCRIPT_DIR}/measurement_workloads.sh\"\nSIZE_MIB=${1:-}\nRUN_ID=${2:-}\nLIB_SUFFIX=${3:-}\nif [[ -z \"${SIZE_MIB}\" || -z \"${RUN_ID}\" ]]; then\n    echo \"Usage: $0 <sizeMiB> <runNumber> [libSuffix]\" >&2\n    exit 1\nfi\nBENCH_ROOT=${BENCH_ROOT:-/users/zimooo2}\nNUMA_MEM_NODES=${NUMA_MEM_NODES:-0,1}\nTASKSET_CPUS=${TASKSET_CPUS:-0-9,20-29}\nWORKLOAD_ARGS=(\"${@:4}\")\nmapfile -t WORKLOAD_IDS < <(measurement_expand_workloads \"${WORKLOAD_ARGS[@]}\")\nmkdir -p times logs times/arms\nfunction run_workload {\n    local run=$1\n    local time_basename=\"${SIZE_MIB}MiB_run${run}\""
+      ],
+      [
+        28,
+        46,
+        "local time_dir=\"${SCRIPT_DIR}/times/arms/${WORKLOAD_OUTPUT}\"\nlocal log_dir=\"${SCRIPT_DIR}/logs/${WORKLOAD_OUTPUT}\"\nlocal time_file=\"${time_dir}/${time_basename}.time\"\nlocal log_output_path=\"${log_dir}/${time_basename}_arms.log\"\nlocal max_dram_file=\"${time_dir}/max_dram_hugepages_${time_basename}.log\"\nlocal model_path=\"${SCRIPT_DIR}/libraries/C220G5/libhemem-arms${LIB_SUFFIX}.so\"\nmkdir -p \"${time_dir}\" \"${log_dir}\"\nif [[ ! -f \"${model_path}\" ]]; then\n    echo \"Skipping ${WORKLOAD_OUTPUT} run ${run}: missing ${model_path}\"\n    return\nfi\ncleanup_measurement_outputs \"${time_file}\" \"${log_output_path}\" \"${max_dram_file}\"\nrun_preloaded_measurement \"${WORKLOAD_COMMAND}\" \"${model_path}\" \"${log_output_path}\" \"${time_file}\" \\\n    \"${NUMA_MEM_NODES}\" \"${TASKSET_CPUS}\"\nlocal status=$?\nif [[ ${status} -eq 124 || ${status} -eq 137 ]]; then"
+      ],
+      [
+        47,
+        66,
+        "        echo \"WARNING: ${WORKLOAD_OUTPUT} run ${run} timed out after ${MEASUREMENT_TIMEOUT_SECONDS}s\"\n    elif [[ ${status} -ne 0 ]]; then\n        echo \"WARNING: ${WORKLOAD_OUTPUT} run ${run} failed with status ${status}\"\n    fi\n    move_max_dram_log_if_present \"${max_dram_file}\"\n}\nfor workload_id in \"${WORKLOAD_IDS[@]}\"; do\n    measurement_load_workload \"${workload_id}\" || exit 1\n    if ! measurement_workload_supports_system arms; then\n        echo \"Skipping ${workload_id}: not supported by ARMS\"\n        continue\n    fi\n    echo \"Running workload: ${WORKLOAD_ID}\"\n    run_workload \"${RUN_ID}\"\ndone\n#\nmkdir -p times/arms"
+      ]
+    ]
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/local-index.1.db",
+    "database_mtime": "2026-03-17T15:44:14.538992+00:00",
+    "uri": "file:///users/zimooo2/tiering_solutions/measurement_workloads.sh",
+    "contentVersionId": "2113-1773760273335",
+    "chunks": [
+      [
+        0,
+        35,
+        "#!/bin/bash\nMEASUREMENT_WORKLOADS_DIR=$(cd -- \"$(dirname -- \"${BASH_SOURCE[0]}\")\" && pwd)\nMEASUREMENT_WORKLOADS_PATH=\"${MEASUREMENT_WORKLOADS_DIR}/workloads\"\ndeclare -ar MEASUREMENT_DEFAULT_WORKLOAD_IDS=(\n    \"XSBench\"\n    \"DuckDB-TPCH-sf100\"\n    \"faiss_10M\"\n    \"lulesh2.0_s400\"\n    #\"DuckDB-TPCDS-sf100\"\n    \"mg.D.x\"\n    \"bc-twitter.sg\"\n    \"pr-twitter.sg\"\n    \"bc-kron.sg\"\n    \"pr-kron.sg\"\n)\nmeasurement_list_default_workloads() {\n    local workload_id\n    for workload_id in \"${MEASUREMENT_DEFAULT_WORKLOAD_IDS[@]}\"; do\n        printf '%s\\n' \"${workload_id}\"\n    done\n}\nmeasurement_expand_workloads() {\n    if [[ $# -eq 0 ]] || [[ $# -eq 1 && \"$1\" == \"all\" ]]; then\n        measurement_list_default_workloads\n        return\n    fi\n    local workload_id\n    for workload_id in \"$@\"; do\n        printf '%s\\n' \"${workload_id}\"\n    done\n}"
+      ],
+      [
+        37,
+        70,
+        "measurement_workload_file() {\n    local workload_id=$1\n    printf '%s/%s.sh\\n' \"${MEASUREMENT_WORKLOADS_PATH}\" \"${workload_id}\"\n}\nmeasurement_reset_workload_vars() {\n    unset WORKLOAD_ID\n    unset WORKLOAD_OUTPUT\n    unset WORKLOAD_COMMAND\n    unset WORKLOAD_EXE_NAME\n    unset WORKLOAD_MODEL_BASE\n    unset WORKLOAD_SYSTEMS\n}\nmeasurement_load_workload() {\n    local workload_id=$1\n    local workload_file\n    workload_file=$(measurement_workload_file \"${workload_id}\")\n    if [[ ! -f \"${workload_file}\" ]]; then\n        echo \"ERROR: unknown workload '${workload_id}' (expected ${workload_file})\" >&2\n        return 1\n    fi\n    measurement_reset_workload_vars\n    # shellcheck disable=SC1090\n    source \"${workload_file}\"\n    if [[ -z \"${WORKLOAD_ID:-}\" || -z \"${WORKLOAD_OUTPUT:-}\" || -z \"${WORKLOAD_COMMAND:-}\" ||\n          -z \"${WORKLOAD_EXE_NAME:-}\" || -z \"${WORKLOAD_MODEL_BASE:-}\" ]]; then\n        echo \"ERROR: workload '${workload_id}' is missing required metadata\" >&2\n        return 1\n    fi\n}"
+      ],
+      [
+        72,
+        82,
+        "measurement_workload_supports_system() {\n    local system_name=$1\n    case \" ${WORKLOAD_SYSTEMS:-arms hybridtier model logging} \" in\n        *\" ${system_name} \"*)\n            return 0\n            ;;\n        *)\n            return 1\n            ;;\n    esac\n}"
+      ]
+    ]
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/workspace-chunks.db",
+    "database_mtime": "2026-03-17T15:37:02.175220+00:00",
+    "uri": "file:///users/zimooo2/tiering_solutions/measurement_arms.sh",
+    "contentVersionId": "2313-1773728089980",
+    "chunks": [
+      [
+        0,
+        27,
+        "#!/bin/bash\n\nSCRIPT_DIR=$(cd -- \"$(dirname -- \"${BASH_SOURCE[0]}\")\" && pwd)\n# shellcheck source=measurement_common.sh\nsource \"${SCRIPT_DIR}/measurement_common.sh\"\n# shellcheck source=measurement_workloads.sh\nsource \"${SCRIPT_DIR}/measurement_workloads.sh\"\n\nSIZE_MIB=${1:-}\nRUN_ID=${2:-}\nLIB_SUFFIX=${3:-}\nif [[ -z \"${SIZE_MIB}\" || -z \"${RUN_ID}\" ]]; then\n    echo \"Usage: $0 <sizeMiB> <runNumber> [libSuffix]\" >&2\n    exit 1\nfi\n\nBENCH_ROOT=${BENCH_ROOT:-/users/zimooo2}\nNUMA_MEM_NODES=${NUMA_MEM_NODES:-0,1}\nTASKSET_CPUS=${TASKSET_CPUS:-0-9,20-29}\n\nWORKLOAD_ARGS=(\"${@:4}\")\nmapfile -t WORKLOAD_IDS < <(measurement_expand_workloads \"${WORKLOAD_ARGS[@]}\")\n\nmkdir -p times logs times/arms\n\nfunction run_workload {\n    local run=$1\n..."
+      ],
+      [
+        27,
+        46,
+        "...\n    local time_basename=\"${SIZE_MIB}MiB_run${run}\"\n    local time_dir=\"${SCRIPT_DIR}/times/arms/${WORKLOAD_OUTPUT}\"\n    local log_dir=\"${SCRIPT_DIR}/logs/${WORKLOAD_OUTPUT}\"\n    local time_file=\"${time_dir}/${time_basename}.time\"\n    local log_output_path=\"${log_dir}/${time_basename}_arms.log\"\n    local max_dram_file=\"${time_dir}/max_dram_hugepages_${time_basename}.log\"\n    local model_path=\"${SCRIPT_DIR}/libraries/C220G5/libhemem-arms${LIB_SUFFIX}.so\"\n\n    mkdir -p \"${time_dir}\" \"${log_dir}\"\n\n    if [[ ! -f \"${model_path}\" ]]; then\n        echo \"Skipping ${WORKLOAD_OUTPUT} run ${run}: missing ${model_path}\"\n        return\n    fi\n\n    cleanup_measurement_outputs \"${time_file}\" \"${log_output_path}\" \"${max_dram_file}\"\n    run_preloaded_measurement \"${WORKLOAD_COMMAND}\" \"${model_path}\" \"${log_output_path}\" \"${time_file}\" \\\n        \"${NUMA_MEM_NODES}\" \"${TASKSET_CPUS}\"\n    local status=$?\n..."
+      ],
+      [
+        46,
+        67,
+        "...\n    if [[ ${status} -eq 124 || ${status} -eq 137 ]]; then\n        echo \"WARNING: ${WORKLOAD_OUTPUT} run ${run} timed out after ${MEASUREMENT_TIMEOUT_SECONDS}s\"\n    elif [[ ${status} -ne 0 ]]; then\n        echo \"WARNING: ${WORKLOAD_OUTPUT} run ${run} failed with status ${status}\"\n    fi\n    move_max_dram_log_if_present \"${max_dram_file}\"\n}\n\nfor workload_id in \"${WORKLOAD_IDS[@]}\"; do\n    measurement_load_workload \"${workload_id}\" || exit 1\n    if ! measurement_workload_supports_system arms; then\n        echo \"Skipping ${workload_id}: not supported by ARMS\"\n        continue\n    fi\n\n    echo \"Running workload: ${WORKLOAD_ID}\"\n    run_workload \"${RUN_ID}\"\ndone\n\n#\nmkdir -p times/arms"
+      ]
+    ]
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/workspace-chunks.db",
+    "database_mtime": "2026-03-17T15:37:02.175220+00:00",
+    "uri": "file:///users/zimooo2/tiering_solutions/measurement_workloads.sh",
+    "contentVersionId": "2113-1773760273359",
+    "chunks": [
+      [
+        0,
+        30,
+        "#!/bin/bash\n\nMEASUREMENT_WORKLOADS_DIR=$(cd -- \"$(dirname -- \"${BASH_SOURCE[0]}\")\" && pwd)\nMEASUREMENT_WORKLOADS_PATH=\"${MEASUREMENT_WORKLOADS_DIR}/workloads\"\n\ndeclare -ar MEASUREMENT_DEFAULT_WORKLOAD_IDS=(\n    \"XSBench\"\n    \"DuckDB-TPCH-sf100\"\n    \"faiss_10M\"\n    \"lulesh2.0_s400\"\n    #\"DuckDB-TPCDS-sf100\"\n    \"mg.D.x\"\n    \"bc-twitter.sg\"\n    \"pr-twitter.sg\"\n    \"bc-kron.sg\"\n    \"pr-kron.sg\"\n)\n\nmeasurement_list_default_workloads() {\n    local workload_id\n    for workload_id in \"${MEASUREMENT_DEFAULT_WORKLOAD_IDS[@]}\"; do\n        printf '%s\\n' \"${workload_id}\"\n    done\n}\n\nmeasurement_expand_workloads() {\n    if [[ $# -eq 0 ]] || [[ $# -eq 1 && \"$1\" == \"all\" ]]; then\n        measurement_list_default_workloads\n        return\n    fi\n..."
+      ],
+      [
+        31,
+        64,
+        "...\n    local workload_id\n    for workload_id in \"$@\"; do\n        printf '%s\\n' \"${workload_id}\"\n    done\n}\n\nmeasurement_workload_file() {\n    local workload_id=$1\n    printf '%s/%s.sh\\n' \"${MEASUREMENT_WORKLOADS_PATH}\" \"${workload_id}\"\n}\n\nmeasurement_reset_workload_vars() {\n    unset WORKLOAD_ID\n    unset WORKLOAD_OUTPUT\n    unset WORKLOAD_COMMAND\n    unset WORKLOAD_EXE_NAME\n    unset WORKLOAD_MODEL_BASE\n    unset WORKLOAD_SYSTEMS\n}\n\nmeasurement_load_workload() {\n    local workload_id=$1\n    local workload_file\n\n    workload_file=$(measurement_workload_file \"${workload_id}\")\n    if [[ ! -f \"${workload_file}\" ]]; then\n        echo \"ERROR: unknown workload '${workload_id}' (expected ${workload_file})\" >&2\n        return 1\n    fi\n\n    measurement_reset_workload_vars\n    # shellcheck disable=SC1090\n    source \"${workload_file}\"\n..."
+      ],
+      [
+        65,
+        83,
+        "...\n    if [[ -z \"${WORKLOAD_ID:-}\" || -z \"${WORKLOAD_OUTPUT:-}\" || -z \"${WORKLOAD_COMMAND:-}\" ||\n          -z \"${WORKLOAD_EXE_NAME:-}\" || -z \"${WORKLOAD_MODEL_BASE:-}\" ]]; then\n        echo \"ERROR: workload '${workload_id}' is missing required metadata\" >&2\n        return 1\n    fi\n}\n\nmeasurement_workload_supports_system() {\n    local system_name=$1\n    case \" ${WORKLOAD_SYSTEMS:-arms hybridtier model logging} \" in\n        *\" ${system_name} \"*)\n            return 0\n            ;;\n        *)\n            return 1\n            ;;\n    esac\n}\n"
+      ]
+    ]
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/workspace-chunks.db",
+    "database_mtime": "2026-03-17T15:37:02.175220+00:00",
+    "uri": "file:///users/zimooo2/tiering_solutions/run_all_measurements.sh",
+    "contentVersionId": "2986-1773728089980",
+    "chunks": [
+      [
+        0,
+        27,
+        "#!/bin/bash\n\nSCRIPT_DIR=$(cd -- \"$(dirname -- \"${BASH_SOURCE[0]}\")\" && pwd)\n# shellcheck source=measurement_common.sh\nsource \"${SCRIPT_DIR}/measurement_common.sh\"\n# shellcheck source=measurement_workloads.sh\nsource \"${SCRIPT_DIR}/measurement_workloads.sh\"\n\nSTART_EPOCH=$(date +%s)\n\nformat_duration_hms() {\n    local total_seconds=$1\n    local hours=$((total_seconds / 3600))\n    local minutes=$(((total_seconds % 3600) / 60))\n    local seconds=$((total_seconds % 60))\n    printf '%02d:%02d:%02d' \"${hours}\" \"${minutes}\" \"${seconds}\"\n}\n\nsend_completion_email() {\n    local elapsed_seconds=$1\n    local elapsed_hms\n    elapsed_hms=$(format_duration_hms \"${elapsed_seconds}\")\n\n    local recipient=${MEASUREMENT_NOTIFY_EMAIL:-${EMAIL:-freischuetz@wisc.edu}}\n    if [[ -z \"${recipient}\" ]]; then\n        echo \"No email recipient configured. Set MEASUREMENT_NOTIFY_EMAIL (or EMAIL) to enable notifications.\"\n        return\n..."
+      ],
+      [
+        27,
+        50,
+        "...\n    fi\n\n    local subject=\"run_all_measurements completed in ${elapsed_hms}\"\n    local body\n    body=$(cat <<EOF\nrun_all_measurements.sh has finished.\n\nHost: $(hostname)\nStart: $(date -d \"@${START_EPOCH}\" '+%Y-%m-%d %H:%M:%S %Z')\nEnd:   $(date '+%Y-%m-%d %H:%M:%S %Z')\nElapsed: ${elapsed_hms} (${elapsed_seconds}s)\n\nTimeout per workload command: ${MEASUREMENT_TIMEOUT_SECONDS:-2700}s\nEOF\n)\n\n    if command -v mail >/dev/null 2>&1; then\n        printf '%s\\n' \"${body}\" | mail -s \"${subject}\" \"${recipient}\"\n        echo \"Completion email sent to ${recipient}\"\n    elif command -v mailx >/dev/null 2>&1; then\n        printf '%s\\n' \"${body}\" | mailx -s \"${subject}\" \"${recipient}\"\n        echo \"Completion email sent to ${recipient}\"\n    else\n..."
+      ],
+      [
+        50,
+        77,
+        "...\n        echo \"WARNING: neither 'mail' nor 'mailx' is available; could not send completion email to ${recipient}.\"\n    fi\n}\n\nSIZES=(6000)\nRUNS=3\n\nmapfile -t WORKLOAD_IDS < <(measurement_list_default_workloads)\n\nfor size in \"${SIZES[@]}\"; do\n    echo \"== Running measurements with size ${size}MiB ==\"\n\n    for run in $(seq 1 ${RUNS}); do\n        echo \"-- Run ${run}/${RUNS} for size ${size}MiB --\"\n\n        for workload_id in \"${WORKLOAD_IDS[@]}\"; do\n            echo \"---- Workload ${workload_id}: ARMS then HybridTier ----\"\n\n            run_measurement_setup \"${size}\"\n\n            \"${SCRIPT_DIR}/measurement_arms.sh\" \"${size}\" \"${run}\" \"\" \"${workload_id}\"\n\n            run_measurement_setup \"${size}\"\n\n            if [[ -x \"${SCRIPT_DIR}/measurement_hybridtier.sh\" ]]; then\n                sudo -E \"${SCRIPT_DIR}/measurement_hybridtier.sh\" \"${size}\" \"${run}\" huge \"${workload_id}\"\n            else\n..."
+      ],
+      [
+        77,
+        91,
+        "...\n                echo \"WARNING: ./measurement_hybridtier.sh not found or not executable; skipping HybridTier\"\n            fi\n\n            run_measurement_teardown\n        done\n    done\ndone\n\nEND_EPOCH=$(date +%s)\nELAPSED_SECONDS=$((END_EPOCH - START_EPOCH))\nELAPSED_HMS=$(format_duration_hms \"${ELAPSED_SECONDS}\")\n\necho \"All measurements finished in ${ELAPSED_HMS} (${ELAPSED_SECONDS}s)\"\nsend_completion_email \"${ELAPSED_SECONDS}\"\n"
+      ]
+    ]
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/workspace-chunks.db",
+    "database_mtime": "2026-03-17T15:37:02.175220+00:00",
+    "uri": "file:///users/zimooo2/tiering_solutions/measurement_hybridtier.sh",
+    "contentVersionId": "6492-1773728089979",
+    "chunks": [
+      [
+        0,
+        25,
+        "#!/bin/bash\nset -euo pipefail\n\nSCRIPT_DIR=$(cd -- \"$(dirname -- \"${BASH_SOURCE[0]}\")\" && pwd)\n# shellcheck source=measurement_common.sh\nsource \"${SCRIPT_DIR}/measurement_common.sh\"\n# shellcheck source=measurement_workloads.sh\nsource \"${SCRIPT_DIR}/measurement_workloads.sh\"\n\nSIZE_MIB=${1:-}\nRUN_ID=${2:-}\nPAGE_TYPE=${3:-huge} # regular | huge\n\nif [[ -z \"${SIZE_MIB}\" || -z \"${RUN_ID}\" ]]; then\n    echo \"Usage: $0 <fastTierMiB> <runNumber> [pageType]\" >&2\n    echo \"  pageType: regular (default) | huge\" >&2\n    exit 1\nfi\n\nif [[ \"${PAGE_TYPE}\" != \"regular\" && \"${PAGE_TYPE}\" != \"huge\" ]]; then\n    echo \"ERROR: invalid pageType '${PAGE_TYPE}' (expected regular|huge)\" >&2\n    exit 1\nfi\n\nif [[ ${EUID} -ne 0 ]]; then\n..."
+      ],
+      [
+        25,
+        46,
+        "...\n    echo \"This script must be run using sudo (use: sudo -E $0 ...)\" >&2\n    exit 1\nfi\n\nWORKSPACE_ROOT=$(cd -- \"${SCRIPT_DIR}/..\" && pwd)\nBENCH_ROOT=${BENCH_ROOT:-/users/zimooo2}\nNUMA_MEM_NODES=${NUMA_MEM_NODES:-0,1}\nTASKSET_CPUS=${TASKSET_CPUS:-0-9,20-29}\nNUMA_CPU_NODE=${NUMA_CPU_NODE:-0}\nSTRICT_FAILURES=${STRICT_FAILURES:-0}\n\nWORKLOAD_ARGS=(\"${@:4}\")\nmapfile -t WORKLOAD_IDS < <(measurement_expand_workloads \"${WORKLOAD_ARGS[@]}\")\n\ndeclare -a FAILED_RUNS=()\n\n# Convert MiB -> GiB (ceil), because HybridTier runtime takes FAST_MEMORY_SIZE_GB.\nFAST_TIER_SIZE_GB=$(( (SIZE_MIB + 1023) / 1024 ))\nif [[ ${FAST_TIER_SIZE_GB} -lt 1 ]]; then\n    FAST_TIER_SIZE_GB=1\nfi\n..."
+      ],
+      [
+        47,
+        70,
+        "...\necho \"Fast tier size: ${SIZE_MIB} MiB (compiling as ${FAST_TIER_SIZE_GB} GB)\"\n\ntime_root=\"${SCRIPT_DIR}/times\"\nlog_root=\"${SCRIPT_DIR}/logs\"\nmkdir -p \"${time_root}\" \"${log_root}\" \"${time_root}/hybridtier\"\n\nHYBRIDTIER_ROOT=${HYBRIDTIER_ROOT:-\"${WORKSPACE_ROOT}/hybridtier-asplos25-artifact\"}\nHOOK_DIR=\"${HYBRIDTIER_ROOT}/hook\"\nHOOK_SO=\"${HOOK_DIR}/hook.so\"\n\ncleanup_run_outputs() {\n    local time_file=$1\n    local log_file=$2\n    local max_dram_file=$3\n\n    cleanup_measurement_outputs \"${time_file}\" \"${log_file}\" \"${max_dram_file}\"\n}\n\nextract_leading_env_assignments() {\n    local rest=$1\n    local env_kv=\"\"\n\n    while [[ \"${rest}\" =~ ^([A-Za-z_][A-Za-z0-9_]*)=([^[:space:]]+)[[:space:]]+(.+)$ ]]; do\n..."
+      ],
+      [
+        70,
+        98,
+        "...\n        env_kv+=\" ${BASH_REMATCH[1]}=${BASH_REMATCH[2]}\"\n        rest=\"${BASH_REMATCH[3]}\"\n    done\n\n    printf '%s\\n%s\\n' \"${env_kv}\" \"${rest}\"\n}\n\nbuild_hook() {\n    local exe_name=$1\n\n    if [[ ! -d \"${HOOK_DIR}\" ]]; then\n        echo \"ERROR: HybridTier hook dir not found: ${HOOK_DIR}\" >&2\n        exit 1\n    fi\n\n    local dpage_define=\"HYBRIDTIER_REGULAR\"\n    if [[ \"${PAGE_TYPE}\" == \"huge\" ]]; then\n        dpage_define=\"HYBRIDTIER_HUGE\"\n    fi\n\n    pushd \"${HOOK_DIR}\" > /dev/null\n\n    # Build exactly like run_exp_common.sh\n    g++ -shared -fPIC -g hook.cpp -o hook.so -O3 \\\n        -ldl -lpthread -lnuma \\\n        -DFAST_MEMORY_SIZE_GB=${FAST_TIER_SIZE_GB} \\\n        -DTARGET_EXE_NAME=\\\"${exe_name}\\\" \\\n        -D${dpage_define}\n..."
+      ],
+      [
+        99,
+        128,
+        "...\n    popd > /dev/null\n\n    if [[ ! -f \"${HOOK_SO}\" ]]; then\n        echo \"ERROR: hook build failed; missing ${HOOK_SO}\" >&2\n        exit 1\n    fi\n}\n\nrun_program() {\n    local program_str=$1\n    local exe_name=$2\n    local output=$3\n    local run=$4\n\n    local time_basename=\"${SIZE_MIB}MiB_run${run}\"\n    local time_dir=\"${time_root}/hybridtier/${output}\"\n    local log_dir=\"${log_root}/${output}\"\n\n    mkdir -p \"${time_dir}\" \"${log_dir}\"\n\n    local time_file=\"${time_dir}/${time_basename}.time\"\n    local log_file=\"${log_dir}/${time_basename}_hybridtier.log\"\n    local max_dram_file=\"${time_dir}/max_dram_hugepages_${time_basename}.log\"\n\n    cleanup_run_outputs \"${time_file}\" \"${log_file}\" \"${max_dram_file}\"\n\n    build_hook \"${exe_name}\"\n\n    echo \"Running ${output} (exe=${exe_name}) run ${run}\"\n..."
+      ],
+      [
+        129,
+        151,
+        "...\n    # Keep compute placement/pinning similar to existing ARM measurements.\n    local pin=\"taskset -c ${TASKSET_CPUS}\"\n    local numa=\"/usr/bin/numactl --cpunodebind=${NUMA_CPU_NODE}\"\n\n    # Extract leading environment assignments (e.g., \"OMP_NUM_THREADS=16 \") so we can\n    # apply them without wrapping the workload in an extra shell process.\n    local env_parse_output\n    env_parse_output=$(extract_leading_env_assignments \"${program_str}\")\n    local env_kv\n    env_kv=$(printf '%s' \"${env_parse_output}\" | sed -n '1p')\n    local rest\n    rest=$(printf '%s' \"${env_parse_output}\" | sed -n '2p')\n\n    # Disable glob expansion so args like \".*benchmark\" are passed literally.\n\n    echo \"${pin} ${numa} env LD_PRELOAD=\\\"${HOOK_SO}\\\"${env_kv} ${rest}\"\n\n    local status=0\n    local timed_out=0\n    set +e\n    set -f\n    {\n..."
+      ],
+      [
+        151,
+        174,
+        "...\n        time timeout --foreground --signal=TERM \\\n            --kill-after=\"${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS}s\" \\\n            \"${MEASUREMENT_TIMEOUT_SECONDS}s\" \\\n            bash -lc \"set -f; ${pin} ${numa} env LD_PRELOAD=\\\"${HOOK_SO}\\\"${env_kv} ${rest}\" \\\n            &>> \"${log_file}\"\n    } 2> \"${time_file}\"\n    status=$?\n    set +f\n    set -e\n\n    if [[ ${status} -eq 124 || ${status} -eq 137 ]]; then\n        timed_out=1\n    fi\n\n    {\n        echo \"exit_status=${status}\"\n        echo \"timed_out=${timed_out}\"\n        echo \"timeout_seconds=${MEASUREMENT_TIMEOUT_SECONDS}\"\n    } >> \"${time_file}\"\n\n    if [[ ${status} -ne 0 ]]; then\n        if [[ ${timed_out} -eq 1 ]]; then\n            echo \"WARNING: ${output} run ${run} timed out after ${MEASUREMENT_TIMEOUT_SECONDS}s. See ${log_file}\" >&2\n..."
+      ],
+      [
+        174,
+        199,
+        "...\n            FAILED_RUNS+=(\"${output}:run${run}:timeout${MEASUREMENT_TIMEOUT_SECONDS}s\")\n        else\n            echo \"WARNING: ${output} run ${run} failed with status ${status}. See ${log_file}\" >&2\n            FAILED_RUNS+=(\"${output}:run${run}:status${status}\")\n        fi\n        if [[ \"${STRICT_FAILURES}\" == \"1\" ]]; then\n            exit ${status}\n        fi\n    fi\n\n    move_max_dram_log_if_present \"${max_dram_file}\"\n}\n\n# ---------------- Workloads (mirrors measurement_arms.sh) ----------------\n\nfor workload_id in \"${WORKLOAD_IDS[@]}\"; do\n    measurement_load_workload \"${workload_id}\" || exit 1\n    if ! measurement_workload_supports_system hybridtier; then\n        echo \"Skipping ${workload_id}: not supported by HybridTier\"\n        continue\n    fi\n\n    echo \"Running workload: ${WORKLOAD_ID}\"\n    run_program \"${WORKLOAD_COMMAND}\" \"${WORKLOAD_EXE_NAME}\" \"${WORKLOAD_OUTPUT}\" \"${RUN_ID}\"\ndone\n..."
+      ],
+      [
+        200,
+        211,
+        "...\nif [[ ${#FAILED_RUNS[@]} -gt 0 ]]; then\n    echo \"\"\n    echo \"Completed with failures (${#FAILED_RUNS[@]}):\" >&2\n    for item in \"${FAILED_RUNS[@]}\"; do\n        echo \"  - ${item}\" >&2\n    done\n    echo \"Set STRICT_FAILURES=1 to stop immediately on first failure.\" >&2\nelse\n    echo \"\"\n    echo \"All workloads completed successfully.\"\nfi\n"
+      ]
+    ]
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747/GitHub.copilot-chat/workspace-chunks.db",
+    "database_mtime": "2026-03-17T15:37:02.175220+00:00",
+    "uri": "file:///users/zimooo2/tiering_solutions/measurement_common.sh",
+    "contentVersionId": "2363-1773728089903",
+    "chunks": [
+      [
+        0,
+        32,
+        "#!/bin/bash\n\nMEASUREMENT_COMMON_DIR=$(cd -- \"$(dirname -- \"${BASH_SOURCE[0]}\")\" && pwd)\n\nMEASUREMENT_LOG_PARTS=${MEASUREMENT_LOG_PARTS:-10}\nMEASUREMENT_TIMEOUT_SECONDS=${MEASUREMENT_TIMEOUT_SECONDS:-2700}\nMEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS=${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS:-30}\n\ncleanup_split_log_files() {\n    local log_output_path=$1\n    local log_stem=${log_output_path%.log}\n    local part\n\n    rm -f \"${log_output_path}\"\n    for ((part = 0; part < MEASUREMENT_LOG_PARTS; part++)); do\n        rm -f \"${log_stem}_${part}.log\"\n    done\n}\n\ncleanup_measurement_outputs() {\n    local time_file=$1\n    local log_output_path=$2\n    local max_dram_file=$3\n\n    rm -f \"${time_file}\"\n    cleanup_split_log_files \"${log_output_path}\"\n    rm -f \"${max_dram_file}\"\n}\n\nrun_preloaded_measurement() {\n    local program=$1\n    local library_path=$2\n..."
+      ],
+      [
+        32,
+        60,
+        "...\n    local log_output_path=$3\n    local time_file=$4\n    local numa_mem_nodes=$5\n    local taskset_cpus=$6\n\n    local status=0\n    local timed_out=0\n    local had_errexit=0\n\n    if [[ $- == *e* ]]; then\n        had_errexit=1\n    fi\n\n    set +e\n    {\n        time timeout --foreground --signal=TERM \\\n            --kill-after=\"${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS}s\" \\\n            \"${MEASUREMENT_TIMEOUT_SECONDS}s\" \\\n            numactl --membind=\"${numa_mem_nodes}\" -- taskset -c \"${taskset_cpus}\" \\\n            sudo \\\n            LOG_OUTPUT_PATH=\"${log_output_path}\" \\\n            LD_PRELOAD=\"${library_path}\" \\\n            bash -lc \"${program}\" 2>&1\n    } 2> \"${time_file}\"\n    status=$?\n    if [[ ${had_errexit} -eq 1 ]]; then\n        set -e\n    fi\n..."
+      ],
+      [
+        61,
+        93,
+        "...\n    if [[ ${status} -eq 124 || ${status} -eq 137 ]]; then\n        timed_out=1\n    fi\n\n    {\n        echo \"exit_status=${status}\"\n        echo \"timed_out=${timed_out}\"\n        echo \"timeout_seconds=${MEASUREMENT_TIMEOUT_SECONDS}\"\n    } >> \"${time_file}\"\n\n    return ${status}\n}\n\nmove_max_dram_log_if_present() {\n    local destination=$1\n\n    if [[ -f max_dram_hugepages.log ]]; then\n        mv max_dram_hugepages.log \"${destination}\"\n    fi\n}\n\nrun_measurement_setup() {\n    local size_mib=$1\n\n    sudo bash \"${MEASUREMENT_COMMON_DIR}/unsetup.sh\" || true\n    sudo bash \"${MEASUREMENT_COMMON_DIR}/setup.sh\" \"${size_mib}\"\n    bash \"${MEASUREMENT_COMMON_DIR}/defrag.sh\"\n}\n\nrun_measurement_teardown() {\n    sudo bash \"${MEASUREMENT_COMMON_DIR}/unsetup.sh\" || true\n}"
+      ]
+    ]
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/local-index.1.db",
+    "database_mtime": "2026-03-10T20:15:11.380664+00:00",
+    "uri": "file:///users/zimooo2/tiering_solutions/setup.sh",
+    "contentVersionId": "2943-1773154548813",
+    "chunks": [
+      [
+        1,
+        35,
+        "SIZE_MIB=${1:-}\nif [[ -z \"${SIZE_MIB}\" ]]; then\n\techo \"Usage: $0 <sizeMiB>\" >&2\n\texit 1\nfi\nIRQ_AFFINITY=${IRQ_AFFINITY:-10-19,30-39}\nPROCESS_CPUSET=${PROCESS_CPUSET:-10-19,30-39}\nwrite_sysfs_value() {\n\tlocal path=$1\n\tlocal value=$2\n\tprintf '%s' \"${value}\" | sudo tee \"${path}\" >/dev/null\n}\nwrite_sysctl_value() {\n\tlocal key=$1\n\tlocal value=$2\n\tsudo sysctl -w \"${key}=${value}\"\n}\nset_irq_affinity() {\n\tfor f in /proc/irq/*/smp_affinity_list; do\n\t  echo \"${IRQ_AFFINITY}\" | sudo tee \"$f\" >/dev/null 2>&1 || true\n\tdone\n}\nmigrate_all_processes_to_slow_tier() {\n\tfor pid in $(ps -e -o pid=); do\n\t\tsudo migratepages \"$pid\" 0 1\n\t\tsudo taskset -pc \"${PROCESS_CPUSET}\" \"$pid\"\n\tdone\n}\nwrite_sysctl_value vm.overcommit_memory 1"
+      ],
+      [
+        36,
+        52,
+        "write_sysctl_value vm.watermark_scale_factor 1\nwrite_sysctl_value vm.watermark_boost_factor 0\n# Shrink kernel reserves so nearly all RAM is usable by memeater and later apps.\nwrite_sysctl_value vm.min_free_kbytes 16384\nwrite_sysctl_value vm.user_reserve_kbytes 16384\nwrite_sysctl_value vm.admin_reserve_kbytes 16384\n#sudo sysctl -w vm.lowmem_reserve_ratio=\"1 1 1\"\n#sudo sysctl -w vm.zone_reclaim_mode=0\n#sudo sysctl -w vm.dirty_background_ratio=1\n#sudo sysctl -w vm.dirty_ratio=20\nwrite_sysctl_value kernel.numa_balancing 0\nwrite_sysfs_value /proc/sys/vm/zone_reclaim_mode 0\nwrite_sysfs_value /proc/sys/kernel/numa_balancing 0\nwrite_sysfs_value /sys/kernel/mm/numa/demotion_enabled 0\nwrite_sysfs_value /proc/sys/vm/watermark_scale_factor 10\nwrite_sysfs_value /sys/kernel/mm/lru_gen/enabled 0x0000\necho \"Turning huge page ON\""
+      ],
+      [
+        53,
+        75,
+        "write_sysfs_value /sys/kernel/mm/transparent_hugepage/enabled always\nwrite_sysfs_value /sys/kernel/mm/transparent_hugepage/defrag always\nwrite_sysfs_value /sys/kernel/mm/transparent_hugepage/khugepaged/defrag 1\nwrite_sysfs_value /proc/sys/vm/compaction_proactiveness 20\nsudo wrmsr --processor 39 0x620 0x707\nsudo swapoff -a\n#sudo systemctl set-property --runtime system.slice AllowedCPUs=10-19,30-39 AllowedMemoryNodes=1\n#sudo systemctl set-property --runtime user.slice   AllowedCPUs=10-19,30-39 AllowedMemoryNodes=1\n# future IRQs default\n#echo \"10-19,30-39\" | sudo tee /proc/irq/default_smp_affinity_list\n# existing IRQs\nset_irq_affinity\n# Migrate memory of all running user processes to NUMA node 1\nmigrate_all_processes_to_slow_tier\n# Free page cache and reclaimable slab so allocations match the requested headroom.\nwrite_sysctl_value vm.vfs_cache_pressure 2000 >/dev/null\nbash defrag.sh"
+      ],
+      [
+        77,
+        90,
+        "pushd ~/colloid/tpp/memeater\nexport local_size=\"${SIZE_MIB}\"\necho \"Setting up memeater module with size ${local_size}MiB\"\n# Use NUMA node0 MemFree because memeater allocates only on node0.\nnode0_free_mib=$(numastat -m | awk '/MemFree/ {printf \"%d\", $2}')\nalloc_mib=$((node0_free_mib - local_size))\nif (( alloc_mib <= 0 )); then\n\techo \"Requested headroom ${local_size}MiB exceeds node0 free ${node0_free_mib}MiB\" >&2\n\texit 1\nfi\n#sudo insmod memeater.ko sizeMiB=${alloc_mib}\npopd\nbash defrag.sh"
+      ]
+    ]
+  },
+  {
+    "database": "/users/zimooo2/.vscode-server/data/User/workspaceStorage/408a693c16dba7123cb586367bad5747-1/GitHub.copilot-chat/local-index.1.db",
+    "database_mtime": "2026-03-10T20:15:11.380664+00:00",
+    "uri": "file:///users/zimooo2/tiering_solutions/measurement_workloads.sh",
+    "contentVersionId": "2112-1773170960206",
+    "chunks": [
+      [
+        0,
+        35,
+        "#!/bin/bash\nMEASUREMENT_WORKLOADS_DIR=$(cd -- \"$(dirname -- \"${BASH_SOURCE[0]}\")\" && pwd)\nMEASUREMENT_WORKLOADS_PATH=\"${MEASUREMENT_WORKLOADS_DIR}/workloads\"\ndeclare -ar MEASUREMENT_DEFAULT_WORKLOAD_IDS=(\n    \"XSBench\"\n    \"faiss_10M\"\n    \"lulesh2.0_s400\"\n    \"DuckDB-TPCH-sf100\"\n    \"DuckDB-TPCDS-sf100\"\n    \"mg.D.x\"\n    \"bc-twitter.sg\"\n    \"pr-twitter.sg\"\n    \"bc-kron.sg\"\n    \"pr-kron.sg\"\n)\nmeasurement_list_default_workloads() {\n    local workload_id\n    for workload_id in \"${MEASUREMENT_DEFAULT_WORKLOAD_IDS[@]}\"; do\n        printf '%s\\n' \"${workload_id}\"\n    done\n}\nmeasurement_expand_workloads() {\n    if [[ $# -eq 0 ]] || [[ $# -eq 1 && \"$1\" == \"all\" ]]; then\n        measurement_list_default_workloads\n        return\n    fi\n    local workload_id\n    for workload_id in \"$@\"; do\n        printf '%s\\n' \"${workload_id}\"\n    done\n}"
+      ],
+      [
+        37,
+        70,
+        "measurement_workload_file() {\n    local workload_id=$1\n    printf '%s/%s.sh\\n' \"${MEASUREMENT_WORKLOADS_PATH}\" \"${workload_id}\"\n}\nmeasurement_reset_workload_vars() {\n    unset WORKLOAD_ID\n    unset WORKLOAD_OUTPUT\n    unset WORKLOAD_COMMAND\n    unset WORKLOAD_EXE_NAME\n    unset WORKLOAD_MODEL_BASE\n    unset WORKLOAD_SYSTEMS\n}\nmeasurement_load_workload() {\n    local workload_id=$1\n    local workload_file\n    workload_file=$(measurement_workload_file \"${workload_id}\")\n    if [[ ! -f \"${workload_file}\" ]]; then\n        echo \"ERROR: unknown workload '${workload_id}' (expected ${workload_file})\" >&2\n        return 1\n    fi\n    measurement_reset_workload_vars\n    # shellcheck disable=SC1090\n    source \"${workload_file}\"\n    if [[ -z \"${WORKLOAD_ID:-}\" || -z \"${WORKLOAD_OUTPUT:-}\" || -z \"${WORKLOAD_COMMAND:-}\" ||\n          -z \"${WORKLOAD_EXE_NAME:-}\" || -z \"${WORKLOAD_MODEL_BASE:-}\" ]]; then\n        echo \"ERROR: workload '${workload_id}' is missing required metadata\" >&2\n        return 1\n    fi\n}"
+      ],
+      [
+        72,
+        82,
+        "measurement_workload_supports_system() {\n    local system_name=$1\n    case \" ${WORKLOAD_SYSTEMS:-arms hybridtier model logging} \" in\n        *\" ${system_name} \"*)\n            return 0\n            ;;\n        *)\n            return 1\n            ;;\n    esac\n}"
+      ]
+    ]
+  }
+]

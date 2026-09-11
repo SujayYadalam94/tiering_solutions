@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-3fe4908d/iflc.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-3fe4908d/4MRC.cpp
+@@ -62,8 +62,6 @@
+ 
+     int8_t i = 0;
+ 
+-
+-    
+     const double group_m1 = round_to_6(row.groups[-1 + 7]);
+     const double group_m2 = round_to_6(row.groups[-2 + 7]);
+     const double group_m3 = round_to_6(row.groups[-3 + 7]);

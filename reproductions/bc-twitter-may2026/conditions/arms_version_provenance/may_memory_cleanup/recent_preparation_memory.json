@@ -1,0 +1,119 @@
+{
+  "source": "Saved post-preparation snapshots; no new preparation or live setting change",
+  "rows": [
+    {
+      "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T175404Z-425061/results/20260909T175404Z-425061/01-may07_arms/before.json",
+      "session": "20260909T175404Z-425061",
+      "case": "may07_arms",
+      "knob": "none",
+      "node0_kib": {
+        "MemTotal": 4737988,
+        "MemFree": 2574736,
+        "AnonPages": 32,
+        "FilePages": 4604,
+        "PageTables": 17216,
+        "Slab": 208648,
+        "SReclaimable": 20480,
+        "SUnreclaim": 188168,
+        "KernelStack": 7848,
+        "Unevictable": 3072,
+        "Mlocked": 0
+      }
+    },
+    {
+      "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T175404Z-425061/results/20260909T175404Z-425061/01-may07_model/before.json",
+      "session": "20260909T175404Z-425061",
+      "case": "may07_model",
+      "knob": "none",
+      "node0_kib": {
+        "MemTotal": 4737988,
+        "MemFree": 2576480,
+        "AnonPages": 0,
+        "FilePages": 4604,
+        "PageTables": 17216,
+        "Slab": 208104,
+        "SReclaimable": 20124,
+        "SUnreclaim": 187980,
+        "KernelStack": 7720,
+        "Unevictable": 3072,
+        "Mlocked": 0
+      }
+    },
+    {
+      "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T180532Z-439108/results/20260909T180533Z-439108/01-may07_arms/before.json",
+      "session": "20260909T180532Z-439108",
+      "case": "may07_arms",
+      "knob": "lowmem4",
+      "node0_kib": {
+        "MemTotal": 4737988,
+        "MemFree": 2595996,
+        "AnonPages": 0,
+        "FilePages": 4604,
+        "PageTables": 17336,
+        "Slab": 206948,
+        "SReclaimable": 19736,
+        "SUnreclaim": 187212,
+        "KernelStack": 7656,
+        "Unevictable": 3072,
+        "Mlocked": 0
+      }
+    },
+    {
+      "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T180532Z-439108/results/20260909T180533Z-439108/01-may07_model/before.json",
+      "session": "20260909T180532Z-439108",
+      "case": "may07_model",
+      "knob": "lowmem4",
+      "node0_kib": {
+        "MemTotal": 4737988,
+        "MemFree": 2656408,
+        "AnonPages": 220,
+        "FilePages": 4604,
+        "PageTables": 17232,
+        "Slab": 206820,
+        "SReclaimable": 19696,
+        "SUnreclaim": 187124,
+        "KernelStack": 7576,
+        "Unevictable": 3072,
+        "Mlocked": 0
+      }
+    },
+    {
+      "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T182911Z-468305/results/20260909T182911Z-468305/01-may07_arms/before.json",
+      "session": "20260909T182911Z-468305",
+      "case": "may07_arms",
+      "knob": "none",
+      "node0_kib": {
+        "MemTotal": 4737988,
+        "MemFree": 2580832,
+        "AnonPages": 168,
+        "FilePages": 4600,
+        "PageTables": 17312,
+        "Slab": 206936,
+        "SReclaimable": 19500,
+        "SUnreclaim": 187436,
+        "KernelStack": 7624,
+        "Unevictable": 3072,
+        "Mlocked": 0
+      }
+    },
+    {
+      "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T182911Z-468305/results/20260909T182911Z-468305/01-may07_model/before.json",
+      "session": "20260909T182911Z-468305",
+      "case": "may07_model",
+      "knob": "none",
+      "node0_kib": {
+        "MemTotal": 4737988,
+        "MemFree": 2608008,
+        "AnonPages": 4,
+        "FilePages": 4600,
+        "PageTables": 17264,
+        "Slab": 206748,
+        "SReclaimable": 19412,
+        "SUnreclaim": 187336,
+        "KernelStack": 7480,
+        "Unevictable": 3072,
+        "Mlocked": 0
+      }
+    }
+  ]
+}

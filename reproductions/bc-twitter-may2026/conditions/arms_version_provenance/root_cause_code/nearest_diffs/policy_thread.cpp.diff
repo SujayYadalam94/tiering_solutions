@@ -1,0 +1,30 @@
+--- 4da3d6c3f/policy_thread.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-759cddff/ieag.cpp
+@@ -11,7 +11,6 @@
+ void *arms_policy_thread(void *arg)
+ {
+     (void)arg;
+-    register_tiering_runtime_tid();
+     // Set thread affinity
+     cpu_set_t cpuset;
+     CPU_ZERO(&cpuset);
+@@ -77,19 +76,9 @@
+             sampling_mode = DEFAULT_SAMPLING;
+         }
+ 
+-        const uint64_t filtered_preload_ip = take_preload_library_filtered_samples();
+-        const uint64_t filtered_helper_ip = take_helper_library_filtered_samples();
+-        const uint64_t filtered_runtime_tid = take_tiering_runtime_tid_filtered_samples();
+-        const uint64_t filtered_other_pid = take_other_pid_filtered_samples();
+-
+         // Print total samples
+         if (ARMS_VERBOSE)
+         {
+-            std::cout << "[ARMS] Total samples - READ: " << total_samples[READ] << ", WRITE: " << total_samples[WRITE]
+-                      << ", filtered_preload_ip: " << filtered_preload_ip
+-                      << ", filtered_helper_ip: " << filtered_helper_ip
+-                      << ", filtered_runtime_tid: " << filtered_runtime_tid
+-                      << ", filtered_other_pid: " << filtered_other_pid << std::endl;
+             double write_l3_hit_rate = 0.0;
+             uint64_t demand_rfo_any = 0;
+             uint64_t demand_rfo_l3_miss = 0;

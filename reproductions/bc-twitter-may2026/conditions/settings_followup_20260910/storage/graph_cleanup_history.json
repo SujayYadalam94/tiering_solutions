@@ -1,0 +1,75 @@
+{
+  "path": "/users/zimooo2/.bash_history",
+  "captured_mtime_utc": "2026-09-10T16:16:19.410471+00:00",
+  "note": "No per-command timestamps. Line numbers can shift as active history is rewritten. This file preserves the selected matches at audit time.",
+  "matches": [
+    {
+      "line": 459,
+      "text": "mv benchmark/ benchmark_old"
+    },
+    {
+      "line": 462,
+      "text": "./converter -g 30 > graph_kron_s30.sg && ls -lh graph_kron_s30.sg"
+    },
+    {
+      "line": 483,
+      "text": "./converter -g 30 > graph_kron_s30.sg"
+    },
+    {
+      "line": 486,
+      "text": "./converter -g 30 > benchmark/graph_kron_s30.sg"
+    },
+    {
+      "line": 1287,
+      "text": "cd benchmark_old/"
+    },
+    {
+      "line": 1319,
+      "text": "OMP_NUM_THREADS=\"$(nproc)\" ./converter -g 29 -k 18 -m -b benchmark/kron-80GB.sg"
+    },
+    {
+      "line": 1320,
+      "text": "OMP_NUM_THREADS=\"$(nproc)\" ./converter -g 29 -k 18 -m -b benchmark/kron-80GB.sg ; cd ~/tiering_solutions/ ; bash run_all_measurements_train_dram_only.sh"
+    },
+    {
+      "line": 1350,
+      "text": "rm -rf /tmp"
+    },
+    {
+      "line": 1360,
+      "text": "rm -rf logs.zip "
+    },
+    {
+      "line": 1372,
+      "text": "rm -rf LULESH/"
+    },
+    {
+      "line": 1374,
+      "text": "rm -rf wiredtiger/"
+    },
+    {
+      "line": 1377,
+      "text": "rm -rf rocksdb/"
+    },
+    {
+      "line": 1386,
+      "text": "rm -rf mlc"
+    },
+    {
+      "line": 1390,
+      "text": "rm -rf YCSB-cpp/"
+    },
+    {
+      "line": 1401,
+      "text": "cd benchmark_old/"
+    },
+    {
+      "line": 1412,
+      "text": "cd benchmark_old/"
+    },
+    {
+      "line": 1419,
+      "text": "rm -rf benchmark_old/"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+
+real	2m21.186s
+user	19m9.253s
+sys	0m53.230s
+exit_status=0
+timed_out=0
+elapsed_seconds=141
+timeout_seconds=12000
+kill_after_seconds=30
+memtis_settings_profile=memtis-vm-defaults-artifact-htmm-wrmsr-concurrent-fresh-cgroup-no-worker-pin-v7
+memtis_cgroup_fresh=1
+memtis_cgroup_path=/sys/fs/cgroup/htmm
+memtis_kernel_release=5.15.19-htmm-node0-fix7-baseline
+memtis_fast_tier_mib=6072
+memtis_effective_fast_tier_mib=3969
+memtis_fast_node_free_at_start_mib=4225
+memtis_startup_headroom_mib=256
+memtis_min_fast_tier_mib=128
+memtis_fast_node=0
+memtis_cxl_mode=enabled
+memtis_uncore_method=wrmsr
+memtis_uncore_cpus=10-19,30-39
+memtis_uncore_freq_khz=700000
+memtis_memory_policy=inherited
+memtis_slow_node=1
+memtis_worker_affinity_override=none
+memtis_cpu_node=0
+memtis_taskset_cpus=0-9,20-29

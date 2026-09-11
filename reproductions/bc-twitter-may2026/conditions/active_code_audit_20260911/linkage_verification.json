@@ -1,0 +1,27 @@
+{
+  "linked_disassembly_matches_existing_objects": true,
+  "may04": {
+    "has_forest_symbol": false,
+    "global_initializers": [
+      "00000000000152c0 000000000000013f t _GLOBAL__sub_I_arms_kernel.cpp",
+      "0000000000015400 0000000000000149 t _GLOBAL__sub_I_migration_worker.cpp",
+      "0000000000014de6 000000000000005d t _GLOBAL__sub_I_migration_worker.cpp.cold"
+    ]
+  },
+  "may14": {
+    "has_forest_symbol": false,
+    "global_initializers": [
+      "00000000000152c0 000000000000013f t _GLOBAL__sub_I_arms_kernel.cpp",
+      "0000000000015400 0000000000000149 t _GLOBAL__sub_I_migration_worker.cpp",
+      "0000000000014de6 000000000000005d t _GLOBAL__sub_I_migration_worker.cpp.cold"
+    ]
+  },
+  "current": {
+    "has_forest_symbol": false,
+    "global_initializers": [
+      "00000000000152b0 000000000000013f t _GLOBAL__sub_I_arms_kernel.cpp",
+      "00000000000153f0 0000000000000149 t _GLOBAL__sub_I_migration_worker.cpp",
+      "0000000000014de6 000000000000005d t _GLOBAL__sub_I_migration_worker.cpp.cold"
+    ]
+  }
+}

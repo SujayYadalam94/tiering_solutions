@@ -1,0 +1,23 @@
+[
+  {
+    "scores": 1000,
+    "capacity": 249,
+    "returncode": 1,
+    "stdout": "",
+    "diagnostic": "==9==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x52a0000001f8 at pc 0x000000402662 bp 0x7ffce9f54ee0 sp 0x7ffce9f54ed0"
+  },
+  {
+    "scores": 1000,
+    "capacity": 250,
+    "returncode": 0,
+    "stdout": "updates=1 value=0.000000\n",
+    "diagnostic": null
+  },
+  {
+    "scores": 1000,
+    "capacity": 1000,
+    "returncode": 0,
+    "stdout": "updates=0 value=0.000000\n",
+    "diagnostic": null
+  }
+]

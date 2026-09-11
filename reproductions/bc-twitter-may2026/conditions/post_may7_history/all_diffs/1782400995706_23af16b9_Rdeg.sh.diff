@@ -1,0 +1,66 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/23af16b9/FvSh.sh
++++ /users/zimooo2/.vscode-server/data/User/History/23af16b9/Rdeg.sh
+@@ -1,26 +1,44 @@
+ #!/usr/bin/env bash
+ set -euo pipefail
+ 
+-# Ensure destination directories exist.
+-mkdir -p c220g5_final/arms_6.18_long/{bc-kron.sg,bc-twitter.sg,DuckDB-TPCH-sf100,faiss_10M,mg.D.x,pr-kron.sg,pr-twitter.sg,XSBench}
+-mkdir -p c220g5_final/model_6.18_long/{bc-kron.sg,bc-twitter.sg,DuckDB-TPCH-sf100,faiss_10M,mg.D.x,pr-kron.sg,pr-twitter.sg,XSBench}
++SRC_ROOT="${1:-c220g5}"
++DEST_ROOT="${2:-c220g5_final}"
++VERSION_TAG="${3:-6.18}"
++RUN_GLOB="${4:-10041MiB_run*}"
++DATASET_SUFFIX="${5:-long}"
+ 
+-cp c220g5/arms/bc-kron.sg-long/10041MiB_run* c220g5_final/arms_6.18_long/bc-kron.sg
+-cp c220g5/arms/bc-twitter.sg-long/10041MiB_run* c220g5_final/arms_6.18_long/bc-twitter.sg
+-cp c220g5/arms/DuckDB-TPCH-sf100-long/10041MiB_run* c220g5_final/arms_6.18_long/DuckDB-TPCH-sf100
+-cp c220g5/arms/faiss_10M-long/10041MiB_run* c220g5_final/arms_6.18_long/faiss_10M
+-cp c220g5/arms/mg.D.x-long/10041MiB_run* c220g5_final/arms_6.18_long/mg.D.x
+-cp c220g5/arms/pr-kron.sg-long/10041MiB_run* c220g5_final/arms_6.18_long/pr-kron.sg
+-cp c220g5/arms/pr-twitter.sg-long/10041MiB_run* c220g5_final/arms_6.18_long/pr-twitter.sg
+-cp c220g5/arms/XSBench-long/10041MiB_run* c220g5_final/arms_6.18_long/XSBench
++TIERS=(arms model)
++WORKLOADS=(
++	bc-kron.sg
++	bc-twitter.sg
++	DuckDB-TPCH-sf100
++	faiss_10M
++	mg.D.x
++	pr-kron.sg
++	pr-twitter.sg
++	XSBench
++)
+ 
+-cp c220g5/model/bc-kron.sg-long/10041MiB_run* c220g5_final/model_6.18_long/bc-kron.sg
+-cp c220g5/model/bc-twitter.sg-long/10041MiB_run* c220g5_final/model_6.18_long/bc-twitter.sg
+-cp c220g5/model/DuckDB-TPCH-sf100-long/10041MiB_run* c220g5_final/model_6.18_long/DuckDB-TPCH-sf100
+-cp c220g5/model/faiss_10M-long/10041MiB_run* c220g5_final/model_6.18_long/faiss_10M
+-cp c220g5/model/mg.D.x-long/10041MiB_run* c220g5_final/model_6.18_long/mg.D.x
+-cp c220g5/model/pr-kron.sg-long/10041MiB_run* c220g5_final/model_6.18_long/pr-kron.sg
+-cp c220g5/model/pr-twitter.sg-long/10041MiB_run* c220g5_final/model_6.18_long/pr-twitter.sg
+-cp c220g5/model/XSBench-long/10041MiB_run* c220g5_final/model_6.18_long/XSBench
++shopt -s nullglob
++
++for tier in "${TIERS[@]}"; do
++	dest_tier="${tier}_${VERSION_TAG}_${DATASET_SUFFIX}"
++
++	for workload in "${WORKLOADS[@]}"; do
++		src_dir="${SRC_ROOT}/${tier}/${workload}-${DATASET_SUFFIX}"
++		dst_dir="${DEST_ROOT}/${dest_tier}/${workload}"
++
++		mkdir -p "${dst_dir}"
++
++		matches=("${src_dir}"/${RUN_GLOB})
++		if (( ${#matches[@]} == 0 )); then
++			echo "Skipping (no match): ${src_dir}/${RUN_GLOB}"
++			continue
++		fi
++
++		cp "${matches[@]}" "${dst_dir}/"
++		echo "Copied ${#matches[@]} file(s): ${src_dir}/${RUN_GLOB} -> ${dst_dir}/"
++	done
++done
+ 
+ echo "Copy complete."

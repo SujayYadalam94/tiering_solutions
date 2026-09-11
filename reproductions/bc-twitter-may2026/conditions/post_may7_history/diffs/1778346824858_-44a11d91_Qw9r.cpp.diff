@@ -1,0 +1,29 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-44a11d91/8A1w.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-44a11d91/Qw9r.cpp
+@@ -1723,12 +1723,8 @@
+         double cost = 1 * get_promotion_cost_multiplier() * promotion_cost_avg;
+ #if USE_MODEL == (true)
+         auto max_hugepages = max_dram_hugepages(scores);
+-        if (scores.size() >= max_hugepages)
+-        {
+-            cost += 1 * scores[max_hugepages - 1].page->score * HF_SAMPLE_PERIOD * latency_diff;
+-        }
+         // float benefit = SWITCH_SCALER * hot_page->score * HF_SAMPLE_PERIOD * latency_diff;
+-        double benefit = (hot_page->score) * HF_SAMPLE_PERIOD * latency_diff;
++        double benefit = (hot_page->score - 40) * HF_SAMPLE_PERIOD * latency_diff;
+         // std::cout << "cost: " << cost << " PROMOTION_COST_MULTIPLIER: " << get_promotion_cost_multiplier()
+         //           << " MODEL_DISCOUNT_PERCENT: " << MODEL_DISCOUNT_PERCENT
+         //           << " promotion_cost_avg: " << promotion_cost_avg << " hot_page->score: " << hot_page->score;
+@@ -1770,11 +1766,7 @@
+ 
+ #if USE_MODEL == (true)
+                     auto max_hugepages = max_dram_hugepages(scores);
+-                    if (scores.size() >= max_hugepages)
+-                    {
+-                        cost += 1 * scores[max_hugepages - 1].page->score * HF_SAMPLE_PERIOD * latency_diff;
+-                    }
+-                    benefit -= (cold_page->score + 80) * HF_SAMPLE_PERIOD * latency_diff;
++                    benefit -= (cold_page->score + 40) * HF_SAMPLE_PERIOD * latency_diff;
+ #else
+                     benefit -= cold_page->score * hot_page->hot_age * HF_SAMPLE_PERIOD * latency_diff;
+ #endif

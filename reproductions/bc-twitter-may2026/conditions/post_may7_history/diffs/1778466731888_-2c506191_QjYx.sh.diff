@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-2c506191/oFAI.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-2c506191/QjYx.sh
+@@ -77,7 +77,7 @@
+             "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+ 
+ 
+-             Model
++            # Model
+             if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
+                 "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+             else

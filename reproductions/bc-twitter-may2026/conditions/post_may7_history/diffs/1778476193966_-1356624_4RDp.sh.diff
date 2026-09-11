@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-1356624/fkoM.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-1356624/4RDp.sh
+@@ -74,7 +74,7 @@
+ 
+             # ARMS
+             run_measurement_setup "${size}"
+-            "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" " "${workload_id}"
++            "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+ 
+ 
+             # Model

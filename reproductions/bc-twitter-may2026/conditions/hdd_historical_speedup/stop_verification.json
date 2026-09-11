@@ -1,0 +1,15 @@
+{
+  "utc": "2026-09-09T20:32:30.376938+00:00",
+  "user_cancelled": true,
+  "completed_runs": [
+    "01-may07_cost_0p5",
+    "01-may07_cost_1p5"
+  ],
+  "excluded_interrupted_case": "02-may07_cost_1p5",
+  "fourth_case_not_run": "02-may07_cost_0p5",
+  "restoration_errors": [],
+  "independent_readback_mismatches": [],
+  "active_benchmarks": [],
+  "runner_pid_still_present": false,
+  "pass": true
+}

@@ -1,0 +1,105 @@
+{
+  "created_utc": "2026-09-09T19:41:15.046088+00:00",
+  "purpose": "Frozen candidate PR-Kron forest for historically supported May7 predecessor replay; no build or execution performed",
+  "workload": "pr-kron.sg",
+  "discount": 99,
+  "replay_configuration": [
+    2,
+    10,
+    1.5
+  ],
+  "candidate_source": "reproductions/bc-twitter-may2026/source/may04",
+  "feature_names": [
+    "ewma_2",
+    "ewma_5",
+    "ewma_20",
+    "ewma_100",
+    "global_avg_accesses_model",
+    "group_neg_mean",
+    "group_pos_mean",
+    "group_0_mean",
+    "age",
+    "r_ratio_20",
+    "r_ratio_100",
+    "group_ewma5_var"
+  ],
+  "objective": "regression sqrt",
+  "tree_count": 225,
+  "files": {
+    ".o": {
+      "frozen_path": "reproductions/bc-twitter-may2026/conditions/speed_matching/historical_models/may03_pr_kron/model_discounted_reward_99_pr-kron.sg_l2.o",
+      "source_path": "/users/zimooo2/tiering_solutions/models/models/model_discounted_reward_99_pr-kron.sg_l2.o",
+      "source_mtime_utc": "2026-05-03T03:43:42.290006+00:00",
+      "source_mtime_ns": 1777779822290005901,
+      "frozen_mtime_ns": 1777779822290005901,
+      "bytes": 308952,
+      "sha256": "46deab29bd8eae7515e9633b91b630470666530bfa742d6d9d7a109ad63706ea",
+      "training_repository_match": {
+        "path": "process_data/models/model_discounted_reward_99_pr-kron.sg_l2.o",
+        "sha256": "46deab29bd8eae7515e9633b91b630470666530bfa742d6d9d7a109ad63706ea",
+        "matches_selected": true
+      }
+    },
+    ".txt": {
+      "frozen_path": "reproductions/bc-twitter-may2026/conditions/speed_matching/historical_models/may03_pr_kron/model_discounted_reward_99_pr-kron.sg_l2.txt",
+      "source_path": "/users/zimooo2/tiering_solutions/models/models/model_discounted_reward_99_pr-kron.sg_l2.txt",
+      "source_mtime_utc": "2026-05-03T03:43:37.155936+00:00",
+      "source_mtime_ns": 1777779817155936176,
+      "frozen_mtime_ns": 1777779817155936176,
+      "bytes": 405759,
+      "sha256": "9b50c0a228b9a474148908fecc73b20692a65110f10ce2959ffdcec3c7d5ea33",
+      "training_repository_match": {
+        "path": "process_data/models/model_discounted_reward_99_pr-kron.sg_l2.txt",
+        "sha256": "9b50c0a228b9a474148908fecc73b20692a65110f10ce2959ffdcec3c7d5ea33",
+        "matches_selected": true
+      }
+    },
+    "_report.txt": {
+      "frozen_path": "reproductions/bc-twitter-may2026/conditions/speed_matching/historical_models/may03_pr_kron/model_discounted_reward_99_pr-kron.sg_l2_report.txt",
+      "source_path": "/users/zimooo2/tiering_solutions/models/models/model_discounted_reward_99_pr-kron.sg_l2_report.txt",
+      "source_mtime_utc": "2026-05-03T03:43:37.150936+00:00",
+      "source_mtime_ns": 1777779817150936108,
+      "frozen_mtime_ns": 1777779817150936108,
+      "bytes": 216,
+      "sha256": "e9d59da459bad8b4f80a8ac0b297b79f3af7bf569598ab7a29b225f3d9d74931",
+      "training_repository_match": {
+        "path": "process_data/models/model_discounted_reward_99_pr-kron.sg_l2_report.txt",
+        "sha256": "e9d59da459bad8b4f80a8ac0b297b79f3af7bf569598ab7a29b225f3d9d74931",
+        "matches_selected": true
+      }
+    }
+  },
+  "training_repository": {
+    "path": "/users/zimooo2/tiering_models",
+    "revision": "25cd9eddd277c84363e4340fec527625bb5e86b9",
+    "commit_utc": "2026-05-30T19:27:26+00:00",
+    "files": {
+      ".o": {
+        "path": "process_data/models/model_discounted_reward_99_pr-kron.sg_l2.o",
+        "sha256": "46deab29bd8eae7515e9633b91b630470666530bfa742d6d9d7a109ad63706ea",
+        "matches_selected": true
+      },
+      ".txt": {
+        "path": "process_data/models/model_discounted_reward_99_pr-kron.sg_l2.txt",
+        "sha256": "9b50c0a228b9a474148908fecc73b20692a65110f10ce2959ffdcec3c7d5ea33",
+        "matches_selected": true
+      },
+      "_report.txt": {
+        "path": "process_data/models/model_discounted_reward_99_pr-kron.sg_l2_report.txt",
+        "sha256": "e9d59da459bad8b4f80a8ac0b297b79f3af7bf569598ab7a29b225f3d9d74931",
+        "matches_selected": true
+      }
+    }
+  },
+  "known_bc_may03_object": {
+    "path": "models/models/model_discounted_reward_99_bc-twitter.sg_l2.o",
+    "sha256": "763ad7a415847b832a89389d6a20bca1a4f8d01871b0d69186aee7f943591585"
+  },
+  "provenance_report": "reproductions/bc-twitter-may2026/conditions/arms_version_provenance/may_memory_cleanup/replay_model_provenance.md",
+  "limitations": [
+    "No recorded May7 loaded library or per-run forest hash survives.",
+    "Model mtimes and same-generation copied artifacts support a candidate, not proof of historical runtime loading.",
+    "Training Git match is at May30; it does not independently date the May7 object selection.",
+    "No object compilation, linking, or model execution was done."
+  ]
+}

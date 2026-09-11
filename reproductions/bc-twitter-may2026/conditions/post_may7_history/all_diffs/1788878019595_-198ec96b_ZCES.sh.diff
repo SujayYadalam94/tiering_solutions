@@ -1,0 +1,23 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-198ec96b/kDSW.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-198ec96b/ZCES.sh
+@@ -8,15 +8,15 @@
+     #"bc-graph-80GB.sg"
+ 
+     "bc-twitter.sg"
+-    #"pr-twitter.sg"
++    "pr-twitter.sg"
+     "bc-kron.sg"
+-    #"pr-kron.sg"
++    "pr-kron.sg"
+     "DuckDB-TPCH-sf100-original"
+ 
+-    #"XSBench"
++    "XSBench"
+     ##
+-    #"faiss_10M-original"
+-    #"mg.D.x-original"
++    "faiss_10M-original"
++    "mg.D.x-original"
+     #"bc-twitter.sg-long"
+     #"pr-twitter.sg-long"
+ 

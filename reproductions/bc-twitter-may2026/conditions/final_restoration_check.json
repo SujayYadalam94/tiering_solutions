@@ -1,0 +1,32 @@
+{
+  "kernel": "6.18.1-061801-generic",
+  "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+  "pmem_driver": "/sys/bus/nd/drivers/nd_pmem",
+  "pmem_device_present": true,
+  "active_benchmarks": [],
+  "effective_perf_rate": "1000000",
+  "effective_perf_percent": "0",
+  "memmap_pages": "368704",
+  "session_restorations": [
+    {
+      "session": "20260909T130001Z-142220",
+      "errors": []
+    },
+    {
+      "session": "20260909T130805Z-154045",
+      "errors": []
+    },
+    {
+      "session": "20260909T132959Z-178251",
+      "errors": []
+    },
+    {
+      "session": "20260909T133945Z-186003",
+      "errors": []
+    },
+    {
+      "session": "20260909T141557Z-194881",
+      "errors": []
+    }
+  ]
+}

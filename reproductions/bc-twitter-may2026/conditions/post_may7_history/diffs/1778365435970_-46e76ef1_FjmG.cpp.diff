@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-46e76ef1/3gZO.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-46e76ef1/FjmG.cpp
+@@ -420,8 +420,6 @@
+ 
+ void page_info::update_can_promote(size_t num_dram_pages, size_t rank)
+ {
+-    (void)num_dram_pages;
+-    (void)rank;
+ #if USE_MODEL == (false)
+     if (rank < num_dram_pages)
+     {

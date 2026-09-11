@@ -1,0 +1,222 @@
+[
+  {
+    "case": "may07_arms",
+    "knob": "none",
+    "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T170421Z-382094/results/20260909T170421Z-382094/01-may07_arms/before.json",
+    "values": [
+      [
+        "/settings//proc/sys/kernel/numa_balancing",
+        "0"
+      ]
+    ]
+  },
+  {
+    "case": "may07_arms",
+    "knob": "none",
+    "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T170421Z-382094/results/20260909T170421Z-382094/01-may07_arms/after.json",
+    "values": [
+      [
+        "/settings//proc/sys/kernel/numa_balancing",
+        "0"
+      ]
+    ]
+  },
+  {
+    "case": "may07_model",
+    "knob": "none",
+    "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T170421Z-382094/results/20260909T170421Z-382094/01-may07_model/before.json",
+    "values": [
+      [
+        "/settings//proc/sys/kernel/numa_balancing",
+        "0"
+      ]
+    ]
+  },
+  {
+    "case": "may07_model",
+    "knob": "none",
+    "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T170421Z-382094/results/20260909T170421Z-382094/01-may07_model/after.json",
+    "values": [
+      [
+        "/settings//proc/sys/kernel/numa_balancing",
+        "0"
+      ]
+    ]
+  },
+  {
+    "case": "may07_arms",
+    "knob": "khugepaged_defrag0",
+    "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T171055Z-389918/results/20260909T171055Z-389918/01-may07_arms/before.json",
+    "values": [
+      [
+        "/settings//proc/sys/kernel/numa_balancing",
+        "0"
+      ]
+    ]
+  },
+  {
+    "case": "may07_arms",
+    "knob": "khugepaged_defrag0",
+    "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T171055Z-389918/results/20260909T171055Z-389918/01-may07_arms/after.json",
+    "values": [
+      [
+        "/settings//proc/sys/kernel/numa_balancing",
+        "0"
+      ]
+    ]
+  },
+  {
+    "case": "may07_model",
+    "knob": "khugepaged_defrag0",
+    "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T171055Z-389918/results/20260909T171055Z-389918/01-may07_model/before.json",
+    "values": [
+      [
+        "/settings//proc/sys/kernel/numa_balancing",
+        "0"
+      ]
+    ]
+  },
+  {
+    "case": "may07_model",
+    "knob": "khugepaged_defrag0",
+    "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T171055Z-389918/results/20260909T171055Z-389918/01-may07_model/after.json",
+    "values": [
+      [
+        "/settings//proc/sys/kernel/numa_balancing",
+        "0"
+      ]
+    ]
+  },
+  {
+    "case": "may07_arms",
+    "knob": "khugepaged_alloc1000",
+    "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T171729Z-396978/results/20260909T171730Z-396978/01-may07_arms/before.json",
+    "values": [
+      [
+        "/settings//proc/sys/kernel/numa_balancing",
+        "0"
+      ]
+    ]
+  },
+  {
+    "case": "may07_arms",
+    "knob": "khugepaged_alloc1000",
+    "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T171729Z-396978/results/20260909T171730Z-396978/01-may07_arms/after.json",
+    "values": [
+      [
+        "/settings//proc/sys/kernel/numa_balancing",
+        "0"
+      ]
+    ]
+  },
+  {
+    "case": "may07_model",
+    "knob": "khugepaged_alloc1000",
+    "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T171729Z-396978/results/20260909T171730Z-396978/01-may07_model/before.json",
+    "values": [
+      [
+        "/settings//proc/sys/kernel/numa_balancing",
+        "0"
+      ]
+    ]
+  },
+  {
+    "case": "may07_model",
+    "knob": "khugepaged_alloc1000",
+    "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T171729Z-396978/results/20260909T171730Z-396978/01-may07_model/after.json",
+    "values": [
+      [
+        "/settings//proc/sys/kernel/numa_balancing",
+        "0"
+      ]
+    ]
+  },
+  {
+    "case": "may07_arms",
+    "knob": "khugepaged_scan1000",
+    "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T172342Z-403992/results/20260909T172343Z-403992/01-may07_arms/before.json",
+    "values": [
+      [
+        "/settings//proc/sys/kernel/numa_balancing",
+        "0"
+      ]
+    ]
+  },
+  {
+    "case": "may07_arms",
+    "knob": "khugepaged_scan1000",
+    "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T172342Z-403992/results/20260909T172343Z-403992/01-may07_arms/after.json",
+    "values": [
+      [
+        "/settings//proc/sys/kernel/numa_balancing",
+        "0"
+      ]
+    ]
+  },
+  {
+    "case": "may07_model",
+    "knob": "khugepaged_scan1000",
+    "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T172342Z-403992/results/20260909T172343Z-403992/01-may07_model/before.json",
+    "values": [
+      [
+        "/settings//proc/sys/kernel/numa_balancing",
+        "0"
+      ]
+    ]
+  },
+  {
+    "case": "may07_model",
+    "knob": "khugepaged_scan1000",
+    "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T172342Z-403992/results/20260909T172343Z-403992/01-may07_model/after.json",
+    "values": [
+      [
+        "/settings//proc/sys/kernel/numa_balancing",
+        "0"
+      ]
+    ]
+  },
+  {
+    "case": "may07_arms",
+    "knob": "khugepaged_scan1000",
+    "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T172954Z-411197/results/20260909T172954Z-411197/01-may07_arms/before.json",
+    "values": [
+      [
+        "/settings//proc/sys/kernel/numa_balancing",
+        "0"
+      ]
+    ]
+  },
+  {
+    "case": "may07_arms",
+    "knob": "khugepaged_scan1000",
+    "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T172954Z-411197/results/20260909T172954Z-411197/01-may07_arms/after.json",
+    "values": [
+      [
+        "/settings//proc/sys/kernel/numa_balancing",
+        "0"
+      ]
+    ]
+  },
+  {
+    "case": "may07_arms",
+    "knob": "none",
+    "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T173344Z-414920/results/20260909T173344Z-414920/01-may07_arms/before.json",
+    "values": [
+      [
+        "/settings//proc/sys/kernel/numa_balancing",
+        "0"
+      ]
+    ]
+  },
+  {
+    "case": "may07_arms",
+    "knob": "none",
+    "snapshot": "/users/zimooo2/tiering_solutions/reproductions/bc-twitter-may2026/conditions/sessions/20260909T173344Z-414920/results/20260909T173344Z-414920/01-may07_arms/after.json",
+    "values": [
+      [
+        "/settings//proc/sys/kernel/numa_balancing",
+        "0"
+      ]
+    ]
+  }
+]

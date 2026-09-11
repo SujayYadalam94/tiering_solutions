@@ -1,0 +1,11 @@
+--- 8d6a8bc66:measurement_model.sh
++++ 3b775728/47GZ.sh
+@@ -32,7 +32,7 @@
+ hist_lengths=(10)
+ #switch_scalers=(1.0 2.0 4.0 8.0 16.0 32.0 64.0 128.0 256.0)
+ #switch_scalers=(256.0 128.0 64.0 32.0 16.0 8.0 4.0 2.0 1.0 )
+-switch_scalers=(0.25 0.5 1.0 1.5 2.0)
++switch_scalers=(0.125 0.25 0.5 1.0 1.5)
+ 
+ #pcts=(95)
+ #history_summary_modes=(2)

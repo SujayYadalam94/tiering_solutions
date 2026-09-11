@@ -1,0 +1,134 @@
+[
+  {
+    "path": "times/c220g5/model/pr-twitter.sg-long/4032MiB_run1_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+    "group": "model",
+    "workload": "pr-twitter.sg-long",
+    "size": 4032,
+    "run": 1,
+    "variant": "_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1",
+    "seconds": 2820.302,
+    "status": 0,
+    "mtime": "2026-05-13T03:59:10.792686+00:00",
+    "mtime_ns": 1778644750792686299,
+    "sha256": "bf4b8d4727be0506c840720bb7db9046ec801d74ee314c62cd5f07cb7b5dcfcd",
+    "boot_inferred_from_mtime": {
+      "epoch": 1778634499,
+      "utc": "2026-05-13T01:08:19+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "source": "/var/log/wtmp.1"
+    },
+    "copy_warning": false,
+    "start_inferred_utc": "2026-05-13T03:12:10.490686+00:00",
+    "seconds_since_previous_end": null
+  },
+  {
+    "path": "times/c220g5/arms/pr-twitter.sg-long/4032MiB_run1.time",
+    "group": "arms",
+    "workload": "pr-twitter.sg-long",
+    "size": 4032,
+    "run": 1,
+    "variant": "",
+    "seconds": 2711.7,
+    "status": 0,
+    "mtime": "2026-05-13T04:45:07.510806+00:00",
+    "mtime_ns": 1778647507510805542,
+    "sha256": "8ace0e6fd1a41ad4d5f32b863304f0ea06c8f3af33154dbb0b8aad53ae6046d9",
+    "boot_inferred_from_mtime": {
+      "epoch": 1778634499,
+      "utc": "2026-05-13T01:08:19+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "source": "/var/log/wtmp.1"
+    },
+    "copy_warning": false,
+    "start_inferred_utc": "2026-05-13T03:59:55.810806+00:00",
+    "seconds_since_previous_end": 45.01811933517456
+  },
+  {
+    "path": "times/c220g5/model/pr-twitter.sg-long/4032MiB_run2_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+    "group": "model",
+    "workload": "pr-twitter.sg-long",
+    "size": 4032,
+    "run": 2,
+    "variant": "_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1",
+    "seconds": 2909.202,
+    "status": 0,
+    "mtime": "2026-05-13T05:34:24.224739+00:00",
+    "mtime_ns": 1778650464224739264,
+    "sha256": "006350dea557c37a0b9fb9ef09539627074cec649ea16363a0742b60c13c8658",
+    "boot_inferred_from_mtime": {
+      "epoch": 1778634499,
+      "utc": "2026-05-13T01:08:19+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "source": "/var/log/wtmp.1"
+    },
+    "copy_warning": false,
+    "start_inferred_utc": "2026-05-13T04:45:55.022739+00:00",
+    "seconds_since_previous_end": 47.51193380355835
+  },
+  {
+    "path": "times/c220g5/arms/pr-twitter.sg-long/4032MiB_run2.time",
+    "group": "arms",
+    "workload": "pr-twitter.sg-long",
+    "size": 4032,
+    "run": 2,
+    "variant": "",
+    "seconds": 2719.283,
+    "status": 0,
+    "mtime": "2026-05-13T06:20:29.707890+00:00",
+    "mtime_ns": 1778653229707889675,
+    "sha256": "b91d303843e956557edabee4d8cde11c5932d6b742e662da96572dfe057ac6a6",
+    "boot_inferred_from_mtime": {
+      "epoch": 1778634499,
+      "utc": "2026-05-13T01:08:19+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "source": "/var/log/wtmp.1"
+    },
+    "copy_warning": false,
+    "start_inferred_utc": "2026-05-13T05:35:10.424890+00:00",
+    "seconds_since_previous_end": 46.20015025138855
+  },
+  {
+    "path": "times/c220g5/model/pr-twitter.sg-long/4032MiB_run3_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1.time",
+    "group": "model",
+    "workload": "pr-twitter.sg-long",
+    "size": 4032,
+    "run": 3,
+    "variant": "_model_discounted_reward_99_pr-twitter.sg_l2-1_10_0.1",
+    "seconds": 2964.246,
+    "status": 0,
+    "mtime": "2026-05-13T07:10:40.531224+00:00",
+    "mtime_ns": 1778656240531223824,
+    "sha256": "5396930ad7b08e2976c7ef1d0dc9d7030fc09ddcd960e737401b4c010be07bc6",
+    "boot_inferred_from_mtime": {
+      "epoch": 1778634499,
+      "utc": "2026-05-13T01:08:19+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "source": "/var/log/wtmp.1"
+    },
+    "copy_warning": false,
+    "start_inferred_utc": "2026-05-13T06:21:16.285224+00:00",
+    "seconds_since_previous_end": 46.57733416557312
+  },
+  {
+    "path": "times/c220g5/arms/pr-twitter.sg-long/4032MiB_run3.time",
+    "group": "arms",
+    "workload": "pr-twitter.sg-long",
+    "size": 4032,
+    "run": 3,
+    "variant": "",
+    "seconds": 2709.897,
+    "status": 0,
+    "mtime": "2026-05-13T07:56:36.450224+00:00",
+    "mtime_ns": 1778658996450223891,
+    "sha256": "2257d7e0f8a97e3fec6682678100715ff3714c58a01d9b6288d06f9ebc5a6724",
+    "boot_inferred_from_mtime": {
+      "epoch": 1778634499,
+      "utc": "2026-05-13T01:08:19+00:00",
+      "kernel": "6.18.1-061801-generic",
+      "source": "/var/log/wtmp.1"
+    },
+    "copy_warning": false,
+    "start_inferred_utc": "2026-05-13T07:11:26.553224+00:00",
+    "seconds_since_previous_end": 46.0220000743866
+  }
+]

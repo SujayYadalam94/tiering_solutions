@@ -1,0 +1,11 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-73c3a42b/s8Xx
++++ /users/zimooo2/.vscode-server/data/User/History/-73c3a42b/jTuc
+@@ -89,7 +89,7 @@
+ 
+ LOGGING_MODEL_NAME := $(call model_name_from_obj,$(LOGGING_MODEL_OBJ))
+ LOGGING_MODEL_DISCOUNT_PERCENT := $(call model_discount_percent,$(LOGGING_MODEL_NAME))
+-LOGGING_MAX_LOGGED_SAMPLES ?= 100000000
++LOGGING_MAX_LOGGED_SAMPLES ?= 20000000
+ 
+ define LINK_SHARED_RECIPE
+ 	$(CXX) $(CXXFLAGS) $(INCLUDES) -shared -fPIC -g $^ -o $@ -O3 \

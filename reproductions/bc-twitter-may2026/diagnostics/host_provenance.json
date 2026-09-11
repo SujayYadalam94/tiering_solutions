@@ -1,0 +1,37 @@
+{
+  "utc": "2026-09-09T12:40:23.755758+00:00",
+  "kernel": "6.18.1-061801-generic",
+  "boot_id": "09bab7b7-ee02-4496-b131-e20399b88193",
+  "files": {
+    "/users/zimooo2/gapbs/bc": {
+      "size": 121808,
+      "device": 2051,
+      "inode": 3760326,
+      "mtime_utc": "2026-03-05T19:40:17.215888+00:00"
+    },
+    "/users/zimooo2/gapbs/benchmark/graphs/twitter.sg": {
+      "size": 12732173745,
+      "device": 2064,
+      "inode": 40370188,
+      "mtime_utc": "2026-08-21T15:17:06.891084+00:00"
+    },
+    "/users/zimooo2/tiering_solutions/data/graphs/twitter.sg": {
+      "size": 12732173745,
+      "device": 2051,
+      "inode": 4082114,
+      "mtime_utc": "2026-09-08T17:23:59.911233+00:00"
+    }
+  },
+  "uncore_msr_0x620": {
+    "0": {
+      "returncode": 0,
+      "stdout": "c14",
+      "stderr": ""
+    },
+    "10": {
+      "returncode": 0,
+      "stdout": "707",
+      "stderr": ""
+    }
+  }
+}

@@ -1,0 +1,13 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-2c506191/YagE.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-2c506191/1kBe.sh
+@@ -56,8 +56,8 @@
+     fi
+ }
+ 
+-SIZES=(0)
+-RUNS=1
++SIZES=(6060)
++RUNS=3
+ 
+ ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}
+ 

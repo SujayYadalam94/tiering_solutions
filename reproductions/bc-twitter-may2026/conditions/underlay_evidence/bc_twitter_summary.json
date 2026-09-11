@@ -1,0 +1,222 @@
+{
+  "boot_assignment": {
+    "method": "original log/time mtimes against wtmp ledger; no embedded bootID",
+    "kernel_label": "6.18.1-061801-ge",
+    "start_utc": "2026-05-11T14:52:00+00:00",
+    "next_boot_utc": "2026-05-11T20:48:27+00:00"
+  },
+  "same_graph_summary_as_current": {
+    "nodes": 61578415,
+    "directed_edges": 1468364884,
+    "limit": "Matching counts do not prove identical edges/order/content."
+  },
+  "print_meaning": {
+    "fast_memory_bytes": "Configured compile-time FAST_MEMORY_SIZE_GB *2^30, not actualMemFree/MemTotal. measurement_hybridtier.sh uses ceil(SIZE_MIB/1024), so4029becomes4GiB.",
+    "node0_memfree_kib": "get_node0_free_mem reads MemFree from/sys/devices/system/node/node0/meminfo; only after sampling/migration duringworkload, no prelaunchvalue.",
+    "errno": "Printed errno on any nonzero numa_move_pages return. Positive returns can leave staleerrno; do not treat everyprinted12asconfirmedENOMEM."
+  },
+  "runs": [
+    {
+      "log": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/bc-twitter.sg/4029MiB_run1_hybridtier.log",
+      "original_mtime_utc": "2026-05-11T15:42:16.734582+00:00",
+      "read_seconds": 40.4914,
+      "average_iteration_seconds": 9.71851,
+      "printed_fast_memory_bytes": 4294967296,
+      "node0_memfree_kib": {
+        "count": 299,
+        "first": 901864,
+        "min": 65540,
+        "max": 901864,
+        "last": 69312
+      },
+      "printed_move_errno_counts": {
+        "2": 1,
+        "12": 278
+      },
+      "move_syscall_return_counts": {
+        "115": 1,
+        "-1": 260,
+        "324": 1,
+        "145": 1,
+        "112": 1,
+        "135": 1,
+        "173": 1,
+        "136": 1,
+        "152": 1,
+        "178": 1,
+        "81": 1,
+        "170": 1,
+        "249": 1,
+        "424": 1,
+        "370": 1,
+        "320": 1,
+        "458": 1,
+        "586": 1,
+        "854": 1,
+        "537": 1
+      },
+      "preceding_model_timing": [
+        {
+          "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4029MiB_run1_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+          "group": "times/c220g5/model_6.18_new",
+          "workload": "bc-twitter.sg",
+          "size_mib": "4029",
+          "run": "1",
+          "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+          "seconds": "115.306",
+          "exit_status": "0",
+          "mtime_utc": "2026-05-11T15:38:57.827823+00:00",
+          "mtime": "1778513937.8278234",
+          "sha256": "ad9a3f98de9e139e03c5ed35b29e70c78f2f60079090e533e7ec95e3ffd3cd66"
+        }
+      ],
+      "matching_hybrid_timing": [
+        {
+          "path": "times/c220g5/hybridtier/bc-twitter.sg/4029MiB_run1.time",
+          "group": "times/c220g5/hybridtier",
+          "workload": "bc-twitter.sg",
+          "size_mib": "4029",
+          "run": "1",
+          "variant": "",
+          "seconds": "137.86",
+          "exit_status": "0",
+          "mtime_utc": "2026-05-11T15:42:16.738582+00:00",
+          "mtime": "1778514136.7385824",
+          "sha256": "07151ecc25eca018b7ba6a2c27e5759d93e6e5aaa0b2361dd73d3e7bb3d9076c"
+        }
+      ]
+    },
+    {
+      "log": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/bc-twitter.sg/4029MiB_run2_hybridtier.log",
+      "original_mtime_utc": "2026-05-11T16:58:32.388034+00:00",
+      "read_seconds": 41.03926,
+      "average_iteration_seconds": 9.55034,
+      "printed_fast_memory_bytes": 4294967296,
+      "node0_memfree_kib": {
+        "count": 249,
+        "first": 1020268,
+        "min": 59456,
+        "max": 1020268,
+        "last": 69484
+      },
+      "printed_move_errno_counts": {
+        "2": 1,
+        "12": 229
+      },
+      "move_syscall_return_counts": {
+        "97": 1,
+        "-1": 218,
+        "42": 1,
+        "89": 1,
+        "199": 1,
+        "650": 1,
+        "482": 1,
+        "105": 1,
+        "58": 1,
+        "804": 1,
+        "912": 1,
+        "1160": 1,
+        "545": 1
+      },
+      "preceding_model_timing": [
+        {
+          "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4029MiB_run2_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+          "group": "times/c220g5/model_6.18_new",
+          "workload": "bc-twitter.sg",
+          "size_mib": "4029",
+          "run": "2",
+          "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+          "seconds": "114.632",
+          "exit_status": "0",
+          "mtime_utc": "2026-05-11T16:55:12.940386+00:00",
+          "mtime": "1778518512.9403858",
+          "sha256": "075ef7d0869b338dd7e8a8632b0421ec11c870627c76fcaaa2ddc188cad89293"
+        }
+      ],
+      "matching_hybrid_timing": [
+        {
+          "path": "times/c220g5/hybridtier/bc-twitter.sg/4029MiB_run2.time",
+          "group": "times/c220g5/hybridtier",
+          "workload": "bc-twitter.sg",
+          "size_mib": "4029",
+          "run": "2",
+          "variant": "",
+          "seconds": "136.726",
+          "exit_status": "0",
+          "mtime_utc": "2026-05-11T16:58:32.391034+00:00",
+          "mtime": "1778518712.391034",
+          "sha256": "24103e3649b56c8fde4fb4a40e7c4b399e3f16f6c02d0750ebc757a6c6abd2ca"
+        }
+      ]
+    },
+    {
+      "log": "reproductions/bc-twitter-may2026/conditions/underlay_evidence/logs/bc-twitter.sg/4029MiB_run3_hybridtier.log",
+      "original_mtime_utc": "2026-05-11T18:15:13.511090+00:00",
+      "read_seconds": 43.35246,
+      "average_iteration_seconds": 10.04372,
+      "printed_fast_memory_bytes": 4294967296,
+      "node0_memfree_kib": {
+        "count": 299,
+        "first": 1301604,
+        "min": 58148,
+        "max": 1301604,
+        "last": 71948
+      },
+      "printed_move_errno_counts": {
+        "2": 1,
+        "12": 280
+      },
+      "move_syscall_return_counts": {
+        "71": 1,
+        "-1": 263,
+        "87": 1,
+        "174": 1,
+        "32": 1,
+        "78": 1,
+        "432": 1,
+        "115": 1,
+        "179": 1,
+        "232": 1,
+        "269": 1,
+        "244": 1,
+        "123": 1,
+        "202": 1,
+        "347": 1,
+        "372": 1,
+        "5": 1,
+        "624": 1,
+        "906": 1
+      },
+      "preceding_model_timing": [
+        {
+          "path": "times/c220g5/model_6.18_new/bc-twitter.sg/4029MiB_run3_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1.time",
+          "group": "times/c220g5/model_6.18_new",
+          "workload": "bc-twitter.sg",
+          "size_mib": "4029",
+          "run": "3",
+          "variant": "_model_discounted_reward_99_bc-twitter.sg_l2-1_10_0.1",
+          "seconds": "113.733",
+          "exit_status": "0",
+          "mtime_utc": "2026-05-11T18:11:47.264348+00:00",
+          "mtime": "1778523107.2643476",
+          "sha256": "1a6a04295f8866826df135e6d5b3591df703ffba4cb0ba1771dddbcb865c2361"
+        }
+      ],
+      "matching_hybrid_timing": [
+        {
+          "path": "times/c220g5/hybridtier/bc-twitter.sg/4029MiB_run3.time",
+          "group": "times/c220g5/hybridtier",
+          "workload": "bc-twitter.sg",
+          "size_mib": "4029",
+          "run": "3",
+          "variant": "",
+          "seconds": "143.975",
+          "exit_status": "0",
+          "mtime_utc": "2026-05-11T18:15:13.515090+00:00",
+          "mtime": "1778523313.51509",
+          "sha256": "f0bc7d02dd53113a92f37ee5717118bf698ee6b7b0911cb57630cb0bda589769"
+        }
+      ]
+    }
+  ]
+}

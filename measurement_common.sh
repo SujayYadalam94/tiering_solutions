@@ -1,6 +1,7 @@
 #!/bin/bash
 
 MEASUREMENT_COMMON_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+source "${MEASUREMENT_COMMON_DIR}/measurement_settings.sh"
 
 MEASUREMENT_LOG_PARTS=${MEASUREMENT_LOG_PARTS:-10}
 MEASUREMENT_TIMEOUT_SECONDS=${MEASUREMENT_TIMEOUT_SECONDS:-12000}
@@ -26,12 +27,14 @@ measurement_apply_platform_defaults() {
     case "${platform}" in
         c220g5)
             BENCH_ROOT=${BENCH_ROOT:-/users/zimooo2}
+            GRAPH_DIR=${GRAPH_DIR:-${MEASUREMENT_COMMON_DIR}/data/graphs}
             NUMA_MEM_NODES=${NUMA_MEM_NODES:-0,1}
             TASKSET_CPUS=${TASKSET_CPUS:-0-9,20-29}
             MEASUREMENT_LIBRARY_PROFILE_DIR=${MEASUREMENT_LIBRARY_PROFILE_DIR:-C220G5}
             ;;
         gsl_optane)
             BENCH_ROOT=${BENCH_ROOT:-/home/freischuetz}
+            GRAPH_DIR=${GRAPH_DIR:-${BENCH_ROOT}/gapbs/benchmark/graphs}
             NUMA_MEM_NODES=${NUMA_MEM_NODES:-0,2}
             TASKSET_CPUS=${TASKSET_CPUS:-0-15,32-47}
             MEASUREMENT_LIBRARY_PROFILE_DIR=${MEASUREMENT_LIBRARY_PROFILE_DIR:-GSL_OPTANE}
@@ -126,12 +129,22 @@ measurement_build_logging_library_path() {
 cleanup_split_log_files() {
     local log_output_path=$1
     local log_stem=${log_output_path%.log}
+    log_stem=${log_stem%.parquet}
     local part
 
     rm -f "${log_output_path}"
+    rm -f "${log_stem}.parquet"
     for ((part = 0; part < MEASUREMENT_LOG_PARTS; part++)); do
         rm -f "${log_stem}_${part}.log"
     done
+}
+
+measurement_require_training_parquet() {
+    local parquet_path=$1
+    if [[ ! -s "${parquet_path}" ]]; then
+        echo "ERROR: missing training Parquet output: ${parquet_path}. Check writer errors and rebuild the training library." >&2
+        return 1
+    fi
 }
 
 cleanup_measurement_outputs() {
@@ -279,12 +292,6 @@ measurement_apply_tpp_settings() {
     echo 1 | sudo tee /sys/kernel/mm/numa/demotion_enabled >/dev/null
     echo 3 | sudo tee /proc/sys/kernel/numa_balancing >/dev/null
     sudo sysctl -w vm.demote_scale_factor=200 >/dev/null
-}
-
-measurement_apply_baseline_default_migration_settings() {
-    echo 1 | sudo tee /proc/sys/kernel/numa_balancing >/dev/null
-    echo 0 | sudo tee /proc/sys/vm/zone_reclaim_mode >/dev/null
-    echo false | sudo tee /sys/kernel/mm/numa/demotion_enabled >/dev/null
 }
 
 run_measurement_setup() {

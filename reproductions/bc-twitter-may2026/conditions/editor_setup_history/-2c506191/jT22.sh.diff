@@ -1,0 +1,24 @@
+--- 8d6a8bc66:run_all_measurements.sh
++++ -2c506191/jT22.sh
+@@ -56,8 +56,8 @@
+     fi
+ }
+ 
+-SIZES=(6005)
+-RUNS=3
++SIZES=(6028)
++RUNS=1
+ 
+ ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}
+ 
+@@ -73,8 +73,8 @@
+             echo "---- Workload ${workload_id} ----"
+ 
+             # ARMS
+-            run_measurement_setup "${size}"
+-            "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
++            #run_measurement_setup "${size}"
++            #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+ 
+ 
+             # Model

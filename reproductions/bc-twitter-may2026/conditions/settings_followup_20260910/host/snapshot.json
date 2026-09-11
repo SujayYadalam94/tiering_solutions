@@ -1,0 +1,3166 @@
+{
+  "time_utc": "2026-09-10T16:41:15.590042+00:00",
+  "boot_id": "43fba7e7-52fc-4295-8c70-fc8277009999\n",
+  "commands": [
+    {
+      "argv": [
+        "systemctl",
+        "list-units",
+        "--type=service",
+        "--state=running",
+        "--no-pager"
+      ],
+      "returncode": 0,
+      "stdout": "  UNIT                        LOAD   ACTIVE SUB     DESCRIPTION\n  chrony.service              loaded active running chrony, an NTP client/server\n  cron.service                loaded active running Regular background program processing daemon\n  dbus.service                loaded active running D-Bus System Message Bus\n  fwupd.service               loaded active running Firmware update daemon\n  getty@tty1.service          loaded active running Getty on tty1\n  multipathd.service          loaded active running Device-Mapper Multipath Device Controller\n  networkd-dispatcher.service loaded active running Dispatcher daemon for systemd-networkd\n  polkit.service              loaded active running Authorization Manager\n  postfix@-.service           loaded active running Postfix Mail Transport Agent (instance -)\n  pubsubd.service             loaded active running The Emulab publish/subscribe daemon\n  rpcbind.service             loaded active running RPC bind portmap service\n  rsyslog.service             loaded active running System Logging Service\n  serial-getty@ttyS0.service  loaded active running Serial Getty on ttyS0\n  smartmontools.service       loaded active running Self Monitoring and Reporting Technology (SMART) Daemon\n  ssh.service                 loaded active running OpenBSD Secure Shell server\n  systemd-journald.service    loaded active running Journal Service\n  systemd-logind.service      loaded active running User Login Management\n  systemd-networkd.service    loaded active running Network Configuration\n  systemd-resolved.service    loaded active running Network Name Resolution\n  systemd-udevd.service       loaded active running Rule-based Manager for Device Events and Files\n  udisks2.service             loaded active running Disk Manager\n  unattended-upgrades.service loaded active running Unattended Upgrades Shutdown\n  upower.service              loaded active running Daemon for power management\n  user@20020.service          loaded active running User Manager for UID 20020\n\nLegend: LOAD   \u2192 Reflects whether the unit definition was properly loaded.\n        ACTIVE \u2192 The high-level unit activation state, i.e. generalization of SUB.\n        SUB    \u2192 The low-level unit activation state, values depend on unit type.\n\n24 loaded units listed.\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "systemctl",
+        "list-timers",
+        "--all",
+        "--no-pager"
+      ],
+      "returncode": 0,
+      "stdout": "NEXT                            LEFT LAST                              PASSED UNIT                           ACTIVATES\nThu 2026-09-10 11:50:00 CDT     8min Thu 2026-09-10 11:40:19 CDT      56s ago sysstat-collect.timer          sysstat-collect.service\nThu 2026-09-10 12:36:13 CDT    54min Thu 2026-09-10 11:23:54 CDT    17min ago fwupd-refresh.timer            fwupd-refresh.service\nThu 2026-09-10 12:53:21 CDT 1h 12min Wed 2026-09-09 07:46:52 CDT            - apt-daily.timer                apt-daily.service\nThu 2026-09-10 15:23:00 CDT 3h 41min Thu 2026-09-10 04:00:54 CDT            - motd-news.timer                motd-news.service\nFri 2026-09-11 00:00:00 CDT      12h Thu 2026-09-10 00:00:00 CDT            - dpkg-db-backup.timer           dpkg-db-backup.service\nFri 2026-09-11 00:00:00 CDT      12h Thu 2026-09-10 00:00:00 CDT            - logrotate.timer                logrotate.service\nFri 2026-09-11 00:07:00 CDT      12h -                                      - sysstat-summary.timer          sysstat-summary.service\nFri 2026-09-11 06:31:39 CDT      18h Thu 2026-09-10 06:21:40 CDT            - apt-daily-upgrade.timer        apt-daily-upgrade.service\nFri 2026-09-11 09:34:02 CDT      21h Thu 2026-09-10 09:34:02 CDT  2h 7min ago update-notifier-download.timer update-notifier-download.service\nFri 2026-09-11 09:43:53 CDT      22h Thu 2026-09-10 09:43:53 CDT 1h 57min ago systemd-tmpfiles-clean.timer   systemd-tmpfiles-clean.service\nFri 2026-09-11 11:09:25 CDT      23h Thu 2026-09-10 02:31:24 CDT            - man-db.timer                   man-db.service\nSun 2026-09-13 03:10:39 CDT   2 days Sun 2026-09-06 03:10:48 CDT            - e2scrub_all.timer              e2scrub_all.service\nMon 2026-09-14 00:31:32 CDT   3 days Mon 2026-09-07 00:34:24 CDT            - fstrim.timer                   fstrim.service\nWed 2026-09-16 06:15:22 CDT   5 days Sat 2026-08-29 22:31:16 CDT            - update-notifier-motd.timer     update-notifier-motd.service\n-                                  - -                                      - apport-autoreport.timer        apport-autoreport.service\n-                                  - -                                      - snapd.snap-repair.timer        snapd.snap-repair.service\n-                                  - -                                      - ua-timer.timer                 ua-timer.service\n\n17 timers listed.\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "systemctl",
+        "show",
+        "system.slice",
+        "user.slice",
+        "user-20020.slice",
+        "user@20020.service",
+        "-p",
+        "MemoryCurrent",
+        "-p",
+        "MemoryHigh",
+        "-p",
+        "MemoryMax",
+        "-p",
+        "MemoryLow",
+        "-p",
+        "MemoryMin",
+        "-p",
+        "CPUWeight",
+        "-p",
+        "IOWeight",
+        "-p",
+        "ManagedOOMMemoryPressure",
+        "-p",
+        "ManagedOOMSwap"
+      ],
+      "returncode": 0,
+      "stdout": "MemoryCurrent=338767872\nCPUWeight=[not set]\nIOWeight=[not set]\nMemoryMin=0\nMemoryLow=0\nMemoryHigh=infinity\nMemoryMax=infinity\nManagedOOMSwap=auto\nManagedOOMMemoryPressure=auto\n\nMemoryCurrent=18195468288\nCPUWeight=[not set]\nIOWeight=[not set]\nMemoryMin=0\nMemoryLow=0\nMemoryHigh=infinity\nMemoryMax=infinity\nManagedOOMSwap=auto\nManagedOOMMemoryPressure=auto\n\nMemoryCurrent=18194829312\nCPUWeight=[not set]\nIOWeight=[not set]\nMemoryMin=0\nMemoryLow=0\nMemoryHigh=infinity\nMemoryMax=infinity\nManagedOOMSwap=auto\nManagedOOMMemoryPressure=auto\n\nMemoryCurrent=12776759296\nCPUWeight=[not set]\nIOWeight=[not set]\nMemoryMin=0\nMemoryLow=0\nMemoryHigh=infinity\nMemoryMax=infinity\nManagedOOMSwap=auto\nManagedOOMMemoryPressure=auto\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "systemctl",
+        "show",
+        "fwupd.service",
+        "multipathd.service",
+        "smartmontools.service",
+        "systemd-journald.service",
+        "-p",
+        "MainPID",
+        "-p",
+        "FragmentPath",
+        "-p",
+        "DropInPaths",
+        "-p",
+        "MemoryCurrent",
+        "-p",
+        "CPUUsageNSec"
+      ],
+      "returncode": 0,
+      "stdout": "MainPID=51716\nMemoryCurrent=20672512\nCPUUsageNSec=707070000\nFragmentPath=/usr/lib/systemd/system/fwupd.service\nDropInPaths=\n\nMainPID=778\nMemoryCurrent=21438464\nCPUUsageNSec=672628000\nFragmentPath=/usr/lib/systemd/system/multipathd.service\nDropInPaths=\n\nMainPID=1605\nMemoryCurrent=2441216\nCPUUsageNSec=86118000\nFragmentPath=/usr/lib/systemd/system/smartmontools.service\nDropInPaths=\n\nMainPID=721\nMemoryCurrent=116170752\nCPUUsageNSec=145004558000\nFragmentPath=/usr/lib/systemd/system/systemd-journald.service\nDropInPaths=/usr/lib/systemd/system/systemd-journald.service.d/nice.conf\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "findmnt",
+        "-t",
+        "cgroup,cgroup2"
+      ],
+      "returncode": 0,
+      "stdout": "TARGET         SOURCE  FSTYPE  OPTIONS\n/sys/fs/cgroup cgroup2 cgroup2 rw,nosuid,nodev,noexec,relatime,nsdelegate,memory_recursiveprot\n",
+      "stderr": ""
+    }
+  ],
+  "runtime": {
+    "/proc/cmdline": "BOOT_IMAGE=/boot/vmlinuz-6.18.1-061801-generic root=UUID=ccb0832d-c80e-430f-b248-d117889f1992 ro console=ttyS0,115200 emulabcnet=00:5d:73:ef:d9:ee console=ttyS0,115200 earlycon=uart,io,0x3f8,115200 loglevel=7 ignore_loglevel debug rd.shell rd.break memmap=92G!2G\n",
+    "/proc/swaps": "Filename\t\t\t\tType\t\tSize\t\tUsed\t\tPriority\n",
+    "/proc/meminfo": "MemTotal:       103768832 kB\nMemFree:        82560476 kB\nMemAvailable:   94721128 kB\nBuffers:          527452 kB\nCached:         14462848 kB\nSwapCached:            0 kB\nActive:          1479212 kB\nInactive:       16293780 kB\nActive(anon):      75932 kB\nInactive(anon):  2737580 kB\nActive(file):    1403280 kB\nInactive(file): 13556200 kB\nUnevictable:       42456 kB\nMlocked:           39384 kB\nSwapTotal:             0 kB\nSwapFree:              0 kB\nZswap:                 0 kB\nZswapped:              0 kB\nDirty:              7076 kB\nWriteback:             0 kB\nAnonPages:       2824560 kB\nMapped:           519156 kB\nShmem:             19356 kB\nKReclaimable:     224108 kB\nSlab:             571272 kB\nSReclaimable:     224108 kB\nSUnreclaim:       347164 kB\nKernelStack:       14144 kB\nPageTables:        58580 kB\nSecPageTables:     11220 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:    51884416 kB\nCommitted_AS:    5782540 kB\nVmallocTotal:   34359738367 kB\nVmallocUsed:      159428 kB\nVmallocChunk:          0 kB\nPercpu:            81920 kB\nHardwareCorrupted:     0 kB\nAnonHugePages:    980992 kB\nShmemHugePages:    14336 kB\nShmemPmdMapped:        0 kB\nFileHugePages:  12429312 kB\nFilePmdMapped:         0 kB\nCmaTotal:              0 kB\nCmaFree:               0 kB\nUnaccepted:            0 kB\nBalloon:               0 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\nHugetlb:               0 kB\nDirectMap4k:      242380 kB\nDirectMap2M:     6760448 kB\nDirectMap1G:    195035136 kB\n",
+    "/sys/devices/system/node/node0/meminfo": "Node 0 MemTotal:        4737988 kB\nNode 0 MemFree:         2747308 kB\nNode 0 MemUsed:         1990680 kB\nNode 0 SwapCached:            0 kB\nNode 0 Active:             1340 kB\nNode 0 Inactive:           1844 kB\nNode 0 Active(anon):         12 kB\nNode 0 Inactive(anon):      204 kB\nNode 0 Active(file):       1328 kB\nNode 0 Inactive(file):     1640 kB\nNode 0 Unevictable:        3072 kB\nNode 0 Mlocked:               0 kB\nNode 0 Dirty:                32 kB\nNode 0 Writeback:             0 kB\nNode 0 FilePages:          6256 kB\nNode 0 Mapped:                0 kB\nNode 0 AnonPages:             0 kB\nNode 0 Shmem:              3288 kB\nNode 0 KernelStack:        4808 kB\nNode 0 PageTables:         2568 kB\nNode 0 SecPageTables:      6588 kB\nNode 0 NFS_Unstable:          0 kB\nNode 0 Bounce:                0 kB\nNode 0 WritebackTmp:          0 kB\nNode 0 KReclaimable:      16032 kB\nNode 0 Slab:             180956 kB\nNode 0 SReclaimable:      16032 kB\nNode 0 SUnreclaim:       164924 kB\nNode 0 AnonHugePages:         0 kB\nNode 0 ShmemHugePages:        0 kB\nNode 0 ShmemPmdMapped:        0 kB\nNode 0 FileHugePages:         0 kB\nNode 0 FilePmdMapped:         0 kB\nNode 0 Unaccepted:            0 kB\nNode 0 HugePages_Total:     0\nNode 0 HugePages_Free:      0\nNode 0 HugePages_Surp:      0\n",
+    "/sys/devices/system/node/node1/meminfo": "Node 1 MemTotal:       99030844 kB\nNode 1 MemFree:        79813168 kB\nNode 1 MemUsed:        19217676 kB\nNode 1 SwapCached:            0 kB\nNode 1 Active:          1477872 kB\nNode 1 Inactive:       16291936 kB\nNode 1 Active(anon):      75920 kB\nNode 1 Inactive(anon):  2737376 kB\nNode 1 Active(file):    1401952 kB\nNode 1 Inactive(file): 13554560 kB\nNode 1 Unevictable:       39384 kB\nNode 1 Mlocked:           39384 kB\nNode 1 Dirty:              7044 kB\nNode 1 Writeback:             0 kB\nNode 1 FilePages:      14984044 kB\nNode 1 Mapped:           519156 kB\nNode 1 AnonPages:       2824560 kB\nNode 1 Shmem:             16068 kB\nNode 1 KernelStack:        9336 kB\nNode 1 PageTables:        56012 kB\nNode 1 SecPageTables:      4632 kB\nNode 1 NFS_Unstable:          0 kB\nNode 1 Bounce:                0 kB\nNode 1 WritebackTmp:          0 kB\nNode 1 KReclaimable:     208076 kB\nNode 1 Slab:             390316 kB\nNode 1 SReclaimable:     208076 kB\nNode 1 SUnreclaim:       182240 kB\nNode 1 AnonHugePages:    980992 kB\nNode 1 ShmemHugePages:    14336 kB\nNode 1 ShmemPmdMapped:        0 kB\nNode 1 FileHugePages:  12429312 kB\nNode 1 FilePmdMapped:         0 kB\nNode 1 Unaccepted:            0 kB\nNode 1 HugePages_Total:     0\nNode 1 HugePages_Free:      0\nNode 1 HugePages_Surp:      0\n",
+    "/sys/kernel/mm/lru_gen/enabled": "0x0000\n",
+    "/sys/kernel/mm/ksm/run": "0\n",
+    "/proc/sys/vm/overcommit_memory": "1\n",
+    "/proc/sys/vm/overcommit_ratio": "50\n",
+    "/proc/sys/vm/swappiness": "60\n",
+    "/proc/sys/vm/zone_reclaim_mode": "0\n",
+    "/proc/sys/vm/vfs_cache_pressure": "2000\n"
+  },
+  "config_inventory": [
+    {
+      "path": "/etc/systemd/pstore.conf",
+      "mtime_utc": "2024-02-27T17:26:04+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.789412+00:00",
+      "size": 879,
+      "sha256": "a7ed0c51fc52756f534aa79bbd025b854d8c9b07096ab4b07c97023bf4509225",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/systemd/user.conf",
+      "mtime_utc": "2024-04-19T14:24:36+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.789412+00:00",
+      "size": 1768,
+      "sha256": "09216865c5568968c52bc38b15e5741e84e29ea44c931ecafc6961ecc3033afa",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/systemd/networkd.conf",
+      "mtime_utc": "2024-02-27T17:26:04+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.788412+00:00",
+      "size": 1083,
+      "sha256": "e313cfc707a3da7a9a795849758c6eeca0700575be866cc9a1405d0f1ec09681",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/systemd/journald.conf",
+      "mtime_utc": "2024-02-27T17:26:04+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.788412+00:00",
+      "size": 1406,
+      "sha256": "6af661145728f9aa26b8f83a2fb21f6e0ccb871f28dc6250eb13b47d97ccf270",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/systemd/resolved.conf",
+      "mtime_utc": "2024-04-19T14:24:36+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.789412+00:00",
+      "size": 1551,
+      "sha256": "bccfe8136332d623efa0745c5799c54d71868ba7fe392d4677b4587038c03ae7",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/systemd/logind.conf",
+      "mtime_utc": "2024-04-19T14:24:36+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.788412+00:00",
+      "size": 1663,
+      "sha256": "7287c7749725e23fff5da965aba1377b2206556df224938239725796dcdc2a24",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/systemd/sleep.conf",
+      "mtime_utc": "2024-02-27T17:26:04+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.789412+00:00",
+      "size": 1060,
+      "sha256": "aee4fbf6f4a005d6e86e17471cb02eaf42a540a64781fc5fab243bb7df59d2f3",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/systemd/system.conf",
+      "mtime_utc": "2024-04-19T14:24:36+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.789412+00:00",
+      "size": 2318,
+      "sha256": "9f6225e49bd7bbdcad61d05955966db64cfb0d585c3304b228dba3fbbeb9e187",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/systemd/user/timers.target.wants/launchpadlib-cache-clean.timer",
+      "mtime_utc": "2024-04-23T09:40:47+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.691409+00:00",
+      "size": 52,
+      "symlink": "/usr/lib/systemd/user/launchpadlib-cache-clean.timer"
+    },
+    {
+      "path": "/etc/systemd/user/sockets.target.wants/gpg-agent-browser.socket",
+      "mtime_utc": "2024-04-23T09:40:32+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 46,
+      "symlink": "/usr/lib/systemd/user/gpg-agent-browser.socket"
+    },
+    {
+      "path": "/etc/systemd/user/sockets.target.wants/pk-debconf-helper.socket",
+      "mtime_utc": "2024-04-23T09:40:51+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 46,
+      "symlink": "/usr/lib/systemd/user/pk-debconf-helper.socket"
+    },
+    {
+      "path": "/etc/systemd/user/sockets.target.wants/keyboxd.socket",
+      "mtime_utc": "2024-04-23T09:40:35+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 36,
+      "symlink": "/usr/lib/systemd/user/keyboxd.socket"
+    },
+    {
+      "path": "/etc/systemd/user/sockets.target.wants/gpg-agent.socket",
+      "mtime_utc": "2024-04-23T09:40:32+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 38,
+      "symlink": "/usr/lib/systemd/user/gpg-agent.socket"
+    },
+    {
+      "path": "/etc/systemd/user/sockets.target.wants/gpg-agent-extra.socket",
+      "mtime_utc": "2024-04-23T09:40:32+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 44,
+      "symlink": "/usr/lib/systemd/user/gpg-agent-extra.socket"
+    },
+    {
+      "path": "/etc/systemd/user/sockets.target.wants/dirmngr.socket",
+      "mtime_utc": "2024-04-23T09:40:37+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 36,
+      "symlink": "/usr/lib/systemd/user/dirmngr.socket"
+    },
+    {
+      "path": "/etc/systemd/user/sockets.target.wants/gpg-agent-ssh.socket",
+      "mtime_utc": "2024-04-23T09:40:32+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 42,
+      "symlink": "/usr/lib/systemd/user/gpg-agent-ssh.socket"
+    },
+    {
+      "path": "/etc/systemd/system-generators/systemd-gpt-auto-generator",
+      "mtime_utc": "2025-11-25T18:16:31+00:00",
+      "ctime_utc": "2026-02-23T15:03:10.519486+00:00",
+      "size": 9,
+      "symlink": "/dev/null"
+    },
+    {
+      "path": "/etc/systemd/system-generators/systemd-fstab-generator",
+      "mtime_utc": "2024-06-22T11:13:31+00:00",
+      "ctime_utc": "2024-06-22T11:41:00.736492+00:00",
+      "size": 12805,
+      "sha256": "e1236c260f4a239b3f3f8064c2207c93e875e5f0035e70c45e9d9d2eb42bebae",
+      "relevant_lines": [
+        {
+          "line": 59,
+          "text": "NEVERMKSWAPFILE=$OURDIR/emulab_systemd_fstab_generator_never_mkswap"
+        },
+        {
+          "line": 64,
+          "text": "TMPRUNFILE=$RUNDIR/generated_swaps"
+        },
+        {
+          "line": 65,
+          "text": "PERMRUNFILE=$BOOTDIR/generated_swaps"
+        },
+        {
+          "line": 79,
+          "text": "    for unitfile in `ls -1 $1/*.swap` ; do"
+        },
+        {
+          "line": 96,
+          "text": "NEVERMKSWAP=0"
+        },
+        {
+          "line": 97,
+          "text": "if [ -f ${NEVERMKSWAPFILE} ]; then"
+        },
+        {
+          "line": 98,
+          "text": "    NEVERMKSWAP=1"
+        },
+        {
+          "line": 123,
+          "text": "emulabswapdev=\"\""
+        },
+        {
+          "line": 125,
+          "text": "    emulabswapdev=`fdisk -l $rootdisk | grep 'Linux swap' | cut -d ' ' -f 1`"
+        },
+        {
+          "line": 127,
+          "text": "haveemulabswap=0"
+        },
+        {
+          "line": 133,
+          "text": "if [ $? -eq 0 -a -z \"$emulabswapdev\" -a ! $NEVERMKSWAP -eq 1 ]; then"
+        },
+        {
+          "line": 134,
+          "text": "    echo \"Creating dynamic GPT swap partition...\""
+        },
+        {
+          "line": 138,
+          "text": "\t|| ( echo \"ERROR: failed to create dynamic GPT swap partition\" )"
+        },
+        {
+          "line": 140,
+          "text": "    emulabswapdev=`fdisk -l $rootdisk | grep 'Linux swap' | cut -d ' ' -f 1`"
+        },
+        {
+          "line": 165,
+          "text": "    echo \"$line\" | grep -q -E '^\\s*[^#].*\\s+swap\\s+.*$'"
+        },
+        {
+          "line": 187,
+          "text": "    needsmkswap=0"
+        },
+        {
+          "line": 198,
+          "text": "\tunitfilename=\"dev-disk-by\\\\x2duuid-${transuuid}.swap\""
+        },
+        {
+          "line": 204,
+          "text": "\tunitfilename=\"dev-disk-by\\\\x2dlabel-${translabel}.swap\""
+        },
+        {
+          "line": 208,
+          "text": "\tunitfilename=\"${transdev}.swap\""
+        },
+        {
+          "line": 213,
+          "text": "\tlogit \"Checking fstab swap device $dev ($linkdev)...\""
+        },
+        {
+          "line": 219,
+          "text": "\t    blkid \"$dev\" | grep -q \"TYPE=['\\\"]swap['\\\"]\""
+        },
+        {
+          "line": 221,
+          "text": "\t\tlogit \"fstab $linkdev does not appear to be existing swap partition via blkid!\""
+        },
+        {
+          "line": 229,
+          "text": "\t    echo \"$output\" | grep -q \"TYPE=['\\\"]swap['\\\"]\""
+        },
+        {
+          "line": 231,
+          "text": "\t\tlogit \"$dev needs mkswap: blkid reports '$output'\""
+        },
+        {
+          "line": 232,
+          "text": "\t\tneedsmkswap=1"
+        },
+        {
+          "line": 236,
+          "text": "\t\tfdisk -l $npdev | grep -q \"$dev.*Linux swap\""
+        },
+        {
+          "line": 238,
+          "text": "\t\t    logit \"fstab $dev is not marked as a swap partition; ignoring!\""
+        },
+        {
+          "line": 252,
+          "text": "\t    logit \"No such swap device $linkdev ; removing autogenerated systemd unit files\""
+        },
+        {
+          "line": 255,
+          "text": "\t    logit \"No such swap device $odev ; removing autogenerated systemd unit files\""
+        },
+        {
+          "line": 260,
+          "text": "\trm -f \"$1/swap.target.requires/$unitfilename\""
+        },
+        {
+          "line": 264,
+          "text": "\tif [ $needsmkswap -eq 0 ] ; then"
+        },
+        {
+          "line": 265,
+          "text": "\t    logit \"swap partition $dev ($linkdev) already exists.\""
+        },
+        {
+          "line": 266,
+          "text": "\telif [ ${NEVERMKSWAP} -eq 0 ]; then"
+        },
+        {
+          "line": 267,
+          "text": "\t    logit \"mkswap $dev ...\""
+        },
+        {
+          "line": 268,
+          "text": "\t    mkswap $dev"
+        },
+        {
+          "line": 269,
+          "text": "\t    logit \"swap partition $dev ready to mount\""
+        },
+        {
+          "line": 271,
+          "text": "\t    logit \"not making swap partition $dev !\""
+        },
+        {
+          "line": 279,
+          "text": "\tif [ -n \"$emulabswapdev\" -a \"$emulabswapdev\" = \"$dev\" ]; then"
+        },
+        {
+          "line": 280,
+          "text": "\t    haveemulabswap=1"
+        },
+        {
+          "line": 291,
+          "text": "if [ $haveemulabswap -eq 0 -a -n \"$emulabswapdev\" ]; then"
+        },
+        {
+          "line": 293,
+          "text": "    uuid=`blkid $emulabswapdev | grep \"TYPE=['\\\"]swap['\\\"]\" | sed -n -r -e \"s/^[^ \\t]*[ \\t]UUID=['\\\"]([^'\\\"]*)['\\\"].*$/\\1/p\"`"
+        },
+        {
+          "line": 295,
+          "text": "\tmkswap $emulabswapdev"
+        },
+        {
+          "line": 296,
+          "text": "\tuuid=`blkid $emulabswapdev | grep \"TYPE=['\\\"]swap['\\\"]\" | sed -n -r -e \"s/^[^ \\t]*[ \\t]UUID=['\\\"]([^'\\\"]*)['\\\"].*$/\\1/p\"`"
+        },
+        {
+          "line": 297,
+          "text": "\tlogit \"Finished mkswap default Emulab swap partition $emulabswapdev (new uuid $uuid)!\""
+        },
+        {
+          "line": 301,
+          "text": "\tlogit \"Failed to mkswap default Emulab swap partition $emulabswapdev !\""
+        },
+        {
+          "line": 317,
+          "text": "\tunitfilename=`echo $emulabswapdev | sed -e 's/^\\///g' | sed -e 's/\\//-/g'`"
+        },
+        {
+          "line": 318,
+          "text": "\tunitfilename=\"${unitfilename}.swap\""
+        },
+        {
+          "line": 327,
+          "text": "[Swap]"
+        },
+        {
+          "line": 328,
+          "text": "What=$emulabswapdev"
+        },
+        {
+          "line": 330,
+          "text": "\tmkdir -p $1/swap.target.requires"
+        },
+        {
+          "line": 331,
+          "text": "\tln -s $1/$unitfilename $1/swap.target.requires/$unitfilename"
+        },
+        {
+          "line": 333,
+          "text": "\techo \"# the following swap devices added by /etc/systemd/system-generators/systemd-fstab-generator\" >> $TMPFSTAB"
+        },
+        {
+          "line": 334,
+          "text": "\t/bin/echo -e \"UUID=$uuid\\t\\tswap\\tswap\\tdefaults\\t0\\t0\" >> $TMPFSTAB"
+        },
+        {
+          "line": 336,
+          "text": "\tlogit \"Created/mkswap default Emulab swap partition $emulabswapdev ($uuid)\""
+        }
+      ]
+    },
+    {
+      "path": "/etc/systemd/system/dbus-org.freedesktop.thermald.service",
+      "mtime_utc": "2024-06-22T10:29:07.728442+00:00",
+      "ctime_utc": "2024-06-22T10:29:07.728442+00:00",
+      "size": 40,
+      "symlink": "/usr/lib/systemd/system/thermald.service"
+    },
+    {
+      "path": "/etc/systemd/system/dbus-org.freedesktop.resolve1.service",
+      "mtime_utc": "2024-04-23T09:40:36+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.685409+00:00",
+      "size": 48,
+      "symlink": "/usr/lib/systemd/system/systemd-resolved.service"
+    },
+    {
+      "path": "/etc/systemd/system/vmtoolsd.service",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.685409+00:00",
+      "size": 45,
+      "symlink": "/usr/lib/systemd/system/open-vm-tools.service"
+    },
+    {
+      "path": "/etc/systemd/system/chronyd.service",
+      "mtime_utc": "2024-06-22T11:40:59.910467+00:00",
+      "ctime_utc": "2024-06-22T11:40:59.910467+00:00",
+      "size": 38,
+      "symlink": "/usr/lib/systemd/system/chrony.service"
+    },
+    {
+      "path": "/etc/systemd/system/syslog.service",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.685409+00:00",
+      "size": 39,
+      "symlink": "/usr/lib/systemd/system/rsyslog.service"
+    },
+    {
+      "path": "/etc/systemd/system/iscsi.service",
+      "mtime_utc": "2024-04-23T09:40:33+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.685409+00:00",
+      "size": 42,
+      "symlink": "/usr/lib/systemd/system/open-iscsi.service"
+    },
+    {
+      "path": "/etc/systemd/system/sshd.service",
+      "mtime_utc": "2024-06-22T10:40:11.102137+00:00",
+      "ctime_utc": "2024-06-22T10:40:11.102137+00:00",
+      "size": 35,
+      "symlink": "/usr/lib/systemd/system/ssh.service"
+    },
+    {
+      "path": "/etc/systemd/system/ModemManager",
+      "mtime_utc": "2024-06-22T12:23:56.396926+00:00",
+      "ctime_utc": "2024-06-22T12:23:56.396926+00:00",
+      "size": 9,
+      "symlink": "/dev/null"
+    },
+    {
+      "path": "/etc/systemd/system/smartd.service",
+      "mtime_utc": "2024-06-22T11:40:51.657264+00:00",
+      "ctime_utc": "2024-06-22T11:40:51.657264+00:00",
+      "size": 45,
+      "symlink": "/usr/lib/systemd/system/smartmontools.service"
+    },
+    {
+      "path": "/etc/systemd/system/suspend-then-hibernate.target.wants/grub-common.service",
+      "mtime_utc": "2024-06-22T10:28:27.760081+00:00",
+      "ctime_utc": "2024-06-22T10:28:27.760081+00:00",
+      "size": 43,
+      "symlink": "/usr/lib/systemd/system/grub-common.service"
+    },
+    {
+      "path": "/etc/systemd/system/suspend.target.wants/grub-common.service",
+      "mtime_utc": "2024-06-22T10:28:27.758080+00:00",
+      "ctime_utc": "2024-06-22T10:28:27.758080+00:00",
+      "size": 43,
+      "symlink": "/usr/lib/systemd/system/grub-common.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/sysstat.service",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 39,
+      "symlink": "/usr/lib/systemd/system/sysstat.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/pollinate.service",
+      "mtime_utc": "2024-04-23T09:40:44+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 41,
+      "symlink": "/usr/lib/systemd/system/pollinate.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/snapd.apparmor.service",
+      "mtime_utc": "2024-04-23T09:40:40+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 46,
+      "symlink": "/usr/lib/systemd/system/snapd.apparmor.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/dmesg.service",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 37,
+      "symlink": "/usr/lib/systemd/system/dmesg.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/systemd-networkd.service",
+      "mtime_utc": "2024-04-22T12:00:36+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 44,
+      "symlink": "/lib/systemd/system/systemd-networkd.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/snapd.seeded.service",
+      "mtime_utc": "2024-04-23T09:40:41+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 44,
+      "symlink": "/usr/lib/systemd/system/snapd.seeded.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/grub-common.service",
+      "mtime_utc": "2024-06-22T10:28:27.758080+00:00",
+      "ctime_utc": "2024-06-22T10:28:27.758080+00:00",
+      "size": 43,
+      "symlink": "/usr/lib/systemd/system/grub-common.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/chrony.service",
+      "mtime_utc": "2024-06-22T11:40:59.910467+00:00",
+      "ctime_utc": "2024-06-22T11:40:59.910467+00:00",
+      "size": 38,
+      "symlink": "/usr/lib/systemd/system/chrony.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/grub-initrd-fallback.service",
+      "mtime_utc": "2024-06-22T10:28:27.920082+00:00",
+      "ctime_utc": "2024-06-22T10:28:27.920082+00:00",
+      "size": 52,
+      "symlink": "/usr/lib/systemd/system/grub-initrd-fallback.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/snapd.recovery-chooser-trigger.service",
+      "mtime_utc": "2024-04-23T09:40:40+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 62,
+      "symlink": "/usr/lib/systemd/system/snapd.recovery-chooser-trigger.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/ua-reboot-cmds.service",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 46,
+      "symlink": "/usr/lib/systemd/system/ua-reboot-cmds.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/run-qemu.mount",
+      "mtime_utc": "2026-03-03T06:09:26.140971+00:00",
+      "ctime_utc": "2026-03-03T06:09:26.140971+00:00",
+      "size": 38,
+      "symlink": "/usr/lib/systemd/system/run-qemu.mount"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/rpcbind.service",
+      "mtime_utc": "2024-06-22T11:40:53.566311+00:00",
+      "ctime_utc": "2024-06-22T11:40:53.566311+00:00",
+      "size": 39,
+      "symlink": "/usr/lib/systemd/system/rpcbind.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/open-vm-tools.service",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 45,
+      "symlink": "/usr/lib/systemd/system/open-vm-tools.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/smartmontools.service",
+      "mtime_utc": "2024-06-22T11:40:51.657264+00:00",
+      "ctime_utc": "2024-06-22T11:40:51.657264+00:00",
+      "size": 45,
+      "symlink": "/usr/lib/systemd/system/smartmontools.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/unattended-upgrades.service",
+      "mtime_utc": "2024-04-23T09:40:43+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 51,
+      "symlink": "/usr/lib/systemd/system/unattended-upgrades.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/e2scrub_reap.service",
+      "mtime_utc": "2024-04-23T09:37:12+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 40,
+      "symlink": "/lib/systemd/system/e2scrub_reap.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/nfs-client.target",
+      "mtime_utc": "2024-06-22T11:40:57.345404+00:00",
+      "ctime_utc": "2024-06-22T11:40:57.345404+00:00",
+      "size": 41,
+      "symlink": "/usr/lib/systemd/system/nfs-client.target"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/pubsubd.service",
+      "mtime_utc": "2024-06-22T14:49:51.729617+00:00",
+      "ctime_utc": "2024-06-22T14:49:51.729617+00:00",
+      "size": 39,
+      "symlink": "/usr/lib/systemd/system/pubsubd.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/ssl-cert.service",
+      "mtime_utc": "2026-03-17T06:12:38.033266+00:00",
+      "ctime_utc": "2026-03-17T06:12:38.033266+00:00",
+      "size": 40,
+      "symlink": "/usr/lib/systemd/system/ssl-cert.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/networkd-dispatcher.service",
+      "mtime_utc": "2024-04-23T09:40:45+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 51,
+      "symlink": "/usr/lib/systemd/system/networkd-dispatcher.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/lxd-installer.socket",
+      "mtime_utc": "2024-04-23T09:40:31+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 44,
+      "symlink": "/usr/lib/systemd/system/lxd-installer.socket"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/secureboot-db.service",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 45,
+      "symlink": "/usr/lib/systemd/system/secureboot-db.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/postfix.service",
+      "mtime_utc": "2026-03-17T06:12:50.744434+00:00",
+      "ctime_utc": "2026-03-17T06:12:50.744434+00:00",
+      "size": 39,
+      "symlink": "/usr/lib/systemd/system/postfix.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/ssh.service",
+      "mtime_utc": "2024-06-22T10:40:11.102137+00:00",
+      "ctime_utc": "2024-06-22T10:40:11.102137+00:00",
+      "size": 35,
+      "symlink": "/usr/lib/systemd/system/ssh.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/console-setup.service",
+      "mtime_utc": "2024-04-23T09:40:48+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 45,
+      "symlink": "/usr/lib/systemd/system/console-setup.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/ufw.service",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 35,
+      "symlink": "/usr/lib/systemd/system/ufw.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/cron.service",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 36,
+      "symlink": "/usr/lib/systemd/system/cron.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/apport.service",
+      "mtime_utc": "2024-04-23T09:40:49+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 38,
+      "symlink": "/usr/lib/systemd/system/apport.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/testbed.service",
+      "mtime_utc": "2024-06-22T11:41:01.061500+00:00",
+      "ctime_utc": "2024-06-22T11:41:01.061500+00:00",
+      "size": 39,
+      "symlink": "/usr/lib/systemd/system/testbed.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/snapd.autoimport.service",
+      "mtime_utc": "2024-04-23T09:40:40+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 48,
+      "symlink": "/usr/lib/systemd/system/snapd.autoimport.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/remote-fs.target",
+      "mtime_utc": "2024-04-23T09:40:20+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 40,
+      "symlink": "/usr/lib/systemd/system/remote-fs.target"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/emulab-fstab-fixup.service",
+      "mtime_utc": "2024-06-22T11:41:00.902496+00:00",
+      "ctime_utc": "2024-06-22T11:41:00.902496+00:00",
+      "size": 50,
+      "symlink": "/usr/lib/systemd/system/emulab-fstab-fixup.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/smartd.service",
+      "mtime_utc": "2024-06-22T11:40:51.498260+00:00",
+      "ctime_utc": "2024-06-22T11:40:51.498260+00:00",
+      "size": 38,
+      "symlink": "/usr/lib/systemd/system/smartd.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/rsyslog.service",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 39,
+      "symlink": "/usr/lib/systemd/system/rsyslog.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/ubuntu-advantage.service",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 48,
+      "symlink": "/usr/lib/systemd/system/ubuntu-advantage.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/thermald.service",
+      "mtime_utc": "2024-06-22T10:29:07.728442+00:00",
+      "ctime_utc": "2024-06-22T10:29:07.728442+00:00",
+      "size": 40,
+      "symlink": "/usr/lib/systemd/system/thermald.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/snapd.service",
+      "mtime_utc": "2024-04-23T09:40:41+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 37,
+      "symlink": "/usr/lib/systemd/system/snapd.service"
+    },
+    {
+      "path": "/etc/systemd/system/multi-user.target.wants/snapd.core-fixup.service",
+      "mtime_utc": "2024-04-23T09:40:40+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 48,
+      "symlink": "/usr/lib/systemd/system/snapd.core-fixup.service"
+    },
+    {
+      "path": "/etc/systemd/system/paths.target.wants/apport-autoreport.path",
+      "mtime_utc": "2024-04-23T09:40:49+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 46,
+      "symlink": "/usr/lib/systemd/system/apport-autoreport.path"
+    },
+    {
+      "path": "/etc/systemd/system/paths.target.wants/tpm-udev.path",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 37,
+      "symlink": "/usr/lib/systemd/system/tpm-udev.path"
+    },
+    {
+      "path": "/etc/systemd/system/final.target.wants/snapd.system-shutdown.service",
+      "mtime_utc": "2024-04-23T09:40:41+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.687409+00:00",
+      "size": 53,
+      "symlink": "/usr/lib/systemd/system/snapd.system-shutdown.service"
+    },
+    {
+      "path": "/etc/systemd/system/display-manager.service.wants/gpu-manager.service",
+      "mtime_utc": "2024-04-23T09:40:45+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.687409+00:00",
+      "size": 43,
+      "symlink": "/usr/lib/systemd/system/gpu-manager.service"
+    },
+    {
+      "path": "/etc/systemd/system/cloud-final.service.wants/snapd.seeded.service",
+      "mtime_utc": "2024-04-23T09:40:41+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.687409+00:00",
+      "size": 44,
+      "symlink": "/usr/lib/systemd/system/snapd.seeded.service"
+    },
+    {
+      "path": "/etc/systemd/system/emergency.target.wants/grub-initrd-fallback.service",
+      "mtime_utc": "2024-06-22T10:28:27.921082+00:00",
+      "ctime_utc": "2024-06-22T10:28:27.921082+00:00",
+      "size": 52,
+      "symlink": "/usr/lib/systemd/system/grub-initrd-fallback.service"
+    },
+    {
+      "path": "/etc/systemd/system/rescue.target.wants/grub-initrd-fallback.service",
+      "mtime_utc": "2024-06-22T10:28:27.921082+00:00",
+      "ctime_utc": "2024-06-22T10:28:27.921082+00:00",
+      "size": 52,
+      "symlink": "/usr/lib/systemd/system/grub-initrd-fallback.service"
+    },
+    {
+      "path": "/etc/systemd/system/oem-config.service.wants/gpu-manager.service",
+      "mtime_utc": "2024-04-23T09:40:45+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 43,
+      "symlink": "/usr/lib/systemd/system/gpu-manager.service"
+    },
+    {
+      "path": "/etc/systemd/system/cloud-init.target.wants/cloud-config.service",
+      "mtime_utc": "2024-04-23T09:40:47+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.687409+00:00",
+      "size": 44,
+      "symlink": "/usr/lib/systemd/system/cloud-config.service"
+    },
+    {
+      "path": "/etc/systemd/system/cloud-init.target.wants/cloud-init.service",
+      "mtime_utc": "2024-06-22T14:40:07.414308+00:00",
+      "ctime_utc": "2024-06-22T14:40:07.414308+00:00",
+      "size": 42,
+      "symlink": "/usr/lib/systemd/system/cloud-init.service"
+    },
+    {
+      "path": "/etc/systemd/system/cloud-init.target.wants/cloud-final.service",
+      "mtime_utc": "2024-04-23T09:40:47+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.687409+00:00",
+      "size": 43,
+      "symlink": "/usr/lib/systemd/system/cloud-final.service"
+    },
+    {
+      "path": "/etc/systemd/system/cloud-init.target.wants/cloud-init-hotplugd.socket",
+      "mtime_utc": "2024-04-23T09:40:47+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.687409+00:00",
+      "size": 50,
+      "symlink": "/usr/lib/systemd/system/cloud-init-hotplugd.socket"
+    },
+    {
+      "path": "/etc/systemd/system/cloud-init.target.wants/cloud-init-local.service",
+      "mtime_utc": "2024-06-22T14:40:13.379518+00:00",
+      "ctime_utc": "2024-06-22T14:40:13.379518+00:00",
+      "size": 48,
+      "symlink": "/usr/lib/systemd/system/cloud-init-local.service"
+    },
+    {
+      "path": "/etc/systemd/system/hybrid-sleep.target.wants/grub-common.service",
+      "mtime_utc": "2024-06-22T10:28:27.759081+00:00",
+      "ctime_utc": "2024-06-22T10:28:27.759081+00:00",
+      "size": 43,
+      "symlink": "/usr/lib/systemd/system/grub-common.service"
+    },
+    {
+      "path": "/etc/systemd/system/hibernate.target.wants/grub-common.service",
+      "mtime_utc": "2024-06-22T10:28:27.759081+00:00",
+      "ctime_utc": "2024-06-22T10:28:27.759081+00:00",
+      "size": 43,
+      "symlink": "/usr/lib/systemd/system/grub-common.service"
+    },
+    {
+      "path": "/etc/systemd/system/sleep.target.wants/grub-initrd-fallback.service",
+      "mtime_utc": "2024-06-22T10:28:27.922082+00:00",
+      "ctime_utc": "2024-06-22T10:28:27.922082+00:00",
+      "size": 52,
+      "symlink": "/usr/lib/systemd/system/grub-initrd-fallback.service"
+    },
+    {
+      "path": "/etc/systemd/system/graphical.target.wants/udisks2.service",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 39,
+      "symlink": "/usr/lib/systemd/system/udisks2.service"
+    },
+    {
+      "path": "/etc/systemd/system/timers.target.wants/ua-timer.timer",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 38,
+      "symlink": "/usr/lib/systemd/system/ua-timer.timer"
+    },
+    {
+      "path": "/etc/systemd/system/timers.target.wants/man-db.timer",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 36,
+      "symlink": "/usr/lib/systemd/system/man-db.timer"
+    },
+    {
+      "path": "/etc/systemd/system/timers.target.wants/apt-daily-upgrade.timer",
+      "mtime_utc": "2024-04-23T09:37:13+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 43,
+      "symlink": "/lib/systemd/system/apt-daily-upgrade.timer"
+    },
+    {
+      "path": "/etc/systemd/system/timers.target.wants/fwupd-refresh.timer",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 43,
+      "symlink": "/usr/lib/systemd/system/fwupd-refresh.timer"
+    },
+    {
+      "path": "/etc/systemd/system/timers.target.wants/update-notifier-download.timer",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 54,
+      "symlink": "/usr/lib/systemd/system/update-notifier-download.timer"
+    },
+    {
+      "path": "/etc/systemd/system/timers.target.wants/snapd.snap-repair.timer",
+      "mtime_utc": "2024-04-23T09:40:41+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 47,
+      "symlink": "/usr/lib/systemd/system/snapd.snap-repair.timer"
+    },
+    {
+      "path": "/etc/systemd/system/timers.target.wants/update-notifier-motd.timer",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 50,
+      "symlink": "/usr/lib/systemd/system/update-notifier-motd.timer"
+    },
+    {
+      "path": "/etc/systemd/system/timers.target.wants/fstrim.timer",
+      "mtime_utc": "2024-04-23T09:37:12+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 32,
+      "symlink": "/lib/systemd/system/fstrim.timer"
+    },
+    {
+      "path": "/etc/systemd/system/timers.target.wants/apt-daily.timer",
+      "mtime_utc": "2024-04-23T09:37:13+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 35,
+      "symlink": "/lib/systemd/system/apt-daily.timer"
+    },
+    {
+      "path": "/etc/systemd/system/timers.target.wants/dpkg-db-backup.timer",
+      "mtime_utc": "2024-04-23T09:37:08+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 40,
+      "symlink": "/lib/systemd/system/dpkg-db-backup.timer"
+    },
+    {
+      "path": "/etc/systemd/system/timers.target.wants/logrotate.timer",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 39,
+      "symlink": "/usr/lib/systemd/system/logrotate.timer"
+    },
+    {
+      "path": "/etc/systemd/system/timers.target.wants/apport-autoreport.timer",
+      "mtime_utc": "2024-04-23T09:40:50+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 47,
+      "symlink": "/usr/lib/systemd/system/apport-autoreport.timer"
+    },
+    {
+      "path": "/etc/systemd/system/timers.target.wants/e2scrub_all.timer",
+      "mtime_utc": "2024-04-23T09:37:12+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 37,
+      "symlink": "/lib/systemd/system/e2scrub_all.timer"
+    },
+    {
+      "path": "/etc/systemd/system/timers.target.wants/motd-news.timer",
+      "mtime_utc": "2024-04-23T09:37:08+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 35,
+      "symlink": "/lib/systemd/system/motd-news.timer"
+    },
+    {
+      "path": "/etc/systemd/system/open-vm-tools.service.requires/vgauth.service",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 38,
+      "symlink": "/usr/lib/systemd/system/vgauth.service"
+    },
+    {
+      "path": "/etc/systemd/system/ssh.service.requires/ssh.socket",
+      "mtime_utc": "2024-06-22T10:39:58.614901+00:00",
+      "ctime_utc": "2024-06-22T10:39:58.614901+00:00",
+      "size": 34,
+      "symlink": "/usr/lib/systemd/system/ssh.socket"
+    },
+    {
+      "path": "/etc/systemd/system/remote-fs.target.wants/nfs-client.target",
+      "mtime_utc": "2024-06-22T11:40:57.345404+00:00",
+      "ctime_utc": "2024-06-22T11:40:57.345404+00:00",
+      "size": 41,
+      "symlink": "/usr/lib/systemd/system/nfs-client.target"
+    },
+    {
+      "path": "/etc/systemd/system/network-online.target.wants/systemd-networkd-wait-online.service",
+      "mtime_utc": "2024-04-22T12:00:36+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 56,
+      "symlink": "/lib/systemd/system/systemd-networkd-wait-online.service"
+    },
+    {
+      "path": "/etc/systemd/system/getty.target.wants/getty@tty1.service",
+      "mtime_utc": "2024-04-23T09:40:20+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 38,
+      "symlink": "/usr/lib/systemd/system/getty@.service"
+    },
+    {
+      "path": "/etc/systemd/system/sockets.target.wants/snapd.socket",
+      "mtime_utc": "2024-04-23T09:40:41+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 36,
+      "symlink": "/usr/lib/systemd/system/snapd.socket"
+    },
+    {
+      "path": "/etc/systemd/system/sockets.target.wants/ssh.socket",
+      "mtime_utc": "2024-06-22T10:39:58.614901+00:00",
+      "ctime_utc": "2024-06-22T10:39:58.614901+00:00",
+      "size": 34,
+      "symlink": "/usr/lib/systemd/system/ssh.socket"
+    },
+    {
+      "path": "/etc/systemd/system/sockets.target.wants/iscsid.socket",
+      "mtime_utc": "2024-04-23T09:40:33+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 37,
+      "symlink": "/usr/lib/systemd/system/iscsid.socket"
+    },
+    {
+      "path": "/etc/systemd/system/sockets.target.wants/multipathd.socket",
+      "mtime_utc": "2024-04-23T09:40:43+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 41,
+      "symlink": "/usr/lib/systemd/system/multipathd.socket"
+    },
+    {
+      "path": "/etc/systemd/system/sockets.target.wants/uuidd.socket",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 36,
+      "symlink": "/usr/lib/systemd/system/uuidd.socket"
+    },
+    {
+      "path": "/etc/systemd/system/sockets.target.wants/dm-event.socket",
+      "mtime_utc": "2024-04-23T09:40:50+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 39,
+      "symlink": "/usr/lib/systemd/system/dm-event.socket"
+    },
+    {
+      "path": "/etc/systemd/system/sockets.target.wants/rpcbind.socket",
+      "mtime_utc": "2024-06-22T11:40:53.567311+00:00",
+      "ctime_utc": "2024-06-22T11:40:53.567311+00:00",
+      "size": 38,
+      "symlink": "/usr/lib/systemd/system/rpcbind.socket"
+    },
+    {
+      "path": "/etc/systemd/system/sockets.target.wants/systemd-networkd.socket",
+      "mtime_utc": "2024-04-22T12:00:36+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 43,
+      "symlink": "/lib/systemd/system/systemd-networkd.socket"
+    },
+    {
+      "path": "/etc/systemd/system/sockets.target.wants/apport-forward.socket",
+      "mtime_utc": "2024-04-23T09:40:50+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 45,
+      "symlink": "/usr/lib/systemd/system/apport-forward.socket"
+    },
+    {
+      "path": "/etc/systemd/system/sysinit.target.wants/systemd-resolved.service",
+      "mtime_utc": "2024-04-23T09:40:36+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 48,
+      "symlink": "/usr/lib/systemd/system/systemd-resolved.service"
+    },
+    {
+      "path": "/etc/systemd/system/sysinit.target.wants/keyboard-setup.service",
+      "mtime_utc": "2024-04-23T09:40:48+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 46,
+      "symlink": "/usr/lib/systemd/system/keyboard-setup.service"
+    },
+    {
+      "path": "/etc/systemd/system/sysinit.target.wants/blk-availability.service",
+      "mtime_utc": "2024-04-23T09:40:50+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 48,
+      "symlink": "/usr/lib/systemd/system/blk-availability.service"
+    },
+    {
+      "path": "/etc/systemd/system/sysinit.target.wants/lvm2-monitor.service",
+      "mtime_utc": "2024-04-23T09:40:50+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 44,
+      "symlink": "/usr/lib/systemd/system/lvm2-monitor.service"
+    },
+    {
+      "path": "/etc/systemd/system/sysinit.target.wants/systemd-pstore.service",
+      "mtime_utc": "2024-04-23T09:40:20+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 46,
+      "symlink": "/usr/lib/systemd/system/systemd-pstore.service"
+    },
+    {
+      "path": "/etc/systemd/system/sysinit.target.wants/setvtrgb.service",
+      "mtime_utc": "2024-04-23T09:40:48+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 40,
+      "symlink": "/usr/lib/systemd/system/setvtrgb.service"
+    },
+    {
+      "path": "/etc/systemd/system/sysinit.target.wants/apparmor.service",
+      "mtime_utc": "2024-04-23T09:40:30+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 40,
+      "symlink": "/usr/lib/systemd/system/apparmor.service"
+    },
+    {
+      "path": "/etc/systemd/system/sysinit.target.wants/lvm2-lvmpolld.socket",
+      "mtime_utc": "2024-04-23T09:40:51+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 44,
+      "symlink": "/usr/lib/systemd/system/lvm2-lvmpolld.socket"
+    },
+    {
+      "path": "/etc/systemd/system/sysinit.target.wants/finalrd.service",
+      "mtime_utc": "2024-04-23T09:40:29+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 39,
+      "symlink": "/usr/lib/systemd/system/finalrd.service"
+    },
+    {
+      "path": "/etc/systemd/system/sysinit.target.wants/multipathd.service",
+      "mtime_utc": "2024-04-23T09:40:43+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 42,
+      "symlink": "/usr/lib/systemd/system/multipathd.service"
+    },
+    {
+      "path": "/etc/systemd/system/sysinit.target.wants/open-iscsi.service",
+      "mtime_utc": "2024-04-23T09:40:33+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.689409+00:00",
+      "size": 42,
+      "symlink": "/usr/lib/systemd/system/open-iscsi.service"
+    },
+    {
+      "path": "/etc/systemd/system/mdmonitor.service.wants/mdcheck_start.timer",
+      "mtime_utc": "2024-04-23T09:40:31+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 43,
+      "symlink": "/usr/lib/systemd/system/mdcheck_start.timer"
+    },
+    {
+      "path": "/etc/systemd/system/mdmonitor.service.wants/mdmonitor-oneshot.timer",
+      "mtime_utc": "2024-04-23T09:40:32+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 47,
+      "symlink": "/usr/lib/systemd/system/mdmonitor-oneshot.timer"
+    },
+    {
+      "path": "/etc/systemd/system/mdmonitor.service.wants/mdcheck_continue.timer",
+      "mtime_utc": "2024-04-23T09:40:31+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.688409+00:00",
+      "size": 46,
+      "symlink": "/usr/lib/systemd/system/mdcheck_continue.timer"
+    },
+    {
+      "path": "/etc/systemd/system/sysstat.service.wants/sysstat-collect.timer",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 45,
+      "symlink": "/usr/lib/systemd/system/sysstat-collect.timer"
+    },
+    {
+      "path": "/etc/systemd/system/sysstat.service.wants/sysstat-summary.timer",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.690409+00:00",
+      "size": 45,
+      "symlink": "/usr/lib/systemd/system/sysstat-summary.timer"
+    },
+    {
+      "path": "/etc/systemd/system/sshd-keygen@.service.d/disable-sshd-keygen-if-cloud-init-active.conf",
+      "mtime_utc": "2024-03-27T13:14:04+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.789412+00:00",
+      "size": 410,
+      "sha256": "1d435e1d79784e95f1982b534a7c5f79a32fc3b91eda3f6cd67c97d23e0d1346"
+    },
+    {
+      "path": "/etc/sysctl.d/10-ipv6-privacy.conf",
+      "mtime_utc": "2024-03-31T08:16:00+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.787412+00:00",
+      "size": 490,
+      "sha256": "e07c86211944a534c6418fe0eb5896926e09a13b56162d8cb642866f37e83b04",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/sysctl.d/99-sysctl.conf",
+      "mtime_utc": "2025-11-25T18:16:31+00:00",
+      "ctime_utc": "2026-02-23T15:03:10.519486+00:00",
+      "size": 14,
+      "symlink": "../sysctl.conf"
+    },
+    {
+      "path": "/etc/sysctl.d/10-network-security.conf",
+      "mtime_utc": "2024-03-31T08:16:00+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.787412+00:00",
+      "size": 158,
+      "sha256": "258805ec72eada3c24a923de1c5bd8ed0fd11fe21f3673628ec78f221c31e934",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/sysctl.d/10-kernel-hardening.conf",
+      "mtime_utc": "2024-03-31T08:16:00+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.787412+00:00",
+      "size": 1229,
+      "sha256": "2bbc2c5684414517eba9da8d2fbff0a678026d944eb8fcfd6287281e11282e2f",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/sysctl.d/10-bufferbloat.conf",
+      "mtime_utc": "2024-09-26T08:44:05+00:00",
+      "ctime_utc": "2025-02-13T20:13:33.149328+00:00",
+      "size": 481,
+      "sha256": "763c2e237645fb7c3fecf16a54479e49c39aab229c2a646a42f16c83b9dd2974",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/sysctl.d/10-map-count.conf",
+      "mtime_utc": "2024-03-31T08:16:00+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.787412+00:00",
+      "size": 164,
+      "sha256": "867f4371a9cc5a79cab3b350aee03d067857b69e3cbf556a4a19aed057f9e954",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/sysctl.d/10-ptrace.conf",
+      "mtime_utc": "2024-03-31T08:16:00+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.788412+00:00",
+      "size": 1292,
+      "sha256": "4add0d9ecbcc91e4018ed08e8dc66c69d4d9d142f9e31461178dcd7da0fd73c2",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/sysctl.d/10-zeropage.conf",
+      "mtime_utc": "2024-03-31T08:16:00+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.788412+00:00",
+      "size": 506,
+      "sha256": "5c745f62d086d9b9cf2ec23e4164f510cdba206c7aa6f11d2256f3f9be64c950",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/sysctl.d/10-magic-sysrq.conf",
+      "mtime_utc": "2024-03-31T08:16:00+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.787412+00:00",
+      "size": 1184,
+      "sha256": "f9107778c619246fb2a5a7e2a05c9419951752238ede04c771173832dd296128",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/sysctl.d/README.sysctl",
+      "mtime_utc": "2024-03-24T15:35:54+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.788412+00:00",
+      "size": 798,
+      "sha256": "92f8c7cd0f89c8b99cbd23df936234f55eef6b6ed943411a8ccc46f89c48e290",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/sysctl.d/10-console-messages.conf",
+      "mtime_utc": "2024-03-31T08:16:00+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.787412+00:00",
+      "size": 77,
+      "sha256": "14524a83a266454d517b7cdbfb2141dbc4b884570543da5f65e3f08da0b814c0",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/modprobe.d/blacklist-framebuffer.conf",
+      "mtime_utc": "2024-04-18T10:06:53+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.773411+00:00",
+      "size": 677,
+      "sha256": "383278f65de289767c8c0564fa31038a3980e76223160c4c3fb70ddc6fcf403a",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/modprobe.d/iwlwifi.conf",
+      "mtime_utc": "2024-04-18T10:06:53+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.773411+00:00",
+      "size": 347,
+      "sha256": "ff7191f16a3d71e46b980fccabae0b20cfefe9254119e84e4fd6b85ebf3e8170",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/modprobe.d/blacklist.conf",
+      "mtime_utc": "2024-09-17T20:05:58+00:00",
+      "ctime_utc": "2024-09-17T20:05:58.773411+00:00",
+      "size": 1550,
+      "sha256": "3f1bd2a3886cbcd07a519fb8bac3fffbf1affb92b41868fb2a3c447fb81a1d3b",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/modprobe.d/blacklist-firewire.conf",
+      "mtime_utc": "2024-04-18T10:06:53+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.773411+00:00",
+      "size": 210,
+      "sha256": "37c8be8a4b292b28bf683edf18ca2ad77467d0384b6c5c030c11f8d1de4e822d",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/modprobe.d/blacklist-rare-network.conf",
+      "mtime_utc": "2024-04-18T10:06:53+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.773411+00:00",
+      "size": 583,
+      "sha256": "d63190beb14c3ab0ad848d9ad17cf7eafecf3df9814fe390107ce68659d4d73c",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/modprobe.d/blacklist-ath_pci.conf",
+      "mtime_utc": "2024-04-18T10:06:53+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.773411+00:00",
+      "size": 325,
+      "sha256": "1bca34650bd5b96b3b0a5c880f04e01e8151cae85af7d69c9a00adfaaca6c5bd",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/modprobe.d/intel-microcode-blacklist.conf",
+      "mtime_utc": "2024-05-15T03:57:08+00:00",
+      "ctime_utc": "2024-06-22T10:29:04.145414+00:00",
+      "size": 154,
+      "sha256": "f17b12aa7a202bb4f0ed09cbb45561417986fded2cfcf861364f84c8f3d42fb8",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/modprobe.d/mdadm.conf",
+      "mtime_utc": "2024-02-26T17:10:15+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.773411+00:00",
+      "size": 379,
+      "sha256": "f1e2f3f7d12a9401012b9acb8324f949eb623a58f786536845fd5c70888107be",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/modprobe.d/amd64-microcode-blacklist.conf",
+      "mtime_utc": "2024-04-08T15:54:09+00:00",
+      "ctime_utc": "2024-06-22T10:29:04.169414+00:00",
+      "size": 154,
+      "sha256": "f17b12aa7a202bb4f0ed09cbb45561417986fded2cfcf861364f84c8f3d42fb8",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/modprobe.d/dkms.conf",
+      "mtime_utc": "2023-04-27T16:12:51+00:00",
+      "ctime_utc": "2024-06-22T14:54:42.353213+00:00",
+      "size": 127,
+      "sha256": "4593302665ccbab8ea21bcf161360880f6071f6260363f2d76111cc980a881e4",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/modules-load.d/modules.conf",
+      "mtime_utc": "2025-11-25T18:16:31+00:00",
+      "ctime_utc": "2026-02-23T15:03:10.519486+00:00",
+      "size": 10,
+      "symlink": "../modules"
+    },
+    {
+      "path": "/etc/udev/rules.d/99-emulab-networkd.rules",
+      "mtime_utc": "2024-06-22T11:13:31+00:00",
+      "ctime_utc": "2024-06-22T11:41:01.068500+00:00",
+      "size": 314,
+      "sha256": "868933b801df37b622bead07b7e6c090022679c1ef1e55a51257bfff7ad7458f",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/udev/rules.d/01-disable-bluefield-nvme.rules",
+      "mtime_utc": "2024-06-22T11:13:31+00:00",
+      "ctime_utc": "2024-06-22T11:41:01.067500+00:00",
+      "size": 136,
+      "sha256": "59e24d6a6a5f09a1521e3a6f1b076ee3b55bdf055184e3074c56d9667caad46d",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/security/namespace.conf",
+      "mtime_utc": "2024-04-10T19:19:22+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.783412+00:00",
+      "size": 1637,
+      "sha256": "112bebee710ae491e8f86caf7f81598a2ef732dea6c0789d5b8c06bef5caea5f",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/security/time.conf",
+      "mtime_utc": "2024-04-10T19:19:22+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.784411+00:00",
+      "size": 2179,
+      "sha256": "6802adfc8efc6168f87e98e960fa7d15e516a295fef7a6472ef5359527e886ff",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/security/namespace.init",
+      "mtime_utc": "2025-06-12T14:45:28+00:00",
+      "ctime_utc": "2025-08-08T20:01:33.414330+00:00",
+      "size": 1971,
+      "sha256": "772e5773586a236034156ac660f8d234bf50f4cebf5811b15b55b890b83cef64",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/security/limits.conf",
+      "mtime_utc": "2024-04-10T19:19:22+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.783412+00:00",
+      "size": 2752,
+      "sha256": "0adf64deecea56e9ed5c2229db357900218b10b76f7e69830c9d209347896206",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/security/pwhistory.conf",
+      "mtime_utc": "2024-04-10T19:19:22+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.783412+00:00",
+      "size": 517,
+      "sha256": "faf87e628c54f166bf1f74eb91a18a10aefe5a19baa6b103e450d500464d4827",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/security/opasswd",
+      "mtime_utc": "2024-04-23T09:37:12+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.783412+00:00",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/security/sepermit.conf",
+      "mtime_utc": "2024-04-10T19:19:22+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.783412+00:00",
+      "size": 418,
+      "sha256": "fa4136d7fc7ebd9eccd36d290456158b1956993e0e33d248ebabb460f96f4611",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/security/pam_env.conf",
+      "mtime_utc": "2024-04-10T19:19:22+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.783412+00:00",
+      "size": 2971,
+      "sha256": "7038e2676178dcda6a9bdd6b8948af8206af56f5291cb2cda7f563a9904c15bd",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/security/access.conf",
+      "mtime_utc": "2024-04-10T19:19:22+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.783412+00:00",
+      "size": 4564,
+      "sha256": "f68915c4eb637aacbfa01cf26dc469a73f70acb0495efc4b074ecbc626bcb345",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/security/capability.conf",
+      "mtime_utc": "2021-09-18T03:56:21+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.783412+00:00",
+      "size": 2425,
+      "sha256": "13996a6921e10b139c41f0360d177b1501e0614b7972ab2108fb10ece8c9c627",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/security/faillock.conf",
+      "mtime_utc": "2024-04-10T19:19:22+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.783412+00:00",
+      "size": 2234,
+      "sha256": "5c8c902912f0bb59f86b86517f2127ea0c57c5d05b17c4aa62f5bc06c7043c78",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/security/group.conf",
+      "mtime_utc": "2024-04-10T19:19:22+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.783412+00:00",
+      "size": 3635,
+      "sha256": "41df4bc646811997d0390c6d37d839d2aef4a9a1a940c44ee1a798a9dc1ac864",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/pam.d/vmtoolsd",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.780411+00:00",
+      "size": 119,
+      "sha256": "51bff7ea3798014a847891dda8401fbf46348f77b465960cedc4e05ecb6634df",
+      "relevant_lines": [
+        {
+          "line": 5,
+          "text": "account     required    pam_shells.so"
+        },
+        {
+          "line": 6,
+          "text": "@include common-account"
+        }
+      ]
+    },
+    {
+      "path": "/etc/pam.d/chsh",
+      "mtime_utc": "2024-02-22T12:30:23+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.779411+00:00",
+      "size": 581,
+      "sha256": "0101e7e589ce40435c5a8709888225400a78ab6be86dfc5fef86ee23ba5338ad",
+      "relevant_lines": [
+        {
+          "line": 18,
+          "text": "@include common-account"
+        }
+      ]
+    },
+    {
+      "path": "/etc/pam.d/common-password",
+      "mtime_utc": "2026-02-23T15:04:02.162408+00:00",
+      "ctime_utc": "2026-02-23T15:04:02.162408+00:00",
+      "size": 1620,
+      "sha256": "a76bcfdcb12436297ccf72a0d63daed8d9761d8e92996eb08295b81be32567d7"
+    },
+    {
+      "path": "/etc/pam.d/newusers",
+      "mtime_utc": "2024-02-22T12:30:23+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.779411+00:00",
+      "size": 92,
+      "sha256": "26e75ce7c9066801b8db380ff9d8ba58a5e8cf2de5fb38ffd1db5ba62c85acef",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/pam.d/other",
+      "mtime_utc": "2022-10-13T17:41:58+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.780411+00:00",
+      "size": 520,
+      "sha256": "d13078e71d3351ef7f63a7265ddb50b710a2598b9febc78810fbb0130a02695a",
+      "relevant_lines": [
+        {
+          "line": 14,
+          "text": "@include common-account"
+        }
+      ]
+    },
+    {
+      "path": "/etc/pam.d/runuser-l",
+      "mtime_utc": "2024-03-03T08:36:07+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.780411+00:00",
+      "size": 138,
+      "sha256": "be9329a8b26e3cfd4af879fe60900f646f8188f3fbe491688f23d4d8b491c5b1",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/pam.d/chpasswd",
+      "mtime_utc": "2024-02-22T12:30:23+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.779411+00:00",
+      "size": 92,
+      "sha256": "f3f96229e82bf41a7fd3ec12e697b3465235d96bb1e44c39ba91157425a36082",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/pam.d/common-session",
+      "mtime_utc": "2026-02-23T15:04:02.166408+00:00",
+      "ctime_utc": "2026-02-23T15:04:02.166408+00:00",
+      "size": 1427,
+      "sha256": "f237c090d61f72820ede6f77f4889e9db292b84fafb2c5d19ae6c125ea3bd371",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/pam.d/su-l",
+      "mtime_utc": "2024-03-03T08:36:07+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.780411+00:00",
+      "size": 137,
+      "sha256": "4d10241676e97e5e8d8935e5c8e8f6cb2f871afb881059715f155909be9ebd77",
+      "relevant_lines": [
+        {
+          "line": 3,
+          "text": "account\t\tinclude\t\tsu"
+        }
+      ]
+    },
+    {
+      "path": "/etc/pam.d/cron",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.779411+00:00",
+      "size": 606,
+      "sha256": "50a7062347b76fe4a429065547f2b53ffe49ac7d896f6b238010a3ee90446a84",
+      "relevant_lines": [
+        {
+          "line": 15,
+          "text": "@include common-account"
+        }
+      ]
+    },
+    {
+      "path": "/etc/pam.d/common-account",
+      "mtime_utc": "2026-02-23T15:04:02.158408+00:00",
+      "ctime_utc": "2026-02-23T15:04:02.158408+00:00",
+      "size": 1208,
+      "sha256": "aa8a63d72e79399b6c51ebe4e9f828c954145a799eb4b8f3224724f51cbb9fac",
+      "relevant_lines": [
+        {
+          "line": 17,
+          "text": "account\t[success=1 new_authtok_reqd=done default=ignore]\tpam_unix.so "
+        },
+        {
+          "line": 19,
+          "text": "account\trequisite\t\t\tpam_deny.so"
+        },
+        {
+          "line": 23,
+          "text": "account\trequired\t\t\tpam_permit.so"
+        }
+      ]
+    },
+    {
+      "path": "/etc/pam.d/login",
+      "mtime_utc": "2024-04-09T07:01:02+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.779411+00:00",
+      "size": 4118,
+      "sha256": "089abccf4956b607e4b2d13f455a15eec5f6636ce0be287d54b08f8a429668a4",
+      "relevant_lines": [
+        {
+          "line": 98,
+          "text": "@include common-account"
+        }
+      ]
+    },
+    {
+      "path": "/etc/pam.d/common-session-noninteractive",
+      "mtime_utc": "2026-02-23T15:04:02.171408+00:00",
+      "ctime_utc": "2026-02-23T15:04:02.171408+00:00",
+      "size": 1435,
+      "sha256": "1bd1ef2b6241fc8b3c97bbaf57e5c6038c96c275e30c62ebee6eec15701e2e07",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/pam.d/sshd",
+      "mtime_utc": "2024-04-05T19:30:31+00:00",
+      "ctime_utc": "2024-06-22T10:39:57.484879+00:00",
+      "size": 2133,
+      "sha256": "65822d20f36db29cb50275526854b584df7a04a9efe975f3801473f81b44f521",
+      "relevant_lines": [
+        {
+          "line": 7,
+          "text": "account    required     pam_nologin.so"
+        },
+        {
+          "line": 14,
+          "text": "@include common-account"
+        }
+      ]
+    },
+    {
+      "path": "/etc/pam.d/sudo",
+      "mtime_utc": "2024-01-29T17:09:56+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.780411+00:00",
+      "size": 330,
+      "sha256": "237bd06ddff88d0ab7735346ef15d412fdd121f5c07ab3c4f04a4a620acec158",
+      "relevant_lines": [
+        {
+          "line": 10,
+          "text": "@include common-account"
+        }
+      ]
+    },
+    {
+      "path": "/etc/pam.d/runuser",
+      "mtime_utc": "2024-03-03T08:36:07+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.780411+00:00",
+      "size": 143,
+      "sha256": "2d430cb6628248953568010427d663f3305856f3cb055955c2239bea226c5280",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/pam.d/chfn",
+      "mtime_utc": "2024-02-22T12:30:23+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.778411+00:00",
+      "size": 384,
+      "sha256": "d66a095a330d7e20d0bbb56a4cb28a4b1bfc92e8a5a5e9bfc3d0a51c5e3d7170",
+      "relevant_lines": [
+        {
+          "line": 13,
+          "text": "@include common-account"
+        }
+      ]
+    },
+    {
+      "path": "/etc/pam.d/sudo-i",
+      "mtime_utc": "2024-01-29T17:09:56+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.780411+00:00",
+      "size": 315,
+      "sha256": "349e44c0f9b293c5e12fd271c62f10de9ff21a0c472fd8532eb08aaaab41f9f5",
+      "relevant_lines": [
+        {
+          "line": 10,
+          "text": "@include common-account"
+        }
+      ]
+    },
+    {
+      "path": "/etc/pam.d/passwd",
+      "mtime_utc": "2024-02-22T12:30:23+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.780411+00:00",
+      "size": 92,
+      "sha256": "87696fad1046d6b33b6d3407bb419980987331b4dcd8905f7a6041bced90c51d",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/pam.d/common-auth",
+      "mtime_utc": "2026-02-23T15:04:02.153408+00:00",
+      "ctime_utc": "2026-02-23T15:04:02.154408+00:00",
+      "size": 1242,
+      "sha256": "628197de9e50b6be37421b04a67f07924f515e0b0f4c06aed9fea953d20ed6e6",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/pam.d/su",
+      "mtime_utc": "2024-03-03T08:36:07+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.780411+00:00",
+      "size": 2259,
+      "sha256": "fda16622dc6198eae5d6ae522bb820b7b68dbf2e73899295c4cac9744f7c7904",
+      "relevant_lines": [
+        {
+          "line": 58,
+          "text": "@include common-account"
+        }
+      ]
+    },
+    {
+      "path": "/etc/cron.d/sysstat",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.758411+00:00",
+      "size": 396,
+      "sha256": "47a67deba0d029d43209e6e512399543a945172f2a640021a6c21422a66adb1a",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/cron.d/.placeholder",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.758411+00:00",
+      "size": 102,
+      "sha256": "49674d9b1bd433cdb58f30497f6c441dc823de549160eef5c1acec4c20786810",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/cron.d/e2scrub_all",
+      "mtime_utc": "2024-04-08T14:38:40+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.758411+00:00",
+      "size": 201,
+      "sha256": "d4df081b982b23e66cac7102f9d91032f296caf13031991d90af44ee6cbf6e3b",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/cron.daily/apt-compat",
+      "mtime_utc": "2024-03-22T10:11:44+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.758411+00:00",
+      "size": 1478,
+      "sha256": "1983c659b042b1ec26127e7874954d83cd97eb8dcfd03238a7d2031ea0182fbe",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/cron.daily/sysstat",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.758411+00:00",
+      "size": 518,
+      "sha256": "bf4e40f5cbe6a073dbd2b7148a8f4c574e33729426d44b0ef852d78f12c8a0c9",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/cron.daily/man-db",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.758411+00:00",
+      "size": 1395,
+      "sha256": "8436d3109f24a1a4e221e765c42b3cc34a455bd30478ad3a09d793c736a8a2e7",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/cron.daily/logrotate",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.758411+00:00",
+      "size": 377,
+      "sha256": "12b36ff7068d3932f428e6eba07cbc9b9b2f7f7d37756d86ce13ddfcc6cd875f",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/cron.daily/.placeholder",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.758411+00:00",
+      "size": 102,
+      "sha256": "49674d9b1bd433cdb58f30497f6c441dc823de549160eef5c1acec4c20786810",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/cron.daily/dpkg",
+      "mtime_utc": "2024-02-05T02:31:16+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.758411+00:00",
+      "size": 123,
+      "sha256": "9f2fdd4b4e7706dda74e8e443e1e1da0fbbb19c62a58e230e90d648b69177c35",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/cron.daily/apport",
+      "mtime_utc": "2024-04-18T23:50:32+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.758411+00:00",
+      "size": 376,
+      "sha256": "ece406240beddfd8d262a9f0f2ffd5aa40cae4bf5401e7641db3ae1aca737a39",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/motd-news",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.760411+00:00",
+      "size": 682,
+      "sha256": "ac7f2320731664c9a61c3b21819df35794aac908dd113aaadc65aee9942ce81a",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/sysstat",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.760411+00:00",
+      "size": 284,
+      "sha256": "df83ca773bd3100f2402028ef23b2e64641a293805e0e88a4fb892f999bdd09a",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/iperf3",
+      "mtime_utc": "2024-06-22T16:05:12.360744+00:00",
+      "ctime_utc": "2024-06-22T16:05:12.360744+00:00",
+      "size": 196,
+      "sha256": "4e374521f3b919a92d23f03e0d5c9d1a8b5e96963a28503b83a075e720e4ec81",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/nfs-common",
+      "mtime_utc": "2024-02-26T03:29:21+00:00",
+      "ctime_utc": "2024-06-22T11:40:55.593361+00:00",
+      "size": 450,
+      "sha256": "f1a223641ad730e43e01a7c114edbf9add4f8d12117936eb48bb1a2def6d986b",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/grub.ucf-dist",
+      "mtime_utc": "2025-05-05T20:18:44.190758+00:00",
+      "ctime_utc": "2025-05-05T20:18:44.311758+00:00",
+      "size": 1587,
+      "sha256": "1b138a248bdfaf7d452c8538d064c172ab826806175946b7ebef3ac4de7ce4bd",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/networkd-dispatcher",
+      "mtime_utc": "2023-04-24T15:32:27+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.760411+00:00",
+      "size": 152,
+      "sha256": "9bd3dd90185b2e0824e57e9085a6b8b0da6c2c98cf811d0ebff69fea0e50abaa",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/locale",
+      "mtime_utc": "2024-04-23T09:40:20+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.627408+00:00",
+      "size": 14,
+      "symlink": "../locale.conf"
+    },
+    {
+      "path": "/etc/default/intel-microcode",
+      "mtime_utc": "2024-03-12T22:15:11+00:00",
+      "ctime_utc": "2024-06-22T10:29:04.144414+00:00",
+      "size": 1029,
+      "sha256": "72ae73b1c9a114d554bcd9f8eec13e7f40761b5ca18f6c3d29e4e23eebe966c9",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/rpcbind",
+      "mtime_utc": "2024-03-14T15:03:02+00:00",
+      "ctime_utc": "2024-06-22T11:40:52.638288+00:00",
+      "size": 356,
+      "sha256": "d60f101886c59468faa679e76224457bb132630e941872328b03614fa9b2b3d0",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/amd64-microcode",
+      "mtime_utc": "2023-10-21T17:59:34+00:00",
+      "ctime_utc": "2024-06-22T10:29:04.168414+00:00",
+      "size": 328,
+      "sha256": "10fb3bfc2f6ae15152e096b89a7550bc4dd395bedff8d9e070d308e77d4adb9b",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/grub.bak",
+      "mtime_utc": "2026-09-10T08:35:39.840367+00:00",
+      "ctime_utc": "2026-09-10T08:35:39.840367+00:00",
+      "size": 1700,
+      "sha256": "c5d1931fcf1f6b9b56e3d51f09d8a4d1d71b41d46db7682a693a70b43681d4ae",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/open-iscsi",
+      "mtime_utc": "2023-12-14T13:08:38+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.760411+00:00",
+      "size": 2691,
+      "sha256": "5e3fb56269f7c1ab9bc4fdd0a803c93f50b114c9601256c4235c916d20b960ce",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/useradd",
+      "mtime_utc": "2024-02-22T12:30:23+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.760411+00:00",
+      "size": 1117,
+      "sha256": "6702e1cb0d7035a0d7a2beeded69f69acd8ac2b2778913b5afe60595936448f5",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/cryptdisks",
+      "mtime_utc": "2024-02-26T11:50:46+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.759411+00:00",
+      "size": 460,
+      "sha256": "25103bd7ce1d329f3a5f285924c11408ebb9f46733d69e9daa77fef4ba47f5b4",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/dbus",
+      "mtime_utc": "2023-12-05T15:36:45+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.760411+00:00",
+      "size": 297,
+      "sha256": "9c337c884269a0723768ee373966dbc74ea65bf7315017a886042781e23500a2",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/ssh",
+      "mtime_utc": "2024-04-03T22:09:44+00:00",
+      "ctime_utc": "2024-06-22T10:39:57.483879+00:00",
+      "size": 133,
+      "sha256": "8ec4e7be86cf6d98c8b280ef6d71e6d97a635813bb06bf5ac5cdc756e98ef379",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/grub.old",
+      "mtime_utc": "2026-09-10T13:43:02.537585+00:00",
+      "ctime_utc": "2026-09-10T13:43:02.537585+00:00",
+      "size": 1570,
+      "sha256": "f6e122907ad7767ce7f8bff72753e8aea4b51b5f337c59fbe6e031c83b27b66d",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/cron",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.759411+00:00",
+      "size": 150,
+      "sha256": "6a8f0b25001017f55a227be357cd418e46f514acd58c069d17a78c3072d9d569",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/ntpsec-ntpdate",
+      "mtime_utc": "2024-04-01T07:02:43+00:00",
+      "ctime_utc": "2024-06-22T11:40:55.582361+00:00",
+      "size": 516,
+      "sha256": "1a144586c7f9389a4754c23c1d5fe1474e592a9b89e50897f64b2f9bec721f1f",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/rsync",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.760411+00:00",
+      "size": 2062,
+      "sha256": "91b63ed78e891c2cfd708ad9ea166951494aa2a9a1c711908c4a46a0af302fa6",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/grub",
+      "mtime_utc": "2026-09-10T14:26:12.092437+00:00",
+      "ctime_utc": "2026-09-10T14:26:12.093437+00:00",
+      "size": 1924,
+      "sha256": "440b1a789dcb89a3f35c29b52f13e6beaf216e6ff330f2792d5e18c8f8a5e219",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/chrony",
+      "mtime_utc": "2024-04-02T00:08:27+00:00",
+      "ctime_utc": "2024-06-22T11:40:58.194425+00:00",
+      "size": 412,
+      "sha256": "e93b5d3ecd73651a49e1e7c7984e026cd09271554cce23b851022aece3aa1547",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/keyboard",
+      "mtime_utc": "2024-06-22T10:28:14.148919+00:00",
+      "ctime_utc": "2024-06-22T10:28:14.148919+00:00",
+      "size": 150,
+      "sha256": "9d2d64b5b738ef55ecc80e236cd00caba19d3afe1921c74fa7d73c9477ebe6eb"
+    },
+    {
+      "path": "/etc/default/pollinate",
+      "mtime_utc": "2022-10-15T16:16:00+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.760411+00:00",
+      "size": 363,
+      "sha256": "e220199fc1512bde1bf81dcf4332516f0b9d841f4c65c480a2aa5678f183af34",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/smartmontools",
+      "mtime_utc": "2019-10-10T00:32:47+00:00",
+      "ctime_utc": "2024-06-22T11:40:50.658240+00:00",
+      "size": 363,
+      "sha256": "81b7a845ab3feab003bcee47ce9b115d4be20a005d548d39c49a27a4204e0506",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/mdadm",
+      "mtime_utc": "2025-02-13T20:14:10.115389+00:00",
+      "ctime_utc": "2025-02-13T20:14:10.115389+00:00",
+      "size": 854,
+      "sha256": "4ab35f1afc15b951ad8fa6675607dcacf16a1ea934cfa10581f2b073fb53ad8d",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/console-setup",
+      "mtime_utc": "2024-04-23T09:40:49+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.759411+00:00",
+      "size": 285,
+      "sha256": "8910fde8c8dc59b33b8305bad3b517e09543256598a7bb0b2f46b44de718a44b",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/vmtouch",
+      "mtime_utc": "2019-07-18T12:13:19+00:00",
+      "ctime_utc": "2026-03-03T05:37:13.262867+00:00",
+      "size": 327,
+      "sha256": "4b2372b626fc4e367e7ba3788b6e7bcaaa567208c2b4c1454d2e64f20d936e4d",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/grub.dist",
+      "mtime_utc": "2024-06-22T10:29:57.993875+00:00",
+      "ctime_utc": "2024-06-22T11:41:42.193326+00:00",
+      "size": 1571,
+      "sha256": "eea96088b49d77f199fafbbacb57d67f4ffed6306bf39503f8889ba9f2e89118",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/apport",
+      "mtime_utc": "2024-04-18T23:50:32+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.759411+00:00",
+      "size": 149,
+      "sha256": "810304fb0df6dbc8a651a8928ddd0bb2b521fa0ca6f32a328aa103be61977f91",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/ufw",
+      "mtime_utc": "2024-04-23T09:45:14+00:00",
+      "ctime_utc": "2024-06-22T10:27:44.760411+00:00",
+      "size": 1897,
+      "sha256": "07db07bb07e5ac1388707b7c59dabfbce8ad06d5001236248fbf3f93b79c2ed7",
+      "relevant_lines": []
+    },
+    {
+      "path": "/etc/default/bridge-utils",
+      "mtime_utc": "2023-01-25T21:11:52+00:00",
+      "ctime_utc": "2024-06-22T11:40:55.395356+00:00",
+      "size": 248,
+      "sha256": "e0c9444242a606e05f7206be6329b2035abfc790805f3620a5e373a2ff530720",
+      "relevant_lines": []
+    }
+  ],
+  "processes": [
+    {
+      "pid": 7587,
+      "name": "MainThread",
+      "ppid": "7507",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 1085632,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 271406
+      },
+      "numa_policy_counts": {
+        "default": 2494
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope\n"
+    },
+    {
+      "pid": 13075,
+      "name": "MainThread",
+      "ppid": "7587",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 980860,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 245213
+      },
+      "numa_policy_counts": {
+        "default": 2617
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope\n"
+    },
+    {
+      "pid": 7710,
+      "name": "codex",
+      "ppid": "7587",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 284596,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 71147
+      },
+      "numa_policy_counts": {
+        "default": 401
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope\n"
+    },
+    {
+      "pid": 7640,
+      "name": "MainThread",
+      "ppid": "7605",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 267880,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 66968
+      },
+      "numa_policy_counts": {
+        "default": 404
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope\n"
+    },
+    {
+      "pid": 7507,
+      "name": "MainThread",
+      "ppid": "7503",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 159420,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 39853
+      },
+      "numa_policy_counts": {
+        "default": 221
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope\n"
+    },
+    {
+      "pid": 7605,
+      "name": "MainThread",
+      "ppid": "7536",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 142292,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 35571
+      },
+      "numa_policy_counts": {
+        "default": 267
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope\n"
+    },
+    {
+      "pid": 7536,
+      "name": "MainThread",
+      "ppid": "7531",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 97796,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 24447
+      },
+      "numa_policy_counts": {
+        "default": 193
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope\n"
+    },
+    {
+      "pid": 19769,
+      "name": "cpptools-srv",
+      "ppid": "1",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 90016,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 22502
+      },
+      "numa_policy_counts": {
+        "default": 58
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope\n"
+    },
+    {
+      "pid": 19583,
+      "name": "cpptools",
+      "ppid": "7587",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 88760,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 22188
+      },
+      "numa_policy_counts": {
+        "default": 198
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope\n"
+    },
+    {
+      "pid": 7909,
+      "name": "MainThread",
+      "ppid": "7507",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 86628,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 21655
+      },
+      "numa_policy_counts": {
+        "default": 203
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope\n"
+    },
+    {
+      "pid": 7532,
+      "name": "MainThread",
+      "ppid": "7507",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 75116,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 18777
+      },
+      "numa_policy_counts": {
+        "default": 162
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope\n"
+    },
+    {
+      "pid": 721,
+      "name": "systemd-journal",
+      "ppid": "1",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 52896,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 13222
+      },
+      "numa_policy_counts": {
+        "default": 147
+      },
+      "cgroup": "0::/system.slice/systemd-journald.service\n"
+    },
+    {
+      "pid": 51716,
+      "name": "fwupd",
+      "ppid": "1",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 35372,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 8841
+      },
+      "numa_policy_counts": {
+        "default": 479
+      },
+      "cgroup": "0::/system.slice/fwupd.service\n"
+    },
+    {
+      "pid": 778,
+      "name": "multipathd",
+      "ppid": "1",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 26620,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 6653
+      },
+      "numa_policy_counts": {
+        "default": 158
+      },
+      "cgroup": "0::/system.slice/multipathd.service\n"
+    },
+    {
+      "pid": 74605,
+      "name": "code-a44adf7f53",
+      "ppid": "74587",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 26188,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 6545
+      },
+      "numa_policy_counts": {
+        "default": 117
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-19.scope\n"
+    },
+    {
+      "pid": 13765,
+      "name": "codex-code-mode",
+      "ppid": "7710",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 24016,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 6002
+      },
+      "numa_policy_counts": {
+        "default": 176
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope\n"
+    },
+    {
+      "pid": 1741,
+      "name": "unattended-upgr",
+      "ppid": "1",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 22532,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 5631
+      },
+      "numa_policy_counts": {
+        "default": 181
+      },
+      "cgroup": "0::/system.slice/unattended-upgrades.service\n"
+    },
+    {
+      "pid": 7477,
+      "name": "code-a44adf7f53",
+      "ppid": "1",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 22392,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 5596
+      },
+      "numa_policy_counts": {
+        "default": 112
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope\n"
+    },
+    {
+      "pid": 1601,
+      "name": "networkd-dispat",
+      "ppid": "1",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 21536,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 5382
+      },
+      "numa_policy_counts": {
+        "default": 155
+      },
+      "cgroup": "0::/system.slice/networkd-dispatcher.service\n"
+    },
+    {
+      "pid": 1997,
+      "name": "chronyd",
+      "ppid": "1",
+      "uid": "112\t112\t112\t112",
+      "rss_kib": 18832,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 4706
+      },
+      "numa_policy_counts": {
+        "default": 91
+      },
+      "cgroup": "0::/system.slice/chrony.service\n"
+    },
+    {
+      "pid": 78297,
+      "name": "python3",
+      "ppid": "78296",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 17956,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 4487
+      },
+      "numa_policy_counts": {
+        "default": 64
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope\n"
+    },
+    {
+      "pid": 1,
+      "name": "systemd",
+      "ppid": "0",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 13748,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 3435
+      },
+      "numa_policy_counts": {
+        "default": 142
+      },
+      "cgroup": "0::/init.scope\n"
+    },
+    {
+      "pid": 1615,
+      "name": "udisksd",
+      "ppid": "1",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 13648,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 3410
+      },
+      "numa_policy_counts": {
+        "default": 350
+      },
+      "cgroup": "0::/system.slice/udisks2.service\n"
+    },
+    {
+      "pid": 48699,
+      "name": "tlsmgr",
+      "ppid": "2306",
+      "uid": "115\t115\t115\t115",
+      "rss_kib": 13444,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 3359
+      },
+      "numa_policy_counts": {
+        "default": 153
+      },
+      "cgroup": "0::/system.slice/system-postfix.slice/postfix@-.service\n"
+    },
+    {
+      "pid": 1382,
+      "name": "systemd-resolve",
+      "ppid": "1",
+      "uid": "992\t992\t992\t992",
+      "rss_kib": 12992,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 3246
+      },
+      "numa_policy_counts": {
+        "default": 145
+      },
+      "cgroup": "0::/system.slice/systemd-resolved.service\n"
+    },
+    {
+      "pid": 2070,
+      "name": "watchdog",
+      "ppid": "1",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 12172,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 3042
+      },
+      "numa_policy_counts": {
+        "default": 66
+      },
+      "cgroup": "0::/system.slice/testbed.service\n"
+    },
+    {
+      "pid": 2489,
+      "name": "systemd",
+      "ppid": "1",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 11804,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 2949
+      },
+      "numa_policy_counts": {
+        "default": 143
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/user@20020.service/init.scope\n"
+    },
+    {
+      "pid": 2484,
+      "name": "rc.progagent",
+      "ppid": "1",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 11232,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 2808
+      },
+      "numa_policy_counts": {
+        "default": 66
+      },
+      "cgroup": "0::/system.slice/testbed.service\n"
+    },
+    {
+      "pid": 74447,
+      "name": "sshd",
+      "ppid": "1880",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 10748,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 2685
+      },
+      "numa_policy_counts": {
+        "default": 202
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-19.scope\n"
+    },
+    {
+      "pid": 2724,
+      "name": "tmux: server",
+      "ppid": "1",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 10232,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 2556
+      },
+      "numa_policy_counts": {
+        "default": 91
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-1.scope\n"
+    },
+    {
+      "pid": 1831,
+      "name": "systemd-network",
+      "ppid": "1",
+      "uid": "998\t998\t998\t998",
+      "rss_kib": 9960,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 2488
+      },
+      "numa_policy_counts": {
+        "default": 133
+      },
+      "cgroup": "0::/system.slice/systemd-networkd.service\n"
+    },
+    {
+      "pid": 51750,
+      "name": "upowerd",
+      "ppid": "1",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 9340,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 2333
+      },
+      "numa_policy_counts": {
+        "default": 147
+      },
+      "cgroup": "0::/system.slice/upower.service\n"
+    },
+    {
+      "pid": 1612,
+      "name": "systemd-logind",
+      "ppid": "1",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 9144,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 2284
+      },
+      "numa_policy_counts": {
+        "default": 138
+      },
+      "cgroup": "0::/system.slice/systemd-logind.service\n"
+    },
+    {
+      "pid": 1880,
+      "name": "sshd",
+      "ppid": "1",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 8148,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 2035
+      },
+      "numa_policy_counts": {
+        "default": 111
+      },
+      "cgroup": "0::/system.slice/ssh.service\n"
+    },
+    {
+      "pid": 1670,
+      "name": "polkitd",
+      "ppid": "1",
+      "uid": "991\t991\t991\t991",
+      "rss_kib": 8112,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 2026
+      },
+      "numa_policy_counts": {
+        "default": 151
+      },
+      "cgroup": "0::/system.slice/polkit.service\n"
+    },
+    {
+      "pid": 73400,
+      "name": "pickup",
+      "ppid": "2306",
+      "uid": "115\t115\t115\t115",
+      "rss_kib": 8060,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 2013
+      },
+      "numa_policy_counts": {
+        "default": 131
+      },
+      "cgroup": "0::/system.slice/system-postfix.slice/postfix@-.service\n"
+    },
+    {
+      "pid": 74586,
+      "name": "sshd",
+      "ppid": "74447",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 7660,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 1913
+      },
+      "numa_policy_counts": {
+        "default": 203
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-19.scope\n"
+    },
+    {
+      "pid": 2308,
+      "name": "qmgr",
+      "ppid": "2306",
+      "uid": "115\t115\t115\t115",
+      "rss_kib": 7452,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 1861
+      },
+      "numa_policy_counts": {
+        "default": 129
+      },
+      "cgroup": "0::/system.slice/system-postfix.slice/postfix@-.service\n"
+    },
+    {
+      "pid": 78296,
+      "name": "sudo",
+      "ppid": "78295",
+      "uid": "20020\t0\t0\t0",
+      "rss_kib": 7036,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 1757
+      },
+      "numa_policy_counts": {
+        "default": 165
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope\n"
+    },
+    {
+      "pid": 803,
+      "name": "systemd-udevd",
+      "ppid": "1",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 6784,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 1694
+      },
+      "numa_policy_counts": {
+        "default": 78
+      },
+      "cgroup": "0::/system.slice/systemd-udevd.service/udev\n"
+    },
+    {
+      "pid": 1636,
+      "name": "rsyslogd",
+      "ppid": "1",
+      "uid": "103\t103\t103\t103",
+      "rss_kib": 6776,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 1692
+      },
+      "numa_policy_counts": {
+        "default": 121
+      },
+      "cgroup": "0::/system.slice/rsyslog.service\n"
+    },
+    {
+      "pid": 8079,
+      "name": "pet",
+      "ppid": "7587",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 6532,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 1631
+      },
+      "numa_policy_counts": {
+        "default": 130
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope\n"
+    },
+    {
+      "pid": 1605,
+      "name": "smartd",
+      "ppid": "1",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 6344,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 1584
+      },
+      "numa_policy_counts": {
+        "default": 95
+      },
+      "cgroup": "0::/system.slice/smartmontools.service\n"
+    },
+    {
+      "pid": 2725,
+      "name": "bash",
+      "ppid": "2724",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 6056,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 1512
+      },
+      "numa_policy_counts": {
+        "default": 31
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/user@20020.service/tmux-spawn-baa84965-f14b-4cb0-b686-3f30f8d5bff6.scope\n"
+    },
+    {
+      "pid": 10966,
+      "name": "bash",
+      "ppid": "7909",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 5704,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 1424
+      },
+      "numa_policy_counts": {
+        "default": 31
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope\n"
+    },
+    {
+      "pid": 13011,
+      "name": "bash",
+      "ppid": "7909",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 5676,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 1417
+      },
+      "numa_policy_counts": {
+        "default": 30
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope\n"
+    },
+    {
+      "pid": 1597,
+      "name": "dbus-daemon",
+      "ppid": "1",
+      "uid": "101\t101\t101\t101",
+      "rss_kib": 5612,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 1401
+      },
+      "numa_policy_counts": {
+        "default": 109
+      },
+      "cgroup": "0::/system.slice/dbus.service\n"
+    },
+    {
+      "pid": 14680,
+      "name": "tmux: client",
+      "ppid": "10966",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 5336,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 1332
+      },
+      "numa_policy_counts": {
+        "default": 90
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope\n"
+    },
+    {
+      "pid": 2726,
+      "name": "dbus-daemon",
+      "ppid": "2489",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 5192,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 1296
+      },
+      "numa_policy_counts": {
+        "default": 108
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/user@20020.service/session.slice/dbus.service\n"
+    },
+    {
+      "pid": 2306,
+      "name": "master",
+      "ppid": "1",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 4896,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 1222
+      },
+      "numa_policy_counts": {
+        "default": 117
+      },
+      "cgroup": "0::/system.slice/system-postfix.slice/postfix@-.service\n"
+    },
+    {
+      "pid": 2485,
+      "name": "program-agent",
+      "ppid": "2484",
+      "uid": "10005\t10005\t10005\t10005",
+      "rss_kib": 4540,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 1133
+      },
+      "numa_policy_counts": {
+        "default": 55
+      },
+      "cgroup": "0::/system.slice/testbed.service\n"
+    },
+    {
+      "pid": 1302,
+      "name": "rpcbind",
+      "ppid": "1",
+      "uid": "110\t110\t110\t110",
+      "rss_kib": 4204,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 1049
+      },
+      "numa_policy_counts": {
+        "default": 110
+      },
+      "cgroup": "0::/system.slice/rpcbind.service\n"
+    },
+    {
+      "pid": 78295,
+      "name": "bash",
+      "ppid": "7710",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 3552,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 886
+      },
+      "numa_policy_counts": {
+        "default": 43
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope\n"
+    },
+    {
+      "pid": 2490,
+      "name": "(sd-pam)",
+      "ppid": "2489",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 3544,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 886
+      },
+      "numa_policy_counts": {
+        "default": 203
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/user@20020.service/init.scope\n"
+    },
+    {
+      "pid": 1844,
+      "name": "cron",
+      "ppid": "1",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 2956,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 737
+      },
+      "numa_policy_counts": {
+        "default": 53
+      },
+      "cgroup": "0::/system.slice/cron.service\n"
+    },
+    {
+      "pid": 2002,
+      "name": "chronyd",
+      "ppid": "1997",
+      "uid": "112\t112\t112\t112",
+      "rss_kib": 2664,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 664
+      },
+      "numa_policy_counts": {
+        "default": 88
+      },
+      "cgroup": "0::/system.slice/chrony.service\n"
+    },
+    {
+      "pid": 1889,
+      "name": "agetty",
+      "ppid": "1",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 2320,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 578
+      },
+      "numa_policy_counts": {
+        "default": 25
+      },
+      "cgroup": "0::/system.slice/system-serial\\x2dgetty.slice/serial-getty@ttyS0.service\n"
+    },
+    {
+      "pid": 77648,
+      "name": "sleep",
+      "ppid": "74587",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 2140,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 534
+      },
+      "numa_policy_counts": {
+        "default": 24
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-19.scope\n"
+    },
+    {
+      "pid": 1954,
+      "name": "agetty",
+      "ppid": "1",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 2104,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 524
+      },
+      "numa_policy_counts": {
+        "default": 27
+      },
+      "cgroup": "0::/system.slice/system-getty.slice/getty@tty1.service\n"
+    },
+    {
+      "pid": 74587,
+      "name": "sh",
+      "ppid": "74586",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 2028,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 506
+      },
+      "numa_policy_counts": {
+        "default": 24
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-19.scope\n"
+    },
+    {
+      "pid": 7503,
+      "name": "sh",
+      "ppid": "1",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 1984,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 495
+      },
+      "numa_policy_counts": {
+        "default": 24
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope\n"
+    },
+    {
+      "pid": 7531,
+      "name": "sh",
+      "ppid": "7477",
+      "uid": "20020\t20020\t20020\t20020",
+      "rss_kib": 1984,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 495
+      },
+      "numa_policy_counts": {
+        "default": 24
+      },
+      "cgroup": "0::/user.slice/user-20020.slice/session-3.scope\n"
+    },
+    {
+      "pid": 2186,
+      "name": "pubsubd",
+      "ppid": "1",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 1856,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 462
+      },
+      "numa_policy_counts": {
+        "default": 40
+      },
+      "cgroup": "0::/system.slice/pubsubd.service\n"
+    },
+    {
+      "pid": 2631,
+      "name": "linktest",
+      "ppid": "1",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 1696,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 422
+      },
+      "numa_policy_counts": {
+        "default": 40
+      },
+      "cgroup": "0::/system.slice/testbed.service\n"
+    },
+    {
+      "pid": 2060,
+      "name": "slothd",
+      "ppid": "1",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 1544,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 384
+      },
+      "numa_policy_counts": {
+        "default": 24
+      },
+      "cgroup": "0::/system.slice/testbed.service\n"
+    },
+    {
+      "pid": 2478,
+      "name": "emulab-syncd",
+      "ppid": "1",
+      "uid": "0\t0\t0\t0",
+      "rss_kib": 1176,
+      "cpus_allowed": "10-19,30-39",
+      "mems_allowed": "0-1",
+      "numa_resident_pages": {
+        "1": 294
+      },
+      "numa_policy_counts": {
+        "default": 24
+      },
+      "cgroup": "0::/system.slice/testbed.service\n"
+    }
+  ]
+}

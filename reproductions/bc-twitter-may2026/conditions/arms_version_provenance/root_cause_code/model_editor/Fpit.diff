@@ -1,0 +1,22 @@
+--- 4da3d6c3f/model.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-3fe4908d/Fpit.cpp
+@@ -74,6 +74,19 @@
+     const double group_0_mean = round_to_6(row.groups[0 + 7]);
+     const double r_ratio_20 = round_to_6(build_ratio_feature(row.ewma_20_r, row.ewma_20));
+     const double r_ratio_100 = round_to_6(build_ratio_feature(row.ewma_100_r, row.ewma_100));
++
++    //    "ewma_2",
++    //    "ewma_5",
++    //    "ewma_20",
++    //    "ewma_100",
++    //    "global_avg_accesses_model",
++    //    "group_neg_mean",
++    //    "group_pos_mean",
++    //    "group_0_mean",
++    //    "age",
++    //    "r_ratio_20",
++    //    "r_ratio_100",
++    //    "group_ewma5_var"
+ 
+     features[i++] = round_to_6(row.ewma_2);
+     features[i++] = round_to_6(row.ewma_5);

@@ -18,6 +18,14 @@ INCLUDES = -I.
 # Libraries
 LIBS = -lnuma -lpthread -ldl
 
+# Expanded only for PRINT_TRAINING_DATA variants. Non-logging builds need
+# neither Python/PyArrow nor Arrow/Parquet headers or shared libraries.
+PARQUET_PYTHON ?= python3
+PARQUET_CXXFLAGS ?= $(or $(shell $(PARQUET_PYTHON) scripts/parquet_flags.py cflags),$(error Cannot find Arrow/Parquet headers))
+PARQUET_LIBS ?= $(or $(shell $(PARQUET_PYTHON) scripts/parquet_flags.py libs),$(error Cannot find Arrow/Parquet libraries))
+PARQUET_VARIANTS := train logging arms_train arms_near_train arms_near_train_all_numa arms_cxl_train
+MODEL_TIMING_TELEMETRY ?= true
+
 # Build directories for reusable objects
 BUILD_DIR := build
 OBJ_DIR := $(BUILD_DIR)/obj
@@ -59,10 +67,10 @@ SRCS = arms_kernel.cpp \
 	pagemap_scan_thread.cpp \
 	migration_worker.cpp \
 	policy_thread.cpp \
-	timer.cpp hook/hook.cpp groups.cpp page.cpp logging.cpp model.cpp
+	timer.cpp hook/hook.cpp groups.cpp page.cpp logging.cpp logging_parquet.cpp model.cpp
 OBJ_NAMES = $(SRCS:.cpp=.o)
 
-ARMS_ALL_NUMA_TRAIN_MAX_LOGGED_SAMPLES ?= 10000000
+ARMS_ALL_NUMA_TRAIN_MAX_LOGGED_SAMPLES ?= 100000000
 
 BASE_DEFINES_model := -DUSE_MODEL=true
 BASE_DEFINES_train := -DUSE_MODEL=true -DPRINT_TRAINING_DATA=true
@@ -94,30 +102,36 @@ LOGGING_MAX_LOGGED_SAMPLES ?= 100000000
 define LINK_SHARED_RECIPE
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -shared -fPIC -g $^ -o $@ -O3 \
 		$(LIBS) \
+		$(if $(filter $(addsuffix /%,$(addprefix $(OBJ_DIR)/,$(PARQUET_VARIANTS))),$^),$(PARQUET_LIBS)) \
 		$(EXTRA_COMPILE_ARGS)
 endef
 
 define COMPILE_OBJECT_RECIPE
 	mkdir -p $(dir $@)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -fPIC $(1) -c $< -o $@
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -fPIC $(1) -DMODEL_TIMING_TELEMETRY=$(MODEL_TIMING_TELEMETRY) $(if $(and $(filter logging_parquet.cpp,$<),$(filter -DPRINT_TRAINING_DATA=true -DPRINT_TRAINING_DATA=1,$(1))),-std=c++20 $(PARQUET_CXXFLAGS)) -c $< -o $@
 endef
 
 # System detection
 UNAME_M := $(shell uname -m)
 HOSTNAME := $(shell hostname)
 
-.PHONY: all clean
+.PHONY: all clean training-libraries test-parquet
 
 all: $(LIB_TARGETS) $(TRAIN_LIB_TARGETS) $(ARMS_TARGETS) $(ARMS_NOMIGRATION_TARGETS) $(ARMS_PLAIN_TARGETS) $(LOGGING_TARGETS) $(ARMS_TRAIN_TARGETS) $(ARMS_NEAR_TRAIN_TARGETS) $(ARMS_NEAR_TRAIN_ALL_NUMA_TARGETS) $(ARMS_CXL_TRAIN_TARGETS)
+
+training-libraries: $(TRAIN_LIB_TARGETS) $(LOGGING_TARGETS) $(ARMS_TRAIN_TARGETS) $(ARMS_NEAR_TRAIN_TARGETS) $(ARMS_NEAR_TRAIN_ALL_NUMA_TARGETS) $(ARMS_CXL_TRAIN_TARGETS)
+
+test-parquet:
+	$(PARQUET_PYTHON) tests/test_logging_parquet.py
 
 $(TARGET_LIB): $(ARMS_TARGET_DEFAULT) | $(LIB_OUTPUT_DIR)
 	cp -f $< $@
 
 define MAKE_MODEL_SOURCE_RULES
-$$(OBJ_DIR)/model/$(1)/$(2)/%/$(patsubst %.cpp,%.o,$(3)): $(3) | $$(OBJ_DIR)
+$$(OBJ_DIR)/model/$(1)/$(2)/%/$(patsubst %.cpp,%.o,$(3)): $(3) defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_model) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)) $$(call model_discount_define,$$*))
 
-$$(OBJ_DIR)/train/$(1)/$(2)/%/$(patsubst %.cpp,%.o,$(3)): $(3) | $$(OBJ_DIR)
+$$(OBJ_DIR)/train/$(1)/$(2)/%/$(patsubst %.cpp,%.o,$(3)): $(3) defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_train) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)) $$(call model_discount_define,$$*))
 endef
 
@@ -159,6 +173,7 @@ $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms.so: $$(NOMODEL_OBJS_$(1)) | $$(LIB_OUTPUT_
 
 # Build without linking a model or starting migration workers.
 $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_nomigrations.so: $$(NOMODEL_NOMIGRATION_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
+	$$(LINK_SHARED_RECIPE)
 
 # Build explicit non-logging, non-training ARMS variant
 $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_plain.so: $$(ARMS_PLAIN_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
@@ -185,28 +200,28 @@ $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_cxl_train.so: $$(ARMS_CXL_TRAIN_OBJS_$(1))
 	$$(LINK_SHARED_RECIPE)
 
 # Compile C++ sources for USE_MODEL=false variants (platform specialization)
-$$(OBJ_DIR)/nomodel/$(1)/%.o: %.cpp | $$(OBJ_DIR)
+$$(OBJ_DIR)/nomodel/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_nomodel) $$(call platform_defs,$(1)))
 
-$$(OBJ_DIR)/nomodel_nomigrations/$(1)/%.o: %.cpp | $$(OBJ_DIR)
+$$(OBJ_DIR)/nomodel_nomigrations/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_nomodel_nomigrations) $$(call platform_defs,$(1)))
 
-$$(OBJ_DIR)/arms_plain/$(1)/%.o: %.cpp | $$(OBJ_DIR)
+$$(OBJ_DIR)/arms_plain/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_plain) $$(call platform_defs,$(1)))
 
-$$(OBJ_DIR)/logging/$(1)/%.o: %.cpp | $$(OBJ_DIR)
+$$(OBJ_DIR)/logging/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_logging) $$(call platform_defs,$(1)) -DMODEL_DISCOUNT_PERCENT=$$(LOGGING_MODEL_DISCOUNT_PERCENT) -DMAX_LOGGED_SAMPLES=$$(LOGGING_MAX_LOGGED_SAMPLES))
 
-$$(OBJ_DIR)/arms_train/$(1)/%.o: %.cpp | $$(OBJ_DIR)
+$$(OBJ_DIR)/arms_train/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_train) $$(call platform_defs,$(1)))
 
-$$(OBJ_DIR)/arms_near_train/$(1)/%.o: %.cpp | $$(OBJ_DIR)
+$$(OBJ_DIR)/arms_near_train/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_near_train) $$(call platform_defs,$(1)))
 
-$$(OBJ_DIR)/arms_near_train_all_numa/$(1)/%.o: %.cpp | $$(OBJ_DIR)
+$$(OBJ_DIR)/arms_near_train_all_numa/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_near_train_all_numa) $$(call platform_defs,$(1)))
 
-$$(OBJ_DIR)/arms_cxl_train/$(1)/%.o: %.cpp | $$(OBJ_DIR)
+$$(OBJ_DIR)/arms_cxl_train/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_cxl_train) $$(call platform_defs,$(1)))
 endef
 

@@ -1,0 +1,15 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/3a5f6756/UQYz
++++ /users/zimooo2/.vscode-server/data/User/History/3a5f6756/T9rc
+@@ -13,8 +13,12 @@
+ # Nomad
+ sudo grub-set-default "1>16" && sudo grub-reboot "1>16"
+ 
++sudo mount /dev/sda ~/tiering_solutions/logs
++sudo mount /dev/sda ~/big-ann-benchmarks/data
+ sudo mount /dev/sdb ~/tiering_solutions/logs
+ sudo mount /dev/sdb ~/big-ann-benchmarks/data
++sudo mount /dev/sdc ~/tiering_solutions/logs
++sudo mount /dev/sdc ~/big-ann-benchmarks/data
+ 
+ check numastat -m
+ check uname -a

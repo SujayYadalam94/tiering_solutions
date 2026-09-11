@@ -1,0 +1,153 @@
+{
+  "generated_utc": "2026-09-09T13:10:37.504442+00:00",
+  "source_root": "/users/zimooo2/.vscode-server/data/User/History",
+  "interpretation": "Editor snapshots are records of saved versions, not proof of compiled or executed files. Git updates/external edits are not necessarily recorded. Retention often caps entries at50.",
+  "files": [
+    {
+      "id": "X6Fx.sh",
+      "source": "Chat Edit: 'Nomad needs to have these settings which are set differenly in setups.h\n\n    echo 1 | sudo tee /sys/kernel/mm/numa/demotion_enabled\n    echo 2 | sudo tee /proc/sys/kernel/numa_balancing\n\n    Also please look for any other required settings for noma which are in run.sh that i missed'",
+      "timestamp": 1774159120744,
+      "resource": "vscode-remote://ssh-remote%2Bhemem16/users/zimooo2/tiering_solutions/setup.sh",
+      "relative_path": "setup.sh",
+      "saved_utc": "2026-03-22T05:58:40.744000+00:00",
+      "sha256": "fff5fd73401d24d1ce03a30af31ead57f801571e0874cc18513f1dca7ee261cb",
+      "copied_path": "reproductions/bc-twitter-may2026/conditions/editor_setup_history/-247d494f/X6Fx.sh",
+      "comparison_git": "8d6a8bc66",
+      "byte_identical_to_git": false
+    },
+    {
+      "id": "G1RT.sh",
+      "timestamp": 1773419765950,
+      "resource": "vscode-remote://ssh-remote%2Bhemem16/users/zimooo2/tiering_solutions/defrag.sh",
+      "relative_path": "defrag.sh",
+      "saved_utc": "2026-03-13T16:36:05.950000+00:00",
+      "sha256": "2017ff1c78b30c2e4cdbda731d38930fde353f8d0e4da8e842fda5f28cc2da2e",
+      "copied_path": "reproductions/bc-twitter-may2026/conditions/editor_setup_history/-59ea1bb/G1RT.sh",
+      "comparison_git": "8d6a8bc66",
+      "byte_identical_to_git": true
+    },
+    {
+      "id": "uPO2.sh",
+      "source": "Chat Edit: 'Right now promotion and demotion are scaled by switch_scaler. I would alos like to scale by the WORKLOAD_VIRTUAL_STEP_SAMPLES environment variaible. This is parsed in static uint64_t parse_virtual_step_samples_env(), but will probably need to be parsed differently for this case'",
+      "timestamp": 1777862236148,
+      "resource": "vscode-remote://ssh-remote%2Bhemem16/users/zimooo2/tiering_solutions/measurement_common.sh",
+      "relative_path": "measurement_common.sh",
+      "saved_utc": "2026-05-04T02:37:16.148000+00:00",
+      "sha256": "c717aa9dbb1205b7869f27dc7dfe4d63a35b528dbedf40e520b7be3a808ce42b",
+      "copied_path": "reproductions/bc-twitter-may2026/conditions/editor_setup_history/52cc6f0a/uPO2.sh",
+      "comparison_git": "8d6a8bc66",
+      "byte_identical_to_git": false
+    },
+    {
+      "id": "89Uc.sh",
+      "timestamp": 1777864891547,
+      "resource": "vscode-remote://ssh-remote%2Bhemem16/users/zimooo2/tiering_solutions/measurement_common.sh",
+      "relative_path": "measurement_common.sh",
+      "saved_utc": "2026-05-04T03:21:31.547000+00:00",
+      "sha256": "77c0f076e9b82aaf62f585fccfd41c961248fcb9ee03ab1aeb92bc2d72ffe507",
+      "copied_path": "reproductions/bc-twitter-may2026/conditions/editor_setup_history/52cc6f0a/89Uc.sh",
+      "comparison_git": "8d6a8bc66",
+      "byte_identical_to_git": true
+    },
+    {
+      "id": "1DIJ.sh",
+      "timestamp": 1777736145626,
+      "resource": "vscode-remote://ssh-remote%2Bhemem16/users/zimooo2/tiering_solutions/workloads/bc-twitter.sg.sh",
+      "relative_path": "workloads/bc-twitter.sg.sh",
+      "saved_utc": "2026-05-02T15:35:45.626000+00:00",
+      "sha256": "c7a21c24051412d6222a8ce752b0c21523700acb27d456e4a5ac087de2a722c7",
+      "copied_path": "reproductions/bc-twitter-may2026/conditions/editor_setup_history/622870c6/1DIJ.sh",
+      "comparison_git": "8d6a8bc66",
+      "byte_identical_to_git": true
+    },
+    {
+      "id": "h25N.sh",
+      "source": "Chat Edit: 'please add the copy to measurement _arms'",
+      "timestamp": 1776630858665,
+      "resource": "vscode-remote://ssh-remote%2Bhemem16/users/zimooo2/tiering_solutions/measurement_arms.sh",
+      "relative_path": "measurement_arms.sh",
+      "saved_utc": "2026-04-19T20:34:18.665000+00:00",
+      "sha256": "f889b862d163ee970eb659ce63a9a98c148c097485af4c884c275aa30255b71d",
+      "copied_path": "reproductions/bc-twitter-may2026/conditions/editor_setup_history/6bbae45e/h25N.sh",
+      "comparison_git": "8d6a8bc66",
+      "byte_identical_to_git": true
+    },
+    {
+      "id": "M6BP.sh",
+      "timestamp": 1777946350386,
+      "resource": "vscode-remote://ssh-remote%2Bhemem16/users/zimooo2/tiering_solutions/measurement_model.sh",
+      "relative_path": "measurement_model.sh",
+      "saved_utc": "2026-05-05T01:59:10.386000+00:00",
+      "sha256": "0a1cb6ef718189096d6e0e77ab10e3fc444c0f3c7753813781985be7031087f1",
+      "copied_path": "reproductions/bc-twitter-may2026/conditions/editor_setup_history/3b775728/M6BP.sh",
+      "comparison_git": "8d6a8bc66",
+      "byte_identical_to_git": false
+    },
+    {
+      "id": "47GZ.sh",
+      "timestamp": 1778134151699,
+      "resource": "vscode-remote://ssh-remote%2Bhemem16/users/zimooo2/tiering_solutions/measurement_model.sh",
+      "relative_path": "measurement_model.sh",
+      "saved_utc": "2026-05-07T06:09:11.699000+00:00",
+      "sha256": "9769303a156d7ea57ee79f7bc5f04d8d44bd27010cb3231f855a09c3d38bc632",
+      "copied_path": "reproductions/bc-twitter-may2026/conditions/editor_setup_history/3b775728/47GZ.sh",
+      "comparison_git": "8d6a8bc66",
+      "byte_identical_to_git": false
+    },
+    {
+      "id": "jLFv.sh",
+      "timestamp": 1778379091507,
+      "resource": "vscode-remote://ssh-remote%2Bhemem16/users/zimooo2/tiering_solutions/measurement_model.sh",
+      "relative_path": "measurement_model.sh",
+      "saved_utc": "2026-05-10T02:11:31.507000+00:00",
+      "sha256": "4812bed5d86312dac9dbba7cefeef1cf771fda9d02902acfdb8b0e4cfcbbfecf",
+      "copied_path": "reproductions/bc-twitter-may2026/conditions/editor_setup_history/3b775728/jLFv.sh",
+      "comparison_git": "41e8adedd",
+      "byte_identical_to_git": true
+    },
+    {
+      "id": "sbw2.sh",
+      "timestamp": 1778290382555,
+      "resource": "vscode-remote://ssh-remote%2Bhemem16/users/zimooo2/tiering_solutions/measurement_workloads.sh",
+      "relative_path": "measurement_workloads.sh",
+      "saved_utc": "2026-05-09T01:33:02.555000+00:00",
+      "sha256": "2aed7a4840fb6a4734551825a43d24221584913614b73eec991451d0ec49f8a3",
+      "copied_path": "reproductions/bc-twitter-may2026/conditions/editor_setup_history/-198ec96b/sbw2.sh",
+      "comparison_git": "8d6a8bc66",
+      "byte_identical_to_git": false
+    },
+    {
+      "id": "e8Wn.sh",
+      "timestamp": 1778367742988,
+      "resource": "vscode-remote://ssh-remote%2Bhemem16/users/zimooo2/tiering_solutions/measurement_workloads.sh",
+      "relative_path": "measurement_workloads.sh",
+      "saved_utc": "2026-05-09T23:02:22.988000+00:00",
+      "sha256": "edacc3110981d9b6c1f5c21b93c8da16a1282a1682d17aebb6794d249a2cb381",
+      "copied_path": "reproductions/bc-twitter-may2026/conditions/editor_setup_history/-198ec96b/e8Wn.sh",
+      "comparison_git": "8d6a8bc66",
+      "byte_identical_to_git": false
+    },
+    {
+      "id": "jT22.sh",
+      "timestamp": 1778444253866,
+      "resource": "vscode-remote://ssh-remote%2Bhemem16/users/zimooo2/tiering_solutions/run_all_measurements.sh",
+      "relative_path": "run_all_measurements.sh",
+      "saved_utc": "2026-05-10T20:17:33.866000+00:00",
+      "sha256": "974650a3b1fb565b9eb19bf2e32201b7c0b9e334e0218814f412c4fab28f3cdb",
+      "copied_path": "reproductions/bc-twitter-may2026/conditions/editor_setup_history/-2c506191/jT22.sh",
+      "comparison_git": "8d6a8bc66",
+      "byte_identical_to_git": false
+    },
+    {
+      "id": "Rn3E.sh",
+      "timestamp": 1778512169452,
+      "resource": "vscode-remote://ssh-remote%2Bhemem16/users/zimooo2/tiering_solutions/run_all_measurements.sh",
+      "relative_path": "run_all_measurements.sh",
+      "saved_utc": "2026-05-11T15:09:29.452000+00:00",
+      "sha256": "87df52e2abfd9a4af08a2a8f60ca0a66c21ce196a1e92213f94bc709f8ec882f",
+      "copied_path": "reproductions/bc-twitter-may2026/conditions/editor_setup_history/-2c506191/Rn3E.sh",
+      "comparison_git": "8d6a8bc66",
+      "byte_identical_to_git": false
+    }
+  ]
+}

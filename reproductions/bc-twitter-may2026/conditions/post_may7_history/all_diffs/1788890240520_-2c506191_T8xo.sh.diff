@@ -1,0 +1,35 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-2c506191/3puQ.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-2c506191/T8xo.sh
+@@ -109,19 +109,19 @@
+             #fi
+ 
+             # MEMTIS
+-            if [[ -x "${SCRIPT_DIR}/measurement_memtis.sh" ]]; then
+-                # Batch setup, cache flushing, and measurement share one lock.
+-                if run_memtis_measurement "${size}" "${run}" "${workload_id}"; then
+-                    :
+-                else
+-                    status=$?
+-                    echo "ERROR: MEMTIS ${workload_id} failed (status ${status}); stopping measurements" >&2
+-                    exit "${status}"
+-                fi
+-            else
+-                echo "ERROR: ./measurement_memtis.sh not found or not executable" >&2
+-                exit 1
+-            fi
++            #if [[ -x "${SCRIPT_DIR}/measurement_memtis.sh" ]]; then
++            #    # Batch setup, cache flushing, and measurement share one lock.
++            #    if run_memtis_measurement "${size}" "${run}" "${workload_id}"; then
++            #        :
++            #    else
++            #        status=$?
++            #        echo "ERROR: MEMTIS ${workload_id} failed (status ${status}); stopping measurements" >&2
++            #        exit "${status}"
++            #    fi
++            #else
++            #    echo "ERROR: ./measurement_memtis.sh not found or not executable" >&2
++            #    exit 1
++            #fi
+ 
+             # Model
+             #if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then

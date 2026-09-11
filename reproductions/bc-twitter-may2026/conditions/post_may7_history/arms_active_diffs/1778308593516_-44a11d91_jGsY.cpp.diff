@@ -1,0 +1,65 @@
+--- git:8d6a8bc66:arms_kernel.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-44a11d91/jGsY.cpp
+@@ -147,12 +147,12 @@
+ return;
+ }
+ const uint64_t sample_count = virtual_step_duration_average_count.load(std::memory_order_relaxed);
+-const float denom = get_adjusted_ewma_denom((3),
+-static_cast<uint32_t>(sample_count));
++const float denom =
++get_adjusted_ewma_denom((3), static_cast<uint32_t>(sample_count));
+ const double previous_average =
+ sample_count == 0 ? 0.0 : virtual_step_duration_ms_average.load(std::memory_order_relaxed);
+-const double next_average = previous_average * (1.0 - (1.0 / static_cast<double>(denom))) +
+-(duration_ms / static_cast<double>(denom));
++const double next_average =
++previous_average * (1.0 - (1.0 / static_cast<double>(denom))) + (duration_ms / static_cast<double>(denom));
+ virtual_step_duration_ms_average.store(next_average, std::memory_order_relaxed);
+ virtual_step_duration_average_count.store(sample_count + 1, std::memory_order_relaxed);
+ }
+@@ -1242,6 +1242,19 @@
+ int64_t free_hugepages = fasttier_free_kb() * 1024 / ((2UL * 1024UL * 1024UL));
+ return free_hugepages;
+ }
++static int64_t max_dram_hugepages(const std::vector<score_entry> &scores)
++{
++int64_t free_hugepages = calculate_free_hugepages();
++int64_t dram_hugepages = 0;
++for (const auto &entry : scores)
++{
++if (entry.page->in_dram)
++{
++dram_hugepages++;
++}
++}
++return dram_hugepages + free_hugepages;
++}
+ static migration_decision select_migration_candidates(const std::vector<score_entry> &scores, const ranking_plan &plan)
+ {
+ migration_decision decision;
+@@ -1277,7 +1290,7 @@
+ {
+ continue;
+ }
+-double cost = get_promotion_cost_multiplier() * promotion_cost_avg;
++double cost = 1 * get_promotion_cost_multiplier() * promotion_cost_avg;
+ double benefit = hot_page->score * hot_page->hot_age * (5003) * latency_diff;
+ if (benefit < cost)
+ {
+@@ -1302,7 +1315,7 @@
+ if (cold_page->in_dram)
+ {
+ selected_cold_page = cold_page;
+-cost += get_demotion_cost_multiplier() * demotion_cost_avg;
++cost += 1 * get_demotion_cost_multiplier() * demotion_cost_avg;
+ benefit -= cold_page->score * hot_page->hot_age * (5003) * latency_diff;
+ break;
+ }
+@@ -1335,6 +1348,7 @@
+ break;
+ }
+ }
++std::cout << "migrations: " << decision.migrated_count << std::endl;
+ return decision;
+ }
+ void update_scores_and_migrate(size_t timestep)

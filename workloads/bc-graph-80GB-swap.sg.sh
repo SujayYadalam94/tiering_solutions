@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GAPBS_80GB_GRAPH=${GAPBS_80GB_GRAPH:-${BENCH_ROOT}/gapbs/benchmark/graph-80GB.sg}
+GAPBS_80GB_GRAPH=${GAPBS_80GB_GRAPH:-${BENCH_ROOT}/gapbs/benchmark/kron-80GB.sg}
 
 WORKLOAD_ID="bc-graph-80GB-swap.sg"
 WORKLOAD_OUTPUT="bc-graph-80GB-swap.sg"
@@ -8,4 +8,5 @@ WORKLOAD_COMMAND="OMP_NUM_THREADS=16 ${BENCH_ROOT}/gapbs/bc -n 10 -f ${GAPBS_80G
 WORKLOAD_EXE_NAME="bc"
 WORKLOAD_MODEL_BASE="bc-kron.sg"
 WORKLOAD_VIRTUAL_STEP_SAMPLES="10000"
-WORKLOAD_SYSTEMS="arms model logging"
+# Reuse the graph's ARMS measurement; only the trained model changes.
+WORKLOAD_SYSTEMS="model logging"

@@ -1,0 +1,10 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-46e76ef1/WuRv.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-46e76ef1/wtCS.cpp
+@@ -455,7 +455,6 @@
+     {
+         this->can_demote = false;
+     }
+-    this->can_demote = true;
+ #endif
+ }
+ 

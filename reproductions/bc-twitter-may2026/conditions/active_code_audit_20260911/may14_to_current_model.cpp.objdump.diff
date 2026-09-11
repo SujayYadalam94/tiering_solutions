@@ -1,0 +1,669 @@
+--- may14
++++ current
+@@ -28,8 +28,8 @@
+   3a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+ 
+ 0000000000000040 <model_predict_batch_impl(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, bool)>:
+-  40:	48 b8 cd cc cc cc cc 	movabs $0xcccccccccccccccd,%rax
+-  47:	cc cc cc 
++  40:	48 b8 19 9c 8f c1 f9 	movabs $0x8f9c18f9c18f9c19,%rax
++  47:	18 9c 8f 
+   4a:	41 57                	push   %r15
+   4c:	41 56                	push   %r14
+   4e:	41 55                	push   %r13
+@@ -40,7 +40,7 @@
+   58:	4c 8b 3f             	mov    (%rdi),%r15
+   5b:	48 8b 4f 08          	mov    0x8(%rdi),%rcx
+   5f:	4c 29 f9             	sub    %r15,%rcx
+-  62:	48 c1 f9 06          	sar    $0x6,%rcx
++  62:	48 c1 f9 03          	sar    $0x3,%rcx
+   66:	48 0f af c8          	imul   %rax,%rcx
+   6a:	48 85 c9             	test   %rcx,%rcx
+   6d:	0f 84 ed 00 00 00    	je     160 <model_predict_batch_impl(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, bool)+0x120>
+@@ -88,7 +88,7 @@
+  117:	f2 0f 5a c0          	cvtsd2ss %xmm0,%xmm0
+  11b:	48 83 c0 01          	add    $0x1,%rax
+  11f:	f3 0f 11 02          	movss  %xmm0,(%rdx)
+- 123:	48 81 c2 40 01 00 00 	add    $0x140,%rdx
++ 123:	48 81 c2 48 01 00 00 	add    $0x148,%rdx
+  12a:	48 39 c8             	cmp    %rcx,%rax
+  12d:	72 d1                	jb     100 <model_predict_batch_impl(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, bool)+0xc0>
+  12f:	48 85 db             	test   %rbx,%rbx
+@@ -122,7 +122,7 @@
+  16f:	e9 44 ff ff ff       	jmp    b8 <model_predict_batch_impl(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, bool)+0x78>
+  174:	0f 1f 40 00          	nopl   0x0(%rax)
+  178:	45 31 ff             	xor    %r15d,%r15d
+- 17b:	e9 cb 00 00 00       	jmp    24b <model_predict_batch_impl(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, bool)+0x20b>
++ 17b:	e9 c7 00 00 00       	jmp    247 <model_predict_batch_impl(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, bool)+0x207>
+  180:	f2 42 0f 10 04 fb    	movsd  (%rbx,%r15,8),%xmm0
+  186:	66 0f ef c9          	pxor   %xmm1,%xmm1
+  18a:	66 0f 2f c8          	comisd %xmm0,%xmm1
+@@ -141,320 +141,316 @@
+  1ba:	85 c0                	test   %eax,%eax
+  1bc:	0f 85 00 00 00 00    	jne    1c2 <model_predict_batch_impl(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, bool)+0x182>
+ 			1be: R_X86_64_PC32	.text.unlikely-0x4
+- 1c2:	4b 8d 04 bf          	lea    (%r15,%r15,4),%rax
+- 1c6:	f2 0f 10 04 24       	movsd  (%rsp),%xmm0
+- 1cb:	48 c1 e0 06          	shl    $0x6,%rax
+- 1cf:	48 89 c6             	mov    %rax,%rsi
+- 1d2:	49 8b 04 24          	mov    (%r12),%rax
+- 1d6:	f2 0f 5a c0          	cvtsd2ss %xmm0,%xmm0
+- 1da:	f3 0f 11 44 24 08    	movss  %xmm0,0x8(%rsp)
+- 1e0:	48 89 34 24          	mov    %rsi,(%rsp)
+- 1e4:	4c 8b 04 30          	mov    (%rax,%rsi,1),%r8
+- 1e8:	49 8b 45 00          	mov    0x0(%r13),%rax
+- 1ec:	4a 8b 3c 30          	mov    (%rax,%r14,1),%rdi
+- 1f0:	4c 89 44 24 10       	mov    %r8,0x10(%rsp)
+- 1f5:	e8 00 00 00 00       	call   1fa <model_predict_batch_impl(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, bool)+0x1ba>
+-			1f6: R_X86_64_PLT32	page_info::push_model_score(float)-0x4
+- 1fa:	49 8b 45 00          	mov    0x0(%r13),%rax
+- 1fe:	4c 8b 44 24 10       	mov    0x10(%rsp),%r8
+- 203:	48 89 ef             	mov    %rbp,%rdi
+- 206:	49 83 c7 01          	add    $0x1,%r15
+- 20a:	4a 8b 04 30          	mov    (%rax,%r14,1),%rax
+- 20e:	4c 89 80 68 01 00 00 	mov    %r8,0x168(%rax)
+- 215:	e8 00 00 00 00       	call   21a <model_predict_batch_impl(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, bool)+0x1da>
+-			216: R_X86_64_PLT32	pthread_mutex_unlock-0x4
+- 21a:	49 8b 04 24          	mov    (%r12),%rax
+- 21e:	49 8b 6c 24 08       	mov    0x8(%r12),%rbp
+- 223:	48 8b 34 24          	mov    (%rsp),%rsi
+- 227:	f3 0f 10 54 24 08    	movss  0x8(%rsp),%xmm2
+- 22d:	48 29 c5             	sub    %rax,%rbp
+- 230:	f3 0f 11 94 30 08 01 	movss  %xmm2,0x108(%rax,%rsi,1)
+- 237:	00 00 
+- 239:	48 c1 fd 06          	sar    $0x6,%rbp
+- 23d:	48 b8 cd cc cc cc cc 	movabs $0xcccccccccccccccd,%rax
+- 244:	cc cc cc 
+- 247:	48 0f af e8          	imul   %rax,%rbp
+- 24b:	49 39 ef             	cmp    %rbp,%r15
+- 24e:	0f 82 2c ff ff ff    	jb     180 <model_predict_batch_impl(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, bool)+0x140>
+- 254:	e9 d6 fe ff ff       	jmp    12f <model_predict_batch_impl(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, bool)+0xef>
+- 259:	49 89 c4             	mov    %rax,%r12
+- 25c:	e9 00 00 00 00       	jmp    261 <model_predict_batch_impl(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, bool)+0x221>
+-			25d: R_X86_64_PC32	.text.unlikely+0x8
+- 261:	90                   	nop
+- 262:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+- 269:	00 00 00 00 
+- 26d:	0f 1f 00             	nopl   (%rax)
+-
+-0000000000000270 <std::_Sp_counted_deleter<page_info*, model_predict(data_row&, page_info&)::{lambda(page_info*)#1}, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)>:
+- 270:	48 89 f9             	mov    %rdi,%rcx
+- 273:	48 8b 7e 08          	mov    0x8(%rsi),%rdi
+- 277:	48 8d 05 00 00 00 00 	lea    0x0(%rip),%rax        # 27e <std::_Sp_counted_deleter<page_info*, model_predict(data_row&, page_info&)::{lambda(page_info*)#1}, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)+0xe>
+-			27a: R_X86_64_PC32	.rodata-0x4
+- 27e:	48 39 c7             	cmp    %rax,%rdi
+- 281:	74 3d                	je     2c0 <std::_Sp_counted_deleter<page_info*, model_predict(data_row&, page_info&)::{lambda(page_info*)#1}, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)+0x50>
+- 283:	31 d2                	xor    %edx,%edx
+- 285:	80 3f 2a             	cmpb   $0x2a,(%rdi)
+- 288:	74 3a                	je     2c4 <std::_Sp_counted_deleter<page_info*, model_predict(data_row&, page_info&)::{lambda(page_info*)#1}, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)+0x54>
+- 28a:	48 83 ec 18          	sub    $0x18,%rsp
+- 28e:	48 8d 70 01          	lea    0x1(%rax),%rsi
+- 292:	48 89 14 24          	mov    %rdx,(%rsp)
+- 296:	48 89 4c 24 08       	mov    %rcx,0x8(%rsp)
+- 29b:	e8 00 00 00 00       	call   2a0 <std::_Sp_counted_deleter<page_info*, model_predict(data_row&, page_info&)::{lambda(page_info*)#1}, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)+0x30>
+-			29c: R_X86_64_PLT32	strcmp-0x4
+- 2a0:	31 d2                	xor    %edx,%edx
+- 2a2:	48 8b 4c 24 08       	mov    0x8(%rsp),%rcx
+- 2a7:	85 c0                	test   %eax,%eax
+- 2a9:	75 04                	jne    2af <std::_Sp_counted_deleter<page_info*, model_predict(data_row&, page_info&)::{lambda(page_info*)#1}, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)+0x3f>
+- 2ab:	48 8d 51 10          	lea    0x10(%rcx),%rdx
+- 2af:	48 89 d0             	mov    %rdx,%rax
+- 2b2:	48 83 c4 18          	add    $0x18,%rsp
+- 2b6:	c3                   	ret
+- 2b7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+- 2be:	00 00 
+- 2c0:	48 8d 51 10          	lea    0x10(%rcx),%rdx
+- 2c4:	48 89 d0             	mov    %rdx,%rax
+- 2c7:	c3                   	ret
+- 2c8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+- 2cf:	00 
+-
+-00000000000002d0 <model_predict_batch(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&)>:
+- 2d0:	ba 01 00 00 00       	mov    $0x1,%edx
+- 2d5:	e9 66 fd ff ff       	jmp    40 <model_predict_batch_impl(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, bool)>
+- 2da:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+-
+-00000000000002e0 <model_predict_batch_observe(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&)>:
+- 2e0:	31 d2                	xor    %edx,%edx
+- 2e2:	e9 59 fd ff ff       	jmp    40 <model_predict_batch_impl(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, bool)>
+- 2e7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+- 2ee:	00 00 
+-
+-00000000000002f0 <model_predict(data_row&, page_info&)>:
+- 2f0:	41 57                	push   %r15
+- 2f2:	b9 28 00 00 00       	mov    $0x28,%ecx
+- 2f7:	49 89 f7             	mov    %rsi,%r15
+- 2fa:	41 56                	push   %r14
+- 2fc:	41 55                	push   %r13
+- 2fe:	41 54                	push   %r12
+- 300:	55                   	push   %rbp
+- 301:	53                   	push   %rbx
+- 302:	48 89 fb             	mov    %rdi,%rbx
+- 305:	48 89 de             	mov    %rbx,%rsi
+- 308:	48 81 ec 78 01 00 00 	sub    $0x178,%rsp
+- 30f:	48 8d 7c 24 30       	lea    0x30(%rsp),%rdi
+- 314:	48 8d 6c 24 30       	lea    0x30(%rsp),%rbp
+- 319:	f3 48 a5             	rep movsq %ds:(%rsi),%es:(%rdi)
+- 31c:	bf 40 01 00 00       	mov    $0x140,%edi
+- 321:	e8 00 00 00 00       	call   326 <model_predict(data_row&, page_info&)+0x36>
+-			322: R_X86_64_PLT32	operator new(unsigned long)-0x4
+- 326:	48 8b 4c 24 30       	mov    0x30(%rsp),%rcx
+- 32b:	48 89 ee             	mov    %rbp,%rsi
+- 32e:	48 8d 90 40 01 00 00 	lea    0x140(%rax),%rdx
+- 335:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
+- 33a:	48 8d 78 08          	lea    0x8(%rax),%rdi
+- 33e:	48 89 54 24 20       	mov    %rdx,0x20(%rsp)
+- 343:	48 83 e7 f8          	and    $0xfffffffffffffff8,%rdi
+- 347:	48 89 08             	mov    %rcx,(%rax)
+- 34a:	48 8b 8c 24 68 01 00 	mov    0x168(%rsp),%rcx
+- 351:	00 
+- 352:	48 89 88 38 01 00 00 	mov    %rcx,0x138(%rax)
+- 359:	48 29 f8             	sub    %rdi,%rax
+- 35c:	8d 88 40 01 00 00    	lea    0x140(%rax),%ecx
+- 362:	48 29 c6             	sub    %rax,%rsi
+- 365:	c1 e9 03             	shr    $0x3,%ecx
+- 368:	f3 48 a5             	rep movsq %ds:(%rsi),%es:(%rdi)
+- 36b:	bf 18 00 00 00       	mov    $0x18,%edi
+- 370:	48 89 54 24 18       	mov    %rdx,0x18(%rsp)
+- 375:	e8 00 00 00 00       	call   37a <model_predict(data_row&, page_info&)+0x8a>
+-			376: R_X86_64_PLT32	operator new(unsigned long)-0x4
+- 37a:	49 89 c4             	mov    %rax,%r12
+- 37d:	48 8d 40 08          	lea    0x8(%rax),%rax
+- 381:	4c 8b 2d 00 00 00 00 	mov    0x0(%rip),%r13        # 388 <model_predict(data_row&, page_info&)+0x98>
+-			384: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
+- 388:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+- 38d:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 394 <model_predict(data_row&, page_info&)+0xa4>
+-			390: R_X86_64_PC32	.LC2-0x4
+- 394:	4d 89 7c 24 10       	mov    %r15,0x10(%r12)
+- 399:	49 89 44 24 08       	mov    %rax,0x8(%r12)
+- 39e:	48 8d 05 00 00 00 00 	lea    0x0(%rip),%rax        # 3a5 <model_predict(data_row&, page_info&)+0xb5>
+-			3a1: R_X86_64_PC32	.data.rel.ro.local+0xc
+- 3a5:	49 89 04 24          	mov    %rax,(%r12)
+- 3a9:	41 80 7d 00 00       	cmpb   $0x0,0x0(%r13)
+- 3ae:	0f 84 dc 01 00 00    	je     590 <model_predict(data_row&, page_info&)+0x2a0>
+- 3b4:	41 c7 44 24 08 02 00 	movl   $0x2,0x8(%r12)
+- 3bb:	00 00 
+- 3bd:	48 c7 44 24 38 00 00 	movq   $0x0,0x38(%rsp)
+- 3c4:	00 00 
+- 3c6:	bf 10 00 00 00       	mov    $0x10,%edi
+- 3cb:	e8 00 00 00 00       	call   3d0 <model_predict(data_row&, page_info&)+0xe0>
+-			3cc: R_X86_64_PLT32	operator new(unsigned long)-0x4
+- 3d0:	48 8d 50 10          	lea    0x10(%rax),%rdx
+- 3d4:	48 89 44 24 30       	mov    %rax,0x30(%rsp)
+- 3d9:	48 89 54 24 40       	mov    %rdx,0x40(%rsp)
+- 3de:	4c 89 38             	mov    %r15,(%rax)
+- 3e1:	4c 89 60 08          	mov    %r12,0x8(%rax)
+- 3e5:	41 80 7d 00 00       	cmpb   $0x0,0x0(%r13)
+- 3ea:	0f 84 b0 01 00 00    	je     5a0 <model_predict(data_row&, page_info&)+0x2b0>
+- 3f0:	41 83 44 24 08 01    	addl   $0x1,0x8(%r12)
+- 3f6:	48 b8 01 00 00 00 01 	movabs $0x100000001,%rax
+- 3fd:	00 00 00 
+- 400:	48 89 54 24 38       	mov    %rdx,0x38(%rsp)
+- 405:	49 8b 54 24 08       	mov    0x8(%r12),%rdx
+- 40a:	48 39 c2             	cmp    %rax,%rdx
+- 40d:	0f 84 f5 01 00 00    	je     608 <model_predict(data_row&, page_info&)+0x318>
+- 413:	41 80 7d 00 00       	cmpb   $0x0,0x0(%r13)
+- 418:	0f 84 92 01 00 00    	je     5b0 <model_predict(data_row&, page_info&)+0x2c0>
+- 41e:	41 8b 44 24 08       	mov    0x8(%r12),%eax
+- 423:	8d 50 ff             	lea    -0x1(%rax),%edx
+- 426:	41 89 54 24 08       	mov    %edx,0x8(%r12)
+- 42b:	83 f8 01             	cmp    $0x1,%eax
+- 42e:	0f 84 03 02 00 00    	je     637 <model_predict(data_row&, page_info&)+0x347>
+- 434:	48 8d 7c 24 10       	lea    0x10(%rsp),%rdi
+- 439:	48 89 ee             	mov    %rbp,%rsi
+- 43c:	e8 00 00 00 00       	call   441 <model_predict(data_row&, page_info&)+0x151>
+-			43d: R_X86_64_PLT32	model_predict_batch(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&)-0x4
+- 441:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
+- 446:	4c 8b 74 24 38       	mov    0x38(%rsp),%r14
+- 44b:	66 0f ef c9          	pxor   %xmm1,%xmm1
+- 44f:	f3 0f 10 80 08 01 00 	movss  0x108(%rax),%xmm0
+- 456:	00 
+- 457:	f3 0f 11 83 08 01 00 	movss  %xmm0,0x108(%rbx)
+- 45e:	00 
+- 45f:	48 8b 5c 24 30       	mov    0x30(%rsp),%rbx
+- 464:	f3 0f 5a c8          	cvtss2sd %xmm0,%xmm1
+- 468:	f2 0f 11 0c 24       	movsd  %xmm1,(%rsp)
+- 46d:	49 39 de             	cmp    %rbx,%r14
+- 470:	74 73                	je     4e5 <model_predict(data_row&, page_info&)+0x1f5>
+- 472:	49 bf 01 00 00 00 01 	movabs $0x100000001,%r15
+- 479:	00 00 00 
+- 47c:	eb 19                	jmp    497 <model_predict(data_row&, page_info&)+0x1a7>
+- 47e:	66 90                	xchg   %ax,%ax
+- 480:	8b 45 08             	mov    0x8(%rbp),%eax
+- 483:	8d 48 ff             	lea    -0x1(%rax),%ecx
+- 486:	89 4d 08             	mov    %ecx,0x8(%rbp)
+- 489:	83 f8 01             	cmp    $0x1,%eax
+- 48c:	74 38                	je     4c6 <model_predict(data_row&, page_info&)+0x1d6>
+- 48e:	48 83 c3 10          	add    $0x10,%rbx
+- 492:	49 39 de             	cmp    %rbx,%r14
+- 495:	74 49                	je     4e0 <model_predict(data_row&, page_info&)+0x1f0>
+- 497:	48 8b 6b 08          	mov    0x8(%rbx),%rbp
+- 49b:	48 85 ed             	test   %rbp,%rbp
+- 49e:	74 ee                	je     48e <model_predict(data_row&, page_info&)+0x19e>
+- 4a0:	48 8b 45 08          	mov    0x8(%rbp),%rax
+- 4a4:	48 8d 4d 08          	lea    0x8(%rbp),%rcx
+- 4a8:	4c 39 f8             	cmp    %r15,%rax
+- 4ab:	0f 84 b7 00 00 00    	je     568 <model_predict(data_row&, page_info&)+0x278>
+- 4b1:	41 80 7d 00 00       	cmpb   $0x0,0x0(%r13)
+- 4b6:	75 c8                	jne    480 <model_predict(data_row&, page_info&)+0x190>
+- 4b8:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+- 4bd:	f0 0f c1 01          	lock xadd %eax,(%rcx)
+- 4c1:	83 f8 01             	cmp    $0x1,%eax
+- 4c4:	75 c8                	jne    48e <model_predict(data_row&, page_info&)+0x19e>
+- 4c6:	48 89 ef             	mov    %rbp,%rdi
+- 4c9:	48 83 c3 10          	add    $0x10,%rbx
+- 4cd:	e8 00 00 00 00       	call   4d2 <model_predict(data_row&, page_info&)+0x1e2>
+-			4ce: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release_last_use_cold()-0x4
+- 4d2:	49 39 de             	cmp    %rbx,%r14
+- 4d5:	75 c0                	jne    497 <model_predict(data_row&, page_info&)+0x1a7>
+- 4d7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+- 4de:	00 00 
+- 4e0:	48 8b 5c 24 30       	mov    0x30(%rsp),%rbx
+- 4e5:	48 85 db             	test   %rbx,%rbx
+- 4e8:	74 10                	je     4fa <model_predict(data_row&, page_info&)+0x20a>
+- 4ea:	48 8b 74 24 40       	mov    0x40(%rsp),%rsi
+- 4ef:	48 89 df             	mov    %rbx,%rdi
+- 4f2:	48 29 de             	sub    %rbx,%rsi
+- 4f5:	e8 00 00 00 00       	call   4fa <model_predict(data_row&, page_info&)+0x20a>
+-			4f6: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
+- 4fa:	48 b8 01 00 00 00 01 	movabs $0x100000001,%rax
+- 501:	00 00 00 
+- 504:	49 8b 54 24 08       	mov    0x8(%r12),%rdx
+- 509:	48 39 c2             	cmp    %rax,%rdx
+- 50c:	0f 84 ce 00 00 00    	je     5e0 <model_predict(data_row&, page_info&)+0x2f0>
+- 512:	41 80 7d 00 00       	cmpb   $0x0,0x0(%r13)
+- 517:	0f 84 ab 00 00 00    	je     5c8 <model_predict(data_row&, page_info&)+0x2d8>
+- 51d:	41 8b 44 24 08       	mov    0x8(%r12),%eax
+- 522:	8d 50 ff             	lea    -0x1(%rax),%edx
+- 525:	41 89 54 24 08       	mov    %edx,0x8(%r12)
+- 52a:	83 f8 01             	cmp    $0x1,%eax
+- 52d:	0f 84 f7 00 00 00    	je     62a <model_predict(data_row&, page_info&)+0x33a>
+- 533:	48 8b 7c 24 10       	mov    0x10(%rsp),%rdi
+- 538:	48 85 ff             	test   %rdi,%rdi
+- 53b:	74 0d                	je     54a <model_predict(data_row&, page_info&)+0x25a>
+- 53d:	48 8b 74 24 20       	mov    0x20(%rsp),%rsi
+- 542:	48 29 fe             	sub    %rdi,%rsi
+- 545:	e8 00 00 00 00       	call   54a <model_predict(data_row&, page_info&)+0x25a>
+-			546: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
+- 54a:	f2 0f 10 04 24       	movsd  (%rsp),%xmm0
+- 54f:	48 81 c4 78 01 00 00 	add    $0x178,%rsp
+- 556:	5b                   	pop    %rbx
+- 557:	5d                   	pop    %rbp
+- 558:	41 5c                	pop    %r12
+- 55a:	41 5d                	pop    %r13
+- 55c:	41 5e                	pop    %r14
+- 55e:	41 5f                	pop    %r15
+- 560:	c3                   	ret
+- 561:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+- 568:	48 8b 45 00          	mov    0x0(%rbp),%rax
+- 56c:	48 89 ef             	mov    %rbp,%rdi
+- 56f:	48 c7 45 08 00 00 00 	movq   $0x0,0x8(%rbp)
+- 576:	00 
+- 577:	ff 50 10             	call   *0x10(%rax)
+- 57a:	48 8b 45 00          	mov    0x0(%rbp),%rax
+- 57e:	48 89 ef             	mov    %rbp,%rdi
+- 581:	ff 50 18             	call   *0x18(%rax)
+- 584:	e9 05 ff ff ff       	jmp    48e <model_predict(data_row&, page_info&)+0x19e>
+- 589:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
++ 1c2:	49 69 f7 48 01 00 00 	imul   $0x148,%r15,%rsi
++ 1c9:	49 8b 04 24          	mov    (%r12),%rax
++ 1cd:	f2 0f 10 04 24       	movsd  (%rsp),%xmm0
++ 1d2:	f2 0f 5a c0          	cvtsd2ss %xmm0,%xmm0
++ 1d6:	f3 0f 11 44 24 08    	movss  %xmm0,0x8(%rsp)
++ 1dc:	4c 8b 04 30          	mov    (%rax,%rsi,1),%r8
++ 1e0:	49 8b 45 00          	mov    0x0(%r13),%rax
++ 1e4:	48 89 34 24          	mov    %rsi,(%rsp)
++ 1e8:	4a 8b 3c 30          	mov    (%rax,%r14,1),%rdi
++ 1ec:	4c 89 44 24 10       	mov    %r8,0x10(%rsp)
++ 1f1:	e8 00 00 00 00       	call   1f6 <model_predict_batch_impl(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, bool)+0x1b6>
++			1f2: R_X86_64_PLT32	page_info::push_model_score(float)-0x4
++ 1f6:	49 8b 45 00          	mov    0x0(%r13),%rax
++ 1fa:	4c 8b 44 24 10       	mov    0x10(%rsp),%r8
++ 1ff:	48 89 ef             	mov    %rbp,%rdi
++ 202:	49 83 c7 01          	add    $0x1,%r15
++ 206:	4a 8b 04 30          	mov    (%rax,%r14,1),%rax
++ 20a:	4c 89 80 68 01 00 00 	mov    %r8,0x168(%rax)
++ 211:	e8 00 00 00 00       	call   216 <model_predict_batch_impl(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, bool)+0x1d6>
++			212: R_X86_64_PLT32	pthread_mutex_unlock-0x4
++ 216:	49 8b 04 24          	mov    (%r12),%rax
++ 21a:	49 8b 6c 24 08       	mov    0x8(%r12),%rbp
++ 21f:	48 8b 34 24          	mov    (%rsp),%rsi
++ 223:	f3 0f 10 54 24 08    	movss  0x8(%rsp),%xmm2
++ 229:	48 29 c5             	sub    %rax,%rbp
++ 22c:	f3 0f 11 94 30 08 01 	movss  %xmm2,0x108(%rax,%rsi,1)
++ 233:	00 00 
++ 235:	48 c1 fd 03          	sar    $0x3,%rbp
++ 239:	48 b8 19 9c 8f c1 f9 	movabs $0x8f9c18f9c18f9c19,%rax
++ 240:	18 9c 8f 
++ 243:	48 0f af e8          	imul   %rax,%rbp
++ 247:	49 39 ef             	cmp    %rbp,%r15
++ 24a:	0f 82 30 ff ff ff    	jb     180 <model_predict_batch_impl(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, bool)+0x140>
++ 250:	e9 da fe ff ff       	jmp    12f <model_predict_batch_impl(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, bool)+0xef>
++ 255:	49 89 c4             	mov    %rax,%r12
++ 258:	e9 00 00 00 00       	jmp    25d <model_predict_batch_impl(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, bool)+0x21d>
++			259: R_X86_64_PC32	.text.unlikely+0x8
++ 25d:	90                   	nop
++ 25e:	66 90                	xchg   %ax,%ax
++
++0000000000000260 <std::_Sp_counted_deleter<page_info*, model_predict(data_row&, page_info&)::{lambda(page_info*)#1}, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)>:
++ 260:	48 89 f9             	mov    %rdi,%rcx
++ 263:	48 8b 7e 08          	mov    0x8(%rsi),%rdi
++ 267:	48 8d 05 00 00 00 00 	lea    0x0(%rip),%rax        # 26e <std::_Sp_counted_deleter<page_info*, model_predict(data_row&, page_info&)::{lambda(page_info*)#1}, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)+0xe>
++			26a: R_X86_64_PC32	.rodata-0x4
++ 26e:	48 39 c7             	cmp    %rax,%rdi
++ 271:	74 3d                	je     2b0 <std::_Sp_counted_deleter<page_info*, model_predict(data_row&, page_info&)::{lambda(page_info*)#1}, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)+0x50>
++ 273:	31 d2                	xor    %edx,%edx
++ 275:	80 3f 2a             	cmpb   $0x2a,(%rdi)
++ 278:	74 3a                	je     2b4 <std::_Sp_counted_deleter<page_info*, model_predict(data_row&, page_info&)::{lambda(page_info*)#1}, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)+0x54>
++ 27a:	48 83 ec 18          	sub    $0x18,%rsp
++ 27e:	48 8d 70 01          	lea    0x1(%rax),%rsi
++ 282:	48 89 14 24          	mov    %rdx,(%rsp)
++ 286:	48 89 4c 24 08       	mov    %rcx,0x8(%rsp)
++ 28b:	e8 00 00 00 00       	call   290 <std::_Sp_counted_deleter<page_info*, model_predict(data_row&, page_info&)::{lambda(page_info*)#1}, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)+0x30>
++			28c: R_X86_64_PLT32	strcmp-0x4
++ 290:	31 d2                	xor    %edx,%edx
++ 292:	48 8b 4c 24 08       	mov    0x8(%rsp),%rcx
++ 297:	85 c0                	test   %eax,%eax
++ 299:	75 04                	jne    29f <std::_Sp_counted_deleter<page_info*, model_predict(data_row&, page_info&)::{lambda(page_info*)#1}, std::allocator<void>, (__gnu_cxx::_Lock_policy)2>::_M_get_deleter(std::type_info const&)+0x3f>
++ 29b:	48 8d 51 10          	lea    0x10(%rcx),%rdx
++ 29f:	48 89 d0             	mov    %rdx,%rax
++ 2a2:	48 83 c4 18          	add    $0x18,%rsp
++ 2a6:	c3                   	ret
++ 2a7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
++ 2ae:	00 00 
++ 2b0:	48 8d 51 10          	lea    0x10(%rcx),%rdx
++ 2b4:	48 89 d0             	mov    %rdx,%rax
++ 2b7:	c3                   	ret
++ 2b8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
++ 2bf:	00 
++
++00000000000002c0 <model_predict_batch(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&)>:
++ 2c0:	ba 01 00 00 00       	mov    $0x1,%edx
++ 2c5:	e9 76 fd ff ff       	jmp    40 <model_predict_batch_impl(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, bool)>
++ 2ca:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
++
++00000000000002d0 <model_predict_batch_observe(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&)>:
++ 2d0:	31 d2                	xor    %edx,%edx
++ 2d2:	e9 69 fd ff ff       	jmp    40 <model_predict_batch_impl(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&, bool)>
++ 2d7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
++ 2de:	00 00 
++
++00000000000002e0 <model_predict(data_row&, page_info&)>:
++ 2e0:	41 57                	push   %r15
++ 2e2:	b9 29 00 00 00       	mov    $0x29,%ecx
++ 2e7:	49 89 f7             	mov    %rsi,%r15
++ 2ea:	41 56                	push   %r14
++ 2ec:	41 55                	push   %r13
++ 2ee:	41 54                	push   %r12
++ 2f0:	55                   	push   %rbp
++ 2f1:	53                   	push   %rbx
++ 2f2:	48 89 fb             	mov    %rdi,%rbx
++ 2f5:	48 89 de             	mov    %rbx,%rsi
++ 2f8:	48 81 ec 88 01 00 00 	sub    $0x188,%rsp
++ 2ff:	48 8d 7c 24 30       	lea    0x30(%rsp),%rdi
++ 304:	48 8d 6c 24 30       	lea    0x30(%rsp),%rbp
++ 309:	f3 48 a5             	rep movsq %ds:(%rsi),%es:(%rdi)
++ 30c:	bf 48 01 00 00       	mov    $0x148,%edi
++ 311:	e8 00 00 00 00       	call   316 <model_predict(data_row&, page_info&)+0x36>
++			312: R_X86_64_PLT32	operator new(unsigned long)-0x4
++ 316:	48 8b 4c 24 30       	mov    0x30(%rsp),%rcx
++ 31b:	48 89 ee             	mov    %rbp,%rsi
++ 31e:	48 8d 90 48 01 00 00 	lea    0x148(%rax),%rdx
++ 325:	48 89 44 24 10       	mov    %rax,0x10(%rsp)
++ 32a:	48 8d 78 08          	lea    0x8(%rax),%rdi
++ 32e:	48 89 54 24 20       	mov    %rdx,0x20(%rsp)
++ 333:	48 83 e7 f8          	and    $0xfffffffffffffff8,%rdi
++ 337:	48 89 08             	mov    %rcx,(%rax)
++ 33a:	48 8b 8c 24 70 01 00 	mov    0x170(%rsp),%rcx
++ 341:	00 
++ 342:	48 89 88 40 01 00 00 	mov    %rcx,0x140(%rax)
++ 349:	48 29 f8             	sub    %rdi,%rax
++ 34c:	8d 88 48 01 00 00    	lea    0x148(%rax),%ecx
++ 352:	48 29 c6             	sub    %rax,%rsi
++ 355:	c1 e9 03             	shr    $0x3,%ecx
++ 358:	f3 48 a5             	rep movsq %ds:(%rsi),%es:(%rdi)
++ 35b:	bf 18 00 00 00       	mov    $0x18,%edi
++ 360:	48 89 54 24 18       	mov    %rdx,0x18(%rsp)
++ 365:	e8 00 00 00 00       	call   36a <model_predict(data_row&, page_info&)+0x8a>
++			366: R_X86_64_PLT32	operator new(unsigned long)-0x4
++ 36a:	49 89 c4             	mov    %rax,%r12
++ 36d:	48 8d 40 08          	lea    0x8(%rax),%rax
++ 371:	4c 8b 2d 00 00 00 00 	mov    0x0(%rip),%r13        # 378 <model_predict(data_row&, page_info&)+0x98>
++			374: R_X86_64_REX_GOTPCRELX	__libc_single_threaded-0x4
++ 378:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
++ 37d:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 384 <model_predict(data_row&, page_info&)+0xa4>
++			380: R_X86_64_PC32	.LC2-0x4
++ 384:	4d 89 7c 24 10       	mov    %r15,0x10(%r12)
++ 389:	49 89 44 24 08       	mov    %rax,0x8(%r12)
++ 38e:	48 8d 05 00 00 00 00 	lea    0x0(%rip),%rax        # 395 <model_predict(data_row&, page_info&)+0xb5>
++			391: R_X86_64_PC32	.data.rel.ro.local+0xc
++ 395:	49 89 04 24          	mov    %rax,(%r12)
++ 399:	41 80 7d 00 00       	cmpb   $0x0,0x0(%r13)
++ 39e:	0f 84 dc 01 00 00    	je     580 <model_predict(data_row&, page_info&)+0x2a0>
++ 3a4:	41 c7 44 24 08 02 00 	movl   $0x2,0x8(%r12)
++ 3ab:	00 00 
++ 3ad:	48 c7 44 24 38 00 00 	movq   $0x0,0x38(%rsp)
++ 3b4:	00 00 
++ 3b6:	bf 10 00 00 00       	mov    $0x10,%edi
++ 3bb:	e8 00 00 00 00       	call   3c0 <model_predict(data_row&, page_info&)+0xe0>
++			3bc: R_X86_64_PLT32	operator new(unsigned long)-0x4
++ 3c0:	48 8d 50 10          	lea    0x10(%rax),%rdx
++ 3c4:	48 89 44 24 30       	mov    %rax,0x30(%rsp)
++ 3c9:	48 89 54 24 40       	mov    %rdx,0x40(%rsp)
++ 3ce:	4c 89 38             	mov    %r15,(%rax)
++ 3d1:	4c 89 60 08          	mov    %r12,0x8(%rax)
++ 3d5:	41 80 7d 00 00       	cmpb   $0x0,0x0(%r13)
++ 3da:	0f 84 b0 01 00 00    	je     590 <model_predict(data_row&, page_info&)+0x2b0>
++ 3e0:	41 83 44 24 08 01    	addl   $0x1,0x8(%r12)
++ 3e6:	48 b8 01 00 00 00 01 	movabs $0x100000001,%rax
++ 3ed:	00 00 00 
++ 3f0:	48 89 54 24 38       	mov    %rdx,0x38(%rsp)
++ 3f5:	49 8b 54 24 08       	mov    0x8(%r12),%rdx
++ 3fa:	48 39 c2             	cmp    %rax,%rdx
++ 3fd:	0f 84 f5 01 00 00    	je     5f8 <model_predict(data_row&, page_info&)+0x318>
++ 403:	41 80 7d 00 00       	cmpb   $0x0,0x0(%r13)
++ 408:	0f 84 92 01 00 00    	je     5a0 <model_predict(data_row&, page_info&)+0x2c0>
++ 40e:	41 8b 44 24 08       	mov    0x8(%r12),%eax
++ 413:	8d 50 ff             	lea    -0x1(%rax),%edx
++ 416:	41 89 54 24 08       	mov    %edx,0x8(%r12)
++ 41b:	83 f8 01             	cmp    $0x1,%eax
++ 41e:	0f 84 03 02 00 00    	je     627 <model_predict(data_row&, page_info&)+0x347>
++ 424:	48 8d 7c 24 10       	lea    0x10(%rsp),%rdi
++ 429:	48 89 ee             	mov    %rbp,%rsi
++ 42c:	e8 00 00 00 00       	call   431 <model_predict(data_row&, page_info&)+0x151>
++			42d: R_X86_64_PLT32	model_predict_batch(std::vector<data_row, std::allocator<data_row> >&, std::vector<std::shared_ptr<page_info>, std::allocator<std::shared_ptr<page_info> > > const&)-0x4
++ 431:	48 8b 44 24 10       	mov    0x10(%rsp),%rax
++ 436:	4c 8b 74 24 38       	mov    0x38(%rsp),%r14
++ 43b:	66 0f ef c9          	pxor   %xmm1,%xmm1
++ 43f:	f3 0f 10 80 08 01 00 	movss  0x108(%rax),%xmm0
++ 446:	00 
++ 447:	f3 0f 11 83 08 01 00 	movss  %xmm0,0x108(%rbx)
++ 44e:	00 
++ 44f:	48 8b 5c 24 30       	mov    0x30(%rsp),%rbx
++ 454:	f3 0f 5a c8          	cvtss2sd %xmm0,%xmm1
++ 458:	f2 0f 11 0c 24       	movsd  %xmm1,(%rsp)
++ 45d:	49 39 de             	cmp    %rbx,%r14
++ 460:	74 73                	je     4d5 <model_predict(data_row&, page_info&)+0x1f5>
++ 462:	49 bf 01 00 00 00 01 	movabs $0x100000001,%r15
++ 469:	00 00 00 
++ 46c:	eb 19                	jmp    487 <model_predict(data_row&, page_info&)+0x1a7>
++ 46e:	66 90                	xchg   %ax,%ax
++ 470:	8b 45 08             	mov    0x8(%rbp),%eax
++ 473:	8d 48 ff             	lea    -0x1(%rax),%ecx
++ 476:	89 4d 08             	mov    %ecx,0x8(%rbp)
++ 479:	83 f8 01             	cmp    $0x1,%eax
++ 47c:	74 38                	je     4b6 <model_predict(data_row&, page_info&)+0x1d6>
++ 47e:	48 83 c3 10          	add    $0x10,%rbx
++ 482:	49 39 de             	cmp    %rbx,%r14
++ 485:	74 49                	je     4d0 <model_predict(data_row&, page_info&)+0x1f0>
++ 487:	48 8b 6b 08          	mov    0x8(%rbx),%rbp
++ 48b:	48 85 ed             	test   %rbp,%rbp
++ 48e:	74 ee                	je     47e <model_predict(data_row&, page_info&)+0x19e>
++ 490:	48 8b 45 08          	mov    0x8(%rbp),%rax
++ 494:	48 8d 4d 08          	lea    0x8(%rbp),%rcx
++ 498:	4c 39 f8             	cmp    %r15,%rax
++ 49b:	0f 84 b7 00 00 00    	je     558 <model_predict(data_row&, page_info&)+0x278>
++ 4a1:	41 80 7d 00 00       	cmpb   $0x0,0x0(%r13)
++ 4a6:	75 c8                	jne    470 <model_predict(data_row&, page_info&)+0x190>
++ 4a8:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
++ 4ad:	f0 0f c1 01          	lock xadd %eax,(%rcx)
++ 4b1:	83 f8 01             	cmp    $0x1,%eax
++ 4b4:	75 c8                	jne    47e <model_predict(data_row&, page_info&)+0x19e>
++ 4b6:	48 89 ef             	mov    %rbp,%rdi
++ 4b9:	48 83 c3 10          	add    $0x10,%rbx
++ 4bd:	e8 00 00 00 00       	call   4c2 <model_predict(data_row&, page_info&)+0x1e2>
++			4be: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release_last_use_cold()-0x4
++ 4c2:	49 39 de             	cmp    %rbx,%r14
++ 4c5:	75 c0                	jne    487 <model_predict(data_row&, page_info&)+0x1a7>
++ 4c7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
++ 4ce:	00 00 
++ 4d0:	48 8b 5c 24 30       	mov    0x30(%rsp),%rbx
++ 4d5:	48 85 db             	test   %rbx,%rbx
++ 4d8:	74 10                	je     4ea <model_predict(data_row&, page_info&)+0x20a>
++ 4da:	48 8b 74 24 40       	mov    0x40(%rsp),%rsi
++ 4df:	48 89 df             	mov    %rbx,%rdi
++ 4e2:	48 29 de             	sub    %rbx,%rsi
++ 4e5:	e8 00 00 00 00       	call   4ea <model_predict(data_row&, page_info&)+0x20a>
++			4e6: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
++ 4ea:	48 b8 01 00 00 00 01 	movabs $0x100000001,%rax
++ 4f1:	00 00 00 
++ 4f4:	49 8b 54 24 08       	mov    0x8(%r12),%rdx
++ 4f9:	48 39 c2             	cmp    %rax,%rdx
++ 4fc:	0f 84 ce 00 00 00    	je     5d0 <model_predict(data_row&, page_info&)+0x2f0>
++ 502:	41 80 7d 00 00       	cmpb   $0x0,0x0(%r13)
++ 507:	0f 84 ab 00 00 00    	je     5b8 <model_predict(data_row&, page_info&)+0x2d8>
++ 50d:	41 8b 44 24 08       	mov    0x8(%r12),%eax
++ 512:	8d 50 ff             	lea    -0x1(%rax),%edx
++ 515:	41 89 54 24 08       	mov    %edx,0x8(%r12)
++ 51a:	83 f8 01             	cmp    $0x1,%eax
++ 51d:	0f 84 f7 00 00 00    	je     61a <model_predict(data_row&, page_info&)+0x33a>
++ 523:	48 8b 7c 24 10       	mov    0x10(%rsp),%rdi
++ 528:	48 85 ff             	test   %rdi,%rdi
++ 52b:	74 0d                	je     53a <model_predict(data_row&, page_info&)+0x25a>
++ 52d:	48 8b 74 24 20       	mov    0x20(%rsp),%rsi
++ 532:	48 29 fe             	sub    %rdi,%rsi
++ 535:	e8 00 00 00 00       	call   53a <model_predict(data_row&, page_info&)+0x25a>
++			536: R_X86_64_PLT32	operator delete(void*, unsigned long)-0x4
++ 53a:	f2 0f 10 04 24       	movsd  (%rsp),%xmm0
++ 53f:	48 81 c4 88 01 00 00 	add    $0x188,%rsp
++ 546:	5b                   	pop    %rbx
++ 547:	5d                   	pop    %rbp
++ 548:	41 5c                	pop    %r12
++ 54a:	41 5d                	pop    %r13
++ 54c:	41 5e                	pop    %r14
++ 54e:	41 5f                	pop    %r15
++ 550:	c3                   	ret
++ 551:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
++ 558:	48 8b 45 00          	mov    0x0(%rbp),%rax
++ 55c:	48 89 ef             	mov    %rbp,%rdi
++ 55f:	48 c7 45 08 00 00 00 	movq   $0x0,0x8(%rbp)
++ 566:	00 
++ 567:	ff 50 10             	call   *0x10(%rax)
++ 56a:	48 8b 45 00          	mov    0x0(%rbp),%rax
++ 56e:	48 89 ef             	mov    %rbp,%rdi
++ 571:	ff 50 18             	call   *0x18(%rax)
++ 574:	e9 05 ff ff ff       	jmp    47e <model_predict(data_row&, page_info&)+0x19e>
++ 579:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
++ 580:	f0 41 83 44 24 08 01 	lock addl $0x1,0x8(%r12)
++ 587:	e9 21 fe ff ff       	jmp    3ad <model_predict(data_row&, page_info&)+0xcd>
++ 58c:	0f 1f 40 00          	nopl   0x0(%rax)
+  590:	f0 41 83 44 24 08 01 	lock addl $0x1,0x8(%r12)
+- 597:	e9 21 fe ff ff       	jmp    3bd <model_predict(data_row&, page_info&)+0xcd>
++ 597:	e9 4a fe ff ff       	jmp    3e6 <model_predict(data_row&, page_info&)+0x106>
+  59c:	0f 1f 40 00          	nopl   0x0(%rax)
+- 5a0:	f0 41 83 44 24 08 01 	lock addl $0x1,0x8(%r12)
+- 5a7:	e9 4a fe ff ff       	jmp    3f6 <model_predict(data_row&, page_info&)+0x106>
+- 5ac:	0f 1f 40 00          	nopl   0x0(%rax)
+- 5b0:	48 8b 54 24 08       	mov    0x8(%rsp),%rdx
+- 5b5:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+- 5ba:	f0 0f c1 02          	lock xadd %eax,(%rdx)
+- 5be:	e9 68 fe ff ff       	jmp    42b <model_predict(data_row&, page_info&)+0x13b>
+- 5c3:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+- 5c8:	48 8b 54 24 08       	mov    0x8(%rsp),%rdx
+- 5cd:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+- 5d2:	f0 0f c1 02          	lock xadd %eax,(%rdx)
+- 5d6:	e9 4f ff ff ff       	jmp    52a <model_predict(data_row&, page_info&)+0x23a>
+- 5db:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+- 5e0:	49 c7 44 24 08 00 00 	movq   $0x0,0x8(%r12)
+- 5e7:	00 00 
+- 5e9:	49 8b 04 24          	mov    (%r12),%rax
+- 5ed:	4c 89 e7             	mov    %r12,%rdi
+- 5f0:	ff 50 10             	call   *0x10(%rax)
+- 5f3:	49 8b 04 24          	mov    (%r12),%rax
+- 5f7:	4c 89 e7             	mov    %r12,%rdi
+- 5fa:	ff 50 18             	call   *0x18(%rax)
+- 5fd:	e9 31 ff ff ff       	jmp    533 <model_predict(data_row&, page_info&)+0x243>
+- 602:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+- 608:	49 c7 44 24 08 00 00 	movq   $0x0,0x8(%r12)
+- 60f:	00 00 
+- 611:	49 8b 04 24          	mov    (%r12),%rax
+- 615:	4c 89 e7             	mov    %r12,%rdi
+- 618:	ff 50 10             	call   *0x10(%rax)
+- 61b:	49 8b 04 24          	mov    (%r12),%rax
+- 61f:	4c 89 e7             	mov    %r12,%rdi
+- 622:	ff 50 18             	call   *0x18(%rax)
+- 625:	e9 0a fe ff ff       	jmp    434 <model_predict(data_row&, page_info&)+0x144>
+- 62a:	4c 89 e7             	mov    %r12,%rdi
+- 62d:	e8 00 00 00 00       	call   632 <model_predict(data_row&, page_info&)+0x342>
+-			62e: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release_last_use_cold()-0x4
+- 632:	e9 fc fe ff ff       	jmp    533 <model_predict(data_row&, page_info&)+0x243>
+- 637:	4c 89 e7             	mov    %r12,%rdi
+- 63a:	e8 00 00 00 00       	call   63f <model_predict(data_row&, page_info&)+0x34f>
+-			63b: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release_last_use_cold()-0x4
+- 63f:	e9 f0 fd ff ff       	jmp    434 <model_predict(data_row&, page_info&)+0x144>
+- 644:	48 89 c3             	mov    %rax,%rbx
+- 647:	e9 00 00 00 00       	jmp    64c <model_predict(data_row&, page_info&)+0x35c>
+-			648: R_X86_64_PC32	.text.unlikely+0x25
+- 64c:	e9 00 00 00 00       	jmp    651 <model_predict(data_row&, page_info&)+0x361>
+-			64d: R_X86_64_PC32	.text.unlikely+0x54
+- 651:	48 89 c3             	mov    %rax,%rbx
+- 654:	e9 00 00 00 00       	jmp    659 <model_predict(data_row&, page_info&)+0x369>
+-			655: R_X86_64_PC32	.text.unlikely+0x61
++ 5a0:	48 8b 54 24 08       	mov    0x8(%rsp),%rdx
++ 5a5:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
++ 5aa:	f0 0f c1 02          	lock xadd %eax,(%rdx)
++ 5ae:	e9 68 fe ff ff       	jmp    41b <model_predict(data_row&, page_info&)+0x13b>
++ 5b3:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
++ 5b8:	48 8b 54 24 08       	mov    0x8(%rsp),%rdx
++ 5bd:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
++ 5c2:	f0 0f c1 02          	lock xadd %eax,(%rdx)
++ 5c6:	e9 4f ff ff ff       	jmp    51a <model_predict(data_row&, page_info&)+0x23a>
++ 5cb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
++ 5d0:	49 c7 44 24 08 00 00 	movq   $0x0,0x8(%r12)
++ 5d7:	00 00 
++ 5d9:	49 8b 04 24          	mov    (%r12),%rax
++ 5dd:	4c 89 e7             	mov    %r12,%rdi
++ 5e0:	ff 50 10             	call   *0x10(%rax)
++ 5e3:	49 8b 04 24          	mov    (%r12),%rax
++ 5e7:	4c 89 e7             	mov    %r12,%rdi
++ 5ea:	ff 50 18             	call   *0x18(%rax)
++ 5ed:	e9 31 ff ff ff       	jmp    523 <model_predict(data_row&, page_info&)+0x243>
++ 5f2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
++ 5f8:	49 c7 44 24 08 00 00 	movq   $0x0,0x8(%r12)
++ 5ff:	00 00 
++ 601:	49 8b 04 24          	mov    (%r12),%rax
++ 605:	4c 89 e7             	mov    %r12,%rdi
++ 608:	ff 50 10             	call   *0x10(%rax)
++ 60b:	49 8b 04 24          	mov    (%r12),%rax
++ 60f:	4c 89 e7             	mov    %r12,%rdi
++ 612:	ff 50 18             	call   *0x18(%rax)
++ 615:	e9 0a fe ff ff       	jmp    424 <model_predict(data_row&, page_info&)+0x144>
++ 61a:	4c 89 e7             	mov    %r12,%rdi
++ 61d:	e8 00 00 00 00       	call   622 <model_predict(data_row&, page_info&)+0x342>
++			61e: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release_last_use_cold()-0x4
++ 622:	e9 fc fe ff ff       	jmp    523 <model_predict(data_row&, page_info&)+0x243>
++ 627:	4c 89 e7             	mov    %r12,%rdi
++ 62a:	e8 00 00 00 00       	call   62f <model_predict(data_row&, page_info&)+0x34f>
++			62b: R_X86_64_PLT32	std::_Sp_counted_base<(__gnu_cxx::_Lock_policy)2>::_M_release_last_use_cold()-0x4
++ 62f:	e9 f0 fd ff ff       	jmp    424 <model_predict(data_row&, page_info&)+0x144>
++ 634:	48 89 c3             	mov    %rax,%rbx
++ 637:	e9 00 00 00 00       	jmp    63c <model_predict(data_row&, page_info&)+0x35c>
++			638: R_X86_64_PC32	.text.unlikely+0x25
++ 63c:	e9 00 00 00 00       	jmp    641 <model_predict(data_row&, page_info&)+0x361>
++			63d: R_X86_64_PC32	.text.unlikely+0x54
++ 641:	48 89 c3             	mov    %rax,%rbx
++ 644:	e9 00 00 00 00       	jmp    649 <model_predict(data_row&, page_info&)+0x369>
++			645: R_X86_64_PC32	.text.unlikely+0x61
+ 
+ Disassembly of section .text.unlikely:
+ 

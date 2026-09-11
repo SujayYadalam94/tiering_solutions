@@ -1,0 +1,12 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-8385049/8ybb.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-8385049/V49r.sh
+@@ -1,7 +1,7 @@
+ #!/bin/bash
+ 
+-WORKLOAD_ID="bc-twitter.sg-long"
+-WORKLOAD_OUTPUT="bc-twitter.sg-long"
++WORKLOAD_ID="bc-twitter.sg-short"
++WORKLOAD_OUTPUT="bc-twitter.sg-short"
+ WORKLOAD_COMMAND="OMP_NUM_THREADS=16 ${BENCH_ROOT}/gapbs/bc -n 1 -f ${BENCH_ROOT}/gapbs/benchmark/graphs/twitter.sg"
+ WORKLOAD_EXE_NAME="bc"
+ WORKLOAD_MODEL_BASE="bc-twitter.sg"

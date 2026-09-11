@@ -1,0 +1,13 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-1356624/oXcQ.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-1356624/I8Fr.sh
+@@ -81,8 +81,8 @@
+             fi
+ 
+             # ARMS
+-            #run_measurement_setup "${size}"
+-            #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
++            run_measurement_setup "${size}"
++            "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+ 
+ 
+             # NOMAD

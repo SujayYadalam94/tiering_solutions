@@ -56,7 +56,22 @@ EOF
     fi
 }
 
-SIZES=(10061)
+# Own setup/cache policy here; standalone MEMTIS launches do not flush caches.
+# Hold the same lock used by the standalone runner across setup and teardown.
+run_memtis_measurement() {
+    sudo -E flock --exclusive --nonblock "${MEMTIS_LOCK_FILE:-/run/lock/measurement_memtis.lock}" \
+        bash -c '
+            set -o pipefail
+            source "$1/measurement_common.sh" || exit 1
+            MEASUREMENT_PLATFORM=$2
+            trap run_measurement_teardown EXIT
+            run_measurement_setup "$3" memtis || exit $?
+            MEMTIS_LOCK_HELD=1 MEMTIS_RUN_SETUP=0 MEMTIS_CACHE_FLUSH=batch-setup \
+                "$1/measurement_memtis.sh" --platform "$2" "$3" "$4" "$5"
+        ' memtis-batch "${SCRIPT_DIR}" "${MEASUREMENT_PLATFORM}" "$1" "$2" "$3"
+}
+
+SIZES=(4080)
 RUNS=3
 
 ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}
@@ -80,8 +95,13 @@ for size in "${SIZES[@]}"; do
             #fi
 
             # ARMS
-            #run_measurement_setup "${size}"
-            #"${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+            measurement_load_workload "${workload_id}" || exit 1
+            if measurement_workload_supports_system arms; then
+                run_measurement_setup "${size}"
+                "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+            else
+                echo "Skipping ${workload_id}: not supported by ARMS"
+            fi
 
 
             # NOMAD
@@ -94,30 +114,26 @@ for size in "${SIZES[@]}"; do
             #fi
 
             # MEMTIS
-            if [[ -x "${SCRIPT_DIR}/measurement_memtis.sh" ]]; then
-                # Use the normal pre-run cleanup so existing process memory is
-                # migrated away from the fast node before MEMTIS reserves its
-                # sampler buffers. The workload itself can still use both nodes.
-                run_measurement_setup "${size}" memtis
-                sudo -E "${SCRIPT_DIR}/measurement_memtis.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
-            else
-                echo "WARNING: ./measurement_memtis.sh not found or not executable; skipping MEMTIS"
-            fi
-
-            # MEMTIS near-first variant
-            if [[ -x "${SCRIPT_DIR}/measurement_memtis_near.sh" ]]; then
-                run_measurement_setup "${size}" memtis
-                sudo -E "${SCRIPT_DIR}/measurement_memtis_near.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "${workload_id}"
-            else
-                echo "WARNING: ./measurement_memtis_near.sh not found or not executable; skipping MEMTIS near-first"
-            fi
+            #if [[ -x "${SCRIPT_DIR}/measurement_memtis.sh" ]]; then
+            #    # Batch setup, cache flushing, and measurement share one lock.
+            #    if run_memtis_measurement "${size}" "${run}" "${workload_id}"; then
+            #        :
+            #    else
+            #        status=$?
+            #        echo "ERROR: MEMTIS ${workload_id} failed (status ${status}); stopping measurements" >&2
+            #        exit "${status}"
+            #    fi
+            #else
+            #    echo "ERROR: ./measurement_memtis.sh not found or not executable" >&2
+            #    exit 1
+            #fi
 
             # Model
-            #if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
-            #    "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
-            #else
-            #    echo "WARNING: ./measurement_model.sh not found or not executable; skipping model"
-            #fi
+            if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
+                "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+            else
+                echo "WARNING: ./measurement_model.sh not found or not executable; skipping model"
+            fi
 
             # HybridTier
             #run_measurement_setup "${size}"
@@ -146,7 +162,7 @@ for size in "${SIZES[@]}"; do
             #    echo "WARNING: ./measurement_cxl_only.sh not found or not executable; skipping CXL-only"
             #fi
 
-            run_measurement_teardown
+            # MEMTIS teardown is performed by the batch helper while its lock is held.
         done
     done
 done

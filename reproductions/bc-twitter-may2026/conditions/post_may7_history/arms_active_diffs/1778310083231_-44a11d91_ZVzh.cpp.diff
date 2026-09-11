@@ -1,0 +1,11 @@
+--- /users/zimooo2/.vscode-server/data/User/History/-44a11d91/gqa1.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-44a11d91/ZVzh.cpp
+@@ -1315,7 +1315,7 @@
+ if (cold_page->in_dram)
+ {
+ selected_cold_page = cold_page;
+-cost += 15 * get_demotion_cost_multiplier() * demotion_cost_avg;
++cost += 5 * get_demotion_cost_multiplier() * demotion_cost_avg;
+ benefit -= cold_page->score * hot_page->hot_age * (5003) * latency_diff;
+ break;
+ }

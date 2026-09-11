@@ -1,0 +1,25 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/1e202976/gCbo.sh
++++ /users/zimooo2/.vscode-server/data/User/History/1e202976/3Nlh.sh
+@@ -4,15 +4,15 @@
+ MEASUREMENT_WORKLOADS_PATH="${MEASUREMENT_WORKLOADS_DIR}/workloads"
+ 
+ declare -ar MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
+-    #"bc-kron.sg-long"
+-    #"pr-kron.sg-long"
+-    #"bc-twitter.sg-long"
+-    #"pr-twitter.sg-long"
++    "bc-kron.sg-long"
++    "pr-kron.sg-long"
++    "bc-twitter.sg-long"
++    "pr-twitter.sg-long"
+     "faiss_10M-long"
+ 
+-    #"XSBench-long"
+-    #"mg.D.x-long"
+-    #"DuckDB-TPCH-sf100-long"
++    "XSBench-long"
++    "mg.D.x-long"
++    "DuckDB-TPCH-sf100-long"
+ 
+     #"lulesh2.0_s400"
+ 

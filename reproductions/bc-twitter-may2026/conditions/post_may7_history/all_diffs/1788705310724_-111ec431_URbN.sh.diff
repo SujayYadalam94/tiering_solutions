@@ -1,0 +1,63 @@
+--- editor:/users/zimooo2/.vscode-server/data/User/History/-111ec431/5opj.sh
++++ /users/zimooo2/.vscode-server/data/User/History/-111ec431/URbN.sh
+@@ -10,7 +10,7 @@
+ ARGS=("${MEASUREMENT_REMAINING_ARGS[@]}")
+ 
+ RUNS=${ARGS[0]:-10}
+-START_RUN=${START_RUN:-1}
++START_RUN=${START_RUN:-2}
+ LOGGING_SIZE_MIB=${LOGGING_SIZE_MIB:-0}
+ LOGGING_MODEL_PCT=${LOGGING_MODEL_PCT:-95}
+ LOGGING_MODEL_MINMAX=${LOGGING_MODEL_MINMAX:-false}
+@@ -21,8 +21,6 @@
+ mapfile -t WORKLOAD_IDS < <(measurement_expand_workloads "${WORKLOAD_ARGS[@]}")
+ 
+ mkdir -p "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}" logs
+-LOG_CONVERTER_SCRIPT="${SCRIPT_DIR}/../tiering_models/process_data/data/filter_v3_split_runs.py"
+-LOG_CONVERTER_VENV_PYTHON="${SCRIPT_DIR}/../tiering_models/process_data/data/.venv/bin/python"
+ 
+ run_measurement_setup "${LOGGING_SIZE_MIB}" || exit 1
+ trap 'run_measurement_teardown' EXIT
+@@ -47,26 +45,8 @@
+ 
+     cleanup_measurement_outputs "${time_file}" "${log_output_path}" /dev/null
+     run_preloaded_measurement "${WORKLOAD_COMMAND}" "${model_path}" \
+-        "${log_output_path}" "${time_file}" "${NUMA_MEM_NODES}" "${TASKSET_CPUS}"
+-    echo "${log_output_path}"
+-}
+-
+-
+-function convert_logs_to_parquet {
+-    local output=$1
+-    local log_dir="${SCRIPT_DIR}/logs/${output}"
+-    local python_cmd=python3
+-
+-    if [[ ! -f "${LOG_CONVERTER_SCRIPT}" ]]; then
+-        echo "ERROR: converter script not found at ${LOG_CONVERTER_SCRIPT}" >&2
+-        return 1
+-    fi
+-
+-    if [[ -x "${LOG_CONVERTER_VENV_PYTHON}" ]]; then
+-        python_cmd="${LOG_CONVERTER_VENV_PYTHON}"
+-    fi
+-
+-    "${python_cmd}" "${LOG_CONVERTER_SCRIPT}" "${log_dir}"
++        "${log_output_path}" "${time_file}" "${NUMA_MEM_NODES}" "${TASKSET_CPUS}" || return 1
++    echo "${log_output_path%.log}.parquet"
+ }
+ 
+ 
+@@ -84,7 +64,7 @@
+         if ! run_program "${WORKLOAD_OUTPUT}" "${run}" "${model_path}"; then
+             exit 1
+         fi
+-        if ! convert_logs_to_parquet "${WORKLOAD_OUTPUT}"; then
++        if ! measurement_require_training_parquet "${SCRIPT_DIR}/logs/${WORKLOAD_OUTPUT}/run${run}.parquet"; then
+             exit 1
+         fi
+     done
+@@ -99,4 +79,4 @@
+ #run_benchmark "python3 ${BENCH_ROOT}/npbench/run_benchmark.py -f numba -p L -b azimint_naive" logging npbench_azimint_naive_numba_L
+ #run_benchmark "python3 ${BENCH_ROOT}/npbench/run_benchmark.py -f numba -p L -b channel_flow" logging npbench_channel_flow_numba_L
+ 
+-#run_program "python ${BENCH_ROOT}/rl-baselines3-zoo/train.py --algo sac --env MountainCarContinuous-v0 --eval-freq 10000 --eval-episodes 10 --n-eval-envs 1" logging rl_a3c_sac_mountaincar+#run_program "python ${BENCH_ROOT}/rl-baselines3-zoo/train.py --algo sac --env MountainCarContinuous-v0 --eval-freq 10000 --eval-episodes 10 --n-eval-envs 1" logging rl_a3c_sac_mountaincar

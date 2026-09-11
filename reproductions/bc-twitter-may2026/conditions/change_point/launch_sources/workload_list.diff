@@ -1,0 +1,25 @@
+--- reproductions/bc-twitter-may2026/conditions/change_point/launch_sources/may14_workload_list.sh	2026-09-09 16:59:30.697897811 -0500
++++ reproductions/bc-twitter-may2026/conditions/change_point/launch_sources/june13_workload_list.sh	2026-09-09 16:59:30.698897824 -0500
+@@ -4,15 +4,15 @@
+ MEASUREMENT_WORKLOADS_PATH="${MEASUREMENT_WORKLOADS_DIR}/workloads"
+ 
+ declare -ar MEASUREMENT_DEFAULT_WORKLOAD_IDS=(
+-    #"bc-kron.sg-long"
+-    #"pr-kron.sg-long"
++    "bc-kron.sg-long"
++    "pr-kron.sg-long"
+     "bc-twitter.sg-long"
+-    #"pr-twitter.sg-long"
+-    #"faiss_10M-long"
++    "pr-twitter.sg-long"
++    "faiss_10M-long"
+ 
+-    #"XSBench"
+-    #"mg.D.x"
+-    #"DuckDB-TPCH-sf100"
++    "XSBench-long"
++    "mg.D.x-long"
++    "DuckDB-TPCH-sf100-long"
+ 
+     #"lulesh2.0_s400"
+ 

@@ -1,0 +1,10 @@
+--- /users/zimooo2/.vscode-server/data/User/History/-44a11d91/4Hjq.cpp
++++ /users/zimooo2/.vscode-server/data/User/History/-44a11d91/s1mT.cpp
+@@ -1348,7 +1348,6 @@
+ break;
+ }
+ }
+-std::cout << "migrations: " << decision.migrated_count << std::endl;
+ return decision;
+ }
+ void update_scores_and_migrate(size_t timestep)
