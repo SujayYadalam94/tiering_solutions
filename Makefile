@@ -23,8 +23,9 @@ LIBS = -lnuma -lpthread -ldl
 PARQUET_PYTHON ?= python3
 PARQUET_CXXFLAGS ?= $(or $(shell $(PARQUET_PYTHON) scripts/parquet_flags.py cflags),$(error Cannot find Arrow/Parquet headers))
 PARQUET_LIBS ?= $(or $(shell $(PARQUET_PYTHON) scripts/parquet_flags.py libs),$(error Cannot find Arrow/Parquet libraries))
-PARQUET_VARIANTS := train logging arms_train arms_near_train arms_near_train_all_numa arms_cxl_train
+PARQUET_VARIANTS := train logging workload_logging arms_train arms_near_train arms_near_train_all_numa arms_cxl_train
 MODEL_TIMING_TELEMETRY ?= true
+ARMS_TIMING_TELEMETRY ?= true
 
 # Build directories for reusable objects
 BUILD_DIR := build
@@ -36,8 +37,14 @@ DEFAULT_PLATFORM ?= C220G5
 MODEL_SCORE_HISTORY_SUMMARY_VALUES := 1
 # 0=min_max, 1=average, 2=adjusted_moving_average
 HISTORY_LENGTH_VALUES := 10
-# SWITCH_SCALER_VALUES := 0.03125 0.0625 0.125 0.25 0.5 1.0 1.5
+# Inference eligibility: false keeps the filter, true disables it; false true builds both.
+# Match disable_hot_cold_filters in measurement_model.sh.
+MODEL_DISABLE_HOT_COLD_FILTER_VALUES := false
+#SWITCH_SCALER_VALUES := 0.03125 0.0625 0.125 0.25 0.5 1.0 1.5
 SWITCH_SCALER_VALUES := 0.1
+ifneq ($(filter-out false true,$(MODEL_DISABLE_HOT_COLD_FILTER_VALUES)),)
+$(error MODEL_DISABLE_HOT_COLD_FILTER_VALUES must contain only false or true)
+endif
 COMBOS := $(foreach summary,$(MODEL_SCORE_HISTORY_SUMMARY_VALUES),$(foreach hlen,$(HISTORY_LENGTH_VALUES),$(foreach scaler,$(SWITCH_SCALER_VALUES),$(summary)_$(hlen)_$(scaler))))
 
 # Models and outputs
@@ -46,12 +53,15 @@ MODELS := $(wildcard models/*.o)
 LOGGING_MODEL_OBJ ?= $(firstword $(MODELS))
 LIB_OUTPUT_DIR := libraries
 PLATFORM_LIB_DIRS := $(addprefix $(LIB_OUTPUT_DIR)/,$(PLATFORMS))
-LIB_TARGETS := $(foreach platform,$(PLATFORMS),$(foreach combo,$(COMBOS),$(patsubst models/%.o,$(LIB_OUTPUT_DIR)/$(platform)/libhemem-%-$(combo).so,$(MODELS))))
+FILTERED_MODEL_LIB_TARGETS := $(foreach platform,$(PLATFORMS),$(foreach combo,$(COMBOS),$(patsubst models/%.o,$(LIB_OUTPUT_DIR)/$(platform)/libhemem-%-$(combo).so,$(MODELS))))
+NO_HOT_COLD_FILTER_LIB_TARGETS := $(FILTERED_MODEL_LIB_TARGETS:.so=_no_hot_cold_filter.so)
+LIB_TARGETS := $(if $(filter false,$(MODEL_DISABLE_HOT_COLD_FILTER_VALUES)),$(FILTERED_MODEL_LIB_TARGETS)) $(if $(filter true,$(MODEL_DISABLE_HOT_COLD_FILTER_VALUES)),$(NO_HOT_COLD_FILTER_LIB_TARGETS))
 TRAIN_LIB_TARGETS := $(foreach platform,$(PLATFORMS),$(foreach combo,$(COMBOS),$(patsubst models/%.o,$(LIB_OUTPUT_DIR)/$(platform)/libhemem-%_$(combo)_train.so,$(MODELS))))
 ARMS_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms.so)
 ARMS_NOMIGRATION_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_nomigrations.so)
 ARMS_PLAIN_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_plain.so)
 LOGGING_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-logging.so)
+LOGGING_TARGETS += $(foreach platform,$(PLATFORMS),$(patsubst models/%.o,$(LIB_OUTPUT_DIR)/$(platform)/libhemem-logging-%.so,$(MODELS)))
 ARMS_TRAIN_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_train.so)
 ARMS_NEAR_TRAIN_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_near_train.so)
 ARMS_NEAR_TRAIN_ALL_NUMA_TARGETS := $(foreach platform,$(PLATFORMS),$(LIB_OUTPUT_DIR)/$(platform)/libhemem-arms_near_train_all_numa.so)
@@ -72,7 +82,8 @@ OBJ_NAMES = $(SRCS:.cpp=.o)
 
 ARMS_ALL_NUMA_TRAIN_MAX_LOGGED_SAMPLES ?= 100000000
 
-BASE_DEFINES_model := -DUSE_MODEL=true
+BASE_DEFINES_model := -DUSE_MODEL=true -DPRINT_TRAINING_DATA=false
+BASE_DEFINES_model_no_hot_cold_filter := $(BASE_DEFINES_model) -DMODEL_DISABLE_HOT_COLD_FILTER=true
 BASE_DEFINES_train := -DUSE_MODEL=true -DPRINT_TRAINING_DATA=true
 BASE_DEFINES_nomodel := -DUSE_MODEL=false
 BASE_DEFINES_nomodel_nomigrations := -DUSE_MODEL=false -DMIGRATION_WORKERS_ENABLED=false
@@ -93,6 +104,8 @@ model_name_from_obj = $(patsubst %.o,%,$(notdir $1))
 model_discount_suffix = $(patsubst model_discounted_reward_%,%,$(call model_name_from_obj,$1))
 model_discount_percent = $(if $(filter model_discounted_reward_%,$(call model_name_from_obj,$1)),$(firstword $(subst _, ,$(call model_discount_suffix,$1))),0)
 model_discount_define = -DMODEL_DISCOUNT_PERCENT=$(call model_discount_percent,$1)
+# Training and inference share the same feature path for each linked model.
+model_feature_defines = $(if $(findstring _no_virtual_step_,$(call model_name_from_obj,$1)),-DVIRTUAL_FEATURES_ENABLED=false)
 variant_model_objects = $(foreach model,$(MODELS),$(addprefix $(OBJ_DIR)/$(1)/$(2)/$(3)/$(call model_name_from_obj,$(model))/,$(OBJ_NAMES)))
 
 LOGGING_MODEL_NAME := $(call model_name_from_obj,$(LOGGING_MODEL_OBJ))
@@ -108,18 +121,23 @@ endef
 
 define COMPILE_OBJECT_RECIPE
 	mkdir -p $(dir $@)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -fPIC $(1) -DMODEL_TIMING_TELEMETRY=$(MODEL_TIMING_TELEMETRY) $(if $(and $(filter logging_parquet.cpp,$<),$(filter -DPRINT_TRAINING_DATA=true -DPRINT_TRAINING_DATA=1,$(1))),-std=c++20 $(PARQUET_CXXFLAGS)) -c $< -o $@
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -fPIC $(1) -DMODEL_TIMING_TELEMETRY=$(MODEL_TIMING_TELEMETRY) -DARMS_TIMING_TELEMETRY=$(ARMS_TIMING_TELEMETRY) $(if $(and $(filter logging_parquet.cpp,$<),$(filter -DPRINT_TRAINING_DATA=true -DPRINT_TRAINING_DATA=1,$(1))),-std=c++20 $(PARQUET_CXXFLAGS)) -c $< -o $@
 endef
 
 # System detection
 UNAME_M := $(shell uname -m)
 HOSTNAME := $(shell hostname)
 
-.PHONY: all clean training-libraries test-parquet
+.PHONY: all clean model-libraries training-libraries model-no-hot-cold-filter-libraries test-parquet
 
 all: $(LIB_TARGETS) $(TRAIN_LIB_TARGETS) $(ARMS_TARGETS) $(ARMS_NOMIGRATION_TARGETS) $(ARMS_PLAIN_TARGETS) $(LOGGING_TARGETS) $(ARMS_TRAIN_TARGETS) $(ARMS_NEAR_TRAIN_TARGETS) $(ARMS_NEAR_TRAIN_ALL_NUMA_TARGETS) $(ARMS_CXL_TRAIN_TARGETS)
 
+model-libraries: $(LIB_TARGETS)
+
 training-libraries: $(TRAIN_LIB_TARGETS) $(LOGGING_TARGETS) $(ARMS_TRAIN_TARGETS) $(ARMS_NEAR_TRAIN_TARGETS) $(ARMS_NEAR_TRAIN_ALL_NUMA_TARGETS) $(ARMS_CXL_TRAIN_TARGETS)
+
+# Opt-in inference libraries for the hot/cold eligibility ablation.
+model-no-hot-cold-filter-libraries: $(NO_HOT_COLD_FILTER_LIB_TARGETS)
 
 test-parquet:
 	$(PARQUET_PYTHON) tests/test_logging_parquet.py
@@ -128,19 +146,28 @@ $(TARGET_LIB): $(ARMS_TARGET_DEFAULT) | $(LIB_OUTPUT_DIR)
 	cp -f $< $@
 
 define MAKE_MODEL_SOURCE_RULES
-$$(OBJ_DIR)/model/$(1)/$(2)/%/$(patsubst %.cpp,%.o,$(3)): $(3) defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
-	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_model) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)) $$(call model_discount_define,$$*))
+$$(OBJ_DIR)/model_no_hot_cold_filter/$(1)/$(2)/%/$(patsubst %.cpp,%.o,$(3)): $(3) defs.h logging.h logging_parquet.h arms_timing.h pebs_ordering.h | $$(OBJ_DIR)
+	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_model_no_hot_cold_filter) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)) $$(call model_discount_define,$$*) $$(call model_feature_defines,$$*))
 
-$$(OBJ_DIR)/train/$(1)/$(2)/%/$(patsubst %.cpp,%.o,$(3)): $(3) defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
-	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_train) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)) $$(call model_discount_define,$$*))
+$$(OBJ_DIR)/model/$(1)/$(2)/%/$(patsubst %.cpp,%.o,$(3)): $(3) defs.h logging.h logging_parquet.h arms_timing.h pebs_ordering.h | $$(OBJ_DIR)
+	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_model) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)) $$(call model_discount_define,$$*) $$(call model_feature_defines,$$*))
+
+$$(OBJ_DIR)/train/$(1)/$(2)/%/$(patsubst %.cpp,%.o,$(3)): $(3) defs.h logging.h logging_parquet.h arms_timing.h pebs_ordering.h | $$(OBJ_DIR)
+	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_train) $$(call combo_defs,$(2)) $$(call platform_defs,$(1)) $$(call model_discount_define,$$*) $$(call model_feature_defines,$$*))
 endef
 
 define MAKE_PLATFORM_COMBO_RULES
 MODEL_OBJS_$(1)_$(2) := $$(addprefix $$(OBJ_DIR)/model/$(1)/$(2)/%/,$$(OBJ_NAMES))
+NO_HOT_COLD_FILTER_OBJS_$(1)_$(2) := $$(addprefix $$(OBJ_DIR)/model_no_hot_cold_filter/$(1)/$(2)/%/,$$(OBJ_NAMES))
 TRAIN_OBJS_$(1)_$(2) := $$(addprefix $$(OBJ_DIR)/train/$(1)/$(2)/%/,$$(OBJ_NAMES))
 
 .NOTINTERMEDIATE: $$(call variant_model_objects,model,$(1),$(2)) $$(call variant_model_objects,train,$(1),$(2))
 .PRECIOUS: $$(call variant_model_objects,model,$(1),$(2)) $$(call variant_model_objects,train,$(1),$(2))
+.NOTINTERMEDIATE: $$(call variant_model_objects,model_no_hot_cold_filter,$(1),$(2))
+.PRECIOUS: $$(call variant_model_objects,model_no_hot_cold_filter,$(1),$(2))
+
+$$(LIB_OUTPUT_DIR)/$(1)/libhemem-%-$(2)_no_hot_cold_filter.so: $$(NO_HOT_COLD_FILTER_OBJS_$(1)_$(2)) models/%.o | $$(LIB_OUTPUT_DIR)/$(1)
+	$$(LINK_SHARED_RECIPE)
 
 # Build one ARMS library per model object under models/ and config combo
 # Example: models/foo.o -> libraries/libhemem-foo-2_10_1.0.so
@@ -157,11 +184,21 @@ endef
 $(foreach platform,$(PLATFORMS),$(foreach combo,$(COMBOS),$(eval $(call MAKE_PLATFORM_COMBO_RULES,$(platform),$(combo)))))
 $(foreach platform,$(PLATFORMS),$(foreach combo,$(COMBOS),$(foreach src,$(SRCS),$(eval $(call MAKE_MODEL_SOURCE_RULES,$(platform),$(combo),$(src))))))
 
+# Workload-specific collection libraries retain LOGGING_RUN behavior and use
+# the same ten-score mean as the comparison table. Objects are isolated by model.
+define MAKE_WORKLOAD_LOGGING_SOURCE_RULES
+$$(OBJ_DIR)/workload_logging/$(1)/%/$(patsubst %.cpp,%.o,$(2)): $(2) defs.h logging.h logging_parquet.h arms_timing.h pebs_ordering.h | $$(OBJ_DIR)
+	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_logging) $$(call platform_defs,$(1)) $$(call model_discount_define,$$*) $$(call model_feature_defines,$$*) -DMAX_LOGGED_SAMPLES=$$(LOGGING_MAX_LOGGED_SAMPLES) -DMODEL_SCORE_HISTORY_SUMMARY=1 -DHISTORY_LENGTH=10)
+endef
+$(foreach platform,$(PLATFORMS),$(foreach src,$(SRCS),$(eval $(call MAKE_WORKLOAD_LOGGING_SOURCE_RULES,$(platform),$(src)))))
+
 define MAKE_PLATFORM_BASE_RULES
 NOMODEL_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/nomodel/$(1)/,$$(OBJ_NAMES))
 NOMODEL_NOMIGRATION_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/nomodel_nomigrations/$(1)/,$$(OBJ_NAMES))
 ARMS_PLAIN_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_plain/$(1)/,$$(OBJ_NAMES))
 LOGGING_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/logging/$(1)/,$$(OBJ_NAMES))
+WORKLOAD_LOGGING_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/workload_logging/$(1)/%/,$$(OBJ_NAMES))
+.NOTINTERMEDIATE: $$(foreach model,$$(MODELS),$$(addprefix $$(OBJ_DIR)/workload_logging/$(1)/$$(call model_name_from_obj,$$(model))/,$$(OBJ_NAMES)))
 ARMS_TRAIN_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_train/$(1)/,$$(OBJ_NAMES))
 ARMS_NEAR_TRAIN_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_near_train/$(1)/,$$(OBJ_NAMES))
 ARMS_NEAR_TRAIN_ALL_NUMA_OBJS_$(1) := $$(addprefix $$(OBJ_DIR)/arms_near_train_all_numa/$(1)/,$$(OBJ_NAMES))
@@ -183,6 +220,10 @@ $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_plain.so: $$(ARMS_PLAIN_OBJS_$(1)) | $$(LI
 $$(LIB_OUTPUT_DIR)/$(1)/libhemem-logging.so: $$(LOGGING_OBJS_$(1)) $$(LOGGING_MODEL_OBJ) | $$(LIB_OUTPUT_DIR)/$(1)
 	$$(LINK_SHARED_RECIPE)
 
+# The model encoded in the library name is the object linked into it.
+$$(LIB_OUTPUT_DIR)/$(1)/libhemem-logging-%.so: $$(WORKLOAD_LOGGING_OBJS_$(1)) models/%.o | $$(LIB_OUTPUT_DIR)/$(1)
+	$$(LINK_SHARED_RECIPE)
+
 # Build ARMS with training data logging enabled (no model linked)
 $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_train.so: $$(ARMS_TRAIN_OBJS_$(1)) | $$(LIB_OUTPUT_DIR)/$(1)
 	$$(LINK_SHARED_RECIPE)
@@ -200,28 +241,28 @@ $$(LIB_OUTPUT_DIR)/$(1)/libhemem-arms_cxl_train.so: $$(ARMS_CXL_TRAIN_OBJS_$(1))
 	$$(LINK_SHARED_RECIPE)
 
 # Compile C++ sources for USE_MODEL=false variants (platform specialization)
-$$(OBJ_DIR)/nomodel/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
+$$(OBJ_DIR)/nomodel/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h arms_timing.h pebs_ordering.h | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_nomodel) $$(call platform_defs,$(1)))
 
-$$(OBJ_DIR)/nomodel_nomigrations/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
+$$(OBJ_DIR)/nomodel_nomigrations/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h arms_timing.h pebs_ordering.h | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_nomodel_nomigrations) $$(call platform_defs,$(1)))
 
-$$(OBJ_DIR)/arms_plain/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
+$$(OBJ_DIR)/arms_plain/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h arms_timing.h pebs_ordering.h | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_plain) $$(call platform_defs,$(1)))
 
-$$(OBJ_DIR)/logging/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
+$$(OBJ_DIR)/logging/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h arms_timing.h pebs_ordering.h | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_logging) $$(call platform_defs,$(1)) -DMODEL_DISCOUNT_PERCENT=$$(LOGGING_MODEL_DISCOUNT_PERCENT) -DMAX_LOGGED_SAMPLES=$$(LOGGING_MAX_LOGGED_SAMPLES))
 
-$$(OBJ_DIR)/arms_train/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
+$$(OBJ_DIR)/arms_train/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h arms_timing.h pebs_ordering.h | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_train) $$(call platform_defs,$(1)))
 
-$$(OBJ_DIR)/arms_near_train/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
+$$(OBJ_DIR)/arms_near_train/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h arms_timing.h pebs_ordering.h | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_near_train) $$(call platform_defs,$(1)))
 
-$$(OBJ_DIR)/arms_near_train_all_numa/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
+$$(OBJ_DIR)/arms_near_train_all_numa/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h arms_timing.h pebs_ordering.h | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_near_train_all_numa) $$(call platform_defs,$(1)))
 
-$$(OBJ_DIR)/arms_cxl_train/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h | $$(OBJ_DIR)
+$$(OBJ_DIR)/arms_cxl_train/$(1)/%.o: %.cpp defs.h logging.h logging_parquet.h arms_timing.h pebs_ordering.h | $$(OBJ_DIR)
 	$$(call COMPILE_OBJECT_RECIPE,$$(BASE_DEFINES_arms_cxl_train) $$(call platform_defs,$(1)))
 endef
 

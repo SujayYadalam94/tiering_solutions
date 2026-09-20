@@ -147,7 +147,7 @@ static void model_predict_batch_impl(std::vector<struct data_row> &rows,
     std::vector<double> outputs(rows.size(), 0.0);
     const double discount_scale = model_discount_scale();
 
-#if VIRTUAL_FEATURES_ENABLED
+#if USE_MODEL == (true) || LOGGING_RUN == (true)
     auto infer = [&](size_t i, double *features) {
 #if USE_MODEL == (true)
         forest_root(features, &outputs[i], 0, 1);

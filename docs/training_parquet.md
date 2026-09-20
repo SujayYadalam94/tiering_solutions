@@ -65,10 +65,61 @@ migration-policy scoring pass or time between sampled steps.
 
 Telemetry batches feature packing before inference, using an additional 96 bytes
 per page temporarily and a constant number of clock reads per step. Non-model
-and non-Parquet builds have neither these columns nor timing instrumentation.
+builds omit these model-specific columns; ARMS has separate telemetry below.
+Non-Parquet builds have no timing instrumentation.
 Disable telemetry with `make -B MODEL_TIMING_TELEMETRY=false <library-target>`;
 use `-B` when changing the option so existing objects are rebuilt. The same
 option defaults to `true` to re-enable it.
+
+## ARMS timing telemetry
+
+ARMS training builds (`USE_MODEL=false`, `PRINT_TRAINING_DATA=true`,
+`VIRTUAL_FEATURES_ENABLED=false`) now enable `ARMS_TIMING_TELEMETRY=true` by
+default and write three `uint64` nanosecond columns:
+
+- `arms_feature_aggregation_ns`: the batch of policy-window/EWMA updates.
+- `arms_scoring_ns`: weighted-history score calculation, score assignment, and
+  filling the score vector for the same batch.
+- `arms_score_total_ns`: the sum of those two phases.
+
+Three monotonic-clock samples bracket the two batch loops. Timings exclude
+page-snapshot construction, training-only derivative/group features and row
+extraction, logging, ranking, migration decisions, and Parquet serialization.
+Each scored page row carries the same batch values. Group by `step`, take each
+batch timing once, and divide summed batch nanoseconds by the number of timed
+page rows to obtain page-weighted costs. ARMS steps are policy iterations;
+MANTA's existing measurements use virtual steps, so their total-ms/step values
+describe different batch populations. ARMS scoring is not learned inference.
+
+The collector validates the fields and nonzero, internally consistent timings
+after each ARMS run. It rejects older timing-free traces on resume. Use a fresh
+run number to preserve the previous files and `--arms-only` to avoid rerunning
+MANTA:
+
+```sh
+COLLECTION_RUN=12 bash run_arms_and_missing_models.sh --platform c220g5 --arms-only
+```
+
+This rebuilds the training library with timing enabled, collects all eight ARMS
+workloads at the existing 10090 MiB budget, and writes
+`logs/plots/arms_timing_summary_run12.csv`. The CSV includes source paths,
+feature/scoring µs/page, total ms/policy-step, timed steps, and page-row counts.
+The raw logs are `logs/<workload>/10090MiB_run12_train_arms.parquet`.
+Add `--dry-run` to inspect the planned paths without setup or workloads.
+The comparison cell in `logs/live_perf.ipynb` selects `ARMS_TIMING_RUN = 12`;
+rerun that cell after collection to populate ARMS costs alongside the run 11
+model results. Change that setting if collecting a different ARMS run number.
+
+For independent extraction or validation:
+
+```sh
+python3 scripts/arms_timing_summary.py --check logs/bc-twitter.sg/10090MiB_run12_train_arms.parquet
+python3 scripts/arms_timing_summary.py --output logs/plots/arms_timing_summary_run12.csv logs/*/10090MiB_run12_train_arms.parquet
+```
+
+Use a Python with pandas and PyArrow; set `PARQUET_PYTHON` for the collector if
+needed. Non-training ARMS builds have no timer overhead or added columns.
+Opt out with `make -B ARMS_TIMING_TELEMETRY=false <library-target>`.
 
 ## Build dependencies
 
@@ -142,3 +193,55 @@ links DuckDB's `libparquet_extension.a`, not the external `libparquet.so` or
 `libarrow.so`. The helper-library blacklist therefore does not exclude this
 DuckDB code. No PyArrow/Python dependency appears in the runner's launch command
 or dynamic-library dependencies.
+
+## Collect all ARMS traces and workload-specific FAISS/MG traces
+
+```sh
+COLLECTION_RUN=12 BUILD_LIBRARIES=1 \
+bash run_arms_and_missing_models.sh --platform c220g5
+```
+
+This rebuilds timing-enabled libraries, collects eight ARMS training traces, and
+collects FAISS and MG with their respective `model_discounted_reward_99_*_l2.o`
+objects. The model collection uses separate `libhemem-logging-<model>.so`
+libraries with logging mode, virtual steps, and a ten-score mean. There is no
+fallback to the generic `libhemem-logging.so` or the global model.
+
+`logging.sh` now also selects the workload-specific library directly, using
+`WORKLOAD_MODEL_BASE` and `LOGGING_MODEL_PCT` (default 99). Build those targets
+explicitly or use `make training-libraries` before invoking it standalone.
+
+Each model trace has a `run12.model.json` sidecar containing model-object and
+library paths and SHA-256 hashes. A completed model trace is skipped only when
+its identity matches and its model timing columns contain timed rows. Old traces
+without this evidence are preserved and require a new `COLLECTION_RUN`.
+
+Model outputs are `logs/{faiss_10M,mg.D.x}/run12.parquet`. ARMS outputs are
+`logs/<workload>/10090MiB_run12_train_arms.parquet`, with a consolidated
+`logs/plots/arms_timing_summary_run12.csv`. Console logs accompany both kinds.
+Run `--dry-run` to inspect all selected paths without launching workloads.
+
+## No-virtual-step models without training logs
+
+Models whose names contain `_no_virtual_step_` use the existing 250 ms policy
+feature path in both the regular and `_train` libraries. Both execute the model;
+`PRINT_TRAINING_DATA` controls whether rows are stored and written. The regular
+library allocates no training-log buffer and needs no Arrow/Parquet dependency.
+
+The existing training runner accepts workload IDs and an empty library suffix
+for inference without training logs:
+
+```sh
+MODEL_LIB_SUFFIX= ./run_all_measurements_train.sh --platform c220g5 bc-twitter.sg_no_virtual_step
+```
+
+Omit `MODEL_LIB_SUFFIX` to retain training-data logging. The regular model runner reads `WORKLOAD_MODEL_BASE` from the selected file in
+`workloads/` and defaults to inference without training logs. No suffix or
+virtual-step flag is needed:
+
+```sh
+./measurement_model.sh --platform c220g5 4080 1 bc-twitter.sg_no_virtual_step
+```
+
+These use the existing `_no_virtual_step` model libraries; there are no separate
+policy variants. The workload and measurement setup still come from the runner.

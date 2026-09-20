@@ -22,6 +22,11 @@ extern bool initialized;
 #define USE_MODEL (true)
 #endif
 
+// Allow every ranked page through the model's promotion/demotion eligibility filter.
+#ifndef MODEL_DISABLE_HOT_COLD_FILTER
+#define MODEL_DISABLE_HOT_COLD_FILTER (false)
+#endif
+
 #ifndef PRINT_TRAINING_DATA
 #define PRINT_TRAINING_DATA (false)
 #endif
@@ -43,7 +48,15 @@ extern bool initialized;
 #define ENABLE_MIGRATION_WORKERS (true)
 #endif
 
+#ifndef VIRTUAL_FEATURES_ENABLED
 #define VIRTUAL_FEATURES_ENABLED ((USE_MODEL == (true)) || (LOGGING_RUN == (true)))
+#endif
+
+#ifndef ARMS_TIMING_TELEMETRY
+#define ARMS_TIMING_TELEMETRY (true)
+#endif
+#define ARMS_TIMING_TELEMETRY_ENABLED                                                                                  \
+    (ARMS_TIMING_TELEMETRY && !USE_MODEL && PRINT_TRAINING_DATA && !VIRTUAL_FEATURES_ENABLED)
 
 #ifndef VIRTUAL_STEP_SAMPLES
 // #define VIRTUAL_STEP_SAMPLES (3162)
@@ -229,7 +242,7 @@ extern bool initialized;
 #if NEAR_MEM_TRACING_RUN == (true)
 #define PEBS_KSWAPD_INTERVAL_BIG (250000)   // in us (250ms)
 #define PEBS_KSWAPD_INTERVAL_SMALL (250000) // in us (250ms)
-#elif VIRTUAL_FEATURES_ENABLED
+#elif USE_MODEL == (true) || LOGGING_RUN == (true)
 #define PEBS_KSWAPD_INTERVAL_BIG (250000)   // in us (250ms)
 #define PEBS_KSWAPD_INTERVAL_SMALL (250000) // in us (250ms)
 #else
@@ -296,13 +309,13 @@ extern bool initialized;
 #if USE_MODEL == (true)
 #define PERF_PAGES (1 + (1 << 10)) // Has to be == 1+2^n, here 64MB
 #else
-#define PERF_PAGES (1 + (1 << 11)) // 128MB because of double sampling rate
+#define PERF_PAGES (1 + (1 << 13)) // 128MB because of double sampling rate
 #endif
 
 #if NEAR_MEM_TRACING_RUN == (true)
 #define DEFAULT_SAMPLE_PERIOD (10007)
 #define HF_SAMPLE_PERIOD (10007)
-#elif VIRTUAL_FEATURES_ENABLED
+#elif USE_MODEL == (true) || LOGGING_RUN == (true)
 #define DEFAULT_SAMPLE_PERIOD (10007)
 #define HF_SAMPLE_PERIOD (10007)
 #else

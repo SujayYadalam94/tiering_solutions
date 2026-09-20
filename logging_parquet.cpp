@@ -179,6 +179,12 @@ std::vector<Column> log_columns()
     ADD_COLUMN(model_score_total_ns);
 #endif
 
+#if ARMS_TIMING_TELEMETRY_ENABLED
+    ADD_COLUMN(arms_feature_aggregation_ns);
+    ADD_COLUMN(arms_scoring_ns);
+    ADD_COLUMN(arms_score_total_ns);
+#endif
+
 
 #undef ADD_COLUMN
     return columns;

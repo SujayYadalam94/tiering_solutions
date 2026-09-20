@@ -121,9 +121,11 @@ measurement_build_model_library_path() {
 
 measurement_build_logging_library_path() {
     local script_dir=$1
+    local model_base=${2:?workload model base is required}
+    local pct=${3:-99}
 
-    printf '%s/libraries/%s/libhemem-logging.so\n' \
-        "${script_dir}" "${MEASUREMENT_LIBRARY_PROFILE_DIR}"
+    printf '%s/libraries/%s/libhemem-logging-model_discounted_reward_%s_%s_l2.so\n' \
+        "${script_dir}" "${MEASUREMENT_LIBRARY_PROFILE_DIR}" "${pct}" "${model_base}"
 }
 
 cleanup_split_log_files() {
@@ -232,6 +234,9 @@ run_preloaded_measurement() {
             LOG_OUTPUT_PATH="${log_output_path}" \
             WORKLOAD_VIRTUAL_STEP_SAMPLES="${WORKLOAD_VIRTUAL_STEP_SAMPLES:-3162}" \
             VIRTUAL_STEP_SAMPLES="${WORKLOAD_VIRTUAL_STEP_SAMPLES:-3162}" \
+            PEBS_MODEL_ORDERED="${PEBS_MODEL_ORDERED:-0}" \
+            PEBS_MODEL_DISCARD_FILTERED="${PEBS_MODEL_DISCARD_FILTERED:-0}" \
+            PEBS_MODEL_REORDER_MS="${PEBS_MODEL_REORDER_MS:-100}" \
             LD_PRELOAD="${library_path}" \
             ${program} 2>&1
     } 2> "${time_file}"

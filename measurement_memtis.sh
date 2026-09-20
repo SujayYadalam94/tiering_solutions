@@ -31,7 +31,8 @@ if [[ "${MEMTIS_LOCK_HELD:-0}" != "1" ]]; then
         echo "ERROR: flock is required to serialize MEMTIS measurements" >&2
         exit 1
     fi
-    exec flock --exclusive --nonblock --no-fork "${MEMTIS_LOCK_FILE}" \
+    # Keep ownership in flock so an exiting collector's sleep cannot retain it.
+    exec flock --exclusive --nonblock --close "${MEMTIS_LOCK_FILE}" \
         env MEMTIS_LOCK_HELD=1 bash "$0" "$@"
 fi
 
@@ -53,7 +54,7 @@ if [[ ! "${MEMTIS_FAST_NODE}" =~ ^[0-9]+$ ]]; then
     exit 1
 fi
 if ! command -v numactl >/dev/null 2>&1; then
-    echo "ERROR: numactl is required to prefer the fast memory node" >&2
+    echo "ERROR: numactl is required to set the initial memory placement" >&2
     exit 1
 fi
 MEMTIS_OUTPUT_NAME=${MEMTIS_OUTPUT_NAME:-memtis}
@@ -61,7 +62,7 @@ MEMTIS_OUTPUT_NAME=${MEMTIS_OUTPUT_NAME:-memtis}
 # before the workload starts (about 8 MiB). Keep enough additional room for
 # node watermarks, perf metadata, and node-local kernel allocations so HTMM's
 # __GFP_THISNODE fault path does not become trapped in reclaim/OOM retries.
-MEMTIS_STARTUP_HEADROOM_MIB=${MEMTIS_STARTUP_HEADROOM_MIB:-256}
+MEMTIS_STARTUP_HEADROOM_MIB=${MEMTIS_STARTUP_HEADROOM_MIB:-512}
 MEMTIS_MIN_FAST_TIER_MIB=${MEMTIS_MIN_FAST_TIER_MIB:-128}
 MEMTIS_EFFECTIVE_FAST_TIER_MIB=0
 MEMTIS_FAST_NODE_FREE_MIB=0
@@ -94,6 +95,11 @@ if [[ "${MEMTIS_CXL_MODE}" != "enabled" && "${MEMTIS_CXL_MODE}" != "disabled" ]]
 fi
 if [[ ! "${MEMTIS_SLOW_NODE}" =~ ^[0-9]+$ ]]; then
     echo "ERROR: MEMTIS_SLOW_NODE must be a non-negative NUMA node number" >&2
+    exit 1
+fi
+MEMTIS_PREFERRED_NODE=${MEMTIS_PREFERRED_NODE:-${MEMTIS_SLOW_NODE}}
+if [[ ! "${MEMTIS_PREFERRED_NODE}" =~ ^[0-9]+$ ]]; then
+    echo "ERROR: MEMTIS_PREFERRED_NODE must be a non-negative NUMA node number" >&2
     exit 1
 fi
 if [[ ! -d "${MEMTIS_ROOT}" ]]; then
@@ -172,7 +178,7 @@ configure_memtis() {
 
     # Reset MEMTIS-only knobs to linux/mm/mempolicy.c's CONFIG_HTMM defaults,
     # including knobs that might retain values from a previous experiment.
-    # Mode and split threshold deliberately use the earlier artifact values.
+    # Keep artifact migration mode; disable MEMTIS adaptive huge-page splitting.
     write_value "${MEMTIS_SYSFS_ROOT}/htmm_sample_period" 199 || return 1
     write_value "${MEMTIS_SYSFS_ROOT}/htmm_inst_sample_period" 100007 || return 1
     write_value "${MEMTIS_SYSFS_ROOT}/htmm_thres_hot" 1 || return 1
@@ -184,7 +190,7 @@ configure_memtis() {
     write_value "${MEMTIS_SYSFS_ROOT}/htmm_promotion_period_in_ms" 500 || return 1
     write_value "${MEMTIS_SYSFS_ROOT}/htmm_gamma" 4 || return 1
     write_value "${MEMTIS_SYSFS_ROOT}/ksampled_soft_cpu_quota" 30 || return 1
-    write_value "${MEMTIS_SYSFS_ROOT}/htmm_thres_split" 1 || return 1
+    write_value "${MEMTIS_SYSFS_ROOT}/htmm_thres_split" 0 || return 1
     write_value "${MEMTIS_SYSFS_ROOT}/htmm_nowarm" 0 || return 1
     write_value "${MEMTIS_SYSFS_ROOT}/ksampled_min_sample_ratio" 50 || return 1
     write_value "${MEMTIS_SYSFS_ROOT}/ksampled_max_sample_ratio" 10 || return 1
@@ -211,8 +217,8 @@ configure_memtis_cgroup() {
         return 1
     fi
 
-    # Children inherit this cgroup and therefore the HTMM fast-tier limit.
-    write_value "${MEMTIS_CGROUP_DIR}/cgroup.procs" "$$" || return 1
+    # Only the timed launch enters this cgroup. Keep the runner, stats
+    # collector, and tee outside HTMM's allocation and migration paths.
     write_value "${htmm_enabled}" enabled || return 1
     MEMTIS_CGROUP_ENABLED=1
     write_value "${node_limit}" "$((MEMTIS_EFFECTIVE_FAST_TIER_MIB * 1024 * 1024))" || return 1
@@ -247,7 +253,7 @@ recover_stale_memtis_cgroup() {
         if [[ "${populated}" != "1" ]]; then
             return 0
         fi
-        sleep 0.1
+        sleep 1
     done
 
     echo "ERROR: ${MEMTIS_CGROUP_DIR} remained populated after stale-task cleanup" >&2
@@ -307,7 +313,10 @@ collect_memtis_stats() {
             cat "${MEMTIS_CGROUP_DIR}/memory.hotness_stat" >> "${hotness_stat_file}" 2>/dev/null || true
         fi
         grep '^pgmigrate_success' /proc/vmstat >> "${migration_stat_file}" 2>/dev/null || true
-        sleep 1
+        if ! sleep 1; then
+            echo "WARNING: stopping MEMTIS stats collection because sleep failed" >&2
+            return 1
+        fi
     done
 }
 
@@ -373,6 +382,8 @@ prepare_memtis_workload() {
     if [[ "${MEMTIS_RUN_SETUP:-0}" == "1" ]]; then
         MEMTIS_SETUP_STARTED=1
         run_measurement_setup "${SIZE_MIB}" memtis || return 1
+        # setup.sh also writes VM/perf values; restore the shared settings.
+        measurement_apply_common_settings write_value 1000000 0 memtis || return 1
         MEMTIS_CACHE_FLUSH=setup
     elif [[ "${MEMTIS_CACHE_FLUSH:-none}" != "batch-setup" ]]; then
         bash "${SCRIPT_DIR}/defrag.sh" memtis || return 1
@@ -428,7 +439,7 @@ run_workload() {
     MEMTIS_STATS_PID=$!
 
     echo "Running ${WORKLOAD_OUTPUT} with MEMTIS (fast tier: ${MEMTIS_EFFECTIVE_FAST_TIER_MIB} MiB, requested: ${SIZE_MIB} MiB, CXL mode: ${MEMTIS_CXL_MODE})"
-    echo "taskset -c ${TASKSET_CPUS} numactl --preferred=${MEMTIS_FAST_NODE} ${MEMTIS_LAUNCHER} stdbuf -oL -eL env${env_kv} ${command_text}"
+    echo "taskset -c ${TASKSET_CPUS} numactl --preferred=${MEMTIS_PREFERRED_NODE} ${MEMTIS_LAUNCHER} stdbuf -oL -eL env${env_kv} ${command_text}"
 
     local status=0
     local -a pipeline_status=()
@@ -441,14 +452,18 @@ run_workload() {
     MEMTIS_LAUNCH_IN_PROGRESS=1
     MEMTIS_LAUNCH_ATTEMPTED=1
     {
-        time timeout --signal=TERM \
-            --kill-after="${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS}s" \
-            "${MEASUREMENT_TIMEOUT_SECONDS}s" \
-            taskset -c "${TASKSET_CPUS}" \
-            numactl --preferred="${MEMTIS_FAST_NODE}" -- \
-            "${MEMTIS_LAUNCHER}" stdbuf -oL -eL env \
-            ${WORKLOAD_RUNTIME_CHDIR_ARG:+${WORKLOAD_RUNTIME_CHDIR_ARG}} \
-            "${env_assignments[@]}" "${command_argv[@]}" 2>&1
+        time (
+            # $$ still names the parent shell here; BASHPID is this child.
+            write_value "${MEMTIS_CGROUP_DIR}/cgroup.procs" "${BASHPID}" || exit 1
+            timeout --signal=TERM \
+                --kill-after="${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS}s" \
+                "${MEASUREMENT_TIMEOUT_SECONDS}s" \
+                taskset -c "${TASKSET_CPUS}" \
+                numactl --preferred="${MEMTIS_PREFERRED_NODE}" -- \
+                "${MEMTIS_LAUNCHER}" stdbuf -oL -eL env \
+                ${WORKLOAD_RUNTIME_CHDIR_ARG:+${WORKLOAD_RUNTIME_CHDIR_ARG}} \
+                "${env_assignments[@]}" "${command_argv[@]}" 2>&1
+        )
     } 2> "${time_file}" | tee "${log_file}"
     pipeline_status=("${PIPESTATUS[@]}")
     status=${pipeline_status[0]}
@@ -473,13 +488,15 @@ run_workload() {
         echo "elapsed_seconds=$((end_epoch_s - start_epoch_s))"
         echo "timeout_seconds=${MEASUREMENT_TIMEOUT_SECONDS}"
         echo "kill_after_seconds=${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS}"
-        echo "memtis_settings_profile=memtis-shared-vm-artifact-migration-preferred-v14"
+        echo "memtis_settings_profile=memtis-shared-vm-artifact-migration-remote-preferred-nosplit-v22"
+        echo "memtis_htmm_thres_split=0"
         echo "memtis_numa_balancing=0"
         echo "memtis_generic_demotion_policy=inherited"
         echo "memtis_cgroup_fresh=${MEMTIS_CGROUP_FRESH}"
         echo "memtis_cgroup_retained=0"
         echo "memtis_cache_flush=${MEMTIS_CACHE_FLUSH:-none}"
         echo "memtis_cgroup_path=${MEMTIS_CGROUP_DIR}"
+        echo "memtis_helpers_outside_workload_cgroup=1"
         echo "memtis_kernel_release=$(uname -r)"
         echo "memtis_fast_tier_mib=${SIZE_MIB}"
         echo "memtis_effective_fast_tier_mib=${MEMTIS_EFFECTIVE_FAST_TIER_MIB}"
@@ -494,7 +511,7 @@ run_workload() {
             echo "memtis_uncore_freq_khz=${MEASUREMENT_UNCORE_FREQ_KHZ}"
         fi
         echo "memtis_memory_policy=preferred"
-        echo "memtis_preferred_node=${MEMTIS_FAST_NODE}"
+        echo "memtis_preferred_node=${MEMTIS_PREFERRED_NODE}"
         echo "memtis_slow_node=${MEMTIS_SLOW_NODE}"
         echo "memtis_worker_affinity_override=none"
         echo "memtis_cpu_node=0"
@@ -511,6 +528,7 @@ run_workload() {
 }
 
 declare -a FAILED_RUNS=()
+MEMTIS_WORKLOAD_FINISHED=0
 for workload_id in "${WORKLOAD_IDS[@]}"; do
     measurement_load_workload "${workload_id}" || exit 1
     if ! measurement_workload_supports_system memtis && ! measurement_workload_supports_system arms; then
@@ -518,6 +536,10 @@ for workload_id in "${WORKLOAD_IDS[@]}"; do
         continue
     fi
 
+    if [[ ${MEMTIS_WORKLOAD_FINISHED} -eq 1 ]]; then
+        echo "Waiting 10 seconds before the next MEMTIS workload"
+        sleep 10 || exit $?
+    fi
     remove_memtis_cgroup || exit 1
     configure_memtis || exit 1
     prepare_memtis_workload || exit 1
@@ -527,6 +549,7 @@ for workload_id in "${WORKLOAD_IDS[@]}"; do
         FAILED_RUNS+=("${WORKLOAD_OUTPUT}:run${RUN_ID}")
     fi
     remove_memtis_cgroup || exit 1
+    MEMTIS_WORKLOAD_FINISHED=1
     # External preparation applies only to the first workload in an invocation.
     MEMTIS_CACHE_FLUSH=none
 done

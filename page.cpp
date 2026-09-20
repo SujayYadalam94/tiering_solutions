@@ -439,6 +439,9 @@ void page_info::update_can_promote(size_t num_dram_pages, size_t total_scores, s
         this->hot_age = 0;
         this->can_promote = false;
     }
+#elif MODEL_DISABLE_HOT_COLD_FILTER == (true)
+    this->can_promote = true;
+    this->can_demote = true;
 #else
     if (rank < (num_dram_pages * 0.5))
     {

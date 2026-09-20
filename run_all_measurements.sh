@@ -59,7 +59,8 @@ EOF
 # Own setup/cache policy here; standalone MEMTIS launches do not flush caches.
 # Hold the same lock used by the standalone runner across setup and teardown.
 run_memtis_measurement() {
-    sudo -E flock --exclusive --nonblock "${MEMTIS_LOCK_FILE:-/run/lock/measurement_memtis.lock}" \
+    # The flock parent owns the lock; helpers must not inherit its descriptor.
+    sudo -E flock --exclusive --nonblock --close "${MEMTIS_LOCK_FILE:-/run/lock/measurement_memtis.lock}" \
         bash -c '
             set -o pipefail
             source "$1/measurement_common.sh" || exit 1
@@ -71,8 +72,10 @@ run_memtis_measurement() {
         ' memtis-batch "${SCRIPT_DIR}" "${MEASUREMENT_PLATFORM}" "$1" "$2" "$3"
 }
 
-SIZES=(4080)
+SIZES=(10095)
 RUNS=3
+FAILED_MEMTIS_RUNS=()
+MEMTIS_BATCH_STARTED=0
 
 ARMS_LIB_SUFFIX=${ARMS_LIB_SUFFIX:-_plain}
 
@@ -95,13 +98,13 @@ for size in "${SIZES[@]}"; do
             #fi
 
             # ARMS
-            measurement_load_workload "${workload_id}" || exit 1
-            if measurement_workload_supports_system arms; then
-                run_measurement_setup "${size}"
-                "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
-            else
-                echo "Skipping ${workload_id}: not supported by ARMS"
-            fi
+            #measurement_load_workload "${workload_id}" || exit 1
+            #if measurement_workload_supports_system arms; then
+            #    run_measurement_setup "${size}"
+            #    "${SCRIPT_DIR}/measurement_arms.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+            #else
+            #    echo "Skipping ${workload_id}: not supported by ARMS"
+            #fi
 
 
             # NOMAD
@@ -114,26 +117,36 @@ for size in "${SIZES[@]}"; do
             #fi
 
             # MEMTIS
-            #if [[ -x "${SCRIPT_DIR}/measurement_memtis.sh" ]]; then
-            #    # Batch setup, cache flushing, and measurement share one lock.
-            #    if run_memtis_measurement "${size}" "${run}" "${workload_id}"; then
-            #        :
-            #    else
-            #        status=$?
-            #        echo "ERROR: MEMTIS ${workload_id} failed (status ${status}); stopping measurements" >&2
-            #        exit "${status}"
-            #    fi
-            #else
-            #    echo "ERROR: ./measurement_memtis.sh not found or not executable" >&2
-            #    exit 1
-            #fi
+            if [[ -x "${SCRIPT_DIR}/measurement_memtis.sh" ]]; then
+                if [[ ${MEMTIS_BATCH_STARTED} -eq 1 ]]; then
+                    echo "Waiting 10 seconds before the next MEMTIS workload"
+                    sleep 10 || exit $?
+                fi
+                MEMTIS_BATCH_STARTED=1
+                # Batch setup, cache flushing, and measurement share one lock.
+                if run_memtis_measurement "${size}" "${run}" "${workload_id}"; then
+                    :
+                else
+                    status=$?
+                    if [[ ${status} -eq 1 ]]; then
+                        FAILED_MEMTIS_RUNS+=("${workload_id}: ${size}MiB run ${run} (status 1)")
+                        echo "WARNING: MEMTIS ${workload_id} failed (status 1); continuing measurements" >&2
+                        continue
+                    fi
+                    echo "ERROR: MEMTIS ${workload_id} failed (status ${status}); stopping measurements" >&2
+                    exit "${status}"
+                fi
+            else
+                echo "ERROR: ./measurement_memtis.sh not found or not executable" >&2
+                exit 1
+            fi
 
             # Model
-            if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
-                "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
-            else
-                echo "WARNING: ./measurement_model.sh not found or not executable; skipping model"
-            fi
+            #if [[ -x "${SCRIPT_DIR}/measurement_model.sh" ]]; then
+            #    "${SCRIPT_DIR}/measurement_model.sh" "${PLATFORM_ARGS[@]}" "${size}" "${run}" "" "${workload_id}"
+            #else
+            #    echo "WARNING: ./measurement_model.sh not found or not executable; skipping model"
+            #fi
 
             # HybridTier
             #run_measurement_setup "${size}"
@@ -171,5 +184,13 @@ END_EPOCH=$(date +%s)
 ELAPSED_SECONDS=$((END_EPOCH - START_EPOCH))
 ELAPSED_HMS=$(format_duration_hms "${ELAPSED_SECONDS}")
 
-echo "All measurements finished in ${ELAPSED_HMS} (${ELAPSED_SECONDS}s)"
+BATCH_STATUS=0
+if [[ ${#FAILED_MEMTIS_RUNS[@]} -gt 0 ]]; then
+    BATCH_STATUS=1
+    echo "Measurements finished in ${ELAPSED_HMS} (${ELAPSED_SECONDS}s) with ${#FAILED_MEMTIS_RUNS[@]} failed MEMTIS runs:" >&2
+    printf '  - %s\n' "${FAILED_MEMTIS_RUNS[@]}" >&2
+else
+    echo "All measurements finished in ${ELAPSED_HMS} (${ELAPSED_SECONDS}s)"
+fi
 send_completion_email "${ELAPSED_SECONDS}"
+exit "${BATCH_STATUS}"

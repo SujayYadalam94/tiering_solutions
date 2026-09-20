@@ -93,7 +93,9 @@ write_sysctl_value kernel.numa_balancing 0
 write_sysfs_value /proc/sys/vm/zone_reclaim_mode 0
 write_sysfs_value /proc/sys/kernel/numa_balancing 0
 write_sysfs_value /sys/kernel/mm/numa/demotion_enabled 0
-write_sysfs_value /sys/kernel/mm/lru_gen/enabled 0x0000
+if [[ -e /sys/kernel/mm/lru_gen/enabled ]]; then
+	write_sysfs_value /sys/kernel/mm/lru_gen/enabled 0x0000
+fi
 echo "Turning huge page ON"
 write_sysfs_value /sys/kernel/mm/transparent_hugepage/enabled always
 write_sysfs_value /sys/kernel/mm/transparent_hugepage/defrag always
@@ -103,8 +105,10 @@ write_sysfs_value /proc/sys/vm/compaction_proactiveness 80
 echo 8192 | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/pages_to_scan
 echo 0    | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs
 echo 1    | sudo tee /sys/kernel/mm/transparent_hugepage/khugepaged/alloc_sleep_millisecs
-echo 1000000 | sudo tee /proc/sys/kernel/perf_event_max_sample_rate
-echo 0 | sudo tee /proc/sys/kernel/perf_cpu_time_max_percent
+# Linux rejects sample-rate writes when perf throttling is already disabled.
+write_sysfs_value /proc/sys/kernel/perf_cpu_time_max_percent 25 || exit 1
+write_sysfs_value /proc/sys/kernel/perf_event_max_sample_rate 1000000 || exit 1
+write_sysfs_value /proc/sys/kernel/perf_cpu_time_max_percent 0 || exit 1
 
 write_sysfs_value /sys/kernel/mm/ksm/run 0
 

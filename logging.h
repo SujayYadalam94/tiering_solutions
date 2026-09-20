@@ -108,6 +108,13 @@ struct data_row
     uint64_t model_score_total_ns;
 #endif
 
+#if ARMS_TIMING_TELEMETRY_ENABLED
+    // Whole-policy-batch times, repeated on every scored page row.
+    uint64_t arms_feature_aggregation_ns;
+    uint64_t arms_scoring_ns;
+    uint64_t arms_score_total_ns;
+#endif
+
     // Reward Componants computed at the end
     struct data_row *prev;
     float discounted_reward_90;

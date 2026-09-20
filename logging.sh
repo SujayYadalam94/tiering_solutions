@@ -12,13 +12,22 @@ ARGS=("${MEASUREMENT_REMAINING_ARGS[@]}")
 RUNS=${ARGS[0]:-11}
 START_RUN=${START_RUN:-11}
 LOGGING_SIZE_MIB=${LOGGING_SIZE_MIB:-0}
-LOGGING_MODEL_PCT=${LOGGING_MODEL_PCT:-95}
-LOGGING_MODEL_MINMAX=${LOGGING_MODEL_MINMAX:-false}
-LOGGING_MODEL_HISTORY_LENGTH=${LOGGING_MODEL_HISTORY_LENGTH:-4}
-LOGGING_MODEL_PENALTY=${LOGGING_MODEL_PENALTY:-0.9}
-LOGGING_LIB_SUFFIX=${LOGGING_LIB_SUFFIX:-_train}
+LOGGING_MODEL_PCT=${LOGGING_MODEL_PCT:-99}
+PARQUET_PYTHON=${PARQUET_PYTHON:-python3}
 WORKLOAD_ARGS=("${ARGS[@]:1}")
 mapfile -t WORKLOAD_IDS < <(measurement_expand_workloads "${WORKLOAD_ARGS[@]}")
+
+# Reject missing workload-specific libraries before changing machine settings.
+for workload_id in "${WORKLOAD_IDS[@]}"; do
+    measurement_load_workload "${workload_id}" || exit 1
+    measurement_workload_supports_system logging || continue
+    model_path=$(measurement_build_logging_library_path "${SCRIPT_DIR}" "${WORKLOAD_MODEL_BASE}" "${LOGGING_MODEL_PCT}")
+    if [[ ! -f "${model_path}" ]]; then
+        echo "ERROR: missing workload-specific logging library: ${model_path}" >&2
+        exit 1
+    fi
+done
+"${PARQUET_PYTHON}" -c 'import pyarrow.parquet' || exit 1
 
 mkdir -p "${SCRIPT_DIR}/times/${MEASUREMENT_PLATFORM}" logs
 
@@ -44,8 +53,15 @@ function run_program {
     fi
 
     cleanup_measurement_outputs "${time_file}" "${log_output_path}" /dev/null
+    local model_object="${SCRIPT_DIR}/models/model_discounted_reward_${LOGGING_MODEL_PCT}_${WORKLOAD_MODEL_BASE}_l2.o"
+    # Save identity before the workload starts. Resume additionally requires a
+    # successful process record and the model timing fields in its Parquet file.
+    "${PARQUET_PYTHON}" "${SCRIPT_DIR}/scripts/model_collection_metadata.py" write \
+        "${log_output_path%.log}.parquet" "${model_object}" "${model_path}" || return 1
     run_preloaded_measurement "${WORKLOAD_COMMAND}" "${model_path}" \
         "${log_output_path}" "${time_file}" "${NUMA_MEM_NODES}" "${TASKSET_CPUS}" || return 1
+    "${PARQUET_PYTHON}" "${SCRIPT_DIR}/scripts/model_collection_metadata.py" check \
+        "${log_output_path%.log}.parquet" "${model_object}" "${model_path}" || return 1
     echo "${log_output_path%.log}.parquet"
 }
 
@@ -58,7 +74,7 @@ for run in $(seq "${START_RUN}" "${RUNS}"); do
             continue
         fi
 
-        model_path=$(measurement_build_logging_library_path "${SCRIPT_DIR}")
+        model_path=$(measurement_build_logging_library_path "${SCRIPT_DIR}" "${WORKLOAD_MODEL_BASE}" "${LOGGING_MODEL_PCT}")
 
         echo "Run ${run}: workload ${WORKLOAD_ID} library ${model_path}"
         if ! run_program "${WORKLOAD_OUTPUT}" "${run}" "${model_path}"; then

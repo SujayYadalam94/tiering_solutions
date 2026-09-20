@@ -1,0 +1,35 @@
+
+real	2m37.776s
+user	33m59.951s
+sys	0m18.096s
+exit_status=0
+timed_out=0
+elapsed_seconds=157
+timeout_seconds=12000
+kill_after_seconds=30
+memtis_settings_profile=memtis-shared-vm-artifact-migration-remote-preferred-nosplit-v22
+memtis_htmm_thres_split=0
+memtis_numa_balancing=0
+memtis_generic_demotion_policy=inherited
+memtis_cgroup_fresh=1
+memtis_cgroup_retained=0
+memtis_cache_flush=batch-setup
+memtis_cgroup_path=/sys/fs/cgroup/htmm
+memtis_helpers_outside_workload_cgroup=1
+memtis_kernel_release=5.15.19-htmm-node0-fix12-split-budget
+memtis_fast_tier_mib=6095
+memtis_effective_fast_tier_mib=3858
+memtis_fast_node_free_at_start_mib=4370
+memtis_startup_headroom_mib=512
+memtis_min_fast_tier_mib=128
+memtis_fast_node=0
+memtis_cxl_mode=enabled
+memtis_uncore_method=wrmsr
+memtis_uncore_cpus=10-19,30-39
+memtis_uncore_freq_khz=700000
+memtis_memory_policy=preferred
+memtis_preferred_node=1
+memtis_slow_node=1
+memtis_worker_affinity_override=none
+memtis_cpu_node=0
+memtis_taskset_cpus=0-9,20-29

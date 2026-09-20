@@ -135,6 +135,11 @@ void reference_row(std::ostream &os, const struct data_row *row, bool header)
     PRINT_CELL_AUTO(model_inference_ns);
     PRINT_CELL_AUTO(model_score_total_ns);
 #endif
+#if ARMS_TIMING_TELEMETRY_ENABLED
+    PRINT_CELL_AUTO(arms_feature_aggregation_ns);
+    PRINT_CELL_AUTO(arms_scoring_ns);
+    PRINT_CELL_AUTO(arms_score_total_ns);
+#endif
 
     os << '\n';
 }
@@ -173,6 +178,11 @@ class Fixture : public AccessLog
             r.model_feature_aggregation_ns = 123456789123456789ULL;
             r.model_inference_ns = 987654321ULL;
             r.model_score_total_ns = r.model_feature_aggregation_ns + r.model_inference_ns + i;
+#endif
+#if ARMS_TIMING_TELEMETRY_ENABLED
+            r.arms_feature_aggregation_ns = 123456789123456789ULL;
+            r.arms_scoring_ns = 987654321ULL;
+            r.arms_score_total_ns = r.arms_feature_aggregation_ns + r.arms_scoring_ns;
 #endif
             for (int j = 0; j < 15; ++j)
             {

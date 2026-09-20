@@ -19,6 +19,7 @@ import pyarrow.parquet as pq
 
 ROOT = Path(__file__).resolve().parents[1]
 MODEL_TIMING_COLUMNS = ["model_feature_aggregation_ns", "model_inference_ns", "model_score_total_ns"]
+ARMS_TIMING_COLUMNS = ["arms_feature_aggregation_ns", "arms_scoring_ns", "arms_score_total_ns"]
 
 
 def run(command, **kwargs):
@@ -32,7 +33,7 @@ def compiler_flags(kind):
     return shlex.split(run([sys.executable, "scripts/parquet_flags.py", kind]).stdout)
 
 
-def check_output(binary, directory, count, suffix, model_timing=False):
+def check_output(binary, directory, count, suffix, model_timing=False, arms_timing=False):
     output = directory / f"rows{count}.parquet"
     requested = output if suffix == ".parquet" else output.with_suffix(suffix)
     reference = directory / f"rows{count}.csv"
@@ -53,6 +54,10 @@ def check_output(binary, directory, count, suffix, model_timing=False):
     for name in MODEL_TIMING_COLUMNS:
         assert (name in table.column_names) == model_timing
         if model_timing:
+            assert table.schema.field(name).type == pa.uint64()
+    for name in ARMS_TIMING_COLUMNS:
+        assert (name in table.column_names) == arms_timing
+        if arms_timing:
             assert table.schema.field(name).type == pa.uint64()
     indices = [i for i in range(count) if i < 2 or i == 65535 or i + 1 == count]
     for index, expected in zip(indices, records[1:], strict=True):
@@ -120,6 +125,46 @@ def main():
                        "-Wl,--gc-sections", "-pthread", "-o", str(binary)])
             run([str(binary)])
         print("PASS: virtual-step batch timing, identical scores, repeated totals, and disabled telemetry")
+        arms_scores = None
+        for enabled in (False, True):
+            binary = directory / f"arms-timing-{enabled}"
+            output = directory / f"arms-timing-{enabled}.parquet"
+            run(cxx + ["-std=c++20", "-O1", "-ffunction-sections", "-fdata-sections", "-I.",
+                       "-DC220G5", "-DUSE_MODEL=false", "-DPRINT_TRAINING_DATA=true",
+                       f"-DARMS_TIMING_TELEMETRY={'true' if enabled else 'false'}"]
+                + compiler_flags("cflags")
+                + ["tests/arms_timing_fixture.cpp", "model.cpp", "page.cpp", "groups.cpp",
+                   "logging_parquet.cpp", "-Wl,--gc-sections", "-pthread", "-lnuma", "-o", str(binary)]
+                + compiler_flags("libs"))
+            scores = run([str(binary), str(output)]).stdout
+            if arms_scores is None:
+                arms_scores = scores
+            else:
+                assert scores == arms_scores
+            table = pq.read_table(output)
+            assert table.num_rows == 6
+            assert all((column in table.column_names) == enabled for column in ARMS_TIMING_COLUMNS)
+            checked = subprocess.run([sys.executable, "scripts/arms_timing_summary.py", "--check", str(output)],
+                                     cwd=ROOT, text=True, capture_output=True)
+            assert (checked.returncode == 0) == enabled, checked.stderr
+        print("PASS: real ARMS scoring/logging, score parity, repeated timings, Parquet export, and opt-out")
+        feature_reference = None
+        for training in (True, False):
+            binary = directory / f"no-virtual-step-{training}"
+            run(cxx + ["-std=c++17", "-O1", "-ffunction-sections", "-fdata-sections", "-I.",
+                       "-DC220G5", "-DUSE_MODEL=true", "-DVIRTUAL_FEATURES_ENABLED=false",
+                       f"-DPRINT_TRAINING_DATA={'true' if training else 'false'}",
+                       "-DMAX_LOGGED_SAMPLES=64", "tests/no_virtual_step_fixture.cpp",
+                       "page.cpp", "groups.cpp", "logging.cpp", "-Wl,--gc-sections", "-pthread",
+                       "-lnuma", "-o", str(binary)])
+            output = run([str(binary)]).stdout
+            features = [line for line in output.splitlines() if line.startswith("FEATURES ")]
+            assert len(features) == 6
+            if training:
+                feature_reference = features
+            else:
+                assert features == feature_reference
+        print("PASS: no-virtual-step models match training features and inference; logging off allocates no log buffer")
         for full in (False, True):
             binary = directory / ("fixture-full" if full else "fixture")
             run(cxx + ["-std=c++20", "-O1", "-ffunction-sections", "-fdata-sections", "-I.",
@@ -129,7 +174,7 @@ def main():
                                               "-Wl,--gc-sections", "-lnuma", "-pthread"]
                 + compiler_flags("libs"))
             for count in (0, 1, 7, 65536, 65537):
-                check_output(binary, directory, count, ".parquet" if count == 7 else ".log")
+                check_output(binary, directory, count, ".parquet" if count == 7 else ".log", arms_timing=True)
             # A write error must preserve an earlier completed file and remove
             # only the temporary file created by this writer.
             protected = directory / "protected.parquet"

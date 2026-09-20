@@ -22,7 +22,11 @@ results/
 scripts/*
 !scripts/parquet_flags.py
 !tests/test_logging_parquet.py
+!tests/test_arms_migration.py
 *tags
 .venv
 collected_logs/
 /data/graphs/
+reproductions/
+tests/
+docs/

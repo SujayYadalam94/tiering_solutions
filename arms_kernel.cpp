@@ -49,6 +49,7 @@
 #include "defs.h"
 #include "groups.h"
 #include "logging.h"
+#include "arms_timing.h"
 #include "model.h"
 #include "page.h"
 #include "timer.h"
@@ -1040,6 +1041,14 @@ static struct perf_event_mmap_page *perf_setup(__u64 config, __u64 config1, __u1
     pe.config1 = config1;
     pe.sample_period = DEFAULT_SAMPLE_PERIOD;
     pe.sample_type = PERF_SAMPLE_IP | PERF_SAMPLE_TID | PERF_SAMPLE_ADDR;
+#if USE_MODEL || VIRTUAL_FEATURES_ENABLED
+    if (ordered_model_pebs_enabled())
+    {
+        pe.sample_type |= PERF_SAMPLE_TIME;
+        pe.use_clockid = 1;
+        pe.clockid = CLOCK_MONOTONIC;
+    }
+#endif
     pe.pinned = 1;
     pe.disabled = 0;
     pe.exclude_kernel = 1;
@@ -1328,7 +1337,8 @@ static std::vector<page_ptr> snapshot_tracked_pages()
     return page_snapshot;
 }
 
-static size_t update_page_scores(const std::vector<page_ptr> &page_snapshot, std::vector<score_entry> &scores)
+static size_t update_page_scores(const std::vector<page_ptr> &page_snapshot, std::vector<score_entry> &scores,
+                                arms_score_timing &timing)
 {
     size_t accesses_total = 0;
 
@@ -1337,11 +1347,19 @@ static size_t update_page_scores(const std::vector<page_ptr> &page_snapshot, std
 #endif
 
     scores.reserve(page_snapshot.size());
+    timing.begin();
     for (auto &page : page_snapshot)
     {
         page->update_window(prev_access_version, sampling_mode);
         accesses_total += page->count;
 
+#if ARMS_TIMING_TELEMETRY_ENABLED
+    }
+    // Batch the two phases to avoid taking a clock sample for every page.
+    timing.finish_features();
+    for (auto &page : page_snapshot)
+    {
+#endif
         page->prev_score = page->score;
 
         page->arms_score = compute_score(page);
@@ -1353,11 +1371,13 @@ static size_t update_page_scores(const std::vector<page_ptr> &page_snapshot, std
         scores.push_back({page, 0});
 #endif
     }
+    timing.finish_scores();
 
     return accesses_total;
 }
 
-static void update_model_scores_and_log(std::vector<score_entry> &scores, size_t timestep, size_t accesses_total)
+static void update_model_scores_and_log(std::vector<score_entry> &scores, size_t timestep, size_t accesses_total,
+                                       const arms_score_timing &timing)
 {
 #if USE_MODEL == (false) && PRINT_TRAINING_DATA == (false) && LOGGING_RUN == (false)
     (void)scores;
@@ -1441,6 +1461,7 @@ static void update_model_scores_and_log(std::vector<score_entry> &scores, size_t
         row.score = score_entry.score;
         if (!VIRTUAL_FEATURES_ENABLED)
         {
+            timing.apply(row);
             access_log->log_row(score_entry.page, row);
         }
     }
@@ -1474,9 +1495,10 @@ static ranking_plan rank_scores_for_migration(size_t dram_pages, size_t free_hug
     std::sort(scores.begin(), scores.end(), score_desc);
     plan.candidate_window = scores.size();
 
+    const size_t hot_set_pages = dram_pages + free_hugepages;
     for (size_t i = 0; i < plan.candidate_window; i++)
     {
-        scores[i].page->update_can_promote(dram_pages + free_hugepages, scores.size(), i);
+        scores[i].page->update_can_promote(hot_set_pages, scores.size(), i);
     }
 
     return plan;
@@ -1709,8 +1731,9 @@ void update_scores_and_migrate(size_t timestep)
 
     std::vector<score_entry> scores;
     std::vector<page_ptr> page_snapshot = snapshot_tracked_pages();
-    size_t accesses_total = update_page_scores(page_snapshot, scores);
-    update_model_scores_and_log(scores, timestep, accesses_total);
+    arms_score_timing timing;
+    size_t accesses_total = update_page_scores(page_snapshot, scores, timing);
+    update_model_scores_and_log(scores, timestep, accesses_total, timing);
 
     if (scores.empty())
         return;
@@ -1774,6 +1797,8 @@ void arms_start_tiering()
     std::cout << "[ARMS] HISTORY_LENGTH = " << HISTORY_LENGTH << std::endl;
 
     std::cout << "[ARMS] PRINT_TRAINING_DATA = " << (PRINT_TRAINING_DATA ? "true" : "false") << std::endl;
+    std::cout << "[ARMS] ARMS_TIMING_TELEMETRY_ENABLED = "
+              << (ARMS_TIMING_TELEMETRY_ENABLED ? "true" : "false") << std::endl;
     std::cout << "[ARMS] ENABLE_MIGRATION_WORKERS = " << (ENABLE_MIGRATION_WORKERS ? "true" : "false") << std::endl;
     std::cout << "[ARMS] VIRTUAL_FEATURES_ENABLED = " << (VIRTUAL_FEATURES_ENABLED ? "true" : "false") << std::endl;
     std::cout << "[ARMS] VIRTUAL_STEP_SAMPLES = " << get_virtual_step_samples() << std::endl;

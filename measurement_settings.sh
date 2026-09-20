@@ -51,7 +51,7 @@ measurement_apply_common_settings() {
 /proc/sys/vm/user_reserve_kbytes 16384
 /proc/sys/vm/admin_reserve_kbytes 16384
 /proc/sys/vm/min_free_kbytes 1048576
-/proc/sys/vm/lowmem_reserve_ratio 256 256 32
+/proc/sys/vm/lowmem_reserve_ratio 1 1 1
 /proc/sys/vm/zone_reclaim_mode 0
 /proc/sys/vm/vfs_cache_pressure 2000
 /proc/sys/kernel/numa_balancing 0

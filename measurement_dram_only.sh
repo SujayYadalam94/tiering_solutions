@@ -55,17 +55,22 @@ function run_workload {
         had_errexit=1
     fi
 
+    if ! measurement_prepare_workload_runtime; then
+        return 1
+    fi
+
     set +e
     {
         time timeout --foreground --signal=TERM \
             --kill-after="${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS}s" \
             "${MEASUREMENT_TIMEOUT_SECONDS}s" \
             numactl --membind="${NUMA_MEM_NODE}" -- taskset -c "${TASKSET_CPUS}" \
-            sudo \
+            sudo env ${WORKLOAD_RUNTIME_CHDIR_ARG:+"${WORKLOAD_RUNTIME_CHDIR_ARG}"} \
             LOG_OUTPUT_PATH="${log_output_path}" \
             ${WORKLOAD_COMMAND} 2>&1
     } 2> "${time_file}"
     status=$?
+    measurement_cleanup_workload_runtime
     if [[ ${had_errexit} -eq 1 ]]; then
         set -e
     fi

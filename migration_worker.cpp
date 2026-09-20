@@ -390,10 +390,27 @@ void *migration_worker(void *arg)
 
                 if (failed_promotions > 0 && errno == ENOMEM)
                 {
+#if USE_MODEL == (false)
+                    // Restore March ARMS behavior: retry every remaining promotion individually.
+                    for (const auto &prom_page : task.promote_pages)
+                    {
+                        if (prom_page->in_dram)
+                        {
+                            continue;
+                        }
+                        std::vector<page_ptr> single_prom_page = {prom_page};
+                        if (log_move_page(single_prom_page, FAST_TIER, 1) == 0)
+                        {
+                            failed_promotions--;
+                        }
+                    }
+#else
+
                     // If we failed due to ENOMEM, do the migration in smaller batches to avoid OOM in the fast tier.
                     std::vector<page_ptr> prom_pages(task.promote_pages.begin(),
                                                      task.promote_pages.begin() + task.promote_pages.size() / 2);
                     failed_promotions -= (prom_pages.size() - log_move_page(prom_pages, FAST_TIER, 1));
+#endif
                 }
             }
 
