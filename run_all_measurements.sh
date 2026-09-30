@@ -72,7 +72,7 @@ run_memtis_measurement() {
         ' memtis-batch "${SCRIPT_DIR}" "${MEASUREMENT_PLATFORM}" "$1" "$2" "$3"
 }
 
-SIZES=(10095)
+SIZES=(4095)
 RUNS=3
 FAILED_MEMTIS_RUNS=()
 MEMTIS_BATCH_STARTED=0

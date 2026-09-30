@@ -178,7 +178,7 @@ configure_memtis() {
 
     # Reset MEMTIS-only knobs to linux/mm/mempolicy.c's CONFIG_HTMM defaults,
     # including knobs that might retain values from a previous experiment.
-    # Keep artifact migration mode; disable MEMTIS adaptive huge-page splitting.
+    # Keep artifact migration mode and enable MEMTIS adaptive huge-page splitting.
     write_value "${MEMTIS_SYSFS_ROOT}/htmm_sample_period" 199 || return 1
     write_value "${MEMTIS_SYSFS_ROOT}/htmm_inst_sample_period" 100007 || return 1
     write_value "${MEMTIS_SYSFS_ROOT}/htmm_thres_hot" 1 || return 1
@@ -190,7 +190,7 @@ configure_memtis() {
     write_value "${MEMTIS_SYSFS_ROOT}/htmm_promotion_period_in_ms" 500 || return 1
     write_value "${MEMTIS_SYSFS_ROOT}/htmm_gamma" 4 || return 1
     write_value "${MEMTIS_SYSFS_ROOT}/ksampled_soft_cpu_quota" 30 || return 1
-    write_value "${MEMTIS_SYSFS_ROOT}/htmm_thres_split" 0 || return 1
+    write_value "${MEMTIS_SYSFS_ROOT}/htmm_thres_split" 1 || return 1
     write_value "${MEMTIS_SYSFS_ROOT}/htmm_nowarm" 0 || return 1
     write_value "${MEMTIS_SYSFS_ROOT}/ksampled_min_sample_ratio" 50 || return 1
     write_value "${MEMTIS_SYSFS_ROOT}/ksampled_max_sample_ratio" 10 || return 1
@@ -488,8 +488,8 @@ run_workload() {
         echo "elapsed_seconds=$((end_epoch_s - start_epoch_s))"
         echo "timeout_seconds=${MEASUREMENT_TIMEOUT_SECONDS}"
         echo "kill_after_seconds=${MEASUREMENT_TIMEOUT_KILL_AFTER_SECONDS}"
-        echo "memtis_settings_profile=memtis-shared-vm-artifact-migration-remote-preferred-nosplit-v22"
-        echo "memtis_htmm_thres_split=0"
+        echo "memtis_settings_profile=memtis-shared-vm-artifact-migration-remote-preferred-split-v23"
+        echo "memtis_htmm_thres_split=1"
         echo "memtis_numa_balancing=0"
         echo "memtis_generic_demotion_policy=inherited"
         echo "memtis_cgroup_fresh=${MEMTIS_CGROUP_FRESH}"

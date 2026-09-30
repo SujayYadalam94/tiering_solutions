@@ -7,8 +7,8 @@ repairs described below are included in fix12. Changing the adaptive split
 switch is a runtime setting and does not require rebuilding or rebooting.
 
 New results identify this configuration as
-`memtis_settings_profile=memtis-shared-vm-artifact-migration-remote-preferred-nosplit-v22`. Earlier
-results, including split-enabled v21, no-split v20, split-enabled v19, no-split v18, v17, near-preferred v16, remote-preferred v15, and the 6072/6073 experiments, retain their original
+`memtis_settings_profile=memtis-shared-vm-artifact-migration-remote-preferred-split-v23`. Earlier
+results, including no-split v22, split-enabled v21, no-split v20, split-enabled v19, no-split v18, v17, near-preferred v16, remote-preferred v15, and the 6072/6073 experiments, retain their original
 settings and must not be treated as runs of the current configuration.
 
 ## Shared settings
@@ -50,8 +50,8 @@ the current measurement settings.
 | kernel NUMA `demotion_enabled` | false | Inherited; never written by MEMTIS setup/runner |
 
 HTMM promotion and demotion remain enabled independently, with `htmm_mode=2`
-and both worker periods set to 500 ms. MEMTIS adaptive huge-page splitting is disabled
-with `htmm_thres_split=0`. Leaving generic demotion inherited
+and both worker periods set to 500 ms. MEMTIS adaptive huge-page splitting is enabled
+with `htmm_thres_split=1`. Leaving generic demotion inherited
 matches the artifact; it does not guarantee generic demotion is disabled if
 another system previously enabled it. These changes reproduce the artifact's
 migration controls, not its full VM/perf or placement configuration.
@@ -116,7 +116,7 @@ a delay. New results record `memtis_helpers_outside_workload_cgroup=1`.
 
 HTMM sampling, promotions/demotions, and the fast-tier limit remain enabled.
 The runner resets HTMM controls to local kernel-source defaults, retaining
-artifact migration mode `htmm_mode=2`, with `htmm_thres_split=0` to disable
+artifact migration mode `htmm_mode=2`, with `htmm_thres_split=1` to enable
 MEMTIS adaptive splitting. THP remains `enabled=always` and `defrag=always`.
 This prefers huge-page allocation; it does not guarantee huge-page-only allocation. Linux can still allocate
 4 KiB pages or split THPs for other reasons. c220g5
@@ -138,7 +138,7 @@ wrote `0` to disable MEMTIS adaptive split selection. Partial unmaps and
 reclaim could still queue pages for splitting, so the kernel lifetime bug
 also required a fix. The v19 runner re-enabled adaptive splitting
 with `htmm_thres_split=1`. The v20 runner disabled it again; v21 re-enabled
-it and the current v22 runner disables it. The fix10 kernel repairs remain necessary.
+it, v22 disabled it, and the current v23 runner re-enables it. The fix10 kernel repairs remain necessary.
 
 The `fix9-split-lifetime` patch pins queued pages under the split-queue lock
 before traversing them, uses the current page's LRU owner, and isolates only
@@ -167,15 +167,15 @@ PMD lock.
 
 The `fix10-split-metadata` kernel validates optional metadata and histogram
 indices, copies complete records before restoring overlapping tail storage,
-and locks PMD sampling. The current v22 run configuration disables adaptive
-splitting (`htmm_thres_split=0`); generic Linux splitting can still occur.
+and locks PMD sampling. The current v23 run configuration enables adaptive
+splitting (`htmm_thres_split=1`); generic Linux splitting can also occur.
 The patch, crash journal, sanitizer results, build logs and post-boot validation
 commands are in `reproductions/memtis-hang-20260917/fix10/README.md`. A reboot
 into fix10 is required; source-level tests do not establish runtime stability.
 
 ## Metadata and validation
 
-New completed `.time` files record the v22 settings profile and `memtis_htmm_thres_split=0`,
+New completed `.time` files record the v23 settings profile and `memtis_htmm_thres_split=1`,
 `memtis_numa_balancing=0`, `memtis_generic_demotion_policy=inherited`, fresh cgroup status,
 `memtis_memory_policy=preferred`, and `memtis_preferred_node` (normally 1 on
 c220g5 or 2 on gsl_optane).
@@ -197,17 +197,24 @@ limit of **50 successful splits per pass**, replacing fix9–fix11's local
 the success budget. The scanner retains safe snapshot references and releases
 all remaining pins after reaching the cap. The fix11 producer ownership repair
 remains in place. That kernel repair did not change runner settings; the v22
-configuration below subsequently disables adaptive splitting.
+configuration subsequently disabled adaptive splitting, and v23 re-enables it.
 
 See `reproductions/memtis-split-budget-20260919/fix12/` for the exact patch,
 regression results, and build/install records.
 
 ## September 19: adaptive splitting disabled (v22)
 
-The runner writes `htmm_thres_split=0` before every workload and records that
-value in result metadata. This disables MEMTIS adaptive split selection; it
-does not disable THP allocation or the generic Linux split paths used by
-reclaim, partial unmapping, and other VM operations. No reboot is required.
+The v22 runner wrote `htmm_thres_split=0` before every workload and recorded that
+value in result metadata. This disabled MEMTIS adaptive split selection while
+preserving THP allocation and generic Linux split paths.
+
+## September 20: adaptive splitting enabled (v23)
+
+The runner writes `htmm_thres_split=1` before every workload, matching the
+artifact's split-enabled configuration, and records that initial value in result
+metadata. MEMTIS can adaptively stop splitting during a workload; the next
+workload re-enables it. THP allocation remains enabled. This takes effect on the
+next launch without rebuilding the kernel or rebooting.
 
 The MEMTIS-specific values written by `configure_memtis()` are:
 
@@ -224,7 +231,7 @@ The MEMTIS-specific values written by `configure_memtis()` are:
 | `htmm_promotion_period_in_ms` | 500 |
 | `htmm_gamma` | 4 |
 | `ksampled_soft_cpu_quota` | 30 |
-| `htmm_thres_split` | 0 |
+| `htmm_thres_split` | 1 |
 | `htmm_nowarm` | 0 |
 | `ksampled_min_sample_ratio` | 50 |
 | `ksampled_max_sample_ratio` | 10 |
