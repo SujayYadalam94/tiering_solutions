@@ -17,7 +17,15 @@ git checkout arms_c220g5
 git submodule update --init --recursive
 ```
 
-You could follow your own approach to build Linux kernel or use the steps below:
+Apply the kernel patch.
+
+```bash
+pushd linux....
+patch -p1 < linux_patches/...
+popd
+```
+
+You could follow your own approach to build the Linux kernel or use the steps below:
 
 Install dependencies required to build Linux.
 
@@ -25,8 +33,6 @@ Install dependencies required to build Linux.
 sudo apt update
 sudo apt-get install -y git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison numactl htop tree cgroup-tools libtraceevent-dev pkg-config msr-tools ndctl
 ```
-
-TODO: Applying patch.
 
 We enable kernel flags to reserve memory during bootup and expose them as `/dev/dax` files which ARMS uses to allocate pages to applications. 
 
