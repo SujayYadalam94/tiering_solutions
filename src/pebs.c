@@ -1328,12 +1328,12 @@ loop_end:
 
     // Update sampling frequency if there a hot-set change detected
     if (bias == recn_bias && sampling_mode != HIGH_FIDELITY) {
-      update_sampling_frequency();
       sampling_mode = HIGH_FIDELITY;
+      update_sampling_frequency();
       LOG_REPORT("Switching to HIGH_FIDELITY sampling mode\n");
     } else if (bias == hist_bias && sampling_mode != DEFAULT_SAMPLING) {
-      update_sampling_frequency();
       sampling_mode = DEFAULT_SAMPLING;
+      update_sampling_frequency();
       LOG_REPORT("Switching to DEFAULT sampling mode\n");
     }
 
